@@ -1,0 +1,24 @@
+{
+  "run": "2026-11-13T04-36-12-501Z",
+  "results": [
+    {
+      "id": "orbit-sunburst",
+      "name": "Sunburst · Clockwise editorial orbit",
+      "style": "Flat, color-coded editorial illustration with subtle paper texture.",
+      "filename": "orbit-sunburst-2026-11-13T04-36-12-501Z.gif",
+      "frames": 12,
+      "model": "gpt-image-2.6-sunburst",
+      "request": {
+        "model": "gpt-image-2.6-sunburst",
+        "prompt": "A native animated GIF, square composition, one seamless clockwise revolution. Elegant COLOR-CODED EDITORIAL ILLUSTRATION for a philosophy lecture. Warm off-white paper #faf9f6, restrained screen-print grain, precise flat geometric shapes, taupe ink, generous negative space. FOUR identical stationary circular contexts arranged as a CIRCLE OF CIRCLES: top at twelve o'clock is terracotta, right at three o'clock is teal, bottom at six o'clock is ochre, left at nine o'clock is muted blue. The four circles have clearly colored outlines and very pale matching fills, form a symmetric ring surrounding an empty center, and never move, deform, or change their own colors. Exactly ONE small speech bubble containing the identical black glyphs “文 A” travels around this ring CLOCKWISE: top, right, bottom, left, back to top. Its center follows a circular orbit through the center of each context circle. It takes one revolution over all frames, constant forward motion, no reversal, no bouncing, no duplication, no trails. Bubble stays upright and retains identical silhouette and lettering in every frame. Bubble fill smoothly changes to match the color of each context as it passes through, illustrating the SAME sentence taking DIFFERENT meanings. Context circles remain behind the moving bubble. Delicate dotted circular guide may connect their centers. First frame starts at top; final frame approaches top from upper-left so the loop closes smoothly. No title, labels, legends, other letters, arrows, additional bubbles or objects. Entire composition fits within the square with wide margins. Communicate using form and color, like a polished editorial diagram; avoid photorealism and 3D. Style: Flat, color-coded editorial illustration with subtle paper texture.",
+        "output_format": "gif",
+        "size": "384x384",
+        "frame_count": 12,
+        "frame_duration_ms": 200,
+        "quality": "medium",
+        "complexity": "medium",
+        "n": 1
+      }
+    }
+  ]
+}

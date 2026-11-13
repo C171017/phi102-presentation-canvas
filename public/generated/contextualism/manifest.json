@@ -1,0 +1,62 @@
+{
+  "run": "2026-11-13T04-28-57-664Z",
+  "results": [
+    {
+      "id": "minimal",
+      "name": "Minimal linework",
+      "style": "Precise flat editorial illustration, delicate taupe circle outlines, solid matte speech bubble, clean simple geometry.",
+      "filename": "minimal-2026-11-13T04-28-57-664Z.gif",
+      "frames": 12,
+      "model": "gpt-image-2.6-sunburst",
+      "request": {
+        "model": "gpt-image-2.6-sunburst",
+        "prompt": "A seamless looping animated GIF for a philosophy presentation, landscape composition. Exactly ONE small speech bubble with the unchanged black glyphs “文 A” represents a sentence. It moves from the center of a large fixed circle on the left to a large fixed circle on the right and back. Its fill changes from terracotta in the left context to teal in the right context. Keep the glyphs and bubble shape unchanged. Never show two copies of the sentence. The two circles represent contexts and remain stationary. No title, no captions, no additional text. Generous negative space and warm off-white #faf9f6 background. Fixed camera, clear movement, readable at small scale, first and last poses align for a loop. Style: Precise flat editorial illustration, delicate taupe circle outlines, solid matte speech bubble, clean simple geometry.",
+        "output_format": "gif",
+        "size": "384x256",
+        "frame_count": 12,
+        "frame_duration_ms": 200,
+        "quality": "low",
+        "complexity": "medium",
+        "n": 1
+      }
+    },
+    {
+      "id": "paper",
+      "name": "Paper cutout",
+      "style": "Handmade cut-paper illustration. Two large paper rings and a small speech bubble cut from textured paper with very subtle shadows. Restrained tactile paper grain.",
+      "filename": "paper-2026-11-13T04-28-57-664Z.gif",
+      "frames": 12,
+      "model": "gpt-image-2.6-sunburst",
+      "request": {
+        "model": "gpt-image-2.6-sunburst",
+        "prompt": "A seamless looping animated GIF for a philosophy presentation, landscape composition. Exactly ONE small speech bubble with the unchanged black glyphs “文 A” represents a sentence. It moves from the center of a large fixed circle on the left to a large fixed circle on the right and back. Its fill changes from terracotta in the left context to teal in the right context. Keep the glyphs and bubble shape unchanged. Never show two copies of the sentence. The two circles represent contexts and remain stationary. No title, no captions, no additional text. Generous negative space and warm off-white #faf9f6 background. Fixed camera, clear movement, readable at small scale, first and last poses align for a loop. Style: Handmade cut-paper illustration. Two large paper rings and a small speech bubble cut from textured paper with very subtle shadows. Restrained tactile paper grain.",
+        "output_format": "gif",
+        "size": "384x256",
+        "frame_count": 12,
+        "frame_duration_ms": 200,
+        "quality": "low",
+        "complexity": "medium",
+        "n": 1
+      }
+    },
+    {
+      "id": "glass",
+      "name": "Soft dimensional",
+      "style": "Soft minimal 3D illustration. Two translucent glass context spheres, viewed straight on, a rounded satin-finish speech bubble smoothly passing from one sphere to the other. Gentle studio shadows, no reflections obscuring the glyphs.",
+      "filename": "glass-2026-11-13T04-28-57-664Z.gif",
+      "frames": 12,
+      "model": "gpt-image-2.6-sunburst",
+      "request": {
+        "model": "gpt-image-2.6-sunburst",
+        "prompt": "A seamless looping animated GIF for a philosophy presentation, landscape composition. Exactly ONE small speech bubble with the unchanged black glyphs “文 A” represents a sentence. It moves from the center of a large fixed circle on the left to a large fixed circle on the right and back. Its fill changes from terracotta in the left context to teal in the right context. Keep the glyphs and bubble shape unchanged. Never show two copies of the sentence. The two circles represent contexts and remain stationary. No title, no captions, no additional text. Generous negative space and warm off-white #faf9f6 background. Fixed camera, clear movement, readable at small scale, first and last poses align for a loop. Style: Soft minimal 3D illustration. Two translucent glass context spheres, viewed straight on, a rounded satin-finish speech bubble smoothly passing from one sphere to the other. Gentle studio shadows, no reflections obscuring the glyphs.",
+        "output_format": "gif",
+        "size": "384x256",
+        "frame_count": 12,
+        "frame_duration_ms": 200,
+        "quality": "low",
+        "complexity": "medium",
+        "n": 1
+      }
+    }
+  ]
+}

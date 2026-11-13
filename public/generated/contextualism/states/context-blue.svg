@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="384" viewBox="0 0 384 384" role="img" aria-labelledby="title desc">
+  <title id="title">The same sentence in a blue context</title>
+  <desc id="desc">Five colored contexts form a ring. One blue speech bubble containing 文 A sits in the blue circle. The sentence stays the same; its color represents its meaning.</desc>
+  <circle cx="192" cy="192" r="125" fill="none" stroke="#8C8375" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
+  <circle cx="192" cy="67" r="47" fill="#BF4338" fill-opacity=".14" stroke="#BF4338" stroke-width="3"/>
+  <circle cx="311" cy="153" r="47" fill="#216BB0" fill-opacity=".14" stroke="#216BB0" stroke-width="3"/>
+  <circle cx="265" cy="292" r="47" fill="#26856D" fill-opacity=".14" stroke="#26856D" stroke-width="3"/>
+  <circle cx="119" cy="292" r="47" fill="#BA811A" fill-opacity=".14" stroke="#BA811A" stroke-width="3"/>
+  <circle cx="73" cy="153" r="47" fill="#8056A6" fill-opacity=".14" stroke="#8056A6" stroke-width="3"/>
+  <g transform="translate(311 153)">
+    <path d="M-34-24H34Q45-24 45-13V12Q45 23 34 23H-18L-36 35L-31 23H-34Q-45 23-45 12V-13Q-45-24-34-24Z" fill="#216BB0" stroke="#216BB0" stroke-width="2" stroke-linejoin="round"/>
+    <text x="0" y="7" fill="#FFFFFF" text-anchor="middle" font-family="Arial, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="27" font-weight="600">文 A</text>
+  </g>
+</svg>

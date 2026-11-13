@@ -1,0 +1,15 @@
+#layout-save-status {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 20;
+  padding: 10px 15px;
+  border: 1px solid #b8b0a2;
+  border-radius: 7px;
+  background: #faf9f6;
+  color: #334c4c;
+  font: 14px/1.4 system-ui, sans-serif;
+  max-width: min(420px, calc(100vw - 40px));
+  pointer-events: none;
+}
+#layout-save-status.save-error { color: #9c302b; border-color: #9c302b; }

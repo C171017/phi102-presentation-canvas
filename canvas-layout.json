@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "savedAt": "2026-11-13T05:03:56.591Z",
+  "view": {
+    "x": 341,
+    "y": -71,
+    "zoom": 1
+  },
+  "items": {
+    "flexible-heading": {
+      "x": 0,
+      "y": -370,
+      "scale": 1
+    },
+    "aim-motivations": {
+      "x": 755.828,
+      "y": -612.156,
+      "scale": 1
+    },
+    "aim-versions": {
+      "x": 780.02,
+      "y": -400.984,
+      "scale": 1
+    },
+    "aim-applications": {
+      "x": 732.438,
+      "y": -183.324,
+      "scale": 1
+    },
+    "foundation-left": {
+      "x": -175,
+      "y": -150,
+      "scale": 1
+    },
+    "foundation-right": {
+      "x": 175,
+      "y": -150,
+      "scale": 1
+    },
+    "contemporary-heading": {
+      "x": 0,
+      "y": 85,
+      "scale": 1
+    },
+    "state-red": {
+      "x": -175,
+      "y": 310,
+      "scale": 1
+    },
+    "state-blue": {
+      "x": 175,
+      "y": 310,
+      "scale": 1
+    }
+  },
+  "writer": "2983bada-cbd8-4b91-9405-289249b2232c"
+}

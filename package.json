@@ -1,0 +1,9 @@
+{
+  "name": "phi102-presentation-canvas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "vite --host 127.0.0.1 --port 5182 --strictPort", "build": "tsc --noEmit && vite build", "preview": "vite preview --host 127.0.0.1", "gifs:check": "node scripts/generate-gifs.mjs --check", "gifs:generate": "node scripts/generate-gifs.mjs" },
+  "dependencies": { "three": "^0.180.0" },
+  "devDependencies": { "@types/three": "^0.180.0", "typescript": "^5.9.0", "vite": "^7.1.0" }
+}

@@ -1,0 +1,24 @@
+{
+  "run": "2026-11-13T04-37-33-153Z",
+  "results": [
+    {
+      "id": "orbit-five-flare",
+      "name": "Flare · Clockwise editorial orbit",
+      "style": "Flat, color-coded editorial illustration with subtle paper texture.",
+      "filename": "orbit-five-flare-2026-11-13T04-37-33-153Z.gif",
+      "frames": 15,
+      "model": "gpt-image-2.6-flare",
+      "request": {
+        "model": "gpt-image-2.6-flare",
+        "prompt": "Native animated GIF, square composition, one seamless CLOCKWISE revolution. Color-coded EDITORIAL ILLUSTRATION on warm off-white paper #faf9f6 with subtle print texture. EXACTLY FIVE large stationary context circles evenly spaced around one circular orbit, like five vertices of a regular pentagon: BLUE at the TOP (12 o'clock), ORANGE at UPPER RIGHT, GREEN at LOWER RIGHT, PURPLE at LOWER LEFT, PINK at UPPER LEFT. These five circles MUST ALL remain visible and unchanged in every frame. Distinct, easy-to-differentiate palette: blue #0072B2, golden orange #E69F00, green #009E73, violet #8055C7, rose pink #D96F9C. Medium-weight colored circle outlines, pale matching colored interiors, consistent size. Leave clear space between all circles and an empty center. A fine dotted circular track connects their centers. Exactly ONE small speech bubble with identical black glyphs “文 A” travels along that track clockwise: top blue → upper-right orange → lower-right green → lower-left purple → upper-left pink → back to blue. The bubble passes through each circle's center, changes its fill to a readable lighter tint of THAT circle's specific color and its outline to that circle's full color. Only one bubble, no copies, ghosts, trails, or extra text. Constant forward motion, ONE revolution across the animation, never backtracks. Keep bubble upright with exactly the same shape, size and glyphs. Keep all five background circles fixed in position, color and size. Start at top and finish approaching top from upper left, creating a continuous clockwise loop. Entire ring remains comfortably inside the square, wide margins, flat geometric editorial design, crisp shapes, no 3D, no title, no labels or legend. Priority: exactly FIVE distinct fixed context circles, exactly ONE moving bubble, clockwise movement, correct bubble color in each context. Style: Flat, color-coded editorial illustration with subtle paper texture.",
+        "output_format": "gif",
+        "size": "384x384",
+        "frame_count": 15,
+        "frame_duration_ms": 200,
+        "quality": "medium",
+        "complexity": "medium",
+        "n": 1
+      }
+    }
+  ]
+}
