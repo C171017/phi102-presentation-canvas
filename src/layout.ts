@@ -21,7 +21,16 @@ export function parseLayout(raw: string | null): Layout | null {
   } catch { return null; }
 }
 
-export function createLayoutController(world: HTMLElement, getView: () => CameraView, setView: (view: CameraView) => void, fallback: Layout) {
+export function createLayoutController(world: HTMLElement, getView: () => CameraView, setView: (view: CameraView) => void, fallback: Layout, readOnly = false) {
+  if (readOnly) {
+    const ready = (async () => {
+      const response = await fetch('/canvas-layout.json');
+      const layout = response.ok && parseLayout(await response.text());
+      const published = layout || fallback;
+      applyLayout(world, published, setView);
+    })().catch(() => applyLayout(world, fallback, setView));
+    return { ready, save: async () => false, schedule() {} };
+  }
   let pending: ReturnType<typeof setTimeout> | undefined;
   let previous = fallback;
   let storageAvailable = true;
@@ -34,14 +43,7 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
   previous = stored ?? fallback;
   function restore(layout: Layout) {
     previous = layout;
-    for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
-      const item = layout.items[element.id];
-      if (!item) continue;
-      element.style.left = `${item.x}px`;
-      element.style.top = `${item.y}px`;
-      element.style.setProperty('--item-scale', String(item.scale));
-    }
-    setView(layout.view);
+    applyLayout(world, layout, setView);
   }
   restore(previous);
 
@@ -50,14 +52,29 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
   notice.setAttribute('role', 'status');
   notice.setAttribute('aria-live', 'polite');
   notice.hidden = true;
-  document.body.append(notice);
-  let hideNotice: ReturnType<typeof setTimeout> | undefined;
+  (world.parentElement ?? document.body).append(notice);
+  let noticeFade: Animation | undefined;
   function announce(message: string, error = false) {
-    clearTimeout(hideNotice);
+    noticeFade?.cancel();
+    noticeFade = undefined;
     notice.textContent = message;
     notice.hidden = false;
     notice.classList.toggle('save-error', error);
-    if (!error) hideNotice = setTimeout(() => { notice.hidden = true; }, 1800);
+    if (error) return;
+
+    const fade = notice.animate([{ opacity: 1 }, { opacity: 0 }], {
+      delay: 1200,
+      duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 450,
+      easing: 'ease-out',
+      fill: 'forwards',
+    });
+    noticeFade = fade;
+    fade.onfinish = () => {
+      if (noticeFade !== fade) return;
+      notice.hidden = true;
+      fade.cancel();
+      noticeFade = undefined;
+    };
   }
   function capture(): Layout {
     const items = { ...previous.items };
@@ -156,4 +173,15 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
     await persist(snapshot, false);
   })();
   return { save, schedule, capture, ready };
+}
+
+function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraView) => void) {
+  for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
+    const item = layout.items[element.id];
+    if (!item) continue;
+    element.style.left = `${item.x}px`;
+    element.style.top = `${item.y}px`;
+    element.style.setProperty('--item-scale', String(item.scale));
+  }
+  setView(layout.view);
 }

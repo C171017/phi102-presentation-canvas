@@ -1,0 +1,43 @@
+.live-mode .canvas-label { cursor: default; }
+.live-mode .canvas-label::before { display: none; }
+.live-follow-presenter {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: 60px;
+  transform: translateX(-50%);
+  color: #334c4c;
+  font: 600 12px/1.35 system-ui, sans-serif;
+  white-space: nowrap;
+  background: #e9eeea;
+  border: 1px solid #bdc9c1;
+  border-radius: 4px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+.live-audience-count {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #334c4c;
+  background: #faf9f6;
+  font: 600 12px/1 system-ui, sans-serif;
+  pointer-events: none;
+}
+.live-audience-count[hidden] { display: none; }
+.live-audience-count svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4px; }
+#slide-progress:has(.live-audience-count) button { position: relative; }
+#slide-progress button.presenter-slide::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  background: #a56622;
+  transform: rotate(45deg);
+}

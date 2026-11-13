@@ -10,7 +10,7 @@ Install Node.js 24 or newer, then run `npm ci` and `npm run dev`. Open `http://1
 
 ## Controls
 
-- Arrow keys: smoothly move the camera. Shift moves farther.
+- Left and Right move between slides. Click any bottom segment to jump to its slide. Up and Down pan vertically, and Shift-Left and Shift-Right pan horizontally when the canvas has focus.
 - Two-finger trackpad scrolling: pan. Drag empty space to box-select multiple objects; Shift-drag adds to the selection.
 - Drag a text block or image to move it, or drag any selected object to move the entire selection. Shift-click adds/removes objects. Hover or focus an item and drag its bottom-right square to resize it proportionally. The handle also supports arrow keys (Shift for larger steps).
 - The three aims connect to Flexible Foundationalism with arrows that follow movement and resizing.
@@ -21,7 +21,7 @@ Install Node.js 24 or newer, then run `npm ci` and `npm run dev`. Open `http://1
 - Plus/minus: zoom. Trackpad pinch or Ctrl+wheel: zoom around the pointer.
 - Home or 0: reset.
 - F: full screen; Escape leaves full screen.
-- Space/PageDown and PageUp: next/previous camera stop. Until stops exist, move horizontally by one viewport.
+- Space and PageDown advance one slide. Shift-Space and PageUp go back one slide.
 
 The repository includes the presentation's static illustrations and generated GIF alternatives. API credentials are only needed to generate new GIFs, not to run the presentation.
 
@@ -44,3 +44,13 @@ Generated files live in `public/generated/contextualism/`; the comparison page i
 Append positioned HTML to `window.presentation.world`. Its origin is the viewport center; positive x goes right, positive y goes down. Add Three.js objects to `window.presentation.scene` (invert y to align with HTML). Call `invalidate()` after scene edits, or register animations with `animate(callback)`, which returns an unsubscribe function.
 
 `window.presentation.goTo({ x, y, zoom }, durationMs)` smoothly moves the camera. `setStops([{ x: 0, y: 0, zoom: 1 }, ...])` defines a presentation route. `next()`, `previous()`, `reset()`, `getView()` and `saveLayout()` are available to a future controller. Keyboard input ignores editable fields and browser shortcuts. Reduced-motion preferences disable camera transitions.
+
+## Live presentation
+
+Open https://phi102.c171017.com/ to join the audience automatically. The progress bar shows connected viewers by slide. Audience members can browse the canvas and select **Follow presenter** to return to the shared slide. The gold marker shows the presenter's slide while they are connected.
+
+To present, open the private URL saved in `~/.config/phi102-presentation/presenter-url.txt`. The URL fragment contains the presenter key, so share the root URL with the audience. The latest presenter connection takes over slide control. The server remembers the shared slide when the presenter disconnects.
+
+Edit and save the layout through `npm run dev`. Run `npm run build:live` to build the public canvas. To test the backend on localhost, set a separate random 64-character lowercase hexadecimal `PRESENTER_KEY` in `.dev.vars` and run `npm run dev:live`. Open `http://localhost:5192/` as a viewer or append `#presenter=<local-key>` to present.
+
+Run `npm run deploy` from a Wrangler session authorized for the site's Cloudflare account. Subsequent deployments retain the existing Worker secret. The production key is stored as the Worker's `PRESENTER_KEY` secret. If the private URL is shared accidentally, replace that secret and update the private URL.

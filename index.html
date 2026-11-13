@@ -8,14 +8,56 @@
     <title>Presentation Canvas</title>
   </head>
   <body>
-    <main id="viewport" aria-label="Presentation canvas. Arrow keys pan, plus and minus zoom, Home resets the view, F enters full screen." tabindex="0">
+    <div id="presentation-shell">
+      <aside id="reading-panel" aria-label="Slide reading notes"></aside>
+    <main id="viewport" aria-label="Presentation canvas. Left and Right change slides, plus and minus zoom, Home resets the view, F enters full screen." tabindex="0">
       <div id="world">
-        <svg id="connections" width="1" height="1" role="img" aria-label="Flexible foundationalism connects to the paper's three aims">
+        <svg id="connections" width="1" height="1" role="img" aria-label="Flexible foundationalism connects to the paper's three aims. Why accept it connects to The Regress Problem.">
           <defs><marker id="aim-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#a58a67"/></marker></defs>
           <path data-target="aim-motivations" marker-end="url(#aim-arrow)"/>
           <path data-target="aim-versions" marker-end="url(#aim-arrow)"/>
           <path data-target="aim-applications" marker-end="url(#aim-arrow)"/>
+          <path data-source="aim-motivations" data-target="regress-problem" marker-end="url(#aim-arrow)"/>
         </svg>
+        <svg id="regress-connections" width="1" height="1" role="img" aria-label="The Regress Problem connects to skepticism, infinitism, coherentism, and foundationalism">
+          <path class="route-skepticism" data-target="regress-skepticism"/>
+          <path class="route-infinitism" data-target="regress-infinitism"/>
+          <path class="route-coherentism" data-target="regress-coherentism"/>
+          <path class="route-foundationalism" data-target="regress-foundationalism"/>
+        </svg>
+        <div id="regress-problem" class="canvas-label regress-hub" tabindex="0" aria-describedby="label-instructions">
+          <div>The Regress Problem</div>
+        </div>
+        <div id="regress-skepticism" class="canvas-label regress-position route-skepticism" tabindex="0" aria-describedby="label-instructions">
+          <div>Skepticism</div>
+        </div>
+        <div id="regress-infinitism" class="canvas-label regress-position route-infinitism" tabindex="0" aria-describedby="label-instructions">
+          <div>Infinitism</div>
+        </div>
+        <div id="regress-coherentism" class="canvas-label regress-position route-coherentism" tabindex="0" aria-describedby="label-instructions">
+          <div>Coherentism</div>
+        </div>
+        <div id="regress-foundationalism" class="canvas-label regress-position route-foundationalism" data-label="Foundationalism" tabindex="0" aria-describedby="label-instructions">
+          <div>Foundationalism<span class="foundation-star" aria-hidden="true">★</span></div>
+          <span class="foundation-question">
+            <button type="button" aria-label="Question the foundations">?</button>
+            <svg viewBox="0 0 236 34" role="img" aria-label="A line reaches three foundation bricks in sequence. Each brick shows a question mark when the line reaches it.">
+              <path class="foundation-question-line" d="M0 17H192" pathLength="1"/>
+              <g class="foundation-question-brick" style="--arrival: 650ms">
+                <rect x="52" y="3" width="42" height="28" rx="3"/>
+                <text x="73" y="17">?</text>
+              </g>
+              <g class="foundation-question-brick" style="--arrival: 1525ms">
+                <rect x="122" y="3" width="42" height="28" rx="3"/>
+                <text x="143" y="17">?</text>
+              </g>
+              <g class="foundation-question-brick" style="--arrival: 2400ms">
+                <rect x="192" y="3" width="42" height="28" rx="3"/>
+                <text x="213" y="17">?</text>
+              </g>
+            </svg>
+          </span>
+        </div>
         <div id="flexible-heading" class="canvas-label" tabindex="0" aria-describedby="label-instructions">
           <div>Flexible Foundationalism</div>
           <p class="label-description">Justified beliefs rest on foundations that vary with context.</p>
@@ -49,26 +91,22 @@
           <div>Applications</div>
           <p class="label-description">Internalism vs. externalism as a case study.</p>
         </div>
-        <div id="foundation-left" class="canvas-label canvas-media canvas-static" data-label="left foundations image" tabindex="0" aria-label="Left two foundations support the belief. Drag or use arrow keys to move.">
+        <div id="foundation-left" class="canvas-label canvas-media canvas-static" data-label="foundation animation" tabindex="0" aria-label="Left two foundations support the belief. Drag or use arrow keys to move.">
           <img src="/generated/foundationalism/stone-left.svg" width="280" height="257" draggable="false" alt="The left two stone foundations support the same belief; the right foundation is inactive.">
-        </div>
-        <div id="foundation-right" class="canvas-label canvas-media canvas-static" data-label="right foundations image" tabindex="0" aria-label="Right two foundations support the belief. Drag or use arrow keys to move.">
-          <img src="/generated/foundationalism/stone-right.svg" width="280" height="257" draggable="false" alt="The right two stone foundations support the same belief; the left foundation is inactive.">
         </div>
         <div id="contemporary-heading" class="canvas-label canvas-label-secondary" tabindex="0" aria-describedby="label-instructions">
           <div>Contemporary Contextualism</div>
           <p class="label-description">The same sentence can express different claims in different contexts.</p>
         </div>
-        <div id="state-red" class="canvas-label canvas-media canvas-static" data-label="red context image" tabindex="0" aria-label="Red context state. Drag or use arrow keys to move.">
+        <div id="state-red" class="canvas-label canvas-media canvas-static" data-label="context animation" tabindex="0" aria-label="Red context state. Drag or use arrow keys to move.">
           <img src="/generated/contextualism/states/context-red.svg" width="280" height="280" draggable="false" alt="The sentence 文 A in a red speech bubble inside the red context circle.">
-        </div>
-        <div id="state-blue" class="canvas-label canvas-media canvas-static" data-label="blue context image" tabindex="0" aria-label="Blue context state. Drag or use arrow keys to move.">
-          <img src="/generated/contextualism/states/context-blue.svg" width="280" height="280" draggable="false" alt="The same sentence 文 A in a blue speech bubble inside the blue context circle.">
         </div>
       </div>
       <div id="selection-box" hidden aria-hidden="true"></div>
-      <span id="label-instructions" hidden>Drag to move, or use arrow keys while focused. Drag the bottom-right handle to resize. Focus the handle and use arrow keys to resize with the keyboard.</span>
+      <span id="label-instructions" hidden>Drag to move, or hold Shift and use arrow keys while focused. Drag the bottom-right handle to resize. Focus the handle and use arrow keys to resize with the keyboard.</span>
+      <nav id="slide-progress" aria-label="Presentation slides"></nav>
     </main>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -1,35 +1,35 @@
 {
   "version": 1,
-  "savedAt": "2026-11-13T05:03:56.591Z",
+  "savedAt": "2026-11-13T18:34:22.292Z",
   "view": {
-    "x": 341,
-    "y": -71,
-    "zoom": 1
+    "x": 859.7760968393164,
+    "y": -1095.6139250746448,
+    "zoom": 0.3321118791565261
   },
   "items": {
     "flexible-heading": {
       "x": 0,
-      "y": -370,
+      "y": -461.584,
       "scale": 1
     },
     "aim-motivations": {
-      "x": 755.828,
-      "y": -612.156,
+      "x": 745.987,
+      "y": -1041.21,
       "scale": 1
     },
     "aim-versions": {
-      "x": 780.02,
-      "y": -400.984,
+      "x": 737.836,
+      "y": -467.73,
       "scale": 1
     },
     "aim-applications": {
-      "x": 732.438,
-      "y": -183.324,
+      "x": 738.26,
+      "y": 5,
       "scale": 1
     },
     "foundation-left": {
-      "x": -175,
-      "y": -150,
+      "x": 17.1371,
+      "y": -151.867,
       "scale": 1
     },
     "foundation-right": {
@@ -38,20 +38,45 @@
       "scale": 1
     },
     "contemporary-heading": {
-      "x": 0,
-      "y": 85,
+      "x": 7.66978,
+      "y": 571.56,
       "scale": 1
     },
     "state-red": {
-      "x": -175,
-      "y": 310,
+      "x": 33,
+      "y": 357.34,
       "scale": 1
     },
     "state-blue": {
       "x": 175,
       "y": 310,
       "scale": 1
+    },
+    "regress-problem": {
+      "x": 1468.65,
+      "y": -1412,
+      "scale": 1
+    },
+    "regress-skepticism": {
+      "x": 1595.65,
+      "y": -2030.49,
+      "scale": 1
+    },
+    "regress-infinitism": {
+      "x": 2060.71,
+      "y": -1768.1,
+      "scale": 1
+    },
+    "regress-coherentism": {
+      "x": 2233.86,
+      "y": -1435.38,
+      "scale": 1
+    },
+    "regress-foundationalism": {
+      "x": 1878.01,
+      "y": -948.714,
+      "scale": 1
     }
   },
-  "writer": "2983bada-cbd8-4b91-9405-289249b2232c"
+  "writer": "c62db1bb-1c55-4198-aa4c-9a3ca241048f"
 }

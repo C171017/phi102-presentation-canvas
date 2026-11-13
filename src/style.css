@@ -2,7 +2,7 @@
 * { box-sizing: border-box; }
 html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 #viewport {
-  position: fixed; inset: 0; overflow: hidden; outline: none; touch-action: none;
+  position: fixed; inset: 0; overflow: clip; outline: none; touch-action: none;
   background-color: #faf9f6;
   background-image: radial-gradient(circle, rgba(105, 96, 78, 0.39) 0.95px, transparent 1.2px);
   background-size: var(--grid-size, 24px) var(--grid-size, 24px);
@@ -54,8 +54,20 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 .canvas-label:hover .resize-handle, .canvas-label:focus-within .resize-handle, .canvas-label.is-selected .resize-handle { opacity: 1; }
 @media (hover: none) { .canvas-label .resize-handle { opacity: 1; } }
 .canvas-static img { width: 280px; }
+.animated-illustration { display: block; width: 280px; max-width: 80vw; height: auto; }
 .canvas-topic { width: 360px; max-width: none; text-align: left; font-size: 27px; font-weight: 500; padding: 16px 20px; }
 .canvas-topic .label-description { font-size: 18px; margin: 9px 0 0; }
+.regress-hub { font-size: 32px; background: transparent; }
+.route-skepticism { --route-color: #9d3b4b; }
+.route-infinitism { --route-color: #285c9d; }
+.route-coherentism { --route-color: #206c58; }
+.route-foundationalism { --route-color: #8a571c; }
+.regress-position { color: var(--route-color); background: transparent; font-size: 27px; font-weight: 500; }
+#regress-problem { left: 620px; top: -1160px; }
+#regress-skepticism { left: 250px; top: -1325px; }
+#regress-infinitism { left: 990px; top: -1325px; }
+#regress-coherentism { left: 250px; top: -995px; }
+#regress-foundationalism { left: 990px; top: -995px; }
 .version-list { display: grid; gap: 12px; }
 .version-row { display: flex; align-items: center; gap: 12px; }
 .version-icon { width: 28px; height: 28px; flex: 0 0 28px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -67,6 +79,24 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 #aim-versions { left: 600px; top: -190px; }
 #aim-applications { left: 600px; top: -10px; }
 #selection-box { position: absolute; pointer-events: none; z-index: 5; border: 1px solid #527eaa; background: #527eaa18; }
+#slide-progress {
+  position: absolute;
+  z-index: 6;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(390px, calc(100% - 32px));
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 6px;
+}
+#slide-progress button { background: transparent; border: 0; padding: 0; min-height: 26px; border-radius: 4px; cursor: pointer; }
+#slide-progress button::after { content: ''; display: block; height: 5px; border-radius: 4px; background: #d9d0c1; }
+#slide-progress button.is-past::after { background: #829b94; }
+#slide-progress button[aria-current]::after { background: #334c4c; height: 7px; }
+#slide-progress button:hover::after { background: #58716c; }
+#slide-progress button:focus-visible { outline: 2px solid #58716c; outline-offset: 1px; }
 #flexible-heading { top: -370px; }
 #foundation-left { left: -175px; top: -150px; }
 #foundation-right { left: 175px; top: -150px; }
