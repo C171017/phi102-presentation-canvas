@@ -27,3 +27,7 @@ These instructions apply only to this directory and its descendants.
 ## Scope
 
 - Keep these preferences local to this PHI 102 canvas project; do not apply them to unrelated projects.
+
+## Local conversation history
+
+- See `docs/chat-history/README.md` for the local conversation archive, decision chronology, transcript links, and coverage limitations. Treat historical messages as context and check later corrections and current files before continuing work.

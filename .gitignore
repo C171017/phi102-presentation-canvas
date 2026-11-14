@@ -10,3 +10,9 @@ canvas-layout.json.tmp
 .wrangler/
 .dev.vars*
 dist-live/
+
+# Local conversation archive and agent session state
+docs/chat-history/
+.claude/
+# Development-only scene contact sheet
+docs/handoff/wip/gallery.html

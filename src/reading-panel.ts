@@ -1,4 +1,5 @@
 import { slides } from './slide-content';
+import { paperNotes } from './paper-notes';
 import './reading-panel.css';
 
 // Paraphrases of Daniel Greco, “Contextualism about Foundations” (2017).
@@ -48,6 +49,7 @@ const notes = [
     <h2>Why flexibility enters</h2><p>Certainty seems a principled stopping point, but demanding indubitable foundations threatens skepticism. Flexible foundationalism instead asks which beliefs can remain undoubted in this particular context.</p>
     <div class="reading-takeaway"><strong>A qualification from Greco</strong><p>This taxonomy assumes justification involves chains of reasons. Some coherentists would dispute that characterization of their view.</p></div>`
   },
+  ...paperNotes,
 ];
 
 export function createReadingPanel() {
@@ -59,7 +61,7 @@ export function createReadingPanel() {
     if (index < 0 || index === current) return;
     current = index;
     const note = notes[index];
-    article.innerHTML = `<h1>${slides[index].title}</h1><p class="reading-lead">${note.lead}</p>${note.body}`;
+    article.innerHTML = `<h1>${slides[index].title}</h1><p class="reading-lead">${note.lead}</p>${note.body}<p class="reading-source">Source: ${note.source}</p>`;
     article.scrollTop = 0;
   }
   update(0);

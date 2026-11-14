@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "savedAt": "2026-11-13T18:34:22.292Z",
+  "savedAt": "2026-11-13T23:38:28.004Z",
   "view": {
-    "x": 859.7760968393164,
-    "y": -1095.6139250746448,
-    "zoom": 0.3321118791565261
+    "x": 1181.013666143332,
+    "y": -1091.4756516464356,
+    "zoom": 0.3076677562310082
   },
   "items": {
     "flexible-heading": {
@@ -76,7 +76,187 @@
       "x": 1878.01,
       "y": -948.714,
       "scale": 1
+    },
+    "dilemma-heading": {
+      "x": 3050,
+      "y": -1336,
+      "scale": 1
+    },
+    "dilemma-cartesian": {
+      "x": 2815,
+      "y": -1023,
+      "scale": 1
+    },
+    "dilemma-moderate": {
+      "x": 3285,
+      "y": -1023,
+      "scale": 1
+    },
+    "undoubted-heading": {
+      "x": 4100,
+      "y": -1336,
+      "scale": 1
+    },
+    "undoubted-logic": {
+      "x": 3865,
+      "y": -1023,
+      "scale": 1
+    },
+    "undoubted-standards": {
+      "x": 4335,
+      "y": -1023,
+      "scale": 1
+    },
+    "route-social-heading": {
+      "x": 5350,
+      "y": -2856,
+      "scale": 1
+    },
+    "route-social-scene": {
+      "x": 5180,
+      "y": -2543,
+      "scale": 1
+    },
+    "route-social-worry": {
+      "x": 5650,
+      "y": -2543,
+      "scale": 1
+    },
+    "route-hinges-heading": {
+      "x": 5350,
+      "y": -2096,
+      "scale": 1
+    },
+    "route-hinges-door": {
+      "x": 5170,
+      "y": -1783,
+      "scale": 1
+    },
+    "route-hinges-swap": {
+      "x": 5640,
+      "y": -1783,
+      "scale": 1
+    },
+    "route-knowledge-heading": {
+      "x": 5350,
+      "y": -1336,
+      "scale": 1
+    },
+    "route-knowledge-scene": {
+      "x": 5350,
+      "y": -1023,
+      "scale": 1
+    },
+    "versions-map-heading": {
+      "x": 1850,
+      "y": -496,
+      "scale": 1
+    },
+    "versions-map-scene": {
+      "x": 1850,
+      "y": -173,
+      "scale": 1
+    },
+    "si-heading": {
+      "x": 2900,
+      "y": -496,
+      "scale": 1
+    },
+    "si-scene": {
+      "x": 2730,
+      "y": -183,
+      "scale": 1
+    },
+    "si-worry": {
+      "x": 3200,
+      "y": -183,
+      "scale": 1
+    },
+    "ctx-heading": {
+      "x": 3950,
+      "y": -496,
+      "scale": 1
+    },
+    "ctx-evidence": {
+      "x": 3770,
+      "y": -183,
+      "scale": 1
+    },
+    "ctx-criticism": {
+      "x": 4240,
+      "y": -183,
+      "scale": 1
+    },
+    "disagree-heading": {
+      "x": 5000,
+      "y": -496,
+      "scale": 1
+    },
+    "disagree-scene": {
+      "x": 4830,
+      "y": -183,
+      "scale": 1
+    },
+    "disagree-exits": {
+      "x": 5300,
+      "y": -183,
+      "scale": 1
+    },
+    "access-heading": {
+      "x": 1850,
+      "y": 344,
+      "scale": 1
+    },
+    "access-principle": {
+      "x": 1615,
+      "y": 657,
+      "scale": 1
+    },
+    "access-doubt": {
+      "x": 2085,
+      "y": 657,
+      "scale": 1
+    },
+    "home-heading": {
+      "x": 2900,
+      "y": 344,
+      "scale": 1
+    },
+    "home-weather": {
+      "x": 2665,
+      "y": 657,
+      "scale": 1
+    },
+    "home-cartesian": {
+      "x": 3135,
+      "y": 657,
+      "scale": 1
+    },
+    "mobile-heading": {
+      "x": 3950,
+      "y": 344,
+      "scale": 1
+    },
+    "mobile-scene": {
+      "x": 3950,
+      "y": 667,
+      "scale": 1
+    },
+    "conclusion-heading": {
+      "x": 5000,
+      "y": 344,
+      "scale": 1
+    },
+    "conclusion-points": {
+      "x": 4850,
+      "y": 657,
+      "scale": 1
+    },
+    "conclusion-scope": {
+      "x": 5320,
+      "y": 657,
+      "scale": 1
     }
   },
-  "writer": "c62db1bb-1c55-4198-aa4c-9a3ca241048f"
+  "writer": "e745f426-25f7-4b64-85e6-83bf4d57c331"
 }

@@ -1,0 +1,15 @@
+/* Sketched 2.5D illustrations and the slide titles that sit above them. */
+.scene { max-width: none; }
+.scene-art { display: block; overflow: visible; }
+.scene-art .sk { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.scene-art text { user-select: none; -webkit-user-select: none; }
+
+/* Hovering replays the construction; the finished drawing always stays. */
+.scene.is-playing .st {
+  animation: scene-step 460ms cubic-bezier(.2, .75, .25, 1) both;
+  animation-delay: calc(var(--i) * var(--beat, 360ms));
+}
+@keyframes scene-step { from { opacity: 0; transform: translateY(9px); } }
+@media (prefers-reduced-motion: reduce) {
+  .scene.is-playing .st, .scene.is-playing .mv { animation: none; }
+}

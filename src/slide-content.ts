@@ -7,4 +7,17 @@ export const slides = [
   { title: 'The Regress Problem', members: [
     'regress-problem', 'regress-skepticism', 'regress-infinitism', 'regress-coherentism', 'regress-foundationalism',
   ] },
+  { title: 'The Foundationalist’s Dilemma', members: ['dilemma-heading', 'dilemma-cartesian', 'dilemma-moderate'] },
+  { title: 'Undoubted, Not Undoubtable', members: ['undoubted-heading', 'undoubted-logic', 'undoubted-standards'] },
+  { title: 'Route 1: Justification as a Social Activity', members: ['route-social-heading', 'route-social-scene', 'route-social-worry'] },
+  { title: 'Route 2: Hinges', members: ['route-hinges-heading', 'route-hinges-door', 'route-hinges-swap'] },
+  { title: 'Route 3: Knowledge or Belief at the Base', members: ['route-knowledge-heading', 'route-knowledge-scene'] },
+  { title: 'Whose Context?', members: ['versions-map-heading', 'versions-map-scene'] },
+  { title: 'Sensitive Invariantism', members: ['si-heading', 'si-scene', 'si-worry'] },
+  { title: 'Contextualism', members: ['ctx-heading', 'ctx-evidence', 'ctx-criticism'] },
+  { title: 'The Problem of Disagreement', members: ['disagree-heading', 'disagree-scene', 'disagree-exits'] },
+  { title: '(Access)', members: ['access-heading', 'access-principle', 'access-doubt'] },
+  { title: 'The Catch: A Cognitive Home?', members: ['home-heading', 'home-weather', 'home-cartesian'] },
+  { title: 'A Cognitive Mobile Home', members: ['mobile-heading', 'mobile-scene'] },
+  { title: 'Takeaways', members: ['conclusion-heading', 'conclusion-points', 'conclusion-scope'] },
 ];

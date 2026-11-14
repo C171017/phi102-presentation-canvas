@@ -47,3 +47,5 @@
   .reading-content { padding: 18px; }
   .reading-footer { padding: 8px 16px; }
 }
+
+.reading-source { margin-top: 28px; color: #786b57; font: 12px/1.5 system-ui, sans-serif; }
