@@ -13,7 +13,7 @@ function mount(id: string, source: string, description: string) {
   svg.setAttribute('width', image.getAttribute('width')!);
   svg.setAttribute('height', image.getAttribute('height')!);
   image.replaceWith(svg);
-  container.setAttribute('aria-label', `${description} Hover to play, move away to pause. Drag to move.`);
+  container.setAttribute('aria-label', `${description} Hover to play, move away to pause.`);
   return { container, svg };
 }
 

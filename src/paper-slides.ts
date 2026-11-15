@@ -44,7 +44,6 @@ const links: [string, string][] = [
 
 function place(element: HTMLElement, x: number, y: number) {
   element.classList.add('canvas-label');
-  element.tabIndex = 0;
   element.style.left = `${x}px`;
   element.style.top = `${y}px`;
 }
@@ -54,7 +53,6 @@ export function initializePaperSlides(world: HTMLElement) {
     const heading = document.createElement('div');
     heading.id = `${slide.id}-heading`;
     heading.className = 'slide-title';
-    heading.setAttribute('aria-describedby', 'label-instructions');
     const eyebrow = document.createElement('span');
     eyebrow.className = 'slide-eyebrow';
     eyebrow.textContent = `${slide.lane} · ${slide.section}`;
@@ -75,7 +73,7 @@ export function initializePaperSlides(world: HTMLElement) {
       host.id = id;
       host.dataset.scene = id;
       host.dataset.label = `${slide.title} illustration`;
-      host.setAttribute('aria-label', `${scene.label} Hover to replay the drawing. Drag or use arrow keys to move.`);
+      host.setAttribute('aria-label', `${scene.label} Hover to replay the drawing.`);
       place(host, left + scene.w / 2, slide.top + ROW + scene.h / 2);
       mountScene(host);
       world.append(host);

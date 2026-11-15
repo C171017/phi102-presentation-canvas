@@ -67,10 +67,11 @@ test('group movement batches position reads and schedules one save and connectio
 test('camera-only frames reuse connections; explicit invalidation refreshes once', () => {
   let connections = 0, renders = 0;
   const view = { x: 0, y: 0, zoom: 1 };
-  const ctx = runFunctions(['render', 'invalidateConnections', 'wake'], {
+  const ctx = runFunctions(['renderGrid', 'render', 'invalidateConnections', 'wake'], {
     view, target: view, innerWidth: 1000, innerHeight: 800, connectionsDirty: true, frame: undefined,
     canvasBounds: { left: 320, top: 30 },
-    viewport: { parentElement: { style: { setProperty() {} } }, clientWidth: 1000, clientHeight: 800, style: { setProperty() {} } }, world: { style: {} },
+    backdrop: { style: { setProperty() {} } },
+    viewport: { clientWidth: 1000, clientHeight: 800, style: { setProperty() {} } }, world: { style: {} },
     updateConnections: () => connections++,
     slideNavigation: { measure() {}, update() {} },
     camera: { position: {}, updateProjectionMatrix() {} },

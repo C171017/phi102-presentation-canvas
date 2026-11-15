@@ -1,7 +1,8 @@
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig, type Plugin, type WebSocketClient } from 'vite';
 import { readFile, writeFile, rename, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parseLayout } from './src/layout';
+import { isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
 let writes = Promise.resolve();
@@ -65,8 +66,74 @@ function layoutStorage(): Plugin {
     },
   };
 }
+
+// A separate, in-memory room carried by Vite's own dev connection.
+function localPresentation(): Plugin {
+  return {
+    name: 'canvas-local-presentation',
+    apply: 'serve',
+    configureServer(server) {
+      const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null }>();
+      let presenter: WebSocketClient | undefined;
+      let presenterSlide: number | undefined;
+
+      function broadcast() {
+        const counts = Array<number>(slideCount).fill(0);
+        let browsing = 0;
+        for (const { role, slide } of members.values()) {
+          if (role !== 'audience') continue;
+          if (slide === null) browsing++;
+          else counts[slide]++;
+        }
+        const state: RoomSnapshot = {
+          type: 'state', presenterSlide: presenterSlide ?? 0,
+          presenterOnline: Boolean(presenter), counts, browsing,
+        };
+        for (const client of members.keys()) {
+          if (client.socket.readyState === 1) client.send('phi102:preview:state', state);
+        }
+      }
+
+      function leave(client: WebSocketClient) {
+        if (!members.delete(client)) return;
+        if (client === presenter) presenter = undefined;
+        broadcast();
+      }
+
+      server.ws.on('phi102:preview:join', (data, client) => {
+        if (data?.role !== 'presenter' && data?.role !== 'audience') return;
+        if (members.has(client)) return;
+        if (data.role === 'presenter') {
+          if (presenter) {
+            const previous = presenter;
+            members.delete(previous);
+            if (previous.socket.readyState === 1) previous.send('phi102:preview:superseded');
+          }
+          presenter = client;
+        }
+        presenterSlide ??= isSlide(data.slide) ? data.slide : 0;
+        members.set(client, { role: data.role, slide: presenterSlide });
+        client.socket.once('close', () => leave(client));
+        broadcast();
+      });
+      server.ws.on('phi102:preview:leave', (_, client) => leave(client));
+      server.ws.on('phi102:preview:report', (data, client) => {
+        const member = members.get(client);
+        if (member?.role === 'presenter' && data?.type === 'present' && isSlide(data.slide)) {
+          if (presenterSlide === data.slide) return;
+          presenterSlide = data.slide;
+        } else if (member?.role === 'audience' && data?.type === 'view' && (data.slide === null || isSlide(data.slide))) {
+          if (member.slide === data.slide) return;
+          member.slide = data.slide;
+        } else return;
+        broadcast();
+      });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [layoutStorage()],
+  plugins: [layoutStorage(), localPresentation()],
   server: { host: '127.0.0.1', watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*'] } },
   preview: { host: '127.0.0.1' },
 });

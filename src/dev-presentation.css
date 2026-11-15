@@ -1,0 +1,31 @@
+.dev-role-picker {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid #ded9ce;
+  border-radius: 8px;
+  background: #fffefa;
+  box-shadow: 0 2px 8px #322a2017;
+  color: #5e584e;
+  font: 600 12px/1.35 system-ui, sans-serif;
+}
+.dev-role-picker > span { padding: 0 5px; }
+.dev-role-picker button {
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #334c4c;
+  font: inherit;
+  cursor: pointer;
+}
+.dev-role-picker button:hover { background: #e9eeea; }
+.dev-role-picker button[aria-pressed="true"] { background: #334c4c; color: #fffefa; }
+@media (max-width: 640px) {
+  .dev-role-picker { top: 4px; right: 10px; }
+}

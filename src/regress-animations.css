@@ -2,7 +2,6 @@
 .regress-position > div {
   position: relative;
   z-index: 1;
-  background: #faf9f6;
   border-radius: .2em;
 }
 .regress-animation {

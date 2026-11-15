@@ -14,6 +14,7 @@ import './layout.css';
 type View = { x: number; y: number; zoom: number };
 type Stop = View & { duration?: number };
 const viewport = document.querySelector<HTMLElement>('#viewport')!;
+const backdrop = document.querySelector<HTMLElement>('#presentation-shell')!;
 let canvasBounds = viewport.getBoundingClientRect();
 const world = document.querySelector<HTMLElement>('#world')!;
 initializeIllustrations();
@@ -22,16 +23,21 @@ const disposeRegressAnimations = initializeRegressAnimations();
 const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
 let reportSlide: ((index: number) => void) | undefined;
+const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode &&
+  ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
+const requestedRole = localDev ? new URLSearchParams(location.search).get('role') : null;
+const previewRole = requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
+const readOnly = liveMode || previewRole !== null;
 const readingPanel = createReadingPanel();
 const slideNavigation = createSlideNavigation(world, goTo, index => { readingPanel.update(index); reportSlide?.(index); });
-viewport.classList.toggle('live-mode', liveMode);
+viewport.classList.toggle('canvas-editable', !readOnly);
 let connectionsDirty = true;
 const layout = createLayoutController(world, () => ({ ...target }), restored => {
   Object.assign(view, restored);
   Object.assign(target, restored);
   connectionsDirty = true;
   queueMicrotask(wake);
-}, initialLayout, liveMode);
+}, initialLayout, readOnly);
 function updateConnections() {
   const source = document.getElementById('flexible-heading');
   if (!source) return;
@@ -113,11 +119,25 @@ function step(direction: number) {
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
   goTo(stops[stopIndex], stops[stopIndex].duration);
 }
+function renderGrid() {
+  const baseSpacing = 24 * view.zoom;
+  // Fade out the finer grid before its dots crowd together. Both levels
+  // share a world origin, so the dots that remain don't jump during zoom.
+  const spacing = baseSpacing * 2 ** Math.ceil(Math.log2(8 / baseSpacing));
+  const blend = Math.min(1, (spacing - 8) / 2.5);
+  const fine = blend * blend * (3 - 2 * blend);
+  const x = canvasBounds.left + viewport.clientWidth / 2 - view.x * view.zoom;
+  const y = canvasBounds.top + viewport.clientHeight / 2 - view.y * view.zoom;
+  const position = (step: number) => `${x % step - step / 2}px ${y % step - step / 2}px`;
+
+  backdrop.style.setProperty('--grid-size', `${spacing}px`);
+  backdrop.style.setProperty('--grid-fine-position', position(spacing));
+  backdrop.style.setProperty('--grid-coarse-position', position(spacing * 2));
+  backdrop.style.setProperty('--grid-fine-alpha', String(0.21 * fine));
+  backdrop.style.setProperty('--grid-coarse-alpha', String(0.21 * (1 - fine)));
+}
 function render() {
-  const backdrop = viewport.parentElement!;
-  backdrop.style.setProperty('--grid-size', `${viewport.clientWidth ? 24 * view.zoom : 24}px`);
-  backdrop.style.setProperty('--grid-x', `${canvasBounds.left + viewport.clientWidth / 2 - view.x * view.zoom}px`);
-  backdrop.style.setProperty('--grid-y', `${canvasBounds.top + viewport.clientHeight / 2 - view.y * view.zoom}px`);
+  renderGrid();
   world.style.transform = `scale(${view.zoom}) translate(${-view.x}px, ${-view.y}px)`;
   // Connections live inside the same transformed world: pan/zoom cannot
   // change their world-space geometry. Only content/layout edits invalidate it.
@@ -214,7 +234,13 @@ function moveSelection(label: HTMLElement, dx: number, dy: number) {
   invalidateConnections();
 }
 world.querySelectorAll<HTMLElement>('.canvas-label').forEach((label) => {
-  if (liveMode) return;
+  if (readOnly) {
+    // These illustrations replay when they receive keyboard focus.
+    if (label.matches('.scene, .regress-position')) label.tabIndex = 0;
+    return;
+  }
+  label.tabIndex = 0;
+  label.setAttribute('aria-describedby', 'label-instructions');
   const name = label.dataset.label ?? (label.classList.contains('canvas-media') ? 'image' : label.querySelector('div')?.textContent ?? 'item');
   const handle = document.createElement('button');
   handle.type = 'button';
@@ -272,7 +298,7 @@ world.querySelectorAll<HTMLElement>('.canvas-label').forEach((label) => {
 
 let drag: { id: number; x: number; y: number; startX: number; startY: number; label: HTMLElement | null; retained: HTMLElement[] } | undefined;
 viewport.addEventListener('pointerdown', (event) => {
-  if (liveMode) return;
+  if (readOnly) return;
   const element = event.target as HTMLElement;
   if (drag || event.button !== 0 || element.closest('#slide-progress, input, textarea, select, button, a, [contenteditable="true"]')) return;
   tween = undefined; Object.assign(target, view);
@@ -362,6 +388,17 @@ if (liveMode) {
     requestAnimationFrame(() => {
       reportSlide = connectPresentation(viewport, slideNavigation.open);
       invalidateConnections();
+    });
+  });
+}
+if (localDev) {
+  void import('./dev-presentation').then(({ addDevRolePicker, connectDevPresentation }) => {
+    addDevRolePicker(viewport, previewRole);
+    if (!previewRole) return;
+    void layout.ready.then(() => {
+      requestAnimationFrame(() => {
+        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole);
+      });
     });
   });
 }

@@ -1,5 +1,3 @@
-.live-mode .canvas-label { cursor: default; }
-.live-mode .canvas-label::before { display: none; }
 .live-follow-presenter {
   position: absolute;
   z-index: 6;

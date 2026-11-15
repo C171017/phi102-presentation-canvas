@@ -1,5 +1,6 @@
 import { slides } from './slide-content';
 import { paperNotes } from './paper-notes';
+import { readingVisual } from './reading-visuals';
 import './reading-panel.css';
 
 // Paraphrases of Daniel Greco, “Contextualism about Foundations” (2017).
@@ -61,7 +62,7 @@ export function createReadingPanel() {
     if (index < 0 || index === current) return;
     current = index;
     const note = notes[index];
-    article.innerHTML = `<h1>${slides[index].title}</h1><p class="reading-lead">${note.lead}</p>${note.body}<p class="reading-source">Source: ${note.source}</p>`;
+    article.innerHTML = `<h1>${slides[index].title}</h1><p class="reading-lead">${note.lead}</p>${readingVisual(index)}${note.body}<p class="reading-source">Source: ${note.source}</p>`;
     article.scrollTop = 0;
   }
   update(0);
