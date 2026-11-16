@@ -1,0 +1,62 @@
+/* Screen-space artwork never participates in layout, selection, or saving. */
+.page-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.035);
+  transition: opacity 440ms ease, transform 650ms cubic-bezier(.2,.7,.2,1), visibility 0s 650ms;
+  background: #faf7ef;
+}
+.page-background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* These abstract fields adapt to the canvas beside the reading panel;
+     cropping would remove the conceptual motifs placed at their edges. */
+  object-fit: fill;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 520ms ease;
+}
+.page-background img.is-visible { opacity: 1; }
+.page-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 42%, #faf9f652 0%, #faf9f614 58%, transparent 85%);
+}
+.in-page-view .page-background {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition-delay: 0s;
+}
+#world { z-index: 1; }
+#three-layer { z-index: 1; }
+/* Paint-only separation: no padding, bounds or saved object properties change. */
+#world > .canvas-label {
+  transition: background-color 420ms ease, box-shadow 420ms ease;
+}
+#viewport.in-page-view #world > .page-foreground {
+  background-color: rgba(255, 253, 247, .94);
+  box-shadow: 0 10px 30px #25352c18, 0 2px 7px #25352c10, 0 0 0 1px #ffffffa6;
+}
+#viewport.in-page-view #world > .page-foreground:is(.slide-title, .canvas-topic, #contemporary-heading, #flexible-heading, .regress-hub, .regress-position) {
+  background-color: rgba(255, 253, 247, .9);
+}
+#slide-progress {
+  transition: background-color 420ms ease, box-shadow 420ms ease;
+}
+.in-page-view #slide-progress {
+  border-radius: 8px;
+  background: #fffdf5ed;
+  box-shadow: 0 0 0 7px #fffdf5ed, 0 4px 18px #25352c18;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-background, .page-background img, #world > .canvas-label, #slide-progress { transition: none; }
+  .page-background { transform: none; }
+}

@@ -5,6 +5,7 @@ import initialLayout from './initial-layout';
 import { initializeIllustrations } from './illustrations';
 import { initializePaperSlides } from './paper-slides';
 import { createSlideNavigation } from './slides';
+import { createPageBackgrounds } from './page-backgrounds';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createReadingPanel } from './reading-panel';
@@ -29,7 +30,11 @@ const requestedRole = localDev ? new URLSearchParams(location.search).get('role'
 const previewRole = requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
 const readOnly = liveMode || previewRole !== null;
 const readingPanel = createReadingPanel();
-const slideNavigation = createSlideNavigation(world, goTo, index => { readingPanel.update(index); reportSlide?.(index); });
+const pageBackgrounds = createPageBackgrounds(viewport);
+const slideNavigation = createSlideNavigation(world, goTo, index => {
+  readingPanel.update(index);
+  reportSlide?.(index);
+}, pageBackgrounds.update);
 viewport.classList.toggle('canvas-editable', !readOnly);
 let connectionsDirty = true;
 const layout = createLayoutController(world, () => ({ ...target }), restored => {
@@ -147,6 +152,7 @@ function render() {
     updateConnections();
   }
   slideNavigation.update(target);
+  slideNavigation.updateVisible(view, tween ? target : undefined);
   camera.position.x = view.x;
   camera.position.y = -view.y;
   camera.zoom = view.zoom;
@@ -403,6 +409,7 @@ if (localDev) {
   });
 }
 if (import.meta.hot) {
+  import.meta.hot.dispose(pageBackgrounds.dispose);
   import.meta.hot.dispose(disposeRegressAnimations);
   import.meta.hot.on('vite:beforeFullReload', () => { void layout.save(false, true); });
   import.meta.hot.dispose(() => { void layout.save(false, true); });

@@ -2,13 +2,14 @@ import type { CameraView } from './layout';
 
 import { slides } from './slide-content';
 
-export function createSlideNavigation(world: HTMLElement, navigate: (view: CameraView) => void, onChange: (index: number) => void) {
+export function createSlideNavigation(world: HTMLElement, navigate: (view: CameraView) => void, onChange: (index: number) => void, onViewChange: (index: number) => void = () => {}) {
   const viewport = world.parentElement!;
   const progress = document.querySelector<HTMLElement>('#slide-progress')!;
   const groups = slides.map(({ members }) => members.map(id => document.getElementById(id)!));
   let frames: CameraView[] = [];
   let current = -1;
   let lastVisited = -1;
+  let visible = -1;
 
   const buttons = slides.map(({ title }, index) => {
     const button = document.createElement('button');
@@ -40,7 +41,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     });
   }
 
-  function update(view: CameraView) {
+  function locate(view: CameraView) {
     let next = -1;
     let nearest = 0.24;
     for (const [index, frame] of frames.entries()) {
@@ -54,6 +55,21 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
         nearest = distance;
       }
     }
+    return next;
+  }
+
+  function updateVisible(view: CameraView, destination?: CameraView) {
+    let next = locate(view);
+    // Flying across another page is not entering it. Only reveal the
+    // destination once the rendered camera has actually reached its vicinity.
+    if (destination && next !== locate(destination)) next = -1;
+    if (next === visible) return;
+    visible = next;
+    onViewChange(next);
+  }
+
+  function update(view: CameraView) {
+    const next = locate(view);
     if (next === current) return;
     current = next;
     if (next >= 0 && next !== lastVisited) {
@@ -79,5 +95,5 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     open(index);
   }
 
-  return { measure, update, open, step };
+  return { measure, update, updateVisible, open, step };
 }
