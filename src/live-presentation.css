@@ -22,7 +22,6 @@
   left: 50%;
   transform: translateX(-50%);
   color: #334c4c;
-  background: #faf9f6;
   font: 600 12px/1 system-ui, sans-serif;
   pointer-events: none;
 }

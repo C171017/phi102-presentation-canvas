@@ -24,14 +24,12 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   transform-origin: center;
   padding: 0.3em 0.5em;
   border-radius: 0.25em;
-  background: rgba(250, 249, 246, 0.94);
   color: #322a20;
   font: 600 clamp(24px, 5vw, 44px)/1.15 Georgia, serif;
   text-align: center;
   user-select: none;
   -webkit-user-select: none;
 }
-.canvas-label:is(#flexible-heading, #contemporary-heading, .canvas-topic, .slide-title) { background: transparent; }
 .canvas-label:focus-visible { outline: 2px solid #8a7455; outline-offset: 2px; }
 .canvas-label-secondary > * { opacity: 0.65; }
 .label-description {

@@ -192,8 +192,20 @@ function resize() {
 window.addEventListener('resize', resize);
 const canvasResizeObserver = new ResizeObserver(resize);
 canvasResizeObserver.observe(viewport);
+function toggleFullscreen() {
+  const action = document.fullscreenElement === backdrop
+    ? document.exitFullscreen()
+    : backdrop.requestFullscreen();
+  void action.catch(error => console.warn('Could not toggle presentation full screen.', error));
+}
 window.addEventListener('keydown', (event) => {
   const element = event.target as HTMLElement;
+  if (!event.defaultPrevented && !event.isComposing && event.metaKey && event.shiftKey &&
+      !event.ctrlKey && !event.altKey && event.key.toLowerCase() === 'f') {
+    event.preventDefault();
+    if (!event.repeat) void toggleFullscreen();
+    return;
+  }
   if (event.defaultPrevented || element.isContentEditable || element.closest('#reading-panel, input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
   const slideButton = element.closest('#slide-progress button');
   if (element.closest('button') && (!slideButton || event.key === ' ' || event.key === 'Enter')) return;
@@ -215,7 +227,8 @@ window.addEventListener('keydown', (event) => {
     case '-': case '_': goTo({ zoom: target.zoom / 1.2 }); break;
     case 'Home': case '0': stopIndex = -1; goTo({ x: 0, y: 0, zoom: 1 }); break;
     case 'f': case 'F':
-      void (document.fullscreenElement ? document.exitFullscreen() : document.querySelector<HTMLElement>('#presentation-shell')!.requestFullscreen()).catch(console.warn); break;
+      if (!event.repeat) void toggleFullscreen();
+      break;
     default: return;
   }
   event.preventDefault();

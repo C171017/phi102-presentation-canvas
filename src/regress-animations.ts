@@ -114,7 +114,6 @@ export function initializeRegressAnimations() {
   for (const kind of Object.keys(descriptions) as Kind[]) {
     const host = document.getElementById(`regress-${kind}`);
     if (!host) continue;
-    const question = host.querySelector('.foundation-question');
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 200 200');
     svg.setAttribute('class', 'regress-animation');
@@ -129,7 +128,6 @@ export function initializeRegressAnimations() {
     const pairs = [...beliefs.map((_, i) => [i, (i + 3) % beliefs.length]), [0, 4], [2, 6]];
     const draw = (seconds: number) => {
       motion.innerHTML = movingArt(kind, seconds, pairs);
-      if (kind === 'foundationalism' && seconds >= lastFoundationArrival) host.classList.add('foundation-played');
     };
     const tick = (now: number) => {
       const seconds = Math.min(duration, (now - start) * 2 / 1000);
@@ -138,7 +136,6 @@ export function initializeRegressAnimations() {
       if (running && !document.hidden) frame = requestAnimationFrame(tick);
     };
     const replay = () => {
-      if (question?.matches(':hover, :focus-within')) return;
       cancelAnimationFrame(frame);
       started = true;
       host.classList.add('regress-revealed');
@@ -167,7 +164,7 @@ export function initializeRegressAnimations() {
       cancelAnimationFrame(frame);
       controller.abort();
       svg.remove();
-      host.classList.remove('regress-playing', 'regress-revealed', 'foundation-played');
+      host.classList.remove('regress-playing', 'regress-revealed');
     });
   }
   return () => cleanups.forEach(cleanup => cleanup());

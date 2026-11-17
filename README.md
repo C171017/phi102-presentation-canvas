@@ -20,7 +20,7 @@ Install Node.js 24 or newer, then run `npm ci` and `npm run dev`. Open `http://1
 - The initial layout backup in `src/initial-layout.ts` is used only if neither a saved file nor a browser recovery copy exists. Keep object IDs stable when editing; new objects receive their own source defaults.
 - Plus/minus: zoom. Trackpad pinch or Ctrl+wheel: zoom around the pointer.
 - Home or 0: reset.
-- F: full screen; Escape leaves full screen.
+- Command-Shift-F or F toggles browser full screen. Escape exits.
 - Space and PageDown advance one slide. Shift-Space and PageUp go back one slide.
 
 The repository includes the presentation's static illustrations and generated GIF alternatives. API credentials are only needed to generate new GIFs, not to run the presentation.

@@ -36,7 +36,7 @@ const deck: PaperSlide[] = [
 ];
 // Arrows run from the right edge of the first object to the left edge of the second.
 const links: [string, string][] = [
-  ['foundation-question', 'dilemma-heading'], ['dilemma-heading', 'undoubted-heading'],
+  ['regress-foundationalism', 'dilemma-heading'], ['dilemma-heading', 'undoubted-heading'],
   ['undoubted-heading', 'route-social-heading'], ['undoubted-heading', 'route-hinges-heading'], ['undoubted-heading', 'route-knowledge-heading'],
   ['aim-versions', 'versions-map-heading'], ['versions-map-heading', 'si-heading'], ['si-heading', 'ctx-heading'], ['ctx-heading', 'disagree-heading'],
   ['aim-applications', 'access-heading'], ['access-heading', 'home-heading'], ['home-heading', 'mobile-heading'], ['mobile-heading', 'conclusion-heading'],
