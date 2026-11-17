@@ -67,11 +67,11 @@ export const scenes: Record<string, Scene> = {
     w: 430, h: 450, seed: 23,
     label: 'Horn two: relaxing the standard. Plenty of stones hold the beliefs up, but each stone is open to doubt, so stopping there looks arbitrary.',
     draw: () => title(22, 30, 'Horn 2 · Moderate foundationalism', 'Relax the standard', P.ochre)
-      + st(0, ground(215, 352, 190, 16) + stone(52, 312, 78, 40, 14) + stone(176, 312, 78, 40, 14) + stone(300, 312, 78, 40, 14)
+      + st(0, ground(215, 352, 190, 16)
+        + `<g class="provisional-foundations">${stone(52, 312, 78, 40, 14) + stone(176, 312, 78, 40, 14) + stone(300, 312, 78, 40, 14)}</g>`
         + txt(91, 384, 'perception', small) + txt(215, 384, 'intuition', small) + txt(339, 384, '…', { size: 15, fill: P.soft }))
       + st(1, strut(91, 190, 300) + strut(215, 190, 300) + strut(339, 190, 300) + beam(40, 178, 344)
         + belief(64, 112, 70, 40) + belief(176, 112, 70, 40) + belief(288, 112, 70, 40))
-      + st(2, doubt(112, 292, 30) + doubt(236, 292, 30) + doubt(360, 292, 30))
       + st(3, plate(215, 424, 330, 34, ['Enough — but why stop here?'], { size: 16 })),
   },
 

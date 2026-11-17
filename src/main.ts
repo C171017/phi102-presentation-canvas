@@ -4,6 +4,7 @@ import { createLayoutController } from './layout';
 import initialLayout from './initial-layout';
 import { initializeIllustrations } from './illustrations';
 import { initializePaperSlides } from './paper-slides';
+import { createConnections } from './connections';
 import { createSlideNavigation } from './slides';
 import { createPageBackgrounds } from './page-backgrounds';
 import { initializeRegressAnimations } from './regress-animations';
@@ -20,6 +21,7 @@ let canvasBounds = viewport.getBoundingClientRect();
 const world = document.querySelector<HTMLElement>('#world')!;
 initializeIllustrations();
 initializePaperSlides(world);
+const updateConnections = createConnections(world);
 const disposeRegressAnimations = initializeRegressAnimations();
 const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
@@ -43,51 +45,6 @@ const layout = createLayoutController(world, () => ({ ...target }), restored => 
   connectionsDirty = true;
   queueMicrotask(wake);
 }, initialLayout, readOnly);
-function updateConnections() {
-  const source = document.getElementById('flexible-heading');
-  if (!source) return;
-  const rect = source.getBoundingClientRect();
-  // Read all endpoint geometry before writing paths to avoid layout thrashing.
-  const updates: { path: SVGPathElement; d: string }[] = [];
-  document.querySelectorAll<SVGPathElement>('#connections > path').forEach(path => {
-    const destination = document.getElementById(path.dataset.target!);
-    const from = path.dataset.source ? document.getElementById(path.dataset.source)?.getBoundingClientRect() : rect;
-    if (!from || !destination) return;
-    const sourceX = (from.right - canvasBounds.left - viewport.clientWidth / 2) / view.zoom + view.x + 8;
-    const sourceY = ((from.top + from.bottom) / 2 - canvasBounds.top - viewport.clientHeight / 2) / view.zoom + view.y;
-    const to = destination.getBoundingClientRect();
-    const x = (to.left - canvasBounds.left - viewport.clientWidth / 2) / view.zoom + view.x - 10;
-    const y = ((to.top + to.bottom) / 2 - canvasBounds.top - viewport.clientHeight / 2) / view.zoom + view.y;
-    const bend = Math.max(55, Math.abs(x - sourceX) * 0.45);
-    updates.push({ path, d: `M${sourceX} ${sourceY}C${sourceX + bend} ${sourceY} ${x - bend} ${y} ${x} ${y}` });
-  });
-  const hub = document.getElementById('regress-problem');
-  if (hub) {
-    const from = hub.getBoundingClientRect();
-    // Anchor to the label edges, so moving/resizing either end keeps its link attached.
-    const edge = (rect: DOMRect, dx: number, dy: number) => {
-      const distance = Math.min((rect.width / 2 + 8 * view.zoom) / (Math.abs(dx) || Number.MIN_VALUE),
-        (rect.height / 2 + 8 * view.zoom) / (Math.abs(dy) || Number.MIN_VALUE));
-      return {
-        x: ((rect.left + rect.right) / 2 + dx * distance - canvasBounds.left - viewport.clientWidth / 2) / view.zoom + view.x,
-        y: ((rect.top + rect.bottom) / 2 + dy * distance - canvasBounds.top - viewport.clientHeight / 2) / view.zoom + view.y,
-      };
-    };
-    document.querySelectorAll<SVGPathElement>('#regress-connections > path').forEach(path => {
-      const destination = document.getElementById(path.dataset.target!);
-      if (!destination) return;
-      const to = destination.getBoundingClientRect();
-      const dx = (to.left + to.right - from.left - from.right) / 2;
-      const dy = (to.top + to.bottom - from.top - from.bottom) / 2;
-      if (Math.hypot(dx, dy) < 1) { updates.push({ path, d: '' }); return; }
-      const a = edge(from, dx, dy), b = edge(to, -dx, -dy);
-      updates.push({ path, d: `M${a.x} ${a.y}L${b.x} ${b.y}` });
-    });
-  }
-  for (const { path, d } of updates) {
-    if (path.getAttribute('d') !== d) path.setAttribute('d', d);
-  }
-}
 function invalidateConnections() { connectionsDirty = true; wake(); }
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10000);
@@ -149,7 +106,7 @@ function render() {
   if (connectionsDirty) {
     connectionsDirty = false;
     slideNavigation.measure(view.zoom);
-    updateConnections();
+    updateConnections(view.zoom);
   }
   slideNavigation.update(target);
   slideNavigation.updateVisible(view, tween ? target : undefined);

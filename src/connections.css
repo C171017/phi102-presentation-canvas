@@ -1,0 +1,30 @@
+#connections, #regress-connections {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.canvas-link { color: var(--route-color); }
+.link-motivations { --route-color: #a66b25; }
+.link-versions { --route-color: #7956a2; }
+.link-applications { --route-color: #267c6a; }
+
+.canvas-link .link-line, .canvas-link .link-flow { fill: none; }
+.canvas-link .link-line { stroke: currentColor; stroke-width: 5; }
+.canvas-link .link-tip { fill: currentColor; }
+.canvas-link .link-flow {
+  stroke: color-mix(in srgb, currentColor 37%, #fffdf5);
+  stroke-width: 5;
+  stroke-dasharray: calc(var(--flow-period, 310px) * 0.34) calc(var(--flow-period, 310px) * 0.66);
+  animation: link-flow var(--flow-duration, 2.48s) linear var(--flow-delay, 0s) infinite;
+}
+
+@keyframes link-flow {
+  to { stroke-dashoffset: calc(-1 * var(--flow-period, 310px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas-link .link-flow { display: none; animation: none; }
+}

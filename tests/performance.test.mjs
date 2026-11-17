@@ -16,36 +16,50 @@ function runFunctions(names, context) {
 function geometryFixture() {
   const trace = [];
   const view = { x: 23, y: -42, zoom: 1.7 };
-  const positions = { source: { x: 0, y: 0, width: 240, height: 80 }, destination: { x: 600, y: -150, width: 360, height: 180 } };
+  const positions = { source: { x: 0, y: 0, width: 240, height: 80 }, upper: { x: 600, y: -150, width: 360, height: 180 }, lower: { x: 600, y: 150, width: 360, height: 180 } };
+  const origin = { left: 820 - view.x * view.zoom, top: 430 - view.y * view.zoom };
   const element = name => ({ getBoundingClientRect() {
     trace.push(`read:${name}`);
     const p = positions[name];
-    return { left: 820 + (p.x - p.width / 2 - view.x) * view.zoom, right: 820 + (p.x + p.width / 2 - view.x) * view.zoom,
-      top: 430 + (p.y - p.height / 2 - view.y) * view.zoom, bottom: 430 + (p.y + p.height / 2 - view.y) * view.zoom };
+    return { left: origin.left + (p.x - p.width / 2) * view.zoom, right: origin.left + (p.x + p.width / 2) * view.zoom,
+      top: origin.top + (p.y - p.height / 2) * view.zoom, bottom: origin.top + (p.y + p.height / 2) * view.zoom };
   } });
-  const paths = Array.from({ length: 3 }, () => ({ dataset: { target: 'destination' }, d: '', getAttribute() { return this.d; }, setAttribute(_, d) { trace.push('write:path'); this.d = d; } }));
-  return { trace, view, positions, paths, document: {
-    getElementById: id => {
-      if (id === 'flexible-heading') return element('source');
-      return id === 'destination' ? element('destination') : null;
-    },
-    querySelectorAll: selector => selector === '#connections > path' ? paths : [],
-  } };
+  const path = () => ({ d: '', getAttribute() { return this.d; }, setAttribute(_, d) { trace.push('write:path'); this.d = d; },
+    hasAttribute() { return Boolean(this.d); }, removeAttribute() { this.d = ''; } });
+  const source = element('source');
+  const links = ['upper', 'lower'].map(name => ({ source, target: element(name), line: path(), flow: path(), tip: path(),
+    group: { style: { setProperty() { trace.push('write:style'); } } } }));
+  return { trace, view, origin, positions, links };
 }
 
-test('connection endpoints keep the original geometry, with all reads before writes', () => {
+test('connections separate branch lanes and follow moved or resized endpoints without interleaving geometry reads and writes', () => {
   const f = geometryFixture();
-  const ctx = runFunctions(['updateConnections'], { ...f, viewport: { clientWidth: 1000, clientHeight: 800 }, canvasBounds: { left: 320, top: 30 } });
-  ctx.updateConnections();
-  const firstWrite = f.trace.indexOf('write:path');
-  assert.ok(firstWrite > 0);
-  assert.ok(f.trace.slice(firstWrite).every(action => action === 'write:path'), 'all geometry reads precede writes');
-  const numbers = f.paths[0].d.match(/-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/g).map(Number);
-  const expected = [128, 0, 254.9, 0, 283.1, -150, 410, -150];
-  numbers.forEach((n, i) => assert.ok(Math.abs(n - expected[i]) < 1e-9));
+  const code = readFileSync(new URL('../src/connections.ts', import.meta.url), 'utf8').replace(/^import .+;\n/, '').replace('export function', 'function');
+  const ctx = vm.createContext({});
+  vm.runInContext(ts.transpile(code, { target: ts.ScriptTarget.ES2022 }), ctx);
+  const update = () => ctx.updateConnections(f.links, f.origin, f.view.zoom);
+  update();
+  assert.deepEqual(f.trace.slice(0, 3), ['read:source', 'read:upper', 'read:lower']);
+  assert.ok(f.trace.slice(3).every(action => action.startsWith('write:')), 'all geometry reads precede writes');
+  const [upper, lower] = f.links;
+  assert.match(upper.line.d, /^M134 -10L.*Q/);
+  assert.match(lower.line.d, /^M134 10L.*Q/);
+  assert.match(upper.tip.d, /L406 -150L/);
+  assert.equal(upper.flow.d, upper.line.d);
   f.trace.length = 0;
-  ctx.updateConnections();
+  update();
   assert.ok(f.trace.every(action => action.startsWith('read:')), 'unchanged paths are not rewritten');
+  Object.assign(f.positions.upper, { x: -700, y: 0, width: 200 });
+  update();
+  assert.match(upper.line.d, /^M-134 0L/);
+  assert.match(upper.tip.d, /L-586 0L/);
+  upper.preferRow = true;
+  Object.assign(f.positions.upper, { x: 600, y: -750 });
+  update();
+  assert.match(upper.line.d, /^M134 -10L.*Q/, 'slide-to-slide links stay in the side corridor');
+  Object.assign(f.positions.upper, { x: 0, y: 0 });
+  update();
+  assert.ok([upper.line, upper.flow, upper.tip].every(part => !part.d), 'overlapping endpoints do not produce a stray link');
 });
 
 test('group movement batches position reads and schedules one save and connection update', () => {

@@ -122,13 +122,22 @@ export function initializeRegressAnimations() {
     svg.innerHTML = `<g class="regress-static">${staticArt(kind)}</g><g class="regress-motion"></g>`;
     host.append(svg);
     const motion = svg.querySelector('.regress-motion')!;
-    let frame = 0, start = 0, started = false, running = false;
-    let duration = kind === 'skepticism' ? 2 : kind === 'coherentism' ? 3.1 : lastFoundationArrival;
+    const getDuration = () => {
+      if (kind === 'skepticism') return 2;
+      if (kind === 'coherentism') return 3.1;
+      if (kind === 'foundationalism') return lastFoundationArrival;
+      const pixelsPerUnit = svg.getBoundingClientRect().width / 200;
+      return Math.max(0, Math.log(82 * pixelsPerUnit / 0.2) / 0.11) / inwardSpeed;
+    };
+    let frame = 0, start = 0, running = false;
+    let duration = getDuration();
     // A sparse cross-linked network, including two links through the center.
     const pairs = [...beliefs.map((_, i) => [i, (i + 3) % beliefs.length]), [0, 4], [2, 6]];
     const draw = (seconds: number) => {
       motion.innerHTML = movingArt(kind, seconds, pairs);
     };
+    // Show the finished drawing immediately. Hover starts it again from the beginning.
+    draw(duration);
     const tick = (now: number) => {
       const seconds = Math.min(duration, (now - start) * 2 / 1000);
       draw(seconds);
@@ -137,12 +146,7 @@ export function initializeRegressAnimations() {
     };
     const replay = () => {
       cancelAnimationFrame(frame);
-      started = true;
-      host.classList.add('regress-revealed');
-      if (kind === 'infinitism') {
-        const pixelsPerUnit = svg.getBoundingClientRect().width / 200;
-        duration = Math.max(0, Math.log(82 * pixelsPerUnit / 0.2) / 0.11) / inwardSpeed;
-      }
+      duration = getDuration();
       start = performance.now();
       running = !reducedMotion.matches;
       draw(running ? 0 : duration);
@@ -158,13 +162,12 @@ export function initializeRegressAnimations() {
       if (!document.hidden && running) frame = requestAnimationFrame(tick);
     }, options);
     reducedMotion.addEventListener('change', () => {
-      if (started && reducedMotion.matches) { cancelAnimationFrame(frame); draw(duration); running = false; }
+      if (running && reducedMotion.matches) { cancelAnimationFrame(frame); draw(duration); running = false; }
     }, options);
     cleanups.push(() => {
       cancelAnimationFrame(frame);
       controller.abort();
       svg.remove();
-      host.classList.remove('regress-playing', 'regress-revealed');
     });
   }
   return () => cleanups.forEach(cleanup => cleanup());

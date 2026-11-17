@@ -10,6 +10,13 @@
   animation-delay: calc(var(--i) * var(--beat, 360ms));
 }
 @keyframes scene-step { from { opacity: 0; transform: translateY(9px); } }
+/* On the second horn, the bricks themselves show that the base is open to doubt. */
+.provisional-foundations { opacity: .42; }
+.scene.is-playing .provisional-foundations {
+  animation: scene-foundations-fade 460ms ease-out both;
+  animation-delay: calc(2 * var(--beat, 360ms));
+}
+@keyframes scene-foundations-fade { from { opacity: 1; } }
 /* A part that travels to its drawn place (the mobile home) and stays there. */
 .scene.is-playing .mv {
   animation: scene-move 1100ms cubic-bezier(.45, 0, .2, 1) both;
@@ -17,7 +24,7 @@
 }
 @keyframes scene-move { from { transform: translateX(var(--from, 0px)); } }
 @media (prefers-reduced-motion: reduce) {
-  .scene.is-playing .st, .scene.is-playing .mv { animation: none; }
+  .scene.is-playing .st, .scene.is-playing .mv, .scene.is-playing .provisional-foundations { animation: none; }
 }
 
 /* Titles for the slides built from the paper. Sizes are fixed in world pixels

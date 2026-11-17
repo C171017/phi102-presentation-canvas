@@ -34,14 +34,6 @@ const deck: PaperSlide[] = [
   { id: 'conclusion', cx: 5000, top: 280, lane: 'Conclusion', section: '§5', title: 'Takeaways',
     text: 'One idea, a family of views, one payoff.', scenes: ['conclusion-points', 'conclusion-scope'] },
 ];
-// Arrows run from the right edge of the first object to the left edge of the second.
-const links: [string, string][] = [
-  ['regress-foundationalism', 'dilemma-heading'], ['dilemma-heading', 'undoubted-heading'],
-  ['undoubted-heading', 'route-social-heading'], ['undoubted-heading', 'route-hinges-heading'], ['undoubted-heading', 'route-knowledge-heading'],
-  ['aim-versions', 'versions-map-heading'], ['versions-map-heading', 'si-heading'], ['si-heading', 'ctx-heading'], ['ctx-heading', 'disagree-heading'],
-  ['aim-applications', 'access-heading'], ['access-heading', 'home-heading'], ['home-heading', 'mobile-heading'], ['mobile-heading', 'conclusion-heading'],
-];
-
 function place(element: HTMLElement, x: number, y: number) {
   element.classList.add('canvas-label');
   element.style.left = `${x}px`;
@@ -80,14 +72,4 @@ export function initializePaperSlides(world: HTMLElement) {
       left += scene.w + GAP;
     }
   }
-  const connections = document.getElementById('connections');
-  if (!connections) return;
-  for (const [source, target] of links) {
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.dataset.source = source;
-    path.dataset.target = target;
-    path.setAttribute('marker-end', 'url(#aim-arrow)');
-    connections.append(path);
-  }
-  connections.setAttribute('aria-label', `${connections.getAttribute('aria-label')} Each aim then leads through its slides: the dilemma, undoubted foundations and three routes; the four versions; and the access principle, the cognitive home, the mobile home and the takeaways.`);
 }

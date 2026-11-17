@@ -1,8 +1,20 @@
-/* The title and diagram share the same movable, resizable parent. */
+/* Keep each title above its diagram without changing their shared bounds. */
 .regress-position > div {
   position: relative;
   z-index: 1;
-  border-radius: .2em;
+}
+.regress-position > div::before {
+  content: '';
+  position: absolute;
+  inset: -.44em -.65em;
+  z-index: -1;
+  pointer-events: none;
+  background: rgb(250 249 246 / .76);
+  backdrop-filter: blur(5px);
+  mask-image:
+    linear-gradient(to right, transparent, #fff .65em, #fff calc(100% - .65em), transparent),
+    linear-gradient(to bottom, transparent, #fff .64em, #fff calc(100% - .64em), transparent);
+  mask-composite: intersect;
 }
 .regress-animation {
   position: absolute;
@@ -11,37 +23,23 @@
   width: calc(32000px / var(--diagram-radius, 70));
   height: auto;
   aspect-ratio: 1;
-  transform: translate(-50%, -50%) scale(.94);
+  transform: translate(-50%, -50%);
   overflow: visible;
   pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: none;
   fill: none;
   stroke: var(--route-color);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.regress-revealed .regress-animation {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
-}
 .regress-animation .guide { opacity: .12; stroke-width: 1.2; }
 .regress-animation .belief { fill: #faf9f6; stroke-width: 2; }
 .regress-animation .dead-end { stroke-width: 4.5; }
 .regress-animation .foundation-brick { fill: #ead0ad; stroke: #b7793f; stroke-width: 1; }
 .regress-animation .foundation-arrival { stroke-width: 4; }
-@media (prefers-reduced-motion: reduce) {
-  .regress-animation { transition: none; }
-}
-
 .regress-animation .spiral-belief { fill: #faf9f6; }
 
 /* Match visible footprints, including belief nodes and the asymmetric spiral. */
 .route-infinitism { --diagram-radius: 66; }
 .route-coherentism { --diagram-radius: 72; }
 .route-foundationalism { --diagram-radius: 89; }
-#regress-connections { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-#regress-connections > path { fill: none; stroke: var(--route-color); stroke-width: 1.6; opacity: .6; }

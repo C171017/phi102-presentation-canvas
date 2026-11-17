@@ -37,14 +37,6 @@
 }
 #world { z-index: 1; }
 #three-layer { z-index: 1; }
-/* Only illustrations get a backing panel; canvas text sits directly on the slide. */
-#world > .canvas-media {
-  transition: background-color 420ms ease, box-shadow 420ms ease;
-}
-#viewport.in-page-view #world > .page-foreground.canvas-media:not(#state-red) {
-  background-color: rgba(255, 253, 247, .94);
-  box-shadow: 0 10px 30px #25352c18, 0 2px 7px #25352c10, 0 0 0 1px #ffffffa6;
-}
 #slide-progress {
   transition: background-color 420ms ease, box-shadow 420ms ease;
 }
@@ -54,6 +46,6 @@
   box-shadow: 0 0 0 7px #fffdf5ed, 0 4px 18px #25352c18;
 }
 @media (prefers-reduced-motion: reduce) {
-  .page-background, .page-background img, #world > .canvas-media, #slide-progress { transition: none; }
+  .page-background, .page-background img, #slide-progress { transition: none; }
   .page-background { transform: none; }
 }
