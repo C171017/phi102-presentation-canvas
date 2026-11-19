@@ -61,7 +61,7 @@ export const scenes: Record<string, Scene> = {
       + st(1, strut(83, 196, 300)
         + `<g transform="rotate(13 83 196)">${beam(40, 184, 268)}${belief(74, 118, 70, 40)}${belief(170, 118, 70, 40)}</g>`)
       + st(2, `<g transform="rotate(34 330 262)">${belief(296, 232, 70, 40)}</g>` + arrow(352, 300, 372, 372, { c: P.red, bend: -14 }) + skull(372, 396, 1.5))
-      + st(3, plate(170, 412, 268, 50, ['Principled — but almost', 'nothing qualifies.'], { size: 16 }) + tag(372, 432, 'Skepticism', P.red)),
+      + st(3, plate(170, 412, 268, 50, ['Principled — but almost', 'nothing qualifies'], { size: 16 }) + tag(372, 432, 'Skepticism', P.red)),
   },
   'dilemma-moderate': {
     w: 430, h: 450, seed: 23,
@@ -98,7 +98,7 @@ export const scenes: Record<string, Scene> = {
         + st(0, column(78, 'Descartes', P.red, 'undoubtable', ['too few:', 'skepticism']) + stone(54, 196, 48, 28, 10) + star(78, 180, 10))
         + st(1, column(215, 'Moderate', P.ochre, 'doubtable', ['stopping point', 'looks arbitrary']) + stone(179, 186, 72, 38, 12) + doubt(215, 174, 28))
         + st(2, ring(352, 196, 66, 62, P.green) + column(352, 'Flexible', P.green, 'undoubted here', ['free from doubt', 'where it is used']) + stone(316, 186, 72, 38, 12) + star(352, 166, 12))
-        + st(3, plate(215, 396, 372, 60, ['“They needn’t be undoubtable,', 'but they must be undoubted.”'], { size: 17, italic: true }));
+        + st(3, plate(215, 396, 372, 60, ['“They needn’t be undoubtable,', 'but they must be undoubted”'], { size: 17, italic: true }));
     },
   },
 
@@ -106,13 +106,13 @@ export const scenes: Record<string, Scene> = {
     w: 560, h: 450, seed: 41,
     label: 'A speaker gives a reason to an audience. The appropriate objector-group raises no objection, so the reason is foundational in this context. A toddler keeps asking why.',
     draw: () => title(22, 30, 'Annis 1978', 'Reasons are given to an audience')
-      + st(0, person(78, 350, P.slate, { arm: 'point' }) + bubble(26, 130, 178, 54, ['“P, because Q.”'], { tail: 'bl' }))
+      + st(0, person(78, 350, P.slate, { arm: 'point' }) + bubble(26, 130, 178, 54, ['“P, because Q”'], { tail: 'bl' }))
       + st(1, ring(446, 292, 108, 92, P.line) + tag(446, 186, 'objector-group')
         + person(396, 350, coat.sage, { flip: true }) + person(448, 342, coat.clay, { flip: true }) + person(500, 350, coat.dusk, { flip: true }))
-      + st(2, bubble(330, 92, 176, 48, ['“No objection.”'], { tail: 'br' }) + stone(238, 306, 76, 40, 13) + star(276, 288, 12)
+      + st(2, bubble(330, 92, 176, 48, ['“No objection”'], { tail: 'br' }) + stone(238, 306, 76, 40, 13) + star(276, 288, 12)
         + lines(276, 372, ['Q passes', 'unchallenged'], { ...small, lh: 18 }))
       + st(3, person(170, 354, '#c98b6b', { s: 0.55 }) + bubble(150, 246, 80, 36, ['why?'], { tail: 'bl', size: 15, italic: true, shadow: false }))
-      + st(4, plate(280, 430, 452, 32, ['Reasons stop where the audience stops objecting.'], { size: 15.5 })),
+      + st(4, plate(280, 430, 452, 32, ['Reasons stop where the audience stops objecting'], { size: 15.5 })),
   },
   'route-social-worry': {
     w: 300, h: 450, seed: 43,
@@ -122,7 +122,7 @@ export const scenes: Record<string, Scene> = {
         + person(92, 296, coat.sage, { s: 0.68 }) + person(150, 290, coat.clay, { s: 0.68 }) + person(208, 296, coat.dusk, { s: 0.68, flip: true }))
       + st(1, check(92, 196, 0.8) + check(150, 196, 0.8) + check(208, 196, 0.8))
       + st(2, doubt(268, 120, 44))
-      + st(3, lines(150, 352, ['Nobody objects. But could', 'they all be wrong to', 'take it for granted?'], { size: 16, lh: 21 }))
+      + st(3, lines(150, 352, ['Nobody objects But could', 'they all be wrong to', 'take it for granted?'], { size: 16, lh: 21 }))
       + st(4, plate(150, 428, 236, 30, ['Returns under ② Versions'], { size: 15 })),
   },
 
@@ -141,7 +141,7 @@ export const scenes: Record<string, Scene> = {
           + poly([[308, 134], [466, 116], [466, 262], [308, 262]], 'none', { c: P.line, w: 1.3, single: true })
           + ell(464, 290, 6, 7, P.gold, { c: '#c9952a', w: 1.4, single: true })
           + tag(387, 160, 'the open question') + lines(387, 196, ['“What colour', 'do you see?”'], { size: 19, italic: true, lh: 25 }) + doubt(387, 340, 54, P.slate))
-        + st(3, plate(270, 433, 430, 28, ['To ask one question, others must stay closed.'], { size: 15.5 }));
+        + st(3, plate(270, 433, 430, 28, ['To ask one question, others must stay closed'], { size: 15.5 }));
     },
   },
   'route-hinges-swap': {
@@ -169,7 +169,7 @@ export const scenes: Record<string, Scene> = {
         + st(2, arrow(648, 104, 716, 172, { bend: -16, c: P.line }) + arrow(648, 266, 716, 210, { bend: 16, c: P.line })
           + ring(796, 188, 82, 74, P.ochre) + stone(758, 182, 76, 40, 13) + star(796, 162, 13)
           + lines(796, 296, ['Flexible', 'foundationalism'], { size: 19, weight: 600, fill: P.ochre, lh: 23 }) + txt(796, 346, '“without trying”', small))
-        + st(3, plate(327, 402, 540, 32, ['Caveat: Williamson himself rejects the flexible views (n. 15).'], { size: 15.5 }));
+        + st(3, plate(327, 402, 540, 32, ['Caveat: Williamson himself rejects the flexible views (n 15)'], { size: 15.5 }));
     },
   },
 
@@ -178,7 +178,7 @@ export const scenes: Record<string, Scene> = {
     label: 'A subject holds a belief; a speaker says “S’s belief is foundationally justified”; an assessor judges that claim. Sensitive invariantism looks to the subject, contextualism to the speaker, relativism to the assessor, expressivism to the commitment expressed.',
     draw: () => st(0, ring(150, 262, 108, 104, P.subj) + tag(150, 146, 'Subject', P.subj) + person(128, 332, P.subj, { arm: 'hold' }) + belief(152, 196, 66, 38))
       + st(1, ring(450, 262, 108, 104, P.ctx) + tag(520, 146, 'Speaker', P.ctx) + person(450, 332, P.ctx, { arm: 'raise' })
-        + bubble(330, 44, 250, 66, ['“S’s belief is', 'foundationally justified.”'], { tail: 'bl', size: 16.5 })
+        + bubble(330, 44, 250, 66, ['“S’s belief is', 'foundationally justified”'], { tail: 'bl', size: 16.5 })
         + arrow(352, 232, 250, 220, { c: P.line, dash: '5 6', bend: 10, single: true }))
       + st(2, ring(750, 262, 108, 104, P.view) + tag(778, 146, 'Assessor', P.view) + person(750, 332, P.view, { arm: 'chin', flip: true })
         + arrow(690, 196, 590, 98, { c: P.view, dash: '5 6', bend: 22, single: true }) + txt(652, 170, 'true?', { ...small, fill: P.view, anchor: 'end' }))
@@ -199,7 +199,7 @@ export const scenes: Record<string, Scene> = {
         + st(1, tag(442, 112, 'facts about the subject', P.subj) + factor(148, 'practical stakes', 'as with “knows”'))
         + st(2, factor(238, 'community norms', 'Annis'))
         + st(3, factor(328, 'current inquiries', 'hinges'))
-        + st(4, plate(280, 428, 420, 32, ['The meaning stays fixed; the status moves.'], { size: 15.5 }));
+        + st(4, plate(280, 428, 420, 32, ['The meaning stays fixed; the status moves'], { size: 15.5 }));
     },
   },
   'si-worry': {
@@ -207,9 +207,9 @@ export const scenes: Record<string, Scene> = {
     label: 'The worry: if a community treats astrology as unobjectionable, the view counts it foundational, but that does not make it so.',
     draw: () => title(22, 30, 'Annis: a worry', 'Misguided norms', P.red)
       + st(0, ring(150, 232, 124, 92, P.line) + person(92, 304, coat.sage, { s: 0.68 }) + person(150, 298, coat.clay, { s: 0.68 }) + person(208, 304, coat.dusk, { s: 0.68, flip: true }))
-      + st(1, bubble(54, 96, 192, 44, ['“Astrology? Fine.”'], { tail: 'bl', size: 16 }))
-      + st(2, lines(150, 352, ['Nobody here objects, so', 'it counts as foundational.'], { size: 15.5, lh: 20 }))
-      + st(3, txt(150, 402, '“That doesn’t make it so.”', { size: 17, italic: true, weight: 600, fill: P.red }))
+      + st(1, bubble(54, 96, 192, 44, ['“Astrology? Fine”'], { tail: 'bl', size: 16 }))
+      + st(2, lines(150, 352, ['Nobody here objects, so', 'it counts as foundational'], { size: 15.5, lh: 20 }))
+      + st(3, txt(150, 402, '“That doesn’t make it so”', { size: 17, italic: true, weight: 600, fill: P.red }))
       + st(4, tag(150, 432, 'can we call its norms wrong?', P.soft)),
   },
 
@@ -217,13 +217,13 @@ export const scenes: Record<string, Scene> = {
     w: 540, h: 450, seed: 73,
     label: 'Ordinary talk shows judgments of foundationality. “It must be cold outside” marks an inference. “I have a toothache.” “What makes you think that?” “Oh, come on.” marks a belief that needs no support.',
     draw: () => title(22, 30, '“More tricky”', 'Listen to ordinary talk', P.ctx)
-      + lines(22, 92, ['“Foundationally justified” is a technical term:', 'little everyday usage to test. Look elsewhere.'], { ...small, anchor: 'start', lh: 19 })
-      + st(0, person(58, 222, P.ctx, { s: 0.7 }) + bubble(100, 138, 232, 42, ['“It must be cold outside.”'], { tail: 'none', size: 16 }))
+      + lines(22, 92, ['“Foundationally justified” is a technical term:', 'little everyday usage to test Look elsewhere'], { ...small, anchor: 'start', lh: 19 })
+      + st(0, person(58, 222, P.ctx, { s: 0.7 }) + bubble(100, 138, 232, 42, ['“It must be cold outside”'], { tail: 'none', size: 16 }))
       + st(1, arrow(344, 159, 372, 159, { c: P.ochre }) + named(382, 156, 'inferred', 'not foundational', P.ochre, 'start', 17))
       + dashed(30, 240, 510)
-      + st(2, person(58, 412, P.ctx, { s: 0.7 }) + bubble(100, 258, 196, 40, ['“I have a toothache.”'], { tail: 'none', size: 16 }))
+      + st(2, person(58, 412, P.ctx, { s: 0.7 }) + bubble(100, 258, 196, 40, ['“I have a toothache”'], { tail: 'none', size: 16 }))
       + st(3, person(492, 412, coat.sage, { s: 0.7, flip: true }) + bubble(212, 310, 240, 40, ['“What makes you think that?”'], { tail: 'none', size: 16, fill: P.dull, color: P.ink }))
-      + st(4, bubble(100, 362, 146, 40, ['“Oh, come on.”'], { tail: 'none', size: 16 }))
+      + st(4, bubble(100, 362, 146, 40, ['“Oh, come on”'], { tail: 'none', size: 16 }))
       + st(5, star(270, 380, 10) + named(288, 380, 'needs no support', 'treated as foundational', P.green, 'start', 17)),
   },
   'ctx-criticism': {
@@ -233,7 +233,7 @@ export const scenes: Record<string, Scene> = {
       + st(0, ring(206, 158, 100, 66, P.line) + tag(206, 84, 'that community') + stone(176, 112, 60, 32, 10) + star(206, 98, 9)
         + person(160, 212, coat.sage, { s: 0.55 }) + person(252, 212, coat.dusk, { s: 0.55, flip: true }))
       + st(1, person(50, 400, P.ctx, { arm: 'point' }))
-      + st(2, bubble(102, 248, 208, 84, ['“They think it’s', 'foundationally justified,', 'but they’re wrong.”'], { tail: 'bl', size: 15.5 }))
+      + st(2, bubble(102, 248, 208, 84, ['“They think it’s', 'foundationally justified,', 'but they’re wrong”'], { tail: 'bl', size: 15.5 }))
       + st(3, lines(206, 384, ['= I am not committed', 'to treating it that way'], { size: 15, fill: P.soft, lh: 19 }))
       + st(4, tag(160, 436, 'speaker’s own commitment', P.ctx)),
   },
@@ -243,13 +243,13 @@ export const scenes: Record<string, Scene> = {
     label: '“I’m hungry” and “I’m not hungry” are both true and do not conflict. “That belief is foundationally justified” and “No, it isn’t” look like a real disagreement.',
     draw: () => title(22, 30, 'If each of us describes our own norms…', 'Both right, or really disagreeing?', P.ctx)
       + st(0, person(56, 214, coat.clay, { s: 0.7 }) + person(504, 214, coat.dusk, { s: 0.7, flip: true })
-        + bubble(96, 118, 158, 42, ['“I’m hungry.”'], { tail: 'none', size: 16 }) + bubble(286, 118, 180, 42, ['“I’m not hungry.”'], { tail: 'none', size: 16 }))
+        + bubble(96, 118, 158, 42, ['“I’m hungry”'], { tail: 'none', size: 16 }) + bubble(286, 118, 180, 42, ['“I’m not hungry”'], { tail: 'none', size: 16 }))
       + st(1, check(175, 186, 0.8) + check(376, 186, 0.8) + txt(280, 222, 'both true: no conflict', { size: 16, weight: 600, fill: P.green }))
       + dashed(30, 242, 530)
-      + st(2, person(56, 404, coat.clay, { s: 0.7 }) + bubble(96, 268, 214, 60, ['“That belief is', 'foundationally justified.”'], { tail: 'none', size: 15.5 }))
-      + st(3, person(504, 404, coat.dusk, { s: 0.7, flip: true }) + bubble(332, 276, 134, 42, ['“No, it isn’t.”'], { tail: 'none', size: 16 }))
+      + st(2, person(56, 404, coat.clay, { s: 0.7 }) + bubble(96, 268, 214, 60, ['“That belief is', 'foundationally justified”'], { tail: 'none', size: 15.5 }))
+      + st(3, person(504, 404, coat.dusk, { s: 0.7, flip: true }) + bubble(332, 276, 134, 42, ['“No, it isn’t”'], { tail: 'none', size: 16 }))
       + st(4, `<path class="sk" d="M322 338L310 358L326 356L314 378" stroke="${P.red}" stroke-width="3.4"/>`
-        + txt(280, 410, 'both true?  It looks like real disagreement.', { size: 16, weight: 600, fill: P.red })),
+        + txt(280, 410, 'both true?  It looks like real disagreement', { size: 16, weight: 600, fill: P.red })),
   },
   'disagree-exits': {
     w: 300, h: 450, seed: 89,
@@ -259,14 +259,14 @@ export const scenes: Record<string, Scene> = {
       + st(1, board(62, 104, 176, 40, P.view, 'Relativism') + tag(66, 164, 'MacFarlane 2011', P.soft, { anchor: 'start' }))
       + st(2, board(62, 190, 176, 40, P.expr, 'Expressivism') + tag(66, 250, 'Chrisman 2007', P.soft, { anchor: 'start' }))
       + st(3, board(62, 276, 176, 40, P.faint, 'Overstated?') + tag(66, 336, 'Plunkett & Sundell 2013', P.soft, { anchor: 'start' }))
-      + st(4, plate(150, 420, 256, 48, ['Greco leaves it open: the', 'same debate as for “knows”.'], { size: 15 })),
+      + st(4, plate(150, 420, 256, 48, ['Greco leaves it open: the', 'same debate as for “knows”'], { size: 15 })),
   },
 
   'access-principle': {
     w: 430, h: 450, seed: 97,
     label: 'The principle (Access): if S has justification to believe that P, then S has justification to believe that S has justification to believe that P.',
     draw: () => title(22, 30, 'Strong access internalism', 'Justification, one level up', P.slate)
-      + st(0, plate(215, 146, 386, 100, ['If S has justification to believe that P,', 'then S has justification to believe that', 'S has justification to believe that P.'], { size: 17, lh: 27 }))
+      + st(0, plate(215, 146, 386, 100, ['If S has justification to believe that P,', 'then S has justification to believe that', 'S has justification to believe that P'], { size: 17, lh: 27 }))
       + st(1, block(44, 316, 142, 54, 14, slateFaces) + txt(115, 350, 'J(P)', { size: 21, weight: 600, fill: '#fff' }) + tag(115, 400, 'first-order'))
       + st(2, arrow(204, 318, 246, 284, { bend: -8 }) + tag(196, 286, 'always', P.ochre)
         + block(252, 250, 142, 54, 14, slateFaces) + txt(323, 284, 'J(J(P))', { size: 21, weight: 600, fill: '#fff' }) + tag(323, 334, 'higher-order'))
@@ -281,21 +281,21 @@ export const scenes: Record<string, Scene> = {
       + st(1, doubt(356, 158, 40))
       + st(2, arrow(195, 182, 195, 232, { c: P.red }) + doubt(216, 204, 18) + doubt(176, 222, 14))
       + st(3, tag(70, 232, 'first-order', P.soft, { anchor: 'start' })
-        + block(70, 252, 250, 62, 15, slateFaces) + lines(195, 279, ['“Organic food has', 'health benefits.”'], { size: 15.5, italic: true, lh: 20, fill: '#fff' }))
+        + block(70, 252, 250, 62, 15, slateFaces) + lines(195, 279, ['“Organic food has', 'health benefits”'], { size: 15.5, italic: true, lh: 20, fill: '#fff' }))
       + st(4, doubt(356, 298, 40))
-      + st(5, plate(215, 392, 384, 56, ['Without (Access): a claim treated as a', 'regress-stopper, yet doubted by its owner.'], { size: 15.5 })),
+      + st(5, plate(215, 392, 384, 56, ['Without (Access): a claim treated as a', 'regress-stopper, yet doubted by its owner'], { size: 15.5 })),
   },
 
   'home-weather': {
     w: 430, h: 450, seed: 103,
     label: 'A forecaster says it will be sunny while it rains. With the weather, the truth can outrun our justification; (Access) seems to need a realm where evidence never misleads.',
     draw: () => title(22, 30, 'The catch', 'Evidence can mislead', P.view)
-      + st(0, person(110, 356, P.slate, { arm: 'raise' }) + bubble(34, 130, 150, 50, ['“Sunny.”'], { tail: 'bl', size: 17 }) + tag(110, 384, 'our evidence'))
+      + st(0, person(110, 356, P.slate, { arm: 'raise' }) + bubble(34, 130, 150, 50, ['“Sunny”'], { tail: 'bl', size: 17 }) + tag(110, 384, 'our evidence'))
       + st(1, ell(276, 168, 40, 26, '#dfe5e4', { c: P.soft, w: 1.8 }) + ell(352, 172, 38, 24, '#dfe5e4', { c: P.soft, w: 1.8 }) + ell(314, 152, 46, 32, '#dfe5e4', { c: P.soft, w: 1.8 })
         + `<ellipse cx="314" cy="176" rx="60" ry="17" fill="#dfe5e4"/>`)
       + st(2, [0, 1, 2, 3, 4].map(i => line(272 + i * 22, 210, 260 + i * 22, 250, { c: P.view, w: 2, single: true }) + line(282 + i * 22, 268, 270 + i * 22, 308, { c: P.view, w: 2, single: true })).join('')
         + ground(312, 348, 70, 9) + tag(312, 384, 'the facts', P.view))
-      + st(3, plate(215, 420, 330, 52, ['(Access) seems to need a realm', 'where evidence never misleads.'], { size: 15.5 })),
+      + st(3, plate(215, 420, 330, 52, ['(Access) seems to need a realm', 'where evidence never misleads'], { size: 15.5 })),
   },
   'home-cartesian': {
     w: 430, h: 450, seed: 107,
@@ -307,15 +307,15 @@ export const scenes: Record<string, Scene> = {
         + line(118, 214, 142, 262, { c: '#fff', w: 3, single: true }) + line(132, 210, 148, 242, { c: '#fff', w: 2, single: true }))
       + st(1, person(156, 338, P.slate, { s: 0.74 }) + belief(206, 222, 58, 32) + belief(228, 272, 58, 32) + check(280, 238, 0.7) + check(302, 288, 0.7))
       + st(2, tag(204, 374, 'nothing hidden · found by introspection', P.slate))
-      + st(3, plate(215, 416, 330, 52, ['Cartesian foundationalism again.', 'Williamson: we have no such home.'], { size: 15.5 })),
+      + st(3, plate(215, 416, 330, 52, ['Cartesian foundationalism again', 'Williamson: we have no such home'], { size: 15.5 })),
   },
 
   'mobile-scene': {
     w: 900, h: 470, seed: 109, beat: 520,
     label: 'A caravan stands on plot B, what Peter said, while it is taken for granted that Justine heard him. When that is doubted, the context shifts and the caravan rolls to plot B prime: his email, his past parties, or her best guess.',
-    draw: () => st(0, tag(220, 34, 'Context C') + plate(220, 78, 304, 52, ['Taken for granted: Peter said 7:00', 'or 8:00, and Justine heard him.'], { size: 15 })
+    draw: () => st(0, tag(220, 34, 'Context C') + plate(220, 78, 304, 52, ['Taken for granted: Peter said 7:00', 'or 8:00, and Justine heard him'], { size: 15 })
         + ring(220, 336, 176, 28, P.line) + named(220, 398, 'B: what Peter said', 'she counts as knowing it'))
-      + st(1, tag(672, 34, 'Context C′', P.red) + plate(672, 78, 304, 52, ['A doubt is taken seriously:', '“Maybe Peter mumbled.”'], { size: 15 }) + doubt(220, 196, 46))
+      + st(1, tag(672, 34, 'Context C′', P.red) + plate(672, 78, 304, 52, ['A doubt is taken seriously:', '“Maybe Peter mumbled”'], { size: 15 }) + doubt(220, 196, 46))
       + st(2, rrect(152, 222, 150, 84, 8, 'none', { c: P.dullEdge, w: 1.6, dash: '5 7', single: true })
         + arrow(330, 190, 566, 190, { c: P.red, bend: -46 }) + tag(448, 150, 'the context shifts', P.red))
       + st(3, ring(672, 336, 176, 28, P.ochre) + named(672, 398, 'B′: his email · past parties · her best guess', 'she counts as knowing these', P.ochre))
@@ -327,12 +327,12 @@ export const scenes: Record<string, Scene> = {
     w: 600, h: 450, seed: 113,
     label: 'Three takeaways: keep the foundations but let them vary with context; a family of views with criticism and disagreement as pressure points; and (Access) without a Cartesian cognitive home.',
     draw: () => st(0, badge(40, 76, '1') + ring(124, 78, 50, 40, P.ochre) + stone(98, 72, 52, 28, 10) + star(124, 54, 10)
-        + named(196, 72, 'Keep the foundations; let them vary.', 'Undoubted here, not undoubtable everywhere.', P.ink, 'start', 20))
+        + named(196, 72, 'Keep the foundations; let them vary', 'Undoubted here, not undoubtable everywhere', P.ink, 'start', 20))
       + st(1, dashed(30, 148, 570) + badge(40, 222, '2')
         + person(92, 250, P.subj, { s: 0.46 }) + person(114, 250, P.ctx, { s: 0.46 }) + person(136, 250, P.view, { s: 0.46 }) + person(158, 250, P.expr, { s: 0.46 })
-        + named(196, 218, 'One idea, a family of views.', 'Pressure points: criticism and disagreement.', P.ink, 'start', 20))
+        + named(196, 218, 'One idea, a family of views', 'Pressure points: criticism and disagreement', P.ink, 'start', 20))
       + st(2, dashed(30, 294, 570) + badge(40, 368, '3') + caravan(86, 392, 0.52)
-        + named(196, 364, '(Access) without a Cartesian home.', 'A cognitive home that moves with the context.', P.ink, 'start', 20)),
+        + named(196, 364, '(Access) without a Cartesian home', 'A cognitive home that moves with the context', P.ink, 'start', 20)),
   },
   'conclusion-scope': {
     w: 260, h: 450, seed: 127,
@@ -344,7 +344,7 @@ export const scenes: Record<string, Scene> = {
         + '</g>')
       + st(1, `<g transform="rotate(-1.6 130 225)">` + lines(130, 164, ['Which version is right', '(the same debate as “knows”)'], { size: 15.5, lh: 21 }) + dashed(70, 208, 190) + '</g>')
       + st(2, `<g transform="rotate(-1.6 130 225)">` + lines(130, 244, ['A full defence of', 'contextualized (Access)'], { size: 15.5, lh: 21 }) + dashed(70, 288, 190) + '</g>')
-      + st(3, `<g transform="rotate(-1.6 130 225)">` + lines(130, 324, ['Views without chains', 'of reasons (n. 1)'], { size: 15.5, lh: 21 }) + '</g>'),
+      + st(3, `<g transform="rotate(-1.6 130 225)">` + lines(130, 324, ['Views without chains', 'of reasons (n 1)'], { size: 15.5, lh: 21 }) + '</g>'),
   },
 };
 

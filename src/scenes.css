@@ -31,6 +31,8 @@
    so a slide frames the same way on every screen. */
 .canvas-label.slide-title { width: 900px; box-sizing: border-box; max-width: none; padding: 10px 24px 12px; font: 600 40px/1.15 Georgia, serif; }
 .slide-eyebrow {
+  /* Hide section labels without shifting saved titles or canvas framing. */
+  visibility: hidden;
   display: block; margin-bottom: 8px; color: #8a7455;
   font: 650 13px/1.4 system-ui, -apple-system, sans-serif; letter-spacing: .12em; text-transform: uppercase;
 }

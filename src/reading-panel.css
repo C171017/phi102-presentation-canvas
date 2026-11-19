@@ -14,11 +14,6 @@
 /* Keep the camera's frame while letting artwork continue beneath the notes. */
 #presentation-shell #viewport { left: 33.333333%; overflow: visible; }
 
-/* Let the artwork continue beneath the entire frosted reading panel. */
-#presentation-shell .page-background {
-  left: calc(100% - 100vw);
-}
-
 #reading-panel {
   position: absolute;
   inset: 18px auto 18px 18px;
@@ -30,24 +25,25 @@
   background: transparent;
   border: 0;
   border-radius: 22px;
-  color: #322f28;
+  color: #fbf7ef;
+  text-shadow: 0 1px 2px rgb(0 0 0 / .6);
   font: 400 clamp(16px, 1.22vw, 19px)/1.62 Georgia, serif;
 }
 
-/* The same feathered backdrop treatment as the diagram labels, enlarged
-   so the paper dissolves into the canvas without blurring the text. */
+/* Keep the frosted glass behind the text so the notes stay sharp. */
 #reading-panel::before {
   content: '';
   position: absolute;
-  inset: -18px -42px;
+  inset: 0;
   pointer-events: none;
-  background: rgb(255 254 250 / .78);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  mask-image:
-    linear-gradient(to right, transparent, #000 42px, #000 calc(100% - 64px), transparent),
-    linear-gradient(to bottom, transparent, #000 36px, #000 calc(100% - 36px), transparent);
-  mask-composite: intersect;
+  border-radius: inherit;
+  background: var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow:
+    var(--glass-rim),
+    inset 0 1px 0 rgb(255 255 255 / .2),
+    0 8px 22px rgb(15 21 19 / .18);
 }
 
 .reading-content {
@@ -59,11 +55,12 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
+  scrollbar-color: #a9b6ae transparent;
   padding: clamp(18px, 2.15vw, 34px);
 }
 
 .reading-content:focus-visible {
-  outline: 2px solid #58716c;
+  outline: 2px solid #c5e4d9;
   outline-offset: -3px;
   border-radius: inherit;
 }
@@ -74,9 +71,28 @@
   overflow-wrap: anywhere;
 }
 
-.reading-page header { margin-block-end: 1.2em; }
+/* Retain the canvas anchors' geometry without showing duplicate headings. */
+.canvas-label.canvas-page-heading {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.reading-page header {
+  margin-block-end: 1.2em;
+  padding-block-end: 1em;
+  border-block-end: 1px solid rgb(255 255 255 / .2);
+}
+
+.reading-page .reading-description {
+  max-inline-size: 44ch;
+  margin: 1rem auto 0;
+  color: #e0ebe5;
+  font: 400 .84em/1.5 system-ui, sans-serif;
+  text-align: center;
+  text-wrap: balance;
+}
 .reading-page .reading-section {
-  color: #5e685f;
+  color: #e0ebe5;
   font: 600 .72em/1.4 system-ui, sans-serif;
   margin: 0 0 .65rem;
 }
@@ -91,7 +107,7 @@
 }
 
 .reading-page h2 {
-  color: #334c4c;
+  color: #def0e7;
   font: 650 .92em/1.35 system-ui, sans-serif;
   margin: 1.45em 0 .45em;
 }
@@ -104,7 +120,7 @@
 .reading-page ul,
 .reading-page ol { padding-inline-start: 1.35em; }
 .reading-page li + li { margin-block-start: .5em; }
-.reading-page li::marker { color: #4f6a60; }
+.reading-page li::marker { color: #d3ece0; }
 
 @media (max-width: 900px) and (min-width: 641px) {
   #presentation-shell #viewport { left: 38%; }
@@ -112,7 +128,6 @@
 }
 
 @media (max-width: 640px) {
-  #presentation-shell .page-background { left: 0; top: calc(100% - 100vh); }
   #reading-panel { inset: 10px 10px auto; width: auto; height: calc(44% - 15px); border-radius: 16px; }
   #presentation-shell #viewport { left: 0; top: 44%; }
 }

@@ -31,7 +31,7 @@ type Link = {
   group: SVGGElement;
   line: SVGPathElement;
   flow: SVGPathElement;
-  tip: SVGPathElement;
+  silhouette: SVGPathElement;
 };
 
 export function createConnections(world: HTMLElement) {
@@ -44,15 +44,20 @@ export function createConnections(world: HTMLElement) {
     group.classList.add('canvas-link', family);
     group.dataset.source = sourceId;
     group.dataset.target = targetId;
+    const clip = document.createElementNS(svgNS, 'clipPath');
+    clip.id = `link-clip-${sourceId}-${targetId}`;
+    const silhouette = document.createElementNS(svgNS, 'path');
+    clip.append(silhouette);
+    const strokes = document.createElementNS(svgNS, 'g');
+    strokes.setAttribute('clip-path', `url(#${clip.id})`);
     const line = document.createElementNS(svgNS, 'path');
     const flow = document.createElementNS(svgNS, 'path');
-    const tip = document.createElementNS(svgNS, 'path');
     line.classList.add('link-line');
     flow.classList.add('link-flow');
-    tip.classList.add('link-tip');
-    group.append(line, flow, tip);
+    strokes.append(line, flow);
+    group.append(clip, strokes);
     layer.append(group);
-    links.push({ source, target, preferRow: target.classList.contains('slide-title'), group, line, flow, tip });
+    links.push({ source, target, preferRow: target.classList.contains('slide-title'), group, line, flow, silhouette });
   }
   const aims = world.querySelector<SVGSVGElement>('#connections')!;
   const regress = world.querySelector<SVGSVGElement>('#regress-connections')!;
@@ -86,22 +91,30 @@ function roundedRoute(from: Port, to: Port, gap: number) {
   // Peel off earlier for larger detours so neighboring branches get their own lanes.
   const turn = a[axis] + (0.5 - Math.min(0.18, Math.abs(shift) / (4 * span))) * span * side;
   const tipLength = Math.min(22, span * 0.19);
-  const tipBase: Point = [...b];
-  tipBase[axis] -= side * tipLength;
-  const radius = Math.min(96, Math.abs(shift) / 2, Math.abs(turn - a[axis]), Math.abs(tipBase[axis] - turn));
-  const point = (along: number, across: number): Point => axis === 0 ? [along, across] : [across, along];
-  const at = (along: number, across: number) => vector(point(along, across));
+  const base = b[axis] - side * tipLength;
+  const radius = Math.min(144, Math.abs(shift) / 2, Math.abs(turn - a[axis]), Math.abs(base - turn));
+  const at = (along: number, across: number) => vector(axis === 0 ? [along, across] : [across, along]);
   const bend = Math.sign(shift) * radius;
-  const d = Math.abs(shift) < 0.5 ? `M${vector(a)}L${vector(tipBase)}` :
+  const sweep = side * shift * (axis === 0 ? 1 : -1) > 0 ? 1 : 0;
+  const arc = `A${+radius.toFixed(2)} ${+radius.toFixed(2)} 0 0`;
+  const straight = Math.abs(shift) < 0.5;
+  const d = straight ? `M${vector(a)}L${vector(b)}` :
     `M${vector(a)}L${at(turn - side * radius, a[cross])}` +
-    `Q${at(turn, a[cross])} ${at(turn, a[cross] + bend)}` +
-    `L${at(turn, b[cross] - bend)}Q${at(turn, b[cross])} ${at(turn + side * radius, b[cross])}L${vector(tipBase)}`;
+    `${arc} ${sweep} ${at(turn, a[cross] + bend)}` +
+    `L${at(turn, b[cross] - bend)}${arc} ${1 - sweep} ${at(turn + side * radius, b[cross])}L${vector(b)}`;
 
-  // A narrow wedge continues the track rather than placing an arrowhead on top of it.
-  const base = tipBase[axis] - side * 0.3;
-  const tip = `M${at(base, b[cross] - 2.5)}L${vector(b)}L${at(base, b[cross] + 2.5)}Z`;
-  const period = Math.min(310, Math.max(30, span + Math.abs(shift) - radius - tipLength));
-  return { d, tip, period };
+  // Taper both strokes together so the moving dash can sweep the entire arrowhead.
+  const start = a[axis] - side * 5;
+  const low = Math.min(a[cross], b[cross]) - 5;
+  const high = Math.max(a[cross], b[cross]) + 5;
+  const shoulder = base + side * tipLength * 0.4;
+  const silhouette = `M${at(start, low)}L${at(base, low)}L${at(base, b[cross] - 2.5)}` +
+    `Q${at(shoulder, b[cross] - 2.5)} ${vector(b)}` +
+    `Q${at(shoulder, b[cross] + 2.5)} ${at(base, b[cross] + 2.5)}` +
+    `L${at(base, high)}L${at(start, high)}Z`;
+  const length = straight ? Math.hypot(span, shift) : span + Math.abs(shift) - (4 - Math.PI) * radius;
+  const period = Math.min(310, Math.max(30, length));
+  return { d, silhouette, period };
 }
 
 function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>, zoom: number) {
@@ -152,11 +165,11 @@ function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>,
 
   routes.forEach(({ link, from, to, gap }, i) => {
     if (!from || !to || gap === undefined) {
-      for (const path of [link.line, link.flow, link.tip]) if (path.hasAttribute('d')) path.removeAttribute('d');
+      for (const path of [link.line, link.flow, link.silhouette]) if (path.hasAttribute('d')) path.removeAttribute('d');
       return;
     }
-    const { d, tip, period } = roundedRoute(from, to, gap);
-    if (link.tip.getAttribute('d') !== tip) link.tip.setAttribute('d', tip);
+    const { d, silhouette, period } = roundedRoute(from, to, gap);
+    if (link.silhouette.getAttribute('d') !== silhouette) link.silhouette.setAttribute('d', silhouette);
     if (link.line.getAttribute('d') === d) return;
     link.line.setAttribute('d', d);
     link.flow.setAttribute('d', d);

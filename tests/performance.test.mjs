@@ -27,7 +27,7 @@ function geometryFixture() {
   const path = () => ({ d: '', getAttribute() { return this.d; }, setAttribute(_, d) { trace.push('write:path'); this.d = d; },
     hasAttribute() { return Boolean(this.d); }, removeAttribute() { this.d = ''; } });
   const source = element('source');
-  const links = ['upper', 'lower'].map(name => ({ source, target: element(name), line: path(), flow: path(), tip: path(),
+  const links = ['upper', 'lower'].map(name => ({ source, target: element(name), line: path(), flow: path(), silhouette: path(),
     group: { style: { setProperty() { trace.push('write:style'); } } } }));
   return { trace, view, origin, positions, links };
 }
@@ -42,24 +42,24 @@ test('connections separate branch lanes and follow moved or resized endpoints wi
   assert.deepEqual(f.trace.slice(0, 3), ['read:source', 'read:upper', 'read:lower']);
   assert.ok(f.trace.slice(3).every(action => action.startsWith('write:')), 'all geometry reads precede writes');
   const [upper, lower] = f.links;
-  assert.match(upper.line.d, /^M134 -10L.*Q/);
-  assert.match(lower.line.d, /^M134 10L.*Q/);
-  assert.match(upper.tip.d, /L406 -150L/);
+  assert.match(upper.line.d, /^M134 -10L.*A.*AL?[^A]+L406 -150$/);
+  assert.match(lower.line.d, /^M134 10L.*A.*L406 150$/);
+  assert.match(upper.silhouette.d, /Q[^Q]+ 406 -150Q/, 'taper reaches the same tip as the stroke');
   assert.equal(upper.flow.d, upper.line.d);
   f.trace.length = 0;
   update();
   assert.ok(f.trace.every(action => action.startsWith('read:')), 'unchanged paths are not rewritten');
   Object.assign(f.positions.upper, { x: -700, y: 0, width: 200 });
   update();
-  assert.match(upper.line.d, /^M-134 0L/);
-  assert.match(upper.tip.d, /L-586 0L/);
+  assert.equal(upper.line.d, 'M-134 0L-586 0');
+  assert.equal(upper.flow.d, upper.line.d, 'the moving highlight reaches the end of the taper');
   upper.preferRow = true;
   Object.assign(f.positions.upper, { x: 600, y: -750 });
   update();
-  assert.match(upper.line.d, /^M134 -10L.*Q/, 'slide-to-slide links stay in the side corridor');
+  assert.match(upper.line.d, /^M134 -10L.*A/, 'slide-to-slide links stay in the side corridor');
   Object.assign(f.positions.upper, { x: 0, y: 0 });
   update();
-  assert.ok([upper.line, upper.flow, upper.tip].every(part => !part.d), 'overlapping endpoints do not produce a stray link');
+  assert.ok([upper.line, upper.flow, upper.silhouette].every(part => !part.d), 'overlapping endpoints do not produce a stray link');
 });
 
 test('group movement batches position reads and schedules one save and connection update', () => {
