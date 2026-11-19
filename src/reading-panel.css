@@ -1,5 +1,7 @@
 #presentation-shell {
-  position: fixed; inset: 0; background-color: #faf9f6;
+  position: fixed;
+  inset: 0;
+  background-color: #faf9f6;
   --grid-size: 12px;
   --grid-coarse-size: calc(var(--grid-size) * 2);
   background-image:
@@ -8,67 +10,109 @@
   background-size: var(--grid-size) var(--grid-size), var(--grid-coarse-size) var(--grid-coarse-size);
   background-position: var(--grid-fine-position, center), var(--grid-coarse-position, center);
 }
-#presentation-shell #viewport { left: 33.333333%; }
-#reading-panel {
-  position: absolute; inset: 18px auto 18px 18px; width: calc(33.333333% - 30px);
-  display: flex; flex-direction: column; min-height: 0; overflow: hidden;
-  background: #fffefa; border: 1px solid #ded9ce; border-radius: 22px;
-  z-index: 5; box-shadow: 0 18px 55px #322a2017, 0 3px 10px #322a200b; color: #322f28;
-  font: 400 clamp(15px, 1.2vw, 19px)/1.65 Georgia, serif;
+
+/* Keep the camera's frame while letting artwork continue beneath the notes. */
+#presentation-shell #viewport { left: 33.333333%; overflow: visible; }
+
+/* Let the artwork continue beneath the entire frosted reading panel. */
+#presentation-shell .page-background {
+  left: calc(100% - 100vw);
 }
-.reading-header { padding: 24px 26px 18px; border-bottom: 1px solid #e8e3d9; flex-shrink: 0; }
-.reading-eyebrow { display: block; font: 600 11px/1.4 system-ui,sans-serif; letter-spacing: .13em; color: #7b7568; margin-bottom: 14px; }
-#reading-slide { width: 100%; border: 1px solid #ded9ce; border-radius: 9px; padding: 10px 28px 10px 10px; color: #334c4c; background: #f6f5ef; font: 500 13px/1.5 system-ui,sans-serif; text-overflow: ellipsis; }
-.reading-content { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 32px; scrollbar-width: thin; }
-.reading-content h1 { font-size: clamp(25px, 2.15vw, 36px); line-height: 1.12; font-weight: 500; letter-spacing: -.025em; margin: 0 0 20px; text-wrap: balance; }
-.reading-content h2 { font: 650 .85em/1.4 system-ui,sans-serif; margin: 26px 0 9px; color: #334c4c; }
-.reading-content p { margin: 0 0 14px; }
-.reading-content .reading-lead { font-size: 1.12em; line-height: 1.5; color: #686151; padding-bottom: 20px; border-bottom: 1px solid #e8e3d9; }
-.reading-content strong { font-weight: 600; }
-.reading-content ol { padding-left: 22px; margin: 0; }
-.reading-content li { padding-left: 4px; margin-bottom: 15px; }
-.reading-content dl { margin: 0; }
-.reading-content dt { font-weight: 700; margin-top: 17px; }
-.reading-content dd { margin: 4px 0 0; }
-.reading-routes dt { color: var(--route-color); }
-.reading-takeaway { border-left: 3px solid #81978e; background: #f1f4ee; padding: 14px 16px; margin: 23px 0 10px; border-radius: 0 10px 10px 0; }
-.reading-takeaway > strong { font: 650 .8em/1.5 system-ui,sans-serif; color: #334c4c; }
-.reading-takeaway p { margin: 6px 0 0; }
-.reading-footer { flex-shrink: 0; display: flex; flex-wrap: wrap; gap: 7px 14px; padding: 14px 26px; border-top: 1px solid #e8e3d9; font: 11px/1.5 system-ui,sans-serif; color: #777062; }
-.reading-footer a { color: #356b60; text-underline-offset: 3px; }
-#reading-panel :focus-visible { outline: 2px solid #58716c; outline-offset: -2px; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+#reading-panel {
+  position: absolute;
+  inset: 18px auto 18px 18px;
+  width: calc(33.333333% - 30px);
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  z-index: 5;
+  background: transparent;
+  border: 0;
+  border-radius: 22px;
+  color: #322f28;
+  font: 400 clamp(16px, 1.22vw, 19px)/1.62 Georgia, serif;
+}
+
+/* The same feathered backdrop treatment as the diagram labels, enlarged
+   so the paper dissolves into the canvas without blurring the text. */
+#reading-panel::before {
+  content: '';
+  position: absolute;
+  inset: -18px -42px;
+  pointer-events: none;
+  background: rgb(255 254 250 / .78);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  mask-image:
+    linear-gradient(to right, transparent, #000 42px, #000 calc(100% - 64px), transparent),
+    linear-gradient(to bottom, transparent, #000 36px, #000 calc(100% - 36px), transparent);
+  mask-composite: intersect;
+}
+
+.reading-content {
+  position: relative;
+  border-radius: inherit;
+  mask-image: linear-gradient(to bottom, transparent, #000 16px, #000 calc(100% - 18px), transparent);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding: clamp(18px, 2.15vw, 34px);
+}
+
+.reading-content:focus-visible {
+  outline: 2px solid #58716c;
+  outline-offset: -3px;
+  border-radius: inherit;
+}
+
+.reading-page {
+  max-inline-size: 58ch;
+  margin-inline: auto;
+  overflow-wrap: anywhere;
+}
+
+.reading-page header { margin-block-end: 1.2em; }
+.reading-page .reading-section {
+  color: #5e685f;
+  font: 600 .72em/1.4 system-ui, sans-serif;
+  margin: 0 0 .65rem;
+}
+
+.reading-page h1 {
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 600;
+  line-height: 1.13;
+  letter-spacing: -.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.reading-page h2 {
+  color: #334c4c;
+  font: 650 .92em/1.35 system-ui, sans-serif;
+  margin: 1.45em 0 .45em;
+}
+
+.reading-page p,
+.reading-page ul,
+.reading-page ol { margin: 0 0 .9em; }
+
+.reading-page > :last-child { margin-bottom: 0; }
+.reading-page ul,
+.reading-page ol { padding-inline-start: 1.35em; }
+.reading-page li + li { margin-block-start: .5em; }
+.reading-page li::marker { color: #4f6a60; }
+
 @media (max-width: 900px) and (min-width: 641px) {
   #presentation-shell #viewport { left: 38%; }
   #reading-panel { width: calc(38% - 20px); inset: 12px auto 12px 12px; }
-  .reading-header, .reading-content { padding: 18px; }
 }
+
 @media (max-width: 640px) {
+  #presentation-shell .page-background { left: 0; top: calc(100% - 100vh); }
   #reading-panel { inset: 10px 10px auto; width: auto; height: calc(44% - 15px); border-radius: 16px; }
   #presentation-shell #viewport { left: 0; top: 44%; }
-  .reading-header { padding: 10px 16px; }
-  .reading-eyebrow { display: none; }
-  .reading-content { padding: 18px; }
-  .reading-footer { padding: 8px 16px; }
 }
-
-.reading-source { margin-top: 28px; color: #786b57; font: 12px/1.5 system-ui, sans-serif; }
-
-/* Reading aids stay inside the notes; they never participate in canvas layout. */
-.reading-visual {
-  margin: 19px 0 25px;
-  padding: 14px 12px 12px;
-  border: 1px solid #dedfd4;
-  border-radius: 12px;
-  background: #f7f8f2;
-  font-family: system-ui, sans-serif;
-}
-.reading-visual-label { color: #526c62; font-size: .72em; font-weight: 650; line-height: 1.4; margin: 0 2px 11px; }
-.reading-visual svg { display: block; width: 100%; height: auto; overflow: visible; }
-.reading-visual svg text { font-family: system-ui, sans-serif; font-weight: 500; }
-.reading-visual .rv-sage { fill: #e4eee5; stroke: #a8beb0; }
-.reading-visual .rv-sand { fill: #f4ead8; stroke: #cfb996; }
-.reading-visual .rv-lavender { fill: #ece8f2; stroke: #bdb1cd; }
-.reading-visual .rv-rose { fill: #f7e7e1; stroke: #ceaa9d; }
-.reading-visual .rv-paper { fill: #fffefa; stroke: #b6b7a8; }
-.reading-visual figcaption { margin: 9px 2px 0; color: #5f695e; font: 400 .72em/1.5 system-ui, sans-serif; }

@@ -20,4 +20,4 @@ export const slides = [
   { title: 'The Catch: A Cognitive Home?', members: ['home-heading', 'home-weather', 'home-cartesian'] },
   { title: 'A Cognitive Mobile Home', members: ['mobile-heading', 'mobile-scene'] },
   { title: 'Takeaways', members: ['conclusion-heading', 'conclusion-points', 'conclusion-scope'] },
-];
+] as const;
