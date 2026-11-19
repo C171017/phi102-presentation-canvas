@@ -49,6 +49,8 @@ export function initializePaperSlides(world: HTMLElement) {
     eyebrow.className = 'slide-eyebrow';
     eyebrow.textContent = `${slide.lane} · ${slide.section}`;
     const name = document.createElement('div');
+    name.setAttribute('role', 'heading');
+    name.setAttribute('aria-level', '1');
     name.textContent = slide.title;
     const text = document.createElement('p');
     text.className = 'label-description';

@@ -7,16 +7,8 @@ export function createReadingPanel() {
   const article = document.createElement('article');
   article.className = 'reading-content';
   article.tabIndex = 0;
-  article.setAttribute('aria-labelledby', 'reading-title');
+  article.setAttribute('aria-labelledby', 'reading-description');
   panel.append(article);
-
-  // Keep the original boxes as invisible anchors for saved positions,
-  // connections, and slide framing; the reading panel owns their visible text.
-  for (const slide of slides) {
-    const heading = document.getElementById(slide.members[0])!;
-    heading.classList.add('canvas-page-heading');
-    heading.setAttribute('aria-hidden', 'true');
-  }
 
   let current = -1;
   function update(index: number) {
@@ -28,8 +20,7 @@ export function createReadingPanel() {
       <div class="reading-page">
         <header>
           <p class="reading-section">${reading.section}</p>
-          <h1 id="reading-title">${slide.title}</h1>
-          <p class="reading-description">${slide.description}</p>
+          <p id="reading-description" class="reading-description">${slide.description}</p>
         </header>
         ${reading.body}
       </div>`;

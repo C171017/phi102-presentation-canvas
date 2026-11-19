@@ -209,7 +209,7 @@ function moveSelection(label: HTMLElement, dx: number, dy: number) {
   layout.schedule();
   invalidateConnections();
 }
-world.querySelectorAll<HTMLElement>('.canvas-label:not(.canvas-page-heading)').forEach((label) => {
+world.querySelectorAll<HTMLElement>('.canvas-label').forEach((label) => {
   if (readOnly) {
     // These illustrations replay when they receive keyboard focus.
     if (label.matches('.scene, .regress-position')) label.tabIndex = 0;
@@ -307,7 +307,7 @@ viewport.addEventListener('pointermove', (event) => {
     const right = Math.max(drag.startX, event.clientX), bottom = Math.max(drag.startY, event.clientY);
     const bounds = viewport.getBoundingClientRect();
     const hits = [...drag.retained];
-    world.querySelectorAll<HTMLElement>('.canvas-label:not(.canvas-page-heading)').forEach(item => {
+    world.querySelectorAll<HTMLElement>('.canvas-label').forEach(item => {
       const rect = item.getBoundingClientRect();
       if (rect.right >= left && rect.left <= right && rect.bottom >= top && rect.top <= bottom) hits.push(item);
     });
