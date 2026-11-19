@@ -1,7 +1,8 @@
-/* Sketched 2.5D illustrations and the slide titles that sit above them. */
+/* 2.5D illustrations and the slide titles that sit above them. */
 .scene { max-width: none; }
 .scene-art { display: block; overflow: visible; }
-.scene-art .sk { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.scene-art .sk { stroke-linecap: round; stroke-linejoin: round; }
+.scene-art .sk:not([fill]) { fill: none; }
 .scene-art text { user-select: none; -webkit-user-select: none; }
 
 /* Hovering replays the construction; the finished drawing always stays. */
@@ -23,6 +24,15 @@
   animation-delay: calc(var(--i) * var(--beat, 360ms));
 }
 @keyframes scene-move { from { transform: translateX(var(--from, 0px)); } }
+/* The arrowhead stays at first-order justification as its tail follows the caravan. */
+@media (prefers-reduced-motion: no-preference) {
+  .scene.is-playing .base-fixes-arrow {
+    transform-origin: 311px 261px;
+    animation: base-fixes-shift 1100ms cubic-bezier(.45, 0, .2, 1) both;
+    animation-delay: calc(2 * var(--beat));
+  }
+  @keyframes base-fixes-shift { from { transform: scaleX(.49); } }
+}
 @media (prefers-reduced-motion: reduce) {
   .scene.is-playing .st, .scene.is-playing .mv, .scene.is-playing .provisional-foundations { animation: none; }
 }

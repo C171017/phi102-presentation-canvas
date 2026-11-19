@@ -1,7 +1,4 @@
-// A tiny hand-drawn 2.5D drawing kit for the canvas illustrations.
-// Everything is plain SVG markup: seeded wobble for the sketched line, oblique
-// faces for depth, and flat offset copies for shadows (no filters, so pan and
-// zoom stay cheap). The same seed always produces the same drawing.
+// SVG shapes and oblique faces for the canvas illustrations.
 
 export const P = {
   ink: '#322a20', soft: '#62584b', faint: '#94816a', line: '#a58a67',
@@ -15,29 +12,15 @@ export const P = {
 };
 export type Pt = [number, number];
 
-let state = 1;
-export const reseed = (value: number) => { state = value % 2147483647 || 1; };
-const rnd = () => (state = state * 48271 % 2147483647) / 2147483647 - 0.5;
 const n = (value: number) => +value.toFixed(1);
 
-/** One slightly bowed, slightly misplaced pen stroke. */
-function seg(x1: number, y1: number, x2: number, y2: number, wobble = 1.5) {
-  const length = Math.hypot(x2 - x1, y2 - y1) || 1;
-  const bow = Math.min(3.2, length * 0.016) * rnd() * 2;
-  const mx = (x1 + x2) / 2 - (y2 - y1) / length * bow, my = (y1 + y2) / 2 + (x2 - x1) / length * bow;
-  return `M${n(x1 + rnd() * wobble)} ${n(y1 + rnd() * wobble)}Q${n(mx)} ${n(my)} ${n(x2 + rnd() * wobble)} ${n(y2 + rnd() * wobble)}`;
-}
-type Pen = { c?: string; w?: number; o?: number; dash?: string; cls?: string; single?: boolean };
-const pen = ({ c = P.ink, w = 2.1, o = 1, dash = '', cls = '' }: Pen = {}) =>
-  `class="sk ${cls}" stroke="${c}" stroke-width="${w}"${o < 1 ? ` opacity="${o}"` : ''}${dash ? ` stroke-dasharray="${dash}"` : ''}`;
+type Pen = { c?: string; w?: number; o?: number; dash?: string };
+const pen = ({ c = P.ink, w = 2.1, o = 1, dash = '' }: Pen = {}) =>
+  `class="sk" stroke="${c}" stroke-width="${w}"${o < 1 ? ` stroke-opacity="${o}"` : ''}${dash ? ` stroke-dasharray="${dash}"` : ''}`;
 
 export function line(x1: number, y1: number, x2: number, y2: number, options: Pen = {}) {
-  return `<path d="${seg(x1, y1, x2, y2)}${options.single ? '' : seg(x1, y1, x2, y2)}" ${pen(options)}/>`;
+  return `<path d="M${n(x1)} ${n(y1)}L${n(x2)} ${n(y2)}" ${pen(options)}/>`;
 }
-const edges = (points: Pt[], single = false) => points.map((p, i) => {
-  const q = points[(i + 1) % points.length];
-  return seg(p[0], p[1], q[0], q[1]) + (single ? '' : seg(p[0], p[1], q[0], q[1]));
-}).join('');
 const closed = (points: Pt[]) => `M${points.map(p => `${n(p[0])} ${n(p[1])}`).join('L')}Z`;
 
 type Fill = Pen & { shadow?: boolean | Pt; fo?: number };
@@ -46,27 +29,22 @@ const drop = (d: string, shadow: Fill['shadow']) => {
   const [dx, dy] = shadow === true ? [6, 7] : shadow;
   return `<path d="${d}" transform="translate(${dx} ${dy})" fill="${P.shadow}"/>`;
 };
-/** A filled polygon with a sketched outline and an optional hard shadow. */
+const shape = (d: string, fill: string, options: Fill = {}) =>
+  `${drop(d, options.shadow)}<path d="${d}" fill="${fill}"${options.fo !== undefined ? ` fill-opacity="${options.fo}"` : ''} ${pen(options)}/>`;
+
 export function poly(points: Pt[], fill: string, options: Fill = {}) {
-  const d = closed(points);
-  return `${drop(d, options.shadow)}<path d="${d}" fill="${fill}"${options.fo ? ` fill-opacity="${options.fo}"` : ''}/><path d="${edges(points, options.single)}" ${pen(options)}/>`;
+  return shape(closed(points), fill, options);
 }
 export const rect = (x: number, y: number, w: number, h: number, fill: string, options: Fill = {}) =>
   poly([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], fill, options);
 
-/** Rounded shapes stay geometric; a second, nudged outline gives the pencil feel. */
 export function rrect(x: number, y: number, w: number, h: number, r: number, fill: string, options: Fill = {}) {
   const d = `M${x + r} ${y}H${x + w - r}Q${x + w} ${y} ${x + w} ${y + r}V${y + h - r}Q${x + w} ${y + h} ${x + w - r} ${y + h}H${x + r}Q${x} ${y + h} ${x} ${y + h - r}V${y + r}Q${x} ${y} ${x + r} ${y}Z`;
-  return `${drop(d, options.shadow)}<path d="${d}" fill="${fill}"${options.fo ? ` fill-opacity="${options.fo}"` : ''}/>${twice(d, x + w / 2, y + h / 2, options)}`;
-}
-function twice(d: string, cx: number, cy: number, options: Pen = {}) {
-  const turn = n(rnd() * 1.6), dx = n(rnd() * 1.6), dy = n(rnd() * 1.6);
-  return `<path d="${d}" ${pen(options)}/>${options.single ? '' : `<path d="${d}" transform="rotate(${turn} ${n(cx)} ${n(cy)}) translate(${dx} ${dy})" ${pen({ ...options, o: (options.o ?? 1) * 0.55, w: (options.w ?? 2.1) * 0.8 })}/>`}`;
+  return shape(d, fill, options);
 }
 export function ell(cx: number, cy: number, rx: number, ry: number, fill: string, options: Fill = {}) {
   const d = `M${cx - rx} ${cy}A${rx} ${ry} 0 1 1 ${cx + rx} ${cy}A${rx} ${ry} 0 1 1 ${cx - rx} ${cy}Z`;
-  const second = `M${cx - rx + 1.5} ${cy + 1}A${rx + 0.8} ${ry - 1.2} ${n(rnd() * 14)} 1 1 ${cx + rx - 0.5} ${cy - 1.5}A${rx - 0.6} ${ry + 0.9} 0 1 1 ${cx - rx + 2.5} ${cy - 2}`;
-  return `${drop(d, options.shadow)}<path d="${d}" fill="${fill}"${options.fo ? ` fill-opacity="${options.fo}"` : ''}/><path d="${d}" ${pen(options)}/>${options.single ? '' : `<path d="${second}" ${pen({ ...options, o: (options.o ?? 1) * 0.5, w: (options.w ?? 2.1) * 0.8 })}/>`}`;
+  return shape(d, fill, options);
 }
 /** A soft contact shadow that sits a figure or block on the page. */
 export const ground = (cx: number, cy: number, rx: number, ry = rx * 0.22) =>
@@ -86,7 +64,7 @@ export function block(x: number, y: number, w: number, h: number, d: number, f: 
 /** A foundation stone: the canvas's brick motif, given a top and a side. */
 export function stone(x: number, y: number, w: number, h: number, d = 16, active = true, f: Faces = {}) {
   const colors: Faces = active ? {} : { face: P.dull, top: P.dullTop, side: P.dullSide, edge: P.dullEdge };
-  const edge = f.edge ?? colors.edge ?? P.stoneEdge, o = { c: edge, w: 1.2, o: 0.6, single: true };
+  const edge = f.edge ?? colors.edge ?? P.stoneEdge, o = { c: edge, w: 1.2, o: 0.6 };
   return block(x, y, w, h, d, { ...colors, ...f })
     + line(x + 2, y + h / 2, x + w - 2, y + h / 2, o)
     + line(x + w / 2, y + 2, x + w / 2, y + h / 2, o)
@@ -114,7 +92,7 @@ export function bubble(x: number, y: number, w: number, h: number, words: string
   const upper = tail === 'tl' ? `H${x + 30}L${x + 22} ${y - 20}L${x + 50} ${y}` : tail === 'tr' ? `H${x + w - 50}L${x + w - 22} ${y - 20}L${x + w - 30} ${y}` : '';
   const d = `M${x + r} ${y}${upper}H${x + w - r}Q${x + w} ${y} ${x + w} ${y + r}V${y + h - r}Q${x + w} ${y + h} ${x + w - r} ${y + h}${bottom}H${x + r}Q${x} ${y + h} ${x} ${y + h - r}V${y + r}Q${x} ${y} ${x + r} ${y}Z`;
   const lh = size * 1.3, first = y + h / 2 - (words.length - 1) * lh / 2 + size * 0.34;
-  return `${shadow ? drop(d, [5, 6]) : ''}<path d="${d}" fill="${fill}"/>${twice(d, x + w / 2, y + h / 2, { c, w: 2 })}`
+  return shape(d, fill, { c, w: 2, shadow: shadow && [5, 6] })
     + lines(x + w / 2, first, words, { size, lh, fill: b.color ?? (fill === P.paper ? P.ink : '#fff'), italic: b.italic, weight: b.weight });
 }
 
@@ -135,14 +113,14 @@ export function person(x: number, y: number, coat: string, f: { s?: number; arm?
   const stroke = `fill="none" stroke="${P.ink}" stroke-linecap="round" stroke-linejoin="round"`;
   return ground(x, y + 1 * s, 30 * s)
     + (arms[arm] ? `<path d="${arms[arm]}" ${stroke} stroke-width="${n(7 * s)}"/><path d="${arms[arm]}" fill="none" stroke="${coat}" stroke-linecap="round" stroke-linejoin="round" stroke-width="${n(3.6 * s)}"/>` : '')
-    + `<path d="${body}" fill="${coat}"/>${twice(body, x, y - 40 * s, { w: 2 })}`
+    + shape(body, coat, { w: 2 })
     + `<path d="M${X(-11)} ${Y(-36)}L${X(-13)} ${Y(-8)}" fill="none" stroke="#fff" stroke-width="${n(2.2 * s)}" stroke-linecap="round" opacity=".28"/>`
     + ell(x, y - 101 * s, 14 * s, 15 * s, P.skin, { w: 2 })
     + `<path d="M${X(-14)} ${Y(-104)}Q${X(-12)} ${Y(-119)} ${X(2)} ${Y(-117)}Q${X(13)} ${Y(-116)} ${X(14)} ${Y(-105)}Q${X(4)} ${Y(-111)} ${X(-14)} ${Y(-104)}Z" fill="${hair}"/>`
     + `<circle cx="${X(5)}" cy="${Y(-99)}" r="${n(1.5 * s)}" fill="${P.ink}"/>`;
 }
 
-/** A hand-drawn arrow; `bend` pushes its middle sideways. */
+/** The optional bend pushes the arrow's middle sideways. */
 export function arrow(x1: number, y1: number, x2: number, y2: number, a: Pen & { bend?: number; head?: number } = {}) {
   const { bend = 0, head = 10 } = a, length = Math.hypot(x2 - x1, y2 - y1) || 1;
   const cx = (x1 + x2) / 2 - (y2 - y1) / length * bend, cy = (y1 + y2) / 2 + (x2 - x1) / length * bend;

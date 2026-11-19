@@ -1,14 +1,15 @@
-/* Keep the artwork inside the display area beside the reading panel. */
+/* Tuck the artwork under the seam so it is opaque where the reading pane fades. */
 .page-background {
   --artwork-entry-edge: to right;
   position: absolute;
   inset: 0;
+  left: calc(-1 * var(--reading-seam));
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  mask-image: linear-gradient(var(--artwork-entry-edge), transparent, #000 18px);
+  mask-image: linear-gradient(var(--artwork-entry-edge), transparent, #000 calc(.5 * var(--reading-seam)));
   transition: opacity 550ms ease-in-out, visibility 0s linear 550ms;
   background: #faf7ef;
 }
@@ -37,7 +38,11 @@
 #world { z-index: 1; }
 #three-layer { z-index: 1; }
 @media (max-width: 640px) {
-  .page-background { --artwork-entry-edge: to bottom; }
+  .page-background {
+    --artwork-entry-edge: to bottom;
+    left: 0;
+    top: calc(-1 * var(--reading-seam));
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .page-background, .page-background img { transition: none; }

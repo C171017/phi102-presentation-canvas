@@ -5,7 +5,7 @@ type SlideHeading = (typeof slides)[number]['members'][0];
 // Plain-language adaptation of Greco’s chapter, organized by canvas heading ID.
 export const slideReadings = {
   'contemporary-heading': {
-    section: 'Introduction',
+    section: '§ Introduction',
     body: `
       <p>
         Imagine I say, “I know I locked the front door.” On a normal morning, remembering that I turned the
@@ -18,7 +18,7 @@ export const slideReadings = {
     `,
   },
   'flexible-heading': {
-    section: 'Introduction',
+    section: '§ Introduction',
     body: `
       <p>
         An older view also went by “contextualism.” It asks <strong>what we can take as a starting point when
@@ -36,7 +36,7 @@ export const slideReadings = {
     `,
   },
   'aim-motivations': {
-    section: 'Chapter overview',
+    section: '§§1–2 · Chapter overview',
     body: `
       <p>
         Say you’re unsure whether you locked up. If you also doubt your memory of turning the key, pointing to
@@ -49,22 +49,16 @@ export const slideReadings = {
     `,
   },
   'aim-versions': {
-    section: 'Chapter overview',
+    section: '§3 · Chapter overview',
     body: `
       <p>
         Greco explores four ways to explain how a belief’s role as a starting point can depend on the
         situation.
       </p>
-      <ul>
-        <li>Sensitive invariantism</li>
-        <li>Contextualism</li>
-        <li>Expressivism</li>
-        <li>Relativism</li>
-      </ul>
     `,
   },
   'aim-applications': {
-    section: 'Chapter overview',
+    section: '§4 · Chapter overview',
     body: `
       <p>
         Greco uses this idea to ask a question about our reasons. If you have good grounds to believe
@@ -327,21 +321,19 @@ export const slideReadings = {
   'access-heading': {
     section: '§4.1 · Access and foundationalism',
     body: `
-      <p>Consider two thoughts about getting home.</p>
+      <p>Peter is hosting a party. Consider two thoughts Justine might have.</p>
       <ol>
-        <li>“The bus runs after midnight.”</li>
-        <li>“I have good grounds for believing the bus runs after midnight.”</li>
+        <li>“The party starts at 7.”</li>
+        <li>“I’m justified in believing the party starts at 7.”</li>
       </ol>
       <p>
-        The first is about the bus. The second is about the quality of your reasons, so it’s a
-        <em>higher-order</em> thought. <strong>Access</strong> says that whenever you have good grounds to
-        believe the first, you also have good grounds to believe the second. The principle is about what you
-        have grounds to believe, whether or not you’ve stopped to think about it. It’s a form of
-        <strong>access internalism</strong>.
+        The first thought is about the party. The second is about Justine’s grounds for believing the first.
+        <strong>Access</strong> says that if she has grounds to believe the first, she also has grounds to
+        believe the second. She can have those grounds even if she never stops to reflect on them.
       </p>
       <h2>When doubt about your reasons spreads</h2>
       <p>
-        Suppose you start to wonder whether your evidence is good enough to believe the bus runs that late. It
+        Now consider a bus ride home. Suppose you start to wonder whether your evidence is good enough to believe the bus runs after midnight. It
         would make sense to become less confident that the bus actually does. Doubt about your grounds can
         carry over to the belief itself.
       </p>
@@ -386,6 +378,11 @@ export const slideReadings = {
         minds. Greco suggests a cognitive home that can shift with the situation. He calls it a <strong>mobile
         home</strong>.
       </p>
+      <p>
+        Now suppose Peter said “7,” but Justine couldn’t hear him clearly. If his actual words still fix
+        what she should believe, how could she tell what she has grounds to believe? An externalist can
+        allow that gap. Someone defending Access owes us an explanation.
+      </p>
     `,
   },
   'mobile-heading': {
@@ -429,7 +426,8 @@ export const slideReadings = {
       <p>
         Those facts make up Justine’s cognitive home for that context. In one conversation it can include what
         Peter said. When we take the possibility that he mumbled seriously, it might include what his email
-        said. What changed between those conversations can be as simple as which possibilities <em>we</em>
+        said. In the diagram, suppose the email also says seven. Her answer stays the same while
+        the grounds for that answer shift. What changed between those conversations can be as simple as which possibilities <em>we</em>
         take seriously. A further doubt about whether Justine remembers the email could move the home again.
       </p>
       <h2>Access within a context</h2>
