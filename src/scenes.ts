@@ -334,7 +334,7 @@ export const scenes: Record<string, Scene> = {
         + ell(266, 283, 68, 32, P.paper, { c: P.slate, w: 3 })
         + txt(266, 290, 'First-order', { size: 19, weight: 600 })
         + txt(363, 290, 'I have grounds to believe the party starts at 7.', example)
-        + txt(21, 323, 'Access Int.', { ...concept, size: 23 })
+        + lines(145, 309, ['Access', 'Internalism'], { ...concept, anchor: 'end', size: 23, lh: 25 })
         + arrow(155, 317, 178, 311, { c: P.slate })
         + arrow(199, 283, 199, 377, { c: P.slate, bend: 40, head: 13 })
         + txt(266, 344, 'guarantees', { ...relation, fill: P.slate })
