@@ -1,0 +1,41 @@
+.reading-circle .circle-reader,
+.reading-circle .circle-seal {
+  opacity: 0;
+  transition: opacity calc(320ms / var(--reading-circle-speed)) ease-in-out;
+}
+.reading-circle .circle-solid .circle-reader,
+.reading-circle.circle-complete .circle-seal {
+  opacity: 1;
+}
+.reading-circle .circle-seal {
+  transform: translateY(25px);
+  transition: transform calc(580ms / var(--reading-circle-speed)) cubic-bezier(.2,.72,.2,1),
+    opacity calc(320ms / var(--reading-circle-speed)) ease-out;
+}
+.reading-circle.circle-complete .circle-seal {
+  transform: translateY(0);
+}
+.reading-circle .circle-bubble {
+  opacity: 0;
+  pointer-events: none;
+}
+.reading-circle .circle-speaking .circle-bubble {
+  animation: circle-approval var(--reading-circle-interval) ease-in-out;
+}
+@keyframes circle-approval {
+  0% { opacity: 0; transform: translateY(4px); }
+  16%, 72% { opacity: 1; transform: translateY(0); }
+  96%, 100% { opacity: 0; transform: translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reading-circle .circle-reader,
+  .reading-circle .circle-seal { transition: none; transform: none; }
+  .reading-circle .circle-speaking .circle-bubble {
+    animation-name: circle-approval-reduced;
+    animation-timing-function: step-end;
+  }
+}
+@keyframes circle-approval-reduced {
+  0% { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}

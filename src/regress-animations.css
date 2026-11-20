@@ -1,7 +1,7 @@
 /* Position the title below the drawn strokes while keeping the route's anchor centered. */
 .regress-position > div {
   position: relative;
-  top: calc(var(--diagram-bottom, 162px) + 10px + .5lh);
+  top: calc(var(--diagram-bottom, 130px) + 10px + .5lh);
   left: var(--caption-offset-x, 0px);
   z-index: 1;
   color: color-mix(in srgb, var(--route-color) 76%, #2e241b);
@@ -21,23 +21,25 @@
   transform: translate(-50%, -50%);
   overflow: visible;
   pointer-events: none;
-  fill: none;
-  stroke: var(--route-color);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  user-select: none;
 }
-.regress-animation .guide { opacity: .12; stroke-width: 1.2; }
-.regress-animation .belief { fill: #faf9f6; stroke-width: 2; }
-.regress-animation .dead-end { stroke-width: 4.5; }
-.regress-animation .foundation-brick { fill: #ead0ad; stroke: #b7793f; stroke-width: 1; }
-.regress-animation .foundation-arrival { stroke-width: 4; }
-.regress-animation .spiral-belief { fill: #faf9f6; }
+.regress-animation .relief-hit { fill: transparent; pointer-events: all; }
+@media (prefers-reduced-motion: no-preference) {
+  .regress-animation.is-tracing .relief-trace path {
+    stroke-dasharray: 1 1;
+    animation: regress-trace var(--travel) linear var(--when) backwards;
+  }
+  .regress-animation.is-tracing .relief-arrival {
+    animation: regress-appear .05s ease-out var(--when) backwards;
+  }
+}
+@keyframes regress-trace { from { stroke-dashoffset: 1.01; opacity: 0; } 1% { opacity: 1; } to { stroke-dashoffset: 0; } }
+@keyframes regress-appear { from { opacity: 0; } to { opacity: 1; } }
 
 /* Match visible footprints, including belief nodes and the asymmetric spiral. */
 .route-infinitism {
   --diagram-radius: 66;
-  --diagram-bottom: 150px;
+  --diagram-bottom: 123px;
   --caption-offset-x: 24px;
 }
 .route-coherentism { --diagram-radius: 72; }

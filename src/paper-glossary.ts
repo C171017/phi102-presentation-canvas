@@ -5,6 +5,7 @@ import './paper-glossary.css';
 
 const PAGE_UNITS = 10_000;
 const INSET = 8;
+const HOVER_EXIT_DELAY = 200;
 type Box = [left: number, top: number, right: number, bottom: number];
 type Occurrence = { term: string; boxes: Box[] };
 type Page = { file: string; sheet: HTMLElement };
@@ -20,7 +21,7 @@ function validBox(box: unknown): box is Box {
     box[0] < box[2] && box[1] < box[3];
 }
 
-function createTrigger(term: Definition, boxes: Box[]) {
+function createTrigger(term: Definition, boxes: Box[], hasVisual: boolean) {
   const left = Math.min(...boxes.map(box => box[0]));
   const top = Math.min(...boxes.map(box => box[1]));
   const width = Math.max(...boxes.map(box => box[2])) - left;
@@ -29,9 +30,8 @@ function createTrigger(term: Definition, boxes: Box[]) {
   trigger.type = 'button';
   trigger.className = 'paper-term';
   trigger.setAttribute('aria-label', term.title);
-  trigger.setAttribute('aria-haspopup', 'dialog');
-  trigger.setAttribute('aria-controls', 'paper-definition');
-  trigger.setAttribute('aria-expanded', 'false');
+  trigger.setAttribute('aria-description', term.definition + (hasVisual ? ' Activate to show the illustration.' : ''));
+  trigger.toggleAttribute('data-has-visual', hasVisual);
   Object.assign(trigger.style, {
     left: percent(left, PAGE_UNITS), top: percent(top, PAGE_UNITS),
     width: percent(width, PAGE_UNITS), height: percent(height, PAGE_UNITS),
@@ -52,24 +52,19 @@ function createTrigger(term: Definition, boxes: Box[]) {
 export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focusVisual: FocusGlossaryVisual) {
   const layers: HTMLElement[] = [];
   let enabled = true;
-  let active: { trigger: HTMLButtonElement; fragment: HTMLElement } | undefined;
+  let active: { trigger: HTMLButtonElement; fragment: HTMLElement; pinned: boolean } | undefined;
+  let hideTimer: number | undefined;
 
   const popup = document.createElement('div');
-  popup.id = 'paper-definition';
   popup.className = 'paper-definition';
   popup.hidden = true;
-  popup.tabIndex = -1;
-  popup.setAttribute('role', 'dialog');
-  popup.setAttribute('aria-describedby', 'paper-definition-text');
+  popup.setAttribute('role', 'tooltip');
 
   const definition = document.createElement('p');
-  definition.id = 'paper-definition-text';
-  const dismiss = document.createElement('button');
-  dismiss.type = 'button';
-  dismiss.className = 'paper-definition-close';
-  dismiss.textContent = '×';
-  dismiss.setAttribute('aria-label', 'Close definition');
-  popup.append(definition, dismiss);
+  const visualHint = document.createElement('p');
+  visualHint.className = 'paper-definition-hint';
+  visualHint.textContent = 'Click to see the illustration';
+  popup.append(definition, visualHint);
   pane.append(popup);
 
   function visible(fragment: HTMLElement) {
@@ -79,20 +74,26 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
       term.right > bounds.left && term.left < bounds.right;
   }
 
-  function close(restoreFocus = false) {
-    if (!active) return;
-    const { trigger, fragment } = active;
+  function close() {
+    window.clearTimeout(hideTimer);
+    active?.trigger.removeAttribute('data-showing-definition');
     active = undefined;
-    trigger.setAttribute('aria-expanded', 'false');
     popup.hidden = true;
-    if (restoreFocus) (visible(fragment) ? trigger : scroll).focus({ preventScroll: true });
+  }
+
+  function leave(event: PointerEvent) {
+    if (!active || active.pinned || active.trigger.matches(':focus-visible')) return;
+    const next = event.relatedTarget;
+    if (next instanceof Node && (popup.contains(next) || active.trigger.contains(next))) return;
+    window.clearTimeout(hideTimer);
+    hideTimer = window.setTimeout(close, HOVER_EXIT_DELAY);
   }
 
   function place() {
     if (!active) return;
     const { fragment } = active;
     if (!visible(fragment)) {
-      close(popup.contains(document.activeElement));
+      close();
       return;
     }
     const paneRect = pane.getBoundingClientRect();
@@ -110,23 +111,18 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
     popup.style.top = `${y}px`;
   }
 
-  function open(term: Definition, trigger: HTMLButtonElement, target: EventTarget | null, visual?: GlossaryVisual) {
-    if (active?.trigger === trigger) {
-      close(true);
-      return;
-    }
-    close();
+  function show(term: Definition, trigger: HTMLButtonElement, target: EventTarget | null, hasVisual: boolean, pinned = false) {
     const fragments = Array.from(trigger.querySelectorAll<HTMLElement>('.paper-term-fragment'));
     const fragment = fragments.find(item => item === target) ?? fragments.find(visible);
     if (!fragment) return;
-    active = { trigger, fragment };
-    trigger.setAttribute('aria-expanded', 'true');
-    popup.setAttribute('aria-label', term.title);
+    pinned ||= active?.trigger === trigger && active.pinned;
+    close();
+    active = { trigger, fragment, pinned };
+    trigger.setAttribute('data-showing-definition', '');
     definition.textContent = term.definition;
+    visualHint.hidden = !hasVisual;
     popup.hidden = false;
     place();
-    if (!popup.hidden) popup.focus({ preventScroll: true });
-    if (visual) focusVisual(visual, pane);
   }
 
   async function load(url: string, pages: Page[], anchors: Record<string, PaperAnchor>) {
@@ -143,10 +139,25 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
         for (const occurrence of occurrences) {
           const term = definitions.get(occurrence?.term);
           if (!term || !Array.isArray(occurrence.boxes) || !occurrence.boxes.length || !occurrence.boxes.every(validBox)) continue;
-          const trigger = createTrigger(term, occurrence.boxes);
           const [left, top, , bottom] = occurrence.boxes[0];
           const visual = glossaryVisual(term.id, { page, x: left / PAGE_UNITS, y: (top + bottom) / (2 * PAGE_UNITS) }, anchors);
-          trigger.addEventListener('click', event => open(term, trigger, event.target, visual));
+          const trigger = createTrigger(term, occurrence.boxes, Boolean(visual));
+          trigger.addEventListener('pointerover', event => {
+            if (event.pointerType !== 'touch') show(term, trigger, event.target, Boolean(visual));
+          });
+          trigger.addEventListener('pointerleave', leave);
+          trigger.addEventListener('focus', () => {
+            if (trigger.matches(':focus-visible')) show(term, trigger, null, Boolean(visual));
+          });
+          trigger.addEventListener('blur', () => { if (active?.trigger === trigger) close(); });
+          trigger.addEventListener('click', event => {
+            if (visual) {
+              close();
+              focusVisual(visual, pane);
+            } else if (active?.trigger === trigger && active.pinned) {
+              close();
+            } else show(term, trigger, event.target, false, true);
+          });
           layer.append(trigger);
         }
         sheet.append(layer);
@@ -158,22 +169,20 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
   }
 
   scroll.addEventListener('scroll', place, { passive: true });
+  popup.addEventListener('pointerenter', () => window.clearTimeout(hideTimer));
+  popup.addEventListener('pointerleave', leave);
   const observer = new ResizeObserver(place);
   observer.observe(scroll);
   document.addEventListener('pointerdown', event => {
     if (!active || !(event.target instanceof Node)) return;
     if (!popup.contains(event.target) && !active.trigger.contains(event.target)) close();
   });
-  pane.addEventListener('focusout', event => {
-    if (event.relatedTarget instanceof Node && !pane.contains(event.relatedTarget)) close();
-  });
-  pane.addEventListener('keydown', event => {
+  document.addEventListener('keydown', event => {
     if (event.key !== 'Escape' || !active) return;
     event.preventDefault();
     event.stopPropagation();
-    close(true);
+    close();
   });
-  dismiss.addEventListener('click', () => close(true));
 
   return {
     load,

@@ -7,6 +7,8 @@ export type GlossaryVisual = CanvasId | { id: 'versions-map-scene'; harborView: 
 
 const visualByTerm: Partial<Record<string, GlossaryVisual>> = {
   contextualism: 'state-red',
+  proposition: 'state-red',
+  semantics: 'state-red',
   foundationalism: 'regress-foundationalism',
   coherentism: 'regress-coherentism',
   'flexible-foundationalism': 'foundation-left',
@@ -14,6 +16,7 @@ const visualByTerm: Partial<Record<string, GlossaryVisual>> = {
   relativism: { id: 'versions-map-scene', harborView: 'relativism' },
   expressivism: { id: 'versions-map-scene', harborView: 'expressivism' },
   'regress-problem': 'regress-problem',
+  taxonomy: 'regress-problem',
   skepticism: 'regress-skepticism',
   infinitism: 'regress-infinitism',
   'circular-reasoning': 'regress-coherentism',
@@ -36,16 +39,21 @@ const visualByTerm: Partial<Record<string, GlossaryVisual>> = {
   sensitivism: 'route-knowledge-scene',
   'practical-stakes': { id: 'versions-map-scene', harborView: 'sensitive-invariantism' },
   'conversational-context': { id: 'versions-map-scene', harborView: 'contextualism' },
+  'contextual-factors': 'versions-map-scene',
   'linguistic-data': 'ctx-evidence',
+  'speaker-relativism': 'ctx-criticism',
   'problem-of-disagreement': 'disagree-scene',
   'access-internalism': 'access-principle',
   access: 'access-principle',
   'higher-order': 'access-doubt',
   'first-order': 'access-doubt',
+  supervenience: 'mobile-scene',
   'supervenience-base': 'mobile-scene',
   'local-base': 'mobile-scene',
   'global-base': 'mobile-scene',
   presupposition: 'mobile-scene',
+  'relevant-possibilities': 'mobile-scene',
+  'epistemic-access': 'mobile-scene',
   introspection: 'home-cartesian',
   'cognitive-home': 'home-cartesian',
   'mobile-home': 'mobile-scene',
@@ -53,7 +61,7 @@ const visualByTerm: Partial<Record<string, GlossaryVisual>> = {
 
 // The same term can refer to a different example later in the chapter.
 const passages: { start: string; end: string; terms: string[]; visual: GlossaryVisual }[] = [
-  { start: 'paper-social-objection', end: 'route-hinges-heading', terms: ['objector-group', 'subjectivism', 'epistemic-norm', 'foundational-justification'], visual: 'route-social-worry' },
+  { start: 'paper-social-objection', end: 'route-hinges-heading', terms: ['objector-group', 'subjectivism', 'epistemic-norm', 'foundational-justification'], visual: 'si-worry' },
   { start: 'si-heading', end: 'hinges-si-heading', terms: ['sensitive-invariantism', 'epistemic-norm', 'epistemic-community', 'foundational-justification'], visual: 'si-scene' },
   { start: 'hinges-si-heading', end: 'ctx-heading', terms: ['sensitive-invariantism', 'hinge', 'inquiry', 'foundational-justification'], visual: 'hinges-si-scene' },
   { start: 'ctx-heading', end: 'hinges-ctx-heading', terms: ['contextualism', 'epistemic-community', 'foundational-justification'], visual: 'ctx-criticism' },

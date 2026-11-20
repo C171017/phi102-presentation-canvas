@@ -1,0 +1,26 @@
+/* Both resting poses show the outcome. Hovering replays how each standard gets there. */
+.dilemma-strict .dilemma-frame {
+  transform-origin: 60px 193px;
+  transform: rotate(24deg);
+}
+.dilemma-strict .dilemma-support { opacity: .09; }
+.dilemma-fallible .dilemma-support { opacity: .56; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene.is-playing .dilemma-strict .dilemma-support {
+    animation: dilemma-exclude 620ms ease-in-out 220ms backwards;
+  }
+  .scene.is-playing .dilemma-strict .dilemma-frame {
+    animation: dilemma-tip 760ms cubic-bezier(.42,0,.65,1) 730ms backwards;
+  }
+  .scene.is-playing .dilemma-fallible .dilemma-support {
+    animation: dilemma-question 720ms ease-in-out backwards;
+    animation-delay: var(--question-delay, 160ms);
+  }
+  .dilemma-fallible .support-1 { --question-delay: 360ms; }
+  .dilemma-fallible .support-2 { --question-delay: 560ms; }
+  .dilemma-fallible .support-3 { --question-delay: 760ms; }
+}
+@keyframes dilemma-exclude { from { opacity: 1; } to { opacity: .09; } }
+@keyframes dilemma-tip { from { transform: rotate(0deg); } to { transform: rotate(24deg); } }
+@keyframes dilemma-question { from { opacity: 1; } to { opacity: .56; } }

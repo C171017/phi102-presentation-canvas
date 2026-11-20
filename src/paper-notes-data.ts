@@ -111,7 +111,7 @@ export const PAPER_NOTES: PaperNote[] = [
     idea: 'A whole community might accept astrology without objection. Could its standards for what counts as foundational still be wrong?',
   },
   {
-    id: 'paper-contextualist-reply', role: 'Speaker-commitment variant', title: 'Social norms × Contextualism',
+    id: 'paper-contextualist-reply', role: 'What I take for granted', title: 'Social norms × Contextualism',
     idea: 'Greco modifies the social route. Calling a belief foundational reports my own willingness to accept it without further reasons. That lets me criticize my community’s acceptance of astrology.',
   },
   {

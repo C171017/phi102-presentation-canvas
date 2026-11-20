@@ -1,5 +1,7 @@
 import { P, line, poly, rect, rrect, ell, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, doubt, star, plate, st, ring } from './sketch';
 import './scenes.css';
+import { dilemmaCrystal } from './dilemma-crystals';
+import { mountReadingCircle } from './reading-circle';
 import { mountSignalHarbor } from './signal-harbor';
 
 // Every drawing illustrates Daniel Greco, “Contextualism about Foundations” (2017).
@@ -15,12 +17,6 @@ const belief = (x: number, y: number, w = 78, h = 44, fill = P.slate) =>
   + `<path d="M${x + 14} ${y + (h < 40 ? h * 0.36 : 15)}H${x + w - 14}M${x + 14} ${y + (h < 40 ? h * 0.66 : 27)}H${x + w - 30}" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".5"/>`;
 const strut = (x: number, y1: number, y2: number, c = P.stoneEdge, o = 1) =>
   `<path d="M${x} ${y1}V${y2}" stroke="${c}" stroke-width="11" stroke-linecap="round" opacity="${o}"/><path d="M${x - 3} ${y1}V${y2}" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="${0.25 * o}"/>`;
-const beam = (x: number, y: number, w: number, d = 14) =>
-  block(x, y, w, 13, d, { face: P.slate, top: P.slateTop, side: P.slateSide, edge: P.slateSide, shadow: false });
-const skull = (x: number, y: number, s = 1, c = P.red) => `<g transform="translate(${x} ${y}) scale(${s})" stroke="${c}" color="${c}" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M-10 8L10 15M-10 15L10 8" stroke-width="3.2"/><path d="M-9 -3C-9 -14 9 -14 9 -3Q9 1.5 5 3.5V7H-5V3.5Q-9 1.5 -9 -3Z" fill="${P.paper}"/>
-  <ellipse cx="-3.4" cy="-3.2" rx="2.2" ry="2.6" fill="${c}" stroke="none"/><ellipse cx="3.4" cy="-3.2" rx="2.2" ry="2.6" fill="${c}" stroke="none"/><path d="M-1.6 4V7M1.6 4V7"/></g>`;
-
 // Shared vocabulary for the later slides.
 const slateFaces = { face: P.slate, top: P.slateTop, side: P.slateSide, edge: P.slateSide };
 const paperFaces = { face: P.paper, top: '#ffffff', side: P.dull, edge: P.ink };
@@ -55,27 +51,13 @@ const badge = (x: number, y: number, digit: string) =>
 export const scenes: Record<string, Scene> = {
   'dilemma-cartesian': {
     w: 430, h: 450,
-    label: 'Horn one: demanding indubitable foundations. Only one tiny stone qualifies, the platform tips, and the beliefs slide toward skepticism.',
-    draw: () => title(22, 30, 'Horn 1 · Descartes', 'Demand the indubitable', P.red)
-      + st(0, ground(215, 352, 190, 16)
-        + rect(246, 318, 62, 34, 'none', { c: P.dullEdge, w: 1.6, dash: '5 6' }) + doubt(277, 345, 22, P.dullEdge)
-        + rect(332, 318, 62, 34, 'none', { c: P.dullEdge, w: 1.6, dash: '5 6' }) + doubt(363, 345, 22, P.dullEdge)
-        + stone(52, 312, 62, 40, 14) + star(83, 296, 11))
-      + st(1, strut(83, 196, 300)
-        + `<g transform="rotate(13 83 196)">${beam(40, 184, 268)}${belief(74, 118, 70, 40)}${belief(170, 118, 70, 40)}</g>`)
-      + st(2, `<g transform="rotate(34 330 262)">${belief(296, 232, 70, 40)}</g>` + arrow(352, 300, 372, 372, { c: P.red, bend: -14 }) + skull(372, 396, 1.5))
-      + st(3, plate(170, 412, 268, 50, ['Principled — but almost', 'nothing qualifies'], { size: 16 }) + tag(372, 432, 'Skepticism', P.red)),
+    label: 'Only indubitable foundations qualify. Three stone supports fade and the crystal tips on the one that remains.',
+    draw: () => dilemmaCrystal(true),
   },
   'dilemma-moderate': {
     w: 430, h: 450,
-    label: 'Horn two: relaxing the standard. Plenty of stones hold the beliefs up, but each stone is open to doubt, so stopping there looks arbitrary.',
-    draw: () => title(22, 30, 'Horn 2 · Moderate foundationalism', 'Relax the standard', P.ochre)
-      + st(0, ground(215, 352, 190, 16)
-        + `<g class="provisional-foundations">${stone(52, 312, 78, 40, 14) + stone(176, 312, 78, 40, 14) + stone(300, 312, 78, 40, 14)}</g>`
-        + txt(91, 384, 'perception', small) + txt(215, 384, 'intuition', small) + txt(339, 384, '…', { size: 15, fill: P.soft }))
-      + st(1, strut(91, 190, 300) + strut(215, 190, 300) + strut(339, 190, 300) + beam(40, 178, 344)
-        + belief(64, 112, 70, 40) + belief(176, 112, 70, 40) + belief(288, 112, 70, 40))
-      + st(3, plate(215, 424, 330, 34, ['Enough — but why stop here?'], { size: 16 })),
+    label: 'Fallible foundations such as perception and intuition support the crystal. Each stone fades in turn to show that it can be doubted.',
+    draw: () => dilemmaCrystal(false),
   },
 
   'undoubted-logic': {
@@ -107,26 +89,8 @@ export const scenes: Record<string, Scene> = {
 
   'route-social-scene': {
     w: 560, h: 450,
-    label: 'A speaker gives a reason to an audience. The appropriate objector-group raises no objection, so the reason is foundational in this context. A toddler keeps asking why.',
-    draw: () => title(22, 30, 'Annis 1978', 'Reasons are given to an audience')
-      + st(0, person(78, 350, P.slate, { arm: 'point' }) + bubble(26, 130, 178, 54, ['“P, because Q”'], { tail: 'bl' }))
-      + st(1, ring(446, 292, 108, 92, P.line) + tag(446, 186, 'objector-group')
-        + person(396, 350, coat.sage, { flip: true }) + person(448, 342, coat.clay, { flip: true }) + person(500, 350, coat.dusk, { flip: true }))
-      + st(2, bubble(330, 92, 176, 48, ['“No objection”'], { tail: 'br' }) + stone(238, 306, 76, 40, 13) + star(276, 288, 12)
-        + lines(276, 372, ['Q passes', 'unchallenged'], { ...small, lh: 18 }))
-      + st(3, person(170, 354, '#c98b6b', { s: 0.55 }) + bubble(150, 246, 80, 36, ['why?'], { tail: 'bl', size: 15, italic: true, shadow: false }))
-      + st(4, plate(280, 430, 452, 32, ['Reasons stop where the audience stops objecting'], { size: 15.5 })),
-  },
-  'route-social-worry': {
-    w: 300, h: 450,
-    label: 'A worry: a whole community might wrongly take a claim for granted, and the view would still call it foundational.',
-    draw: () => title(22, 30, 'Worry', 'Too subjectivist?', P.red)
-      + st(0, ring(150, 218, 124, 100, P.line) + stone(114, 146, 72, 38, 12) + star(150, 128, 11)
-        + person(92, 296, coat.sage, { s: 0.68 }) + person(150, 290, coat.clay, { s: 0.68 }) + person(208, 296, coat.dusk, { s: 0.68, flip: true }))
-      + st(1, check(92, 196, 0.8) + check(150, 196, 0.8) + check(208, 196, 0.8))
-      + st(2, doubt(268, 120, 44))
-      + st(3, lines(150, 352, ['Nobody objects But could', 'they all be wrong to', 'take it for granted?'], { size: 16, lh: 21 }))
-      + st(4, plate(150, 428, 236, 30, ['Returns under ② Versions'], { size: 15 })),
+    label: 'Five readers gather around a book. When everyone has participated, a gold seal marks the claim as justified in this community.',
+    mount: mountReadingCircle,
   },
 
   'route-hinges-door': {
