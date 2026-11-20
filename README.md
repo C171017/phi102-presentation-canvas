@@ -49,7 +49,7 @@ Append positioned HTML to `window.presentation.world`. Its origin is the viewpor
 
 Select **Paper** on the right of the canvas in Audience or Presenter mode to read the full chapter alongside the current slide. The pane starts open in the editor and closed in the live presentation. It remembers its visibility and width in your browser.
 
-- The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize or collapse it, or focus the edge and use the arrow keys. Press **P** to toggle the pane or select **×** to close it.
+- The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize or collapse it, or focus the edge and use the arrow keys. Press **P** to toggle the pane.
 - Select a blue-underlined term to read its definition in place. Press **Escape** to dismiss it. The entries and their search phrases live in `src/paper-glossary-data.json`.
 - Run `npm run paper:pages` on macOS to regenerate the page images, manifest, and glossary coordinates in `public/readings/greco-2017/`. Production builds include these generated files.
 - `scripts/paper-anchors.json` maps each slide by its first object ID to a phrase in the PDF. Edit the mapping and regenerate the pages to change where the pane scrolls. A slide with no entry uses the previous slide’s passage.

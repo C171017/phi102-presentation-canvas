@@ -92,11 +92,6 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   tabLabel.setAttribute('aria-hidden', 'true');
   resizer.append(tabLabel);
 
-  const close = element('button', 'paper-close', '×');
-  close.type = 'button';
-  close.title = 'Hide the original paper (P)';
-  close.setAttribute('aria-label', 'Hide the original paper');
-
   const scroll = element('div', 'paper-scroll');
   scroll.id = 'paper-pages';
   scroll.tabIndex = 0;
@@ -107,7 +102,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   scrollIndicator.setAttribute('aria-hidden', 'true');
   const scrollThumb = element('div', 'paper-scroll-thumb');
   scrollIndicator.append(scrollThumb);
-  pane.append(resizer, scroll, scrollIndicator, close);
+  pane.append(resizer, scroll, scrollIndicator);
   shell.append(pane);
   const highlights = createHighlights?.(pane, scroll);
   const notes = createPaperNotes(pane, scroll, shell);
@@ -306,10 +301,6 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     hideScrollIndicator = window.setTimeout(() => scrollIndicator.classList.remove('is-visible'), 600);
   }, { passive: true });
 
-  close.addEventListener('click', () => {
-    setOpen(false);
-    savePrefs(prefs);
-  });
   pane.addEventListener('keydown', event => {
     if (!event.metaKey && !event.ctrlKey && !event.altKey && CANVAS_KEYS.has(event.key)) event.stopPropagation();
   });
