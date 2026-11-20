@@ -23,7 +23,7 @@ const foundationLineDuration = 1.9;
 const foundationLineStagger = 0.18;
 const lastFoundationArrival = foundationLineDuration + (inner.length - 1) * foundationLineStagger;
 const descriptions: Record<Kind, string> = {
-  skepticism: 'A clockwise chain of beliefs makes one loop and ends at a skull and crossbones.',
+  skepticism: 'A clockwise chain of beliefs makes one loop and ends at a skull.',
   infinitism: 'A clockwise trail passes fixed beliefs along an inward spiral, becoming indefinitely smaller with no endpoint.',
   coherentism: 'Selected mutual-support links build into a lasting interconnected set of beliefs.',
   foundationalism: 'Paths trace outward from a central belief through a ring of beliefs to a solid outer foundation of bricks.',
@@ -60,7 +60,6 @@ function movingArt(kind: Kind, seconds: number, pairs: number[][]) {
     const tangent = -Math.PI / 2 + tau * 0.92 + Math.PI / 2;
     const skullCenter = { x: endPoint.x + Math.cos(tangent) * 13, y: endPoint.y + Math.sin(tangent) * 13 };
     const skull = `<g class="skeptic-skull" transform="translate(${skullCenter.x} ${skullCenter.y})" stroke-width="1.4">
-      <path d="M-9 7L9 14M-9 14L9 7" stroke-width="2.8"/>
       <path d="M-8 -3C-8 -13 8 -13 8 -3Q8 1 4.5 3V6H-4.5V3Q-8 1 -8 -3Z" fill="#faf9f6"/>
       <ellipse cx="-3" cy="-3" rx="2" ry="2.3" fill="currentColor" stroke="none"/>
       <ellipse cx="3" cy="-3" rx="2" ry="2.3" fill="currentColor" stroke="none"/>
