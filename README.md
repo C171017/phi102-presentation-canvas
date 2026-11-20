@@ -49,7 +49,7 @@ Append positioned HTML to `window.presentation.world`. Its origin is the viewpor
 
 In **Editor** mode on `npm run dev`, a floating **Original paper** pane on the right shows Greco's chapter as page images, one sheet per PDF page with its printed page number, so the slides can be compared with the real layout (your PDF highlights included). It is absent from Audience and Presenter, from `npm run build` and `npm run build:live`, and from the deployed site.
 
-- Run `npm run paper:pages` once (macOS; it uses PDFKit, so no extra tools). It renders `public/readings/greco-2017.pdf` to `local-reading/greco-2017/`. That folder is git-ignored and outside `public/`, so it can never be built or deployed.
+- Run `npm run paper:pages` once (macOS; it uses PDFKit, so no extra tools). It renders `public/readings/greco-2017.pdf` to `local-reading/greco-2017/`. The folder is tracked in git but sits outside `public/`, so Vite never copies it into a build and it is never deployed.
 - The pane follows the current slide: it scrolls to the passage the slide covers and marks the first line in ochre. Scroll freely. **Back to slide N** returns, and **Go to slide M** moves the canvas to the slide that matches the passage you are reading. Turn off **Follow slides** to scroll independently.
 - Drag the pane's left edge (or focus it and use the arrow keys) to resize. **Hide** or `P` toggles it. Arrow keys and Space scroll the paper while it has focus. Width, visibility and follow state are remembered in browser storage (`phi102-dev-paper-v1`) only.
 - It is an overlay: it never changes the canvas size, the camera, or the saved layout.

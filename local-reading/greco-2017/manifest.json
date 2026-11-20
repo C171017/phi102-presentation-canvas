@@ -1,0 +1,169 @@
+{
+  "anchors" : {
+    "access-heading" : {
+      "page" : 6,
+      "y" : 0.85660000000000003
+    },
+    "aim-applications" : {
+      "page" : 0,
+      "y" : 0.71020000000000005
+    },
+    "aim-motivations" : {
+      "page" : 0,
+      "y" : 0.64129999999999998
+    },
+    "aim-versions" : {
+      "page" : 0,
+      "y" : 0.65849999999999997
+    },
+    "conclusion-heading" : {
+      "page" : 10,
+      "y" : 0.25090000000000001
+    },
+    "contemporary-heading" : {
+      "page" : 0,
+      "y" : 0.17380000000000001
+    },
+    "ctx-heading" : {
+      "page" : 5,
+      "y" : 0.21129999999999999
+    },
+    "dilemma-heading" : {
+      "page" : 1,
+      "y" : 0.53849999999999998
+    },
+    "disagree-heading" : {
+      "page" : 6,
+      "y" : 0.33179999999999998
+    },
+    "flexible-heading" : {
+      "page" : 0,
+      "y" : 0.48630000000000001
+    },
+    "home-heading" : {
+      "page" : 8,
+      "y" : 0.48680000000000001
+    },
+    "mobile-heading" : {
+      "page" : 8,
+      "y" : 0.80489999999999995
+    },
+    "regress-problem" : {
+      "page" : 0,
+      "y" : 0.78710000000000002
+    },
+    "route-hinges-heading" : {
+      "page" : 3,
+      "y" : 0.18509999999999999
+    },
+    "route-knowledge-heading" : {
+      "page" : 3,
+      "y" : 0.80489999999999995
+    },
+    "route-social-heading" : {
+      "page" : 2,
+      "y" : 0.30559999999999998
+    },
+    "si-heading" : {
+      "page" : 4,
+      "y" : 0.67620000000000002
+    },
+    "undoubted-heading" : {
+      "page" : 2,
+      "y" : 0.090800000000000006
+    },
+    "versions-map-heading" : {
+      "page" : 4,
+      "y" : 0.63260000000000005
+    }
+  },
+  "pages" : [
+    {
+      "file" : "page-01.png",
+      "height" : 2157,
+      "printed" : "425",
+      "width" : 1500
+    },
+    {
+      "file" : "page-02.png",
+      "height" : 2157,
+      "printed" : "426",
+      "width" : 1500
+    },
+    {
+      "file" : "page-03.png",
+      "height" : 2157,
+      "printed" : "427",
+      "width" : 1500
+    },
+    {
+      "file" : "page-04.png",
+      "height" : 2157,
+      "printed" : "428",
+      "width" : 1500
+    },
+    {
+      "file" : "page-05.png",
+      "height" : 2157,
+      "printed" : "429",
+      "width" : 1500
+    },
+    {
+      "file" : "page-06.png",
+      "height" : 2157,
+      "printed" : "430",
+      "width" : 1500
+    },
+    {
+      "file" : "page-07.png",
+      "height" : 2157,
+      "printed" : "431",
+      "width" : 1500
+    },
+    {
+      "file" : "page-08.png",
+      "height" : 2157,
+      "printed" : "432",
+      "width" : 1500
+    },
+    {
+      "file" : "page-09.png",
+      "height" : 2157,
+      "printed" : "433",
+      "width" : 1500
+    },
+    {
+      "file" : "page-10.png",
+      "height" : 2157,
+      "printed" : "434",
+      "width" : 1500
+    },
+    {
+      "file" : "page-11.png",
+      "height" : 2157,
+      "printed" : "435",
+      "width" : 1500
+    },
+    {
+      "file" : "page-12.png",
+      "height" : 2157,
+      "printed" : "436",
+      "width" : 1500
+    },
+    {
+      "file" : "page-13.png",
+      "height" : 2157,
+      "printed" : "437",
+      "width" : 1500
+    },
+    {
+      "file" : "page-14.png",
+      "height" : 2157,
+      "printed" : "438",
+      "width" : 1500
+    }
+  ],
+  "source" : "greco-2017.pdf",
+  "title" : "Greco (2017), “Contextualism about Foundations”",
+  "version" : 1
+}

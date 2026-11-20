@@ -26,7 +26,7 @@ These instructions apply only to this directory and its descendants.
 
 ## Local-only paper pane
 
-- The "Original paper" pane (`src/dev-paper.ts`) is for `npm run dev` Editor mode only. Keep it behind the `import.meta.env.DEV` branch in `main.ts`, keep its page images in git-ignored `local-reading/` (never under `public/`), and keep every reference to it out of production: after changing it, build with `npm run build` and `npm run build:live` and confirm the bundles contain none of `paper-pane`, `dev-paper` or `local-reading`.
+- The "Original paper" pane (`src/dev-paper.ts`) is for `npm run dev` Editor mode only. Keep it behind the `import.meta.env.DEV` branch in `main.ts`, keep its page images in `local-reading/` (tracked, but never under `public/`), and keep every reference to it out of production: after changing it, build with `npm run build` and `npm run build:live` and confirm the bundles contain none of `paper-pane`, `dev-paper` or `local-reading`.
 - It is an overlay. Do not resize the viewport, move the camera, or write the saved layout on its behalf.
 - Slide-to-passage mapping lives in `scripts/paper-anchors.json`, keyed by each slide's first member ID. Add an entry when adding a slide, then re-run `npm run paper:pages`.
 
