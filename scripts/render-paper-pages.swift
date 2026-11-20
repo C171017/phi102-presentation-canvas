@@ -1,11 +1,9 @@
-// Renders every page of the reading PDF to a PNG for the local-dev "Original
-// paper" pane, and records passage anchors and word bounds for highlighting.
+// Renders the original paper to PNG and records slide passage anchors and word bounds.
 //
 //   swift scripts/render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width]
 //
-// Uses macOS PDFKit, so no extra tools are needed. The output is only ever read
-// by `npm run dev`; it lives outside `public/` so Vite never copies it into a
-// build.
+// Uses macOS PDFKit. The generated files under public/readings/ are tracked so
+// production builds can copy them without running this script.
 import Foundation
 import PDFKit
 import ImageIO

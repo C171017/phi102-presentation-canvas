@@ -369,20 +369,29 @@ if (liveMode) {
     });
   });
 }
+function mountPaperPane(rolePicker?: HTMLElement) {
+  void import('./paper-pane').then(({ createPaperPane }) => {
+    paperPane = createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker });
+  });
+}
 if (localDev) {
   void import('./dev-presentation').then(({ addDevRolePicker, connectDevPresentation }) => {
     const rolePicker = addDevRolePicker(backdrop, previewRole);
     if (!previewRole) {
-      // The paper pane is local editor UI, excluded from production by localDev.
-      void import('./dev-paper').then(({ createPaperPane }) => { paperPane = createPaperPane(backdrop, rolePicker); });
+      void import('./dev-paper').then(({ createPaperPane }) => {
+        paperPane = createPaperPane(backdrop, rolePicker);
+      });
       return;
     }
+    mountPaperPane(rolePicker);
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
         reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole);
       });
     });
   });
+} else {
+  mountPaperPane();
 }
 if (import.meta.hot) {
   import.meta.hot.dispose(pageBackgrounds.dispose);

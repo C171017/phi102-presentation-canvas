@@ -45,15 +45,14 @@ Append positioned HTML to `window.presentation.world`. Its origin is the viewpor
 
 `window.presentation.goTo({ x, y, zoom }, durationMs)` smoothly moves the camera. `setStops([{ x: 0, y: 0, zoom: 1 }, ...])` defines a presentation route. `next()`, `previous()`, `reset()`, `getView()` and `saveLayout()` are available to a future controller. Keyboard input ignores editable fields and browser shortcuts. Reduced-motion preferences disable camera transitions.
 
-## Original paper beside the canvas (local editor only)
+## Original paper beside the canvas
 
-In **Editor** mode on `npm run dev`, a floating **Original paper** pane on the right shows Greco's chapter as page images, one sheet per PDF page with its printed page number, so the slides can be compared with the real layout (your PDF highlights included). It is absent from Audience and Presenter, from `npm run build` and `npm run build:live`, and from the deployed site.
+Select **Paper** on the right of the canvas in Audience or Presenter mode to read the full chapter alongside the current slide. The pane starts open in the editor and closed in the live presentation. It remembers its visibility and width in your browser.
 
-- Run `npm run paper:pages` once (macOS; it uses PDFKit, so no extra tools). It renders `public/readings/greco-2017.pdf` to `local-reading/greco-2017/`. The folder is tracked in git but sits outside `public/`, so Vite never copies it into a build and it is never deployed.
-- The pane follows the current slide: it scrolls to the passage the slide covers and marks the first line in ochre. Scroll freely. **Back to slide N** returns, and **Go to slide M** moves the canvas to the slide that matches the passage you are reading. Turn off **Follow slides** to scroll independently.
-- Drag the pane's left edge (or focus it and use the arrow keys) to resize. **Hide** or `P` toggles it. Arrow keys and Space scroll the paper while it has focus. Width, visibility and follow state are remembered in browser storage (`phi102-dev-paper-v1`) only.
-- It is an overlay: it never changes the canvas size, the camera, or the saved layout.
-- `scripts/paper-anchors.json` maps each slide (by its first object ID) to a phrase in the PDF. Edit it and re-run `npm run paper:pages` to move a slide's passage. A slide with no entry continues from the previous slide's passage.
+- The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize it, or focus the edge and use the arrow keys. Press **P** to toggle the pane or select **×** to close it.
+- Run `npm run paper:pages` on macOS to regenerate the page images and manifest in `public/readings/greco-2017/`. The tracked files are included in production builds.
+- `scripts/paper-anchors.json` maps each slide by its first object ID to a phrase in the PDF. Edit the mapping and regenerate the pages to change where the pane scrolls. A slide with no entry uses the previous slide’s passage.
+- **Section notes.** Each section of the paper has one colour: a tint behind its pages, a bar down the page edge, and a small box floating just left of the pane, with an arrow into that bar, saying what the section is for. Objections are always red; other neighbouring sections never share a colour. Boxes stay beside their section while it is on screen; click one to jump to the section's start. `N` hides or shows them (remembered in `phi102-dev-paper-notes-v1`), and they hide themselves when there is no room left of the pane. The text lives in `src/dev-paper-notes-data.ts`, keyed by anchor IDs from `scripts/paper-anchors.json`.
 
 ## Live presentation
 
