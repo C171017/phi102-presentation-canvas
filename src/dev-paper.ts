@@ -1,5 +1,6 @@
 import { slides } from './slide-content';
 import { createPaperHighlights } from './dev-paper-highlights';
+import { createPaperNotes, sectionBackgrounds } from './dev-paper-notes';
 import './dev-paper.css';
 
 // "Original paper" pane: local development only.
@@ -29,45 +30,6 @@ type Anchor = { page: number; y: number };
 type Manifest = { title: string; pages: Page[]; anchors: Record<string, Anchor> };
 type Prefs = { open: boolean; width: number | null };
 
-const INTRODUCTION_COLOR = '#f3f7fc';
-const OVERVIEW_COLOR = '#f8f4ed';
-const FOUNDATION_COLOR = '#f1f6e9';
-const OBJECTION_COLOR = '#faece6';
-const CONTEXTUALISM_COLOR = '#ecf0fc';
-const FLEXIBLE_ACCESS_COLOR = '#efe7f6';
-
-// Start each tint at the paper's own heading or the first line of a distinct argument.
-const SECTION_COLORS = {
-  'flexible-heading': FOUNDATION_COLOR,
-  'aim-motivations': OVERVIEW_COLOR,
-  'regress-problem': '#faf3e6',
-  'paper-regress-options': '#faf1df',
-  'paper-regress-dilemma': '#f9ede3',
-  'paper-relaxed-foundations': '#f9e8e2',
-  'undoubted-heading': FOUNDATION_COLOR,
-  'paper-routes': '#e7f1e8', // The heading and the first route, Annis's social account.
-  'paper-social-objection': OBJECTION_COLOR,
-  'route-hinges-heading': '#edf4e6',
-  'route-knowledge-heading': '#e6f1ed',
-  'paper-belief-at-the-base': '#edf4ef',
-  'versions-map-heading': '#ecf4fb',
-  'si-heading': '#e7f3f5',
-  'ctx-heading': CONTEXTUALISM_COLOR,
-  'paper-alternative-views': OBJECTION_COLOR, // The objection about misguided communities.
-  'paper-contextualist-reply': CONTEXTUALISM_COLOR,
-  'disagree-heading': OBJECTION_COLOR,
-  'paper-application': '#f3eef9',
-  'paper-access-principle': '#efe8f6',
-  'paper-access-objection': '#f5ebf3',
-  'paper-cognitive-home': '#f0edf7',
-  'mobile-heading': FLEXIBLE_ACCESS_COLOR,
-  'paper-party-example': '#f5f0fa',
-  'paper-context-shift': '#ecedf8',
-  'paper-access-general': FLEXIBLE_ACCESS_COLOR,
-  'conclusion-heading': OVERVIEW_COLOR,
-  'paper-notes': '#fff',
-};
-
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null;
 
 function parseManifest(value: unknown): Manifest | null {
@@ -86,26 +48,6 @@ function parseManifest(value: unknown): Manifest | null {
     anchors[id] = { page: anchor.page, y: anchor.y };
   }
   return { title: value.title, pages, anchors };
-}
-
-function pageBackgrounds({ anchors, pages }: Manifest) {
-  const sections = Object.entries(SECTION_COLORS).flatMap(([id, color]) => {
-    const anchor = anchors[id];
-    return anchor ? [{ ...anchor, color }] : [];
-  }).sort((a, b) => a.page - b.page || a.y - b.y);
-
-  let color = INTRODUCTION_COLOR;
-  let next = 0;
-  return pages.map((_, page) => {
-    const stops = [color];
-    while (sections[next]?.page === page) {
-      const section = sections[next++];
-      const position = `${(section.y * 100).toFixed(2)}%`;
-      stops.push(`${color} ${position}`, `${section.color} ${position}`);
-      color = section.color;
-    }
-    return stops.length === 1 ? color : `linear-gradient(${stops.join(', ')})`;
-  });
 }
 
 function loadPrefs(): Prefs {
@@ -162,6 +104,7 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
   pane.append(resizer, scroll, scrollIndicator);
   shell.append(pane);
   const highlights = createPaperHighlights(pane, scroll);
+  const notes = createPaperNotes(pane, scroll, shell);
 
   function slideFromProgressBar() {
     return Array.from(document.querySelectorAll('#slide-progress button')).findIndex(item => item.hasAttribute('aria-current'));
@@ -258,7 +201,8 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
   function buildPages(loaded: Manifest) {
     const lastPage = loaded.pages.findIndex(page => page.printed === LAST_READING_PAGE);
     const visiblePages = lastPage < 0 ? loaded.pages : loaded.pages.slice(0, lastPage + 1);
-    const backgrounds = pageBackgrounds(loaded);
+    // Each section's colour, shared with its margin note (dev-paper-notes.ts).
+    const backgrounds = sectionBackgrounds(loaded.anchors, visiblePages.length);
     scroll.replaceChildren();
     visiblePages.forEach((page, index) => {
       const figure = element('figure', 'paper-page');
@@ -275,6 +219,7 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
       images.push(image);
     });
     void highlights.load(`${ASSETS}words.json`, images, visiblePages.map(page => page.file));
+    notes.build(loaded.anchors, sheets);
     // A slide without its own anchor continues from the previous slide's passage.
     let previous: Anchor = { page: 0, y: 0 };
     slideAnchors = slides.map(({ members }) => {

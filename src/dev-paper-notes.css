@@ -1,0 +1,99 @@
+/* Margin notes beside the local-development "Original paper" pane. Imported only by dev-paper-notes.ts. */
+.paper-notes {
+  --note-width: 220px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: calc(100% - 7px); /* reach 7px into the pane so arrows land on the section bar */
+  z-index: 3;
+  width: calc(var(--note-width) + 37px);
+  overflow: hidden;
+  pointer-events: none;
+}
+.paper-notes[hidden] { display: none; }
+
+.paper-note-links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.paper-note-link-line {
+  fill: none;
+  stroke: var(--note-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: .75;
+}
+.paper-note-link-head { fill: var(--note-ink); opacity: .9; }
+.paper-note-link.is-linked .paper-note-link-line { stroke-width: 2.4; opacity: 1; }
+.paper-note-link.is-linked .paper-note-link-head { opacity: 1; }
+
+.paper-note {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: grid;
+  gap: 3px;
+  width: var(--note-width);
+  margin: 0;
+  padding: 8px 12px 10px 11px;
+  border: 1px solid color-mix(in srgb, var(--note-ink) 26%, #ddd6c6);
+  border-right: 3px solid var(--note-ink);
+  border-radius: 10px 5px 5px 10px;
+  background: color-mix(in srgb, var(--note-tint) 62%, #fffefa);
+  box-shadow: 0 8px 20px #322a2022, 0 1px 3px #322a201c;
+  color: #2f2c26;
+  font: 400 12.5px/1.42 system-ui, sans-serif;
+  text-align: left;
+  cursor: pointer;
+  pointer-events: auto;
+  will-change: transform;
+  transition: box-shadow .15s;
+}
+.paper-note:hover,
+.paper-note.is-linked { box-shadow: 0 10px 26px #322a2030, 0 0 0 1px var(--note-ink); }
+.paper-note:focus-visible { outline: 2px solid var(--note-ink); outline-offset: 2px; }
+
+.paper-note-role {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--note-ink);
+  font: 650 9.5px/1.2 system-ui, sans-serif;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.paper-note-role::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--note-ink);
+}
+.paper-note-title {
+  color: #23211c;
+  font: 650 13.5px/1.25 system-ui, sans-serif;
+  text-wrap: balance;
+}
+.paper-note-idea { color: #454037; text-wrap: pretty; }
+
+/* The section's extent, down the left edge of the page. */
+.paper-section-mark {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  display: none;
+  width: 4px;
+  background: var(--note-ink);
+  opacity: .7;
+  pointer-events: none;
+}
+#paper-pane.has-paper-notes .paper-section-mark { display: block; }
+.paper-section-mark.is-linked { width: 6px; opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-note { transition: none; }
+}

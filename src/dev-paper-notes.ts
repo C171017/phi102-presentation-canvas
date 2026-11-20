@@ -1,0 +1,275 @@
+import { NOTES_END_ID, OBJECTION_ROLE, PAPER_NOTES, type PaperNote } from './dev-paper-notes-data';
+import './dev-paper-notes.css';
+
+// Colour-coded margin notes for the local-only "Original paper" pane.
+//
+// Each section of the paper gets one colour: a light tint behind its pages, a
+// bar down the page edge marking where it starts and ends, and a note floating
+// just outside the pane with an arrow into that bar. Notes stick beside their
+// section while it is on screen, and scroll with the paper. `N` hides them.
+//
+// Like the pane, this is an overlay: it never touches the canvas, the camera or
+// the saved layout.
+
+type Anchor = { page: number; y: number };
+type Hue = { ink: string; tint: string };
+type Section = { note: PaperNote; hue: Hue; start: Anchor; end: Anchor };
+type Link = { group: SVGGElement; line: SVGPathElement; head: SVGPathElement };
+
+// Distinct hues in rotation, so neighbouring sections never share a colour.
+const HUES: Hue[] = [
+  { ink: '#2f5f99', tint: '#e3edfb' }, // blue
+  { ink: '#8f6a08', tint: '#fbf0cc' }, // gold
+  { ink: '#3d7a36', tint: '#e5f2dc' }, // green
+  { ink: '#6c4aa0', tint: '#eee5fa' }, // violet
+  { ink: '#17736d', tint: '#daf1ee' }, // teal
+];
+const OBJECTION_HUE: Hue = { ink: '#b2412e', tint: '#fbe2dc' }; // every objection, so pushback reads at a glance
+const END_TINT = '#fff'; // the notes and bibliography
+
+const VISIBLE_KEY = 'phi102-dev-paper-notes-v1';
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const EDGE = 14; // keep clear of the window edge, like the pane
+const LINK_ROOM = 30; // horizontal space for the arrow between a note and the pane
+const LINK_OVERLAP = 7; // how far the arrow reaches into the pane, onto the section bar
+const NOTE_MIN_WIDTH = 176;
+const NOTE_MAX_WIDTH = 236;
+const VIEW_PAD = 10;
+const STACK_GAP = 8;
+const READING_LINE = 0.18; // match dev-paper.ts: where a jumped-to passage lands
+
+const before = (a: Anchor, b: Anchor) => a.page - b.page || a.y - b.y;
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), Math.max(min, max));
+
+function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
+  const located = PAPER_NOTES.flatMap(note => {
+    const start = anchors[note.id];
+    if (!start) console.warn(`No paper passage is mapped for the note “${note.title}” ("${note.id}"). Add it to scripts/paper-anchors.json and run npm run paper:pages.`);
+    return start && start.page < pageCount ? [{ note, start }] : [];
+  }).sort((a, b) => before(a.start, b.start));
+  const endAnchor = anchors[NOTES_END_ID];
+  const end = endAnchor && endAnchor.page < pageCount ? endAnchor : { page: pageCount - 1, y: 1 };
+
+  let rotation = 0;
+  let previous: Hue | undefined;
+  const sections: Section[] = located.map(({ note, start }, index) => {
+    const hue = note.role === OBJECTION_ROLE && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length];
+    previous = hue;
+    return {
+      note,
+      hue,
+      start: index === 0 ? { page: 0, y: 0 } : start, // the first section also covers the chapter title above it
+      end: located[index + 1]?.start ?? end,
+    };
+  });
+  return { sections, end };
+}
+
+/** One CSS background per page: each section's tint, switching exactly where the next section starts. */
+export function sectionBackgrounds(anchors: Record<string, Anchor>, pageCount: number) {
+  const { sections, end } = paperSections(anchors, pageCount);
+  const stops = [...sections.map(({ start, hue }) => ({ ...start, color: hue.tint })), { ...end, color: END_TINT }];
+  let color = stops[0].color;
+  let next = 0;
+  return Array.from({ length: pageCount }, (_, page) => {
+    const parts = [color];
+    while (stops[next]?.page === page) {
+      const stop = stops[next++];
+      const position = `${(stop.y * 100).toFixed(2)}%`;
+      parts.push(`${color} ${position}`, `${stop.color} ${position}`);
+      color = stop.color;
+    }
+    return parts.length === 1 ? color : `linear-gradient(${parts.join(', ')})`;
+  });
+}
+
+function loadVisible() {
+  try { return localStorage.getItem(VISIBLE_KEY) !== 'hidden'; } catch { return true; }
+}
+
+function saveVisible(visible: boolean) {
+  try { localStorage.setItem(VISIBLE_KEY, visible ? 'shown' : 'hidden'); } catch { /* Still toggles for this visit. */ }
+}
+
+function svg<K extends keyof SVGElementTagNameMap>(tag: K, className: string) {
+  const node = document.createElementNS(SVG_NS, tag);
+  node.setAttribute('class', className);
+  return node;
+}
+
+function span(className: string, text: string) {
+  const node = document.createElement('span');
+  node.className = className;
+  node.textContent = text;
+  return node;
+}
+
+export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: HTMLElement) {
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let visible = loadVisible();
+  let sections: Section[] = [];
+  let sheets: HTMLElement[] = [];
+  let boxes: HTMLButtonElement[] = [];
+  let links: Link[] = [];
+  let marks: HTMLElement[][] = [];
+  let heights: number[] = [];
+  let measuredWidth = 0;
+  let frame = 0;
+
+  const layer = document.createElement('div');
+  layer.className = 'paper-notes';
+  layer.hidden = true;
+  layer.setAttribute('role', 'group');
+  layer.setAttribute('aria-label', 'Main idea of each section of the paper');
+  const arrows = svg('svg', 'paper-note-links');
+  arrows.setAttribute('aria-hidden', 'true');
+  layer.append(arrows);
+  pane.append(layer);
+
+  function offsetOf(anchor: Anchor) {
+    const sheet = sheets[anchor.page];
+    return sheet.offsetTop + anchor.y * sheet.offsetHeight;
+  }
+
+  function setLinked(index: number, linked: boolean) {
+    boxes[index].classList.toggle('is-linked', linked);
+    links[index].group.classList.toggle('is-linked', linked);
+    for (const mark of marks[index]) mark.classList.toggle('is-linked', linked);
+  }
+
+  function build(anchors: Record<string, Anchor>, pageSheets: HTMLElement[]) {
+    for (const box of boxes) box.remove();
+    for (const mark of marks.flat()) mark.remove();
+    arrows.replaceChildren();
+    sheets = pageSheets;
+    sections = sheets.length ? paperSections(anchors, sheets.length).sections : [];
+
+    boxes = sections.map(({ note, hue, start }, index) => {
+      const box = document.createElement('button');
+      box.type = 'button';
+      box.className = 'paper-note';
+      box.style.setProperty('--note-ink', hue.ink);
+      box.style.setProperty('--note-tint', hue.tint);
+      box.title = 'Go to the start of this section';
+      box.append(span('paper-note-role', note.role), span('paper-note-title', note.title), span('paper-note-idea', note.idea));
+      box.addEventListener('click', () => scroll.scrollTo({
+        top: Math.max(0, offsetOf(start) - scroll.clientHeight * READING_LINE),
+        behavior: reducedMotion.matches ? 'auto' : 'smooth',
+      }));
+      box.addEventListener('pointerenter', () => setLinked(index, true));
+      box.addEventListener('pointerleave', () => setLinked(index, false));
+      box.addEventListener('focus', () => setLinked(index, true));
+      box.addEventListener('blur', () => setLinked(index, false));
+      layer.append(box);
+      return box;
+    });
+
+    links = sections.map(({ hue }) => {
+      const group = svg('g', 'paper-note-link');
+      group.style.setProperty('--note-ink', hue.ink);
+      const line = svg('path', 'paper-note-link-line');
+      const head = svg('path', 'paper-note-link-head');
+      group.append(line, head);
+      arrows.append(group);
+      return { group, line, head };
+    });
+
+    // A bar down the page edge spanning the whole section, split at page breaks.
+    marks = sections.map(({ hue, start, end }) => {
+      const pieces: HTMLElement[] = [];
+      for (let page = start.page; page <= end.page && page < sheets.length; page++) {
+        const top = page === start.page ? start.y : 0;
+        const bottom = page === end.page ? end.y : 1;
+        if (bottom <= top) continue;
+        const mark = document.createElement('div');
+        mark.className = 'paper-section-mark';
+        mark.style.setProperty('--note-ink', hue.ink);
+        mark.style.top = `${(top * 100).toFixed(2)}%`;
+        mark.style.height = `${((bottom - top) * 100).toFixed(2)}%`;
+        sheets[page].append(mark);
+        pieces.push(mark);
+      }
+      return pieces;
+    });
+
+    measuredWidth = 0;
+    schedule();
+  }
+
+  function layout() {
+    frame = 0;
+    const room = pane.getBoundingClientRect().left - shell.getBoundingClientRect().left - EDGE - LINK_ROOM;
+    const width = Math.floor(Math.min(NOTE_MAX_WIDTH, room));
+    const show = visible && sections.length > 0 && !pane.classList.contains('is-collapsed') && width >= NOTE_MIN_WIDTH;
+    layer.hidden = !show;
+    pane.classList.toggle('has-paper-notes', show);
+    if (!show) return;
+    if (width !== measuredWidth) {
+      measuredWidth = width;
+      layer.style.setProperty('--note-width', `${width}px`);
+      heights = boxes.map(box => box.offsetHeight);
+    }
+
+    // Read every position first, then write, so the browser lays out once per frame.
+    const viewHeight = layer.clientHeight;
+    const base = scroll.offsetTop - scroll.scrollTop;
+    const spans = sections.map(({ start, end }) => ({ top: base + offsetOf(start), bottom: base + offsetOf(end) }));
+
+    const lineEnd = width + LINK_ROOM + LINK_OVERLAP - 2; // the tip lands on the section bar
+    let stackBottom = -Infinity;
+    spans.forEach((range, index) => {
+      const height = heights[index];
+      // Stick beside the section while it is on screen, then leave with it.
+      let top = clamp(VIEW_PAD, range.top, range.bottom - height);
+      top = Math.max(top, stackBottom + STACK_GAP); // never overlap the note above
+      stackBottom = top + height;
+
+      const box = boxes[index];
+      const onScreen = top < viewHeight && top + height > 0;
+      box.style.transform = `translateY(${Math.round(top)}px)`;
+      box.style.visibility = onScreen ? '' : 'hidden';
+
+      const link = links[index];
+      const shownTop = Math.max(range.top, 0);
+      const shownBottom = Math.min(range.bottom, viewHeight);
+      if (!onScreen || shownBottom - shownTop < 2) {
+        link.group.style.display = 'none';
+        return;
+      }
+      link.group.style.display = '';
+      const inset = Math.min(10, (shownBottom - shownTop) / 2);
+      const target = clamp(top + 24, shownTop + inset, shownBottom - inset);
+      const from = clamp(target, top + 16, top + height - 16);
+      const bend = LINK_ROOM * 0.6;
+      link.line.setAttribute('d', `M${width} ${from}C${width + bend} ${from} ${lineEnd - bend - 6} ${target} ${lineEnd - 6} ${target}`);
+      link.head.setAttribute('d', `M${lineEnd - 7} ${target - 4.5}L${lineEnd} ${target}L${lineEnd - 7} ${target + 4.5}Z`);
+    });
+  }
+
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(layout);
+  }
+
+  scroll.addEventListener('scroll', schedule, { passive: true });
+  const resized = new ResizeObserver(schedule);
+  resized.observe(pane);
+  resized.observe(shell);
+  // The notes sit outside the scrolling pages, so scrolling over them scrolls the paper.
+  layer.addEventListener('wheel', event => {
+    if (event.ctrlKey) return;
+    event.preventDefault();
+    const unit = event.deltaMode === WheelEvent.DOM_DELTA_LINE ? 16 : event.deltaMode === WheelEvent.DOM_DELTA_PAGE ? scroll.clientHeight : 1;
+    scroll.scrollTop += event.deltaY * unit;
+  }, { passive: false });
+  window.addEventListener('keydown', event => {
+    if (event.defaultPrevented || event.isComposing || event.repeat || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+    if (event.key.toLowerCase() !== 'n') return;
+    if (event.target instanceof HTMLElement && (event.target.isContentEditable || event.target.closest('input, textarea, select'))) return;
+    event.preventDefault();
+    visible = !visible;
+    saveVisible(visible);
+    schedule();
+  });
+
+  return { build };
+}
