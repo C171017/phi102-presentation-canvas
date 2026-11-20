@@ -1,6 +1,6 @@
 import { mountScene, scenes } from './scenes';
 
-// Slides 7–19: the rest of Daniel Greco, “Contextualism about Foundations” (2017).
+// The remaining slides follow Daniel Greco, “Contextualism about Foundations” (2017).
 // Each slide is a title above one row of drawings. `cx` and `top` are source
 // defaults only: once an object has a saved position in canvas-layout.json,
 // the saved position wins, so editing these never moves an object the user placed.
@@ -17,14 +17,18 @@ const deck: PaperSlide[] = [
     text: 'Asking one question means holding others fixed', scenes: ['route-hinges-door', 'route-hinges-swap'] },
   { id: 'route-knowledge', cx: 5350, top: -1400, lane: '① Route 3', section: '§2.3', title: 'Knowledge or belief at the base',
     text: 'Two familiar views turn flexible “without trying”', scenes: ['route-knowledge-scene'] },
-  { id: 'versions-map', cx: 1850, top: -560, lane: '② Different versions', section: '§3', title: 'Whose context?',
-    text: 'Four ways context could matter to “foundationally justified”', scenes: ['versions-map-scene'] },
-  { id: 'si', cx: 2900, top: -560, lane: '② Different versions', section: '§3', title: 'Sensitive invariantism',
-    text: 'One meaning; the subject’s situation helps settle the status', scenes: ['si-scene', 'si-worry'] },
-  { id: 'ctx', cx: 3950, top: -560, lane: '② Different versions', section: '§3', title: 'Contextualism',
-    text: 'What the sentence says depends on the speaker’s context', scenes: ['ctx-evidence', 'ctx-criticism'] },
+  { id: 'versions-map', cx: 1850, top: -560, lane: '② Different versions', section: '§3', title: 'Routes and versions',
+    text: 'How the routes from §2 connect to four views of foundational justification', scenes: ['versions-map-scene'] },
+  { id: 'si', cx: 2900, top: -560, lane: '② Different versions', section: '§3', title: 'Annis × Sensitive invariantism',
+    text: 'The believer’s community helps determine which beliefs are foundational', scenes: ['si-scene', 'si-worry'] },
+  { id: 'hinges-si', cx: 2080, top: -2889, lane: '② Different versions', section: '§3', title: 'Hinges × Sensitive invariantism',
+    text: 'The inquiry changes which beliefs qualify as foundations', scenes: ['hinges-si-scene'] },
+  { id: 'ctx', cx: 3950, top: -560, lane: '② Different versions', section: '§3', title: 'Annis × Contextualism',
+    text: 'The speaker’s community supplies the standards for what she says', scenes: ['ctx-evidence', 'ctx-criticism'] },
+  { id: 'hinges-ctx', cx: 4520, top: -2889, lane: '② Different versions', section: '§3', title: 'Hinges × Contextualism',
+    text: 'The inquiry the speaker is engaged in changes what the sentence says', scenes: ['hinges-ctx-scene'] },
   { id: 'disagree', cx: 5000, top: -560, lane: '② Different versions', section: '§3', title: 'The problem of disagreement',
-    text: 'Is criticism from the speaker’s own standpoint enough?', scenes: ['disagree-scene', 'disagree-exits'] },
+    text: 'The community example motivates relativist and expressivist replies', scenes: ['disagree-scene', 'disagree-exits'] },
   { id: 'access', cx: 1850, top: 280, lane: '③ Applications', section: '§4.1', title: '(Access)',
     text: 'A strong internalist principle, and one reason to want it', scenes: ['access-principle', 'access-doubt'] },
   { id: 'home', cx: 2900, top: 280, lane: '③ Applications', section: '§4.1', title: 'The catch: a cognitive home?',

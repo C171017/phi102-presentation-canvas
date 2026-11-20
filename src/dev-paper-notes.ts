@@ -53,7 +53,7 @@ function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
   let rotation = 0;
   let previous: Hue | undefined;
   const sections: Section[] = located.map(({ note, start }, index) => {
-    const hue = note.role === OBJECTION_ROLE && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length];
+    const hue = note.hue ?? (note.role === OBJECTION_ROLE && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length]);
     previous = hue;
     return {
       note,

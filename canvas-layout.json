@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "savedAt": "2026-11-20T05:29:10.678Z",
+  "savedAt": "2026-11-20T05:53:49.547Z",
   "view": {
-    "x": 979.9148481935085,
-    "y": -2453.342455280204,
-    "zoom": 0.1861352252842388
+    "x": 888.9408879205458,
+    "y": -3276.6862726460263,
+    "zoom": 0.5835526223166072
   },
   "items": {
     "flexible-heading": {
@@ -23,8 +23,8 @@
       "scale": 1
     },
     "aim-applications": {
-      "x": 838,
-      "y": -45.5693,
+      "x": 836,
+      "y": -123.078,
       "scale": 1
     },
     "foundation-left": {
@@ -38,13 +38,13 @@
       "scale": 1
     },
     "contemporary-heading": {
-      "x": -883.462,
-      "y": 803,
+      "x": -934.052,
+      "y": 747.34,
       "scale": 1
     },
     "state-red": {
-      "x": -878.199,
-      "y": 546.242,
+      "x": -912,
+      "y": 471.601,
       "scale": 1
     },
     "state-blue": {
@@ -78,83 +78,83 @@
       "scale": 1
     },
     "dilemma-heading": {
-      "x": -1288,
-      "y": -5307.24,
+      "x": -4246.96,
+      "y": -6677.05,
       "scale": 1
     },
     "dilemma-cartesian": {
-      "x": -1536,
-      "y": -5030.24,
+      "x": -4494.96,
+      "y": -6400.05,
       "scale": 1
     },
     "dilemma-moderate": {
-      "x": -1079,
-      "y": -4980.24,
+      "x": -4037.96,
+      "y": -6350.05,
       "scale": 1
     },
     "undoubted-heading": {
-      "x": -324,
-      "y": -5305.24,
+      "x": -3282.96,
+      "y": -6675.05,
       "scale": 1
     },
     "undoubted-logic": {
-      "x": -554,
-      "y": -5030.24,
+      "x": -3512.96,
+      "y": -6400.05,
       "scale": 1
     },
     "undoubted-standards": {
-      "x": -89,
-      "y": -5026.24,
+      "x": -3047.96,
+      "y": -6396.05,
       "scale": 1
     },
     "route-social-heading": {
-      "x": 4054.36,
-      "y": -5244.3,
+      "x": 170.062,
+      "y": -8887.27,
       "scale": 1
     },
     "route-social-scene": {
-      "x": 3884.36,
-      "y": -4931.3,
+      "x": 0.0625,
+      "y": -8574.27,
       "scale": 1
     },
     "route-social-worry": {
-      "x": 4354.36,
-      "y": -4931.3,
+      "x": 470.062,
+      "y": -8574.27,
       "scale": 1
     },
     "route-hinges-heading": {
-      "x": 4054.36,
-      "y": -4484.3,
+      "x": 170.062,
+      "y": -8127.27,
       "scale": 1
     },
     "route-hinges-door": {
-      "x": 3874.36,
-      "y": -4171.3,
+      "x": -9.9375,
+      "y": -7814.27,
       "scale": 1
     },
     "route-hinges-swap": {
-      "x": 4344.36,
-      "y": -4171.3,
+      "x": 460.062,
+      "y": -7814.27,
       "scale": 1
     },
     "route-knowledge-heading": {
-      "x": 4054.36,
-      "y": -3724.3,
+      "x": 170.062,
+      "y": -7367.27,
       "scale": 1
     },
     "route-knowledge-scene": {
-      "x": 4054.36,
-      "y": -3411.3,
+      "x": 170.062,
+      "y": -7054.27,
       "scale": 1
     },
     "versions-map-heading": {
-      "x": -216.111,
-      "y": -2825.1,
+      "x": -332.695,
+      "y": -2832,
       "scale": 1
     },
     "versions-map-scene": {
-      "x": -105.111,
-      "y": -2415.1,
+      "x": -227.133,
+      "y": -3325,
       "scale": 1
     },
     "si-heading": {
@@ -168,8 +168,8 @@
       "scale": 1
     },
     "si-worry": {
-      "x": 1133.89,
-      "y": -2512.1,
+      "x": 1134,
+      "y": -2511.37,
       "scale": 1
     },
     "ctx-heading": {
@@ -208,8 +208,8 @@
       "scale": 1
     },
     "access-principle": {
-      "x": 1615,
-      "y": 657,
+      "x": 1575.07,
+      "y": 663.945,
       "scale": 1
     },
     "access-doubt": {
@@ -256,7 +256,27 @@
       "x": 5320,
       "y": 657,
       "scale": 1
+    },
+    "hinges-si-heading": {
+      "x": 2080,
+      "y": -2825,
+      "scale": 1
+    },
+    "hinges-si-scene": {
+      "x": 2080,
+      "y": -2527,
+      "scale": 1
+    },
+    "hinges-ctx-heading": {
+      "x": 4520,
+      "y": -2825,
+      "scale": 1
+    },
+    "hinges-ctx-scene": {
+      "x": 4520,
+      "y": -2527,
+      "scale": 1
     }
   },
-  "writer": "bb67fd0c-bc33-4da1-ba30-aeb28a44eb44"
+  "writer": "85f9d9ae-9862-4bd2-b6b5-288463cd1d96"
 }

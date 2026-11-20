@@ -1,0 +1,476 @@
+[
+  {
+    "id": "contextualism",
+    "title": "Contextualism",
+    "aliases": ["contextualism", "contextualist", "contextualists", "epistemic contextualism", "epistemic contextualists", "contemporary contextualism"],
+    "definition": "In the contemporary sense, the same sentence can make different claims in different conversations. In older epistemology, it also named the view Greco calls flexible foundationalism."
+  },
+  {
+    "id": "proposition",
+    "title": "Proposition",
+    "aliases": ["proposition", "propositions"],
+    "definition": "The claim a sentence expresses, which can be true or false. “It’s raining” can express a claim about Davis or about Tokyo, depending on where it’s said."
+  },
+  {
+    "id": "epistemology",
+    "title": "Epistemology",
+    "aliases": ["epistemology", "epistemologist", "epistemologists"],
+    "definition": "The branch of philosophy that asks what knowledge is, what gives us good reason to believe something, and how we can tell."
+  },
+  {
+    "id": "justification",
+    "title": "Epistemic justification",
+    "aliases": ["epistemic justification", "justification", "justified belief", "justified beliefs"],
+    "definition": "Having good grounds for what you believe. A reliable forecast may justify expecting rain, even on a day when the forecast happens to be wrong."
+  },
+  {
+    "id": "foundationalism",
+    "title": "Foundationalism",
+    "aliases": ["foundationalism", "foundationalist", "foundationalists"],
+    "definition": "Some beliefs have support without needing other beliefs as reasons. They can then give us reasons to hold further beliefs."
+  },
+  {
+    "id": "coherentism",
+    "title": "Coherentism",
+    "aliases": ["coherentism", "coherentist", "coherentists"],
+    "definition": "Beliefs get their support from fitting into a mutually supporting system. Greco’s opening taxonomy represents this as a chain that loops back."
+  },
+  {
+    "id": "flexible-foundationalism",
+    "title": "Flexible foundationalism",
+    "aliases": ["flexible foundationalism", "flexible foundationalist", "flexible foundationalists"],
+    "definition": "Reasoning can start from beliefs that are taken as settled here. Change the conversation or inquiry, and a different belief can serve as the starting point."
+  },
+  {
+    "id": "sensitive-invariantism",
+    "title": "Sensitive invariantism",
+    "aliases": ["sensitive invariantism", "sensitive invariantist", "sensitive invariantists", "subject-sensitive invariantism", "subject-sensitive invariantist"],
+    "definition": "“Knows” keeps a fixed meaning. Whether someone counts as knowing can still depend on their situation, such as how much is at stake for them."
+  },
+  {
+    "id": "relativism",
+    "title": "Relativism",
+    "aliases": ["relativism", "relativist", "relativists"],
+    "definition": "The same claim can count as true or false depending on the standards of the person assessing it."
+  },
+  {
+    "id": "expressivism",
+    "title": "Expressivism",
+    "aliases": ["expressivism", "expressivist", "expressivists"],
+    "definition": "On this approach, calling a belief foundationally justified can voice a commitment to treating it as a starting point."
+  },
+  {
+    "id": "internalism",
+    "title": "Epistemic internalism",
+    "aliases": ["internalism", "internalist", "internalists", "epistemic internalism"],
+    "definition": "A family of views that ties justification to what is available from the believer’s own point of view or to their mental states."
+  },
+  {
+    "id": "externalism",
+    "title": "Epistemic externalism",
+    "aliases": ["externalism", "externalist", "externalists", "epistemic externalism"],
+    "definition": "Justification can depend on facts outside your perspective, such as whether the process that produced your belief is actually reliable."
+  },
+  {
+    "id": "semantic-paradox",
+    "title": "Semantic paradox",
+    "aliases": ["semantic paradox", "semantic paradoxes"],
+    "definition": "A puzzle about meaning or truth. If “This sentence is false” is true, what it says makes it false."
+  },
+  {
+    "id": "skeptical-paradox",
+    "title": "Skeptical paradox",
+    "aliases": ["skeptical paradox", "skeptical paradoxes"],
+    "definition": "A puzzle in which plausible ideas about knowledge or reasons lead to the conclusion that we know or can justify far less than we ordinarily think."
+  },
+  {
+    "id": "regress-problem",
+    "title": "The regress problem",
+    "aliases": ["regress problem", "regresses and foundations"],
+    "definition": "If every reason needs another reason behind it, where does justification come from? Can the chain stop, loop back, or go on forever?"
+  },
+  {
+    "id": "taxonomy",
+    "title": "Taxonomy",
+    "aliases": ["taxonomy"],
+    "definition": "A way to sort views. Here Greco sorts answers by what happens to a chain of reasons."
+  },
+  {
+    "id": "skepticism",
+    "title": "Skepticism",
+    "aliases": ["skepticism", "scepticism", "skeptic", "skeptics"],
+    "definition": "In Greco’s taxonomy, skepticism says that none of our beliefs can be justified."
+  },
+  {
+    "id": "infinitism",
+    "title": "Infinitism",
+    "aliases": ["infinitism", "infinitist", "infinitists", "infinite regress", "infinite regresses"],
+    "definition": "Every reason has a further reason behind it. The chain goes on forever, with a new reason at every step."
+  },
+  {
+    "id": "circular-reasoning",
+    "title": "Circular reasoning",
+    "aliases": ["circular reasoning", "circular argument", "circular arguments"],
+    "definition": "An argument comes back to a claim it already relied on. Imagine using A to support B, then using B as the reason to believe A."
+  },
+  {
+    "id": "regress-stopper",
+    "title": "Regress-stopper",
+    "aliases": ["regress-stopper", "regress-stoppers", "regress-stopping role", "regress-stopping"],
+    "definition": "A reason that can support an answer without itself needing another reason in the reasoning at hand."
+  },
+  {
+    "id": "foundational-justification",
+    "title": "Foundational justification",
+    "aliases": ["foundational justification", "foundationally justified", "foundationality", "foundational role", "foundational claims", "foundational beliefs", "contextually basic"],
+    "definition": "A belief is justified without drawing that justification from other beliefs. Feeling a toothache can give you grounds to believe you have one."
+  },
+  {
+    "id": "cartesian-foundationalism",
+    "title": "Cartesian foundationalism",
+    "aliases": ["Cartesian foundationalism", "Cartesian project", "Cartesian picture", "Cartesian version of foundationalism", "Cartesian sort of foundationalism", "Cartesian commitments", "indubitable foundations"],
+    "definition": "Descartes’s approach seeks foundations that can withstand every possible doubt. Greco’s dilemma is that too few beliefs meet such a demanding test."
+  },
+  {
+    "id": "indubitable",
+    "title": "Indubitable",
+    "aliases": ["indubitable", "undoubtable", "indubitability"],
+    "definition": "Impossible to doubt. Greco reserves “undoubted” for claims that are treated as settled in a particular inquiry."
+  },
+  {
+    "id": "undoubted",
+    "title": "Undoubted",
+    "aliases": ["undoubted", "free from doubt", "exempt from doubt"],
+    "definition": "Treated as settled in the current inquiry. A memory can be undoubted in an everyday conversation and questioned in an investigation."
+  },
+  {
+    "id": "incorrigible",
+    "title": "Incorrigible",
+    "aliases": ["incorrigible"],
+    "definition": "In this debate, a belief is incorrigible when having it is enough to guarantee that it is true."
+  },
+  {
+    "id": "moderate-foundationalism",
+    "title": "Moderate foundationalism",
+    "aliases": ["moderate foundationalism", "moderate foundationalist", "moderate foundationalists"],
+    "definition": "Experiences such as seeing a light can directly justify a belief even though the belief remains open to doubt or error."
+  },
+  {
+    "id": "ad-hoc",
+    "title": "Ad hoc",
+    "aliases": ["ad hoc"],
+    "definition": "Added to rescue a view from a problem, with little independent reason to accept it."
+  },
+  {
+    "id": "activity-of-justification",
+    "title": "Justification as a social activity",
+    "aliases": ["social dimensions of justification", "activity of justification", "justification as an activity", "justification as a status"],
+    "definition": "Giving and defending reasons is an activity we do with others. On Annis’s approach, a belief has the status of being justified when it can be defended in that practice."
+  },
+  {
+    "id": "objector-group",
+    "title": "Appropriate objector-group",
+    "aliases": ["appropriate objector-group", "appropriate objector-groups", "objector-group", "objector-groups"],
+    "definition": "The people whose objections count, given the community’s standards in Annis’s theory. A foundational belief is one this group would let pass without challenge."
+  },
+  {
+    "id": "epistemic-norm",
+    "title": "Epistemic norm",
+    "aliases": ["epistemic norm", "epistemic norms", "community norms", "community standards", "standards of justification"],
+    "definition": "A standard for what it is reasonable to believe or ask for evidence about. Greco asks whether a whole community can get such standards wrong."
+  },
+  {
+    "id": "epistemic-community",
+    "title": "Epistemic community",
+    "aliases": ["epistemic community", "epistemic communities"],
+    "definition": "The group whose shared standards shape which reasons or objections a person is expected to answer."
+  },
+  {
+    "id": "subjectivism",
+    "title": "Subjectivism",
+    "aliases": ["subjectivism", "subjectivist", "subjectivists", "communitarian"],
+    "definition": "The view that a judgment depends on someone’s attitudes or the standards of their group. Greco worries this leaves too little room for a whole group to be mistaken."
+  },
+  {
+    "id": "hinge",
+    "title": "Hinge",
+    "aliases": ["hinge", "hinges", "hinge proposition", "hinge propositions", "theoretical fixed point"],
+    "definition": "An assumption held steady so you can investigate something else. Asking someone what color they see takes for granted that they understand your question."
+  },
+  {
+    "id": "inquiry",
+    "title": "Inquiry",
+    "aliases": ["inquiry", "inquiries"],
+    "definition": "An attempt to answer an open question. It works by holding some background assumptions steady so you can investigate the question at hand."
+  },
+  {
+    "id": "transcendental-argument",
+    "title": "Transcendental argument",
+    "aliases": ["transcendental argument"],
+    "definition": "An argument that asks what must already be in place for something we do to be possible. Here, asking questions presupposes taking some things as settled."
+  },
+  {
+    "id": "entitlement",
+    "title": "Epistemic entitlement",
+    "aliases": ["entitlement", "entitlements"],
+    "definition": "On Wright’s view, a rational permission to rely on certain background assumptions to get an inquiry started."
+  },
+  {
+    "id": "quantifier-order",
+    "title": "Quantifier order",
+    "aliases": ["∀∃", "∃∀", "∀ ∃", "∃ ∀"],
+    "definition": "∀∃ says each inquiry has some hinge of its own. ∃∀ says there is one hinge that works for every inquiry. Switching the order makes a stronger claim."
+  },
+  {
+    "id": "knowledge-is-evidence",
+    "title": "Knowledge is evidence (E = K)",
+    "aliases": ["knowledge is evidence", "E = K"],
+    "definition": "Williamson’s view that your evidence consists of what you know. What you already know can give you grounds for further beliefs."
+  },
+  {
+    "id": "inference",
+    "title": "Inference",
+    "aliases": ["inference", "inferences", "inferential"],
+    "definition": "Drawing a conclusion from other things you believe. Seeing people in heavy coats can lead you to conclude that it’s cold outside."
+  },
+  {
+    "id": "best-explanation",
+    "title": "Inference to the best explanation",
+    "aliases": ["inference to the best explanation"],
+    "definition": "Choose the hypothesis that best explains what you observe. Wet streets make rain a natural guess, though sprinklers might explain them too."
+  },
+  {
+    "id": "attribution",
+    "title": "Attribution",
+    "aliases": ["attribution", "attributions", "knowledge attribution", "knowledge attributions", "attributor", "attributors"],
+    "definition": "Saying that someone has a status, such as knowledge. In “Justine knows the time,” the person making the claim is the attributor."
+  },
+  {
+    "id": "general-foundations",
+    "title": "General foundations",
+    "aliases": ["general foundations"],
+    "definition": "Harman’s view that every belief is foundational. Each can serve as a starting point in reasoning."
+  },
+  {
+    "id": "sensitivism",
+    "title": "Sensitivism about belief",
+    "aliases": ["sensitivist", "sensitivists", "sensitivism"],
+    "definition": "Whether someone counts as believing something can depend on what they are doing or on the conversation they are in."
+  },
+  {
+    "id": "truth-conducive",
+    "title": "Truth-conducive factors",
+    "aliases": ["truth-conducive", "truth conducive", "truth-conducive factors", "truth-conducive” factors"],
+    "definition": "Things that make a belief more likely to be right. A clear view makes it easier to tell what color a car is."
+  },
+  {
+    "id": "practical-stakes",
+    "title": "Practical stakes",
+    "aliases": ["practical stakes"],
+    "definition": "What you stand to lose or gain if you are wrong. Being sure a train runs matters more if missing it means missing a flight."
+  },
+  {
+    "id": "conversational-context",
+    "title": "Conversational context",
+    "aliases": ["conversational context", "conversational contexts"],
+    "definition": "What the people talking are taking for granted or treating as a live possibility. It can affect which doubts matter to a claim of knowledge."
+  },
+  {
+    "id": "semantics",
+    "title": "Semantics",
+    "aliases": ["semantics"],
+    "definition": "The study of what words and sentences mean. Here the question is whether “knows” changes what a sentence says across conversations."
+  },
+  {
+    "id": "felicity",
+    "title": "Felicity",
+    "aliases": ["felicity"],
+    "definition": "Whether a remark fits the situation. Saying “It must be cold” fits when you are drawing an inference from a clue."
+  },
+  {
+    "id": "metaethics",
+    "title": "Metaethics",
+    "aliases": ["metaethics", "metaethical"],
+    "definition": "The study of what moral judgments mean and how they can be true. For example, what are we doing when we call something wrong?"
+  },
+  {
+    "id": "speaker-relativism",
+    "title": "Speaker-relativism",
+    "aliases": ["speaker-relativism", "speaker-relativist", "speaker-relativists"],
+    "definition": "On the simple view Greco describes, saying “That’s wrong” amounts to saying that I disapprove of it."
+  },
+  {
+    "id": "problem-of-disagreement",
+    "title": "Problem of disagreement",
+    "aliases": ["problem of disagreement"],
+    "definition": "If two speakers are each describing their own standards, both might be right. How can their opposite verdicts still amount to a genuine disagreement?"
+  },
+  {
+    "id": "access-internalism",
+    "title": "Access internalism",
+    "aliases": ["access internalism", "access internalist", "access internalists"],
+    "definition": "A view that justification must in some way be accessible to the person who has it. Greco examines a strong version that gives you grounds to believe you are justified."
+  },
+  {
+    "id": "access",
+    "title": "The (Access) principle",
+    "aliases": ["(Access)", "Access principle"],
+    "definition": "If you have good grounds to believe P, you also have good grounds to believe that you have good grounds for P."
+  },
+  {
+    "id": "prima-facie",
+    "title": "Prima facie",
+    "aliases": ["prima facie"],
+    "definition": "At first sight, before you consider further evidence or objections."
+  },
+  {
+    "id": "higher-order",
+    "title": "Higher-order claim",
+    "aliases": ["higher-order", "higher order"],
+    "definition": "A claim about your knowledge, belief, or grounds. “My evidence supports the claim that it’s raining” is about your evidence."
+  },
+  {
+    "id": "first-order",
+    "title": "First-order claim",
+    "aliases": ["first-order", "first order", "object-level"],
+    "definition": "A claim about the thing you’re investigating. “It’s raining” is about the weather itself."
+  },
+  {
+    "id": "supervenience",
+    "title": "Supervenience",
+    "aliases": ["supervenience", "supervene", "supervenes", "supervening"],
+    "definition": "One set of facts fixes another. If two situations match on all the facts in the base, they must match on the dependent facts too."
+  },
+  {
+    "id": "supervenience-base",
+    "title": "Supervenience base",
+    "aliases": ["supervenience base", "supervenience bases", "determinants of justification"],
+    "definition": "The facts that fix an outcome. If Peter’s words fix what Justine is justified in believing about the party, those words are the base."
+  },
+  {
+    "id": "local-base",
+    "title": "Local supervenience base",
+    "aliases": ["local supervenience base", "local supervenience bases", "locally supervene", "locally supervenes"],
+    "definition": "The facts that fix what someone is justified in believing among the possibilities taken seriously here. Peter’s words can serve as the base while it’s settled that Justine heard him."
+  },
+  {
+    "id": "global-base",
+    "title": "Global supervenience base",
+    "aliases": ["global supervenience base", "global supervenience bases"],
+    "definition": "Facts that fix justification across all relevant possibilities. Peter’s words alone fail this test because Justine might have misheard him or have good reason to distrust him."
+  },
+  {
+    "id": "epistemic-access",
+    "title": "Epistemic access",
+    "aliases": ["epistemic access"],
+    "definition": "Being in a position to know the relevant facts. Justine has access to what Peter said if she heard him clearly."
+  },
+  {
+    "id": "mental-state",
+    "title": "Mental state",
+    "aliases": ["mental state", "mental states", "mental facts"],
+    "definition": "A condition of someone’s mind, such as having a visual experience, feeling pain, or believing that it is raining."
+  },
+  {
+    "id": "introspection",
+    "title": "Introspection",
+    "aliases": ["introspection", "introspectively accessible", "introspective justification"],
+    "definition": "Paying attention to your own thoughts or experiences. You can notice that you feel a toothache by attending to how you feel."
+  },
+  {
+    "id": "a-priori",
+    "title": "A priori",
+    "aliases": ["a priori"],
+    "definition": "Knowable by reasoning without needing observations to settle it. Once you understand the terms, you can tell that every triangle has three sides."
+  },
+  {
+    "id": "cognitive-home",
+    "title": "Cognitive home",
+    "aliases": ["cognitive home", "cognitive homes"],
+    "definition": "A domain of facts whose truth or falsity you can always tell with enough attention. The traditional version is supposed to be rich enough to fix what you’re justified in believing."
+  },
+  {
+    "id": "mobile-home",
+    "title": "Mobile cognitive home",
+    "aliases": ["mobile home", "contextually local cognitive home"],
+    "definition": "Greco’s name for a cognitive home that can move as doubts change. If Justine might have misheard Peter, his email could become the new accessible basis."
+  },
+  {
+    "id": "presupposition",
+    "title": "Background presupposition",
+    "aliases": ["background presupposition", "background presuppositions", "presupposition", "presuppositions"],
+    "definition": "Something the reasoning takes for granted. In the party example, everyone starts by assuming Justine heard Peter."
+  },
+  {
+    "id": "phenomenology",
+    "title": "Phenomenology",
+    "aliases": ["phenomenology"],
+    "definition": "Here, how an experience feels from the inside, such as what seeing a color looks like to you."
+  },
+  {
+    "id": "antiluminosity",
+    "title": "Antiluminosity",
+    "aliases": ["antiluminosity", "anti-luminosity"],
+    "definition": "The idea that even features of your own experience can be hard to know in borderline cases. As daylight fades, you may be unable to tell exactly when the room became dark."
+  },
+  {
+    "id": "epistemic-defeat",
+    "title": "Epistemic defeat",
+    "aliases": ["epistemic defeat"],
+    "definition": "New information cancels or undercuts the grounds you had for a belief. Peter’s reputation for pranks can undermine your reason to take his announcement at face value."
+  },
+  {
+    "id": "outright-belief",
+    "title": "Outright belief",
+    "aliases": ["outright belief", "outright beliefs", "distribute her confidence"],
+    "definition": "Taking a claim to be true. You could instead spread your confidence between possibilities, such as giving 7:00 a 70% chance and 8:00 a 30% chance."
+  },
+  {
+    "id": "chain-of-reasons",
+    "title": "Chain of reasons",
+    "aliases": ["chain of reasons", "chains of reasons", "chain of justification", "chains of justification"],
+    "definition": "A series of answers to “Why believe that?” You expect rain because of the forecast, and you trust the forecast because it uses recent weather data."
+  },
+  {
+    "id": "contextual-factors",
+    "title": "Contextual factors",
+    "aliases": ["contextual factors", "contextual” factors"],
+    "definition": "Features of the situation that may affect what counts as knowing or being justified. Greco’s examples include the stakes, the conversation, and the inquiry underway."
+  },
+  {
+    "id": "linguistic-data",
+    "title": "Linguistic data",
+    "aliases": ["linguistic data", "empirical linguistic data"],
+    "definition": "Evidence from how people use and understand language. For instance, do people withdraw “I know” when the conversation brings a new possibility into play?"
+  },
+  {
+    "id": "epistemic-status",
+    "title": "Epistemic status",
+    "aliases": ["epistemic status", "epistemic statuses", "moral and epistemic statuses"],
+    "definition": "A standing such as being justified, being known, or being justified without further reasons. The paper asks what makes attributions of those standings correct."
+  },
+  {
+    "id": "relevant-possibilities",
+    "title": "Possibilities taken seriously",
+    "aliases": ["local set of worlds", "worlds taken seriously"],
+    "definition": "The alternative ways things could be that matter to the current inquiry. At first, everyone considers 7:00 and 8:00 while taking it for granted that Justine heard Peter."
+  },
+  {
+    "id": "inter-alia",
+    "title": "Inter alia",
+    "aliases": ["inter alia"],
+    "definition": "Among other things."
+  },
+  {
+    "id": "mutatis-mutandis",
+    "title": "Mutatis mutandis",
+    "aliases": ["mutatis mutandis"],
+    "definition": "The same reasoning applies after making the necessary changes. Here, swap 7:00 for 8:00."
+  },
+  {
+    "id": "locus-classicus",
+    "title": "Locus classicus",
+    "aliases": ["locus classicus"],
+    "definition": "The classic or standard source for a view."
+  }
+]

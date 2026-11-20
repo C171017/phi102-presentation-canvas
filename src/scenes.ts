@@ -189,18 +189,16 @@ export const scenes: Record<string, Scene> = {
 
   'si-scene': {
     w: 560, h: 450,
-    label: 'Sensitive invariantism: the meaning is fixed, and facts about the subject, such as stakes, community norms and current inquiries, help settle whether her belief is foundationally justified.',
-    draw: () => {
-      const factor = (y: number, words: string, note: string) =>
-        plate(442, y, 188, 38, [words], { size: 16 }) + tag(442, y + 38, note, P.soft) + arrow(340, y, 304, 250 + (y - 250) * 0.3, { c: P.subj });
-      return title(22, 30, '“The most straightforward”', 'Her situation helps decide', P.subj)
-        + st(0, ring(170, 258, 136, 122, P.subj) + person(92, 352, P.subj, { arm: 'hold' }) + stone(170, 312, 84, 40, 13) + strut(212, 244, 300) + belief(176, 190, 72, 42)
-          + tag(212, 172, 'foundational?', P.subj))
-        + st(1, tag(442, 112, 'facts about the subject', P.subj) + factor(148, 'practical stakes', 'as with “knows”'))
-        + st(2, factor(238, 'community norms', 'Annis'))
-        + st(3, factor(328, 'current inquiries', 'hinges'))
-        + st(4, plate(280, 428, 420, 32, ['The meaning stays fixed; the status moves'], { size: 15.5 }));
-    },
+    label: 'Annis read as a sensitive invariantist: the believer’s community helps determine which of her beliefs can be taken for granted. The meaning of the attribution stays fixed.',
+    draw: () => title(22, 30, 'The believer’s context', 'What would her community challenge?', P.subj)
+      + st(0, ring(154, 247, 116, 111, P.subj)
+        + person(85, 323, P.subj, { arm: 'hold' }) + stone(146, 291, 84, 40, 13)
+        + strut(188, 231, 279) + belief(152, 177, 72, 42) + tag(188, 158, 'her belief', P.subj))
+      + st(1, tag(425, 195, 'her community’s norms', P.subj)
+        + plate(425, 241, 220, 54, ['Would the relevant audience', 'raise an objection?'], { size: 16 })
+        + arrow(305, 240, 277, 240, { c: P.subj }))
+      + st(2, lines(425, 305, ['If it passes unchallenged, it', 'can end the chain of reasons.'], { ...small, lh: 21 }))
+      + st(3, plate(280, 411, 460, 38, ['The claim stays fixed. Community norms affect its truth.'], { size: 16 })),
   },
   'si-worry': {
     w: 300, h: 450,
@@ -213,11 +211,24 @@ export const scenes: Record<string, Scene> = {
       + st(4, tag(150, 432, 'can we call its norms wrong?', P.soft)),
   },
 
+  'hinges-si-scene': {
+    w: 760, h: 420,
+    label: 'Hinges read through sensitive invariantism. Understanding English can be taken for granted when using a witness’s color report. When the inquiry tests the witness’s English, it is the question to investigate. The same claim about foundational status can change truth as the inquiry changes.',
+    draw: () => title(36, 34, 'The believer’s inquiry', 'When can the same belief serve as a hinge?', P.subj)
+      + st(0, plate(380, 131, 350, 48, ['The witness understands English'], { size: 19 }))
+      + st(1, arrow(293, 164, 191, 213, { c: P.subj }) + arrow(467, 164, 569, 213, { c: P.subj }))
+      + st(2, named(191, 252, 'What color does she see?', 'Use the witness’s answer as evidence.', P.subj, 'middle', 23)
+        + plate(191, 319, 308, 46, ['Her English is taken for granted'], { size: 17 }))
+      + st(3, named(569, 252, 'Does she understand English?', 'Investigate her comprehension.', P.subj, 'middle', 23)
+        + plate(569, 319, 308, 46, ['Her English is open to question'], { size: 17 }))
+      + st(4, txt(380, 391, 'The inquiry changes whether the belief can serve as a foundation.', { size: 17, weight: 600, fill: P.subj })),
+  },
+
   'ctx-evidence': {
     w: 540, h: 450,
     label: 'Ordinary talk shows judgments of foundationality. “It must be cold outside” marks an inference. “I have a toothache.” “What makes you think that?” “Oh, come on.” marks a belief that needs no support.',
     draw: () => title(22, 30, '“More tricky”', 'Listen to ordinary talk', P.ctx)
-      + lines(22, 92, ['“Foundationally justified” is a technical term:', 'little everyday usage to test Look elsewhere'], { ...small, anchor: 'start', lh: 19 })
+      + lines(22, 92, ['“Foundationally justified” is a technical term.', 'Ordinary remarks offer indirect evidence.'], { ...small, anchor: 'start', lh: 19 })
       + st(0, person(58, 222, P.ctx, { s: 0.7 }) + bubble(100, 138, 232, 42, ['“It must be cold outside”'], { tail: 'none', size: 16 }))
       + st(1, arrow(344, 159, 372, 159, { c: P.ochre }) + named(382, 156, 'inferred', 'not foundational', P.ochre, 'start', 17))
       + dashed(30, 240, 510)
@@ -236,6 +247,20 @@ export const scenes: Record<string, Scene> = {
       + st(2, bubble(102, 248, 208, 84, ['“They think it’s', 'foundationally justified,', 'but they’re wrong”'], { tail: 'bl', size: 15.5 }))
       + st(3, lines(206, 384, ['= I am not committed', 'to treating it that way'], { size: 15, fill: P.soft, lh: 19 }))
       + st(4, tag(160, 436, 'speaker’s own commitment', P.ctx)),
+  },
+
+  'hinges-ctx-scene': {
+    w: 760, h: 420,
+    label: 'A contextualist hinge view. The same speaker calls the belief that the witness understands English foundationally justified. In one inquiry the claim is about what can be taken for granted when identifying a color. In another it is about what can be taken for granted when testing the witness’s English.',
+    draw: () => title(36, 34, 'The speaker’s inquiry', 'Which claim do the same words express?', P.ctx)
+      + st(0, person(134, 201, P.ctx, { s: 0.65, arm: 'raise' })
+        + bubble(210, 98, 416, 76, ['“My belief that she understands English', 'is foundationally justified.”'], { tail: 'bl', size: 17 }))
+      + st(1, arrow(335, 187, 191, 238, { c: P.ctx }) + arrow(474, 187, 569, 238, { c: P.ctx }))
+      + st(2, tag(191, 267, 'Identifying the color', P.ctx)
+        + plate(191, 318, 308, 68, ['I can take her English for granted', 'when identifying the color.'], { size: 17 }))
+      + st(3, tag(569, 267, 'Testing her English', P.ctx)
+        + plate(569, 318, 308, 68, ['I can take her English for granted', 'when testing her English.'], { size: 17 }))
+      + st(4, txt(380, 391, 'Each utterance makes a claim about a different inquiry.', { size: 17, weight: 600, fill: P.ctx })),
   },
 
   'disagree-scene': {

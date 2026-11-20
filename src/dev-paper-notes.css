@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  right: calc(100% - 7px); /* reach 7px into the pane so arrows land on the section bar */
+  right: calc(100% - 7px); /* reach into the pane so the links meet the page edge */
   z-index: 3;
   width: calc(var(--note-width) + 37px);
   overflow: hidden;
@@ -25,9 +25,8 @@
   stroke-linecap: round;
   opacity: .75;
 }
-.paper-note-link-head { fill: var(--note-ink); opacity: .9; }
+.paper-note-link-head { display: none; }
 .paper-note-link.is-linked .paper-note-link-line { stroke-width: 2.4; opacity: 1; }
-.paper-note-link.is-linked .paper-note-link-head { opacity: 1; }
 
 .paper-note {
   position: absolute;

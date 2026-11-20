@@ -231,14 +231,18 @@ export const slideReadings = {
     section: '§3 · Relations to recent debates',
     body: `
       <p>
-        Two people can use the same words, “That belief is a good starting point,” in different situations.
-        Greco asks where the differences between situations show up.
+        Section 2 gives three routes to flexible foundations. Section 3 asks how each route connects to
+        sensitive invariantism, contextualism, relativism, and expressivism.
       </p>
       <ul>
-        <li><strong>Sensitive invariantism.</strong> Which beliefs actually qualify as starting points.</li>
-        <li><strong>Contextualism.</strong> What the speaker claims.</li>
-        <li><strong>Expressivism.</strong> What attitude the speaker expresses.</li>
-        <li><strong>Relativism.</strong> How someone judges the claim.</li>
+        <li><strong>Community norms (§2.1).</strong> Greco sketches sensitive invariantist and contextualist
+          versions. The problem of disagreement then motivates looking at relativism and expressivism.</li>
+        <li><strong>Hinges (§2.2).</strong> Greco sketches sensitive invariantist and contextualist versions
+          of this route too.</li>
+        <li><strong>Knowledge or belief at the base (§2.3).</strong> Greco pairs E = K with a flexible theory
+          of knowledge, explicitly listing sensitive invariantism, contextualism, and relativism there.
+          Section 3 also links some relativist and expressivist accounts of knowledge to accounts of
+          foundational justification. Harman’s separate pairing is with sensitivism about belief.</li>
       </ul>
     `,
   },
@@ -246,20 +250,32 @@ export const slideReadings = {
     section: '§3 · Relations to recent debates',
     body: `
       <p>
-        <strong>Sensitive invariantism</strong> locates the difference in the situation of the <em>person
-        whose belief we’re talking about</em>. Think back to the last train. On this view, if two people tell
-        you “You know the train leaves at eleven,” they’re making the same claim. Whether it’s true can depend
-        on what’s at stake for you. Applied to foundations, the idea is that your circumstances can affect
-        which of your beliefs qualify as starting points. On Annis’s view, what matters includes the standards
-        of your community. On a version of the hinge view, it includes the question you’re investigating and
-        what you need to take for granted to investigate it.
+        When two speakers call the same belief foundationally justified, they make the same claim. On
+        Greco’s reading of Annis, whether that claim is true depends in part on whose belief it is and
+        what the relevant objectors from <em>that person’s community</em> would challenge.
+        Community norms do the work that practical stakes do in familiar sensitive invariantist views of knowledge.
       </p>
       <h2>Can a community’s standards be wrong?</h2>
       <p>
-        The horoscope example raises another question. Can we criticize the very standards a community uses to
-        decide which beliefs need evidence? Greco draws a parallel with morals. A whole community could
-        approve of humiliating children and still be wrong to approve of it. Likewise, a whole community could
-        take horoscopes for granted and still be wrong to give them a pass.
+        Suppose everyone in my community accepts astrology. For Annis, a belief the relevant objectors
+        would all let pass can count as foundational. Greco asks whether the community itself could be
+        mistaken in letting it pass.
+      </p>
+    `,
+  },
+  'hinges-si-heading': {
+    section: '§3 · Relations to recent debates',
+    body: `
+      <p>
+        On this version of the hinge route, the <em>believer’s inquiry</em> helps determine which beliefs
+        are foundational. A belief can serve as a hinge when the believer needs to hold it fixed to pursue
+        that inquiry. Different speakers who call that belief foundational make the same claim.
+      </p>
+      <p>
+        Take Wittgenstein’s color example from §2.2. To learn which color a witness sees, you take for granted
+        that the witness understands English. If you switch to testing whether the witness understands English,
+        that belief is now itself in question. Changing the inquiry can change whether the belief qualifies
+        as a foundation.
       </p>
     `,
   },
@@ -267,11 +283,9 @@ export const slideReadings = {
     section: '§3 · Relations to recent debates',
     body: `
       <p>
-        <strong>Contextualism</strong>, in its modern sense, locates the difference in what the speaker
-        claims. Two speakers talking about the same person’s belief could make different claims depending on
-        their own communities or the questions they’re investigating. The trouble is finding ordinary examples
-        of this. People say “I know” all the time. The phrase “foundationally justified” mostly shows up in
-        philosophy.
+        Greco sketches a contextualist version of Annis in which the norms of the <em>speaker’s
+        epistemic community</em> help determine what the speaker claims. Two speakers can use the same
+        sentence about the same belief and make different claims if their communities supply different standards.
       </p>
       <h2>Clues in everyday speech</h2>
       <p>
@@ -283,12 +297,26 @@ export const slideReadings = {
       </p>
       <h2>Criticizing a community’s standards</h2>
       <p>
-        One version of contextualism gives the speaker room to criticize the community. On a simple moral view
-        called <strong>speaker relativism</strong>, calling an action wrong means saying that I disapprove of
-        it. I can call an action wrong even when my community approves of it. Apply that idea to foundations.
-        When I call a belief a good starting point, I’m saying that I’m prepared to let people use it as a
-        reason without asking them to back it up. I can say “They’re wrong to take horoscopes for granted”
-        because I’m stating where I stand, even if the whole community takes a different stand.
+        Greco also sketches a contextualist view inspired by the moral analogy of <strong>speaker
+        relativism</strong>. Here the speaker reports her own commitment to accepting the belief as a
+        starting point. This gives her room to criticize a community that accepts astrology. Greco uses
+        that move to set up the problem of disagreement.
+      </p>
+    `,
+  },
+  'hinges-ctx-heading': {
+    section: '§3 · Relations to recent debates',
+    body: `
+      <p>
+        On the contextualist hinge view Greco sketches, the <em>inquiry the speaker is engaged in</em>
+        helps determine which claim the speaker makes. In the color example, calling the belief that the
+        witness understands English foundational can mean that her English is safe to assume for the color
+        inquiry. In a test of her English, the same words would make a claim about what can be assumed in
+        that inquiry.
+      </p>
+      <p>
+        Greco presents this as a sketch. “Foundationally justified” is a technical phrase, so he suggests
+        looking for ordinary remarks that indirectly convey which beliefs people are taking as foundations.
       </p>
     `,
   },
@@ -313,7 +341,11 @@ export const slideReadings = {
       </p>
       <p>
         Another option is <strong>relativism</strong>. Two people can assess the very same claim by different
-        standards, and its truth can depend on the standards of the person assessing it. Greco leaves open
+        standards, and its truth can depend on the standards of the person assessing it.
+      </p>
+      <p>
+        Greco connects both options back to the knowledge route. On some accounts, a relativist or
+        expressivist view of knowledge is itself a view of foundational justification. He leaves open
         which account works best.
       </p>
     `,

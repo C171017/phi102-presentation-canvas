@@ -1,6 +1,8 @@
 import { slides } from './slide-content';
+import { attachCollapsiblePaneResizer } from './collapsible-pane-resizer';
 import { createPaperHighlights } from './dev-paper-highlights';
 import { createPaperNotes, sectionBackgrounds } from './dev-paper-notes';
+import { createPaperGlossary } from './paper-glossary';
 import './dev-paper.css';
 
 // "Original paper" pane: local development only.
@@ -18,9 +20,6 @@ const PREFS_KEY = 'phi102-dev-paper-v1';
 const LAST_READING_PAGE = '435';
 const EDGE = 14; // gap between the pane and the window edge, matching the CSS
 const MIN_WIDTH = 320;
-const COLLAPSE_DISTANCE = 48; // extra travel past the minimum width
-const EXPAND_DISTANCE = 32; // inward travel from the tile before it snaps open
-const DRAG_DISTANCE = 5;
 const READING_LINE = 0.18; // where in the pane a slide's passage is placed, from the top
 // Keys the canvas uses for slides, panning and zoom. Inside the pane they scroll the paper instead.
 const CANVAS_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'PageUp', 'PageDown', 'Home', '+', '=', '-', '_', '0', 'f', 'F']);
@@ -105,6 +104,7 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
   shell.append(pane);
   const highlights = createPaperHighlights(pane, scroll);
   const notes = createPaperNotes(pane, scroll, shell);
+  const glossary = createPaperGlossary(pane, scroll);
 
   function slideFromProgressBar() {
     return Array.from(document.querySelectorAll('#slide-progress button')).findIndex(item => item.hasAttribute('aria-current'));
@@ -156,9 +156,11 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
   function setOpen(open: boolean) {
     if (open === prefs.open) return;
     if (!open) {
+      if (pane.contains(document.activeElement)) resizer.focus({ preventScroll: true });
+      glossary.close();
       highlights.setActive(false);
+      glossary.setEnabled(true);
       collapsedAnchor = readingAnchor();
-      if (scroll.contains(document.activeElement)) resizer.focus({ preventScroll: true });
     }
     prefs.open = open;
     renderOpenState();
@@ -219,6 +221,7 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
       images.push(image);
     });
     void highlights.load(`${ASSETS}words.json`, images, visiblePages.map(page => page.file));
+    void glossary.load(`${ASSETS}glossary.json`, visiblePages.map(({ file }, index) => ({ file, sheet: sheets[index] })));
     notes.build(loaded.anchors, sheets);
     // A slide without its own anchor continues from the previous slide's passage.
     let previous: Anchor = { page: 0, y: 0 };
@@ -261,6 +264,7 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
     if (index < 0 || index === current) return;
     const first = current < 0; // the canvas has just found its slide after a page load: jump, don't sweep
     current = index;
+    glossary.close();
     pane.style.setProperty('--paper-slide-progress', String(index / Math.max(1, slides.length - 1)));
     collapsedAnchor = undefined;
     if (!slideAnchors.length) return; // buildPages places everything for the slide that is current by then
@@ -294,12 +298,13 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
     const key = event.key.toLowerCase();
     if (event.metaKey && key === 'b' && highlights.ready) {
       event.preventDefault();
-      if (event.repeat || resizing) return;
+      if (event.repeat || isResizing()) return;
       if (!prefs.open) {
         setOpen(true);
         savePrefs(prefs);
       }
       highlights.setActive(!highlights.active);
+      glossary.setEnabled(!highlights.active);
       if (highlights.active) scroll.focus({ preventScroll: true });
       return;
     }
@@ -310,71 +315,20 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
     }
     if (event.metaKey || event.repeat || key !== 'p') return;
     event.preventDefault();
-    if (resizing) return;
+    if (isResizing()) return;
     setOpen(!prefs.open);
     savePrefs(prefs);
   });
 
-  let resizing: { pointerId: number; x: number; open: boolean; width: number; savedWidth: Prefs['width'] } | undefined;
-  let dragged = false;
-  resizer.addEventListener('pointerdown', event => {
-    if (event.button !== 0 || resizing !== undefined) return;
-    event.preventDefault();
-    dragged = false;
-    resizing = {
-      pointerId: event.pointerId,
-      x: event.clientX,
-      open: prefs.open,
-      width: pane.getBoundingClientRect().width,
-      savedWidth: prefs.width,
-    };
-    resizer.setPointerCapture(event.pointerId);
-    pane.classList.add('is-resizing');
-  });
-  const resizeFromPointer = (event: PointerEvent) => {
-    if (resizing?.pointerId !== event.pointerId) return;
-    const distance = resizing.x - event.clientX;
-    if (!dragged && Math.abs(distance) < DRAG_DISTANCE) return;
-    dragged = true;
-    const width = resizing.open ? resizing.width + distance : minWidth() + distance - EXPAND_DISTANCE;
-    const open = resizing.open ? width > minWidth() - COLLAPSE_DISTANCE : distance >= EXPAND_DISTANCE;
-    setOpen(open);
-    if (open) setWidth(width);
-  };
-  resizer.addEventListener('pointermove', resizeFromPointer);
-  const finishResize = (event: PointerEvent) => {
-    if (resizing?.pointerId !== event.pointerId) return;
-    if (event.type === 'pointerup') resizeFromPointer(event);
-    if (!prefs.open) prefs.width = resizing.savedWidth;
-    resizing = undefined;
-    pane.classList.remove('is-resizing');
-    savePrefs(prefs);
-  };
-  resizer.addEventListener('pointerup', finishResize);
-  resizer.addEventListener('pointercancel', finishResize);
-  resizer.addEventListener('lostpointercapture', finishResize);
-  resizer.addEventListener('click', event => {
-    if (prefs.open || (dragged && event.detail > 0)) return;
-    setOpen(true);
-    savePrefs(prefs);
-  });
-  resizer.addEventListener('keydown', event => {
-    if (resizing || event.metaKey || event.ctrlKey || event.altKey) return;
-    if (!prefs.open) {
-      if (!['ArrowLeft', 'Enter', ' '].includes(event.key)) return;
-      event.preventDefault();
-      if (!event.repeat) {
-        setOpen(true);
-        savePrefs(prefs);
-      }
-      return;
-    }
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-    event.preventDefault();
-    const width = pane.getBoundingClientRect().width;
-    if (event.key === 'ArrowRight' && width <= minWidth()) setOpen(false);
-    else setWidth(width + (event.key === 'ArrowLeft' ? 1 : -1) * (event.shiftKey ? 96 : 24));
-    savePrefs(prefs);
+  const isResizing = attachCollapsiblePaneResizer(pane, resizer, {
+    inward: -1,
+    getSize: () => ({ open: prefs.open, size: pane.getBoundingClientRect().width, min: minWidth(), preferred: prefs.width }),
+    setOpen,
+    setSize: setWidth,
+    save: (_axis, previousSize) => {
+      if (previousSize !== undefined) prefs.width = previousSize;
+      savePrefs(prefs);
+    },
   });
 
   renderOpenState();

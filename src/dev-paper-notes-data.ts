@@ -6,10 +6,10 @@
 // one plain sentence or two, not a summary of every line.
 //
 // `role` is the move the passage makes in the argument. Objections share one
-// color so pushback is recognisable at a glance; every other section takes the
-// next color in the rotation, so neighbouring sections never match.
+// color so pushback is recognisable at a glance. Section 3’s pairings use
+// related hues for the two versions. The other notes follow the color rotation.
 
-export type PaperNote = { id: string; role: string; title: string; idea: string };
+export type PaperNote = { id: string; role: string; title: string; idea: string; hue?: { ink: string; tint: string } };
 
 export const OBJECTION_ROLE = 'Objection';
 
@@ -63,24 +63,49 @@ export const PAPER_NOTES: PaperNote[] = [
     idea: 'Make every belief foundational (Harman) and let belief depend on context (Clarke): flexible again, from premises that aren’t outlandish.',
   },
   {
-    id: 'versions-map-heading', role: 'Version', title: 'Easiest build: sensitive invariantism',
-    idea: 'What is foundational depends on extra facts about the believer: her community’s norms (Annis) or the inquiry she is in (hinges).',
+    id: 'versions-map-heading', role: 'Setup', title: 'Routes and versions',
+    idea: 'Greco brings the routes from §2 into four recent debates. He starts with sensitive invariantism, where the believer’s situation can affect what qualifies as foundational.',
   },
   {
-    id: 'ctx-heading', role: 'Version', title: 'Contextualist build: trickier',
-    idea: '“Foundationally justified” is jargon, so ordinary usage can’t test it directly. Everyday talk (“Oh, come on”) still shows what we treat as foundational.',
+    id: 'si-heading', role: 'Community norms', title: 'Annis × Sensitive invariantism',
+    idea: 'The attribution makes a fixed claim. The believer’s community helps determine whether that claim is true.',
+    hue: { ink: '#227167', tint: '#e1f1e9' },
   },
   {
-    id: 'paper-alternative-views', role: OBJECTION_ROLE, title: 'What if the community is wrong?',
-    idea: 'Like “right means what my society approves”, Annis’s view can’t call a community that accepts astrology mistaken.',
+    id: 'hinges-si-heading', role: 'Hinges', title: 'Hinges × Sensitive invariantism',
+    idea: 'Whether a belief is foundational depends in part on what the believer must take for granted to pursue her inquiry.',
+    hue: { ink: '#286954', tint: '#d2ebdd' },
   },
   {
-    id: 'paper-contextualist-reply', role: 'Reply', title: 'Speak from your own standards',
-    idea: 'Calling a belief foundational states my own commitment, so I can say: “They treat it as foundational, but they’re wrong.”',
+    id: 'ctx-heading', role: 'Community norms', title: 'Annis × Contextualism',
+    idea: 'The norms of the speaker’s community help determine which claim the speaker makes.',
+    hue: { ink: '#8c5233', tint: '#faecd9' },
   },
   {
-    id: 'disagree-heading', role: OBJECTION_ROLE, title: 'Then nobody really disagrees',
-    idea: 'If each of us only reports our own norms, “it is” and “it isn’t” can both be true, as with “I’m hungry”. Greco leaves this fight to the knowledge debate.',
+    id: 'hinges-ctx-heading', role: 'Hinges', title: 'Hinges × Contextualism',
+    idea: 'The inquiry the speaker is engaged in helps determine which claim the speaker makes.',
+    hue: { ink: '#944c37', tint: '#f8e0d4' },
+  },
+  {
+    id: 'paper-contextual-evidence', role: 'Evidence', title: 'Clues in everyday speech',
+    idea: 'People rarely use the technical phrase. Greco looks to ordinary remarks that convey which beliefs speakers take as foundations.',
+  },
+  {
+    id: 'paper-alternative-views', role: OBJECTION_ROLE, title: 'Annis and the astrology objection',
+    idea: 'A whole community might accept astrology without objection. Could its standards for what counts as foundational still be wrong?',
+  },
+  {
+    id: 'paper-contextualist-reply', role: 'Contextualist reply', title: 'The speaker’s own commitment',
+    idea: 'Greco sketches a further version where a speaker reports her willingness to take the belief as foundational. This gives her room to criticize the community.',
+  },
+  {
+    id: 'disagree-heading', role: OBJECTION_ROLE, title: 'The problem of disagreement',
+    idea: 'When speakers report their own norms, both can speak truly. Can this account explain why they seem to disagree?',
+  },
+  {
+    id: 'paper-disagreement-responses', role: 'Knowledge route', title: 'Relativism and expressivism',
+    idea: 'Both are possible responses to the disagreement problem. Greco links them back to views of knowledge that can also be views of foundational justification.',
+    hue: { ink: '#4d5e98', tint: '#e9eaf9' },
   },
   {
     id: 'paper-application', role: 'Payoff', title: 'Descartes’ appeal without the baggage',

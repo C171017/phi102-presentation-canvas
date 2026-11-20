@@ -1,4 +1,5 @@
 import { slides } from './slide-content';
+import { createPaperGlossary } from './paper-glossary';
 import './paper-pane.css';
 
 // It is a floating overlay. It never resizes the canvas, moves the camera, or
@@ -107,6 +108,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker 
   tab.setAttribute('aria-label', 'Show the original paper');
   tab.setAttribute('aria-controls', pane.id);
   shell.append(pane, tab);
+  const glossary = createPaperGlossary(pane, scroll);
 
   function slideFromProgressBar() {
     return Array.from(document.querySelectorAll('#slide-progress button')).findIndex(item => item.hasAttribute('aria-current'));
@@ -140,6 +142,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker 
   }
 
   function setOpen(open: boolean) {
+    if (!open) glossary.close();
     prefs.open = open;
     savePrefs(prefs);
     renderOpen();
@@ -196,6 +199,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker 
       sheets.push(figure);
       images.push(image);
     });
+    void glossary.load(`${ASSETS}glossary.json`, loaded.pages.map(({ file }, index) => ({ file, sheet: sheets[index] })));
     // A slide without its own anchor continues from the previous slide's passage.
     let previous: Anchor = { page: 0, y: 0 };
     slideAnchors = slides.map(({ members }) => {
@@ -230,6 +234,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker 
     if (index < 0 || index === current) return;
     const first = current < 0; // the canvas has just found its slide after a page load: jump, don't sweep
     current = index;
+    glossary.close();
     if (!slideAnchors.length) return; // buildPages places everything for the slide that is current by then
     scrollToSlide(index, !first);
   }

@@ -6,7 +6,7 @@ import ts from 'typescript';
 
 const source = readFileSync(new URL('../src/page-backgrounds.ts', import.meta.url), 'utf8')
   .replace(/^import .*;$/gm, '').replace(/^export /gm, '');
-function fixture() {
+function fixture(headings = ['contemporary-heading', 'flexible-heading']) {
   const makeElement = () => {
     const classes = new Set();
     return {
@@ -21,10 +21,10 @@ function fixture() {
   };
   const pending = new Map();
   const viewport = makeElement();
-  const members = [makeElement(), makeElement()];
+  const members = headings.map(makeElement);
   const sandbox = vm.createContext({
-    document: { createElement: makeElement, getElementById: id => members[Number(id)] },
-    slides: members.map((_, i) => ({ members: [String(i)] })),
+    document: { createElement: makeElement, getElementById: id => members[headings.indexOf(id)] },
+    slides: headings.map(id => ({ members: [id] })),
     Image: class {
       constructor() { Object.assign(this, makeElement()); }
       decode() { return new Promise((resolve, reject) => pending.set(this.src, { resolve, reject })); }
@@ -73,6 +73,18 @@ test('a failed page image falls back to the plain canvas instead of displaying t
   await f.finish('02-foundations', true);
   assert.equal(f.viewport.classList.contains('in-page-view'), false);
   assert.equal(f.stage.dataset.slide, undefined);
+});
+
+test('an inserted pairing shares its version’s artwork without shifting the next slide’s background', async () => {
+  const f = fixture(['si-heading', 'hinges-si-heading', 'access-heading']);
+  f.controller.update(0);
+  f.controller.update(1);
+  await f.finish('13-subject');
+  assert.equal(f.stage.dataset.slide, '2');
+  assert.match(f.stage.children.find(layer => layer.classList.contains('is-visible')).src, /13-subject/);
+  f.controller.update(2);
+  await f.finish('16-access');
+  assert.match(f.stage.children.find(layer => layer.classList.contains('is-visible')).src, /16-access/);
 });
 
 test('all 19 distinct slide backgrounds are packaged with their generation prompts', () => {

@@ -40,6 +40,14 @@
       "page" : 0,
       "y" : 0.48630000000000001
     },
+    "hinges-ctx-heading" : {
+      "page" : 5,
+      "y" : 0.2974
+    },
+    "hinges-si-heading" : {
+      "page" : 5,
+      "y" : 0.090800000000000006
+    },
     "home-heading" : {
       "page" : 8,
       "y" : 0.48680000000000001
@@ -80,9 +88,17 @@
       "page" : 9,
       "y" : 0.2974
     },
+    "paper-contextual-evidence" : {
+      "page" : 5,
+      "y" : 0.34910000000000002
+    },
     "paper-contextualist-reply" : {
       "page" : 5,
       "y" : 0.88280000000000003
+    },
+    "paper-disagreement-responses" : {
+      "page" : 6,
+      "y" : 0.60729999999999995
     },
     "paper-notes" : {
       "page" : 10,
@@ -130,7 +146,7 @@
     },
     "si-heading" : {
       "page" : 4,
-      "y" : 0.67620000000000002
+      "y" : 0.77949999999999997
     },
     "undoubted-heading" : {
       "page" : 2,

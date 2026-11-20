@@ -1,4 +1,4 @@
-// Renders the original paper to PNG and records slide passage anchors and word bounds.
+// Renders the original paper to PNG and records passage, highlight, and glossary coordinates.
 //
 //   swift scripts/render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width]
 //
@@ -31,6 +31,90 @@ guard let anchorData = try? Data(contentsOf: anchorsURL),
       let anchorList = config["anchors"] as? [[String: String]] else {
   fail("cannot read \(anchorsURL.path): expected { \"title\": ..., \"anchors\": [{ \"id\", \"find\" }] }")
 }
+struct GlossaryTerm: Decodable {
+  let id: String
+  let aliases: [String]
+}
+
+let glossaryURL = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+  .appendingPathComponent("src/paper-glossary-data.json")
+guard let glossaryData = try? Data(contentsOf: glossaryURL),
+      let glossary = try? JSONDecoder().decode([GlossaryTerm].self, from: glossaryData) else {
+  fail("cannot read \(glossaryURL.path)")
+}
+
+func glossaryPattern(_ alias: String) -> String {
+  let lineBreak = #"[-‐\u00ad][\t ]*\R[\t ]*"#
+  let characters = Array(alias)
+  return #"(?<!\p{L})"# + characters.enumerated().map { index, character in
+    switch character {
+    case " ": return #"\s+"#
+    case "-": return #"[-‐‑\u00ad]\u00ad?[\t ]*(?:\R[\t ]*)?"#
+    default:
+      let literal = NSRegularExpression.escapedPattern(for: String(character))
+      if character.isLetter, index + 1 < characters.count, characters[index + 1].isLetter {
+        return literal + "(?:\(lineBreak))?"
+      }
+      return literal
+    }
+  }.joined() + #"(?!\p{L})"#
+}
+
+let glossaryPatterns = glossary.flatMap { term in
+  term.aliases.map { alias in
+    (id: term.id, regex: try! NSRegularExpression(pattern: glossaryPattern(alias), options: .caseInsensitive))
+  }
+}
+
+struct GlossaryOccurrence: Encodable {
+  let term: String
+  let boxes: [[Int]]
+}
+
+// PDFKit can insert newlines between fragments on the same printed line, for
+// example around italic letters. Merge using the actual positions.
+func glossaryBounds(_ selection: PDFSelection, on page: PDFPage) -> [CGRect] {
+  var lines: [CGRect] = []
+  for line in selection.selectionsByLine() {
+    let rect = line.bounds(for: page)
+    guard !rect.isEmpty else { continue }
+    if let previous = lines.last, abs(rect.midY - previous.midY) < min(rect.height, previous.height) / 3 {
+      lines[lines.count - 1] = previous.union(rect)
+    } else {
+      lines.append(rect)
+    }
+  }
+  return lines
+}
+
+func glossaryOccurrences(_ page: PDFPage, in box: CGRect, beforeBibliography: inout Bool) -> [GlossaryOccurrence] {
+  guard beforeBibliography, let text = page.string else { return [] }
+  let source = text as NSString
+  let bibliography = source.range(of: "\nBibliography\n")
+  beforeBibliography = bibliography.location == NSNotFound
+  let searchRange = NSRange(location: 0, length: beforeBibliography ? source.length : bibliography.location)
+  let matches = glossaryPatterns.flatMap { pattern in
+    pattern.regex.matches(in: text, range: searchRange).map { (term: pattern.id, range: $0.range) }
+  }.sorted { first, second in
+    if first.range.location != second.range.location { return first.range.location < second.range.location }
+    return first.range.length > second.range.length
+  }
+  // PDFKit applies this transform inside draw(with:to:), in addition to the
+  // renderer's explicit crop-origin translation. Selections lack that transform.
+  let drawingTransform = page.transform(for: .cropBox)
+  var occurrences: [GlossaryOccurrence] = []
+  var endOfPrevious = 0
+  for match in matches {
+    guard match.range.location >= endOfPrevious, let selection = page.selection(for: match.range) else { continue }
+    let boxes = glossaryBounds(selection, on: page)
+      .map { normalizedBounds($0.applying(drawingTransform), in: box) }
+      .filter { $0[0] < $0[2] && $0[1] < $0[3] }
+    guard !boxes.isEmpty else { continue }
+    occurrences.append(GlossaryOccurrence(term: match.term, boxes: boxes))
+    endOfPrevious = NSMaxRange(match.range)
+  }
+  return occurrences
+}
 
 // Render into a sibling folder first so a failed run never leaves a half-written set.
 let fileManager = FileManager.default
@@ -41,9 +125,18 @@ catch { fail("cannot create \(stagingURL.path): \(error.localizedDescription)") 
 
 var pages: [[String: Any]] = []
 var pageWords: [String: [[[Int]]]] = [:]
+var pageGlossary: [String: [GlossaryOccurrence]] = [:]
+var beforeBibliography = true
 let wordPattern = try! NSRegularExpression(pattern: #"\S+"#)
 
 // Match the pane's image coordinates, with the origin at the top left.
+func normalizedBounds(_ rect: CGRect, in box: CGRect) -> [Int] {
+  [
+    (rect.minX - box.minX) / box.width, (box.maxY - rect.maxY) / box.height,
+    (rect.maxX - box.minX) / box.width, (box.maxY - rect.minY) / box.height,
+  ].map { Int(($0 * 10000).rounded()) }
+}
+
 func wordBounds(_ page: PDFPage, in box: CGRect) -> [[[Int]]] {
   guard let text = page.string else { return [] }
   let string = text as NSString
@@ -53,10 +146,7 @@ func wordBounds(_ page: PDFPage, in box: CGRect) -> [[[Int]]] {
   for match in matches {
     guard let rect = page.selection(for: match.range)?.bounds(for: page), !rect.isEmpty else { continue }
     let token = string.substring(with: match.range)
-    let bounds = [
-      (rect.minX - box.minX) / box.width, (box.maxY - rect.maxY) / box.height,
-      (rect.maxX - box.minX) / box.width, (box.maxY - rect.minY) / box.height,
-    ].map { Int(($0 * 10000).rounded()) }
+    let bounds = normalizedBounds(rect, in: box)
 
     // A typeset line break can split a word into two rectangles. Include both
     // when either half is selected. PDFKit also inserts newlines on the same
@@ -101,6 +191,9 @@ for index in 0..<document.pageCount {
 
   let file = String(format: "page-%02d.png", index + 1)
   pageWords[file] = wordBounds(page, in: box)
+  let rasterBounds = CGRect(x: box.minX, y: box.minY, width: box.width, height: CGFloat(pixelHeight) / scale)
+  let occurrences = glossaryOccurrences(page, in: rasterBounds, beforeBibliography: &beforeBibliography)
+  if !occurrences.isEmpty { pageGlossary[file] = occurrences }
   guard let image = context.makeImage(),
         let destination = CGImageDestinationCreateWithURL(stagingURL.appendingPathComponent(file) as CFURL, UTType.png.identifier as CFString, 1, nil) else {
     fail("cannot encode \(file)")
@@ -135,11 +228,18 @@ for entry in anchorList {
 let manifest: [String: Any] = [
   "version": 1, "title": title, "source": pdfURL.lastPathComponent, "pages": pages, "anchors": anchors,
 ]
+let indexedTerms = Set(pageGlossary.values.flatMap { $0.map(\.term) })
+let missingTerms = glossary.map(\.id).filter { !indexedTerms.contains($0) }
+if !missingTerms.isEmpty { fail("no paper matches for glossary terms: \(missingTerms.joined(separator: ", "))") }
 do {
   let json = try JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys])
   try json.write(to: stagingURL.appendingPathComponent("manifest.json"))
   let words = try JSONSerialization.data(withJSONObject: pageWords, options: [.sortedKeys])
   try words.write(to: stagingURL.appendingPathComponent("words.json"))
+  let glossaryEncoder = JSONEncoder()
+  glossaryEncoder.outputFormatting = [.sortedKeys]
+  let glossaryIndex = try glossaryEncoder.encode(pageGlossary)
+  try glossaryIndex.write(to: stagingURL.appendingPathComponent("glossary.json"))
   if fileManager.fileExists(atPath: outputURL.path) {
     _ = try fileManager.replaceItemAt(outputURL, withItemAt: stagingURL)
   } else {

@@ -1,13 +1,29 @@
 import { slides } from './slide-content';
 import './page-backgrounds.css';
 
-// The order follows the argument, not the physical positions on the canvas.
-export const backgroundNames = [
-  '01-context', '02-foundations', '03-reasons', '04-versions', '05-applications',
-  '06-regress', '07-dilemma', '08-undoubted', '09-social', '10-hinges', '11-base',
-  '12-whose-context', '13-subject', '14-speaker', '15-disagreement', '16-access',
-  '17-home', '18-mobile-home', '19-takeaways',
-];
+const backgroundByHeading = {
+  'contemporary-heading': '01-context',
+  'flexible-heading': '02-foundations',
+  'aim-motivations': '03-reasons',
+  'aim-versions': '04-versions',
+  'aim-applications': '05-applications',
+  'regress-problem': '06-regress',
+  'dilemma-heading': '07-dilemma',
+  'undoubted-heading': '08-undoubted',
+  'route-social-heading': '09-social',
+  'route-hinges-heading': '10-hinges',
+  'route-knowledge-heading': '11-base',
+  'versions-map-heading': '12-whose-context',
+  'si-heading': '13-subject',
+  'hinges-si-heading': '13-subject',
+  'ctx-heading': '14-speaker',
+  'hinges-ctx-heading': '14-speaker',
+  'disagree-heading': '15-disagreement',
+  'access-heading': '16-access',
+  'home-heading': '17-home',
+  'mobile-heading': '18-mobile-home',
+  'conclusion-heading': '19-takeaways',
+} satisfies Record<(typeof slides)[number]['members'][0], string>;
 
 export function createPageBackgrounds(viewport: HTMLElement) {
   const stage = document.createElement('div');
@@ -22,22 +38,23 @@ export function createPageBackgrounds(viewport: HTMLElement) {
   }
   viewport.prepend(stage);
   const members = slides.map(slide => slide.members.map(id => document.getElementById(id)!));
-  const loaded = new Map<number, Promise<string>>();
+  const loaded = new Map<string, Promise<string>>();
   let requested = -1;
   let activeLayer = 0;
   let revision = 0;
 
   function load(index: number): Promise<string> {
-    const existing = loaded.get(index);
+    const name = backgroundByHeading[slides[index].members[0]];
+    const existing = loaded.get(name);
     if (existing) return existing;
-    const src = `/generated/backgrounds/abstract-v1/${backgroundNames[index]}.webp`;
+    const src = `/generated/backgrounds/abstract-v1/${name}.webp`;
     const image = new Image();
     image.src = src;
     const ready = image.decode().then(() => src).catch(error => {
-      loaded.delete(index);
+      loaded.delete(name);
       throw error;
     });
-    loaded.set(index, ready);
+    loaded.set(name, ready);
     return ready;
   }
 
