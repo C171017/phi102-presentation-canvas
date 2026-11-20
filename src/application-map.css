@@ -1,0 +1,64 @@
+.canvas-label.slide-title.application-heading {
+  width: max-content; max-width: 550px; padding: 4px 8px; font: 600 37px/1.08 Georgia, serif;
+}
+.slide-title.application-heading .slide-eyebrow,
+.slide-title.application-heading .label-description { display: none; }
+#access-heading.application-heading { width: 235px; text-align: right; }
+.order-node, .base-node, .mobile-node {
+  box-sizing: border-box; color: #342e24; padding: 0;
+}
+.canvas-label.order-node {
+  width: 518px; height: 186px; max-width: none; display: flex; align-items: center;
+  gap: 4px; text-align: left;
+}
+.application-model {
+  display: block; width: 224px; aspect-ratio: 456 / 324; background-image: var(--model);
+  background-size: 700% 100%; background-position: 100% 0; background-repeat: no-repeat;
+  filter: drop-shadow(2px 7px 4px rgb(68 47 22 / .16));
+}
+.application-model.is-replaying { animation: application-turn .64s steps(6) both; }
+#access-doubt .application-model.is-replaying { animation-delay: .16s; }
+@keyframes application-turn { from { background-position: 0 0; } to { background-position: 100% 0; } }
+.model-target {
+  padding: 0; background: none; border: 0; border-radius: 12px; cursor: pointer;
+}
+.model-target:focus-visible, .home-contexts button:focus-visible { outline: 2px solid #246b60; outline-offset: 5px; }
+.order-claim { display: grid; gap: 8px; padding-right: 7px; }
+.order-claim strong { font: 600 29px/1.1 Georgia, serif; }
+.order-claim span, .base-source { font: 20px/1.35 Georgia, serif; }
+.canvas-label.base-node { display: grid; width: 376px; height: 240px; max-width: none; justify-items: center; align-content: center; }
+.base-node .application-model { width: 252px; }
+.base-source { display: block; max-width: 330px; }
+.canvas-label.mobile-node { width: 500px; height: 293px; max-width: none; text-align: center; }
+.home-track { position: relative; width: 100%; height: 179px; }
+.home-track::after { content: ''; position: absolute; left: 25%; right: 25%; bottom: 13px; border-bottom: 2px dotted #9e8963; z-index: -1; }
+.home-carriage { position: absolute; left: calc(25% - 126px); bottom: 0; transition: transform .7s cubic-bezier(.45,0,.25,1); }
+.home-carriage .application-model { width: 252px; }
+.mobile-node[data-context="mumbled"] .home-carriage { transform: translateX(250px); }
+.home-contexts { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+.home-contexts button {
+  justify-self: center; color: #62584b; font: 600 21px/1.2 Georgia, serif;
+  cursor: pointer; background: transparent; border: none; padding: 6px 3px;
+  border-bottom: 2px solid #b7aa90;
+}
+.home-contexts button.is-current { color: #204e4b; border-color: #267565; }
+.home-source { display: block; margin: 14px 0 0; font: italic 19px/1.25 Georgia, serif; }
+@media(prefers-reduced-motion: reduce) {
+  .application-model.is-replaying { animation: none; }
+  .home-carriage { transition: none; }
+}
+.application-relation path { stroke: #266f62; stroke-width: 3.5; fill: none; stroke-linecap: round; }
+.application-relation text { fill: #20594f; font: italic 29px Georgia, serif; }
+
+/* The overview shows the whole argument. A focused stop keeps both ends of its
+   inference visible, with the paper texture beneath the models. */
+#viewport:has(:is(#aim-applications, #access-heading, #home-heading, #mobile-heading).page-foreground) > .page-background {
+  opacity: 0; visibility: hidden;
+}
+#viewport:has(#access-heading.page-foreground) :is(#home-heading, #home-weather, #mobile-heading, #mobile-scene, [data-relation="fixes"], [data-relation="shifts"]),
+#viewport:has(#home-heading.page-foreground) :is(#access-heading, #access-doubt, #mobile-heading, #mobile-scene, [data-relation="guarantees"], [data-relation="shifts"]),
+#viewport:has(#mobile-heading.page-foreground) :is(#access-heading, #access-principle, #access-doubt, [data-relation="fixes"], [data-relation="guarantees"]),
+#viewport:has(:is(#home-heading, #mobile-heading).page-foreground) .canvas-link[data-target="access-heading"],
+#viewport:has(:is(#access-heading, #home-heading).page-foreground) .canvas-link[data-source="mobile-heading"] {
+  visibility: hidden;
+}

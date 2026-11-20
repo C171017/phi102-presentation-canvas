@@ -39,3 +39,18 @@
   0% { opacity: 1; }
   96%, 100% { opacity: 0; }
 }
+
+.reading-circle.circle-mistaken text {
+  font-family: Georgia, serif;
+}
+.circle-mistaken .circle-solid .circle-bubble {
+  opacity: 1;
+  animation: none;
+}
+
+.circle-mistaken .circle-seal {
+  filter: grayscale(1) sepia(1) saturate(6) hue-rotate(316deg) brightness(.88);
+}
+.circle-mistaken.circle-complete {
+  filter: drop-shadow(0 0 3px #b72328) drop-shadow(0 0 13px rgb(215 36 45 / 75%));
+}

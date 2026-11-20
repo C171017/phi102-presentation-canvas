@@ -16,7 +16,7 @@ const aimLinks: Record<string, Pair[]> = {
   ],
   applications: [
     ['flexible-heading', 'aim-applications'], ['aim-applications', 'access-heading'],
-    ['access-heading', 'home-heading'], ['home-heading', 'mobile-heading'], ['mobile-heading', 'conclusion-heading'],
+    ['mobile-heading', 'conclusion-heading'],
   ],
 };
 const regressRoutes = ['skepticism', 'infinitism', 'coherentism', 'foundationalism'];
@@ -35,6 +35,67 @@ type Link = {
   flow: SVGPathElement;
   silhouette: SVGPathElement;
 };
+
+type Relation = {
+  source: HTMLElement; target: HTMLElement; name: string;
+  path: SVGPathElement; label: SVGTextElement;
+};
+function applicationRelations(layer: SVGSVGElement): Relation[] {
+  const marker = document.createElementNS(svgNS, 'marker');
+  marker.id = 'application-arrowhead';
+  marker.setAttribute('viewBox', '0 0 12 12');
+  marker.setAttribute('refX', '11');
+  marker.setAttribute('refY', '6');
+  marker.setAttribute('markerWidth', '5');
+  marker.setAttribute('markerHeight', '5');
+  marker.setAttribute('orient', 'auto');
+  const tip = document.createElementNS(svgNS, 'path');
+  tip.setAttribute('d', 'M1 1L11 6L1 11');
+  tip.setAttribute('fill', 'none');
+  tip.setAttribute('stroke', '#266f62');
+  tip.setAttribute('stroke-width', '2');
+  marker.append(tip);
+  layer.append(marker);
+  return [
+    ['mobile-scene', 'home-heading', 'shifts'],
+    ['home-weather', 'access-principle', 'fixes'],
+    ['access-principle', 'access-doubt', 'guarantees'],
+  ].map(([from, to, name]) => {
+    const group = document.createElementNS(svgNS, 'g');
+    group.classList.add('application-relation');
+    group.dataset.relation = name;
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('marker-end', 'url(#application-arrowhead)');
+    const label = document.createElementNS(svgNS, 'text');
+    label.textContent = name;
+    group.append(path, label);
+    layer.append(group);
+    const source = document.getElementById(from)!;
+    const target = document.getElementById(to)!;
+    return {
+      source: name === 'fixes' ? source.querySelector<HTMLElement>('.application-model')! : source,
+      target: name === 'fixes' ? target.querySelector<HTMLElement>('.order-claim strong')! : target,
+      name, path, label,
+    };
+  });
+}
+
+function relationGeometry(name: string, a: Box, b: Box) {
+  if (name === 'guarantees') {
+    const x1 = a.center[0] - a.half[0] + 17, x2 = b.center[0] - b.half[0] + 17;
+    const y1 = a.center[1], y2 = b.center[1];
+    const left = Math.min(x1, x2) - 128;
+    return { d: `M${x1} ${y1}C${left} ${y1 + (y2-y1)*.15},${left} ${y2 - (y2-y1)*.15},${x2} ${y2}`,
+      x: (x1 + x2) / 8 + .75 * left + 14, y: (y1 + y2) / 2, anchor: 'start' };
+  }
+  const dx = b.center[0] - a.center[0], dy = b.center[1] - a.center[1];
+  const distance = Math.hypot(dx, dy) || 1;
+  const edge = (box: Box) => Math.min(box.half[0] / (Math.abs(dx) || .001), box.half[1] / (Math.abs(dy) || .001)) + 7 / distance;
+  const start = edge(a), end = 1 - edge(b);
+  const x1 = a.center[0] + dx * start, y1 = a.center[1] + dy * start;
+  const x2 = a.center[0] + dx * end, y2 = a.center[1] + dy * end;
+  return { d: end > start ? `M${x1} ${y1}L${x2} ${y2}` : '', x: (x1+x2)/2 + 12, y: (y1+y2)/2 + 30, anchor: 'start' };
+}
 
 export function createConnections(world: HTMLElement) {
   const links: Link[] = [];
@@ -68,7 +129,8 @@ export function createConnections(world: HTMLElement) {
   }
   for (const route of regressRoutes) add(regress, `route-${route}`, ['regress-problem', `regress-${route}`]);
 
-  return (zoom: number) => updateConnections(links, world.getBoundingClientRect(), zoom);
+  const relations = applicationRelations(aims);
+  return (zoom: number) => updateConnections(links, world.getBoundingClientRect(), zoom, relations);
 }
 
 const crossAxis = (axis: Axis): Axis => axis === 0 ? 1 : 0;
@@ -119,7 +181,7 @@ function roundedRoute(from: Port, to: Port, gap: number) {
   return { d, silhouette, period };
 }
 
-function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>, zoom: number) {
+function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>, zoom: number, relations: Relation[] = []) {
   const boxes = new Map<HTMLElement, Box>();
   const ports = new Map<HTMLElement, Map<string, Port[]>>();
   function getBox(element: HTMLElement) {
@@ -165,6 +227,16 @@ function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>,
     lane.forEach((port, i) => { port.offset = (i - (lane.length - 1) / 2) * spacing; });
   }
 
+  const relationRoutes = relations.map(relation => relationGeometry(relation.name, getBox(relation.source), getBox(relation.target)));
+  relations.forEach(({ path, label }, index) => {
+    const { d, x, y, anchor } = relationRoutes[index];
+    if (path.getAttribute('d') === d) return;
+    path.setAttribute('d', d);
+    label.style.display = d ? '' : 'none';
+    label.setAttribute('x', String(x));
+    label.setAttribute('y', String(y));
+    label.setAttribute('text-anchor', anchor);
+  });
   routes.forEach(({ link, from, to, gap }, i) => {
     if (!from || !to || gap === undefined) {
       for (const path of [link.line, link.flow, link.silhouette]) if (path.hasAttribute('d')) path.removeAttribute('d');

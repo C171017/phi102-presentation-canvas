@@ -62,7 +62,8 @@ export const slideReadings = {
     body: `
       <p>
         Greco uses this idea to ask a question about our reasons. If you have good grounds to believe
-        something, do you also have good grounds to believe that you do?
+        something, do you also have good grounds to believe that you do? He states the Access principle,
+        asks which facts fix those first-order grounds, and considers how the relevant facts can shift.
       </p>
     `,
   },
@@ -381,40 +382,29 @@ export const slideReadings = {
     `,
   },
   'home-heading': {
-    section: '§4.1 · Access and foundationalism',
+    section: '§§4.1–4.2 · What fixes first-order justification?',
     body: `
       <p>
-        How could such access be possible? It can be true that it’ll rain tomorrow even if your forecast says
-        it’ll be sunny. In most areas of life, the evidence we have can lead us away from what’s true. Access
-        says something unusual about our own justification. Whenever it’s true that you have good grounds for
-        a belief, you have good grounds to believe that fact about yourself.
+        Access tells us what follows once Justine has grounds for a belief. What gives her
+        grounds to believe the party starts at seven in the first place?
       </p>
       <p>
-        One tempting answer focuses on the facts that fix what you have grounds to believe. Greco calls these
-        facts the <strong>supervenience base</strong>. If all the facts in the base stay the same, what you’re
-        justified in believing stays the same too. Imagine, for the sake of argument, that whether you have
-        good grounds to believe something depended on whether it rains tomorrow. A misleading forecast could
-        then mislead you about your own grounds. That’s why a defender of Access might look for a base made up
-        entirely of facts about which your evidence can never mislead you.
+        In Greco’s party example (§4.2), everyone takes for granted that Peter is a reliable host
+        and that Justine heard him clearly. If he said seven, she has grounds to believe seven.
+        If he said eight, she has grounds to believe eight. Hold his words fixed, and her
+        first-order justification stays the same across the possibilities under discussion.
+        What Peter said is the <strong>local supervenience base</strong> for that judgment.
       </p>
-      <h2>A way to know your own grounds</h2>
+      <h2>Could one base work everywhere?</h2>
       <p>
-        Declan Smithies takes this approach. He says justification depends on special facts about your own
-        mind. If one of those facts is true, looking inward gives you grounds to believe it. If it’s false,
-        looking inward gives you no grounds to believe it. Then you can work out, by reasoning alone, what
-        those mental facts give you grounds to believe.
+        In §4.1, Greco explains why a defender of Access might want a base the subject can
+        always know. Smithies looks to facts about one’s own mind that are accessible by
+        introspection. Williamson calls such a realm a <strong>cognitive home</strong>.
       </p>
       <p>
-        That asks us to believe in what Timothy Williamson calls a <strong>cognitive home</strong>, a range of
-        facts you can always know if you pay close enough attention. That range would have to be large enough
-        to fix everything you’re justified in believing. That’s a lot to ask of our ability to know our own
-        minds. Greco suggests a cognitive home that can shift with the situation. He calls it a <strong>mobile
-        home</strong>.
-      </p>
-      <p>
-        Now suppose Peter said “7,” but Justine couldn’t hear him clearly. If his actual words still fix
-        what she should believe, how could she tell what she has grounds to believe? An externalist can
-        allow that gap. Someone defending Access owes us an explanation.
+        Now suppose Peter might have mumbled. If his exact words still determine what
+        Justine should believe, she might be unable to tell what she has grounds to believe.
+        Why keep those words fixed as the base once her hearing is in doubt?
       </p>
     `,
   },
@@ -422,54 +412,25 @@ export const slideReadings = {
     section: '§4.2 · Access and flexible foundationalism',
     body: `
       <p>
-        Peter is hosting a party and gave Justine a start time. Take it for granted that he’s trustworthy and
-        she heard him clearly.
-      </p>
-      <ul>
-        <li>If he told her seven, she has good grounds to believe the party starts at seven.</li>
-        <li>If he told her eight, she has good grounds to believe it starts at eight.</li>
-      </ul>
-      <p>
-        With those assumptions in place, what Peter said settles what Justine has grounds to believe. Since
-        she knows what he said, she can tell whether her grounds point to seven or eight.
-      </p>
-      <h2>If Peter mumbled</h2>
-      <p>
-        Now question those assumptions one at a time. If Peter likes giving people the wrong time as a joke,
-        his words may be poor evidence even if Justine heard them clearly. Suppose instead we take seriously
-        the possibility that Peter is trustworthy and simply mumbled. If we still say his exact words fix what
-        Justine has grounds to believe, we’re making her grounds depend on a fact she may have no way to know.
+        Compare two conversations about the same party. In the first, we take for granted
+        that Justine heard Peter clearly. What he said settles what she has grounds to believe.
+        In the second, we take seriously the possibility that he mumbled. His exact words
+        can no longer do that job on their own.
       </p>
       <p>
-        Greco thinks we’d look to other facts to settle what Justine has grounds to believe. Maybe she
-        remembers Peter’s email or knows when his parties usually start. Maybe she knows that her best guess
-        is that he said seven. A clear email might give her grounds to believe it starts at seven. A hunch
-        might only give her grounds to lean toward seven. Either way, what it’s reasonable for her to believe
-        can depend on facts she’s in a position to know.
+        Greco suggests that Justine might remember Peter’s email, recall when his parties
+        usually start, or know what her best guess is. For the illustration, suppose she
+        remembers an email giving the time as seven. Her first-order justification still
+        supports seven, while the fact that fixes it has changed.
       </p>
-      <h2>What fixes Justine’s grounds?</h2>
+      <h2>Why this helps with Access</h2>
       <p>
-        In the first conversation, keep the assumptions about Peter’s honesty and Justine’s hearing fixed.
-        Changing what time Peter said changes what time Justine has grounds to believe. Keeping his words the
-        same keeps the answer the same. That’s what makes his words a <strong>local</strong> supervenience
-        base for this question. They fix the answer across the possibilities we’re taking seriously in that
-        conversation. Greco’s proposal is that <strong>within each context, the facts that do this job must be
-        facts the person counts as being in a position to know</strong>.
-      </p>
-      <p>
-        Those facts make up Justine’s cognitive home for that context. In one conversation it can include what
-        Peter said. When we take the possibility that he mumbled seriously, it might include what his email
-        said. In the diagram, suppose the email also says seven. Her answer stays the same while
-        the grounds for that answer shift. What changed between those conversations can be as simple as which possibilities <em>we</em>
-        take seriously. A further doubt about whether Justine remembers the email could move the home again.
-      </p>
-      <h2>Access within a context</h2>
-      <p>
-        The result is a version of Access that works context by context. If Justine has grounds to believe the
-        party starts at seven, she also has grounds to think she’s justified in believing it starts at seven.
-        Both judgments are made within the same context. The party case illustrates the proposal. A full
-        defense would still have to show that a suitable set of facts is available in each context and that
-        access to those facts gives you access to what they justify.
+        The flexible foundationalist proposes that in each context, Justine counts as being
+        in a position to know the facts in the local base. She can identify what supports her
+        belief about the party time, even as the relevant facts change. Greco calls this a
+        <strong>cognitive mobile home</strong>. It illustrates how we might defend Access
+        within each context. A full defense would also have to explain how access to those
+        facts gives her access to what they justify.
       </p>
     `,
   },

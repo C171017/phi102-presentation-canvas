@@ -1,8 +1,10 @@
+import { mountApplicationBase, mountApplicationHome, mountOrder } from './application-map';
 import { P, line, poly, rect, rrect, ell, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, doubt, star, plate, st, ring } from './sketch';
 import './scenes.css';
-import { dilemmaCrystal } from './dilemma-crystals';
+import { dilemmaCrystal, undoubtedCrystal } from './dilemma-crystals';
 import { mountReadingCircle } from './reading-circle';
 import { mountSignalHarbor } from './signal-harbor';
+import { hingeDoor } from './hinge-door';
 
 // Every drawing illustrates Daniel Greco, “Contextualism about Foundations” (2017).
 type Scene = { w: number; h: number; beat?: number; label: string } & (
@@ -21,15 +23,12 @@ const strut = (x: number, y1: number, y2: number, c = P.stoneEdge, o = 1) =>
 const slateFaces = { face: P.slate, top: P.slateTop, side: P.slateSide, edge: P.slateSide };
 const paperFaces = { face: P.paper, top: '#ffffff', side: P.dull, edge: P.ink };
 const dullFaces = { face: P.dull, top: P.dullTop, side: P.dullSide, edge: P.dullEdge };
-const glassFaces = { face: '#e6eeea', top: '#f2f6f3', side: '#cddad3', edge: P.slate };
 const coat = { clay: '#b7793f', sage: '#829b94', dusk: '#5f6f86', plum: '#7d6079' };
 const small = { size: 15, italic: true, fill: P.soft };
 /** A name with a quieter second line: the kit's two-level label. */
 const named = (x: number, y: number, name: string, sub: string, c = P.ink, anchor: 'start' | 'middle' | 'end' = 'middle', size = 19) =>
   txt(x, y, name, { size, weight: 600, fill: c, anchor }) + txt(x, y + size * 1.2, sub, { size: 15, fill: P.soft, anchor });
 const dashed = (x1: number, y: number, x2: number) => line(x1, y, x2, y, { c: P.line, w: 1.3, dash: '3 7' });
-/** Moves from `from` px to its drawn place on beat `i`, and stays there. */
-const mv = (i: number, from: number, ...markup: string[]) => `<g class="mv" style="--i:${i};--from:${from}px">${markup.join('')}</g>`;
 /** The cognitive mobile home. (x, y) is where its rear wheel meets the ground. */
 const caravan = (x: number, y: number, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})">`
   + ground(72, 2, 104, 9)
@@ -62,29 +61,13 @@ export const scenes: Record<string, Scene> = {
 
   'undoubted-logic': {
     w: 430, h: 450,
-    label: 'A reason that is itself in doubt leaves the belief it supports in doubt. A reason that is not doubted settles it.',
-    draw: () => title(22, 30, 'The Cartesian insight', 'Doubt can’t settle doubt', P.slate)
-      + st(0, stone(46, 138, 84, 44, 13) + doubt(88, 124, 30) + txt(88, 214, 'reason Q', small))
-      + st(1, arrow(154, 160, 234, 160) + tag(193, 146, 'supports') + belief(250, 136, 84, 46) + txt(292, 214, 'belief P', small) + doubt(368, 172, 30))
-      + st(2, txt(215, 246, 'Q in doubt → P still in doubt', { size: 16.5, weight: 600, fill: P.red }))
-      + dashed(40, 268, 390)
-      + st(3, stone(46, 302, 84, 44, 13) + star(88, 284, 12) + txt(88, 378, 'reason Q', small))
-      + st(4, arrow(154, 324, 234, 324) + tag(193, 310, 'supports') + belief(250, 300, 84, 46) + txt(292, 378, 'belief P', small) + check(368, 324, 1.15))
-      + st(5, txt(215, 410, 'Q undoubted → P settled', { size: 16.5, weight: 600, fill: P.green })),
+    label: 'A stone represents the camera timestamp. A broken brass strut separates it from the crystal, the belief that I locked up today. If the date is in doubt, this footage cannot settle which day I locked up.',
+    draw: () => undoubtedCrystal('questioned'),
   },
   'undoubted-standards': {
     w: 430, h: 450,
-    label: 'Three standards for a foundation. Descartes: undoubtable, so too few. Moderate: doubtable, so arbitrary. Flexible: undoubted in this context.',
-    draw: () => {
-      const column = (cx: number, who: string, c: string, name: string, verdict: string[]) =>
-        tag(cx, 104, who, c) + block(cx - 46, 226, 92, 20, 13, dullFaces)
-        + txt(cx, 282, name, { size: 16.5, weight: 600 }) + lines(cx, 306, verdict, { size: 15, fill: c, lh: 19 });
-      return title(22, 30, 'The flexible move', 'Undoubted — in this context', P.green)
-        + st(0, column(78, 'Descartes', P.red, 'undoubtable', ['too few:', 'skepticism']) + stone(54, 196, 48, 28, 10) + star(78, 180, 10))
-        + st(1, column(215, 'Moderate', P.ochre, 'doubtable', ['stopping point', 'looks arbitrary']) + stone(179, 186, 72, 38, 12) + doubt(215, 174, 28))
-        + st(2, ring(352, 196, 66, 62, P.green) + column(352, 'Flexible', P.green, 'undoubted here', ['free from doubt', 'where it is used']) + stone(316, 186, 72, 38, 12) + star(352, 166, 12))
-        + st(3, plate(215, 396, 372, 60, ['“They needn’t be undoubtable,', 'but they must be undoubted”'], { size: 17, italic: true }));
-    },
+    label: 'The same stone now supports the upright crystal through an intact brass strut. When the timestamp is taken for granted, the footage can settle whether I locked up today, even though its date could be questioned elsewhere.',
+    draw: () => undoubtedCrystal('accepted'),
   },
 
   'route-social-scene': {
@@ -93,23 +76,16 @@ export const scenes: Record<string, Scene> = {
     mount: mountReadingCircle,
   },
 
+  'route-social-consensus': {
+    w: 560, h: 450,
+    label: 'Five readers take one plus one equals three for granted. Everyone accepts the claim, although the sum is two.',
+    mount: host => mountReadingCircle(host, 'mistaken'),
+  },
+
   'route-hinges-door': {
     w: 540, h: 450,
-    label: 'A door, the open question “What colour do you see?”, turns on three hinges that stay fixed: he understands English, he is not deceiving me, my memory for colour names works.',
-    draw: () => {
-      const hinge = (y: number, words: string[]) =>
-        lines(226, y - 4, words, { size: 16, anchor: 'end', lh: 20 }) + line(234, y, 254, y, { c: P.line, w: 1.4 })
-        + rrect(254, y - 13, 34, 26, 4, P.slate, { c: P.slateSide, w: 1.5, shadow: [3, 3] }) + star(271, y, 7.5);
-      return title(22, 30, 'Wittgenstein · On Certainty §§341, 345', 'Questions turn on hinges')
-        + st(0, block(262, 92, 14, 312, 8) + ground(384, 400, 116, 9))
-        + st(1, tag(226, 110, 'exempt from doubt', P.soft, { anchor: 'end' })
-          + hinge(152, ['he understands', 'English']) + hinge(246, ['he isn’t out to', 'deceive me']) + hinge(340, ['my memory for', 'colour names holds']))
-        + st(2, poly([[290, 110], [484, 88], [484, 400], [290, 378]], P.paper, { shadow: [9, 8] })
-          + poly([[308, 134], [466, 116], [466, 262], [308, 262]], 'none', { c: P.line, w: 1.3 })
-          + ell(464, 290, 6, 7, P.gold, { c: '#c9952a', w: 1.4 })
-          + tag(387, 160, 'the open question') + lines(387, 196, ['“What colour', 'do you see?”'], { size: 19, italic: true, lh: 25 }) + doubt(387, 340, 54, P.slate))
-        + st(3, plate(270, 433, 430, 28, ['To ask one question, others must stay closed'], { size: 15.5 }));
-    },
+    label: 'What colour do you see? Hover or focus to lift the door and reveal six colours. He understands English is the fixed assumption on the hinge.',
+    draw: hingeDoor,
   },
   'route-hinges-swap': {
     w: 320, h: 450,
@@ -124,14 +100,14 @@ export const scenes: Record<string, Scene> = {
 
   'route-knowledge-scene': {
     w: 900, h: 450,
-    label: 'Two recipes. E equals K plus a flexible view of “knows”, or general foundations plus a sensitivist view of belief, each yield flexible foundationalism. Williamson himself rejects the flexible views.',
+    label: 'Two recipes. E = K (Evidence equals knowledge) plus a flexible view of “knows”, or general foundations plus a sensitivist view of belief, each yield flexible foundationalism. Williamson himself rejects the flexible views.',
     draw: () => {
       const row = (y: number, big: string, sub: string, who: string, extra: string[], whom: string) =>
         block(40, y, 250, 78, 16, slateFaces) + txt(165, y + 34, big, { size: 22, weight: 600, fill: '#fff' }) + txt(165, y + 58, sub, { size: 15, fill: '#dbe5e0' })
         + tag(165, y + 106, who) + txt(326, y + 52, '+', { size: 36, fill: P.soft })
         + block(364, y, 250, 78, 16, paperFaces) + lines(489, y + 34, extra, { size: 17, lh: 23 }) + tag(489, y + 106, whom);
       return tag(165, 38, 'a familiar foundationalism', P.soft) + tag(489, 38, 'an independent, flexible view', P.soft) + tag(790, 38, 'the result', P.ochre)
-        + st(0, row(66, 'E = K', 'all knowledge is foundation', 'Williamson 2000', ['a flexible view', 'of “knows”'], 'contextualism · SI · relativism'))
+        + st(0, row(66, 'E = K', '(Evidence equals knowledge)', 'Williamson 2000', ['a flexible view', 'of “knows”'], 'contextualism · SI · relativism'))
         + st(1, row(226, 'General foundations', 'every belief is foundational', 'Harman 2001', ['a “sensitivist” view', 'of belief'], 'Clarke 2013'))
         + st(2, arrow(648, 104, 716, 172, { bend: -16, c: P.line }) + arrow(648, 266, 716, 210, { bend: 16, c: P.line })
           + ring(796, 188, 82, 74, P.ochre) + stone(758, 182, 76, 40, 13) + star(796, 162, 13)
@@ -247,85 +223,20 @@ export const scenes: Record<string, Scene> = {
   },
 
   'access-principle': {
-    w: 430, h: 450,
-    label: 'Access says that if Justine has grounds to believe the party starts at seven, she also has grounds to believe she is justified in believing it starts at seven.',
-    draw: () => title(22, 30, 'Strong access internalism', 'Justine has grounds to believe…', P.slate)
-      + st(0, tag(53, 110, 'First-order · J(P)', P.slate, { anchor: 'start' })
-        + block(52, 128, 323, 61, 11, slateFaces)
-        + txt(213, 166, '“The party starts at 7.”', { size: 22, fill: '#fff' }))
-      + st(1, arrow(82, 203, 82, 267, { c: P.slate, bend: 10 })
-        + txt(104, 242, 'Access says this follows', { size: 19, italic: true, anchor: 'start' }))
-      + st(2, tag(53, 294, 'Higher-order · J(J(P))', P.slate, { anchor: 'start' })
-        + block(52, 312, 323, 86, 11, slateFaces)
-        + lines(213, 348, ['“I’m justified in believing', 'the party starts at 7.”'], { size: 21, lh: 27, fill: '#fff' })),
+    w: 518, h: 186, label: 'First-order justification for the belief that the party starts at seven.',
+    mount: host => mountOrder(host, false),
   },
   'access-doubt': {
-    w: 430, h: 450,
-    label: 'A doubt about whether my evidence supports a claim leaks down into doubt about the claim itself. So without (Access), a subject could treat a claim as a regress-stopper while doubting it.',
-    draw: () => title(22, 30, 'One motivation', 'Doubt leaks downward', P.red)
-      + st(0, tag(70, 92, 'higher-order', P.soft, { anchor: 'start' })
-        + block(70, 112, 250, 62, 15, paperFaces) + lines(195, 139, ['“Does my evidence', 'really support it?”'], { size: 15.5, italic: true, lh: 20 }))
-      + st(1, doubt(356, 158, 40))
-      + st(2, arrow(195, 182, 195, 232, { c: P.red }) + doubt(216, 204, 18) + doubt(176, 222, 14))
-      + st(3, tag(70, 232, 'first-order', P.soft, { anchor: 'start' })
-        + block(70, 252, 250, 62, 15, slateFaces) + lines(195, 279, ['“Organic food has', 'health benefits”'], { size: 15.5, italic: true, lh: 20, fill: '#fff' }))
-      + st(4, doubt(356, 298, 40))
-      + st(5, plate(215, 392, 384, 56, ['Without (Access): a claim treated as a', 'regress-stopper, yet doubted by its owner'], { size: 15.5 })),
+    w: 518, h: 186, label: 'Higher-order justification for believing that this first-order belief is justified.',
+    mount: host => mountOrder(host, true),
   },
-
   'home-weather': {
-    w: 430, h: 450,
-    label: 'A forecaster says it will be sunny while it rains. With the weather, the truth can outrun our justification; (Access) seems to need a realm where evidence never misleads.',
-    draw: () => title(22, 30, 'The catch', 'Evidence can mislead', P.view)
-      + st(0, person(110, 356, P.slate, { arm: 'raise' }) + bubble(34, 130, 150, 50, ['“Sunny”'], { tail: 'bl', size: 17 }) + tag(110, 384, 'our evidence'))
-      + st(1, ell(276, 168, 40, 26, '#dfe5e4', { c: P.soft, w: 1.8 }) + ell(352, 172, 38, 24, '#dfe5e4', { c: P.soft, w: 1.8 }) + ell(314, 152, 46, 32, '#dfe5e4', { c: P.soft, w: 1.8 })
-        + `<ellipse cx="314" cy="176" rx="60" ry="17" fill="#dfe5e4"/>`)
-      + st(2, [0, 1, 2, 3, 4].map(i => line(272 + i * 22, 210, 260 + i * 22, 250, { c: P.view, w: 2 }) + line(282 + i * 22, 268, 270 + i * 22, 308, { c: P.view, w: 2 })).join('')
-        + ground(312, 348, 70, 9) + tag(312, 384, 'the facts', P.view))
-      + st(3, plate(215, 420, 330, 52, ['(Access) seems to need a realm', 'where evidence never misleads'], { size: 15.5 })),
+    w: 376, h: 240, label: 'The glass house holds the evidence that fixes Justine’s grounds in this context.',
+    mount: mountApplicationBase,
   },
-  'home-cartesian': {
-    w: 430, h: 450,
-    label: 'A glass house in which nothing is hidden: the “cognitive home” that (Access) seems to require, which looks like Cartesian foundationalism again. If Peter mumbled, how could Justine tell what his words give her grounds to believe?',
-    draw: () => title(22, 30, 'Smithies 2012 · Williamson’s phrase', 'A cognitive home?', P.red)
-      + '<g transform="translate(44 -2) scale(.8)">'
-      + st(0, ground(215, 346, 150, 13) + block(104, 196, 200, 148, 22, glassFaces)
-        + poly([[316, 196], [338, 184], [226, 102], [204, 114]], '#dbe6e0', { c: P.slate, w: 2 })
-        + poly([[92, 196], [204, 114], [316, 196]], '#f2f6f3', { c: P.slate, w: 2 })
-        + line(118, 214, 142, 262, { c: '#fff', w: 3 }) + line(132, 210, 148, 242, { c: '#fff', w: 2 }))
-      + st(1, person(156, 338, P.slate, { s: 0.74 }) + belief(206, 222, 58, 32) + belief(228, 272, 58, 32) + check(280, 238, 0.7) + check(302, 288, 0.7))
-      + st(2, tag(204, 374, 'nothing hidden · found by introspection', P.slate))
-      + '</g>'
-      + st(3, plate(215, 382, 398, 110, ['Suppose Peter said “7” but mumbled.', 'If his words still fix what Justine should', 'believe, how could she tell what she', 'has grounds to believe?'], { size: 17, lh: 22 })),
-  },
-
   'mobile-scene': {
-    w: 900, h: 470, beat: 750,
-    label: 'Flexible foundationalism, upper right: a change of context can shift the local supervenience base. That base fixes first-order justification. At left, Access internalism says first-order justification guarantees higher-order justification in that context. If Peter mumbled, his remembered email can take the place of his words as the accessible base.',
-    draw: () => {
-      const concept = { size: 26, weight: 600, anchor: 'start' } as const;
-      const relation = { size: 21, italic: true };
-      const example = { size: 18, anchor: 'start', fill: P.soft } as const;
-      return txt(883, 50, 'Flexible foundationalism', { ...concept, anchor: 'end' })
-        + arrow(640, 65, 572, 122, { c: P.green, head: 14 })
-        + txt(650, 104, 'shifts', { ...relation, fill: P.green })
-        + txt(362, 153, 'Supervenience base', concept)
-        + txt(470, 183, 'Justine heard Peter say “7.”', example)
-        + st(2, txt(470, 211, 'If he mumbled, she remembers “7” from his email.', example))
-        + mv(2, -48, caravan(397, 208, .32))
-        + '<g class="base-fixes-arrow">' + arrow(405, 216, 311, 261, { c: P.green, head: 13 }) + '</g>'
-        + txt(390, 251, 'fixes', { ...relation, fill: P.green })
-        + ell(266, 283, 68, 32, P.paper, { c: P.slate, w: 3 })
-        + txt(266, 290, 'First-order', { size: 19, weight: 600 })
-        + txt(363, 290, 'I have grounds to believe the party starts at 7.', example)
-        + lines(145, 309, ['Access', 'Internalism'], { ...concept, anchor: 'end', size: 23, lh: 25 })
-        + arrow(155, 317, 178, 311, { c: P.slate })
-        + arrow(199, 283, 199, 377, { c: P.slate, bend: 40, head: 13 })
-        + txt(266, 344, 'guarantees', { ...relation, fill: P.slate })
-        + ell(266, 395, 73, 41, P.paper, { c: P.slate, w: 2 })
-        + lines(266, 391, ['Higher', 'order'], { size: 22, lh: 24, weight: 600 })
-        + lines(363, 388, ['I have grounds to believe I’m justified', 'in believing the party starts at 7.'], { ...example, lh: 23 });
-    },
+    w: 500, h: 293, label: 'Compare contexts to move the cognitive home between sources of evidence.',
+    mount: mountApplicationHome,
   },
 
   'conclusion-points': {

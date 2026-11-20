@@ -24,3 +24,20 @@
 @keyframes dilemma-exclude { from { opacity: 1; } to { opacity: .09; } }
 @keyframes dilemma-tip { from { transform: rotate(0deg); } to { transform: rotate(24deg); } }
 @keyframes dilemma-question { from { opacity: 1; } to { opacity: .56; } }
+
+/* A live doubt breaks the connection. Both outcomes also read at rest. */
+.undoubted-model .undoubted-claim { transform-origin: 259px 177px; }
+.undoubted-model.questioned .undoubted-claim { transform: translate(43px, 22px) rotate(19deg); }
+@media (prefers-reduced-motion: no-preference) {
+  .scene.is-playing .undoubted-model .undoubted-claim {
+    animation: undoubted-break 800ms cubic-bezier(.35, 0, .3, 1) 160ms backwards;
+  }
+  .scene.is-playing .undoubted-model.accepted .undoubted-claim { animation-direction: reverse; }
+}
+@keyframes undoubted-break {
+  from { transform: none; }
+  to { transform: translate(43px, 22px) rotate(19deg); }
+}
+
+.undoubted-caption-paper { fill: none; }
+.in-page-view .undoubted-caption-paper { fill: #faf1df; fill-opacity: .92; }

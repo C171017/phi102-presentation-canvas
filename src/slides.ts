@@ -6,6 +6,9 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   const viewport = world.parentElement!;
   const progress = document.querySelector<HTMLElement>('#slide-progress')!;
   const groups = slides.map(({ members }) => members.map(id => document.getElementById(id)!));
+  const framingGroups = slides.map((slide, index) => 'frameMembers' in slide
+    ? slide.frameMembers.map(id => document.getElementById(id)!)
+    : groups[index]);
   let frames: CameraView[] = [];
   let current = -1;
   let lastVisited = -1;
@@ -53,7 +56,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   function measure(cameraZoom: number) {
     const origin = world.getBoundingClientRect();
     const area = framingArea();
-    frames = groups.map(group => frameFor(group, origin, cameraZoom, area));
+    frames = framingGroups.map(group => frameFor(group, origin, cameraZoom, area));
   }
 
   function frameVisual(id: string, cameraZoom: number, rightLimit: number) {

@@ -46,16 +46,16 @@ const visualByTerm: Partial<Record<string, GlossaryVisual>> = {
   'access-internalism': 'access-principle',
   access: 'access-principle',
   'higher-order': 'access-doubt',
-  'first-order': 'access-doubt',
-  supervenience: 'mobile-scene',
-  'supervenience-base': 'mobile-scene',
-  'local-base': 'mobile-scene',
+  'first-order': 'access-principle',
+  supervenience: 'home-weather',
+  'supervenience-base': 'home-weather',
+  'local-base': 'home-weather',
   'global-base': 'mobile-scene',
-  presupposition: 'mobile-scene',
+  presupposition: 'home-weather',
   'relevant-possibilities': 'mobile-scene',
   'epistemic-access': 'mobile-scene',
-  introspection: 'home-cartesian',
-  'cognitive-home': 'home-cartesian',
+  introspection: 'home-weather',
+  'cognitive-home': 'home-weather',
   'mobile-home': 'mobile-scene',
 };
 
@@ -70,7 +70,7 @@ const passages: { start: string; end: string; terms: string[]; visual: GlossaryV
   { start: 'paper-alternative-views', end: 'paper-contextualist-reply', terms: ['sensitive-invariantism', 'epistemic-norm', 'epistemic-community'], visual: 'si-worry' },
   { start: 'paper-contextualist-reply', end: 'disagree-heading', terms: ['contextualism', 'foundational-justification'], visual: 'ctx-criticism' },
   { start: 'disagree-heading', end: 'paper-disagreement-responses', terms: ['subjectivism', 'foundational-justification'], visual: 'disagree-scene' },
-  { start: 'paper-mobile-home', end: 'paper-notes', terms: ['cognitive-home', 'first-order', 'higher-order'], visual: 'mobile-scene' },
+  { start: 'paper-mobile-home', end: 'paper-notes', terms: ['cognitive-home'], visual: 'mobile-scene' },
 ];
 
 type PaperPosition = { page: number; x: number; y: number };

@@ -177,7 +177,12 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
 
 function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraView) => void) {
   for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
-    const item = layout.items[element.id];
+    let item = layout.items[element.id];
+    // Older layouts contain only the first circle. Place its new companion beside it.
+    if (!item && element.id === 'route-social-consensus') {
+      const first = layout.items['route-social-scene'];
+      if (first) item = { ...first, x: first.x + 600 * first.scale };
+    }
     if (!item) continue;
     element.style.left = `${item.x}px`;
     element.style.top = `${item.y}px`;

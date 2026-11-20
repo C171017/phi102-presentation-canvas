@@ -232,9 +232,10 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
     notes.build(loaded.anchors, sheets);
     // A slide without its own anchor continues from the previous slide's passage.
     let previous: Anchor = { page: 0, y: 0 };
-    slideAnchors = slides.map(({ members }) => {
-      const anchor = loaded.anchors[members[0]];
-      if (!anchor) console.warn(`No paper passage is mapped for "${members[0]}". Add it to scripts/paper-anchors.json.`);
+    slideAnchors = slides.map(slide => {
+      const id = 'paperAnchor' in slide ? slide.paperAnchor : slide.members[0];
+      const anchor = loaded.anchors[id];
+      if (!anchor) console.warn(`No paper passage is mapped for "${id}". Add it to scripts/paper-anchors.json.`);
       if (anchor && anchor.page < visiblePages.length) previous = anchor;
       return previous;
     });

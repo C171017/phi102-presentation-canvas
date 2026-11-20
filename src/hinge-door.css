@@ -1,0 +1,23 @@
+@property --hinge-door-pose {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* Select a whole Blender render on every frame, including during a reversal. */
+.hinge-door-poses {
+  --hinge-door-pose: 0;
+  transform: translate(
+    calc(-640px * mod(var(--hinge-door-pose), 6)),
+    calc(-600px * round(down, var(--hinge-door-pose) / 6, 1))
+  );
+  transition: --hinge-door-pose 960ms cubic-bezier(.35, 0, .26, 1);
+}
+
+.scene:is(:hover, :focus-visible) .hinge-door-poses {
+  --hinge-door-pose: 29;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hinge-door-poses { transition: none; }
+}
