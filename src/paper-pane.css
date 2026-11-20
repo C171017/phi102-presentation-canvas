@@ -1,5 +1,5 @@
 #paper-pane {
-  --paper-width: clamp(380px, 26vw, 640px);
+  --paper-width: clamp(380px, 26vw, 540px);
   position: absolute;
   top: 14px;
   right: 14px;
