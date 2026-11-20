@@ -1,4 +1,4 @@
-/* Margin notes beside the local-development "Original paper" pane. Imported only by dev-paper-notes.ts. */
+/* Margin notes beside the original paper. */
 .paper-notes {
   --note-width: 220px;
   position: absolute;

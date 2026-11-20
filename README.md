@@ -49,11 +49,11 @@ Append positioned HTML to `window.presentation.world`. Its origin is the viewpor
 
 Select **Paper** on the right of the canvas in Audience or Presenter mode to read the full chapter alongside the current slide. The pane starts open in the editor and closed in the live presentation. It remembers its visibility and width in your browser.
 
-- The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize it, or focus the edge and use the arrow keys. Press **P** to toggle the pane or select **×** to close it.
+- The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize or collapse it, or focus the edge and use the arrow keys. Press **P** to toggle the pane.
 - Select a blue-underlined term to read its definition in place. Press **Escape** to dismiss it. The entries and their search phrases live in `src/paper-glossary-data.json`.
 - Run `npm run paper:pages` on macOS to regenerate the page images, manifest, and glossary coordinates in `public/readings/greco-2017/`. Production builds include these generated files.
 - `scripts/paper-anchors.json` maps each slide by its first object ID to a phrase in the PDF. Edit the mapping and regenerate the pages to change where the pane scrolls. A slide with no entry uses the previous slide’s passage.
-- **Section notes.** Each section of the paper has one colour: a tint behind its pages, a bar down the page edge, and a small box floating just left of the pane, with an arrow into that bar, saying what the section is for. Objections are always red; other neighbouring sections never share a colour. Boxes stay beside their section while it is on screen; click one to jump to the section's start. `N` hides or shows them (remembered in `phi102-dev-paper-notes-v1`), and they hide themselves when there is no room left of the pane. The text lives in `src/dev-paper-notes-data.ts`, keyed by anchor IDs from `scripts/paper-anchors.json`.
+- **Section notes.** Each section of the paper has one colour: a tint behind its pages, a bar down the page edge, and a small box floating just left of the pane, with an arrow into that bar, saying what the section is for. Objections are always red; other neighbouring sections never share a colour. Boxes stay beside their section while it is on screen; click one to jump to the section's start. `N` hides or shows them (remembered in `phi102-dev-paper-notes-v1`), and they hide themselves when there is no room left of the pane. The text lives in `src/paper-notes-data.ts`, keyed by anchor IDs from `scripts/paper-anchors.json`.
 
 ## Live presentation
 

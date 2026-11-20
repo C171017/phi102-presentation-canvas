@@ -1,141 +1,13 @@
-/* Local-development "Original paper" pane. Imported only by dev-paper.ts. */
-#paper-pane {
-  --paper-width: clamp(380px, 26vw, 640px);
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  bottom: 14px;
-  z-index: 7;
-  display: flex;
-  flex-direction: column;
-  width: min(var(--paper-width), calc(100% - 28px));
-  border: 1px solid #cfc8b6;
-  border-radius: 12px;
-  background: #e6e1d4;
-  box-shadow: 0 14px 38px #322a2038, 0 2px 6px #322a2024;
-  color: #322f28;
-  font: 400 13px/1.4 system-ui, sans-serif;
-}
-#paper-pane .paper-scroll:focus-visible { outline: 2px solid #3d5952; outline-offset: -2px; }
-
-.paper-resizer {
-  position: absolute;
-  inset: 0 auto 0 -9px;
-  z-index: 2;
-  width: 16px;
-  cursor: ew-resize;
-  touch-action: none;
-}
-.paper-resizer:focus-visible { outline: 2px solid #3d5952; outline-offset: -2px; }
-#paper-pane.is-resizing { user-select: none; }
-
-#paper-pane.is-collapsed {
-  --paper-tab-height: 48px;
-  --paper-tab-start: 14px;
-  --paper-tab-end: 48px;
-  top: calc(var(--paper-tab-start) + var(--paper-slide-progress, 0) * max(0px, 100% - var(--paper-tab-start) - var(--paper-tab-end) - var(--paper-tab-height)));
-  right: 0;
-  bottom: auto;
-  width: auto;
-  border: 0;
-  background: none;
-  box-shadow: none;
-}
-#paper-pane.is-collapsed .paper-scroll,
-#paper-pane.is-collapsed .paper-scroll-indicator { display: none; }
-#paper-pane.is-collapsed .paper-resizer {
-  position: relative;
-  inset: auto;
-  width: 44px;
-  height: var(--paper-tab-height);
-  border-radius: 5px 0 0 5px;
-  filter: drop-shadow(-1px 2px 0 #553d2638);
-  user-select: none;
-}
-#paper-pane.is-collapsed .paper-resizer::before,
-#paper-pane.is-collapsed .paper-resizer::after {
-  content: '';
-  position: absolute;
-  inset: 7px 0 7px 4px;
-  clip-path: polygon(4% 0, 100% 4%, 100% 96%, 0 100%, 22% 51%);
-  pointer-events: none;
-}
-#paper-pane.is-collapsed .paper-resizer::before { background: #724628; }
-#paper-pane.is-collapsed .paper-resizer::after {
-  inset: 9px 0 9px 7px;
-  background: linear-gradient(to left, #98552840 5px, transparent 5px),
-    linear-gradient(2deg, transparent 76%, #ffe4a2 76% 88%, transparent 88%) #edbd68;
-}
-#paper-pane.is-collapsed .paper-resizer:hover::after { background-color: #f5cb79; }
-.paper-scroll {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  padding: 6px 2px 0;
-  overflow-y: auto;
-  overflow-anchor: none;
-  border-radius: 11px;
-  overscroll-behavior: contain;
-  scrollbar-width: none;
-}
-.paper-scroll::-webkit-scrollbar { display: none; }
-
-.paper-scroll-indicator {
-  position: absolute;
-  inset: 6px 4px 6px auto;
-  z-index: 1;
-  width: 7px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 180ms ease-out;
-}
-.paper-scroll-indicator.is-visible { opacity: 1; }
-.paper-scroll-thumb {
-  border-radius: 999px;
-  background: #000;
-}
-@media (prefers-reduced-motion: reduce) {
-  .paper-scroll-indicator { transition: none; }
-}
-
-.paper-page {
-  /* The PDF pages alternate their binding margin. Leave room for the
-     widest lines on all 14 pages, including the notes and bibliography. */
-  --paper-visible-width: .78;
-  --paper-left-trim: .11;
-  position: relative;
-  width: 100%;
-  margin: 0;
-  overflow: hidden;
-  background: #fff;
-  isolation: isolate;
-  box-shadow: 0 1px 2px #0003, 0 8px 22px #322a2026;
-}
-.paper-page:nth-child(even) { --paper-left-trim: .09; }
-.paper-page + .paper-page { margin-block-start: 16px; }
-.paper-page img,
-.paper-section-colors,
+/* Highlighting controls for the local editor. */
 .paper-highlight-layer {
   width: calc(100% / var(--paper-visible-width));
   margin-left: calc(-100% * var(--paper-left-trim) / var(--paper-visible-width));
 }
-.paper-page img {
-  position: relative;
-  display: block;
-  height: auto;
-  /* Multiply lets the section color show through the white page while keeping the ink dark. */
-  mix-blend-mode: multiply;
-  -webkit-user-drag: none;
-  user-select: none;
-}
-.paper-section-colors,
 .paper-highlight-layer {
   position: absolute;
   inset: 0 auto auto 0;
   height: 100%;
   pointer-events: none;
-}
-.paper-highlight-layer {
   fill: #ffda29;
   mix-blend-mode: multiply;
   opacity: .56;
@@ -154,21 +26,3 @@
 }
 .paper-highlight-status:empty { padding: 0; }
 .is-highlighting .paper-scroll { cursor: text; user-select: none; }
-
-.paper-message {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 18px 6px;
-  color: #4b463d;
-  font: 400 13px/1.45 system-ui, sans-serif;
-}
-.paper-message p { margin: 0; }
-.paper-message code {
-  justify-self: start;
-  padding: 5px 8px;
-  border-radius: 6px;
-  background: #fffefa;
-  font: 500 12px/1.3 ui-monospace, Menlo, monospace;
-}
-.paper-message .paper-detail { color: #6a6458; font-size: 11.5px; }

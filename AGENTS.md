@@ -27,7 +27,7 @@ These instructions apply only to this directory and its descendants.
 ## Original paper pane
 
 - The pane (`src/paper-pane.ts`) is available in the editor and in production. Keep the generated page images and manifest in `public/readings/greco-2017/` so both production builds can serve them. Verify with `npm run build` and `npm run build:live`.
-- The editor uses `src/dev-paper.ts` for local annotation controls. Keep that module and its stylesheet behind the development branch in `main.ts`. Both panes use the same generated pages.
+- The editor uses `src/dev-paper.ts` for local annotation controls. Keep that module and its stylesheet behind the development branch in `main.ts`. Both modes use the shared pane, section notes, and generated pages.
 - The pane is an overlay. Do not resize the viewport, move the camera, or write the saved layout on its behalf.
 - Slide-to-passage mapping lives in `scripts/paper-anchors.json`, keyed by each slide's first member ID. Add an entry when adding a slide, then re-run `npm run paper:pages`.
 
