@@ -1,11 +1,11 @@
 // Renders every page of the reading PDF to a PNG for the local-dev "Original
-// paper" pane, and records where each slide's passage starts on its page.
+// paper" pane, and records passage anchors and word bounds for highlighting.
 //
 //   swift scripts/render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width]
 //
 // Uses macOS PDFKit, so no extra tools are needed. The output is only ever read
 // by `npm run dev`; it lives outside `public/` so Vite never copies it into a
-// build, and it is git-ignored.
+// build.
 import Foundation
 import PDFKit
 import ImageIO
@@ -42,9 +42,50 @@ do { try fileManager.createDirectory(at: stagingURL, withIntermediateDirectories
 catch { fail("cannot create \(stagingURL.path): \(error.localizedDescription)") }
 
 var pages: [[String: Any]] = []
+var pageWords: [String: [[[Int]]]] = [:]
+let wordPattern = try! NSRegularExpression(pattern: #"\S+"#)
+
+// Match the pane's image coordinates, with the origin at the top left.
+func wordBounds(_ page: PDFPage, in box: CGRect) -> [[[Int]]] {
+  guard let text = page.string else { return [] }
+  let string = text as NSString
+  let matches = wordPattern.matches(in: text, range: NSRange(location: 0, length: string.length))
+  var words: [[[Int]]] = []
+  var previous: (range: NSRange, text: String, rect: CGRect)?
+  for match in matches {
+    guard let rect = page.selection(for: match.range)?.bounds(for: page), !rect.isEmpty else { continue }
+    let token = string.substring(with: match.range)
+    let bounds = [
+      (rect.minX - box.minX) / box.width, (box.maxY - rect.maxY) / box.height,
+      (rect.maxX - box.minX) / box.width, (box.maxY - rect.minY) / box.height,
+    ].map { Int(($0 * 10000).rounded()) }
+
+    // A typeset line break can split a word into two rectangles. Include both
+    // when either half is selected. PDFKit also inserts newlines on the same
+    // visual line, so require a move down and back to the left.
+    if let previous, previous.text.last.map({ "-‐\u{00ad}".contains($0) }) == true,
+       previous.text.dropLast().last?.isLetter == true, token.first?.isLowercase == true,
+       rect.minX < previous.rect.midX,
+       (0.6...1.5).contains((previous.rect.midY - rect.midY) / previous.rect.height),
+       string.substring(with: NSRange(location: NSMaxRange(previous.range),
+                                     length: match.range.location - NSMaxRange(previous.range)))
+         .rangeOfCharacter(from: .newlines) != nil {
+      words[words.count - 1].append(bounds)
+    } else {
+      words.append([bounds])
+    }
+    previous = (match.range, token, rect)
+  }
+  return words
+}
+
 for index in 0..<document.pageCount {
   guard let page = document.page(at: index) else { fail("cannot read page \(index + 1)") }
   guard page.rotation == 0 else { fail("page \(index + 1) is rotated; this script renders upright pages only") }
+  // Remove highlight annotations from the in-memory rendering source only.
+  for annotation in page.annotations where annotation.type == "Highlight" {
+    page.removeAnnotation(annotation)
+  }
   let box = page.bounds(for: .cropBox)
   let scale = CGFloat(pixelWidth) / box.width
   let pixelHeight = Int((box.height * scale).rounded())
@@ -61,6 +102,7 @@ for index in 0..<document.pageCount {
   page.draw(with: .cropBox, to: context)
 
   let file = String(format: "page-%02d.png", index + 1)
+  pageWords[file] = wordBounds(page, in: box)
   guard let image = context.makeImage(),
         let destination = CGImageDestinationCreateWithURL(stagingURL.appendingPathComponent(file) as CFURL, UTType.png.identifier as CFString, 1, nil) else {
     fail("cannot encode \(file)")
@@ -98,6 +140,8 @@ let manifest: [String: Any] = [
 do {
   let json = try JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys])
   try json.write(to: stagingURL.appendingPathComponent("manifest.json"))
+  let words = try JSONSerialization.data(withJSONObject: pageWords, options: [.sortedKeys])
+  try words.write(to: stagingURL.appendingPathComponent("words.json"))
   if fileManager.fileExists(atPath: outputURL.path) {
     _ = try fileManager.replaceItemAt(outputURL, withItemAt: stagingURL)
   } else {

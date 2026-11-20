@@ -61,7 +61,7 @@ Open https://phi102.c171017.com/ to join the audience automatically. The progres
 
 To present, open the private URL saved in `~/.config/phi102-presentation/presenter-url.txt`. The URL fragment contains the presenter key, so share the root URL with the audience. The latest presenter connection takes over slide control. The server remembers the shared slide when the presenter disconnects.
 
-On `npm run dev` at `http://127.0.0.1:5182/`, use the **Local dev** buttons in the top right. Keep one tab in **Presenter** and another in **Audience** to test slide following and viewer counts. Both roles share an isolated local room and leave the saved layout alone. Choose **Editor** to move or resize content.
+On `npm run dev` at `http://127.0.0.1:5182/`, use the buttons at the top of the canvas. Keep one tab in **Presenter** and another in **Audience** to test slide following and viewer counts. Both roles share an isolated local room and leave the saved layout alone. Choose **Editor** to move or resize content.
 
 Run `npm run build:live` to build the public canvas. To test the actual backend on localhost, set a separate random 64-character lowercase hexadecimal `PRESENTER_KEY` in `.dev.vars` and run `npm run dev:live`. Open `http://localhost:5192/` as a viewer or append `#presenter=<local-key>` to present.
 

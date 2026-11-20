@@ -48,6 +48,70 @@
       "page" : 8,
       "y" : 0.80489999999999995
     },
+    "paper-access-general" : {
+      "page" : 9,
+      "y" : 0.67620000000000002
+    },
+    "paper-access-objection" : {
+      "page" : 7,
+      "y" : 0.65890000000000004
+    },
+    "paper-access-principle" : {
+      "page" : 7,
+      "y" : 0.1767
+    },
+    "paper-alternative-views" : {
+      "page" : 5,
+      "y" : 0.69340000000000002
+    },
+    "paper-application" : {
+      "page" : 6,
+      "y" : 0.82199999999999995
+    },
+    "paper-belief-at-the-base" : {
+      "page" : 4,
+      "y" : 0.2974
+    },
+    "paper-cognitive-home" : {
+      "page" : 8,
+      "y" : 0.19409999999999999
+    },
+    "paper-context-shift" : {
+      "page" : 9,
+      "y" : 0.2974
+    },
+    "paper-contextualist-reply" : {
+      "page" : 5,
+      "y" : 0.88280000000000003
+    },
+    "paper-notes" : {
+      "page" : 10,
+      "y" : 0.40300000000000002
+    },
+    "paper-party-example" : {
+      "page" : 9,
+      "y" : 0.12520000000000001
+    },
+    "paper-regress-dilemma" : {
+      "page" : 1,
+      "y" : 0.46949999999999997
+    },
+    "paper-regress-options" : {
+      "page" : 1,
+      "y" : 0.090800000000000006
+    },
+    "paper-relaxed-foundations" : {
+      "page" : 1,
+      "y" : 0.67620000000000002
+    },
+    "paper-routes" : {
+      "page" : 2,
+      "y" : 0.27100000000000002
+    },
+    "paper-social-objection" : {
+      "page" : 2,
+      "y" : 0.7278
+    },
     "regress-problem" : {
       "page" : 0,
       "y" : 0.78710000000000002

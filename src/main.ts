@@ -371,19 +371,18 @@ if (liveMode) {
 }
 if (localDev) {
   void import('./dev-presentation').then(({ addDevRolePicker, connectDevPresentation }) => {
-    addDevRolePicker(viewport, previewRole);
-    if (!previewRole) return;
+    const rolePicker = addDevRolePicker(backdrop, previewRole);
+    if (!previewRole) {
+      // The paper pane is local editor UI, excluded from production by localDev.
+      void import('./dev-paper').then(({ createPaperPane }) => { paperPane = createPaperPane(backdrop, rolePicker); });
+      return;
+    }
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
         reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole);
       });
     });
   });
-}
-// The original-paper pane is for the local editor only. It sits behind the DEV
-// flag, so production builds never include or reference it.
-if (localDev && !previewRole) {
-  void import('./dev-paper').then(({ createPaperPane }) => { paperPane = createPaperPane(backdrop, slideNavigation.open); });
 }
 if (import.meta.hot) {
   import.meta.hot.dispose(pageBackgrounds.dispose);

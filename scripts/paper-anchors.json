@@ -19,6 +19,22 @@
     { "id": "access-heading", "find": "4.1 Access and foundationalism" },
     { "id": "home-heading", "find": "A cognitive home is a realm" },
     { "id": "mobile-heading", "find": "4.2 Access and flexible foundationalism" },
-    { "id": "conclusion-heading", "find": "5 Conclusion" }
+    { "id": "conclusion-heading", "find": "5 Conclusion" },
+    { "id": "paper-regress-options", "find": "For present purposes, the regress problem" },
+    { "id": "paper-regress-dilemma", "find": "where chains of justification come to" },
+    { "id": "paper-relaxed-foundations", "find": "the Cartesian project leads to skepticism" },
+    { "id": "paper-routes", "find": "2 Routes to flexible foundationalism" },
+    { "id": "paper-social-objection", "find": "Perhaps without saying more about how appropriate" },
+    { "id": "paper-belief-at-the-base", "find": "Another, very similar route to such a view" },
+    { "id": "paper-alternative-views", "find": "possible to develop expressivist and relativist versions" },
+    { "id": "paper-contextualist-reply", "find": "In both the moral and epistemological cases" },
+    { "id": "paper-application", "find": "4 An application" },
+    { "id": "paper-access-principle", "find": "Consider the following strong" },
+    { "id": "paper-access-objection", "find": "However, whatever the prima facie motivation" },
+    { "id": "paper-cognitive-home", "find": "In light of such considerations, some defenders" },
+    { "id": "paper-party-example", "find": "in a context in which the following facts are all taken for granted" },
+    { "id": "paper-context-shift", "find": "To be sure, facts about what Peter said" },
+    { "id": "paper-access-general", "find": "the more general picture into which the above example fits" },
+    { "id": "paper-notes", "find": "Notes" }
   ]
 }
