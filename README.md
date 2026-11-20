@@ -47,7 +47,7 @@ Append positioned HTML to `window.presentation.world`. Its origin is the viewpor
 
 ## Original paper beside the canvas
 
-Select **Paper** on the right of the canvas to read Greco’s chapter alongside the current slide. The pane starts open in the editor and closed in the live presentation. It remembers its visibility and width in your browser.
+Select **Paper** on the right of the canvas in Audience or Presenter mode to read the full chapter alongside the current slide. The pane starts open in the editor and closed in the live presentation. It remembers its visibility and width in your browser.
 
 - The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize it, or focus the edge and use the arrow keys. Press **P** to toggle the pane or select **×** to close it.
 - Run `npm run paper:pages` on macOS to regenerate the page images and manifest in `public/readings/greco-2017/`. The tracked files are included in production builds.

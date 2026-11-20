@@ -7,7 +7,6 @@ import './paper-pane.css';
 
 const ASSETS = `${import.meta.env.BASE_URL}readings/greco-2017/`;
 const PREFS_KEY = 'phi102-dev-paper-v1';
-const LAST_READING_PAGE = '435';
 const EDGE = 14; // gap between the pane and the window edge, matching the CSS
 const MIN_WIDTH = 320;
 const READING_LINE = 0.18; // where in the pane a slide's passage is placed, from the top
@@ -183,10 +182,8 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker 
   }
 
   function buildPages(loaded: Manifest) {
-    const lastPage = loaded.pages.findIndex(page => page.printed === LAST_READING_PAGE);
-    const visiblePages = lastPage < 0 ? loaded.pages : loaded.pages.slice(0, lastPage + 1);
     scroll.replaceChildren();
-    visiblePages.forEach(page => {
+    loaded.pages.forEach(page => {
       const figure = element('figure', 'paper-page');
       const image = new Image(page.width, page.height);
       image.alt = `Page ${page.printed} of the paper`;
@@ -204,7 +201,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker 
     slideAnchors = slides.map(({ members }) => {
       const anchor = loaded.anchors[members[0]];
       if (!anchor) console.warn(`No paper passage is mapped for "${members[0]}". Add it to scripts/paper-anchors.json.`);
-      if (anchor && anchor.page < visiblePages.length) previous = anchor;
+      previous = anchor ?? previous;
       return previous;
     });
     if (!pane.hidden) {
