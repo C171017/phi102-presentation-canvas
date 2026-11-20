@@ -1,7 +1,7 @@
 import { mountApplicationBase, mountApplicationHome, mountOrder } from './application-map';
-import { P, line, poly, rect, rrect, ell, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, doubt, star, plate, st, ring } from './sketch';
+import { P, line, poly, rect, rrect, ell, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, star, plate, st, ring } from './sketch';
 import './scenes.css';
-import { dilemmaCrystal, undoubtedCrystal } from './dilemma-crystals';
+import { dilemmaCrystal, mountUndoubtedCrystal } from './dilemma-crystals';
 import { mountReadingCircle } from './reading-circle';
 import { mountSignalHarbor } from './signal-harbor';
 import { hingeDoor } from './hinge-door';
@@ -59,15 +59,10 @@ export const scenes: Record<string, Scene> = {
     draw: () => dilemmaCrystal(false),
   },
 
-  'undoubted-logic': {
-    w: 430, h: 450,
-    label: 'A stone represents the camera timestamp. A broken brass strut separates it from the crystal, the belief that I locked up today. If the date is in doubt, this footage cannot settle which day I locked up.',
-    draw: () => undoubtedCrystal('questioned'),
-  },
-  'undoubted-standards': {
-    w: 430, h: 450,
-    label: 'The same stone now supports the upright crystal through an intact brass strut. When the timestamp is taken for granted, the footage can settle whether I locked up today, even though its date could be questioned elsewhere.',
-    draw: () => undoubtedCrystal('accepted'),
+  'undoubted-crystal': {
+    w: 580, h: 415,
+    label: 'A violet crystal rests on four beliefs taken for granted in this inquiry. Hover to see each support questioned in turn.',
+    mount: mountUndoubtedCrystal,
   },
 
   'route-social-scene': {
@@ -86,16 +81,6 @@ export const scenes: Record<string, Scene> = {
     w: 540, h: 450,
     label: 'What colour do you see? Hover or focus to lift the door and reveal six colours. He understands English is the fixed assumption on the hinge.',
     draw: hingeDoor,
-  },
-  'route-hinges-swap': {
-    w: 320, h: 450,
-    label: 'The same proposition can be a fixed hinge in one inquiry and the thing tested in another. Every inquiry needs some hinges; this does not entail one fixed set for every inquiry.',
-    draw: () => title(22, 30, 'Flexible, not fixed', 'Hinges can swap', P.green)
-      + st(0, ring(160, 142, 132, 46, P.green) + belief(52, 121, 66, 38) + tag(196, 132, 'one inquiry', P.green) + txt(184, 158, 'a hinge', { size: 17, weight: 600 }) + star(232, 152, 9))
-      + st(1, arrow(160, 194, 160, 234, { c: P.line }) + txt(172, 220, 'same proposition', { ...small, anchor: 'start' }))
-      + st(2, ring(160, 288, 132, 46, P.ochre) + belief(52, 267, 66, 38) + tag(196, 278, 'another', P.ochre) + txt(190, 304, 'under test', { size: 17, weight: 600 }) + doubt(250, 308, 24, P.slate))
-      + st(3, check(34, 374, 0.8) + txt(54, 380, 'Each inquiry has some hinges', { size: 15.5, anchor: 'start' }))
-      + st(4, txt(34, 416, '↛', { size: 24, fill: P.ochre }) + txt(54, 416, 'One fixed set for all inquiries', { size: 15.5, anchor: 'start' })),
   },
 
   'route-knowledge-scene': {

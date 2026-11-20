@@ -52,7 +52,7 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
   notice.setAttribute('role', 'status');
   notice.setAttribute('aria-live', 'polite');
   notice.hidden = true;
-  (world.parentElement ?? document.body).append(notice);
+  (world.closest('#presentation-shell') ?? document.body).append(notice);
   let noticeFade: Animation | undefined;
   function announce(message: string, error = false) {
     noticeFade?.cancel();
@@ -178,6 +178,13 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
 function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraView) => void) {
   for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
     let item = layout.items[element.id];
+    if (!item && element.id === 'undoubted-crystal') {
+      const a = layout.items['undoubted-logic'];
+      const b = layout.items['undoubted-standards'];
+      item = a && b
+        ? { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, scale: (a.scale + b.scale) / 2 }
+        : a ?? b;
+    }
     // Older layouts contain only the first circle. Place its new companion beside it.
     if (!item && element.id === 'route-social-consensus') {
       const first = layout.items['route-social-scene'];
