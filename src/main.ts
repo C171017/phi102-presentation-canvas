@@ -10,6 +10,8 @@ import { createPageBackgrounds } from './page-backgrounds';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createReadingPanel } from './reading-panel';
+import type { FocusGlossaryVisual } from './paper-glossary';
+import { selectHarborView } from './signal-harbor';
 import './style.css';
 import './layout.css';
 
@@ -25,6 +27,7 @@ const updateConnections = createConnections(world);
 const disposeRegressAnimations = initializeRegressAnimations();
 const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
+let glossaryFocus: { previousView: View; slide: number; harbor?: HTMLElement } | undefined;
 let reportSlide: ((index: number) => void) | undefined;
 let paperPane: { update: (index: number) => void } | undefined;
 const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode &&
@@ -41,7 +44,7 @@ const slideNavigation = createSlideNavigation(world, goTo, index => {
 }, pageBackgrounds.update);
 viewport.classList.toggle('canvas-editable', !readOnly);
 let connectionsDirty = true;
-const layout = createLayoutController(world, () => ({ ...target }), restored => {
+const layout = createLayoutController(world, () => ({ ...glossaryFocus?.previousView ?? target }), restored => {
   Object.assign(view, restored);
   Object.assign(target, restored);
   connectionsDirty = true;
@@ -69,15 +72,41 @@ let stopIndex = -1;
 let tween: { from: View; to: View; start: number; duration: number } | undefined;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const clampZoom = (zoom: number) => Math.min(8, Math.max(0.1, zoom));
-function goTo(next: Partial<View>, duration = 550) {
+function animateTo(next: Partial<View>, duration: number) {
   const to = { ...target, ...next };
-  if (![to.x, to.y, to.zoom, duration].every(Number.isFinite)) return;
+  if (![to.x, to.y, to.zoom, duration].every(Number.isFinite)) return false;
   to.zoom = clampZoom(to.zoom);
   Object.assign(target, to);
   tween = { from: { ...view }, to, start: performance.now(), duration: reducedMotion.matches ? 0 : Math.max(0, duration) };
-  layout.schedule();
   wake();
+  return true;
 }
+function clearGlossaryFocus() {
+  if (glossaryFocus?.harbor) selectHarborView(glossaryFocus.harbor);
+  glossaryFocus = undefined;
+}
+function goTo(next: Partial<View>, duration = 550) {
+  if (!animateTo(next, duration)) return;
+  clearGlossaryFocus();
+  layout.schedule();
+}
+const focusGlossaryVisual: FocusGlossaryVisual = (visual, pane) => {
+  const id = typeof visual === 'string' ? visual : visual.id;
+  const paneEdge = pane.getBoundingClientRect().left;
+  const notes = pane.querySelector('.paper-notes:not([hidden])');
+  const frame = slideNavigation.frameVisual(id, view.zoom, notes?.getBoundingClientRect().left ?? paneEdge) ??
+    slideNavigation.frameVisual(id, view.zoom, paneEdge);
+  if (!frame) return;
+
+  const previousView = glossaryFocus?.previousView ?? { ...target };
+  if (!animateTo(frame.view, 660)) return;
+  clearGlossaryFocus();
+  glossaryFocus = { previousView, slide: frame.index };
+  if (typeof visual !== 'string') {
+    glossaryFocus.harbor = frame.visual;
+    selectHarborView(frame.visual, visual.harborView);
+  }
+};
 function step(direction: number) {
   if (!stops.length) { slideNavigation.step(direction); return; }
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
@@ -110,8 +139,13 @@ function render() {
     slideNavigation.measure(view.zoom);
     updateConnections(view.zoom);
   }
-  slideNavigation.update(target);
-  slideNavigation.updateVisible(view, tween ? target : undefined);
+  if (glossaryFocus) {
+    // Keep the source passage and the live slide selection while exploring an illustration.
+    slideNavigation.showVisible(tween ? -1 : glossaryFocus.slide);
+  } else {
+    slideNavigation.update(target);
+    slideNavigation.updateVisible(view, tween ? target : undefined);
+  }
   camera.position.x = view.x;
   camera.position.y = -view.y;
   camera.zoom = view.zoom;
@@ -329,6 +363,7 @@ viewport.addEventListener('pointercancel', endDrag);
 viewport.addEventListener('lostpointercapture', endDrag);
 viewport.addEventListener('wheel', (event) => {
   if (drag) return;
+  clearGlossaryFocus();
   event.preventDefault(); tween = undefined; Object.assign(target, view);
   if (event.ctrlKey || event.metaKey) {
     const zoom = clampZoom(view.zoom * Math.exp(-event.deltaY * 0.01));
@@ -371,7 +406,7 @@ if (liveMode) {
 }
 function mountPaperPane(rolePicker?: HTMLElement) {
   void import('./paper-pane').then(({ createPaperPane }) => {
-    paperPane = createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker });
+    paperPane = createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker, focusVisual: focusGlossaryVisual });
   });
 }
 if (localDev) {
@@ -379,7 +414,7 @@ if (localDev) {
     const rolePicker = addDevRolePicker(backdrop, previewRole);
     if (!previewRole) {
       void import('./dev-paper').then(({ createPaperPane }) => {
-        paperPane = createPaperPane(backdrop, rolePicker);
+        paperPane = createPaperPane(backdrop, rolePicker, focusGlossaryVisual);
       });
       return;
     }

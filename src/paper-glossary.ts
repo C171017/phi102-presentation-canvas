@@ -1,4 +1,6 @@
 import terms from './paper-glossary-data.json';
+import { glossaryVisual, type GlossaryVisual } from './paper-glossary-visuals';
+import type { PaperAnchor } from './paper-notes';
 import './paper-glossary.css';
 
 const PAGE_UNITS = 10_000;
@@ -7,6 +9,7 @@ type Box = [left: number, top: number, right: number, bottom: number];
 type Occurrence = { term: string; boxes: Box[] };
 type Page = { file: string; sheet: HTMLElement };
 type Definition = (typeof terms)[number];
+export type FocusGlossaryVisual = (visual: GlossaryVisual, pane: HTMLElement) => void;
 
 const definitions = new Map(terms.map(term => [term.id, term]));
 const percent = (value: number, total: number) => `${100 * value / total}%`;
@@ -46,7 +49,7 @@ function createTrigger(term: Definition, boxes: Box[]) {
   return trigger;
 }
 
-export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement) {
+export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focusVisual: FocusGlossaryVisual) {
   const layers: HTMLElement[] = [];
   let enabled = true;
   let active: { trigger: HTMLButtonElement; fragment: HTMLElement } | undefined;
@@ -107,7 +110,7 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement) {
     popup.style.top = `${y}px`;
   }
 
-  function open(term: Definition, trigger: HTMLButtonElement, target: EventTarget | null) {
+  function open(term: Definition, trigger: HTMLButtonElement, target: EventTarget | null, visual?: GlossaryVisual) {
     if (active?.trigger === trigger) {
       close(true);
       return;
@@ -123,14 +126,15 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement) {
     popup.hidden = false;
     place();
     if (!popup.hidden) popup.focus({ preventScroll: true });
+    if (visual) focusVisual(visual, pane);
   }
 
-  async function load(url: string, pages: Page[]) {
+  async function load(url: string, pages: Page[], anchors: Record<string, PaperAnchor>) {
     try {
       const response = await fetch(url, { cache: 'no-cache' });
       if (!response.ok || !response.headers.get('content-type')?.includes('json')) throw new Error('Glossary coordinates are unavailable');
       const index = await response.json() as Record<string, Occurrence[]>;
-      for (const { file, sheet } of pages) {
+      for (const [page, { file, sheet }] of pages.entries()) {
         const occurrences = index[file];
         if (!Array.isArray(occurrences)) continue;
         const layer = document.createElement('div');
@@ -140,7 +144,9 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement) {
           const term = definitions.get(occurrence?.term);
           if (!term || !Array.isArray(occurrence.boxes) || !occurrence.boxes.length || !occurrence.boxes.every(validBox)) continue;
           const trigger = createTrigger(term, occurrence.boxes);
-          trigger.addEventListener('click', event => open(term, trigger, event.target));
+          const [left, top, , bottom] = occurrence.boxes[0];
+          const visual = glossaryVisual(term.id, { page, x: left / PAGE_UNITS, y: (top + bottom) / (2 * PAGE_UNITS) }, anchors);
+          trigger.addEventListener('click', event => open(term, trigger, event.target, visual));
           layer.append(trigger);
         }
         sheet.append(layer);

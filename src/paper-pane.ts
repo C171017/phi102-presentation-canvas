@@ -2,12 +2,11 @@ import { slides } from './slide-content';
 import { attachCollapsiblePaneResizer } from './collapsible-pane-resizer';
 import type { createPaperHighlights } from './dev-paper-highlights';
 import { createPaperNotes, type PaperAnchor } from './paper-notes';
-import { createPaperGlossary } from './paper-glossary';
+import { createPaperGlossary, type FocusGlossaryVisual } from './paper-glossary';
 import './paper-pane.css';
-//
-// It is a floating overlay. It never resizes the canvas, moves the camera, or
-// touches the saved layout: it only reads which slide is current and scrolls
-// its own pages to that slide's passage.
+
+// The pane follows slide navigation. Glossary clicks can request a temporary
+// canvas focus through the callback supplied by the presentation.
 
 const ASSETS = `${import.meta.env.BASE_URL}readings/greco-2017/`;
 const PREFS_KEY = 'phi102-dev-paper-v1';
@@ -23,6 +22,7 @@ type Manifest = { title: string; pages: Page[]; anchors: Record<string, Anchor> 
 type Prefs = { open: boolean; width: number | null };
 type PaperPaneOptions = {
   initiallyOpen: boolean;
+  focusVisual: FocusGlossaryVisual;
   rolePicker?: HTMLElement;
   lastReadingPage?: string;
   createHighlights?: typeof createPaperHighlights;
@@ -77,7 +77,7 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: stri
   return node;
 }
 
-export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker, lastReadingPage, createHighlights }: PaperPaneOptions) {
+export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual, rolePicker, lastReadingPage, createHighlights }: PaperPaneOptions) {
   const prefs = loadPrefs(initiallyOpen);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let current = -1;
@@ -112,7 +112,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   shell.append(pane);
   const highlights = createHighlights?.(pane, scroll);
   const notes = createPaperNotes(pane, scroll, shell);
-  const glossary = createPaperGlossary(pane, scroll);
+  const glossary = createPaperGlossary(pane, scroll, focusVisual);
 
   function slideFromProgressBar() {
     return Array.from(document.querySelectorAll('#slide-progress button')).findIndex(item => item.hasAttribute('aria-current'));
@@ -228,7 +228,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
       images.push(image);
     });
     void highlights?.load(`${ASSETS}words.json`, images, visiblePages.map(page => page.file));
-    void glossary.load(`${ASSETS}glossary.json`, visiblePages.map(({ file }, index) => ({ file, sheet: sheets[index] })));
+    void glossary.load(`${ASSETS}glossary.json`, visiblePages.map(({ file }, index) => ({ file, sheet: sheets[index] })), loaded.anchors);
     notes.build(loaded.anchors, sheets);
     // A slide without its own anchor continues from the previous slide's passage.
     let previous: Anchor = { page: 0, y: 0 };

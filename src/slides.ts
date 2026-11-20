@@ -20,29 +20,55 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     return button;
   });
 
+  function framingArea(rightLimit?: number) {
+    const bounds = viewport.getBoundingClientRect();
+    const left = progress.getBoundingClientRect().right + 12;
+    const right = Math.min(bounds.right, rightLimit ?? bounds.right);
+    return {
+      width: right - left,
+      offsetX: (left + right) / 2 - bounds.left - viewport.clientWidth / 2,
+    };
+  }
+
+  function frameFor(group: HTMLElement[], origin: DOMRect, cameraZoom: number, area: ReturnType<typeof framingArea>) {
+    const rects = group.flatMap(item => [
+      item.getBoundingClientRect(),
+      ...Array.from(item.querySelectorAll(':scope > .regress-animation, :scope.regress-position > div'))
+        .map(part => part.getBoundingClientRect()),
+    ]);
+    const left = Math.min(...rects.map(rect => rect.left));
+    const right = Math.max(...rects.map(rect => rect.right));
+    const top = Math.min(...rects.map(rect => rect.top));
+    const bottom = Math.max(...rects.map(rect => rect.bottom));
+    const width = (right - left) / cameraZoom;
+    const height = (bottom - top) / cameraZoom;
+    const zoom = Math.max(0.1, Math.min(Math.max(1, area.width) * 0.84 / width, viewport.clientHeight * 0.84 / height, 2.35));
+    return {
+      x: ((left + right) / 2 - origin.left) / cameraZoom - area.offsetX / zoom,
+      y: ((top + bottom) / 2 - origin.top) / cameraZoom,
+      zoom,
+    };
+  }
+
   function measure(cameraZoom: number) {
     const origin = world.getBoundingClientRect();
-    const barClearance = progress.getBoundingClientRect().right - viewport.getBoundingClientRect().left + 12;
-    const availableWidth = Math.max(1, viewport.clientWidth - barClearance);
-    frames = groups.map(group => {
-      const rects = group.flatMap(item => [
-        item.getBoundingClientRect(),
-        ...Array.from(item.querySelectorAll(':scope > .regress-animation, :scope.regress-position > div'))
-          .map(part => part.getBoundingClientRect()),
-      ]);
-      const left = Math.min(...rects.map(rect => rect.left));
-      const right = Math.max(...rects.map(rect => rect.right));
-      const top = Math.min(...rects.map(rect => rect.top));
-      const bottom = Math.max(...rects.map(rect => rect.bottom));
-      const width = (right - left) / cameraZoom;
-      const height = (bottom - top) / cameraZoom;
-      const zoom = Math.min(availableWidth * 0.84 / width, viewport.clientHeight * 0.84 / height, 2.35);
-      return {
-        x: ((left + right) / 2 - origin.left) / cameraZoom - barClearance / (2 * zoom),
-        y: ((top + bottom) / 2 - origin.top) / cameraZoom,
-        zoom,
-      };
-    });
+    const area = framingArea();
+    frames = groups.map(group => frameFor(group, origin, cameraZoom, area));
+  }
+
+  function frameVisual(id: string, cameraZoom: number, rightLimit: number) {
+    const visual = document.getElementById(id);
+    const index = groups.findIndex(group => visual && group.includes(visual));
+    const area = framingArea(rightLimit);
+    if (!visual || index < 0 || area.width <= 0) return;
+    const items = id === 'regress-problem' ? groups[index] : [visual];
+    return { visual, index, view: frameFor(items, world.getBoundingClientRect(), cameraZoom, area) };
+  }
+
+  function showVisible(next: number) {
+    if (next === visible) return;
+    visible = next;
+    onViewChange(next);
   }
 
   function locate(view: CameraView) {
@@ -67,9 +93,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     // Flying across another page is not entering it. Only reveal the
     // destination once the rendered camera has actually reached its vicinity.
     if (destination && next !== locate(destination)) next = -1;
-    if (next === visible) return;
-    visible = next;
-    onViewChange(next);
+    showVisible(next);
   }
 
   function update(view: CameraView) {
@@ -99,5 +123,5 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     open(index);
   }
 
-  return { measure, update, updateVisible, open, step };
+  return { measure, frameVisual, update, updateVisible, showVisible, open, step };
 }
