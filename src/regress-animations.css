@@ -1,20 +1,13 @@
-/* Keep each title above its diagram without changing their shared bounds. */
+/* A narrow, warm edge separates the letters from crossing lines. */
 .regress-position > div {
   position: relative;
   z-index: 1;
-}
-.regress-position > div::before {
-  content: '';
-  position: absolute;
-  inset: -.44em -.65em;
-  z-index: -1;
-  pointer-events: none;
-  background: rgb(250 249 246 / .76);
-  backdrop-filter: blur(5px);
-  mask-image:
-    linear-gradient(to right, transparent, #fff .65em, #fff calc(100% - .65em), transparent),
-    linear-gradient(to bottom, transparent, #fff .64em, #fff calc(100% - .64em), transparent);
-  mask-composite: intersect;
+  color: color-mix(in srgb, var(--route-color) 76%, #2e241b);
+  -webkit-text-stroke: .11em #eadbbd;
+  paint-order: stroke fill;
+  text-shadow:
+    .018em .04em .02em rgb(52 37 22 / .36),
+    .03em .11em .14em rgb(52 37 22 / .22);
 }
 .regress-animation {
   position: absolute;

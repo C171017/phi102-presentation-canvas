@@ -17,7 +17,7 @@
 #presentation-shell {
   position: fixed;
   inset: 0;
-  background-color: #ead5a1;
+  background-color: #efdeb2;
   --reading-width: calc(100% / 3);
   --reading-seam: clamp(40px, 3.4vw, 64px);
   --grid-size: 12px;
@@ -26,8 +26,8 @@
     radial-gradient(circle, rgb(102 81 51 / var(--grid-fine-alpha, .21)) .65px, transparent 1.15px),
     radial-gradient(circle, rgb(102 81 51 / var(--grid-coarse-alpha, 0)) .65px, transparent 1.15px),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cfilter id='grain' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72 .48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .09 0 0 0 .25 -.055'/%3E%3C/filter%3E%3Cpath d='M0 0h192v192H0z' filter='url(%23grain)'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse at 24% 10%, #fff7df, rgb(255 247 223 / .15) 72%, transparent),
-    linear-gradient(142deg, #f5e8c5 10%, #ebd8a8 70%, #ddc28b);
+    radial-gradient(ellipse at 24% 10%, #fff9e8, rgb(255 249 232 / .15) 72%, transparent),
+    linear-gradient(142deg, #f8edcf 10%, #f0e0b7 70%, #e6cf9f);
   background-size:
     var(--grid-size) var(--grid-size),
     var(--grid-coarse-size) var(--grid-coarse-size),
@@ -59,7 +59,7 @@
   inset: 0;
   right: calc(-0.5 * var(--reading-seam));
   pointer-events: none;
-  background: rgb(255 254 250 / .66);
+  background: rgb(255 254 250 / .8);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   mask-image: linear-gradient(

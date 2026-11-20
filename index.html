@@ -62,15 +62,116 @@
           <div role="heading" aria-level="1"><span class="aim-number">③</span> Applications</div>
           <p class="label-description">Internalism vs externalism as a case study</p>
         </div>
-        <div id="foundation-left" class="canvas-label canvas-media canvas-static" data-label="foundation animation">
-          <img src="/generated/foundationalism/stone-left.svg" width="280" height="257" draggable="false" alt="The left two stone foundations support the same belief; the right foundation is inactive.">
+        <div id="foundation-left" class="canvas-label canvas-media canvas-static" data-label="crystal point on four foundations">
+          <div class="crystal-foundations" data-translucent-corner="upper-right">
+            <svg class="crystal-foundations__art" viewBox="0 0 280 257" role="img" aria-label="Four stones at the corners of a square support a violet crystal. On hover, translucency moves clockwise from one stone and its rod to the next.">
+              <defs>
+                <image id="foundation-artwork" href="/generated/foundationalism/crystal-point.webp" width="280" height="257"/>
+                <clipPath id="foundation-crystal-cut">
+                  <path d="M91 22H184V48L173 105L170.5 111L168.5 115L165.5 118L161.5 121L155.5 125L147.5 129L139.5 133L134 131L131 129.5L127 130L123 133L111 132L105 124L100.5 114L98.5 109L94.5 104L91 100Z"/>
+                </clipPath>
+                <clipPath id="foundation-back-cut">
+                  <path d="M101 194.5H134L145 207L155 221L161 241L154 250L143 255L119 257L105 252L94 243L87 225L91 212Z"/>
+                </clipPath>
+                <clipPath id="foundation-left-cut">
+                  <path d="M25 115H69L75 120L79 125L87 126L91 131L98 156L96 171L89 176L75 179H51L34 174L25 166Z"/>
+                </clipPath>
+                <clipPath id="foundation-right-cut">
+                  <path d="M191 145L209 137L222 132L232 129H239L247 135L254 145L269 171L264 177L246 189L226 192L207 186L194 175L192 164Z"/>
+                </clipPath>
+                <use id="foundation-back-stone" href="#foundation-artwork" clip-path="url(#foundation-back-cut)"/>
+                <path id="foundation-rod-upper-right" d="M139 121L222 112"/>
+                <path id="foundation-rod-lower-right" d="M139 121L219 193"/>
+                <path id="foundation-rod-lower-left" d="M139 121L60 193"/>
+                <path id="foundation-rod-upper-left" d="M139 121L58 112"/>
+              </defs>
+              <g fill="#614b31" opacity=".16">
+                <ellipse cx="64" cy="131" rx="33" ry="10"/>
+                <ellipse cx="228" cy="131" rx="33" ry="10"/>
+                <ellipse cx="55" cy="232" rx="35" ry="11"/>
+                <ellipse cx="236" cy="232" rx="35" ry="11"/>
+                <ellipse cx="158" cy="158" rx="35" ry="16" transform="rotate(-15 158 158)"/>
+              </g>
+              <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <g data-foundation-corner="upper-right">
+                  <use href="#foundation-rod-upper-right" class="crystal-foundations__rod-shadow"/>
+                  <use href="#foundation-rod-upper-right" class="crystal-foundations__rod-edge"/>
+                  <use href="#foundation-rod-upper-right" class="crystal-foundations__rod-body"/>
+                  <use href="#foundation-rod-upper-right" class="crystal-foundations__rod-highlight"/>
+                </g>
+                <g data-foundation-corner="lower-right">
+                  <use href="#foundation-rod-lower-right" class="crystal-foundations__rod-shadow"/>
+                  <use href="#foundation-rod-lower-right" class="crystal-foundations__rod-edge"/>
+                  <use href="#foundation-rod-lower-right" class="crystal-foundations__rod-body"/>
+                  <use href="#foundation-rod-lower-right" class="crystal-foundations__rod-highlight"/>
+                </g>
+                <g data-foundation-corner="lower-left">
+                  <use href="#foundation-rod-lower-left" class="crystal-foundations__rod-shadow"/>
+                  <use href="#foundation-rod-lower-left" class="crystal-foundations__rod-edge"/>
+                  <use href="#foundation-rod-lower-left" class="crystal-foundations__rod-body"/>
+                  <use href="#foundation-rod-lower-left" class="crystal-foundations__rod-highlight"/>
+                </g>
+                <g data-foundation-corner="upper-left">
+                  <use href="#foundation-rod-upper-left" class="crystal-foundations__rod-shadow"/>
+                  <use href="#foundation-rod-upper-left" class="crystal-foundations__rod-edge"/>
+                  <use href="#foundation-rod-upper-left" class="crystal-foundations__rod-body"/>
+                  <use href="#foundation-rod-upper-left" class="crystal-foundations__rod-highlight"/>
+                </g>
+              </g>
+              <use data-foundation-corner="upper-left" href="#foundation-back-stone" transform="translate(58 111) scale(.91) translate(-124 -224)"/>
+              <use data-foundation-corner="upper-right" href="#foundation-back-stone" transform="translate(222 111) rotate(-8) scale(.91) translate(-124 -224)"/>
+              <g data-foundation-corner="lower-left" transform="translate(-12 61)">
+                <use href="#foundation-artwork" clip-path="url(#foundation-left-cut)"/>
+              </g>
+              <g data-foundation-corner="lower-right" transform="translate(0 48)">
+                <use href="#foundation-artwork" clip-path="url(#foundation-right-cut)"/>
+              </g>
+              <use href="#foundation-artwork" clip-path="url(#foundation-crystal-cut)"/>
+            </svg>
+            <button class="crystal-foundations__flexible" type="button" aria-label="Keep cycling the translucent foundation clockwise" aria-pressed="false"></button>
+          </div>
         </div>
         <div id="contemporary-heading" class="canvas-label canvas-label-secondary">
           <div role="heading" aria-level="1">Contemporary Contextualism</div>
           <p class="label-description">The same sentence can express different claims in different contexts</p>
         </div>
-        <div id="state-red" class="canvas-label canvas-media canvas-static" data-label="context animation">
-          <img src="/generated/contextualism/states/context-red.svg" width="280" height="280" draggable="false" alt="The sentence 文 A in a red speech bubble inside the red context circle.">
+        <div id="state-red" class="canvas-label canvas-media canvas-static" tabindex="0" data-label="B/13 tiles">
+          <svg class="reading-tiles" width="280" height="280" viewBox="0 0 280 280" role="img" aria-labelledby="reading-tiles-title reading-tiles-desc">
+            <title id="reading-tiles-title">One mark, two readings</title>
+            <desc id="reading-tiles-desc">Hover or focus to move the same gold tile between two rows. Between A and C it reads as B. Between 12 and 14 it reads as 13.</desc>
+            <defs>
+              <image id="reading-porcelain" href="/generated/contextualism/tile-porcelain.webp" width="100" height="83.3333"/>
+              <image id="reading-ochre" href="/generated/contextualism/tile-ochre.webp" width="100" height="83.3333"/>
+            </defs>
+            <g transform="translate(0 52)">
+              <g class="reading-letters">
+                <g transform="translate(0 0)">
+                  <use href="#reading-porcelain"/>
+                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M24 67 47 10 Q48 8 50 12 L73 67 M33 46 Q49 44 64 45"/>
+                </g>
+                <g transform="translate(180 0)">
+                  <use href="#reading-porcelain"/>
+                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M70 17 C56 4 34 9 27 28 C18 54 34 74 54 68 Q66 66 71 58"/>
+                </g>
+              </g>
+              <g class="reading-numbers" transform="translate(0 88)">
+                <g transform="translate(0 0)">
+                  <use href="#reading-porcelain"/>
+                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M13 20 22 13 21 67 M42 23 C44 8 70 7 73 22 C78 36 52 53 41 66 Q57 65 77 66"/>
+                </g>
+                <g transform="translate(180 0)">
+                  <use href="#reading-porcelain"/>
+                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M13 20 22 13 21 67 M69 67 70 12 39 49 81 49"/>
+                </g>
+              </g>
+              <g class="reading-traveler">
+                <g transform="translate(90 0)">
+                  <use href="#reading-ochre"/>
+                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M24 17 30 12 29 66 M37 12 C72 5 83 35 46 38 C82 35 80 70 37 66"/>
+                </g>
+              </g>
+            </g>
+          </svg>
         </div>
       </div>
       <div id="selection-box" hidden aria-hidden="true"></div>
