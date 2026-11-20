@@ -11,7 +11,7 @@
   visibility: hidden;
   mask-image: linear-gradient(var(--artwork-entry-edge), transparent, #000 calc(.5 * var(--reading-seam)));
   transition: opacity 550ms ease-in-out, visibility 0s linear 550ms;
-  background: #faf7ef;
+  background: var(--canvas-paper);
 }
 .page-background img {
   position: absolute;

@@ -26,22 +26,6 @@
   cursor: ew-resize;
   touch-action: none;
 }
-.paper-resizer::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 44px;
-  border-radius: 2px;
-  background: #334c4c;
-  opacity: .6;
-  transform: translate(-50%, -50%);
-  transition: opacity .15s;
-}
-.paper-resizer:hover::after,
-.paper-resizer:focus-visible::after,
-#paper-pane.is-resizing .paper-resizer::after { opacity: 1; }
 .paper-resizer:focus-visible { outline: 2px solid #3d5952; outline-offset: -2px; }
 #paper-pane.is-resizing { user-select: none; }
 
@@ -73,12 +57,7 @@
   content: '';
   position: absolute;
   inset: 7px 0 7px 4px;
-  width: auto;
-  height: auto;
-  border-radius: 0;
   clip-path: polygon(4% 0, 100% 4%, 100% 96%, 0 100%, 22% 51%);
-  opacity: 1;
-  transform: none;
   pointer-events: none;
 }
 #paper-pane.is-collapsed .paper-resizer::before { background: #724628; }
