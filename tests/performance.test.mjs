@@ -81,22 +81,53 @@ test('group movement batches position reads and schedules one save and connectio
 test('camera-only frames reuse connections; explicit invalidation refreshes once', () => {
   let connections = 0, renders = 0;
   const view = { x: 0, y: 0, zoom: 1 };
-  const ctx = runFunctions(['renderGrid', 'render', 'invalidateConnections', 'wake'], {
-    view, target: view, tween: undefined, glossaryFocus: undefined, innerWidth: 1000, innerHeight: 800, connectionsDirty: true, frame: undefined,
+  const ctx = runFunctions(['render', 'invalidateConnections', 'wake'], {
+    view, target: view, tween: undefined, glossaryFocus: undefined, connectionsDirty: true, frame: undefined,
     canvasBounds: { left: 320, top: 30 },
-    backdrop: { style: { setProperty() {} } },
-    viewport: { clientWidth: 1000, clientHeight: 800, style: { setProperty() {} } }, world: { style: {} },
+    renderGrid() {}, world: { style: {} }, threeLayer: undefined,
     updateConnections: () => connections++,
     slideNavigation: { measure() {}, update() {}, updateVisible() {} },
-    camera: { position: {}, updateProjectionMatrix() {} },
-    renderer: { render: () => renders++ }, scene: {}, requestAnimationFrame: () => 1, tick() {},
+    requestAnimationFrame: () => 1, tick() {},
   });
   ctx.render();
   for (let i = 0; i < 120; i++) { view.x += 10; view.zoom += 0.01; ctx.render(); }
   assert.equal(connections, 1);
-  assert.equal(renders, 121, 'optional Three.js scene still renders');
+  ctx.threeLayer = { render: () => renders++ };
   ctx.invalidateConnections(); ctx.invalidateConnections(); ctx.render();
+  assert.equal(renders, 1, 'an enabled Three.js scene still renders');
   assert.equal(connections, 2);
+});
+
+test('grid tiles stay aligned across camera pans and density changes', () => {
+  const code = readFileSync(new URL('../src/canvas-grid.ts', import.meta.url), 'utf8')
+    .replace(/^import [^\n]+\n/gm, '')
+    .replace('export function', 'function');
+  const createElement = () => ({
+    children: [], style: {},
+    setAttribute() {},
+    append(...items) { this.children.push(...items); },
+    prepend(item) { this.children.unshift(item); },
+  });
+  const ctx = vm.createContext({ document: { createElement } });
+  vm.runInContext(ts.transpile(code, { target: ts.ScriptTarget.ES2022 }), ctx);
+  const shell = createElement();
+  const renderGrid = ctx.createCanvasGrid(shell);
+  const [tiles] = shell.children[0].children;
+  const [fine, coarse] = tiles.children;
+  const bounds = { left: 300, top: 0, width: 1000, height: 800 };
+
+  renderGrid({ x: 803, y: 405, zoom: 1 }, bounds);
+  assert.equal(tiles.style.transform, 'translate(-3px, -5px) scale(1.5)');
+  assert.equal(fine.style.opacity, '1');
+  assert.equal(coarse.style.opacity, '0');
+  renderGrid({ x: 827, y: 429, zoom: 1 }, bounds);
+  assert.equal(tiles.style.transform, 'translate(-3px, -5px) scale(1.5)', 'pan wraps on a shared tile boundary');
+
+  renderGrid({ x: 0, y: 0, zoom: 1 / 3 }, bounds);
+  assert.equal(tiles.style.transform, 'translate(0px, 0px) scale(1)');
+  assert.equal(fine.style.opacity, '0');
+  assert.equal(coarse.style.opacity, '1');
+  assert.deepEqual(shell.style, {}, 'grid updates never change the full-page styles');
 });
 
 

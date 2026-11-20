@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import * as THREE from 'three';
+import { createCanvasGrid } from './canvas-grid';
 import { createLayoutController } from './layout';
 import initialLayout from './initial-layout';
 import { initializeIllustrations } from './illustrations';
@@ -11,6 +11,7 @@ import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createReadingPanel } from './reading-panel';
 import type { FocusGlossaryVisual } from './paper-glossary';
+import type { ThreeLayer } from './three-layer';
 import { selectHarborView } from './signal-harbor';
 import './style.css';
 import './layout.css';
@@ -19,6 +20,7 @@ type View = { x: number; y: number; zoom: number };
 type Stop = View & { duration?: number };
 const viewport = document.querySelector<HTMLElement>('#viewport')!;
 const backdrop = document.querySelector<HTMLElement>('#presentation-shell')!;
+const renderGrid = createCanvasGrid(backdrop);
 let canvasBounds = viewport.getBoundingClientRect();
 const world = document.querySelector<HTMLElement>('#world')!;
 initializeIllustrations();
@@ -51,20 +53,19 @@ const layout = createLayoutController(world, () => ({ ...glossaryFocus?.previous
   queueMicrotask(wake);
 }, initialLayout, readOnly);
 function invalidateConnections() { connectionsDirty = true; wake(); }
-const scene = new THREE.Scene();
-const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10000);
-camera.position.z = 2000;
-let renderer: THREE.WebGLRenderer | undefined;
-try {
-  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setClearColor(0x000000, 0);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.domElement.id = 'three-layer';
-  renderer.domElement.setAttribute('aria-hidden', 'true');
-  viewport.prepend(renderer.domElement);
-} catch (error) {
-  // HTML content and navigation still work on devices without WebGL.
-  console.warn('The optional 3D layer is unavailable.', error);
+let threeLayer: ThreeLayer | undefined;
+let loadingThree: Promise<ThreeLayer> | undefined;
+function enableThree() {
+  loadingThree ??= import('./three-layer').then(({ createThreeLayer }) => {
+    threeLayer = createThreeLayer(viewport);
+    threeLayer.resize(viewport.clientWidth, viewport.clientHeight);
+    wake();
+    return threeLayer;
+  }).catch(error => {
+    loadingThree = undefined;
+    throw error;
+  });
+  return loadingThree;
 }
 
 let stops: Stop[] = [];
@@ -112,25 +113,8 @@ function step(direction: number) {
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
   goTo(stops[stopIndex], stops[stopIndex].duration);
 }
-function renderGrid() {
-  const baseSpacing = 24 * view.zoom;
-  // Fade out the finer grid before its dots crowd together. Both levels
-  // share a world origin, so the dots that remain don't jump during zoom.
-  const spacing = baseSpacing * 2 ** Math.ceil(Math.log2(8 / baseSpacing));
-  const blend = Math.min(1, (spacing - 8) / 2.5);
-  const fine = blend * blend * (3 - 2 * blend);
-  const x = canvasBounds.left + viewport.clientWidth / 2 - view.x * view.zoom;
-  const y = canvasBounds.top + viewport.clientHeight / 2 - view.y * view.zoom;
-  const position = (step: number) => `${x % step - step / 2}px ${y % step - step / 2}px`;
-
-  backdrop.style.setProperty('--grid-size', `${spacing}px`);
-  backdrop.style.setProperty('--grid-fine-position', position(spacing));
-  backdrop.style.setProperty('--grid-coarse-position', position(spacing * 2));
-  backdrop.style.setProperty('--grid-fine-alpha', String(0.21 * fine));
-  backdrop.style.setProperty('--grid-coarse-alpha', String(0.21 * (1 - fine)));
-}
 function render() {
-  renderGrid();
+  renderGrid(view, canvasBounds);
   world.style.transform = `scale(${view.zoom}) translate(${-view.x}px, ${-view.y}px)`;
   // Connections live inside the same transformed world: pan/zoom cannot
   // change their world-space geometry. Only content/layout edits invalidate it.
@@ -146,11 +130,7 @@ function render() {
     slideNavigation.update(target);
     slideNavigation.updateVisible(view, tween ? target : undefined);
   }
-  camera.position.x = view.x;
-  camera.position.y = -view.y;
-  camera.zoom = view.zoom;
-  camera.updateProjectionMatrix();
-  renderer?.render(scene, camera);
+  threeLayer?.render(view);
 }
 let frame: number | undefined;
 function wake() { if (frame === undefined) frame = requestAnimationFrame(tick); }
@@ -177,9 +157,7 @@ function tick(now: number) {
 const animationCallbacks = new Set<(time: number) => void>();
 function resize() {
   canvasBounds = viewport.getBoundingClientRect();
-  camera.left = -viewport.clientWidth / 2; camera.right = viewport.clientWidth / 2;
-  camera.top = viewport.clientHeight / 2; camera.bottom = -viewport.clientHeight / 2;
-  renderer?.setSize(viewport.clientWidth, viewport.clientHeight);
+  threeLayer?.resize(viewport.clientWidth, viewport.clientHeight);
   invalidateConnections();
 }
 window.addEventListener('resize', resize);
@@ -381,7 +359,10 @@ viewport.addEventListener('wheel', (event) => {
 // Public controls for later presentation content and automation. Coordinates
 // use CSS pixels from the center, with positive y pointing down.
 const presentation = {
-  world, scene, camera, THREE, goTo,
+  world, goTo, enableThree,
+  get scene() { return threeLayer?.scene; },
+  get camera() { return threeLayer?.camera; },
+  get THREE() { return threeLayer?.THREE; },
   next: () => step(1), previous: () => step(-1),
   reset: () => { stopIndex = -1; goTo({ x: 0, y: 0, zoom: 1 }); },
   getView: (): View => ({ ...view }),

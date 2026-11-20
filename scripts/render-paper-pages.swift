@@ -1,16 +1,18 @@
-// Renders the original paper to PNG and records passage, highlight, and glossary coordinates.
+// Renders the original paper to lossless WebP and records passage, highlight, and glossary coordinates.
 //
 //   swift scripts/render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width]
 //
-// Uses macOS PDFKit. The generated files under public/readings/ are tracked so
+// Uses macOS PDFKit and cwebp. The generated files under public/readings/ are tracked so
 // production builds can copy them without running this script.
 import Foundation
 import PDFKit
 import ImageIO
 import UniformTypeIdentifiers
 
+var stagingToClean: URL?
 func fail(_ message: String) -> Never {
   FileHandle.standardError.write(Data("error: \(message)\n".utf8))
+  if let stagingToClean { try? FileManager.default.removeItem(at: stagingToClean) }
   exit(1)
 }
 
@@ -118,10 +120,27 @@ func glossaryOccurrences(_ page: PDFPage, in box: CGRect, beforeBibliography: in
 
 // Render into a sibling folder first so a failed run never leaves a half-written set.
 let fileManager = FileManager.default
-let stagingURL = outputURL.deletingLastPathComponent().appendingPathComponent(outputURL.lastPathComponent + ".tmp", isDirectory: true)
-try? fileManager.removeItem(at: stagingURL)
+let stagingURL = outputURL.deletingLastPathComponent().appendingPathComponent(outputURL.lastPathComponent + ".tmp-" + UUID().uuidString, isDirectory: true)
+stagingToClean = stagingURL
 do { try fileManager.createDirectory(at: stagingURL, withIntermediateDirectories: true) }
 catch { fail("cannot create \(stagingURL.path): \(error.localizedDescription)") }
+
+func writePage(_ image: CGImage, to url: URL) throws {
+  let png = url.deletingPathExtension().appendingPathExtension("png")
+  defer { try? fileManager.removeItem(at: png) }
+  guard let destination = CGImageDestinationCreateWithURL(png as CFURL, UTType.png.identifier as CFString, 1, nil) else {
+    throw CocoaError(.fileWriteUnknown)
+  }
+  CGImageDestinationAddImage(destination, image, nil)
+  guard CGImageDestinationFinalize(destination) else { throw CocoaError(.fileWriteUnknown) }
+
+  let encoder = Process()
+  encoder.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+  encoder.arguments = ["cwebp", "-quiet", "-lossless", "-z", "6", "-exact", "-metadata", "icc", png.path, "-o", url.path]
+  try encoder.run()
+  encoder.waitUntilExit()
+  guard encoder.terminationStatus == 0 else { throw CocoaError(.fileWriteUnknown) }
+}
 
 var pages: [[String: Any]] = []
 var pageWords: [String: [[[Int]]]] = [:]
@@ -189,17 +208,14 @@ for index in 0..<document.pageCount {
   context.translateBy(x: -box.origin.x, y: -box.origin.y)
   page.draw(with: .cropBox, to: context)
 
-  let file = String(format: "page-%02d.png", index + 1)
+  let file = String(format: "page-%02d.webp", index + 1)
   pageWords[file] = wordBounds(page, in: box)
   let rasterBounds = CGRect(x: box.minX, y: box.minY, width: box.width, height: CGFloat(pixelHeight) / scale)
   let occurrences = glossaryOccurrences(page, in: rasterBounds, beforeBibliography: &beforeBibliography)
   if !occurrences.isEmpty { pageGlossary[file] = occurrences }
-  guard let image = context.makeImage(),
-        let destination = CGImageDestinationCreateWithURL(stagingURL.appendingPathComponent(file) as CFURL, UTType.png.identifier as CFString, 1, nil) else {
-    fail("cannot encode \(file)")
-  }
-  CGImageDestinationAddImage(destination, image, nil)
-  guard CGImageDestinationFinalize(destination) else { fail("cannot write \(file)") }
+  guard let image = context.makeImage() else { fail("cannot make an image for \(file)") }
+  do { try writePage(image, to: stagingURL.appendingPathComponent(file)) }
+  catch { fail("cannot encode \(file) with cwebp: \(error.localizedDescription)") }
 
   // The printed page number is the last three-digit line of the page text.
   let lines = (page.string ?? "").split(whereSeparator: \.isNewline).map { $0.trimmingCharacters(in: .whitespaces) }

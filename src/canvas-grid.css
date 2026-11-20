@@ -1,0 +1,26 @@
+.canvas-grid {
+  position: absolute;
+  inset: 0;
+  contain: strict;
+  overflow: hidden;
+  pointer-events: none;
+}
+.canvas-grid-tiles {
+  position: absolute;
+  inset: 0 -16px -16px 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.canvas-grid-tiles > div {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(102 81 51 / .21) .55px, transparent .95px);
+  background-size: 8px 8px;
+  background-position: -4px -4px;
+  will-change: opacity;
+}
+.canvas-grid-tiles > .canvas-grid-coarse {
+  background-size: 16px 16px;
+  background-position: -8px -8px;
+  opacity: 0;
+}

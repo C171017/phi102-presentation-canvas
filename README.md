@@ -2,7 +2,7 @@
 
 An interactive PHI 102 presentation about flexible foundationalism and contemporary contextualism. The warm-white canvas has a faint dot grid, movable and resizable text and illustrations, selection controls, connected topic arrows, and file-backed layout saving. The dots pan and scale with the camera.
 
-Stack: TypeScript, Vite, Three.js, HTML/CSS. HTML content and the transparent WebGL layer share one camera. No backend is needed. Rendering sleeps when nothing changes.
+Stack: TypeScript, Vite, HTML/CSS, and an optional Three.js layer. HTML content and any active WebGL layer share one camera. No backend is needed for the editor.
 
 ## Run
 
@@ -41,7 +41,7 @@ Generated files live in `public/generated/contextualism/`; the comparison page i
 
 ## Add content later
 
-Append positioned HTML to `window.presentation.world`. Its origin is the viewport center; positive x goes right, positive y goes down. Add Three.js objects to `window.presentation.scene` (invert y to align with HTML). Call `invalidate()` after scene edits, or register animations with `animate(callback)`, which returns an unsubscribe function.
+Append positioned HTML to `window.presentation.world`. Its origin is the viewport center, with positive x pointing right and positive y down. To add Three.js objects, start with `const { THREE, scene } = await window.presentation.enableThree()`. Add objects to `scene` and invert y to align with HTML. Call `invalidate()` after scene edits or register animations with `animate(callback)`, which returns an unsubscribe function.
 
 `window.presentation.goTo({ x, y, zoom }, durationMs)` smoothly moves the camera. `setStops([{ x: 0, y: 0, zoom: 1 }, ...])` defines a presentation route. `next()`, `previous()`, `reset()`, `getView()` and `saveLayout()` are available to a future controller. Keyboard input ignores editable fields and browser shortcuts. Reduced-motion preferences disable camera transitions.
 
@@ -51,7 +51,7 @@ Select **Paper** on the right of the canvas in Audience or Presenter mode to rea
 
 - The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize or collapse it, or focus the edge and use the arrow keys. Press **P** to toggle the pane.
 - Hover over a blue-underlined term or focus it with the keyboard to see its definition. Click a term with an illustration, or press **Enter**, to jump to it while keeping your place in the paper. Press **Escape** to dismiss the definition. The entries and their search phrases live in `src/paper-glossary-data.json`.
-- Run `npm run paper:pages` on macOS to regenerate the page images, manifest, and glossary coordinates in `public/readings/greco-2017/`. Production builds include these generated files.
+- Run `npm run paper:pages` on macOS with `cwebp` installed to regenerate the lossless WebP pages, manifest, and glossary coordinates in `public/readings/greco-2017/`. Production builds include these generated files.
 - `scripts/paper-anchors.json` maps each slide by its first object ID to a phrase in the PDF. Edit the mapping and regenerate the pages to change where the pane scrolls. A slide with no entry uses the previous slide’s passage.
 - **Section notes.** Each section of the paper has one colour: a tint behind its pages, a bar down the page edge, and a small box floating just left of the pane, with an arrow into that bar, saying what the section is for. Objections are always red; other neighbouring sections never share a colour. Boxes stay beside their section while it is on screen; click one to jump to the section's start. `N` hides or shows them (remembered in `phi102-dev-paper-notes-v1`), and they hide themselves when there is no room left of the pane. The text lives in `src/paper-notes-data.ts`, keyed by anchor IDs from `scripts/paper-anchors.json`.
 
