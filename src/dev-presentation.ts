@@ -9,7 +9,7 @@ const roles = [
   ['presenter', 'Presenter'],
 ] as const;
 
-export function addDevRolePicker(viewport: HTMLElement, role: PreviewRole | null) {
+export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null) {
   const picker = document.createElement('div');
   picker.className = 'dev-role-picker';
   picker.setAttribute('role', 'group');
@@ -31,7 +31,8 @@ export function addDevRolePicker(viewport: HTMLElement, role: PreviewRole | null
     });
     picker.append(button);
   }
-  viewport.append(picker);
+  shell.append(picker);
+  return picker;
 }
 
 export function connectDevPresentation(viewport: HTMLElement, openSlide: (index: number) => void, role: PreviewRole) {

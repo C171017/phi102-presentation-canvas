@@ -1,11 +1,10 @@
-// Renders every page of the reading PDF to a PNG for the local-dev "Original
-// paper" pane, and records where each slide's passage starts on its page.
+// Renders the reading PDF for the original-paper pane and records where each
+// slide's passage starts on its page.
 //
 //   swift scripts/render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width]
 //
-// Uses macOS PDFKit, so no extra tools are needed. The output is only ever read
-// by `npm run dev`; it lives outside `public/` so Vite never copies it into a
-// build, and it is git-ignored.
+// Uses macOS PDFKit. The generated pages and manifest under public/readings/
+// are tracked so production builds can copy them without running this script.
 import Foundation
 import PDFKit
 import ImageIO
@@ -45,6 +44,10 @@ var pages: [[String: Any]] = []
 for index in 0..<document.pageCount {
   guard let page = document.page(at: index) else { fail("cannot read page \(index + 1)") }
   guard page.rotation == 0 else { fail("page \(index + 1) is rotated; this script renders upright pages only") }
+  // Remove highlight annotations from the in-memory rendering source only.
+  for annotation in page.annotations where annotation.type == "Highlight" {
+    page.removeAnnotation(annotation)
+  }
   let box = page.bounds(for: .cropBox)
   let scale = CGFloat(pixelWidth) / box.width
   let pixelHeight = Int((box.height * scale).rounded())

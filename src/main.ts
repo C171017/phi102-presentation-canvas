@@ -369,9 +369,15 @@ if (liveMode) {
     });
   });
 }
+function mountPaperPane(rolePicker?: HTMLElement) {
+  void import('./paper-pane').then(({ createPaperPane }) => {
+    paperPane = createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker });
+  });
+}
 if (localDev) {
   void import('./dev-presentation').then(({ addDevRolePicker, connectDevPresentation }) => {
-    addDevRolePicker(viewport, previewRole);
+    const rolePicker = addDevRolePicker(backdrop, previewRole);
+    mountPaperPane(rolePicker);
     if (!previewRole) return;
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
@@ -379,11 +385,8 @@ if (localDev) {
       });
     });
   });
-}
-// The original-paper pane is for the local editor only. It sits behind the DEV
-// flag, so production builds never include or reference it.
-if (localDev && !previewRole) {
-  void import('./dev-paper').then(({ createPaperPane }) => { paperPane = createPaperPane(backdrop, slideNavigation.open); });
+} else {
+  mountPaperPane();
 }
 if (import.meta.hot) {
   import.meta.hot.dispose(pageBackgrounds.dispose);

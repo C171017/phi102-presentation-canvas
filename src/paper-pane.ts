@@ -1,18 +1,13 @@
 import { slides } from './slide-content';
-import './dev-paper.css';
+import './paper-pane.css';
 
-// "Original paper" pane: local development only.
-//
-// main.ts imports this module from its `import.meta.env.DEV` branch, so a
-// production build neither bundles nor references it. The page images come from
-// `local-reading/` (git-ignored, outside `public/`), made by `npm run paper:pages`.
-//
 // It is a floating overlay. It never resizes the canvas, moves the camera, or
 // touches the saved layout: it only reads which slide is current and scrolls
 // its own pages to that slide's passage.
 
-const ASSETS = '/local-reading/greco-2017/';
+const ASSETS = `${import.meta.env.BASE_URL}readings/greco-2017/`;
 const PREFS_KEY = 'phi102-dev-paper-v1';
+const LAST_READING_PAGE = '435';
 const EDGE = 14; // gap between the pane and the window edge, matching the CSS
 const MIN_WIDTH = 320;
 const READING_LINE = 0.18; // where in the pane a slide's passage is placed, from the top
@@ -22,7 +17,8 @@ const CANVAS_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 
 type Page = { file: string; width: number; height: number; printed: string };
 type Anchor = { page: number; y: number };
 type Manifest = { title: string; pages: Page[]; anchors: Record<string, Anchor> };
-type Prefs = { open: boolean; follow: boolean; width: number | null };
+type Prefs = { open: boolean; width: number | null };
+type PaperPaneOptions = { initiallyOpen: boolean; rolePicker?: HTMLElement };
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null;
 
@@ -44,13 +40,12 @@ function parseManifest(value: unknown): Manifest | null {
   return { title: value.title, pages, anchors };
 }
 
-function loadPrefs(): Prefs {
-  const prefs: Prefs = { open: true, follow: true, width: null };
+function loadPrefs(initiallyOpen: boolean): Prefs {
+  const prefs: Prefs = { open: initiallyOpen, width: null };
   try {
     const stored: unknown = JSON.parse(localStorage.getItem(PREFS_KEY) ?? 'null');
     if (isRecord(stored)) {
       if (typeof stored.open === 'boolean') prefs.open = stored.open;
-      if (typeof stored.follow === 'boolean') prefs.follow = stored.follow;
       if (typeof stored.width === 'number' && Number.isFinite(stored.width)) prefs.width = stored.width;
     }
   } catch { /* Storage can be unavailable; the defaults are fine. */ }
@@ -75,116 +70,97 @@ function button(label: string, className: string, title?: string) {
   return node;
 }
 
-export function createPaperPane(shell: HTMLElement, openSlide: (index: number) => void) {
-  const prefs = loadPrefs();
+export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker }: PaperPaneOptions) {
+  const prefs = loadPrefs(initiallyOpen);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let manifest: Manifest | undefined;
   let current = slideFromProgressBar();
   let slideAnchors: Anchor[] = [];
-  let slidePositions: number[] = []; // page index + fraction down the page, one per slide
-  let marker: HTMLElement | undefined;
-  let frame: number | undefined;
-  let keepScroll = false; // set while this pane itself moves the canvas, so it does not scroll back
+  let pagesRequested = false;
   const sheets: HTMLElement[] = [];
   const images: HTMLImageElement[] = [];
 
   const pane = element('aside');
   pane.id = 'paper-pane';
-  pane.setAttribute('aria-label', 'Original paper (local development only)');
+  pane.setAttribute('aria-label', 'Original paper');
+  const close = button('×', 'paper-close', 'Hide the original paper (P)');
+  close.setAttribute('aria-label', 'Hide the original paper');
 
   const resizer = element('div', 'paper-resizer');
   resizer.setAttribute('role', 'separator');
   resizer.setAttribute('aria-orientation', 'vertical');
-  resizer.setAttribute('aria-label', 'Resize the paper pane. Arrow keys change its width.');
+  resizer.setAttribute('aria-label', 'Resize the paper pane');
+  resizer.title = 'Drag to resize the paper pane';
   resizer.tabIndex = 0;
-
-  const header = element('header', 'paper-header');
-  const heading = element('div', 'paper-title');
-  const headingName = element('strong', undefined, 'Original paper');
-  const headingSource = element('span', undefined, 'Loading…');
-  heading.append(headingName, headingSource);
-  const followButton = button('Follow slides', 'paper-follow', 'Scroll to each slide’s passage as the canvas moves');
-  const closeButton = button('Hide', 'paper-close', 'Hide the paper (P)');
-  closeButton.setAttribute('aria-label', 'Hide the paper pane');
-  header.append(heading, followButton, closeButton);
-
-  const status = element('div', 'paper-status');
-  const where = element('span', 'paper-where');
-  const actions = element('span', 'paper-actions');
-  const backButton = button('', 'paper-back');
-  const syncButton = button('', 'paper-sync');
-  backButton.hidden = syncButton.hidden = true;
-  actions.append(backButton, syncButton);
-  status.append(where, actions);
 
   const scroll = element('div', 'paper-scroll');
   scroll.tabIndex = 0;
   scroll.setAttribute('role', 'region');
   scroll.setAttribute('aria-label', 'Pages of the original paper');
-  scroll.append(element('p', 'paper-message', 'Loading the paper pages…'));
 
-  pane.append(resizer, header, status, scroll);
+  const scrollIndicator = element('div', 'paper-scroll-indicator');
+  scrollIndicator.setAttribute('aria-hidden', 'true');
+  const scrollThumb = element('div', 'paper-scroll-thumb');
+  scrollIndicator.append(scrollThumb);
+  pane.append(resizer, scroll, scrollIndicator, close);
 
   const tab = button('Paper', 'paper-tab', 'Show the original paper (P)');
   tab.id = 'paper-tab';
   tab.setAttribute('aria-label', 'Show the original paper');
+  tab.setAttribute('aria-controls', pane.id);
   shell.append(pane, tab);
 
   function slideFromProgressBar() {
     return Array.from(document.querySelectorAll('#slide-progress button')).findIndex(item => item.hasAttribute('aria-current'));
   }
 
-  function maxWidth() { return Math.max(MIN_WIDTH, Math.min(1100, shell.clientWidth * 0.7)); }
+  function minWidth() { return Math.max(0, Math.min(MIN_WIDTH, shell.clientWidth - 2 * EDGE)); }
+  function maxWidth() { return Math.max(minWidth(), Math.min(1100, Math.max(380, shell.clientWidth * 0.7), shell.clientWidth - 2 * EDGE)); }
+  function clampWidth(width: number) { return Math.round(Math.min(maxWidth(), Math.max(minWidth(), width))); }
 
   function applyWidth() {
     if (prefs.width === null) pane.style.removeProperty('--paper-width');
-    else pane.style.setProperty('--paper-width', `${prefs.width}px`);
-    resizer.setAttribute('aria-valuemin', String(MIN_WIDTH));
+    else pane.style.setProperty('--paper-width', `${clampWidth(prefs.width)}px`);
+    resizer.setAttribute('aria-valuemin', String(minWidth()));
     resizer.setAttribute('aria-valuemax', String(Math.round(maxWidth())));
-    resizer.setAttribute('aria-valuenow', String(Math.round(pane.getBoundingClientRect().width)));
+    const paneBounds = pane.getBoundingClientRect();
+    resizer.setAttribute('aria-valuenow', String(Math.round(paneBounds.width)));
+    if (!rolePicker) return;
+    const pickerBounds = rolePicker.getBoundingClientRect();
+    // Give the paper the full height whenever it fits beside the centered controls.
+    const gap = 8;
+    pane.style.top = paneBounds.left < pickerBounds.right + gap
+      ? `${rolePicker.offsetTop + rolePicker.offsetHeight + gap}px`
+      : '';
   }
 
   function setWidth(width: number) {
-    // Page images scale with the pane, so keep the same place in the paper.
-    const ratio = scroll.scrollTop / Math.max(1, scroll.scrollHeight);
-    prefs.width = Math.round(Math.min(maxWidth(), Math.max(MIN_WIDTH, width)));
+    const anchor = readingAnchor();
+    prefs.width = clampWidth(width);
     applyWidth();
-    scroll.scrollTop = ratio * scroll.scrollHeight;
-    schedule();
+    if (anchor) scroll.scrollTop = offsetOf(anchor) - scroll.clientHeight * READING_LINE;
   }
 
   function setOpen(open: boolean) {
     prefs.open = open;
     savePrefs(prefs);
-    pane.hidden = !open;
-    tab.hidden = open;
-    if (!open) return;
-    applyWidth();
-    if (prefs.follow) scrollToSlide(current, false);
-    refreshStatus();
+    renderOpen();
   }
 
-  function setFollow(follow: boolean) {
-    prefs.follow = follow;
-    savePrefs(prefs);
-    followButton.setAttribute('aria-pressed', String(follow));
-    if (follow) scrollToSlide(current, true);
-    refreshStatus();
+  function renderOpen() {
+    pane.hidden = !prefs.open;
+    tab.hidden = prefs.open;
+    if (!prefs.open) return;
+    applyWidth();
+    scrollToSlide(current, false);
+    if (!pagesRequested) {
+      pagesRequested = true;
+      void load();
+    }
   }
 
   function offsetOf(anchor: Anchor) {
     const sheet = sheets[anchor.page];
     return sheet.offsetTop + anchor.y * sheet.offsetHeight;
-  }
-
-  function placeMarker(anchor: Anchor | undefined) {
-    marker?.remove();
-    marker = undefined;
-    if (!anchor || !sheets[anchor.page]) return;
-    marker = element('span', 'paper-marker');
-    marker.setAttribute('aria-hidden', 'true');
-    marker.style.top = `${anchor.y * 100}%`;
-    sheets[anchor.page].append(marker);
   }
 
   function scrollToSlide(index: number, smooth: boolean) {
@@ -197,65 +173,29 @@ export function createPaperPane(shell: HTMLElement, openSlide: (index: number) =
     });
   }
 
-  function readingPosition() {
+  function readingAnchor(): Anchor | undefined {
     const line = scroll.scrollTop + scroll.clientHeight * READING_LINE;
-    let position = 0;
+    let anchor = sheets.length ? { page: 0, y: 0 } : undefined;
     sheets.forEach((sheet, index) => {
-      if (sheet.offsetTop <= line) position = index + Math.min(1, (line - sheet.offsetTop) / sheet.offsetHeight);
+      if (sheet.offsetTop <= line) anchor = { page: index, y: Math.min(1, (line - sheet.offsetTop) / sheet.offsetHeight) };
     });
-    return position;
+    return anchor;
   }
-
-  function nearestSlide(position: number) {
-    let nearest = 0;
-    slidePositions.forEach((slidePosition, index) => { if (slidePosition <= position + 0.02) nearest = index; });
-    return nearest;
-  }
-
-  function refreshStatus() {
-    frame = undefined;
-    if (pane.hidden || !manifest) return;
-    const slide = slides[current];
-    const anchor = slideAnchors[current];
-    where.textContent = slide
-      ? `Slide ${current + 1} · ${slide.title}${anchor ? ` → p. ${manifest.pages[anchor.page].printed}` : ''}`
-      : 'Choose a slide on the canvas to follow it';
-    backButton.hidden = syncButton.hidden = true;
-    if (!slide || !anchor) return;
-    const position = readingPosition();
-    if (Math.abs(position - slidePositions[current]) <= 0.05) return;
-    backButton.textContent = `Back to slide ${current + 1}`;
-    backButton.hidden = false;
-    const nearest = nearestSlide(position);
-    if (nearest !== current) {
-      syncButton.textContent = `Go to slide ${nearest + 1}`;
-      syncButton.title = `Move the canvas to “${slides[nearest].title}”, the slide for this passage`;
-      syncButton.dataset.slide = String(nearest);
-      syncButton.hidden = false;
-    }
-  }
-
-  function schedule() { frame ??= requestAnimationFrame(refreshStatus); }
 
   function buildPages(loaded: Manifest) {
-    manifest = loaded;
-    const first = loaded.pages[0].printed, last = loaded.pages[loaded.pages.length - 1].printed;
-    headingSource.textContent = `${loaded.title} · pp. ${first}–${last}`;
-    headingSource.title = headingSource.textContent;
+    const lastPage = loaded.pages.findIndex(page => page.printed === LAST_READING_PAGE);
+    const visiblePages = lastPage < 0 ? loaded.pages : loaded.pages.slice(0, lastPage + 1);
     scroll.replaceChildren();
-    loaded.pages.forEach((page, index) => {
-      const sheet = element('section', 'paper-sheet');
+    visiblePages.forEach(page => {
       const figure = element('figure', 'paper-page');
-      figure.style.aspectRatio = `${page.width} / ${page.height}`;
       const image = new Image(page.width, page.height);
-      image.alt = `Page ${page.printed} of the paper (PDF page ${index + 1} of ${loaded.pages.length})`;
+      image.alt = `Page ${page.printed} of the paper`;
       image.decoding = 'async';
       image.loading = 'lazy';
       image.draggable = false;
       image.src = `${ASSETS}${page.file}`;
       figure.append(image);
-      sheet.append(figure, element('p', 'paper-folio', `p. ${page.printed} · PDF page ${index + 1} of ${loaded.pages.length}`));
-      scroll.append(sheet);
+      scroll.append(figure);
       sheets.push(figure);
       images.push(image);
     });
@@ -264,40 +204,28 @@ export function createPaperPane(shell: HTMLElement, openSlide: (index: number) =
     slideAnchors = slides.map(({ members }) => {
       const anchor = loaded.anchors[members[0]];
       if (!anchor) console.warn(`No paper passage is mapped for "${members[0]}". Add it to scripts/paper-anchors.json.`);
-      previous = anchor ?? previous;
+      if (anchor && anchor.page < visiblePages.length) previous = anchor;
       return previous;
     });
-    slidePositions = slideAnchors.map(anchor => anchor.page + anchor.y);
-    placeMarker(slideAnchors[current]);
     if (!pane.hidden) {
       applyWidth();
-      if (prefs.follow) scrollToSlide(current, false);
-      refreshStatus();
+      scrollToSlide(current, false);
     }
   }
 
-  function showFailure(reason: string) {
-    const message = element('div', 'paper-message');
-    message.append(
-      element('p', undefined, 'The paper pages have not been rendered yet.'),
-      element('code', undefined, 'npm run paper:pages'),
-      element('p', 'paper-detail', reason),
-    );
-    scroll.replaceChildren(message);
-    where.textContent = 'Render the pages once; they stay on this Mac only.';
-    headingSource.textContent = 'Not rendered';
-  }
-
   async function load() {
+    scroll.replaceChildren(element('p', 'paper-message', 'Loading the paper pages…'));
     try {
-      const response = await fetch(`${ASSETS}manifest.json`, { cache: 'no-store' });
+      const response = await fetch(`${ASSETS}manifest.json`, { cache: 'no-cache' });
       // Vite answers unknown paths with index.html, so check the type as well as the status.
-      if (!response.ok || !response.headers.get('content-type')?.includes('json')) throw new Error('local-reading/greco-2017/manifest.json was not found.');
+      if (!response.ok || !response.headers.get('content-type')?.includes('json')) throw new Error('The paper manifest is unavailable');
       const loaded = parseManifest(await response.json());
       if (!loaded) throw new Error('manifest.json is not in the expected format');
       buildPages(loaded);
     } catch (error) {
-      showFailure(error instanceof Error ? error.message : String(error));
+      pagesRequested = false;
+      console.warn('Could not load the original paper.', error);
+      scroll.replaceChildren(element('p', 'paper-message', 'The paper could not be loaded. Close and reopen it to retry.'));
     }
   }
 
@@ -305,52 +233,62 @@ export function createPaperPane(shell: HTMLElement, openSlide: (index: number) =
     if (index < 0 || index === current) return;
     const first = current < 0; // the canvas has just found its slide after a page load: jump, don't sweep
     current = index;
-    if (!manifest) return; // buildPages places everything for the slide that is current by then
-    placeMarker(slideAnchors[index]);
-    if (prefs.follow && !keepScroll) scrollToSlide(index, !first);
-    refreshStatus();
+    if (!slideAnchors.length) return; // buildPages places everything for the slide that is current by then
+    scrollToSlide(index, !first);
   }
 
-  followButton.setAttribute('aria-pressed', String(prefs.follow));
-  followButton.addEventListener('click', () => setFollow(!prefs.follow));
-  closeButton.addEventListener('click', () => setOpen(false));
-  tab.addEventListener('click', () => setOpen(true));
-  backButton.addEventListener('click', () => scrollToSlide(current, true));
-  syncButton.addEventListener('click', () => {
-    const index = Number(syncButton.dataset.slide);
-    if (!Number.isInteger(index)) return;
-    // The canvas reports the new slide synchronously; the passage being read stays put.
-    keepScroll = true;
-    try { openSlide(index); } finally { keepScroll = false; }
+  let hideScrollIndicator: number | undefined;
+  scroll.addEventListener('scroll', () => {
+    const { clientHeight, scrollHeight, scrollTop } = scroll;
+    const maxScroll = scrollHeight - clientHeight;
+    const indicatorHeight = scrollIndicator.clientHeight;
+    if (maxScroll <= 0 || indicatorHeight <= 0) return;
+    const thumbHeight = Math.min(indicatorHeight, Math.max(24, indicatorHeight * clientHeight / scrollHeight));
+    const progress = Math.max(0, Math.min(1, scrollTop / maxScroll));
+    scrollThumb.style.height = `${thumbHeight}px`;
+    scrollThumb.style.transform = `translateY(${progress * (indicatorHeight - thumbHeight)}px)`;
+    scrollIndicator.classList.add('is-visible');
+    window.clearTimeout(hideScrollIndicator);
+    hideScrollIndicator = window.setTimeout(() => scrollIndicator.classList.remove('is-visible'), 600);
+  }, { passive: true });
+
+  tab.addEventListener('click', () => {
+    setOpen(true);
+    scroll.focus({ preventScroll: true });
   });
-  scroll.addEventListener('scroll', schedule, { passive: true });
+  close.addEventListener('click', () => {
+    setOpen(false);
+    tab.focus({ preventScroll: true });
+  });
   pane.addEventListener('keydown', event => {
     if (!event.metaKey && !event.ctrlKey && !event.altKey && CANVAS_KEYS.has(event.key)) event.stopPropagation();
   });
   // Pinching over the pane must not zoom the whole browser page.
   pane.addEventListener('wheel', event => { if (event.ctrlKey) event.preventDefault(); }, { passive: false });
-  window.addEventListener('resize', () => { if (!pane.hidden) { applyWidth(); schedule(); } });
+  window.addEventListener('resize', () => { if (!pane.hidden) applyWidth(); });
   window.addEventListener('keydown', event => {
     if (event.defaultPrevented || event.isComposing || event.repeat || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey || event.key.toLowerCase() !== 'p') return;
     if (event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
     event.preventDefault();
+    const focusWasInPane = pane.contains(document.activeElement);
     setOpen(pane.hidden);
+    if (focusWasInPane) tab.focus({ preventScroll: true });
   });
 
-  let resizing: number | undefined;
+  let resizing: { pointerId: number; x: number; width: number } | undefined;
   resizer.addEventListener('pointerdown', event => {
     if (event.button !== 0 || resizing !== undefined) return;
     event.preventDefault();
-    resizing = event.pointerId;
+    resizing = { pointerId: event.pointerId, x: event.clientX, width: pane.getBoundingClientRect().width };
     resizer.setPointerCapture(event.pointerId);
     pane.classList.add('is-resizing');
   });
   resizer.addEventListener('pointermove', event => {
-    if (resizing !== event.pointerId) return;
-    setWidth(shell.getBoundingClientRect().right - EDGE - event.clientX);
+    if (resizing?.pointerId !== event.pointerId) return;
+    setWidth(resizing.width + resizing.x - event.clientX);
   });
   const finishResize = (event: PointerEvent) => {
-    if (resizing !== event.pointerId) return;
+    if (resizing?.pointerId !== event.pointerId) return;
     resizing = undefined;
     pane.classList.remove('is-resizing');
     savePrefs(prefs);
@@ -366,9 +304,6 @@ export function createPaperPane(shell: HTMLElement, openSlide: (index: number) =
     savePrefs(prefs);
   });
 
-  pane.hidden = !prefs.open;
-  tab.hidden = prefs.open;
-  applyWidth();
-  void load();
+  renderOpen();
   return { update };
 }
