@@ -20,7 +20,7 @@
   --canvas-paper: #f9eedf;
   --slide-progress-max-height: 560px;
   background-color: var(--canvas-paper);
-  --reading-width: var(--reading-resized-width, calc(100% / 3));
+  --reading-width: min(20vw, var(--reading-resized-width, 320px));
   --reading-seam: clamp(40px, 3.4vw, 64px);
   --grid-size: 12px;
   --grid-coarse-size: calc(var(--grid-size) * 2);
@@ -41,8 +41,8 @@
   --reading-width: 0px;
   --reading-height: 0px;
   --notes-tab-height: 32px;
-  --notes-tab-space: calc(var(--notes-tab-height) + 5px);
-  --collapsed-progress-top: max(calc(12px + var(--notes-tab-space)), calc(50dvh - var(--slide-progress-max-height) / 2));
+  --notes-tab-space: calc(var(--notes-tab-height) + 10px);
+  --collapsed-progress-top: max(calc(7px + var(--notes-tab-space)), calc(50dvh - var(--slide-progress-max-height) / 2));
 }
 
 #presentation-shell.is-reading-collapsed #slide-progress {

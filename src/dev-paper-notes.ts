@@ -3,15 +3,16 @@ import './dev-paper-notes.css';
 
 // Colour-coded margin notes for the local-only "Original paper" pane.
 //
-// Each section of the paper gets one colour: a light tint behind its pages, a
-// bar down the page edge marking where it starts and ends. Several margin notes
-// can point to the same bar. Notes stick beside their passage while it is on screen.
+// Each passage gets a tint and a matching bar at the page edge. The tint can
+// change between two sentences on one printed line. Several margin notes can
+// point to the same passage. Notes stick beside it while it is on screen.
 // `N` hides them.
 //
 // Like the pane, this is an overlay: it never touches the canvas, the camera or
 // the saved layout.
 
-type Anchor = { page: number; y: number };
+export type PaperAnchor = { page: number; y: number; split?: { x: number; bottom: number } };
+type Anchor = PaperAnchor;
 type Hue = { ink: string; tint: string };
 type Section = { note: PaperNote; hue: Hue; start: Anchor; end: Anchor };
 type Card = { text: PaperCard; sectionIndex: number };
@@ -39,7 +40,8 @@ const VIEW_PAD = 10;
 const STACK_GAP = 8;
 const READING_LINE = 0.18; // match dev-paper.ts: where a jumped-to passage lands
 
-const before = (a: Anchor, b: Anchor) => a.page - b.page || a.y - b.y;
+const before = (a: Anchor, b: Anchor) => a.page - b.page || a.y - b.y || (a.split?.x ?? 0) - (b.split?.x ?? 0);
+const marginY = (anchor: Anchor) => anchor.split?.bottom ?? anchor.y;
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), Math.max(min, max));
 
 function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
@@ -67,21 +69,34 @@ function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
   return { sections, end };
 }
 
-/** One CSS background per page: each section's tint, switching exactly where the next section starts. */
-export function sectionBackgrounds(anchors: Record<string, Anchor>, pageCount: number) {
-  const { sections, end } = paperSections(anchors, pageCount);
+function drawSectionColors(sheets: HTMLElement[], sections: Section[], end: Anchor) {
   const stops = [...sections.map(({ start, hue }) => ({ ...start, color: hue.tint })), { ...end, color: END_TINT }];
-  let color = stops[0].color;
+  const units = 10000;
+  const point = (fraction: number) => Math.round(fraction * units);
+  let color = END_TINT;
   let next = 0;
-  return Array.from({ length: pageCount }, (_, page) => {
-    const parts = [color];
+  return sheets.map((sheet, page) => {
+    const layer = svg('svg', 'paper-section-colors');
+    layer.setAttribute('viewBox', `0 0 ${units} ${units}`);
+    layer.setAttribute('preserveAspectRatio', 'none');
+    layer.setAttribute('aria-hidden', 'true');
+    sheet.style.backgroundColor = color;
     while (stops[next]?.page === page) {
       const stop = stops[next++];
-      const position = `${(stop.y * 100).toFixed(2)}%`;
-      parts.push(`${color} ${position}`, `${stop.color} ${position}`);
+      const y = point(stop.y);
+      // Paint from each passage start to the page end. Later passages cover
+      // earlier ones, leaving only the prefix of a shared line in the old color.
+      const start = stop.split
+        ? `M${point(stop.split.x)},${y}H${units}V${units}H0V${point(stop.split.bottom)}H${point(stop.split.x)}Z`
+        : `M0,${y}H${units}V${units}H0Z`;
+      const path = svg('path', 'paper-section-color');
+      path.setAttribute('fill', stop.color);
+      path.setAttribute('d', start);
+      layer.append(path);
       color = stop.color;
     }
-    return parts.length === 1 ? color : `linear-gradient(${parts.join(', ')})`;
+    if (layer.hasChildNodes()) sheet.prepend(layer);
+    return layer;
   });
 }
 
@@ -115,6 +130,7 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
   let boxes: HTMLButtonElement[] = [];
   let links: Link[] = [];
   let marks: HTMLElement[][] = [];
+  let colorLayers: SVGSVGElement[] = [];
   let heights: number[] = [];
   let measuredWidth = 0;
   let frame = 0;
@@ -129,9 +145,9 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
   layer.append(arrows);
   pane.append(layer);
 
-  function offsetOf(anchor: Anchor) {
+  function offsetOf(anchor: Anchor, y = anchor.y) {
     const sheet = sheets[anchor.page];
-    return sheet.offsetTop + anchor.y * sheet.offsetHeight;
+    return sheet.offsetTop + y * sheet.offsetHeight;
   }
 
   function setLinked(index: number, linked: boolean) {
@@ -143,9 +159,12 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
   function build(anchors: Record<string, Anchor>, pageSheets: HTMLElement[]) {
     for (const box of boxes) box.remove();
     for (const mark of marks.flat()) mark.remove();
+    for (const layer of colorLayers) layer.remove();
     arrows.replaceChildren();
     sheets = pageSheets;
-    sections = sheets.length ? paperSections(anchors, sheets.length).sections : [];
+    const passages = paperSections(anchors, sheets.length);
+    sections = passages.sections;
+    colorLayers = drawSectionColors(sheets, sections, passages.end);
     cards = sections.flatMap(({ note }, sectionIndex) => {
       const notes = [note, ...(note.also ?? [])];
       return notes.map(text => ({ text, sectionIndex }));
@@ -187,8 +206,8 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     marks = sections.map(({ hue, start, end }) => {
       const pieces: HTMLElement[] = [];
       for (let page = start.page; page <= end.page && page < sheets.length; page++) {
-        const top = page === start.page ? start.y : 0;
-        const bottom = page === end.page ? end.y : 1;
+        const top = page === start.page ? marginY(start) : 0;
+        const bottom = page === end.page ? marginY(end) : 1;
         if (bottom <= top) continue;
         const mark = document.createElement('div');
         mark.className = 'paper-section-mark';
@@ -222,7 +241,10 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     // Read every position first, then write, so the browser lays out once per frame.
     const viewHeight = layer.clientHeight;
     const base = scroll.offsetTop - scroll.scrollTop;
-    const spans = sections.map(({ start, end }) => ({ top: base + offsetOf(start), bottom: base + offsetOf(end) }));
+    const spans = sections.map(({ start, end }) => ({
+      top: base + offsetOf(start, marginY(start)),
+      bottom: base + offsetOf(end, marginY(end)),
+    }));
 
     const lineEnd = width + LINK_ROOM + LINK_OVERLAP - 2; // the tip lands on the section bar
     let stackBottom = -Infinity;

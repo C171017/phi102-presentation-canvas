@@ -6,14 +6,26 @@
     },
     "aim-applications" : {
       "page" : 0,
+      "split" : {
+        "bottom" : 0.72599999999999998,
+        "x" : 0.55910000000000004
+      },
       "y" : 0.71020000000000005
     },
     "aim-motivations" : {
       "page" : 0,
+      "split" : {
+        "bottom" : 0.65710000000000002,
+        "x" : 0.22620000000000001
+      },
       "y" : 0.64129999999999998
     },
     "aim-versions" : {
       "page" : 0,
+      "split" : {
+        "bottom" : 0.67430000000000001,
+        "x" : 0.80989999999999995
+      },
       "y" : 0.65849999999999997
     },
     "conclusion-heading" : {
@@ -30,7 +42,7 @@
     },
     "dilemma-heading" : {
       "page" : 1,
-      "y" : 0.53849999999999998
+      "y" : 0.5212
     },
     "disagree-heading" : {
       "page" : 6,
@@ -42,6 +54,10 @@
     },
     "hinges-ctx-heading" : {
       "page" : 5,
+      "split" : {
+        "bottom" : 0.31319999999999998,
+        "x" : 0.52969999999999995
+      },
       "y" : 0.2974
     },
     "hinges-si-heading" : {
@@ -50,6 +66,10 @@
     },
     "home-heading" : {
       "page" : 8,
+      "split" : {
+        "bottom" : 0.50260000000000005,
+        "x" : 0.65839999999999999
+      },
       "y" : 0.48680000000000001
     },
     "mobile-heading" : {
@@ -90,6 +110,10 @@
     },
     "paper-contextual-evidence" : {
       "page" : 5,
+      "split" : {
+        "bottom" : 0.3649,
+        "x" : 0.1479
+      },
       "y" : 0.34910000000000002
     },
     "paper-contextualist-reply" : {
@@ -98,11 +122,23 @@
     },
     "paper-disagreement-responses" : {
       "page" : 6,
-      "y" : 0.67620000000000002
+      "split" : {
+        "bottom" : 0.65749999999999997,
+        "x" : 0.27229999999999999
+      },
+      "y" : 0.64180000000000004
     },
     "paper-flexible-knowledge" : {
       "page" : 4,
       "y" : 0.21129999999999999
+    },
+    "paper-mobile-home" : {
+      "page" : 8,
+      "split" : {
+        "bottom" : 0.65759999999999996,
+        "x" : 0.27939999999999998
+      },
+      "y" : 0.64180000000000004
     },
     "paper-notes" : {
       "page" : 10,
@@ -123,6 +159,14 @@
     "paper-relaxed-foundations" : {
       "page" : 1,
       "y" : 0.67620000000000002
+    },
+    "paper-roadmap" : {
+      "page" : 0,
+      "split" : {
+        "bottom" : 0.63990000000000002,
+        "x" : 0.72399999999999998
+      },
+      "y" : 0.62409999999999999
     },
     "paper-routes" : {
       "page" : 2,
@@ -150,6 +194,10 @@
     },
     "si-heading" : {
       "page" : 4,
+      "split" : {
+        "bottom" : 0.79530000000000001,
+        "x" : 0.75519999999999998
+      },
       "y" : 0.77949999999999997
     },
     "undoubted-heading" : {

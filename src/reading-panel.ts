@@ -40,11 +40,14 @@ export function createReadingPanel() {
   panel.append(handle, article);
 
   function sizeLimits() {
-    const dimension = stacked.matches ? shell.clientHeight : shell.clientWidth;
-    const initial = stacked.matches ? dimension * .44 : dimension / 3;
+    if (!stacked.matches) {
+      const max = Math.round(Math.min(1100, shell.clientWidth * .2));
+      return { min: Math.min(320, max), max };
+    }
+    const height = shell.clientHeight;
     return {
-      min: Math.round(Math.min(stacked.matches ? 200 : 320, initial)),
-      max: Math.round(Math.min(1100, dimension * .7)),
+      min: Math.round(Math.min(200, height * .44)),
+      max: Math.round(Math.min(1100, height * .7)),
     };
   }
 

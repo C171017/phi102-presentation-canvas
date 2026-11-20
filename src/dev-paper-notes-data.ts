@@ -23,7 +23,7 @@ export const PAPER_NOTES: PaperNote[] = [
     idea: 'Our beliefs do rest on foundations, but which beliefs serve as foundations depends on context.',
   },
   {
-    id: 'aim-motivations', role: 'Roadmap', title: 'Three jobs for the chapter',
+    id: 'paper-roadmap', role: 'Roadmap', title: 'Three jobs for the chapter',
     idea: '① Why the view is attractive. ② The different forms it can take. ③ What it is good for.',
   },
   {
@@ -79,11 +79,11 @@ export const PAPER_NOTES: PaperNote[] = [
   },
   {
     id: 'versions-map-heading', role: '§3 · Opening', title: 'What can vary with context?',
-    idea: 'Start with knowledge. Whether someone knows a claim may depend on the practical stakes of getting it wrong. Greco asks whether foundational justification can vary in a similar way.',
+    idea: 'Practical stakes and conversational context can affect whether someone knows a claim. Greco applies the same idea to whether someone has foundational justification.',
   },
   {
     id: 'si-heading', role: 'Believer’s community', title: 'Social norms × Sensitive invariantism',
-    idea: 'Hold the believer and belief fixed. Speakers make the same claim about its status. Whether it is foundational depends partly on what the believer’s community would challenge.',
+    idea: 'Speakers make the same claim about a belief’s foundational status. Whether that claim is true depends partly on the norms of the believer’s community.',
     hue: { ink: '#227167', tint: '#e1f1e9' },
   },
   {
@@ -102,12 +102,8 @@ export const PAPER_NOTES: PaperNote[] = [
     hue: { ink: '#944c37', tint: '#f8e0d4' },
   },
   {
-    id: 'paper-contextual-evidence', role: 'Shared linguistic test', title: 'Social norms × Contextualism',
-    idea: 'People rarely say “foundationally justified.” Greco looks instead at when asking for a reason makes sense. A demand for evidence of someone’s own toothache can sound out of place.',
-    also: [{
-      role: 'Shared linguistic test', title: 'Hinges × Contextualism',
-      idea: '“It must be cold outside” suggests the speaker inferred the cold. Like the toothache reply, it shows how ordinary speech can reveal what a speaker treats as a starting point.',
-    }],
+    id: 'paper-contextual-evidence', role: 'Shared linguistic evidence', title: 'How speech reveals foundations',
+    idea: '“It must be cold outside” suggests an inference. Brushing off a demand for evidence of your own toothache suggests you take it as a starting point. Both examples can inform either contextualist version.',
     hue: { ink: '#865234', tint: '#f7e6ce' },
   },
   {
@@ -123,11 +119,11 @@ export const PAPER_NOTES: PaperNote[] = [
     idea: 'If we each report our own commitments, both reports can be true. Yet when you accept astrology as a starting point and I challenge it, we seem to disagree. This motivates two alternatives.',
   },
   {
-    id: 'paper-disagreement-responses', role: 'Possible link to §2.3', title: 'Knowledge at the base × Relativism',
-    idea: 'If knowledge supplies the foundations, an assessor’s standards for judging a knowledge claim can also bear on whether the belief counts as foundational.',
+    id: 'paper-disagreement-responses', role: 'Response to disagreement', title: 'Relativism',
+    idea: 'Speakers can disagree about the same claim, whose truth can depend on the assessor’s context. If knowledge supplies the foundations, relativism about knowledge can carry over to foundational justification.',
     also: [{
-      role: 'Possible link to §2.3', title: 'Knowledge at the base × Expressivism',
-      idea: 'If knowledge supplies the foundations, calling something knowledge can express a commitment to using it as a reason. That commitment can clash with a refusal to accept it.',
+      role: 'Response to disagreement', title: 'Expressivism',
+      idea: 'A speaker can express a commitment to accepting a belief as a foundation. Someone who rejects that commitment can genuinely disagree.',
     }],
   },
   {
@@ -144,11 +140,11 @@ export const PAPER_NOTES: PaperNote[] = [
   },
   {
     id: 'paper-cognitive-home', role: 'The price', title: 'A fixed “cognitive home”',
-    idea: 'Smithies: justification rests on mental states we can always introspect, a realm where nothing is hidden. That is Descartes again.',
+    idea: 'Smithies grounds justification in mental states we can always introspect. That explanation of (Access) requires a Cartesian cognitive home, and Greco doubts we have one.',
   },
   {
-    id: 'home-heading', role: 'Key move', title: 'No fixed home, a mobile one',
-    idea: 'No realm is always transparent. But each context treats some facts as knowable; raise a doubt and the home moves.',
+    id: 'paper-mobile-home', role: 'Key move', title: 'A cognitive home that moves',
+    idea: 'In each context, the subject counts as able to know the facts that ground her justification. When doubts about that access are taken seriously, a different set of facts can take over.',
   },
   {
     id: 'mobile-heading', role: 'Strategy', title: 'Local, not global',

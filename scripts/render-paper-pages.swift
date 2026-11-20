@@ -207,12 +207,30 @@ for index in 0..<document.pageCount {
   pages.append(["file": file, "width": pixelWidth, "height": pixelHeight, "printed": printed])
 }
 
+// A passage shares its first line when another sentence ends to its left.
+// Place the color change between the two, using the same coordinates as the page image.
+func sharedLineSplit(_ selection: PDFSelection, on page: PDFPage, rect: CGRect, in box: CGRect) -> [String: Double]? {
+  guard let text = page.string, selection.numberOfTextRanges(on: page) > 0 else { return nil }
+  let start = selection.range(at: 0, on: page).location
+  guard start > 0, start <= (text as NSString).length else { return nil }
+  let previousCharacter = (text as NSString).rangeOfCharacter(
+    from: .whitespacesAndNewlines.inverted, options: .backwards, range: NSRange(location: 0, length: start)
+  )
+  guard previousCharacter.location != NSNotFound,
+        let previous = page.selection(for: previousCharacter)?.bounds(for: page),
+        !previous.isEmpty, previous.maxX <= rect.minX,
+        abs(previous.midY - rect.midY) < rect.height / 2 else { return nil }
+  let x = ((previous.maxX + rect.minX) / 2 - box.minX) / box.width
+  let bottom = (box.maxY - min(previous.minY, rect.minY)) / box.height
+  return ["x": (x * 10000).rounded() / 10000, "bottom": (bottom * 10000).rounded() / 10000]
+}
+
 // y is the fraction of the page height from its top edge to the first line of the passage.
 var anchors: [String: [String: Any]] = [:]
 for entry in anchorList {
   guard let id = entry["id"], let phrase = entry["find"] else { fail("every anchor needs an id and a find phrase") }
   let matches = document.findString(phrase, withOptions: .literal)
-  guard let line = matches.first?.selectionsByLine().first, let page = line.pages.first else {
+  guard let match = matches.first, let line = match.selectionsByLine().first, let page = line.pages.first else {
     fail("anchor \(id): could not find \"\(phrase)\" in the PDF")
   }
   let box = page.bounds(for: .cropBox)
@@ -220,6 +238,9 @@ for entry in anchorList {
   let y = ((box.maxY - rect.maxY) / box.height * 10000).rounded() / 10000
   let pageIndex = document.index(for: page)
   anchors[id] = ["page": pageIndex, "y": y]
+  if let split = sharedLineSplit(match, on: page, rect: rect, in: box) {
+    anchors[id]?["split"] = split
+  }
   let note = matches.count > 1 ? " (\(matches.count) matches, using the first)" : ""
   let label = id.padding(toLength: 24, withPad: " ", startingAt: 0)
   print("  \(label) page \(String(format: "%2ld", pageIndex + 1))  y \(String(format: "%.3f", y))  \(phrase)\(note)")

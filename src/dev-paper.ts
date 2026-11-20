@@ -1,7 +1,7 @@
 import { slides } from './slide-content';
 import { attachCollapsiblePaneResizer } from './collapsible-pane-resizer';
 import { createPaperHighlights } from './dev-paper-highlights';
-import { createPaperNotes, sectionBackgrounds } from './dev-paper-notes';
+import { createPaperNotes, type PaperAnchor } from './dev-paper-notes';
 import { createPaperGlossary } from './paper-glossary';
 import './dev-paper.css';
 
@@ -25,7 +25,7 @@ const READING_LINE = 0.18; // where in the pane a slide's passage is placed, fro
 const CANVAS_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'PageUp', 'PageDown', 'Home', '+', '=', '-', '_', '0', 'f', 'F']);
 
 type Page = { file: string; width: number; height: number; printed: string };
-type Anchor = { page: number; y: number };
+type Anchor = PaperAnchor;
 type Manifest = { title: string; pages: Page[]; anchors: Record<string, Anchor> };
 type Prefs = { open: boolean; width: number | null };
 
@@ -44,7 +44,13 @@ function parseManifest(value: unknown): Manifest | null {
   for (const [id, anchor] of Object.entries(value.anchors)) {
     if (!isRecord(anchor) || typeof anchor.page !== 'number' || !Number.isInteger(anchor.page) ||
         anchor.page < 0 || anchor.page >= pages.length || typeof anchor.y !== 'number' || !(anchor.y >= 0 && anchor.y <= 1)) return null;
-    anchors[id] = { page: anchor.page, y: anchor.y };
+    const parsed: Anchor = { page: anchor.page, y: anchor.y };
+    const split = anchor.split;
+    if (isRecord(split) && typeof split.x === 'number' && split.x > 0 && split.x < 1 &&
+        typeof split.bottom === 'number' && split.bottom > anchor.y && split.bottom <= 1) {
+      parsed.split = { x: split.x, bottom: split.bottom };
+    }
+    anchors[id] = parsed;
   }
   return { title: value.title, pages, anchors };
 }
@@ -203,12 +209,9 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
   function buildPages(loaded: Manifest) {
     const lastPage = loaded.pages.findIndex(page => page.printed === LAST_READING_PAGE);
     const visiblePages = lastPage < 0 ? loaded.pages : loaded.pages.slice(0, lastPage + 1);
-    // Each section's colour, shared with its margin note (dev-paper-notes.ts).
-    const backgrounds = sectionBackgrounds(loaded.anchors, visiblePages.length);
     scroll.replaceChildren();
-    visiblePages.forEach((page, index) => {
+    visiblePages.forEach(page => {
       const figure = element('figure', 'paper-page');
-      figure.style.background = backgrounds[index];
       const image = new Image(page.width, page.height);
       image.alt = `Page ${page.printed} of the paper`;
       image.decoding = 'async';
