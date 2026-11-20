@@ -1,4 +1,4 @@
-// Text of the margin notes beside the local-only "Original paper" pane (drawn by dev-paper-notes.ts).
+// Text of the margin notes beside the original paper.
 //
 // Each passage starts at an anchor from scripts/paper-anchors.json and runs
 // until the next anchor in this list. Multiple cards can point to one passage

@@ -1,7 +1,7 @@
-import { NOTES_END_ID, OBJECTION_ROLE, PAPER_NOTES, type PaperCard, type PaperNote } from './dev-paper-notes-data';
-import './dev-paper-notes.css';
+import { NOTES_END_ID, OBJECTION_ROLE, PAPER_NOTES, type PaperCard, type PaperNote } from './paper-notes-data';
+import './paper-notes.css';
 
-// Colour-coded margin notes for the local-only "Original paper" pane.
+// Colour-coded margin notes for the original paper.
 //
 // Each section of the paper gets one colour: a light tint behind its pages, a
 // bar down the page edge marking where it starts and ends. Several margin notes
@@ -37,7 +37,7 @@ const NOTE_MIN_WIDTH = 176;
 const NOTE_MAX_WIDTH = 236;
 const VIEW_PAD = 10;
 const STACK_GAP = 8;
-const READING_LINE = 0.18; // match dev-paper.ts: where a jumped-to passage lands
+const READING_LINE = 0.18; // match paper-pane.ts: where a jumped-to passage lands
 
 const before = (a: Anchor, b: Anchor) => a.page - b.page || a.y - b.y;
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), Math.max(min, max));
