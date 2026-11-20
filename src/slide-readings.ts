@@ -231,8 +231,8 @@ export const slideReadings = {
     section: '§3 · Relations to recent debates',
     body: `
       <p>
-        Section 2 gives three routes to flexible foundations. Section 3 asks how each route connects to
-        sensitive invariantism, contextualism, relativism, and expressivism.
+        Section 2 asks why foundations might vary. Section 3 asks whose context matters and how. Greco first
+        develops four pairings by applying two views to the social and hinge routes.
       </p>
       <ul>
         <li><strong>Community norms (§2.1).</strong> Greco sketches sensitive invariantist and contextualist
@@ -289,7 +289,8 @@ export const slideReadings = {
       </p>
       <h2>Clues in everyday speech</h2>
       <p>
-        Still, ordinary speech can show what people are treating as a starting point. “It must be cold
+        Both contextualist proposals face a difficulty. People rarely use the technical phrase “foundationally
+        justified.” Ordinary speech can still show what people treat as a starting point. “It must be cold
         outside” suggests I’ve worked it out from a clue, such as seeing people walk by in thick coats. If I
         say “I have a toothache” and you ask what makes me think so, I might just say “Oh, come on.” My reply
         suggests I take my belief that I have a toothache to stand on its own. A contextualist could study
@@ -324,7 +325,7 @@ export const slideReadings = {
     section: '§3 · Relations to recent debates',
     body: `
       <p>
-        It can be hard to see where the disagreement is on this account. If you say “I’m hungry” and I say
+        Suppose that calling a belief foundational reports the speaker’s own commitment to treating it that way. If you say “I’m hungry” and I say
         “I’m not hungry,” both statements can be true. You’re talking about your hunger and I’m talking about
         mine. Now suppose you say “We can take that claim about horoscopes for granted,” and I say “We can’t.”
         If you’re reporting which starting points you accept and I’m reporting which ones I accept, both

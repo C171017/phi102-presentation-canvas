@@ -9,9 +9,7 @@
 // related hues for the two versions. The other notes follow the color rotation.
 
 export type PaperCard = { role: string; title: string; idea: string };
-export type PaperNote = { id: string; hue?: { ink: string; tint: string } } & (
-  (PaperCard & { also?: PaperCard[] }) | { cards: [] }
-);
+export type PaperNote = PaperCard & { id: string; hue?: { ink: string; tint: string }; also?: PaperCard[] };
 
 export const OBJECTION_ROLE = 'Objection';
 
@@ -76,13 +74,16 @@ export const PAPER_NOTES: PaperNote[] = [
     hue: { ink: '#4d5e98', tint: '#e9eaf9' },
   },
   {
-    id: 'paper-belief-at-the-base', role: 'Route 3, again', title: 'Same trick with belief',
-    idea: 'Make every belief foundational (Harman) and let belief depend on context (Clarke): flexible again, from premises that aren’t outlandish.',
+    id: 'paper-belief-at-the-base', role: '§2.3 · Belief', title: 'Belief at the base × Sensitivism about belief',
+    idea: 'For Harman, every belief is foundational. If Clarke is right that the task can affect what someone believes, it can also affect which foundations they have.',
   },
-  { id: 'versions-map-heading', cards: [] },
+  {
+    id: 'versions-map-heading', role: '§3 · Opening', title: 'What can vary with context?',
+    idea: 'Start with knowledge. Whether someone knows a claim may depend on the practical stakes of getting it wrong. Greco asks whether foundational justification can vary in a similar way.',
+  },
   {
     id: 'si-heading', role: 'Believer’s community', title: 'Social norms × Sensitive invariantism',
-    idea: 'The attribution makes a fixed claim. The believer’s community helps determine whether that claim is true.',
+    idea: 'Hold the believer and belief fixed. Speakers make the same claim about its status. Whether it is foundational depends partly on what the believer’s community would challenge.',
     hue: { ink: '#227167', tint: '#e1f1e9' },
   },
   {
@@ -92,28 +93,41 @@ export const PAPER_NOTES: PaperNote[] = [
   },
   {
     id: 'ctx-heading', role: 'Speaker’s community', title: 'Social norms × Contextualism',
-    idea: 'The norms of the speaker’s community help determine which claim the speaker makes.',
+    idea: 'Two speakers can use the same words about the same belief. Their communities’ standards can make them express different claims about what counts as a foundation.',
     hue: { ink: '#8c5233', tint: '#faecd9' },
   },
   {
     id: 'hinges-ctx-heading', role: 'Speaker’s inquiry', title: 'Hinges × Contextualism',
-    idea: 'The speaker’s inquiry helps determine what she claims. Greco then looks to ordinary speech for clues about what speakers take for granted.',
+    idea: 'Calling a belief foundational can express different claims depending on which question the speaker is investigating.',
     hue: { ink: '#944c37', tint: '#f8e0d4' },
+  },
+  {
+    id: 'paper-contextual-evidence', role: 'Shared linguistic test', title: 'Social norms × Contextualism',
+    idea: 'People rarely say “foundationally justified.” Greco looks instead at when asking for a reason makes sense. A demand for evidence of someone’s own toothache can sound out of place.',
+    also: [{
+      role: 'Shared linguistic test', title: 'Hinges × Contextualism',
+      idea: '“It must be cold outside” suggests the speaker inferred the cold. Like the toothache reply, it shows how ordinary speech can reveal what a speaker treats as a starting point.',
+    }],
+    hue: { ink: '#865234', tint: '#f7e6ce' },
   },
   {
     id: 'paper-alternative-views', role: OBJECTION_ROLE, title: 'Social norms × Sensitive invariantism',
     idea: 'A whole community might accept astrology without objection. Could its standards for what counts as foundational still be wrong?',
   },
   {
-    id: 'paper-contextualist-reply', role: 'Speaker’s own standards', title: 'Social norms × Contextualism',
-    idea: 'In a further contextualist version, the speaker reports her own commitment. She can criticize the community, but speakers with opposing standards can both speak truly.',
+    id: 'paper-contextualist-reply', role: 'Speaker-commitment variant', title: 'Social norms × Contextualism',
+    idea: 'Greco modifies the social route. Calling a belief foundational reports my own willingness to accept it without further reasons. That lets me criticize my community’s acceptance of astrology.',
   },
   {
-    id: 'paper-disagreement-responses', role: 'Response to disagreement', title: 'Knowledge at the base × Relativism',
-    idea: 'The assessor’s standards may determine how a claim about knowledge or foundational justification is evaluated.',
+    id: 'disagree-heading', role: OBJECTION_ROLE, title: 'Social norms × Contextualism',
+    idea: 'If we each report our own commitments, both reports can be true. Yet when you accept astrology as a starting point and I challenge it, we seem to disagree. This motivates two alternatives.',
+  },
+  {
+    id: 'paper-disagreement-responses', role: 'Possible link to §2.3', title: 'Knowledge at the base × Relativism',
+    idea: 'If knowledge supplies the foundations, an assessor’s standards for judging a knowledge claim can also bear on whether the belief counts as foundational.',
     also: [{
-      role: 'Response to disagreement', title: 'Knowledge at the base × Expressivism',
-      idea: 'Claims about knowledge or foundational justification may express commitments that can clash.',
+      role: 'Possible link to §2.3', title: 'Knowledge at the base × Expressivism',
+      idea: 'If knowledge supplies the foundations, calling something knowledge can express a commitment to using it as a reason. That commitment can clash with a refusal to accept it.',
     }],
   },
   {

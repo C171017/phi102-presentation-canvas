@@ -54,7 +54,7 @@ function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
   let rotation = 0;
   let previous: Hue | undefined;
   const sections: Section[] = located.map(({ note, start }, index) => {
-    const isObjection = 'role' in note && note.role === OBJECTION_ROLE;
+    const isObjection = note.role === OBJECTION_ROLE;
     const hue = note.hue ?? (isObjection && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length]);
     previous = hue;
     return {
@@ -147,7 +147,7 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     sheets = pageSheets;
     sections = sheets.length ? paperSections(anchors, sheets.length).sections : [];
     cards = sections.flatMap(({ note }, sectionIndex) => {
-      const notes = 'title' in note ? [note, ...(note.also ?? [])] : note.cards;
+      const notes = [note, ...(note.also ?? [])];
       return notes.map(text => ({ text, sectionIndex }));
     });
 
@@ -184,9 +184,8 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     });
 
     // A bar down the page edge spanning the whole section, split at page breaks.
-    marks = sections.map(({ note, hue, start, end }) => {
+    marks = sections.map(({ hue, start, end }) => {
       const pieces: HTMLElement[] = [];
-      if (!('title' in note)) return pieces;
       for (let page = start.page; page <= end.page && page < sheets.length; page++) {
         const top = page === start.page ? start.y : 0;
         const bottom = page === end.page ? end.y : 1;
@@ -229,21 +228,28 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     let stackBottom = -Infinity;
     cards.forEach(({ sectionIndex }, index) => {
       const range = spans[sectionIndex];
+      const box = boxes[index];
+      const link = links[index];
+      const shownTop = Math.max(range.top, 0);
+      const shownBottom = Math.min(range.bottom, viewHeight);
+      // A stack of cards can be taller than its passage. Once the passage has
+      // scrolled away, its cards must yield their space to the next passage.
+      if (shownBottom - shownTop < 2) {
+        box.style.visibility = 'hidden';
+        link.group.style.display = 'none';
+        return;
+      }
       const height = heights[index];
       // Stick beside the section while it is on screen, then leave with it.
       let top = clamp(VIEW_PAD, range.top, range.bottom - height);
       top = Math.max(top, stackBottom + STACK_GAP); // never overlap the note above
       stackBottom = top + height;
 
-      const box = boxes[index];
       const onScreen = top < viewHeight && top + height > 0;
       box.style.transform = `translateY(${Math.round(top)}px)`;
       box.style.visibility = onScreen ? '' : 'hidden';
 
-      const link = links[index];
-      const shownTop = Math.max(range.top, 0);
-      const shownBottom = Math.min(range.bottom, viewHeight);
-      if (!onScreen || shownBottom - shownTop < 2) {
+      if (!onScreen) {
         link.group.style.display = 'none';
         return;
       }
