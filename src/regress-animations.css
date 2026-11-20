@@ -1,6 +1,8 @@
-/* A narrow, warm edge separates the letters from crossing lines. */
+/* Position the title below the drawn strokes while keeping the route's anchor centered. */
 .regress-position > div {
   position: relative;
+  top: calc(var(--diagram-bottom, 162px) + 10px + .5lh);
+  left: var(--caption-offset-x, 0px);
   z-index: 1;
   color: color-mix(in srgb, var(--route-color) 76%, #2e241b);
   -webkit-text-stroke: .11em #eadbbd;
@@ -33,6 +35,10 @@
 .regress-animation .spiral-belief { fill: #faf9f6; }
 
 /* Match visible footprints, including belief nodes and the asymmetric spiral. */
-.route-infinitism { --diagram-radius: 66; }
+.route-infinitism {
+  --diagram-radius: 66;
+  --diagram-bottom: 150px;
+  --caption-offset-x: 24px;
+}
 .route-coherentism { --diagram-radius: 72; }
 .route-foundationalism { --diagram-radius: 89; }

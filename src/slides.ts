@@ -25,7 +25,11 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     const barClearance = progress.getBoundingClientRect().right - viewport.getBoundingClientRect().left + 12;
     const availableWidth = Math.max(1, viewport.clientWidth - barClearance);
     frames = groups.map(group => {
-      const rects = group.flatMap(item => [item.getBoundingClientRect(), ...Array.from(item.querySelectorAll('.regress-animation')).map(svg => svg.getBoundingClientRect())]);
+      const rects = group.flatMap(item => [
+        item.getBoundingClientRect(),
+        ...Array.from(item.querySelectorAll(':scope > .regress-animation, :scope.regress-position > div'))
+          .map(part => part.getBoundingClientRect()),
+      ]);
       const left = Math.min(...rects.map(rect => rect.left));
       const right = Math.max(...rects.map(rect => rect.right));
       const top = Math.min(...rects.map(rect => rect.top));
