@@ -111,10 +111,11 @@
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-color: #61736a transparent;
+  scrollbar-width: none;
   padding: clamp(18px, 2.15vw, 34px);
 }
+
+.reading-content::-webkit-scrollbar { display: none; }
 
 .reading-content:focus-visible {
   outline: 2px solid #3d5952;

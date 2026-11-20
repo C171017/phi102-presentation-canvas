@@ -1,15 +1,17 @@
 // Text of the margin notes beside the local-only "Original paper" pane (drawn by dev-paper-notes.ts).
 //
-// Each note starts a section of the paper at an anchor from
-// scripts/paper-anchors.json and runs until the next note's anchor. A note says
-// what that stretch of the paper is *for*: the point Greco is making there, in
-// one plain sentence or two, not a summary of every line.
+// Each passage starts at an anchor from scripts/paper-anchors.json and runs
+// until the next anchor in this list. Multiple cards can point to one passage
+// when Greco names several pairings together.
 //
 // `role` is the move the passage makes in the argument. Objections share one
 // color so pushback is recognisable at a glance. Section 3’s pairings use
 // related hues for the two versions. The other notes follow the color rotation.
 
-export type PaperNote = { id: string; role: string; title: string; idea: string; hue?: { ink: string; tint: string } };
+export type PaperCard = { role: string; title: string; idea: string };
+export type PaperNote = { id: string; hue?: { ink: string; tint: string } } & (
+  (PaperCard & { also?: PaperCard[] }) | { cards: [] }
+);
 
 export const OBJECTION_ROLE = 'Objection';
 
@@ -59,53 +61,60 @@ export const PAPER_NOTES: PaperNote[] = [
     idea: 'Make knowledge the foundation (E = K), add a context-sensitive view of knowledge, and flexible foundations follow.',
   },
   {
+    id: 'paper-flexible-knowledge', role: 'Named in §2.3', title: 'Knowledge at the base × Contextualism',
+    idea: 'With E = K, the speaker’s context can change what counts as evidence by changing what a knowledge attribution says.',
+    also: [
+      {
+        role: 'Named in §2.3', title: 'Knowledge at the base × Sensitive invariantism',
+        idea: 'With E = K, the believer’s situation can affect what she knows and hence what evidence she has.',
+      },
+      {
+        role: 'Named in §2.3', title: 'Knowledge at the base × Relativism',
+        idea: 'With E = K, if what counts as knowledge varies with the context of assessment, so can what counts as evidence.',
+      },
+    ],
+    hue: { ink: '#4d5e98', tint: '#e9eaf9' },
+  },
+  {
     id: 'paper-belief-at-the-base', role: 'Route 3, again', title: 'Same trick with belief',
     idea: 'Make every belief foundational (Harman) and let belief depend on context (Clarke): flexible again, from premises that aren’t outlandish.',
   },
+  { id: 'versions-map-heading', cards: [] },
   {
-    id: 'versions-map-heading', role: 'Setup', title: 'Routes and versions',
-    idea: 'Greco brings the routes from §2 into four recent debates. He starts with sensitive invariantism, where the believer’s situation can affect what qualifies as foundational.',
-  },
-  {
-    id: 'si-heading', role: 'Community norms', title: 'Annis × Sensitive invariantism',
+    id: 'si-heading', role: 'Believer’s community', title: 'Social norms × Sensitive invariantism',
     idea: 'The attribution makes a fixed claim. The believer’s community helps determine whether that claim is true.',
     hue: { ink: '#227167', tint: '#e1f1e9' },
   },
   {
-    id: 'hinges-si-heading', role: 'Hinges', title: 'Hinges × Sensitive invariantism',
+    id: 'hinges-si-heading', role: 'Believer’s inquiry', title: 'Hinges × Sensitive invariantism',
     idea: 'Whether a belief is foundational depends in part on what the believer must take for granted to pursue her inquiry.',
     hue: { ink: '#286954', tint: '#d2ebdd' },
   },
   {
-    id: 'ctx-heading', role: 'Community norms', title: 'Annis × Contextualism',
+    id: 'ctx-heading', role: 'Speaker’s community', title: 'Social norms × Contextualism',
     idea: 'The norms of the speaker’s community help determine which claim the speaker makes.',
     hue: { ink: '#8c5233', tint: '#faecd9' },
   },
   {
-    id: 'hinges-ctx-heading', role: 'Hinges', title: 'Hinges × Contextualism',
-    idea: 'The inquiry the speaker is engaged in helps determine which claim the speaker makes.',
+    id: 'hinges-ctx-heading', role: 'Speaker’s inquiry', title: 'Hinges × Contextualism',
+    idea: 'The speaker’s inquiry helps determine what she claims. Greco then looks to ordinary speech for clues about what speakers take for granted.',
     hue: { ink: '#944c37', tint: '#f8e0d4' },
   },
   {
-    id: 'paper-contextual-evidence', role: 'Evidence', title: 'Clues in everyday speech',
-    idea: 'People rarely use the technical phrase. Greco looks to ordinary remarks that convey which beliefs speakers take as foundations.',
-  },
-  {
-    id: 'paper-alternative-views', role: OBJECTION_ROLE, title: 'Annis and the astrology objection',
+    id: 'paper-alternative-views', role: OBJECTION_ROLE, title: 'Social norms × Sensitive invariantism',
     idea: 'A whole community might accept astrology without objection. Could its standards for what counts as foundational still be wrong?',
   },
   {
-    id: 'paper-contextualist-reply', role: 'Contextualist reply', title: 'The speaker’s own commitment',
-    idea: 'Greco sketches a further version where a speaker reports her willingness to take the belief as foundational. This gives her room to criticize the community.',
+    id: 'paper-contextualist-reply', role: 'Speaker’s own standards', title: 'Social norms × Contextualism',
+    idea: 'In a further contextualist version, the speaker reports her own commitment. She can criticize the community, but speakers with opposing standards can both speak truly.',
   },
   {
-    id: 'disagree-heading', role: OBJECTION_ROLE, title: 'The problem of disagreement',
-    idea: 'When speakers report their own norms, both can speak truly. Can this account explain why they seem to disagree?',
-  },
-  {
-    id: 'paper-disagreement-responses', role: 'Knowledge route', title: 'Relativism and expressivism',
-    idea: 'Both are possible responses to the disagreement problem. Greco links them back to views of knowledge that can also be views of foundational justification.',
-    hue: { ink: '#4d5e98', tint: '#e9eaf9' },
+    id: 'paper-disagreement-responses', role: 'Response to disagreement', title: 'Knowledge at the base × Relativism',
+    idea: 'The assessor’s standards may determine how a claim about knowledge or foundational justification is evaluated.',
+    also: [{
+      role: 'Response to disagreement', title: 'Knowledge at the base × Expressivism',
+      idea: 'Claims about knowledge or foundational justification may express commitments that can clash.',
+    }],
   },
   {
     id: 'paper-application', role: 'Payoff', title: 'Descartes’ appeal without the baggage',

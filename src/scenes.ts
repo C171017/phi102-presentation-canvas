@@ -1,8 +1,11 @@
 import { P, line, poly, rect, rrect, ell, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, doubt, star, plate, st, ring } from './sketch';
 import './scenes.css';
+import { mountSignalHarbor } from './signal-harbor';
 
 // Every drawing illustrates Daniel Greco, “Contextualism about Foundations” (2017).
-type Scene = { w: number; h: number; beat?: number; label: string; draw: () => string };
+type Scene = { w: number; h: number; beat?: number; label: string } & (
+  { draw: () => string } | { mount: (host: HTMLElement) => void }
+);
 const title = (x: number, y: number, kicker: string, name: string, c = P.soft) =>
   tag(x, y, kicker, c, { anchor: 'start' }) + txt(x, y + 30, name, { size: 23, weight: 600, anchor: 'start' });
 /** The canvas's "belief": the slate speech block from the first foundation drawing. */
@@ -175,16 +178,8 @@ export const scenes: Record<string, Scene> = {
 
   'versions-map-scene': {
     w: 900, h: 470,
-    label: 'A subject holds a belief; a speaker says “S’s belief is foundationally justified”; an assessor judges that claim. Sensitive invariantism looks to the subject, contextualism to the speaker, relativism to the assessor, expressivism to the commitment expressed.',
-    draw: () => st(0, ring(150, 262, 108, 104, P.subj) + tag(150, 146, 'Subject', P.subj) + person(128, 332, P.subj, { arm: 'hold' }) + belief(152, 196, 66, 38))
-      + st(1, ring(450, 262, 108, 104, P.ctx) + tag(520, 146, 'Speaker', P.ctx) + person(450, 332, P.ctx, { arm: 'raise' })
-        + bubble(330, 44, 250, 66, ['“S’s belief is', 'foundationally justified”'], { tail: 'bl', size: 16.5 })
-        + arrow(352, 232, 250, 220, { c: P.line, dash: '5 6', bend: 10 }))
-      + st(2, ring(750, 262, 108, 104, P.view) + tag(778, 146, 'Assessor', P.view) + person(750, 332, P.view, { arm: 'chin', flip: true })
-        + arrow(690, 196, 590, 98, { c: P.view, dash: '5 6', bend: 22 }) + txt(652, 170, 'true?', { ...small, fill: P.view, anchor: 'end' }))
-      + st(3, rrect(318, 32, 274, 90, 22, 'none', { c: P.expr, w: 2.4, dash: '2 8' }))
-      + st(4, named(150, 412, 'Sensitive invariantism', 'the subject’s situation', P.subj) + named(450, 412, 'Contextualism', 'the speaker’s context', P.ctx)
-        + named(750, 412, 'Relativism', 'the assessor’s context', P.view) + named(612, 64, 'Expressivism', 'the commitment it expresses', P.expr, 'start')),
+    label: 'Signal Harbor. Explore how the subject, speaker, assessor and utterance figure in four views of foundational justification.',
+    mount: mountSignalHarbor,
   },
 
   'si-scene': {
@@ -398,6 +393,7 @@ export function mountScene(host: HTMLElement) {
   const scene = scenes[host.dataset.scene!];
   if (!scene) return;
   host.classList.add('canvas-media', 'scene');
+  if ('mount' in scene) { scene.mount(host); return; }
   if (scene.beat) host.style.setProperty('--beat', `${scene.beat}ms`);
   host.insertAdjacentHTML('afterbegin', `<svg class="scene-art" viewBox="0 0 ${scene.w} ${scene.h}" width="${scene.w}" height="${scene.h}" role="img" aria-label="${scene.label.replace(/"/g, '&quot;')}">${scene.draw()}</svg>`);
   // Replay on each visit; leaving never hides what was drawn.

@@ -1,12 +1,12 @@
-import { NOTES_END_ID, OBJECTION_ROLE, PAPER_NOTES, type PaperNote } from './dev-paper-notes-data';
+import { NOTES_END_ID, OBJECTION_ROLE, PAPER_NOTES, type PaperCard, type PaperNote } from './dev-paper-notes-data';
 import './dev-paper-notes.css';
 
 // Colour-coded margin notes for the local-only "Original paper" pane.
 //
 // Each section of the paper gets one colour: a light tint behind its pages, a
-// bar down the page edge marking where it starts and ends, and a note floating
-// just outside the pane with an arrow into that bar. Notes stick beside their
-// section while it is on screen, and scroll with the paper. `N` hides them.
+// bar down the page edge marking where it starts and ends. Several margin notes
+// can point to the same bar. Notes stick beside their passage while it is on screen.
+// `N` hides them.
 //
 // Like the pane, this is an overlay: it never touches the canvas, the camera or
 // the saved layout.
@@ -14,6 +14,7 @@ import './dev-paper-notes.css';
 type Anchor = { page: number; y: number };
 type Hue = { ink: string; tint: string };
 type Section = { note: PaperNote; hue: Hue; start: Anchor; end: Anchor };
+type Card = { text: PaperCard; sectionIndex: number };
 type Link = { group: SVGGElement; line: SVGPathElement; head: SVGPathElement };
 
 // Distinct hues in rotation, so neighbouring sections never share a colour.
@@ -44,7 +45,7 @@ const clamp = (value: number, min: number, max: number) => Math.min(Math.max(val
 function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
   const located = PAPER_NOTES.flatMap(note => {
     const start = anchors[note.id];
-    if (!start) console.warn(`No paper passage is mapped for the note “${note.title}” ("${note.id}"). Add it to scripts/paper-anchors.json and run npm run paper:pages.`);
+    if (!start) console.warn(`No paper passage is mapped for "${note.id}". Add it to scripts/paper-anchors.json and run npm run paper:pages.`);
     return start && start.page < pageCount ? [{ note, start }] : [];
   }).sort((a, b) => before(a.start, b.start));
   const endAnchor = anchors[NOTES_END_ID];
@@ -53,7 +54,8 @@ function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
   let rotation = 0;
   let previous: Hue | undefined;
   const sections: Section[] = located.map(({ note, start }, index) => {
-    const hue = note.hue ?? (note.role === OBJECTION_ROLE && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length]);
+    const isObjection = 'role' in note && note.role === OBJECTION_ROLE;
+    const hue = note.hue ?? (isObjection && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length]);
     previous = hue;
     return {
       note,
@@ -108,6 +110,7 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let visible = loadVisible();
   let sections: Section[] = [];
+  let cards: Card[] = [];
   let sheets: HTMLElement[] = [];
   let boxes: HTMLButtonElement[] = [];
   let links: Link[] = [];
@@ -134,7 +137,7 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
   function setLinked(index: number, linked: boolean) {
     boxes[index].classList.toggle('is-linked', linked);
     links[index].group.classList.toggle('is-linked', linked);
-    for (const mark of marks[index]) mark.classList.toggle('is-linked', linked);
+    for (const mark of marks[cards[index].sectionIndex]) mark.classList.toggle('is-linked', linked);
   }
 
   function build(anchors: Record<string, Anchor>, pageSheets: HTMLElement[]) {
@@ -143,15 +146,20 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     arrows.replaceChildren();
     sheets = pageSheets;
     sections = sheets.length ? paperSections(anchors, sheets.length).sections : [];
+    cards = sections.flatMap(({ note }, sectionIndex) => {
+      const notes = 'title' in note ? [note, ...(note.also ?? [])] : note.cards;
+      return notes.map(text => ({ text, sectionIndex }));
+    });
 
-    boxes = sections.map(({ note, hue, start }, index) => {
+    boxes = cards.map(({ text, sectionIndex }, index) => {
+      const { hue, start } = sections[sectionIndex];
       const box = document.createElement('button');
       box.type = 'button';
       box.className = 'paper-note';
       box.style.setProperty('--note-ink', hue.ink);
       box.style.setProperty('--note-tint', hue.tint);
       box.title = 'Go to the start of this section';
-      box.append(span('paper-note-role', note.role), span('paper-note-title', note.title), span('paper-note-idea', note.idea));
+      box.append(span('paper-note-role', text.role), span('paper-note-title', text.title), span('paper-note-idea', text.idea));
       box.addEventListener('click', () => scroll.scrollTo({
         top: Math.max(0, offsetOf(start) - scroll.clientHeight * READING_LINE),
         behavior: reducedMotion.matches ? 'auto' : 'smooth',
@@ -164,7 +172,8 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
       return box;
     });
 
-    links = sections.map(({ hue }) => {
+    links = cards.map(({ sectionIndex }) => {
+      const { hue } = sections[sectionIndex];
       const group = svg('g', 'paper-note-link');
       group.style.setProperty('--note-ink', hue.ink);
       const line = svg('path', 'paper-note-link-line');
@@ -175,8 +184,9 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     });
 
     // A bar down the page edge spanning the whole section, split at page breaks.
-    marks = sections.map(({ hue, start, end }) => {
+    marks = sections.map(({ note, hue, start, end }) => {
       const pieces: HTMLElement[] = [];
+      if (!('title' in note)) return pieces;
       for (let page = start.page; page <= end.page && page < sheets.length; page++) {
         const top = page === start.page ? start.y : 0;
         const bottom = page === end.page ? end.y : 1;
@@ -217,7 +227,8 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
 
     const lineEnd = width + LINK_ROOM + LINK_OVERLAP - 2; // the tip lands on the section bar
     let stackBottom = -Infinity;
-    spans.forEach((range, index) => {
+    cards.forEach(({ sectionIndex }, index) => {
+      const range = spans[sectionIndex];
       const height = heights[index];
       // Stick beside the section while it is on screen, then leave with it.
       let top = clamp(VIEW_PAD, range.top, range.bottom - height);

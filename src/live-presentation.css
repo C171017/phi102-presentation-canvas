@@ -18,21 +18,20 @@
   display: flex;
   align-items: center;
   gap: 3px;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
   color: #334c4c;
   font: 600 12px/1 system-ui, sans-serif;
   pointer-events: none;
 }
 .live-audience-count[hidden] { display: none; }
 .live-audience-count svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4px; }
-#slide-progress:has(.live-audience-count) button { position: relative; }
 #slide-progress button.presenter-slide::before {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: calc(50% - 3px);
+  top: calc(50% - 3px);
+  left: 0;
   width: 6px;
   height: 6px;
   background: #a56622;

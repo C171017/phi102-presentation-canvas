@@ -22,8 +22,8 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
 
   function measure(cameraZoom: number) {
     const origin = world.getBoundingClientRect();
-    const barClearance = viewport.getBoundingClientRect().bottom - progress.getBoundingClientRect().top + 12;
-    const availableHeight = Math.max(1, viewport.clientHeight - barClearance);
+    const barClearance = progress.getBoundingClientRect().right - viewport.getBoundingClientRect().left + 12;
+    const availableWidth = Math.max(1, viewport.clientWidth - barClearance);
     frames = groups.map(group => {
       const rects = group.flatMap(item => [item.getBoundingClientRect(), ...Array.from(item.querySelectorAll('.regress-animation')).map(svg => svg.getBoundingClientRect())]);
       const left = Math.min(...rects.map(rect => rect.left));
@@ -32,10 +32,10 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
       const bottom = Math.max(...rects.map(rect => rect.bottom));
       const width = (right - left) / cameraZoom;
       const height = (bottom - top) / cameraZoom;
-      const zoom = Math.min(viewport.clientWidth * 0.84 / width, availableHeight * 0.84 / height, 2.35);
+      const zoom = Math.min(availableWidth * 0.84 / width, viewport.clientHeight * 0.84 / height, 2.35);
       return {
-        x: ((left + right) / 2 - origin.left) / cameraZoom,
-        y: ((top + bottom) / 2 - origin.top) / cameraZoom + barClearance / (2 * zoom),
+        x: ((left + right) / 2 - origin.left) / cameraZoom - barClearance / (2 * zoom),
+        y: ((top + bottom) / 2 - origin.top) / cameraZoom,
         zoom,
       };
     });
