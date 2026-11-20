@@ -16,3 +16,6 @@ docs/chat-history/
 .claude/
 # Development-only scene contact sheet
 docs/handoff/wip/gallery.html
+
+# Local-only rendered pages of the reading (made by npm run paper:pages; never built or deployed)
+local-reading/

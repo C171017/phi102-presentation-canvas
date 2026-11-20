@@ -26,6 +26,7 @@ const disposeRegressAnimations = initializeRegressAnimations();
 const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
 let reportSlide: ((index: number) => void) | undefined;
+let paperPane: { update: (index: number) => void } | undefined;
 const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode &&
   ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
 const requestedRole = localDev ? new URLSearchParams(location.search).get('role') : null;
@@ -35,6 +36,7 @@ const readingPanel = createReadingPanel();
 const pageBackgrounds = createPageBackgrounds(viewport);
 const slideNavigation = createSlideNavigation(world, goTo, index => {
   readingPanel.update(index);
+  paperPane?.update(index);
   reportSlide?.(index);
 }, pageBackgrounds.update);
 viewport.classList.toggle('canvas-editable', !readOnly);
@@ -377,6 +379,11 @@ if (localDev) {
       });
     });
   });
+}
+// The original-paper pane is for the local editor only. It sits behind the DEV
+// flag, so production builds never include or reference it.
+if (localDev && !previewRole) {
+  void import('./dev-paper').then(({ createPaperPane }) => { paperPane = createPaperPane(backdrop, slideNavigation.open); });
 }
 if (import.meta.hot) {
   import.meta.hot.dispose(pageBackgrounds.dispose);

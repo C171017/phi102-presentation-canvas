@@ -1,0 +1,24 @@
+{
+  "title": "Greco (2017), “Contextualism about Foundations”",
+  "anchors": [
+    { "id": "contemporary-heading", "find": "CONTEXTUALISM ABOUT" },
+    { "id": "flexible-heading", "find": "In the earlier sense I" },
+    { "id": "aim-motivations", "find": "First, I" },
+    { "id": "aim-versions", "find": "Second," },
+    { "id": "aim-applications", "find": "Lastly, I" },
+    { "id": "regress-problem", "find": "1 Regresses and foundations" },
+    { "id": "dilemma-heading", "find": "something of a dilemma for the foundationalist" },
+    { "id": "undoubted-heading", "find": "One way of motivating some version of flexible" },
+    { "id": "route-social-heading", "find": "2.1 Social dimensions of justification" },
+    { "id": "route-hinges-heading", "find": "2.2 Hinges" },
+    { "id": "route-knowledge-heading", "find": "2.3 Knowledge, belief, and flexible foundationalism" },
+    { "id": "versions-map-heading", "find": "3 Relations to recent debates" },
+    { "id": "si-heading", "find": "The case of sensitive invariant" },
+    { "id": "ctx-heading", "find": "Developing a version of flexible foundationalism along contextualist lines" },
+    { "id": "disagree-heading", "find": "While this is a significant departure" },
+    { "id": "access-heading", "find": "4.1 Access and foundationalism" },
+    { "id": "home-heading", "find": "A cognitive home is a realm" },
+    { "id": "mobile-heading", "find": "4.2 Access and flexible foundationalism" },
+    { "id": "conclusion-heading", "find": "5 Conclusion" }
+  ]
+}
