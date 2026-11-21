@@ -23,10 +23,10 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     return button;
   });
 
-  function framingArea(rightLimit?: number) {
+  function framingArea() {
     const bounds = viewport.getBoundingClientRect();
     const left = progress.getBoundingClientRect().right + 12;
-    const right = Math.min(bounds.right, rightLimit ?? bounds.right);
+    const right = bounds.right;
     return {
       width: right - left,
       offsetX: (left + right) / 2 - bounds.left - viewport.clientWidth / 2,
@@ -57,15 +57,6 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     const origin = world.getBoundingClientRect();
     const area = framingArea();
     frames = framingGroups.map(group => frameFor(group, origin, cameraZoom, area));
-  }
-
-  function frameVisual(id: string, cameraZoom: number, rightLimit: number) {
-    const visual = document.getElementById(id);
-    const index = groups.findIndex(group => visual && group.includes(visual));
-    const area = framingArea(rightLimit);
-    if (!visual || index < 0 || area.width <= 0) return;
-    const items = id === 'regress-problem' ? groups[index] : [visual];
-    return { visual, index, view: frameFor(items, world.getBoundingClientRect(), cameraZoom, area) };
   }
 
   function showVisible(next: number) {
@@ -126,5 +117,5 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     open(index);
   }
 
-  return { measure, frameVisual, update, updateVisible, showVisible, open, step };
+  return { measure, update, updateVisible, open, step };
 }

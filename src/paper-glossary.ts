@@ -1,16 +1,13 @@
 import terms from './paper-glossary-data.json';
-import { glossaryVisual, type GlossaryVisual } from './paper-glossary-visuals';
-import type { PaperAnchor } from './paper-notes';
 import './paper-glossary.css';
 
 const PAGE_UNITS = 10_000;
 const INSET = 8;
-const HOVER_EXIT_DELAY = 200;
+const POPUP_ID = 'paper-glossary-definition';
 type Box = [left: number, top: number, right: number, bottom: number];
 type Occurrence = { term: string; boxes: Box[] };
 type Page = { file: string; sheet: HTMLElement };
 type Definition = (typeof terms)[number];
-export type FocusGlossaryVisual = (visual: GlossaryVisual, pane: HTMLElement) => void;
 
 const definitions = new Map(terms.map(term => [term.id, term]));
 const percent = (value: number, total: number) => `${100 * value / total}%`;
@@ -21,7 +18,7 @@ function validBox(box: unknown): box is Box {
     box[0] < box[2] && box[1] < box[3];
 }
 
-function createTrigger(term: Definition, boxes: Box[], hasVisual: boolean) {
+function createTrigger(term: Definition, boxes: Box[]) {
   const left = Math.min(...boxes.map(box => box[0]));
   const top = Math.min(...boxes.map(box => box[1]));
   const width = Math.max(...boxes.map(box => box[2])) - left;
@@ -30,8 +27,9 @@ function createTrigger(term: Definition, boxes: Box[], hasVisual: boolean) {
   trigger.type = 'button';
   trigger.className = 'paper-term';
   trigger.setAttribute('aria-label', term.title);
-  trigger.setAttribute('aria-description', term.definition + (hasVisual ? ' Activate to show the illustration.' : ''));
-  trigger.toggleAttribute('data-has-visual', hasVisual);
+  trigger.setAttribute('aria-description', term.definition);
+  trigger.setAttribute('aria-controls', POPUP_ID);
+  trigger.setAttribute('aria-expanded', 'false');
   Object.assign(trigger.style, {
     left: percent(left, PAGE_UNITS), top: percent(top, PAGE_UNITS),
     width: percent(width, PAGE_UNITS), height: percent(height, PAGE_UNITS),
@@ -49,22 +47,18 @@ function createTrigger(term: Definition, boxes: Box[], hasVisual: boolean) {
   return trigger;
 }
 
-export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focusVisual: FocusGlossaryVisual) {
+export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement) {
   const layers: HTMLElement[] = [];
   let enabled = true;
-  let active: { trigger: HTMLButtonElement; fragment: HTMLElement; pinned: boolean } | undefined;
-  let hideTimer: number | undefined;
+  let active: { trigger: HTMLButtonElement; fragment: HTMLElement } | undefined;
 
   const popup = document.createElement('div');
+  popup.id = POPUP_ID;
   popup.className = 'paper-definition';
   popup.hidden = true;
-  popup.setAttribute('role', 'tooltip');
 
   const definition = document.createElement('p');
-  const visualHint = document.createElement('p');
-  visualHint.className = 'paper-definition-hint';
-  visualHint.textContent = 'Click to see the illustration';
-  popup.append(definition, visualHint);
+  popup.append(definition);
   pane.append(popup);
 
   function visible(fragment: HTMLElement) {
@@ -75,18 +69,9 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
   }
 
   function close() {
-    window.clearTimeout(hideTimer);
-    active?.trigger.removeAttribute('data-showing-definition');
+    active?.trigger.setAttribute('aria-expanded', 'false');
     active = undefined;
     popup.hidden = true;
-  }
-
-  function leave(event: PointerEvent) {
-    if (!active || active.pinned || active.trigger.matches(':focus-visible')) return;
-    const next = event.relatedTarget;
-    if (next instanceof Node && (popup.contains(next) || active.trigger.contains(next))) return;
-    window.clearTimeout(hideTimer);
-    hideTimer = window.setTimeout(close, HOVER_EXIT_DELAY);
   }
 
   function place() {
@@ -111,26 +96,24 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
     popup.style.top = `${y}px`;
   }
 
-  function show(term: Definition, trigger: HTMLButtonElement, target: EventTarget | null, hasVisual: boolean, pinned = false) {
+  function show(term: Definition, trigger: HTMLButtonElement, target: EventTarget | null) {
     const fragments = Array.from(trigger.querySelectorAll<HTMLElement>('.paper-term-fragment'));
     const fragment = fragments.find(item => item === target) ?? fragments.find(visible);
     if (!fragment) return;
-    pinned ||= active?.trigger === trigger && active.pinned;
     close();
-    active = { trigger, fragment, pinned };
-    trigger.setAttribute('data-showing-definition', '');
+    active = { trigger, fragment };
+    trigger.setAttribute('aria-expanded', 'true');
     definition.textContent = term.definition;
-    visualHint.hidden = !hasVisual;
     popup.hidden = false;
     place();
   }
 
-  async function load(url: string, pages: Page[], anchors: Record<string, PaperAnchor>) {
+  async function load(url: string, pages: Page[]) {
     try {
       const response = await fetch(url, { cache: 'no-cache' });
       if (!response.ok || !response.headers.get('content-type')?.includes('json')) throw new Error('Glossary coordinates are unavailable');
       const index = await response.json() as Record<string, Occurrence[]>;
-      for (const [page, { file, sheet }] of pages.entries()) {
+      for (const { file, sheet } of pages) {
         const occurrences = index[file];
         if (!Array.isArray(occurrences)) continue;
         const layer = document.createElement('div');
@@ -139,24 +122,10 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
         for (const occurrence of occurrences) {
           const term = definitions.get(occurrence?.term);
           if (!term || !Array.isArray(occurrence.boxes) || !occurrence.boxes.length || !occurrence.boxes.every(validBox)) continue;
-          const [left, top, , bottom] = occurrence.boxes[0];
-          const visual = glossaryVisual(term.id, { page, x: left / PAGE_UNITS, y: (top + bottom) / (2 * PAGE_UNITS) }, anchors);
-          const trigger = createTrigger(term, occurrence.boxes, Boolean(visual));
-          trigger.addEventListener('pointerover', event => {
-            if (event.pointerType !== 'touch') show(term, trigger, event.target, Boolean(visual));
-          });
-          trigger.addEventListener('pointerleave', leave);
-          trigger.addEventListener('focus', () => {
-            if (trigger.matches(':focus-visible')) show(term, trigger, null, Boolean(visual));
-          });
-          trigger.addEventListener('blur', () => { if (active?.trigger === trigger) close(); });
+          const trigger = createTrigger(term, occurrence.boxes);
           trigger.addEventListener('click', event => {
-            if (visual) {
-              close();
-              focusVisual(visual, pane);
-            } else if (active?.trigger === trigger && active.pinned) {
-              close();
-            } else show(term, trigger, event.target, false, true);
+            if (active?.trigger === trigger) close();
+            else show(term, trigger, event.target);
           });
           layer.append(trigger);
         }
@@ -169,8 +138,6 @@ export function createPaperGlossary(pane: HTMLElement, scroll: HTMLElement, focu
   }
 
   scroll.addEventListener('scroll', place, { passive: true });
-  popup.addEventListener('pointerenter', () => window.clearTimeout(hideTimer));
-  popup.addEventListener('pointerleave', leave);
   const observer = new ResizeObserver(place);
   observer.observe(scroll);
   document.addEventListener('pointerdown', event => {

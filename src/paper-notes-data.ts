@@ -9,7 +9,7 @@
 // related hues for the two versions. The other notes follow the color rotation.
 
 export type PaperCard = { role: string; title: string; idea: string };
-export type PaperNote = PaperCard & { id: string; hue?: { ink: string; tint: string }; also?: PaperCard[] };
+export type PaperNote = PaperCard & { id: string; focusTitle?: string; hue?: { ink: string; tint: string }; also?: PaperCard[] };
 
 export const OBJECTION_ROLE = 'Objection';
 
@@ -59,7 +59,7 @@ export const PAPER_NOTES: PaperNote[] = [
     idea: 'Make knowledge the foundation (E = K), add a context-sensitive view of knowledge, and flexible foundations follow.',
   },
   {
-    id: 'paper-flexible-knowledge', role: 'Named in §2.3', title: 'Knowledge at the base × Contextualism',
+    id: 'paper-flexible-knowledge', focusTitle: 'When knowledge supplies the foundations', role: 'Named in §2.3', title: 'Knowledge at the base × Contextualism',
     idea: 'With E = K, the speaker’s context can change what counts as evidence by changing what a knowledge attribution says.',
     also: [
       {
@@ -119,7 +119,7 @@ export const PAPER_NOTES: PaperNote[] = [
     idea: 'If we each report our own commitments, both reports can be true. Yet when you accept astrology as a starting point and I challenge it, we seem to disagree. This motivates two alternatives.',
   },
   {
-    id: 'paper-disagreement-responses', role: 'Response to disagreement', title: 'Relativism',
+    id: 'paper-disagreement-responses', focusTitle: 'Two responses to disagreement', role: 'Response to disagreement', title: 'Relativism',
     idea: 'Speakers can disagree about the same claim, whose truth can depend on the assessor’s context. If knowledge supplies the foundations, relativism about knowledge can carry over to foundational justification.',
     also: [{
       role: 'Response to disagreement', title: 'Expressivism',

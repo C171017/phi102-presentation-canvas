@@ -20,18 +20,16 @@
   position: absolute;
   box-sizing: border-box;
   border-bottom: 1px solid #1c64b5;
-  cursor: help;
+  cursor: pointer;
   pointer-events: auto;
 }
-
-.paper-term[data-has-visual] .paper-term-fragment { cursor: pointer; }
 
 .paper-term-layer[inert] .paper-term-fragment {
   opacity: .45;
   pointer-events: none;
 }
 
-.paper-term:is(:hover, :focus-visible, [data-showing-definition]) .paper-term-fragment {
+.paper-term:is(:hover, :focus-visible, [aria-expanded='true']) .paper-term-fragment {
   background: #3475b520;
   border-bottom-color: #15447c;
 }
@@ -60,10 +58,3 @@
 }
 
 .paper-definition p { margin: 0; }
-
-.paper-definition .paper-definition-hint {
-  margin-top: 6px;
-  color: #36597c;
-  font-size: 12px;
-  font-weight: 600;
-}

@@ -1,0 +1,206 @@
+{
+  "contemporary-heading": [
+    ["In contemporary philosophical parlance", "What contextualists say a sentence expresses"],
+    ["Within epistemology", "The familiar case is talk about knowledge"],
+    ["Contemporary parlance, however", "The name once covered a different idea"]
+  ],
+  "flexible-heading": [
+    ["In the earlier sense", "Beliefs have foundations that can vary with context"],
+    ["While the use of", "Who named the view and where it came from"],
+    ["Given that contemporary terminology", "Why Greco calls it flexible foundationalism"]
+  ],
+  "paper-roadmap": [
+    ["I have several aims", "First, explain the appeal of flexible foundations"],
+    ["Second,", "Second, distinguish competing versions"],
+    ["Lastly, I’ll suggest", "Third, test the idea on access internalism"]
+  ],
+  "regress-problem": [
+    ["Paradox is an engine", "The regress puzzle motivates the search"],
+    ["For present purposes", "Classify answers by the shape of their reasons"],
+    ["Skepticism: Justification", "Skepticism denies that any belief is justified"],
+    ["Infinitism:", "Infinitism continues the chain without repetition"],
+    ["Coherentism:", "Coherentism lets the chain circle back"],
+    ["Foundationalism:", "Foundationalism ends the chain"],
+    ["This taxonomy has seemed", "Each of the four answers comes at a cost"],
+    ["Nevertheless, while each", "Foundationalism remains the favored answer"]
+  ],
+  "paper-regress-dilemma": [
+    ["Once we’re foundationalists", "Which claims can end a chain, and why?"],
+    ["At the risk of oversimplifying", "Descartes looks for indubitable foundations"],
+    ["It’s not so hard", "A doubted reason leaves the original doubt in place"],
+    ["But if I don’t doubt", "An accepted reason can settle the question"]
+  ],
+  "paper-relaxed-foundations": [
+    ["It’s widely accepted", "Certainty leaves too few starting points"],
+    ["Insofar as we want", "Moderates admit perception and intuition"],
+    ["But while this response", "A foundation open to doubt faces the original worry"],
+    ["The dilemma facing", "Either skepticism or an arbitrary stopping rule"]
+  ],
+  "undoubted-heading": [
+    ["One way of motivating", "Keep the link between foundations and freedom from doubt"],
+    ["Rather than entirely", "Require freedom from doubt in the present inquiry"],
+    ["To flesh this out", "What counts as free from doubt here?"]
+  ],
+  "paper-routes": [
+    ["One way to develop", "Begin with giving and answering reasons"],
+    ["A focus on justification", "Defensibility links the activity to justified belief"],
+    ["Once we think of justification", "Endless demands and circular answers fail in practice"],
+    ["Rather, the real", "A sensible audience can accept a stopping point"],
+    ["But some kind of flexibility", "Different audiences let different claims pass"],
+    ["This is the basic idea", "Annis locates the standard in the believer’s community"],
+    ["Annis goes on", "The relevant objectors distinguish defensible from basic beliefs"]
+  ],
+  "paper-social-objection": [
+    ["Perhaps without saying more", "How is the appropriate group of objectors chosen?"],
+    ["On Annis’s view, if", "Unanimous acceptance makes a claim basic on this account"],
+    ["But couldn’t everybody", "Even a whole community can misuse its epistemic standards"],
+    ["One might think that Annis’s", "Choosing a subgroup cannot supply a missing objection"],
+    ["I’ll return to this worry", "Set the objection aside and try a second route"]
+  ],
+  "route-hinges-heading": [
+    ["In the previous subsection", "A second route to the same two conclusions"],
+    ["Wittgenstein writes that", "Questions turn on propositions held fixed"],
+    ["The general idea seems", "An open inquiry requires some questions to be settled"],
+    ["He gives the following example", "Asking about colour relies on language, sincerity, and memory"],
+    ["Here the claims that", "Those assumptions make the colour inquiry possible"],
+    ["If the preceding thoughts", "Hinges are a necessary condition for inquiry"],
+    ["It’s also not so hard", "Every inquiry needs hinges, but the hinges can vary"]
+  ],
+  "route-knowledge-heading": [
+    ["In the previous two subsections", "A route one can take without intending to"],
+    ["Timothy Williamson", "Williamson identifies evidence with knowledge"],
+    ["And Williamson consistently", "Knowledge can support further beliefs without borrowing support"],
+    ["This seems to amount", "Knowledge can therefore stop a regress"]
+  ],
+  "paper-flexible-knowledge": [
+    ["Suppose we accept", "Start with knowledge as the evidential foundation"],
+    ["Suppose that in addition", "Add a flexible account of knowledge or its attribution"],
+    ["We would then end up", "Together these premises yield flexible foundations"]
+  ],
+  "paper-belief-at-the-base": [
+    ["Another, very similar route", "Harman makes every belief foundational"],
+    ["On its own, while", "That premise alone leaves flexibility unexplained"],
+    ["But it can end up", "Clarke lets a person’s situation affect what they believe"],
+    ["I’ve independently argued", "Greco connects this account to sensitive invariantism"],
+    ["So whether one accepts", "Both the knowledge route and the belief route can work"],
+    ["In the next section", "From routes to the versions they can generate"]
+  ],
+  "versions-map-heading": [
+    ["In this section, I’ll sketch", "Four ways to develop the family of views"],
+    ["The case of sensitive", "Practical stakes can affect whether a person knows"],
+    ["It’s relatively straightforward", "Extend that dependence to foundational justification"]
+  ],
+  "si-heading": [
+    ["Annis’s view, as", "Read Annis as a sensitive invariantist"],
+    ["That is, according to", "The believer’s community helps fix foundational status"],
+    ["In this formulation", "Community norms play the same role as practical stakes"]
+  ],
+  "hinges-si-heading": [
+    ["We can also develop", "Apply sensitive invariantism to hinges"],
+    ["We can hold that whether", "The believer’s own inquiry determines what must stand fast"],
+    ["Since facts about which", "Why this dependence counts as sensitive invariantism"]
+  ],
+  "ctx-heading": [
+    ["Developing a version", "A semantic version needs an account of what changes"],
+    ["The most obvious strategy", "Foundationality claims could express different propositions"],
+    ["A contextualist version of Annis’s", "The speaker’s community could fix which proposition"]
+  ],
+  "hinges-ctx-heading": [
+    ["A contextualist version of the Wittgenstein", "The speaker’s inquiry could fix which proposition is expressed"]
+  ],
+  "paper-contextual-evidence": [
+    ["But this would, I think", "Technical terms offer little ordinary linguistic evidence"],
+    ["However, even if", "Look for indirect judgments about foundations"],
+    ["If I assert", "“Must be cold” signals an inference"],
+    ["If I say that I have", "The toothache reply treats further reasons as unnecessary"],
+    ["Taking examples like this", "Ask when an ordinary utterance would be appropriate"]
+  ],
+  "paper-alternative-views": [
+    ["It’s also possible to develop", "Why consider relativism or expressivism?"],
+    ["Consider the view that one is morally", "An ethical community can approve a wrongful act"],
+    ["However, we can see", "Annis gives communal acceptance a parallel epistemic role"],
+    ["But what if one’s community", "Astrology tests whether acceptance is enough"]
+  ],
+  "paper-contextualist-reply": [
+    ["In both the moral", "Make room for criticism of communal norms"],
+    ["To see why, let’s start", "In ethics a speaker can report personal disapproval"],
+    ["We can define a contextualist", "Apply that idea to a speaker’s willingness to accept a belief"],
+    ["Given such a view", "A speaker can reject another community’s starting point"]
+  ],
+  "disagree-heading": [
+    ["While this is a significant", "Personal commitments solve only part of the problem"],
+    ["The views discussed in the last", "Sincere speakers with opposed norms could both speak truly"],
+    ["This is for essentially", "Hunger reports illustrate how both speakers can be right"],
+    ["The views in the previous paragraph", "The analogy predicts the same result for judgments of justification"],
+    ["But this can seem implausible", "Apparently incompatible judgments seem to express genuine disagreement"],
+    ["The challenge raised", "Can contextualism explain that disagreement?"]
+  ],
+  "paper-disagreement-responses": [
+    ["Some writers take it", "Disagreement motivates expressivist and relativist alternatives"],
+    ["While the focus in these", "The parallel debate about knowledge carries over"],
+    ["So the question of whether", "Greco leaves the choice among these views open"]
+  ],
+  "paper-application": [
+    ["Part of the appeal", "Keep what makes the Cartesian starting point attractive"],
+    ["In this section, I want", "Test whether the same strategy can explain internalism"]
+  ],
+  "paper-access-principle": [
+    ["Consider the following strong", "Access says justification itself can be justifiably believed"],
+    ["There are various ways", "Recall why a doubted premise makes a poor stopping point"],
+    ["Many writers have noted", "Doubt about one’s evidence can spread to the belief"],
+    ["Only somewhat more controversially", "Greco suggests that following that doubt is rational"],
+    ["This creates an awkward", "Denying access allows a doubted claim to serve as a foundation"],
+    ["We can avoid this result", "Access for foundational beliefs resolves the tension"]
+  ],
+  "paper-access-objection": [
+    ["However, whatever the prima", "Why would our grounds for judging our justification be so reliable?"],
+    ["This is highly unusual", "Weather evidence can mislead or be missing altogether"],
+    ["A natural, almost inescapable", "An accessible base seems necessary to explain the difference"],
+    ["After all, if the supervenience", "Error about the base threatens access to what it determines"],
+    ["For instance, suppose", "If weather fixed justification, weather errors would matter here too"]
+  ],
+  "paper-cognitive-home": [
+    ["In light of such considerations", "Smithies grounds justification in introspectively accessible mental states"],
+    ["Smithies goes on", "Introspection and a priori reflection together deliver access"],
+    ["If this is the only sort", "The explanation comes with a Cartesian commitment"],
+    ["A cognitive home is a realm", "The home must be knowable and rich enough to ground justification"],
+    ["But there are both general", "There are reasons to doubt we have such a home"]
+  ],
+  "paper-mobile-home": [
+    ["Rather than try to rebut", "Look for an explanation that can grant those doubts"],
+    ["Rather, if we adopt", "Doubts can shift which facts count as the subject’s cognitive home"]
+  ],
+  "mobile-heading": [
+    ["The basic strategy", "Let context determine the facts that fix justification"],
+    ["Moreover, she can hold", "In that context the subject must be able to know those facts"],
+    ["To see what this amounts", "Test the constraint with a concrete case"]
+  ],
+  "paper-party-example": [
+    ["Suppose we’re in a context", "Take for granted that Justine heard Peter"],
+    ["Now someone raises", "What time does she have reason to believe the party starts?"],
+    ["A natural answer", "Her answer should follow the time Peter gave"],
+    ["That is, the facts about", "Peter’s words locally fix her justification"],
+    ["And because we take", "Hearing him gives her access to what she has reason to believe"]
+  ],
+  "paper-context-shift": [
+    ["To be sure, facts about", "Peter’s words cannot fix justification in every context"],
+    ["One obvious sort of situation", "A prankster gives Justine reason to distrust the message"],
+    ["But another reason", "Even a trustworthy message might go unheard"],
+    ["Suppose, e.g., we come", "If Peter mumbled, keeping the old base would threaten access"],
+    ["But a more likely response", "Past parties, an email, or her best guess can supply a new base"],
+    ["Whatever the new local", "A knowable replacement preserves access"]
+  ],
+  "paper-access-general": [
+    ["Here’s the more general", "Within the live possibilities, changes in justification require changes in the base"],
+    ["Moreover, it is a constraint", "The subject must count as able to know what holds in that base"],
+    ["We can think of", "This knowable base is a local cognitive home"],
+    ["But because we do not", "Taking a reasonable doubt seriously changes the context"],
+    ["Rather, there will be", "A different knowable base supplies the next home"],
+    ["Of course, providing", "Greco offers a sketch and leaves a full defense open"]
+  ],
+  "conclusion-heading": [
+    ["Flexible foundationalism is the idea", "The regress ends, and context helps determine where"],
+    ["In this chapter, I’ve surveyed", "Different routes lead to different versions of the view"],
+    ["Lastly, I argued", "Flexible foundations make a less Cartesian access internalism possible"]
+  ]
+}

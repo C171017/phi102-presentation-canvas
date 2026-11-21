@@ -1,4 +1,5 @@
 import { NOTES_END_ID, OBJECTION_ROLE, PAPER_NOTES, type PaperCard, type PaperNote } from './paper-notes-data';
+import { createPaperFocus, type SegmentIndex } from './paper-focus';
 import './paper-notes.css';
 
 // Colour-coded margin notes for the original paper.
@@ -14,7 +15,7 @@ import './paper-notes.css';
 export type PaperAnchor = { page: number; y: number; split?: { x: number; bottom: number } };
 type Anchor = PaperAnchor;
 type Hue = { ink: string; tint: string };
-type Section = { note: PaperNote; hue: Hue; start: Anchor; end: Anchor };
+export type PaperSection = { note: PaperNote; hue: Hue; start: Anchor; end: Anchor };
 type Card = { text: PaperCard; sectionIndex: number };
 type Link = { group: SVGGElement; line: SVGPathElement; head: SVGPathElement };
 
@@ -27,7 +28,6 @@ const HUES: Hue[] = [
   { ink: '#17736d', tint: '#daf1ee' }, // teal
 ];
 const OBJECTION_HUE: Hue = { ink: '#b2412e', tint: '#fbe2dc' }; // every objection, so pushback reads at a glance
-const END_TINT = '#fff'; // the notes and bibliography
 
 const VISIBLE_KEY = 'phi102-dev-paper-notes-v1';
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -55,7 +55,7 @@ function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
 
   let rotation = 0;
   let previous: Hue | undefined;
-  const sections: Section[] = located.map(({ note, start }, index) => {
+  const sections: PaperSection[] = located.map(({ note, start }, index) => {
     const isObjection = note.role === OBJECTION_ROLE;
     const hue = note.hue ?? (isObjection && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length]);
     previous = hue;
@@ -66,38 +66,7 @@ function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
       end: located[index + 1]?.start ?? end,
     };
   });
-  return { sections, end };
-}
-
-function drawSectionColors(sheets: HTMLElement[], sections: Section[], end: Anchor) {
-  const stops = [...sections.map(({ start, hue }) => ({ ...start, color: hue.tint })), { ...end, color: END_TINT }];
-  const units = 10000;
-  const point = (fraction: number) => Math.round(fraction * units);
-  let color = END_TINT;
-  let next = 0;
-  return sheets.map((sheet, page) => {
-    const layer = svg('svg', 'paper-section-colors');
-    layer.setAttribute('viewBox', `0 0 ${units} ${units}`);
-    layer.setAttribute('preserveAspectRatio', 'none');
-    layer.setAttribute('aria-hidden', 'true');
-    sheet.style.backgroundColor = color;
-    while (stops[next]?.page === page) {
-      const stop = stops[next++];
-      const y = point(stop.y);
-      // Paint from each passage start to the page end. Later passages cover
-      // earlier ones, leaving only the prefix of a shared line in the old color.
-      const start = stop.split
-        ? `M${point(stop.split.x)},${y}H${units}V${units}H0V${point(stop.split.bottom)}H${point(stop.split.x)}Z`
-        : `M0,${y}H${units}V${units}H0Z`;
-      const path = svg('path', 'paper-section-color');
-      path.setAttribute('fill', stop.color);
-      path.setAttribute('d', start);
-      layer.append(path);
-      color = stop.color;
-    }
-    if (layer.hasChildNodes()) sheet.prepend(layer);
-    return layer;
-  });
+  return sections;
 }
 
 function loadVisible() {
@@ -122,15 +91,15 @@ function span(className: string, text: string) {
 }
 
 export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: HTMLElement) {
+  const focus = createPaperFocus(pane, scroll);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let visible = loadVisible();
-  let sections: Section[] = [];
+  let sections: PaperSection[] = [];
   let cards: Card[] = [];
   let sheets: HTMLElement[] = [];
   let boxes: HTMLButtonElement[] = [];
   let links: Link[] = [];
   let marks: HTMLElement[][] = [];
-  let colorLayers: SVGSVGElement[] = [];
   let heights: number[] = [];
   let measuredWidth = 0;
   let frame = 0;
@@ -156,15 +125,13 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     for (const mark of marks[cards[index].sectionIndex]) mark.classList.toggle('is-linked', linked);
   }
 
-  function build(anchors: Record<string, Anchor>, pageSheets: HTMLElement[]) {
+  function build(anchors: Record<string, Anchor>, pageSheets: HTMLElement[], segments: SegmentIndex) {
     for (const box of boxes) box.remove();
     for (const mark of marks.flat()) mark.remove();
-    for (const layer of colorLayers) layer.remove();
     arrows.replaceChildren();
     sheets = pageSheets;
-    const passages = paperSections(anchors, sheets.length);
-    sections = passages.sections;
-    colorLayers = drawSectionColors(sheets, sections, passages.end);
+    sections = paperSections(anchors, sheets.length);
+    focus.build(segments, sections, sheets);
     cards = sections.flatMap(({ note }, sectionIndex) => {
       const notes = [note, ...(note.also ?? [])];
       return notes.map(text => ({ text, sectionIndex }));
@@ -177,12 +144,15 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
       box.className = 'paper-note';
       box.style.setProperty('--note-ink', hue.ink);
       box.style.setProperty('--note-tint', hue.tint);
-      box.title = 'Go to the start of this section';
+      box.title = 'Focus this passage and go to its start';
       box.append(span('paper-note-role', text.role), span('paper-note-title', text.title), span('paper-note-idea', text.idea));
-      box.addEventListener('click', () => scroll.scrollTo({
-        top: Math.max(0, offsetOf(start) - scroll.clientHeight * READING_LINE),
-        behavior: reducedMotion.matches ? 'auto' : 'smooth',
-      }));
+      box.addEventListener('click', () => {
+        focus.choose(sectionIndex, box);
+        scroll.scrollTo({
+          top: Math.max(0, offsetOf(start) - scroll.clientHeight * READING_LINE),
+          behavior: reducedMotion.matches ? 'auto' : 'smooth',
+        });
+      });
       box.addEventListener('pointerenter', () => setLinked(index, true));
       box.addEventListener('pointerleave', () => setLinked(index, false));
       box.addEventListener('focus', () => setLinked(index, true));
@@ -228,6 +198,9 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     frame = 0;
     const room = pane.getBoundingClientRect().left - shell.getBoundingClientRect().left - EDGE - LINK_ROOM;
     const width = Math.floor(Math.min(NOTE_MAX_WIDTH, room));
+    const sideRoom = width >= NOTE_MIN_WIDTH;
+    focus.setSideRoom(sideRoom);
+    if (sideRoom) pane.style.setProperty('--focus-note-width', width + 'px');
     const show = visible && sections.length > 0 && !pane.classList.contains('is-collapsed') && width >= NOTE_MIN_WIDTH;
     layer.hidden = !show;
     pane.classList.toggle('has-paper-notes', show);
@@ -307,8 +280,9 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     event.preventDefault();
     visible = !visible;
     saveVisible(visible);
+    if (!visible) focus.clear(true);
     schedule();
   });
 
-  return { build };
+  return { build, clearFocus: focus.clear };
 }

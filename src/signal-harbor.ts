@@ -24,13 +24,6 @@ const views = [
     text: 'Kit raises the flag. In calling Mara’s belief foundationally justified, Kit endorses a rule for reasoning. A clear sighting can serve as a starting point without a further reason.' },
 ] as const;
 const overview = 'Mara sees a glow and believes the harbor lamp is lit. Kit says Mara’s belief is foundationally justified. Jo assesses Kit’s claim.';
-export type HarborView = (typeof views)[number]['id'];
-const viewSetters = new WeakMap<HTMLElement, (view?: HarborView) => void>();
-
-export function selectHarborView(host: HTMLElement, view?: HarborView) {
-  viewSetters.get(host)?.(view);
-}
-
 export function mountSignalHarbor(host: HTMLElement) {
   host.classList.add('signal-harbor');
   host.setAttribute('aria-label', 'Signal Harbor. Explore four views of foundational justification.');
@@ -96,5 +89,4 @@ export function mountSignalHarbor(host: HTMLElement) {
     button.addEventListener('blur', () => show(-1));
     return button;
   });
-  viewSetters.set(host, view => show(views.findIndex(item => item.id === view)));
 }

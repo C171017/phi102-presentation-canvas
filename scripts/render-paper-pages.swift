@@ -186,6 +186,88 @@ func wordBounds(_ page: PDFPage, in box: CGRect) -> [[[Int]]] {
   return words
 }
 
+// Selections and the raster must use the same crop transform on facing pages.
+func rasterBox(_ page: PDFPage) -> CGRect {
+  let box = page.bounds(for: .cropBox)
+  let scale = CGFloat(pixelWidth) / box.width
+  return CGRect(x: box.minX, y: box.minY, width: box.width, height: (box.height * scale).rounded() / scale)
+}
+
+struct TextPosition: Comparable {
+  let page: Int
+  let offset: Int
+  static func < (lhs: Self, rhs: Self) -> Bool {
+    (lhs.page, lhs.offset) < (rhs.page, rhs.offset)
+  }
+}
+
+func occurrences(_ phrase: String) -> [TextPosition] {
+  let pattern = try! NSRegularExpression(pattern: glossaryPattern(phrase))
+  return (0..<document.pageCount).flatMap { index -> [TextPosition] in
+    guard let text = document.page(at: index)?.string else { return [] }
+    return pattern.matches(in: text, range: NSRange(text.startIndex..., in: text)).map {
+      TextPosition(page: index, offset: $0.range.location)
+    }
+  }
+}
+
+struct SegmentRun: Encodable { let page: Int; let lines: [[Int]] }
+struct ReadingSegment: Encodable { let label: String; let runs: [SegmentRun] }
+
+// Each group runs from its first sentence up to the next group or section.
+// Drop running heads and folios when a sentence continues on another page.
+func segmentRuns(from start: TextPosition, to end: TextPosition) -> [SegmentRun] {
+  var runs: [SegmentRun] = []
+  for index in start.page...end.page {
+    guard let page = document.page(at: index), let text = page.string else { continue }
+    let source = text as NSString
+    let footer = source.range(of: "\n", options: .backwards)
+    let head = source.range(of: "\n")
+    let top = index == 0 ? 0 : NSMaxRange(head)
+    let lower = max(top, index == start.page ? start.offset : top)
+    let upper = min(footer.location, index == end.page ? end.offset : footer.location)
+    guard lower < upper else { continue }
+    let range = NSRange(location: lower, length: upper - lower)
+    let first = source.rangeOfCharacter(from: .whitespacesAndNewlines.inverted, range: range)
+    let last = source.rangeOfCharacter(from: .whitespacesAndNewlines.inverted, options: .backwards, range: range)
+    guard first.location != NSNotFound,
+          let selection = page.selection(for: NSRange(location: first.location, length: NSMaxRange(last) - first.location)) else { continue }
+    let transform = page.transform(for: .cropBox)
+    let lines = glossaryBounds(selection, on: page).map { normalizedBounds($0.applying(transform), in: rasterBox(page)) }
+    if !lines.isEmpty { runs.append(SegmentRun(page: index, lines: lines)) }
+  }
+  return runs
+}
+
+let segmentSource = anchorsURL.deletingLastPathComponent().appendingPathComponent("paper-segments.json")
+let definitions = try JSONDecoder().decode([String: [[String]]].self, from: Data(contentsOf: segmentSource))
+let mapped = anchorList.compactMap { entry -> (String, TextPosition)? in
+  guard let id = entry["id"], definitions[id] != nil || id == "paper-notes",
+        let phrase = entry["find"], let first = occurrences(phrase).first else { return nil }
+  return (id, first)
+}.sorted { $0.1 < $1.1 }
+guard mapped.count == definitions.count + 1, mapped.last?.0 == "paper-notes" else {
+  fail("Each focus section must have a mapped start before the notes")
+}
+var readingSegments: [String: [ReadingSegment]] = [:]
+for ((id, lower), (_, upper)) in zip(mapped, mapped.dropFirst()) {
+  let entries = definitions[id] ?? []
+  let starts = entries.map { entry -> TextPosition in
+    guard entry.count == 2 else { fail("Expected a sentence opening and a label in " + id) }
+    let matches = occurrences(entry[0]).filter { $0 >= lower && $0 < upper }
+    guard matches.count == 1 else { fail("Expected one sentence opening in " + id + ": " + entry[0] + " (found " + String(matches.count) + ")") }
+    return matches[0]
+  }
+  guard !starts.isEmpty else { fail("Empty focus section: " + id) }
+  readingSegments[id] = starts.indices.map { i in
+    let end = i + 1 < starts.count ? starts[i + 1] : upper
+    guard starts[i] < end else { fail("Sentence openings out of order in " + id) }
+    let runs = segmentRuns(from: starts[i], to: end)
+    guard !runs.isEmpty else { fail("Empty segment in " + id) }
+    return ReadingSegment(label: entries[i][1], runs: runs)
+  }
+}
+
 for index in 0..<document.pageCount {
   guard let page = document.page(at: index) else { fail("cannot read page \(index + 1)") }
   guard page.rotation == 0 else { fail("page \(index + 1) is rotated; this script renders upright pages only") }
@@ -210,7 +292,7 @@ for index in 0..<document.pageCount {
 
   let file = String(format: "page-%02d.webp", index + 1)
   pageWords[file] = wordBounds(page, in: box)
-  let rasterBounds = CGRect(x: box.minX, y: box.minY, width: box.width, height: CGFloat(pixelHeight) / scale)
+  let rasterBounds = rasterBox(page)
   let occurrences = glossaryOccurrences(page, in: rasterBounds, beforeBibliography: &beforeBibliography)
   if !occurrences.isEmpty { pageGlossary[file] = occurrences }
   guard let image = context.makeImage() else { fail("cannot make an image for \(file)") }
@@ -236,8 +318,9 @@ func sharedLineSplit(_ selection: PDFSelection, on page: PDFPage, rect: CGRect, 
         let previous = page.selection(for: previousCharacter)?.bounds(for: page),
         !previous.isEmpty, previous.maxX <= rect.minX,
         abs(previous.midY - rect.midY) < rect.height / 2 else { return nil }
-  let x = ((previous.maxX + rect.minX) / 2 - box.minX) / box.width
-  let bottom = (box.maxY - min(previous.minY, rect.minY)) / box.height
+  let transform = page.transform(for: .cropBox)
+  let x = ((previous.maxX + rect.minX) / 2 + transform.tx - box.minX) / box.width
+  let bottom = (box.maxY - min(previous.minY, rect.minY) - transform.ty) / box.height
   return ["x": (x * 10000).rounded() / 10000, "bottom": (bottom * 10000).rounded() / 10000]
 }
 
@@ -249,9 +332,9 @@ for entry in anchorList {
   guard let match = matches.first, let line = match.selectionsByLine().first, let page = line.pages.first else {
     fail("anchor \(id): could not find \"\(phrase)\" in the PDF")
   }
-  let box = page.bounds(for: .cropBox)
+  let box = rasterBox(page)
   let rect = line.bounds(for: page)
-  let y = ((box.maxY - rect.maxY) / box.height * 10000).rounded() / 10000
+  let y = ((box.maxY - rect.applying(page.transform(for: .cropBox)).maxY) / box.height * 10000).rounded() / 10000
   let pageIndex = document.index(for: page)
   anchors[id] = ["page": pageIndex, "y": y]
   if let split = sharedLineSplit(match, on: page, rect: rect, in: box) {
@@ -269,6 +352,9 @@ let indexedTerms = Set(pageGlossary.values.flatMap { $0.map(\.term) })
 let missingTerms = glossary.map(\.id).filter { !indexedTerms.contains($0) }
 if !missingTerms.isEmpty { fail("no paper matches for glossary terms: \(missingTerms.joined(separator: ", "))") }
 do {
+  let segmentEncoder = JSONEncoder()
+  segmentEncoder.outputFormatting = [.sortedKeys]
+  try segmentEncoder.encode(readingSegments).write(to: stagingURL.appendingPathComponent("segments.json"))
   let json = try JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys])
   try json.write(to: stagingURL.appendingPathComponent("manifest.json"))
   let words = try JSONSerialization.data(withJSONObject: pageWords, options: [.sortedKeys])

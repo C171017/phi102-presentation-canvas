@@ -10,9 +10,7 @@ import { createPageBackgrounds } from './page-backgrounds';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createReadingPanel } from './reading-panel';
-import type { FocusGlossaryVisual } from './paper-glossary';
 import type { ThreeLayer } from './three-layer';
-import { selectHarborView } from './signal-harbor';
 import './style.css';
 import './layout.css';
 
@@ -29,7 +27,6 @@ const updateConnections = createConnections(world);
 const disposeRegressAnimations = initializeRegressAnimations();
 const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
-let glossaryFocus: { previousView: View; slide: number; harbor?: HTMLElement } | undefined;
 let reportSlide: ((index: number) => void) | undefined;
 let paperPane: { update: (index: number) => void } | undefined;
 const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode &&
@@ -46,7 +43,7 @@ const slideNavigation = createSlideNavigation(world, goTo, index => {
 }, pageBackgrounds.update);
 viewport.classList.toggle('canvas-editable', !readOnly);
 let connectionsDirty = true;
-const layout = createLayoutController(world, () => ({ ...glossaryFocus?.previousView ?? target }), restored => {
+const layout = createLayoutController(world, () => ({ ...target }), restored => {
   Object.assign(view, restored);
   Object.assign(target, restored);
   connectionsDirty = true;
@@ -82,32 +79,10 @@ function animateTo(next: Partial<View>, duration: number) {
   wake();
   return true;
 }
-function clearGlossaryFocus() {
-  if (glossaryFocus?.harbor) selectHarborView(glossaryFocus.harbor);
-  glossaryFocus = undefined;
-}
 function goTo(next: Partial<View>, duration = 550) {
   if (!animateTo(next, duration)) return;
-  clearGlossaryFocus();
   layout.schedule();
 }
-const focusGlossaryVisual: FocusGlossaryVisual = (visual, pane) => {
-  const id = typeof visual === 'string' ? visual : visual.id;
-  const paneEdge = pane.getBoundingClientRect().left;
-  const notes = pane.querySelector('.paper-notes:not([hidden])');
-  const frame = slideNavigation.frameVisual(id, view.zoom, notes?.getBoundingClientRect().left ?? paneEdge) ??
-    slideNavigation.frameVisual(id, view.zoom, paneEdge);
-  if (!frame) return;
-
-  const previousView = glossaryFocus?.previousView ?? { ...target };
-  if (!animateTo(frame.view, 660)) return;
-  clearGlossaryFocus();
-  glossaryFocus = { previousView, slide: frame.index };
-  if (typeof visual !== 'string') {
-    glossaryFocus.harbor = frame.visual;
-    selectHarborView(frame.visual, visual.harborView);
-  }
-};
 function step(direction: number) {
   if (!stops.length) { slideNavigation.step(direction); return; }
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
@@ -123,13 +98,8 @@ function render() {
     slideNavigation.measure(view.zoom);
     updateConnections(view.zoom);
   }
-  if (glossaryFocus) {
-    // Keep the source passage and the live slide selection while exploring an illustration.
-    slideNavigation.showVisible(tween ? -1 : glossaryFocus.slide);
-  } else {
-    slideNavigation.update(target);
-    slideNavigation.updateVisible(view, tween ? target : undefined);
-  }
+  slideNavigation.update(target);
+  slideNavigation.updateVisible(view, tween ? target : undefined);
   threeLayer?.render(view);
 }
 let frame: number | undefined;
@@ -341,7 +311,6 @@ viewport.addEventListener('pointercancel', endDrag);
 viewport.addEventListener('lostpointercapture', endDrag);
 viewport.addEventListener('wheel', (event) => {
   if (drag) return;
-  clearGlossaryFocus();
   event.preventDefault(); tween = undefined; Object.assign(target, view);
   if (event.ctrlKey || event.metaKey) {
     const zoom = clampZoom(view.zoom * Math.exp(-event.deltaY * 0.01));
@@ -387,7 +356,7 @@ if (liveMode) {
 }
 function mountPaperPane(rolePicker?: HTMLElement) {
   void import('./paper-pane').then(({ createPaperPane }) => {
-    paperPane = createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker, focusVisual: focusGlossaryVisual });
+    paperPane = createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker });
   });
 }
 if (localDev) {
@@ -395,7 +364,7 @@ if (localDev) {
     const rolePicker = addDevRolePicker(backdrop, previewRole);
     if (!previewRole) {
       void import('./dev-paper').then(({ createPaperPane }) => {
-        paperPane = createPaperPane(backdrop, rolePicker, focusGlossaryVisual);
+        paperPane = createPaperPane(backdrop, rolePicker);
       });
       return;
     }

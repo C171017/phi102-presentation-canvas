@@ -2,11 +2,12 @@ import { slides } from './slide-content';
 import { attachCollapsiblePaneResizer } from './collapsible-pane-resizer';
 import type { createPaperHighlights } from './dev-paper-highlights';
 import { createPaperNotes, type PaperAnchor } from './paper-notes';
-import { createPaperGlossary, type FocusGlossaryVisual } from './paper-glossary';
+import { createPaperGlossary } from './paper-glossary';
+import type { SegmentIndex } from './paper-focus';
 import './paper-pane.css';
 
-// The pane follows slide navigation. Glossary clicks can request a temporary
-// canvas focus through the callback supplied by the presentation.
+// The paper scrolls independently. The passage cue offers a manual jump to
+// the current slide's passage.
 
 const ASSETS = `${import.meta.env.BASE_URL}readings/greco-2017/`;
 const PREFS_KEY = 'phi102-dev-paper-v1';
@@ -22,7 +23,6 @@ type Manifest = { title: string; pages: Page[]; anchors: Record<string, Anchor> 
 type Prefs = { open: boolean; width: number | null };
 type PaperPaneOptions = {
   initiallyOpen: boolean;
-  focusVisual: FocusGlossaryVisual;
   rolePicker?: HTMLElement;
   lastReadingPage?: string;
   createHighlights?: typeof createPaperHighlights;
@@ -77,7 +77,7 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: stri
   return node;
 }
 
-export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual, rolePicker, lastReadingPage, createHighlights }: PaperPaneOptions) {
+export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker, lastReadingPage, createHighlights }: PaperPaneOptions) {
   const prefs = loadPrefs(initiallyOpen);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let current = -1;
@@ -108,11 +108,18 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
   scrollIndicator.setAttribute('aria-hidden', 'true');
   const scrollThumb = element('div', 'paper-scroll-thumb');
   scrollIndicator.append(scrollThumb);
-  pane.append(resizer, scroll, scrollIndicator);
+
+  const passageCue = element('button', 'paper-passage-cue');
+  passageCue.type = 'button';
+  passageCue.hidden = true;
+  const passageArrow = element('span', undefined, '↑');
+  passageArrow.setAttribute('aria-hidden', 'true');
+  passageCue.append(passageArrow);
+  pane.append(resizer, scroll, scrollIndicator, passageCue);
   shell.append(pane);
   const highlights = createHighlights?.(pane, scroll);
   const notes = createPaperNotes(pane, scroll, shell);
-  const glossary = createPaperGlossary(pane, scroll, focusVisual);
+  const glossary = createPaperGlossary(pane, scroll);
 
   function slideFromProgressBar() {
     return Array.from(document.querySelectorAll('#slide-progress button')).findIndex(item => item.hasAttribute('aria-current'));
@@ -166,6 +173,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
     if (open === prefs.open) return;
     if (!open) {
       if (pane.contains(document.activeElement)) resizer.focus({ preventScroll: true });
+      notes.clearFocus();
       glossary.close();
       highlights?.setActive(false);
       glossary.setEnabled(true);
@@ -173,11 +181,12 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
     }
     prefs.open = open;
     renderOpenState();
-    if (!open) return;
-    requestPages();
-    if (collapsedAnchor) restoreAnchor(collapsedAnchor);
-    else scrollToSlide(current, false);
-    collapsedAnchor = undefined;
+    if (open) {
+      requestPages();
+      if (collapsedAnchor) restoreAnchor(collapsedAnchor);
+      collapsedAnchor = undefined;
+    }
+    updatePassageCue();
   }
 
   function offsetOf(anchor: Anchor) {
@@ -189,15 +198,32 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
     scroll.scrollTop = offsetOf(anchor) - scroll.clientHeight * READING_LINE;
   }
 
-  function scrollToSlide(index: number, smooth: boolean) {
-    const anchor = slideAnchors[index];
-    if (!anchor || !prefs.open) return;
+  function updatePassageCue() {
+    const anchor = slideAnchors[current];
+    if (!prefs.open || !anchor || scroll.clientHeight === 0) {
+      passageCue.hidden = true;
+      return;
+    }
+    const relativeTop = offsetOf(anchor) - scroll.scrollTop;
+    const direction = relativeTop < 0 ? 'up' : relativeTop >= scroll.clientHeight ? 'down' : undefined;
+    passageCue.hidden = direction === undefined;
+    if (direction && passageCue.dataset.direction !== direction) {
+      passageCue.dataset.direction = direction;
+      passageCue.setAttribute('aria-label', `Go to the current slide’s passage ${direction === 'up' ? 'above' : 'below'}`);
+    }
+  }
+
+  passageCue.addEventListener('click', () => {
+    const anchor = slideAnchors[current];
+    if (!anchor || passageCue.hidden) return;
+    notes.clearFocus();
+    scroll.focus({ preventScroll: true });
     for (let page = anchor.page - 1; page <= anchor.page + 1; page++) if (images[page]) images[page].loading = 'eager';
     scroll.scrollTo({
       top: Math.max(0, offsetOf(anchor) - scroll.clientHeight * READING_LINE),
-      behavior: smooth && !reducedMotion.matches ? 'smooth' : 'auto',
+      behavior: reducedMotion.matches ? 'auto' : 'smooth',
     });
-  }
+  });
 
   function readingAnchor(): Anchor | undefined {
     if (!sheets.length) return;
@@ -210,7 +236,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
     return anchor;
   }
 
-  function buildPages(loaded: Manifest) {
+  function buildPages(loaded: Manifest, segments: SegmentIndex) {
     const lastPage = loaded.pages.findIndex(page => page.printed === lastReadingPage);
     const visiblePages = lastPage < 0 ? loaded.pages : loaded.pages.slice(0, lastPage + 1);
     scroll.replaceChildren();
@@ -228,8 +254,8 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
       images.push(image);
     });
     void highlights?.load(`${ASSETS}words.json`, images, visiblePages.map(page => page.file));
-    void glossary.load(`${ASSETS}glossary.json`, visiblePages.map(({ file }, index) => ({ file, sheet: sheets[index] })), loaded.anchors);
-    notes.build(loaded.anchors, sheets);
+    void glossary.load(`${ASSETS}glossary.json`, visiblePages.map(({ file }, index) => ({ file, sheet: sheets[index] })));
+    notes.build(loaded.anchors, sheets, segments);
     // A slide without its own anchor continues from the previous slide's passage.
     let previous: Anchor = { page: 0, y: 0 };
     slideAnchors = slides.map(slide => {
@@ -239,10 +265,8 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
       if (anchor && anchor.page < visiblePages.length) previous = anchor;
       return previous;
     });
-    if (prefs.open) {
-      applyWidth();
-      scrollToSlide(current, false);
-    }
+    if (prefs.open) applyWidth();
+    updatePassageCue();
   }
 
   function showFailure(reason: string) {
@@ -264,12 +288,18 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
   async function load() {
     scroll.replaceChildren(element('p', 'paper-message', 'Loading the paper pages…'));
     try {
-      const response = await fetch(`${ASSETS}manifest.json`, { cache: 'no-store' });
+      const [response, segments] = await Promise.all([
+        fetch(`${ASSETS}manifest.json`, { cache: 'no-store' }),
+        fetch(`${ASSETS}segments.json`, { cache: 'no-cache' }).then(r => {
+          if (!r.ok) throw new Error('No segment index');
+          return r.json() as Promise<SegmentIndex>;
+        }).catch(error => { console.warn('Passage focus is unavailable.', error); return {}; }),
+      ]);
       // Vite answers unknown paths with index.html, so check the type as well as the status.
       if (!response.ok || !response.headers.get('content-type')?.includes('json')) throw new Error('The paper manifest is unavailable.');
       const loaded = parseManifest(await response.json());
       if (!loaded) throw new Error('manifest.json is not in the expected format');
-      buildPages(loaded);
+      buildPages(loaded, segments);
     } catch (error) {
       pagesRequested = false;
       if (createHighlights) showFailure(error instanceof Error ? error.message : String(error));
@@ -282,17 +312,15 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
 
   function update(index: number) {
     if (index < 0 || index === current) return;
-    const first = current < 0; // the canvas has just found its slide after a page load: jump, don't sweep
     current = index;
     glossary.close();
     pane.style.setProperty('--paper-slide-progress', String(index / Math.max(1, slides.length - 1)));
-    collapsedAnchor = undefined;
-    if (!slideAnchors.length) return; // buildPages places everything for the slide that is current by then
-    scrollToSlide(index, !first);
+    updatePassageCue();
   }
 
   let hideScrollIndicator: number | undefined;
   scroll.addEventListener('scroll', () => {
+    updatePassageCue();
     const { clientHeight, scrollHeight, scrollTop } = scroll;
     const maxScroll = scrollHeight - clientHeight;
     const indicatorHeight = scrollIndicator.clientHeight;
@@ -305,13 +333,29 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
     window.clearTimeout(hideScrollIndicator);
     hideScrollIndicator = window.setTimeout(() => scrollIndicator.classList.remove('is-visible'), 600);
   }, { passive: true });
+  new ResizeObserver(updatePassageCue).observe(scroll);
 
   pane.addEventListener('keydown', event => {
     if (!event.metaKey && !event.ctrlKey && !event.altKey && CANVAS_KEYS.has(event.key)) event.stopPropagation();
   });
   // Pinching over the pane must not zoom the whole browser page.
   pane.addEventListener('wheel', event => { if (event.ctrlKey) event.preventDefault(); }, { passive: false });
-  window.addEventListener('resize', () => { if (prefs.open) applyWidth(); });
+  // A sheet scales with the pane. Keep the reader on the same sentence when
+  // the window switches between the margin outline and its compact header.
+  let focusAnchor: Anchor | undefined;
+  let lastWindowWidth = window.innerWidth;
+  function rememberFocusAnchor() {
+    if (window.innerWidth === lastWindowWidth && pane.classList.contains('is-paper-focused')) focusAnchor = readingAnchor();
+  }
+  scroll.addEventListener('scroll', rememberFocusAnchor, { passive: true });
+  pane.addEventListener('focusin', rememberFocusAnchor);
+  window.addEventListener('resize', () => {
+    if (!prefs.open) return;
+    const anchor = pane.classList.contains('is-paper-focused') ? focusAnchor : undefined;
+    lastWindowWidth = window.innerWidth;
+    applyWidth();
+    if (anchor) requestAnimationFrame(() => restoreAnchor(anchor));
+  });
   window.addEventListener('keydown', event => {
     if (event.defaultPrevented || event.isComposing || event.ctrlKey || event.altKey || event.shiftKey) return;
     if (event.target instanceof HTMLElement && (event.target.isContentEditable || event.target.closest('input, textarea, select'))) return;
@@ -323,6 +367,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, focusVisual
         setOpen(true);
         savePrefs(prefs);
       }
+      notes.clearFocus();
       highlights.setActive(!highlights.active);
       glossary.setEnabled(!highlights.active);
       if (highlights.active) scroll.focus({ preventScroll: true });
