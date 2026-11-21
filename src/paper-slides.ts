@@ -1,4 +1,3 @@
-import evan from './assets/full-body-cast/evan.webp';
 import { castIds } from './cast-ids';
 import { applicationPositions } from './application-map';
 import { mountScene, scenes } from './scenes';
@@ -69,24 +68,11 @@ export function initializePaperSlides(world: HTMLElement) {
       place(host, left + scene.w / 2, slide.top + ROW + scene.h / 2);
       mountScene(host);
       world.append(host);
-      if (id === 'cast-echo') {
-        const chorus = document.createElement('div');
-        chorus.id = chorus.dataset.scene = 'cast-quibble';
-        chorus.setAttribute('aria-label', 'Quibble, the five voices of the regress problem');
-        place(chorus, left + scene.w / 2 + 280, slide.top + ROW + scene.h / 2);
-        mountScene(chorus);
-        world.append(chorus);
-      }
       if (id === 'route-knowledge-scene') {
         const pen = document.createElement('div');
-        pen.id = 'route-knowledge-evan';
-        pen.className = 'canvas-media evidence-scribe';
-        pen.dataset.label = 'Evan, the evidence source';
-        const image = document.createElement('img');
-        image.src = evan;
-        image.alt = 'Evan bows to sign the invitation in blue ink.';
-        image.draggable = false;
-        pen.append(image);
+        pen.id = pen.dataset.scene = 'route-knowledge-evan';
+        pen.setAttribute('aria-label', 'Evan, the evidence source');
+        mountScene(pen);
         place(pen, left + scene.w / 2 - 391, slide.top + ROW + scene.h / 2 - 113);
         world.append(pen);
       }

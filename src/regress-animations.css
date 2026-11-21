@@ -1,46 +1,67 @@
-/* Position the title below the drawn strokes while keeping the route's anchor centered. */
+/* The route, artwork and caption share one draggable and linkable canvas box. */
+.canvas-label.regress-position {
+  display: grid;
+  width: 320px;
+  max-width: none;
+  padding: 0;
+  justify-items: center;
+  grid-template-rows: 268px auto;
+  row-gap: 8px;
+}
 .regress-position > div {
-  position: relative;
-  top: calc(var(--diagram-bottom, 130px) + 10px + .5lh);
-  left: var(--caption-offset-x, 0px);
-  z-index: 1;
+  grid-row: 2;
   color: color-mix(in srgb, var(--route-color) 76%, #2e241b);
   -webkit-text-stroke: .11em #eadbbd;
   paint-order: stroke fill;
-  text-shadow:
-    .018em .04em .02em rgb(52 37 22 / .36),
-    .03em .11em .14em rgb(52 37 22 / .22);
+  text-shadow: .018em .04em .02em rgb(52 37 22 / .36), .03em .11em .14em rgb(52 37 22 / .22);
 }
 .regress-animation {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(32000px / var(--diagram-radius, 70));
-  height: auto;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
+  grid-row: 1;
+  grid-column: 1;
+  width: 100%;
+  height: 100%;
   overflow: visible;
   pointer-events: none;
-  user-select: none;
 }
-.regress-animation .relief-hit { fill: transparent; pointer-events: all; }
+.sowatt-voice {
+  transform-box: fill-box;
+  transform-origin: center;
+}
 @media (prefers-reduced-motion: no-preference) {
-  .regress-animation.is-tracing .relief-trace path {
-    stroke-dasharray: 1 1;
-    animation: regress-trace var(--travel) linear var(--when) backwards;
+  .is-speaking .sowatt-voice {
+    animation: var(--voice-action) 750ms ease-in-out var(--delay) both;
   }
-  .regress-animation.is-tracing .relief-arrival {
-    animation: regress-appear .05s ease-out var(--when) backwards;
+  .route-skepticism { --voice-action: sowatt-ask; }
+  .route-skepticism .sowatt-voice:last-child { --voice-action: sowatt-peer; }
+  .route-coherentism { --voice-action: sowatt-turn; }
+  .route-infinitism { --voice-action: sowatt-pass; }
+  .route-foundationalism { --voice-action: sowatt-land; }
+  .route-infinitism:is(:hover, :focus-visible) .sowatt-spiral {
+    transform-origin: 0 0;
+    animation: sowatt-recede 900ms linear infinite;
   }
 }
-@keyframes regress-trace { from { stroke-dashoffset: 1.01; opacity: 0; } 1% { opacity: 1; } to { stroke-dashoffset: 0; } }
-@keyframes regress-appear { from { opacity: 0; } to { opacity: 1; } }
-
-/* Match visible footprints, including belief nodes and the asymmetric spiral. */
-.route-infinitism {
-  --diagram-radius: 66;
-  --diagram-bottom: 123px;
-  --caption-offset-x: 24px;
+@keyframes sowatt-ask {
+  30% { transform: translate(5%, 8%) rotate(6deg); }
+  70% { transform: translate(-4%, -5%) rotate(-5deg); }
 }
-.route-coherentism { --diagram-radius: 72; }
-.route-foundationalism { --diagram-radius: 89; }
+@keyframes sowatt-peer {
+  32%, 63% { transform: translateY(13%) rotate(12deg); }
+  84% { transform: translateY(-4%) rotate(-5deg); }
+}
+@keyframes sowatt-turn {
+  38% { transform: rotate(var(--tilt)) scale(1.07, .97); }
+  73% { transform: rotate(calc(-.45 * var(--tilt))); }
+}
+@keyframes sowatt-pass {
+  38% { transform: rotate(var(--tilt)) scale(1.09); }
+}
+@keyframes sowatt-land {
+  0% { transform: translateY(-21%); }
+  50% { transform: translateY(3%) scale(1.09, .92); }
+  75% { transform: translateY(-3%) scale(.98, 1.025); }
+  100% { transform: none; }
+}
+@keyframes sowatt-recede {
+  to { transform: rotate(var(--step)) scale(var(--ratio)); }
+}

@@ -1,6 +1,6 @@
 import './knowledge-pipeline.css';
 
-const label = 'Evan signs the invitation. Simone knows he wrote that the party is tonight. Under E = K, that known fact is part of her evidence. Hover, tap, or press Enter to replay.';
+const label = 'Simone knows Evan wrote “8:” on the invitation. Under E = K, that known fact is part of her evidence. Hover, tap, or press Enter to replay.';
 
 export function mountKnowledgePipeline(host: HTMLElement) {
   host.classList.add('knowledge-pipeline');
@@ -32,10 +32,7 @@ export function mountKnowledgePipeline(host: HTMLElement) {
             <path d="M0 0h90v106H0Z" fill="#b39a79" opacity=".25" transform="translate(2 3)"/>
             <path d="M0 0h90v106H0Z" fill="#fff6e5" stroke="#aa9376"/>
             <path d="M8 53h74" stroke="#cebfa7" opacity=".6"/>
-            <text x="45" y="24" class="letter-title">Echo’s party</text>
-            <text x="45" y="46" class="letter-time">Tonight</text>
-            <text x="56" y="83" class="pipeline-signature">Evan</text>
-            <path d="M36 88q31 3 39-3" fill="none" stroke="#334b84" stroke-width=".9"/>
+            <text x="45" y="47" class="letter-time">8:</text>
           </g>
         </g>
       </g>
@@ -61,7 +58,6 @@ export function mountKnowledgePipeline(host: HTMLElement) {
         ${[[346,119],[503,119],[346,203],[503,203]].map(([x,y]) => `
           <g transform="translate(${x} ${y})"><circle cy="1" r="3" fill="#26362c"/><circle r="2.6" fill="url(#pipeline-brass)"/><path d="M-1.2 1l2.4-2" stroke="#836844"/></g>`).join('')}
       </g>
-      <text x="435" y="275" class="pipeline-caption">Simone knows Evan wrote “tonight.” That fact is part of her evidence.</text>
     </svg>`);
   const art = host.querySelector<SVGSVGElement>('.pipeline-art')!;
   function replay() {

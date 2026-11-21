@@ -71,7 +71,7 @@ export const scenes: Record<string, Scene> = {
 
   'route-knowledge-scene': {
     w: 900, h: 450,
-    label: 'Evan’s signed invitation passes through the E = K box. What Simone knows he wrote serves as evidence.',
+    label: 'Evan’s invitation, with the unfinished time “8:”, passes through the E = K box.',
     mount: mountKnowledgePipeline,
   },
 

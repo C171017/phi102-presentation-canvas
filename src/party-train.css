@@ -57,3 +57,11 @@
   font: italic 900 25px/1 Impact, 'Arial Narrow', sans-serif;
   text-transform: uppercase;
 }
+
+/* Include the badge inside the box where the regress branches attach. */
+#regress-problem.train-figure {
+  box-sizing: content-box;
+  padding: 84px 14px 0;
+}
+#regress-problem > .cast-view { top: 0; bottom: auto; }
+#regress-problem > .cast-name { top: 36px; bottom: auto; }

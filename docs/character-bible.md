@@ -224,11 +224,11 @@ Echo stays motionless for long stretches. His eye stalks swivel slowly. [Claw: "
 
 He is the Courteous Scribe: gracious, unhurried and a little ceremonious. He bows before he writes and holds the bow a beat too long. At 8:00 he is caught mid-bow, politely flustered: "You're early" comes with a courteous tilt, not a joke at Simone's expense. At 8:30 he is a pleased host and writes a fresh, legible 8:30. He is never menacing or sly.
 
-## Quibble — the regress problem
+## YYY Sowatt — the regress problem
 
 **Default pose.** Before a view is selected, the five voices hover in a loose huddle. The smallest, red-marked voice looks up and draws breath for one more question. [Default full-body sprite](character-references/quibble-a3-default.png)
 
-Quibble’s selected A3 design is a chorus of five ink bubbles. Each bubble has exactly one pointed speech-bubble tail in every pose and every frame, including the tiny voices receding into the infinitist spiral. Keep each tail attached to its own body as it turns toward the next speaker. Leave a sliver of space at the tip so its direction stays legible. Several speakers can point to the same neighbor. In the foundationalist pose, the red-marked speaker’s tail touches the stone. [Four-pose character reference](character-references/quibble-a3-single-tail.png)
+YYY Sowatt’s selected A3 design is a chorus of five ink bubbles. Each bubble has exactly one pointed speech-bubble tail in every pose and every frame, including the tiny voices receding into the infinitist spiral. Keep each tail attached to its own body as it turns toward the next speaker. Leave a sliver of space at the tip so its direction stays legible. Several speakers can point to the same neighbor. In the foundationalist pose, the red-marked speaker’s tail touches the stone. [Four-pose character reference](character-references/quibble-a3-single-tail.png)
 
 ## NPCs
 

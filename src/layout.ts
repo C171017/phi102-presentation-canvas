@@ -183,10 +183,6 @@ function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraV
       if (scene) item = { ...scene, x: scene.x - 391 * scene.scale, y: scene.y - 113 * scene.scale };
     }
     const lineup = layout.items['versions-map-scene'];
-    if (!item && element.id === 'cast-quibble') {
-      const echo = layout.items['cast-echo'];
-      if (echo) item = { ...echo, x: echo.x + 280 * echo.scale };
-    }
     if (!item && lineup && element.dataset.lineupX !== undefined) {
       item = { ...lineup, x: lineup.x + Number(element.dataset.lineupX) * lineup.scale,
         y: lineup.y + Number(element.dataset.lineupY) * lineup.scale };
