@@ -1,5 +1,6 @@
 import { createPresentationClient } from './live-presentation';
 import { isSlide, type RoomSnapshot } from './live-protocol';
+import { addStoryReader } from './story-reader';
 import './dev-presentation.css';
 
 type PreviewRole = 'audience' | 'presenter';
@@ -13,7 +14,7 @@ export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null) {
   const picker = document.createElement('div');
   picker.className = 'dev-role-picker';
   picker.setAttribute('role', 'group');
-  picker.setAttribute('aria-label', 'Local development role');
+  picker.setAttribute('aria-label', 'Canvas views');
   const label = document.createElement('span');
   label.textContent = 'Local dev';
   picker.append(label);
@@ -32,6 +33,7 @@ export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null) {
     picker.append(button);
   }
   shell.append(picker);
+  addStoryReader(shell, picker, role === null);
   return picker;
 }
 

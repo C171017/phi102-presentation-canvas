@@ -17,7 +17,7 @@ The **three routes** on the canvas are justification as a social activity, hinge
 | Canvas material | Howie’s assessment | Implication for future work |
 | --- | --- | --- |
 | Opening objects for *Contemporary Contextualism* and *Flexible Foundationalism* | Reviewed and approved | Use these as visual references for the opening and later scenes. |
-| Early foundationalism objects, including the purple crystal, the Cartesian and moderate alternatives, and the *Undoubted, Not Undoubtable* scene | Reviewed and approved | Carry the crystal forward as a recognizable object. Keep its connection to foundations legible. |
+| Early foundationalism objects, including the purple crystal, the Cartesian and moderate alternatives, and the *Undoubted, Not Undoubtable* scene | Reviewed and approved | Retain as a historical visual reference while the new foundation identity is explored. |
 | Individual route objects for social justification, hinges, and knowledge or belief at the base | Reviewed and approved | Build on these when the story introduces each route. |
 | *Routes and Versions* overview | The simple 3D treatment has had some review. Its final form is open. | Revisit the overview once we know how the story will move between versions. |
 | Non-3D scenes for individual versions, starting with *Social Norms × Sensitive Invariantism* | Visually outdated | Retain the philosophical questions when developing new scenes. Draw their look and assets from the story. |
@@ -31,7 +31,7 @@ Keep the goal simple enough to grasp in one shot. The humor can be dry and a lit
 
 For example, Simone says, “Evan wrote that it starts at eight.” One group of friends accepts Evan’s word and moves on. Another asks how reliable Evan is. To explore *social justification × contextualism*, the quiz could hold Simone’s evidence fixed and ask what changes when a speaker from each group says, “Simone is justified in taking Evan’s word for granted.” Later, the application could return to the same line by asking what Simone could reasonably believe if part of the hour had smudged. That gives the audience a reason to reconsider which facts fix what Simone should believe.
 
-The purple crystal could connect the opening, the argument, and the game as a single recurring asset. It might be something the characters are looking for, or a magical object they already possess. Its role in the plot is undecided.
+Echo wears his Version C violet shell. The three routes share a separate foundation object, currently under design. [Foundation design brief](foundation-visual-direction.md)
 
 ## Anime opening (OP)
 
@@ -54,7 +54,7 @@ Make a fan-made opening in homage to the *Cowboy Bebop* OP. Use Higgsfeld and im
 
 **Alternative still under consideration.** The option with the most votes could determine a story consequence, sending the class down one of several connected paths with different endings. The single-story approach above is the current preference because a live audience is unlikely to replay the other paths.
 
-The next design pass can settle the premise, the crystal’s role, and the moments that deserve a quiz and a follow-up clip.
+The next design pass can settle the premise, the foundation design, and the moments that deserve a quiz and a follow-up clip.
 
 ## Project references
 

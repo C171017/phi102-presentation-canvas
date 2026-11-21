@@ -1,8 +1,16 @@
 # PHI 102 story illustrations
 
-Seven keyframes generated with built-in ImageGen using the approved Version C character sheets. [Read the full story](../story-and-characters.md).
+See the [current seven-frame storyboard](current/README.md) for the sequence drawn from the Version C model sheets.
 
-Frames 6 and 7 show the earlier voice-memo ending and human host. For new illustrations, use [Evan’s approved A1 design](../character-references/evan-a1-courteous-scribe.png) and the signed-invitation scene in the story bible.
+Keyframes generated with built-in ImageGen using the approved Version C character designs. [Read the current story](../story-and-characters.md).
+
+Frame 6 shows the current signed-invitation reveal. The earlier shell-switch and doorway frames are kept below for reference. The current ending uses [Evan’s approved A1 fountain-pen design](../character-references/evan-a1-courteous-scribe.png).
+
+## Giedt Hall 1007 scene reference
+
+Mount the projector on the ceiling near the back of the room. From the back looking toward the chalkboards, place it about one-third of the room’s width in from the right wall. Aim it toward the pull-down screen over the middle front chalkboard.
+
+[Rear-left room photo](https://local-resources.ucdavis.edu/local_resources/images/room-lookup/Giedt%20Hall_1007_backleft.jpg) · [Front-left room photo](https://local-resources.ucdavis.edu/local_resources/images/room-lookup/Giedt%20Hall_1007_frontleft.jpg) · [Front wall with the screen lowered](https://joongwlee.wordpress.com/2010/10/01/acts-2-fellowship-a2f-uc-davis/)
 
 ## 1. A crab on a deadline
 
@@ -34,17 +42,25 @@ Cole says Simone is justified. Simone listens, Rae sizes up the claim, and Echo 
 
 Rae punches the ticket as Echo raises a claw.
 
-## 6. The shell switch
+## 6. The ink smudge
+
+![Cole unfolds the invitation at Evan’s door. Simone sees the blue ink transfer next to the eight. Echo watches from his carrier.](./06-the-ink-smudge.png)
+
+Simone recognizes Evan’s looping blue signature. The ink transferred across the fold, and she can no longer tell whether she read the whole time.
+
+## Earlier frame 6. The shell switch
 
 ![Cole replays Evan’s voice memo, Simone turns to the email, and Echo leaves his old shell behind.](./06-the-shell-switch.png)
 
 Cole replays Evan’s voice memo, Simone turns to the email, and Echo leaves his old shell behind.
 
-## 7. You’re early
+## Earlier frame 7. You’re early
 
 ![Evan opens the door with a mouthful of cake. Echo clacks once from his new shell.](./07-youre-early.png)
 
 Evan opens the door with a mouthful of cake. Echo clacks once from his new shell.
+
+> **Before writing a new prompt:** the prompts below predate the [character bible](../character-bible.md). They describe identity but not acting, which is why some frames show Simone sulking and Rae scowling. For new frames, add each character's acting block from the bible and follow its reference-image rules.
 
 ## ImageGen prompts
 
@@ -146,6 +162,14 @@ Scene: Wide medium reverse shot at the same now-open teal apartment doorway, war
 
 ```text
 Use case: precise-object-edit. Image 1 is the target, the finished party doorway frame where Evan is chewing cake. Image 2 is a continuity reference, the preceding scene at the closed green door. The single edit: in Image 1, replace the tall striped triangular purple shell BEHIND the red hermit crab IN THE CARRIER at bottom left with his new shell from Image 2, the squat rounded faceted light lavender amethyst crystal to the right of the old empty pyramid. Match the new shell's compact asymmetric gem silhouette and polygonal facets, with no horizontal stripes. Seat it convincingly on Echo's back, in the same lower-left carrier behind his body. Keep Echo's red body, raised red claw, eye stalks and deadpan expression visibly identical. The tall striped shell was left behind and should be absent from this image. Keep the whole rest of Image 1 unchanged, including crop, poses and faces, room, party guests, clothes, color, lighting, perspective and texture. No added text. Return exactly one 16:9 cinematic cut-paper illustration.
+```
+
+### 6. The ink smudge
+
+```text
+Use case: illustration-story. Update the attached storyboard keyframe for the current PHI 102 story, as one clean 16:9 full-bleed landscape illustration. The attachment is the older scene to adapt. Preserve its angular cut-paper art direction, matte ink texture, character likenesses and costumes, nighttime entryway with dark teal numberless door and amber light at the sill, navy/rust/forest green/amethyst palette, and restrained deadpan mood. Reframe closer from a slight high angle, with the paper at the visual center and the characters' faces framing it. Make their eyelines converge on the paper.
+
+The new beat: Cole, left, rust jacket with cream sleeve stripes and black swept hair, stretches open a fairly large cream, once-folded party invitation between him and Simone at the closed door. His phone is lowered out of shot. We look at the inside of the card, clearly seeing a sharp physical center crease. In large handwritten cobalt blue near the crease is a single readable numeral “8”. Immediately after the 8 there is a small distinct mirrored blue ink transfer and a blurred pool across the crease that could hide further digits. Keep anything beyond that 8 entirely illegible; save the actual time for the next frame. Near the lower corner is a distinctive crisp looping blue signature flourish without readable letters. Simone, right, wearing her forest-green jacket and high black loop ponytail, leans toward the card and scrutinizes the smudge with one raised eyebrow; her watch is visible and she's empty-handed. Make the paper large and bright enough that the eight, fold, blue transfer and distinct signature can all be read at a glance. Carry the eye from Simone’s face to the card and ink. At bottom right, one palm-sized coral hermit crab Echo peers from the lip of his tan vented shoulder carrier: half-lidded eye stalks, one big coral claw and his ORIGINAL tall asymmetric pointed violet shell with lavender bands, fully on his back. Exactly one shell, the original tall striped violet shell, and exactly one crab. Evan is on the other side of the closed door. The scene should only depict the tangible invitation discovery; do not introduce a visual foundation prop. No other people, phone graphics, superimposed text, captions, panels, or watermarks.
 ```
 
 </details>

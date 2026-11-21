@@ -1,60 +1,28 @@
-.crystal-foundations {
+.flexible-foundations {
   position: relative;
 }
 
-.crystal-foundations__art {
+.flexible-foundations__art {
   display: block;
   width: 280px;
   max-width: 80vw;
   height: auto;
 }
 
-.crystal-foundations__rod-shadow {
-  transform: translate(14px, 37px);
-  stroke: #614b31;
-  stroke-opacity: .12;
-  stroke-width: 6;
+.flexible-foundations[data-translucent-corner="upper-right"] [data-foundation-corner="upper-right"],
+.flexible-foundations[data-translucent-corner="lower-right"] [data-foundation-corner="lower-right"],
+.flexible-foundations[data-translucent-corner="lower-left"] [data-foundation-corner="lower-left"],
+.flexible-foundations[data-translucent-corner="upper-left"] [data-foundation-corner="upper-left"] {
+  --stone-opacity: 0;
+  --outline-opacity: .65;
 }
 
-.crystal-foundations__rod-edge {
-  stroke: #715027;
-  stroke-width: 7;
-}
-
-.crystal-foundations__rod-body {
-  transform: translateY(-.5px);
-  stroke: #a77b37;
-  stroke-width: 5;
-}
-
-.crystal-foundations__rod-highlight {
-  transform: translateY(-1.7px);
-  stroke: #d9ad58;
-  stroke-opacity: .75;
-  stroke-width: 1.8;
-}
-
-.crystal-foundations [data-foundation-corner] {
-  transition: opacity 260ms ease-in-out;
-}
-
-.crystal-foundations[data-translucent-corner="upper-right"] [data-foundation-corner="upper-right"],
-.crystal-foundations[data-translucent-corner="lower-right"] [data-foundation-corner="lower-right"],
-.crystal-foundations[data-translucent-corner="lower-left"] [data-foundation-corner="lower-left"],
-.crystal-foundations[data-translucent-corner="upper-left"] [data-foundation-corner="upper-left"] {
-  opacity: .5;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .crystal-foundations [data-foundation-corner] { transition: none; }
-}
-
-.crystal-foundations__flexible {
+.flexible-foundations__flexible {
   position: absolute;
-  left: 66.3%;
-  top: 30%;
-  width: 26%;
-  height: 23.5%;
+  left: 75%;
+  top: 46%;
+  width: 20%;
+  height: 19%;
   padding: 0;
   border: 0;
   border-radius: 46%;

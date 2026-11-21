@@ -1,7 +1,7 @@
 import simone from './assets/version-portraits/simone.webp';
 import cole from './assets/version-portraits/cole.webp';
 import rae from './assets/version-portraits/rae.webp';
-import echo from './assets/version-portraits/echo-canopy.webp';
+import echo from './assets/version-portraits/echo.webp';
 import './version-pairings.css';
 
 import { cast, pairingView, versionPairings } from './version-pairings';

@@ -1,6 +1,5 @@
 import './knowledge-pipeline.css';
 
-const ticketOutline = 'M5 0H158L163 4V18A8 8 0 0 0 163 34V48L158 52H5L0 48V34A8 8 0 0 0 0 18V4Z';
 const label = 'Evan signs the invitation. Simone knows he wrote that the party is tonight. Under E = K, that known fact is part of her evidence. Hover, tap, or press Enter to replay.';
 
 export function mountKnowledgePipeline(host: HTMLElement) {
@@ -19,23 +18,30 @@ export function mountKnowledgePipeline(host: HTMLElement) {
         </linearGradient>
       </defs>
       <ellipse cx="444" cy="224" rx="111" ry="11" fill="#705637" opacity=".12"/>
-      <g transform="translate(93 124)">
-        <g class="pipeline-ticket">
-          <g transform="matrix(1 .035 -.14 .98 3 -3)">
-            <path d="${ticketOutline}" fill="#947548" transform="translate(4 6)"/>
-            <path d="${ticketOutline}" fill="#c5a775" transform="translate(2 3)"/>
-            <path d="${ticketOutline}" fill="url(#pipeline-cardstock)" stroke="#a1885d"/>
-            <path d="M7 3H155M4 6v9" fill="none" stroke="#fff4d7" stroke-width="2"/>
-            <path d="M13 8h99m-99 36h99" stroke="#aa8958"/>
-            <text x="70" y="20" class="ticket-title">ECHO’S PARTY</text>
-            <text x="57" y="40" class="ticket-time">Tonight</text>
-            <text x="131" y="38" class="pipeline-signature">Evan</text>
+      <g transform="translate(126 98)">
+        <g class="pipeline-letter">
+          <g transform="rotate(-8 70 65)">
+            <path d="M5 39h116v80H5Z" fill="#80694e" opacity=".15" transform="translate(2 3)"/>
+            <path d="M5 39h116v80H5Z" fill="url(#pipeline-cardstock)" stroke="#ad906d"/>
+            <path d="m6 118 48-45m65 45L76 75" fill="none" stroke="#cbb08c"/>
+            <path d="m5 39 57 48 59-48" fill="#fff1db" stroke="#b49b78" stroke-linejoin="round"/>
+            <path d="M52 78q2-7 8-8l7 1q7 3 6 11l-4 6-8 2-7-3Z" fill="#a54b43"/>
+            <circle cx="62" cy="80" r="6.5" fill="#bf6356" stroke="#96473e"/>
+          </g>
+          <g transform="translate(66 0) rotate(7 44 55)">
+            <path d="M0 0h90v106H0Z" fill="#b39a79" opacity=".25" transform="translate(2 3)"/>
+            <path d="M0 0h90v106H0Z" fill="#fff6e5" stroke="#aa9376"/>
+            <path d="M8 53h74" stroke="#cebfa7" opacity=".6"/>
+            <text x="45" y="24" class="letter-title">Echo’s party</text>
+            <text x="45" y="46" class="letter-time">Tonight</text>
+            <text x="56" y="83" class="pipeline-signature">Evan</text>
+            <path d="M36 88q31 3 39-3" fill="none" stroke="#334b84" stroke-width=".9"/>
           </g>
         </g>
       </g>
       <g class="pipeline-base">
-        <ellipse cx="726" cy="186" rx="61" ry="12" fill="#674b30" opacity=".14"/>
-        <use href="#foundation-back-stone" transform="translate(727 149) scale(1.27) translate(-124 -224)"/>
+        <ellipse cx="726" cy="186" rx="49" ry="7" fill="#574f45" opacity=".14"/>
+        <image href="/generated/foundationalism/gray-stone.webp" x="680" y="122" width="92" height="66"/>
       </g>
       <g>
         <path d="M341 107l30-20 8-3h163l9 6-32 23Z" fill="#78877b"/>

@@ -1,0 +1,12 @@
+.cairn-active {
+  opacity: var(--stone-opacity, 1);
+}
+
+.cairn-outline {
+  opacity: var(--outline-opacity, 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cairn-active,
+  .cairn-outline { transition: opacity 400ms ease-in-out; }
+}

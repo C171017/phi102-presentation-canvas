@@ -2,7 +2,7 @@ import { mountKnowledgePipeline } from './knowledge-pipeline';
 import { mountApplicationBase, mountApplicationHome, mountOrder } from './application-map';
 import { P, line, poly, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, star, plate, st, ring } from './sketch';
 import './scenes.css';
-import { dilemmaCrystal, mountUndoubtedCrystal } from './dilemma-crystals';
+import { drawDilemma, mountUndoubtedCairn } from './foundation-scenes';
 import { mountReadingCircle } from './reading-circle';
 import { castScenes } from './party-train';
 import { HINGE_DOOR_LABEL, mountHingeDoor } from './hinge-door';
@@ -36,19 +36,19 @@ const board = (x: number, y: number, w: number, h: number, fill: string, words: 
 export const scenes: Record<string, Scene> = {
   'dilemma-cartesian': {
     w: 430, h: 450,
-    label: 'Only indubitable foundations qualify. Three stone supports fade and the crystal tips on the one that remains.',
-    draw: () => dilemmaCrystal(true),
+    label: 'Only indubitable foundations qualify. Three foundation stones become outlines and the upper stone tips off the remaining left support and falls to the right.',
+    draw: () => drawDilemma(true),
   },
   'dilemma-moderate': {
     w: 430, h: 450,
-    label: 'Fallible foundations such as perception and intuition support the crystal. Each stone fades in turn to show that it can be doubted.',
-    draw: () => dilemmaCrystal(false),
+    label: 'Fallible foundations such as perception and intuition support a further belief. The four foundations dim and the upper stone wobbles in place.',
+    draw: () => drawDilemma(false),
   },
 
   'undoubted-crystal': {
     w: 580, h: 415,
-    label: 'A violet crystal rests on four beliefs taken for granted in this inquiry. Hover to see each support questioned in turn.',
-    mount: mountUndoubtedCrystal,
+    label: 'Four beliefs taken for granted in this inquiry support a further belief. Hover to see one mist support buckle and snap in two as its stone splits while the other three continue to hold.',
+    mount: mountUndoubtedCairn,
   },
 
   'route-social-scene': {

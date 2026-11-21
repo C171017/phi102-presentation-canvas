@@ -1,7 +1,9 @@
+import { drawCairn } from './foundation-cairn';
 import './flexible-foundation.css';
 
 export function initializeFlexibleFoundation() {
-  const illustration = document.querySelector<HTMLElement>('.crystal-foundations')!;
+  const illustration = document.querySelector<HTMLElement>('.flexible-foundations')!;
+  illustration.querySelector('svg')!.innerHTML = drawCairn('opening-cairn');
   const button = illustration.querySelector('button')!;
   const corners = ['upper-right', 'lower-right', 'lower-left', 'upper-left'];
   let corner = 0;

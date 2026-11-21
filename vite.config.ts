@@ -3,6 +3,7 @@ import { readFile, writeFile, rename, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parseLayout } from './src/layout';
 import { isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
+import { storyTextStorage } from './scripts/story-text-storage';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
 let writes = Promise.resolve();
@@ -133,7 +134,14 @@ function localPresentation(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [layoutStorage(), localPresentation()],
-  server: { host: '127.0.0.1', watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*'] } },
+  plugins: [
+    layoutStorage(),
+    localPresentation(),
+    storyTextStorage(fileURLToPath(new URL('./story-text.json', import.meta.url))),
+  ],
+  server: {
+    host: '127.0.0.1',
+    watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp'] },
+  },
   preview: { host: '127.0.0.1' },
 });

@@ -2,9 +2,11 @@
 
 **Proposal, November 20, 2026.** Builds on [the interactive canvas brief](interactive-canvas-brief.md). Howie's requirements: three human characters for the speaker (contextualism), the subject (sensitive invariantism), and the assessor (relativism); one non-human mascot for expressivism; NPCs for the social-justification route; and one simple, dry, slightly silly plot that follows the canvas order. The setting and ending are open to change. Howie selected Version C for the four main character designs.
 
+> **Acting and personality:** see the [character bible](character-bible.md), which is canonical for expressions, posture, motion and dialogue tone. **Plot revision under review:** [story draft 2, *Eight-ish*, plus alternatives](story-v2-draft.md).
+
 ## The pitch
 
-**Simone has one job: get Echo, a hermit crab, to his own surprise birthday party by 8:00.** Evan, his owner, is hosting across town. Simone has been crab-sitting. The last train that gets her there on time leaves at 7:12. Her friend Cole livestreams the trip. Rae, the night-train conductor, has opinions about everything Cole says. Echo says nothing. His violet canopy rides on curved copper ribs.
+**Simone has one job: get Echo, a hermit crab, to his own surprise birthday party by 8:00.** Evan, his owner, is hosting across town. Simone has been crab-sitting. The last train that gets her there on time leaves at 7:12. Her friend Cole livestreams the trip. Rae, the night-train conductor, has opinions about everything Cole says. Echo says nothing. He wears his faceted violet shell.
 
 The opening is an elaborate, stylish homage to an anime OP. The stakes are a crab and a cake.
 
@@ -38,14 +40,14 @@ In Greco’s paper, Peter hosts the party and Justine hears the start time. In t
 
 ### Canonical character references
 
-Use the current references below for the opening, story scenes, and canvas illustrations. Simone, Cole, and Rae use their Version C model sheets. Echo uses the Canopy design approved on November 21, 2026. The rightmost figure labeled C on each original casting board is the approved design. The model sheets extend it to additional angles and acting poses. For a single-character shot, use the closest pose or expression as the image reference. For animation continuity, carry the same prop placement and costume details through the shot.
+Use the current references below for the opening, story scenes, and canvas illustrations. All four leads use their Version C model sheets, including Echo’s restored shell design. The rightmost figure labeled C on each original casting board is the approved design. The model sheets extend it to additional angles and acting poses. For a single-character shot, use the closest pose or expression as the image reference. For animation continuity, carry the same prop placement and costume details through the shot.
 
 | Character | Model sheet | Original design |
 | --- | --- | --- |
 | Simone | [Views and acting poses](character-references/version-c/justine-model-sheet.png) | [Casting board, option C](character-references/version-c/justine-casting-board.png) |
 | Cole | [Views and acting poses](character-references/version-c/kit-model-sheet.png) | [Casting board, option C](character-references/version-c/kit-casting-board.png) |
 | Rae | [Views and acting poses](character-references/version-c/jo-model-sheet.png) | [Casting board, option C](character-references/version-c/jo-casting-board.png) |
-| Echo | [Canopy · solid and translucent states](character-references/echo/canopy.png) | [Earlier Version C model sheet](character-references/version-c/gus-model-sheet.png) |
+| Echo | [Version C shell and claw poses](character-references/version-c/gus-model-sheet.png) | [Casting board, option C](character-references/version-c/gus-casting-board.png) |
 
 ### Simone — the subject
 
@@ -68,11 +70,10 @@ Use the current references below for the opening, story scenes, and canvas illus
 
 ### Echo — the expressivist mascot
 
-- **What he is:** a small hermit crab with a violet canopy supported by copper ribs. He is the guest of honour at a surprise party. ("It's a surprise. Echo knows.")
+- **What he is:** a small hermit crab with a faceted violet shell. He is the guest of honour at a surprise party. ("It's a surprise. Echo knows.")
 - **Personality:** silent, unbothered, oddly dignified. He communicates only by raising a claw (*clack*: "I'm treating this as a starting point") or tucking it away. He never states a fact.
 - **Why he's non-human:** Expressivism isn't about a fourth person whose context matters. On that view, calling a belief "foundationally justified" doesn't describe anything. It *expresses* a commitment: to stop asking for reasons, and to let the belief support others. Echo makes that commitment visible. When anyone calls a belief justified, Echo's claw goes up. In a disagreement, the clash is claw up vs. Rae's punch. There are no rival reports, just conflicting attitudes.
-- **Part 3:** Echo carries his canopy through the story. When Simone doubts whether she read the full hour, that rib turns translucent. The canopy can take on a new solid support when Simone has grounds she can still rely on. This stages Greco’s local, shifting cognitive home.
-- **Visual cues:** a violet canopy with a yellow tassel, curved copper ribs, half-lidded eyes, and a large coral claw.
+- **Visual cues:** half-lidded eyes, a pointed violet shell, and one raised coral claw. A separate object shows which starting points Simone can rely on. See the [foundation design brief](foundation-visual-direction.md).
 
 ### NPCs (mainly for Route 1, justification as a social activity)
 
@@ -89,11 +90,11 @@ Use the current references below for the opening, story scenes, and canvas illus
 
 1. **Each version has one colour.** Use the four version colours already on `aim-versions` for the four characters, throughout.
 2. **The dashed context ring answers "whose context?"** The ring from the sketch kit always sits on whoever's context matters in the current version: Simone (SI), Cole (contextualism), Rae (relativism). In the expressivism case the ring disappears and Echo's claw goes up. This visual cue alone can carry most of Part 2.
-3. Each copper rib represents a premise the characters rely on in the current inquiry. A rib turns translucent in place when that premise comes into doubt. Echo’s raised claw separately shows a speaker’s endorsement.
+3. Use a separate foundation object for each starting point. Its context mark and its support state have distinct meanings.
 
 ## Main plot, slide by slide
 
-See the [illustrated storyboard](story-illustrations/README.md) for seven keyframes in story order.
+See the [illustrated storyboard](story-illustrations/current/README.md) for seven keyframes in story order.
 
 Clip numbers refer to short Higgsfeld clips. **Q** marks a live quiz.
 
@@ -101,11 +102,11 @@ Clip numbers refer to short Higgsfeld clips. **Q** marks a live quiz.
 | --- | --- | --- |
 | — | **OP** | Credits; flashed terms (*context*, *hinges*, *undoubted*, *E = K*); story frames: Simone, the carrier, the crab, the clock at 6:41, the 7:12 departure, a loop of blue ink. Foreshadowing: the invitation folds while the hour is still wet. |
 | 1 | Contemporary Contextualism | Cole, to the group chat: "Simone knows it starts at eight." Then the same line to the sceptical stream chat. Same sentence, different claims. |
-| 2 | Flexible Foundationalism | Echo’s canopy rests on ribs that represent what Simone takes for granted tonight. |
+| 2 | Flexible Foundationalism | Separate supports show what Simone takes for granted tonight. |
 | 3–5 | Roadmap | The three legs: apartment → train → Evan's door. |
 | 6 | The Regress Problem | Milo: "Why do you think it's at eight?" "Evan wrote it." "Why believe Evan?" … The four exits: stay home (scepticism), answer forever and miss the train (infinitism), "Evan's reliable because Evan says so" (coherentism), stop somewhere (foundationalism). **Q1** |
 | 7 | The Foundationalist's Dilemma | Cartesian Simone won't leave until the time is beyond all possible doubt, so she never leaves. Moderate Simone trusts what she saw on the invite, but why stop *there*? |
-| 8 | Undoubted, Not Undoubtable | The canopy’s solid ribs represent premises nobody here is doubting: the invite is genuine, Evan wrote eight, Simone read the full hour, it's tonight. Each *could* be doubted. Echo clacks. |
+| 8 | Undoubted, Not Undoubtable | The engaged supports represent premises nobody here is doubting: the invite is genuine, Evan wrote eight, Simone read the full hour, it's tonight. Each *could* be doubted. Echo clacks. |
 | 9 | Route 1: Social Activity | On the platform, the group chat lets "Evan wrote 8" pass; the Timetable Society objects. Worry: the Retrograde Car takes its horoscope for granted, so consensus can be wrong. |
 | 10 | Route 2: Hinges | Simone and Cole debate 8 a.m. vs 8 p.m. while holding fixed that the invite is genuine. Also, the stranger's colour report. **Q2** |
 | 11 | Route 3: Knowledge at the Base | Simone *knows* the 7:12 leaves from platform 3, because she's looking at the board. That knowledge is her evidence and becomes a foundation stone. She boards; Rae punches her ticket. **Clip 1:** the doors close. |
@@ -116,8 +117,8 @@ Clip numbers refer to short Higgsfeld clips. **Q** marks a live quiz.
 | 16 | Hinges × Contextualism | Cole uses one sentence in two stream segments (route planning vs "Was it a prank?"), and it says different things. |
 | 17 | The Problem of Disagreement | Cole: "I'm starving." Rae: "I'm not." No conflict. Cole: "Simone's belief is foundationally justified." Rae, punching: "Not valid." *That* feels like real disagreement. Exits: Rae's relativism, Echo's expressivism (claw vs punch), or "overstated" (Greco leaves it open). **Clip 2:** the train arrives. **Q4** |
 | 18 | Access Internalism | At Evan's building. Cole: "But are you *justified* in thinking you're justified?" Simone's doubt about her grounds leaks down into doubt about the time (Greco's organic-food pattern). |
-| 19 | Supervenience Base | Normally, it's taken for granted that the hour is legible and Simone read it accurately. Under those assumptions, what Evan wrote fixes what she has grounds to believe, and she knows what he wrote. Echo’s canopy depicts that local home. The weather presenter is a reminder that, in general, facts can be hidden (why a *global* cognitive home looks hopeless). |
-| 20 | Flexible Foundationalism and Access | Cole unfolds the invitation all the way. Wet ink transferred across the crease just after the eight. Simone recognizes the signature but doubts her reading of the hour. The rib for a clearly legible time turns translucent. A new solid rib can represent Evan’s email, his usual party times, or another ground available to Simone. She can still know what she should believe, perhaps a split confidence between 7 and 8. **Q5:** what fixes Simone's justification now? |
+| 19 | Supervenience Base | Normally, it's taken for granted that the hour is legible and Simone read it accurately. Under those assumptions, what Evan wrote fixes what she has grounds to believe, and she knows what he wrote. The active supports depict that local home. The weather presenter is a reminder that, in general, facts can be hidden (why a *global* cognitive home looks hopeless). |
+| 20 | Flexible Foundationalism and Access | Cole unfolds the invitation all the way. Wet ink transferred across the crease just after the eight. Simone recognizes the signature but doubts her reading of the hour. The support for a clearly legible time is released. A replacement support can represent Evan’s email, his usual party times, or another ground available to Simone. She can still know what she should believe, perhaps a split confidence between 7 and 8. **Q5:** what fixes Simone's justification now? |
 | — | **Ending clip** | 8:00. The door opens. "Surprise!" Everyone shouts at the crab. Echo clacks once. Evan bows and writes a fresh **8:30** beside the smudge. “You’re early.” Simone was justified and still wrong, which is the point. End card in the OP's style. |
 
 ## Quiz checkpoints

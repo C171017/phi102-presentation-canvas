@@ -1,0 +1,86 @@
+.dilemma-cartesian .cairn-support:not([data-foundation-corner="lower-left"]) {
+  --stone-opacity: 0;
+  --outline-opacity: .65;
+}
+
+.dilemma-cartesian .cairn-supported {
+  /* The surviving plume touches the underside left of the stone’s center of mass. */
+  transform-origin: 128px 73px;
+  transform: translate(88px, 102px) rotate(67deg);
+}
+
+.dilemma-cartesian [data-foundation-corner="lower-left"] .cairn-full-mist {
+  opacity: 0;
+}
+
+.dilemma-moderate .cairn-support {
+  --stone-opacity: .56;
+}
+
+.dilemma-moderate .cairn-supported {
+  transform-origin: 145px 74px;
+}
+
+.fracture-branch {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.inquiry-cairn:focus-visible {
+  outline: 2px solid #a77b37;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-cartesian .cairn-support:not([data-foundation-corner="lower-left"]) .cairn-active {
+    animation: cairn-fade 620ms ease-in-out 220ms backwards;
+  }
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-cartesian .cairn-outline {
+    animation: cairn-outline 620ms ease-in-out 220ms backwards;
+  }
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-cartesian .cairn-supported {
+    animation: cairn-fall 1100ms linear 820ms backwards;
+  }
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-cartesian [data-foundation-corner="lower-left"] .cairn-full-mist {
+    animation: cairn-fade 760ms ease-in-out 730ms backwards;
+  }
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-cartesian .cairn-short-mist {
+    animation: cairn-outline 760ms ease-in-out 730ms backwards;
+  }
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-moderate .cairn-active {
+    animation: cairn-fade 720ms ease-in-out var(--question-delay, 160ms) backwards;
+  }
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-cartesian .fall-shadow {
+    animation: landing-shadow 1100ms linear 820ms backwards;
+  }
+  .scene.is-playing:is(:hover, :focus-visible) .dilemma-moderate .cairn-supported {
+    animation: cairn-wobble 1200ms ease-in-out 480ms backwards;
+  }
+  .dilemma-moderate [data-foundation-corner="upper-right"] { --question-delay: 360ms; }
+  .dilemma-moderate [data-foundation-corner="lower-right"] { --question-delay: 560ms; }
+  .dilemma-moderate [data-foundation-corner="lower-left"] { --question-delay: 760ms; }
+}
+
+@keyframes cairn-fade { from { opacity: 1; } }
+@keyframes cairn-outline { from { opacity: 0; } }
+@keyframes cairn-fall {
+  0% { transform: translate(0, 0) rotate(0); animation-timing-function: ease-in; }
+  35% { transform: translate(0, 0) rotate(31deg); }
+  55% { transform: translate(26px, 10px) rotate(45deg); }
+  84% { transform: translate(80px, 104px) rotate(72deg); animation-timing-function: ease-out; }
+  92% { transform: translate(85px, 99px) rotate(69deg); }
+  100% { transform: translate(88px, 102px) rotate(67deg); }
+}
+
+@keyframes landing-shadow {
+  0%, 40% { opacity: 0; }
+  84%, 100% { opacity: .15; }
+}
+
+@keyframes cairn-wobble {
+  0%, 100% { transform: rotate(0); }
+  18% { transform: rotate(6deg); }
+  40% { transform: rotate(-5deg); }
+  60% { transform: rotate(3deg); }
+  80% { transform: rotate(-1.5deg); }
+}
