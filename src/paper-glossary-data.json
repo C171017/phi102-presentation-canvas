@@ -12,15 +12,9 @@
     "definition": "The claim a sentence expresses, which can be true or false. “It’s raining” can express a claim about Davis or about Tokyo, depending on where it’s said."
   },
   {
-    "id": "epistemology",
-    "title": "Epistemology",
-    "aliases": ["epistemology", "epistemologist", "epistemologists"],
-    "definition": "The branch of philosophy that asks what knowledge is, what gives us good reason to believe something, and how we can tell."
-  },
-  {
     "id": "justification",
     "title": "Epistemic justification",
-    "aliases": ["epistemic justification", "justification", "justified belief", "justified beliefs"],
+    "aliases": ["epistemic justification"],
     "definition": "Having good grounds for what you believe. A reliable forecast may justify expecting rain, even on a day when the forecast happens to be wrong."
   },
   {
@@ -90,12 +84,6 @@
     "definition": "If every reason needs another reason behind it, where does justification come from? Can the chain stop, loop back, or go on forever?"
   },
   {
-    "id": "taxonomy",
-    "title": "Taxonomy",
-    "aliases": ["taxonomy"],
-    "definition": "A way to sort views. Here Greco sorts answers by what happens to a chain of reasons."
-  },
-  {
     "id": "skepticism",
     "title": "Skepticism",
     "aliases": ["skepticism", "scepticism", "skeptic", "skeptics"],
@@ -122,7 +110,7 @@
   {
     "id": "foundational-justification",
     "title": "Foundational justification",
-    "aliases": ["foundational justification", "foundationally justified", "foundationality", "foundational role", "foundational claims", "foundational beliefs", "contextually basic"],
+    "aliases": ["foundational justification", "foundationally justified", "foundationality", "foundational beliefs", "contextually basic"],
     "definition": "A belief is justified without drawing that justification from other beliefs. Feeling a toothache can give you grounds to believe you have one."
   },
   {
@@ -154,12 +142,6 @@
     "title": "Moderate foundationalism",
     "aliases": ["moderate foundationalism", "moderate foundationalist", "moderate foundationalists"],
     "definition": "Experiences such as seeing a light can directly justify a belief even though the belief remains open to doubt or error."
-  },
-  {
-    "id": "ad-hoc",
-    "title": "Ad hoc",
-    "aliases": ["ad hoc"],
-    "definition": "Added to rescue a view from a problem, with little independent reason to accept it."
   },
   {
     "id": "activity-of-justification",
@@ -198,12 +180,6 @@
     "definition": "An assumption held steady so you can investigate something else. Asking someone what color they see takes for granted that they understand your question."
   },
   {
-    "id": "inquiry",
-    "title": "Inquiry",
-    "aliases": ["inquiry", "inquiries"],
-    "definition": "An attempt to answer an open question. It works by holding some background assumptions steady so you can investigate the question at hand."
-  },
-  {
     "id": "transcendental-argument",
     "title": "Transcendental argument",
     "aliases": ["transcendental argument"],
@@ -228,12 +204,6 @@
     "definition": "Williamson’s view that your evidence consists of what you know. What you already know can give you grounds for further beliefs."
   },
   {
-    "id": "inference",
-    "title": "Inference",
-    "aliases": ["inference", "inferences", "inferential"],
-    "definition": "Drawing a conclusion from other things you believe. Seeing people in heavy coats can lead you to conclude that it’s cold outside."
-  },
-  {
     "id": "best-explanation",
     "title": "Inference to the best explanation",
     "aliases": ["inference to the best explanation"],
@@ -241,8 +211,8 @@
   },
   {
     "id": "attribution",
-    "title": "Attribution",
-    "aliases": ["attribution", "attributions", "knowledge attribution", "knowledge attributions", "attributor", "attributors"],
+    "title": "Knowledge attribution",
+    "aliases": ["knowledge attribution", "knowledge attributions"],
     "definition": "Saying that someone has a status, such as knowledge. In “Justine knows the time,” the person making the claim is the attributor."
   },
   {
@@ -366,12 +336,6 @@
     "definition": "Being in a position to know the relevant facts. Justine has access to what Peter said if she heard him clearly."
   },
   {
-    "id": "mental-state",
-    "title": "Mental state",
-    "aliases": ["mental state", "mental states", "mental facts"],
-    "definition": "A condition of someone’s mind, such as having a visual experience, feeling pain, or believing that it is raining."
-  },
-  {
     "id": "introspection",
     "title": "Introspection",
     "aliases": ["introspection", "introspectively accessible", "introspective justification"],
@@ -426,18 +390,6 @@
     "definition": "Taking a claim to be true. You could instead spread your confidence between possibilities, such as giving 7:00 a 70% chance and 8:00 a 30% chance."
   },
   {
-    "id": "chain-of-reasons",
-    "title": "Chain of reasons",
-    "aliases": ["chain of reasons", "chains of reasons", "chain of justification", "chains of justification"],
-    "definition": "A series of answers to “Why believe that?” You expect rain because of the forecast, and you trust the forecast because it uses recent weather data."
-  },
-  {
-    "id": "contextual-factors",
-    "title": "Contextual factors",
-    "aliases": ["contextual factors", "contextual” factors"],
-    "definition": "Features of the situation that may affect what counts as knowing or being justified. Greco’s examples include the stakes, the conversation, and the inquiry underway."
-  },
-  {
     "id": "linguistic-data",
     "title": "Linguistic data",
     "aliases": ["linguistic data", "empirical linguistic data"],
@@ -454,23 +406,5 @@
     "title": "Possibilities taken seriously",
     "aliases": ["local set of worlds", "worlds taken seriously"],
     "definition": "The alternative ways things could be that matter to the current inquiry. At first, everyone considers 7:00 and 8:00 while taking it for granted that Justine heard Peter."
-  },
-  {
-    "id": "inter-alia",
-    "title": "Inter alia",
-    "aliases": ["inter alia"],
-    "definition": "Among other things."
-  },
-  {
-    "id": "mutatis-mutandis",
-    "title": "Mutatis mutandis",
-    "aliases": ["mutatis mutandis"],
-    "definition": "The same reasoning applies after making the necessary changes. Here, swap 7:00 for 8:00."
-  },
-  {
-    "id": "locus-classicus",
-    "title": "Locus classicus",
-    "aliases": ["locus classicus"],
-    "definition": "The classic or standard source for a view."
   }
 ]

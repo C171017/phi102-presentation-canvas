@@ -19,15 +19,15 @@ export type PaperSection = { note: PaperNote; hue: Hue; start: Anchor; end: Anch
 type Card = { text: PaperCard; sectionIndex: number };
 type Link = { group: SVGGElement; line: SVGPathElement; head: SVGPathElement };
 
-// Distinct hues in rotation, so neighbouring sections never share a colour.
+// The order separates nearby hues, including where the rotation wraps.
 const HUES: Hue[] = [
-  { ink: '#2f5f99', tint: '#e3edfb' }, // blue
-  { ink: '#8f6a08', tint: '#fbf0cc' }, // gold
-  { ink: '#3d7a36', tint: '#e5f2dc' }, // green
-  { ink: '#6c4aa0', tint: '#eee5fa' }, // violet
-  { ink: '#17736d', tint: '#daf1ee' }, // teal
+  { ink: '#2f5f99', tint: '#dceafc' }, // blue
+  { ink: '#8f6a08', tint: '#f8edc3' }, // gold
+  { ink: '#17736d', tint: '#ceebe5' }, // teal
+  { ink: '#6c4aa0', tint: '#e9dff8' }, // violet
+  { ink: '#3d7a36', tint: '#dcefd1' }, // green
 ];
-const OBJECTION_HUE: Hue = { ink: '#b2412e', tint: '#fbe2dc' }; // every objection, so pushback reads at a glance
+const OBJECTION_HUE: Hue = { ink: '#b2412e', tint: '#f8d9d1' };
 
 const VISIBLE_KEY = 'phi102-dev-paper-notes-v1';
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -57,7 +57,7 @@ function paperSections(anchors: Record<string, Anchor>, pageCount: number) {
   let previous: Hue | undefined;
   const sections: PaperSection[] = located.map(({ note, start }, index) => {
     const isObjection = note.role === OBJECTION_ROLE;
-    const hue = note.hue ?? (isObjection && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length]);
+    const hue = isObjection && previous !== OBJECTION_HUE ? OBJECTION_HUE : HUES[rotation++ % HUES.length];
     previous = hue;
     return {
       note,
@@ -199,8 +199,7 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     const room = pane.getBoundingClientRect().left - shell.getBoundingClientRect().left - EDGE - LINK_ROOM;
     const width = Math.floor(Math.min(NOTE_MAX_WIDTH, room));
     const sideRoom = width >= NOTE_MIN_WIDTH;
-    focus.setSideRoom(sideRoom);
-    if (sideRoom) pane.style.setProperty('--focus-note-width', width + 'px');
+    focus.layout(sideRoom ? width : 0);
     const show = visible && sections.length > 0 && !pane.classList.contains('is-collapsed') && width >= NOTE_MIN_WIDTH;
     layer.hidden = !show;
     pane.classList.toggle('has-paper-notes', show);

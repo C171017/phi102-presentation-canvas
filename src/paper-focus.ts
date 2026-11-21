@@ -4,7 +4,15 @@ import './paper-focus.css';
 const NS = 'http://www.w3.org/2000/svg';
 const UNITS = 10000;
 type Box = [number, number, number, number];
-type Segment = { label: string; runs: { page: number; lines: Box[] }[] };
+type Run = { page: number; lines: Box[] };
+type Segment = { label: string; runs: Run[] };
+type MoveCard = {
+  item: HTMLLIElement;
+  button: HTMLButtonElement;
+  line: SVGPathElement;
+  runs: Run[];
+  visibleRun?: Run;
+};
 export type SegmentIndex = Record<string, Segment[]>;
 // Reading order within a passage. The first five match the selected preview.
 const MOVE_COLORS = ['#a9d8f4', '#f5d488', '#aedcba', '#cec0ee', '#f3b4a6', '#8dd8d6', '#e5bdcf', '#d3df99'];
@@ -50,25 +58,25 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
   let active = -1;
   let current = -1;
   let trigger: Element | undefined;
+  let cards: MoveCard[] = [];
   const zones: SVGPathElement[][] = [];
   const drawings: SVGElement[] = [];
   const panel = document.createElement('section');
   panel.className = 'paper-focus-panel';
   panel.hidden = true;
+  panel.tabIndex = -1;
   panel.setAttribute('aria-label', 'Focused passage');
-  panel.innerHTML = `<header><span>Passage focus</span><button type="button" class="paper-focus-exit" aria-label="Exit passage focus" title="Exit passage focus (Esc)">×</button></header>
-    <details><summary></summary>
-    <ol aria-label="Sentence groups in reading order"></ol></details>`;
+  const list = document.createElement('ol');
+  list.setAttribute('aria-label', 'Sentence groups in reading order');
+  const leaders = node('svg');
+  leaders.setAttribute('class', 'paper-focus-leaders');
+  leaders.setAttribute('aria-hidden', 'true');
+  panel.append(list, leaders);
   pane.prepend(panel);
-  const details = panel.querySelector('details')!;
-  const summary = panel.querySelector('summary')!;
-  const list = panel.querySelector('ol')!;
-  const closeButton = panel.querySelector('button')!;
 
   function markCurrent(index: number) {
     current = index;
-    for (const [i, item] of Array.from(list.children).entries()) {
-      const button = item.firstElementChild!;
+    for (const [i, { button }] of cards.entries()) {
       if (i === current) button.setAttribute('aria-current', 'step');
       else button.removeAttribute('aria-current');
     }
@@ -76,6 +84,57 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
       layer.querySelectorAll<SVGElement>('[data-move]').forEach(mark => {
         mark.classList.toggle('is-current', Number(mark.dataset.move) === current);
       });
+    }
+  }
+
+  function layoutCards() {
+    if (active < 0 || !pane.classList.contains('has-focus-room')) return;
+    const viewTop = scroll.offsetTop;
+    const viewBottom = viewTop + scroll.clientHeight;
+    const base = viewTop - scroll.scrollTop;
+    const gap = 5;
+    const linkWidth = leaders.clientWidth;
+    const visible = cards.flatMap(card => {
+      // Use the first visible piece when a move continues across a page break.
+      card.visibleRun = undefined;
+      for (const run of card.runs) {
+        const sheet = sheets[run.page];
+        const pageTop = base + sheet.offsetTop;
+        const scale = sheet.offsetHeight / UNITS;
+        const top = Math.max(viewTop, pageTop + run.lines[0][1] * scale);
+        const bottom = Math.min(viewBottom, pageTop + run.lines[run.lines.length - 1][3] * scale);
+        if (bottom <= top) continue;
+        card.visibleRun = run;
+        return [{ card, anchor: (top + bottom) / 2, height: card.item.offsetHeight, top: 0 }];
+      }
+      return [];
+    });
+
+    // Pack cards in reading order, then move the stack up if it runs past the bottom.
+    let nextTop = viewTop + gap;
+    for (const row of visible) {
+      row.top = Math.max(nextTop, row.anchor - row.height / 2);
+      nextTop = row.top + row.height + gap;
+    }
+    let nextBottom = viewBottom - gap;
+    for (const row of visible.slice().reverse()) {
+      row.top = Math.min(row.top, nextBottom - row.height);
+      nextBottom = row.top - gap;
+    }
+
+    const shift = Math.max(0, viewTop + gap - (visible[0]?.top ?? viewTop + gap));
+    for (const card of cards) {
+      card.item.classList.remove('is-in-view');
+      card.line.removeAttribute('d');
+    }
+    for (const { card, anchor, top, height } of visible) {
+      const y = Math.round(top + shift);
+      if (y + height > viewBottom) continue;
+      const center = y + height / 2;
+      card.item.style.top = y + 'px';
+      card.item.classList.add('is-in-view');
+      const mid = linkWidth / 2;
+      card.line.setAttribute('d', `M0 ${center}C${mid} ${center} ${mid} ${anchor} ${linkWidth} ${anchor}`);
     }
   }
 
@@ -136,29 +195,33 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
 
     const title = note.focusTitle ?? note.title;
     panel.setAttribute('aria-label', 'Focused passage: ' + title);
-    const count = document.createElement('small');
-    count.textContent = moves.length === 1 ? '1 argument move' : moves.length + ' argument moves';
-    summary.replaceChildren(title, count);
-    details.open = pane.classList.contains('has-focus-room');
-    list.replaceChildren(...moves.map((move, i) => {
-      const li = document.createElement('li');
-      li.style.setProperty('--move-color', moveColor(i));
+    cards = moves.map((move, i) => {
+      const item = document.createElement('li');
+      const color = moveColor(i);
+      item.style.setProperty('--move-color', color);
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = move.label;
+      const line = node('path');
+      line.style.setProperty('--move-color', color);
+      const card: MoveCard = { item, button, line, runs: move.runs };
       button.addEventListener('click', () => {
         markCurrent(i);
-        const first = move.runs[0];
-        if (!pane.classList.contains('has-focus-room')) details.open = false;
-        const sheet = sheets[first.page];
-        scroll.scrollTo({ top: sheet.offsetTop + first.lines[0][1] / UNITS * sheet.offsetHeight - scroll.clientHeight * .18,
+        const marginRun = pane.classList.contains('has-focus-room') ? card.visibleRun : undefined;
+        const run = marginRun ?? move.runs[0];
+        const sheet = sheets[run.page];
+        scroll.scrollTo({ top: sheet.offsetTop + run.lines[0][1] / UNITS * sheet.offsetHeight - scroll.clientHeight * .18,
           behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
-      li.append(button);
-      return li;
-    }));
+      item.append(button);
+      return card;
+    });
+    list.replaceChildren(...cards.map(card => card.item));
+    leaders.replaceChildren(...cards.map(card => card.line));
+    panel.scrollTop = 0;
     draw();
-    closeButton.focus({ preventScroll: true });
+    layoutCards();
+    panel.focus({ preventScroll: true });
   }
 
   function clear(restore = false) {
@@ -216,14 +279,19 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
     });
   }
 
-  closeButton.addEventListener('click', () => clear(true));
+  panel.addEventListener('wheel', event => {
+    if (event.ctrlKey || !pane.classList.contains('has-focus-room')) return;
+    event.preventDefault();
+    const unit = event.deltaMode === WheelEvent.DOM_DELTA_LINE ? 16 : event.deltaMode === WheelEvent.DOM_DELTA_PAGE ? scroll.clientHeight : 1;
+    scroll.scrollTop += event.deltaY * unit;
+  }, { passive: false });
   window.addEventListener('keydown', e => {
     if (active >= 0 && e.key === 'Escape' && !e.defaultPrevented) { e.preventDefault(); clear(true); }
   });
-  function setSideRoom(available: boolean) {
-    if (pane.classList.contains('has-focus-room') === available) return;
-    pane.classList.toggle('has-focus-room', available);
-    if (active >= 0) details.open = available;
+  function layout(sideWidth: number) {
+    pane.classList.toggle('has-focus-room', sideWidth > 0);
+    if (sideWidth > 0) pane.style.setProperty('--focus-note-width', sideWidth + 'px');
+    layoutCards();
   }
-  return { build, choose, clear, setSideRoom };
+  return { build, choose, clear, layout };
 }

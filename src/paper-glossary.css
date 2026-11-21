@@ -19,7 +19,7 @@
 .paper-term-fragment {
   position: absolute;
   box-sizing: border-box;
-  border-bottom: 1px solid #1c64b5;
+  border-bottom: 2px solid #174c88;
   cursor: pointer;
   pointer-events: auto;
 }
@@ -31,7 +31,7 @@
 
 .paper-term:is(:hover, :focus-visible, [aria-expanded='true']) .paper-term-fragment {
   background: #3475b520;
-  border-bottom-color: #15447c;
+  border-bottom-color: #102f5c;
 }
 
 .paper-term:focus-visible { outline: none; }

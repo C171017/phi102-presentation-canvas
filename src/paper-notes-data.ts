@@ -4,12 +4,11 @@
 // until the next anchor in this list. Multiple cards can point to one passage
 // when Greco names several pairings together.
 //
-// `role` is the move the passage makes in the argument. Objections share one
-// color so pushback is recognisable at a glance. Section 3’s pairings use
-// related hues for the two versions. The other notes follow the color rotation.
+// `role` is the move the passage makes in the argument. Objections are
+// identified by color in paper-notes.ts.
 
 export type PaperCard = { role: string; title: string; idea: string };
-export type PaperNote = PaperCard & { id: string; focusTitle?: string; hue?: { ink: string; tint: string }; also?: PaperCard[] };
+export type PaperNote = PaperCard & { id: string; focusTitle?: string; also?: PaperCard[] };
 
 export const OBJECTION_ROLE = 'Objection';
 
@@ -71,7 +70,6 @@ export const PAPER_NOTES: PaperNote[] = [
         idea: 'With E = K, if what counts as knowledge varies with the context of assessment, so can what counts as evidence.',
       },
     ],
-    hue: { ink: '#4d5e98', tint: '#e9eaf9' },
   },
   {
     id: 'paper-belief-at-the-base', role: '§2.3 · Belief', title: 'Belief at the base × Sensitivism about belief',
@@ -84,27 +82,22 @@ export const PAPER_NOTES: PaperNote[] = [
   {
     id: 'si-heading', role: 'Believer’s community', title: 'Social norms × Sensitive invariantism',
     idea: 'Speakers make the same claim about a belief’s foundational status. Whether that claim is true depends partly on the norms of the believer’s community.',
-    hue: { ink: '#227167', tint: '#e1f1e9' },
   },
   {
     id: 'hinges-si-heading', role: 'Believer’s inquiry', title: 'Hinges × Sensitive invariantism',
     idea: 'Whether a belief is foundational depends in part on what the believer must take for granted to pursue her inquiry.',
-    hue: { ink: '#286954', tint: '#d2ebdd' },
   },
   {
     id: 'ctx-heading', role: 'Speaker’s community', title: 'Social norms × Contextualism',
     idea: 'Two speakers can use the same words about the same belief. Their communities’ standards can make them express different claims about what counts as a foundation.',
-    hue: { ink: '#8c5233', tint: '#faecd9' },
   },
   {
     id: 'hinges-ctx-heading', role: 'Speaker’s inquiry', title: 'Hinges × Contextualism',
     idea: 'Calling a belief foundational can express different claims depending on which question the speaker is investigating.',
-    hue: { ink: '#944c37', tint: '#f8e0d4' },
   },
   {
     id: 'paper-contextual-evidence', role: 'Shared linguistic evidence', title: 'How speech reveals foundations',
     idea: '“It must be cold outside” suggests an inference. Brushing off a demand for evidence of your own toothache suggests you take it as a starting point. Both examples can inform either contextualist version.',
-    hue: { ink: '#865234', tint: '#f7e6ce' },
   },
   {
     id: 'paper-alternative-views', role: OBJECTION_ROLE, title: 'Social norms × Sensitive invariantism',

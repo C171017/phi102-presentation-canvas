@@ -26,6 +26,7 @@
 .is-paper-focused .paper-notes, .is-paper-focused .paper-section-mark { visibility: hidden; }
 .is-paper-focused .paper-note { visibility: hidden !important; }
 .paper-focus-panel {
+  --focus-card-gap: 16px;
   position: relative;
   z-index: 4;
   order: -1;
@@ -35,87 +36,71 @@
   max-height: 43%;
   overflow: auto;
   overscroll-behavior: contain;
+  scrollbar-width: thin;
   padding: 8px 12px;
   border-bottom: 1px solid #cfc8b6;
   border-radius: 11px 11px 0 0;
   background: #fffdf7;
   color: #2e302d;
-  scrollbar-width: thin;
 }
 .paper-focus-panel[hidden], .is-collapsed .paper-focus-panel { display: none; }
 .has-focus-room .paper-focus-panel {
   position: absolute;
-  inset-block: 0;
-  right: calc(100% + 16px);
-  width: var(--focus-note-width);
-  height: fit-content;
-  max-height: 100%;
-  margin-block: auto;
-  padding: 12px 13px;
-  border: 1px solid color-mix(in srgb, var(--focus-ink) 30%, #ddd6c6);
-  border-top: 3px solid var(--focus-ink);
-  border-radius: 9px;
-  box-shadow: 0 6px 18px #322a2021;
-}
-.paper-focus-panel header { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-.paper-focus-panel header > span {
-  color: var(--focus-ink);
-  font: 700 10px/1.2 system-ui, sans-serif;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-}
-.paper-focus-exit {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
+  inset: 0;
+  max-height: none;
+  overflow: visible;
   padding: 0;
   border: 0;
-  border-radius: 50%;
   background: transparent;
-  color: #514e45;
-  font: 400 22px/1 system-ui, sans-serif;
-  cursor: pointer;
+  pointer-events: none;
 }
-.paper-focus-exit:hover { background: #efece3; }
-.paper-focus-panel summary { cursor: pointer; font-weight: 650; line-height: 1.35; }
-.paper-focus-panel summary::marker { color: var(--focus-ink); font-size: 10px; }
+.paper-focus-panel:focus { outline: none; }
 .paper-focus-panel ol {
   display: grid;
-  gap: 2px;
-  counter-reset: move;
+  gap: 5px;
   list-style: none;
-  margin: 8px 0 0;
+  margin: 0;
   padding: 0;
 }
-.paper-focus-panel li { counter-increment: move; }
+.has-focus-room .paper-focus-panel ol {
+  position: absolute;
+  inset: 0 calc(100% + var(--focus-card-gap)) 0 auto;
+  width: var(--focus-note-width);
+  display: block;
+}
+.has-focus-room .paper-focus-panel li {
+  position: absolute;
+  inset-inline: 0;
+}
+.has-focus-room .paper-focus-panel li:not(.is-in-view) { visibility: hidden; }
+.paper-focus-leaders { display: none; }
+.has-focus-room .paper-focus-leaders {
+  display: block;
+  position: absolute;
+  inset: 0 100% 0 auto;
+  width: var(--focus-card-gap);
+  height: 100%;
+}
+.paper-focus-leaders path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--move-color) 70%, #5d5548);
+  stroke-width: 1.5px;
+}
 .paper-focus-panel li button {
-  display: grid;
-  grid-template-columns: 1.5em 1fr;
-  gap: 3px;
   width: 100%;
-  padding: 5px 3px;
-  border: 0;
-  border-radius: 3px;
-  background: transparent;
+  padding: 6px 9px;
+  border: 1px solid #d8d1c3;
+  border-radius: 7px;
+  background: var(--move-color);
   color: inherit;
   text-align: left;
   font: 400 12.5px/1.4 system-ui, sans-serif;
   cursor: pointer;
+  pointer-events: auto;
 }
-.paper-focus-panel li button::before {
-  content: counter(move);
-  align-self: start;
-  border-radius: 3px;
-  background: var(--move-color);
-  color: #28302d;
-  font-weight: 650;
-  text-align: center;
-}
+.has-focus-room .paper-focus-panel li button { box-shadow: 0 3px 10px #322a2021; }
 .paper-focus-panel li button:hover, .paper-focus-panel li button[aria-current] {
-  background: color-mix(in srgb, var(--move-color) 35%, white);
+  border-color: color-mix(in srgb, var(--move-color) 45%, #5d5548);
 }
-.paper-focus-panel :is(button, summary):focus-visible { outline: 2px solid var(--focus-ink); outline-offset: 0; }
+.paper-focus-panel button:focus-visible { outline: 2px solid var(--focus-ink); outline-offset: -2px; }
 #paper-pane.is-paper-focused:not(.has-focus-room) .paper-passage-cue[data-direction='up'] { top: auto; bottom: 12px; }
-
-.paper-focus-panel summary small { display: block; margin-top: 3px; color: #645e54; font: 400 11px/1.4 system-ui, sans-serif; }
