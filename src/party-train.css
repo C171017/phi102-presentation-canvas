@@ -51,3 +51,9 @@
   height: 27px;
   object-position: center;
 }
+
+.train-figure > span.cast-role {
+  color: var(--cast-color);
+  font: italic 900 25px/1 Impact, 'Arial Narrow', sans-serif;
+  text-transform: uppercase;
+}

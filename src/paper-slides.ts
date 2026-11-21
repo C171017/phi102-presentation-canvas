@@ -69,6 +69,14 @@ export function initializePaperSlides(world: HTMLElement) {
       place(host, left + scene.w / 2, slide.top + ROW + scene.h / 2);
       mountScene(host);
       world.append(host);
+      if (id === 'cast-echo') {
+        const chorus = document.createElement('div');
+        chorus.id = chorus.dataset.scene = 'cast-quibble';
+        chorus.setAttribute('aria-label', 'Quibble, the five voices of the regress problem');
+        place(chorus, left + scene.w / 2 + 280, slide.top + ROW + scene.h / 2);
+        mountScene(chorus);
+        world.append(chorus);
+      }
       if (id === 'route-knowledge-scene') {
         const pen = document.createElement('div');
         pen.id = 'route-knowledge-evan';
