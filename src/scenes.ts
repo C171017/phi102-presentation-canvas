@@ -4,7 +4,7 @@ import './scenes.css';
 import { dilemmaCrystal, mountUndoubtedCrystal } from './dilemma-crystals';
 import { mountReadingCircle } from './reading-circle';
 import { mountSignalHarbor } from './signal-harbor';
-import { hingeDoor } from './hinge-door';
+import { HINGE_DOOR_LABEL, mountHingeDoor } from './hinge-door';
 
 // Every drawing illustrates Daniel Greco, “Contextualism about Foundations” (2017).
 type Scene = { w: number; h: number; beat?: number; label: string } & (
@@ -79,8 +79,8 @@ export const scenes: Record<string, Scene> = {
 
   'route-hinges-door': {
     w: 540, h: 450,
-    label: 'What colour do you see? Hover or focus to lift the door and reveal six colours. He understands English is the fixed assumption on the hinge.',
-    draw: hingeDoor,
+    label: HINGE_DOOR_LABEL,
+    mount: mountHingeDoor,
   },
 
   'route-knowledge-scene': {
