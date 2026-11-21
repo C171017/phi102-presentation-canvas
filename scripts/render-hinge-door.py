@@ -156,7 +156,7 @@ mesh.update()
 obj=bpy.data.objects.new("Fixed engraved spindle",mesh)
 scene.collection.objects.link(obj)
 mesh.materials.append(brass)
-inscription("Hinge belief", "He understands English", (0,pin_y-.265,pin_z+.02),
+inscription("Hinge belief", "Understand English", (0,pin_y-.265,pin_z+.02),
             bold,.26,3.12,tilt=82.5)
 for x in (-1.76,1.76):
     cylinder("Faceted collar", (x,pin_y,pin_z), .296,.16,(0,math.pi/2,0),brass_edge,12)

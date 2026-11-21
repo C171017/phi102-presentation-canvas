@@ -22,7 +22,6 @@ const backgroundByHeading = {
   'access-heading': '16-access',
   'home-heading': '17-home',
   'mobile-heading': '18-mobile-home',
-  'conclusion-heading': '19-takeaways',
 } satisfies Record<(typeof slides)[number]['members'][0], string>;
 
 export function createPageBackgrounds(viewport: HTMLElement) {

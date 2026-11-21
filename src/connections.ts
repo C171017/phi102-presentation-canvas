@@ -16,7 +16,6 @@ const aimLinks: Record<string, Pair[]> = {
   ],
   applications: [
     ['flexible-heading', 'aim-applications'], ['aim-applications', 'access-heading'],
-    ['mobile-heading', 'conclusion-heading'],
   ],
 };
 const regressRoutes = ['skepticism', 'infinitism', 'coherentism', 'foundationalism'];

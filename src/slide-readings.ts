@@ -434,19 +434,4 @@ export const slideReadings = {
       </p>
     `,
   },
-  'conclusion-heading': {
-    section: '§5 · Conclusion',
-    body: `
-      <p>
-        For a flexible foundationalist, chains of reasons can stop, and where they can stop depends on the
-        context. Different versions appeal to the people you’re answering to, the question you’re trying to
-        settle, or what you know or believe in the situation.
-      </p>
-      <p>
-        Greco’s final suggestion is that this flexibility can help explain how you can tell when you have good
-        grounds for a belief. The facts that fix your grounds can shift when different doubts are taken
-        seriously.
-      </p>
-    `,
-  },
 } satisfies Record<SlideHeading, { section: string; body: string }>;

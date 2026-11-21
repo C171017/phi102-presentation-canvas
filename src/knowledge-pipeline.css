@@ -1,0 +1,21 @@
+.canvas-label.knowledge-pipeline { width: 900px; height: 450px; max-width: none; padding: 0; }
+.pipeline-art text { text-anchor: middle; font-family: Georgia, serif; fill: #463927; }
+.pipeline-art .ticket-title { font: 600 12px system-ui,sans-serif; letter-spacing: .12em; }
+.pipeline-art .ticket-time { font-size: 22px; font-weight: 700; }
+.pipeline-art .pipeline-rule { fill: #fff4df; font-size: 39px; font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) {
+  .pipeline-running .pipeline-ticket { animation: ticket-through-gate 1.7s ease-in-out; }
+  .pipeline-running .pipeline-base { animation: foundation-emerges 1.7s ease-out; }
+}
+@keyframes ticket-through-gate {
+  0%, 10% { transform: translateX(0); opacity: 1; }
+  51% { transform: translateX(255px); opacity: 1; }
+  52%, 83% { transform: translateX(255px); opacity: 0; }
+  84% { transform: translateX(0); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes foundation-emerges {
+  0%, 48% { transform: translateX(-188px); opacity: 0; }
+  56% { opacity: 1; }
+  85%, 100% { transform: translateX(0); opacity: 1; }
+}

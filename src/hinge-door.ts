@@ -7,7 +7,7 @@ const COLUMNS = 6;
 const LAST_POSE = 29;
 const FRAME_INTERVAL = 1000 / 30;
 
-export const HINGE_DOOR_LABEL = 'What colour do you see? Hover or focus to lift the door and reveal six colours. He understands English is the fixed assumption on the hinge.';
+export const HINGE_DOOR_LABEL = 'What colour do you see? Hover or focus to lift the door and reveal six colours. The hinge is labeled “Understand English,” the fixed assumption.';
 
 export function mountHingeDoor(host: HTMLElement) {
   const model = document.createElement('canvas');

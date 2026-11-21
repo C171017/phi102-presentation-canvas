@@ -36,8 +36,6 @@ const deck: PaperSlide[] = [
     text: 'What fixes Justine’s first-order justification?', scenes: ['home-weather'] },
   { id: 'mobile', cx: 3950, top: 280, lane: '③ Applications', section: '§4.2', title: 'Flexible foundationalism',
     text: 'Which facts fix Justine’s grounds can shift with the context', scenes: ['mobile-scene'] },
-  { id: 'conclusion', cx: 5000, top: 280, lane: 'Conclusion', section: '§5', title: 'Takeaways',
-    text: 'One idea, a family of views, one payoff', scenes: ['conclusion-points', 'conclusion-scope'] },
 ];
 function place(element: HTMLElement, x: number, y: number) {
   const position = applicationPositions[element.id];

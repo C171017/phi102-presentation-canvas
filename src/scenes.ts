@@ -1,5 +1,6 @@
+import { mountKnowledgePipeline } from './knowledge-pipeline';
 import { mountApplicationBase, mountApplicationHome, mountOrder } from './application-map';
-import { P, line, poly, rect, rrect, ell, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, star, plate, st, ring } from './sketch';
+import { P, line, poly, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, star, plate, st, ring } from './sketch';
 import './scenes.css';
 import { dilemmaCrystal, mountUndoubtedCrystal } from './dilemma-crystals';
 import { mountReadingCircle } from './reading-circle';
@@ -20,8 +21,6 @@ const belief = (x: number, y: number, w = 78, h = 44, fill = P.slate) =>
 const strut = (x: number, y1: number, y2: number, c = P.stoneEdge, o = 1) =>
   `<path d="M${x} ${y1}V${y2}" stroke="${c}" stroke-width="11" stroke-linecap="round" opacity="${o}"/><path d="M${x - 3} ${y1}V${y2}" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="${0.25 * o}"/>`;
 // Shared vocabulary for the later slides.
-const slateFaces = { face: P.slate, top: P.slateTop, side: P.slateSide, edge: P.slateSide };
-const paperFaces = { face: P.paper, top: '#ffffff', side: P.dull, edge: P.ink };
 const dullFaces = { face: P.dull, top: P.dullTop, side: P.dullSide, edge: P.dullEdge };
 const coat = { clay: '#b7793f', sage: '#829b94', dusk: '#5f6f86', plum: '#7d6079' };
 const small = { size: 15, italic: true, fill: P.soft };
@@ -29,23 +28,10 @@ const small = { size: 15, italic: true, fill: P.soft };
 const named = (x: number, y: number, name: string, sub: string, c = P.ink, anchor: 'start' | 'middle' | 'end' = 'middle', size = 19) =>
   txt(x, y, name, { size, weight: 600, fill: c, anchor }) + txt(x, y + size * 1.2, sub, { size: 15, fill: P.soft, anchor });
 const dashed = (x1: number, y: number, x2: number) => line(x1, y, x2, y, { c: P.line, w: 1.3, dash: '3 7' });
-/** The cognitive mobile home. (x, y) is where its rear wheel meets the ground. */
-const caravan = (x: number, y: number, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})">`
-  + ground(72, 2, 104, 9)
-  + line(140, -30, 176, -22, { w: 3 }) + ell(178, -21, 4, 4, P.ink, { w: 1 })
-  + block(-8, -108, 150, 84, 15)
-  + rrect(4, -96, 50, 30, 5, P.mist, { c: P.slate, w: 1.6 }) + line(10, -74, 24, -90, { c: '#fff', w: 2 })
-  + rrect(92, -94, 34, 66, 4, P.paper, { c: P.stoneEdge, w: 1.6 }) + ell(120, -60, 2.4, 2.4, P.stoneEdge, { w: 1 })
-  + line(-6, -50, 86, -50, { c: P.stoneEdge, w: 1.3 })
-  + ell(22, -14, 15, 15, P.slate, { w: 2 }) + ell(22, -14, 5, 5, P.dull, { w: 1 })
-  + ell(112, -14, 15, 15, P.slate, { w: 2 }) + ell(112, -14, 5, 5, P.dull, { w: 1 })
-  + '</g>';
 /** A signpost board pointing right. */
 const board = (x: number, y: number, w: number, h: number, fill: string, words: string) =>
   poly([[x, y], [x + w, y], [x + w + 20, y + h / 2], [x + w, y + h], [x, y + h]], fill, { c: P.ink, w: 1.8, shadow: [4, 5] })
   + txt(x + w / 2 + 4, y + h / 2 + 6, words, { size: 18, weight: 600, fill: '#fff' });
-const badge = (x: number, y: number, digit: string) =>
-  ell(x, y, 19, 19, P.slate, { c: P.slateSide, w: 1.6, shadow: [3, 4] }) + txt(x, y + 7, digit, { size: 20, weight: 700, fill: '#fff' });
 
 export const scenes: Record<string, Scene> = {
   'dilemma-cartesian': {
@@ -85,20 +71,8 @@ export const scenes: Record<string, Scene> = {
 
   'route-knowledge-scene': {
     w: 900, h: 450,
-    label: 'Two recipes. E = K (Evidence equals knowledge) plus a flexible view of “knows”, or general foundations plus a sensitivist view of belief, each yield flexible foundationalism. Williamson himself rejects the flexible views.',
-    draw: () => {
-      const row = (y: number, big: string, sub: string, who: string, extra: string[], whom: string) =>
-        block(40, y, 250, 78, 16, slateFaces) + txt(165, y + 34, big, { size: 22, weight: 600, fill: '#fff' }) + txt(165, y + 58, sub, { size: 15, fill: '#dbe5e0' })
-        + tag(165, y + 106, who) + txt(326, y + 52, '+', { size: 36, fill: P.soft })
-        + block(364, y, 250, 78, 16, paperFaces) + lines(489, y + 34, extra, { size: 17, lh: 23 }) + tag(489, y + 106, whom);
-      return tag(165, 38, 'a familiar foundationalism', P.soft) + tag(489, 38, 'an independent, flexible view', P.soft) + tag(790, 38, 'the result', P.ochre)
-        + st(0, row(66, 'E = K', '(Evidence equals knowledge)', 'Williamson 2000', ['a flexible view', 'of “knows”'], 'contextualism · SI · relativism'))
-        + st(1, row(226, 'General foundations', 'every belief is foundational', 'Harman 2001', ['a “sensitivist” view', 'of belief'], 'Clarke 2013'))
-        + st(2, arrow(648, 104, 716, 172, { bend: -16, c: P.line }) + arrow(648, 266, 716, 210, { bend: 16, c: P.line })
-          + ring(796, 188, 82, 74, P.ochre) + stone(758, 182, 76, 40, 13) + star(796, 162, 13)
-          + lines(796, 296, ['Flexible', 'foundationalism'], { size: 19, weight: 600, fill: P.ochre, lh: 23 }) + txt(796, 346, '“without trying”', small))
-        + st(3, plate(327, 402, 540, 32, ['Caveat: Williamson himself rejects the flexible views (n 15)'], { size: 15.5 }));
-    },
+    label: 'A known train departure passes through the E = K box and emerges as a single foundation stone.',
+    mount: mountKnowledgePipeline,
   },
 
   'versions-map-scene': {
@@ -222,30 +196,6 @@ export const scenes: Record<string, Scene> = {
   'mobile-scene': {
     w: 500, h: 293, label: 'Compare contexts to move the cognitive home between sources of evidence.',
     mount: mountApplicationHome,
-  },
-
-  'conclusion-points': {
-    w: 600, h: 450,
-    label: 'Three takeaways: keep the foundations but let them vary with context; a family of views with criticism and disagreement as pressure points; and (Access) without a Cartesian cognitive home.',
-    draw: () => st(0, badge(40, 76, '1') + ring(124, 78, 50, 40, P.ochre) + stone(98, 72, 52, 28, 10) + star(124, 54, 10)
-        + named(196, 72, 'Keep the foundations; let them vary', 'Undoubted here, not undoubtable everywhere', P.ink, 'start', 20))
-      + st(1, dashed(30, 148, 570) + badge(40, 222, '2')
-        + person(92, 250, P.subj, { s: 0.46 }) + person(114, 250, P.ctx, { s: 0.46 }) + person(136, 250, P.view, { s: 0.46 }) + person(158, 250, P.expr, { s: 0.46 })
-        + named(196, 218, 'One idea, a family of views', 'Pressure points: criticism and disagreement', P.ink, 'start', 20))
-      + st(2, dashed(30, 294, 570) + badge(40, 368, '3') + caravan(86, 392, 0.52)
-        + named(196, 364, '(Access) without a Cartesian home', 'A cognitive home that moves with the context', P.ink, 'start', 20)),
-  },
-  'conclusion-scope': {
-    w: 260, h: 450,
-    label: 'What the chapter sets aside: which version is right, a full defence of contextualized (Access), and views that reject chains of reasons.',
-    draw: () => st(0, `<g transform="rotate(-1.6 130 225)">`
-        + rect(16, 44, 228, 368, P.paper, { c: P.ink, w: 1.8, shadow: [6, 7] })
-        + rect(98, 30, 64, 24, '#ecd9a8', { c: '#c9a85a', w: 1, fo: 0.85 })
-        + tag(130, 88, 'What the chapter', P.ochre) + tag(130, 108, 'sets aside', P.ochre) + dashed(40, 126, 220)
-        + '</g>')
-      + st(1, `<g transform="rotate(-1.6 130 225)">` + lines(130, 164, ['Which version is right', '(the same debate as “knows”)'], { size: 15.5, lh: 21 }) + dashed(70, 208, 190) + '</g>')
-      + st(2, `<g transform="rotate(-1.6 130 225)">` + lines(130, 244, ['A full defence of', 'contextualized (Access)'], { size: 15.5, lh: 21 }) + dashed(70, 288, 190) + '</g>')
-      + st(3, `<g transform="rotate(-1.6 130 225)">` + lines(130, 324, ['Views without chains', 'of reasons (n 1)'], { size: 15.5, lh: 21 }) + '</g>'),
   },
 };
 

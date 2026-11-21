@@ -21,5 +21,4 @@ export const slides = [
   { title: 'Access internalism', description: 'First-order justification guarantees higher-order justification', paperAnchor: 'paper-access-principle', members: ['access-heading', 'access-principle', 'access-doubt'] },
   { title: 'Supervenience base', description: 'What fixes Justine’s first-order justification?', paperAnchor: 'paper-party-example', members: ['home-heading', 'home-weather'], frameMembers: ['home-heading', 'home-weather', 'access-principle'] },
   { title: 'Flexible foundationalism and Access', description: 'Which facts fix Justine’s grounds can shift with the context', paperAnchor: 'paper-context-shift', members: ['mobile-heading', 'mobile-scene'], frameMembers: ['mobile-heading', 'mobile-scene', 'home-heading', 'home-weather'] },
-  { title: 'Takeaways', description: 'One idea, a family of views, one payoff', members: ['conclusion-heading', 'conclusion-points', 'conclusion-scope'] },
 ] as const;
