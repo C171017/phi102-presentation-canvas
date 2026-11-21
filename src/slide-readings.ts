@@ -1,6 +1,7 @@
 import type { slides } from './slide-content';
 
-type SlideHeading = (typeof slides)[number]['members'][0];
+type SlideHeading = Exclude<(typeof slides)[number]['members'][0], `pairing-${string}` | 'pairings-heading'>;
+type Reading = { section: string; body: string };
 
 // Plain-language adaptation of Greco’s chapter, organized by canvas heading ID.
 export const slideReadings = {
@@ -322,7 +323,7 @@ export const slideReadings = {
       </p>
     `,
   },
-  'disagree-heading': {
+  'paper-disagreement-responses': {
     section: '§3 · Relations to recent debates',
     body: `
       <p>
@@ -434,4 +435,12 @@ export const slideReadings = {
       </p>
     `,
   },
-} satisfies Record<SlideHeading, { section: string; body: string }>;
+} satisfies Record<SlideHeading, Reading> & Record<string, Reading>;
+
+export function readingFor(heading: (typeof slides)[number]['members'][0], anchor?: string): Reading {
+  const readings: Record<string, Reading> = slideReadings;
+  if (anchor === 'paper-flexible-knowledge' || anchor === 'paper-belief-at-the-base') {
+    return slideReadings['route-knowledge-heading'];
+  }
+  return readings[heading] ?? readings[anchor ?? ''] ?? { section: '§§2.3–3', body: '' };
+}

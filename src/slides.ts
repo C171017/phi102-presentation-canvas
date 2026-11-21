@@ -23,10 +23,19 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     return button;
   });
 
-  function framingArea() {
+  function framingArea(pairing?: 'overview' | 'individual') {
     const bounds = viewport.getBoundingClientRect();
     const left = progress.getBoundingClientRect().right + 12;
-    const right = bounds.right;
+    let right = bounds.right;
+    if (pairing) {
+      const pane = document.querySelector<HTMLElement>('#paper-pane:not(.is-collapsed)');
+      const notes = pane?.querySelector<HTMLElement>('.paper-notes:not([hidden])');
+      const paperEdge = pane && pane.getBoundingClientRect().left - 12;
+      const notesEdge = notes && notes.getBoundingClientRect().left - 12;
+      const minimum = pairing === 'overview' ? 560 : 180;
+      if (paperEdge && paperEdge > left + 140) right = paperEdge;
+      if (notesEdge && notesEdge > left + minimum) right = Math.min(right, notesEdge);
+    }
     return {
       width: right - left,
       offsetX: (left + right) / 2 - bounds.left - viewport.clientWidth / 2,
@@ -36,7 +45,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   function frameFor(group: HTMLElement[], origin: DOMRect, cameraZoom: number, area: ReturnType<typeof framingArea>) {
     const rects = group.flatMap(item => [
       item.getBoundingClientRect(),
-      ...Array.from(item.querySelectorAll(':scope > .regress-animation, :scope.regress-position > div'))
+      ...Array.from(item.querySelectorAll(':scope > .regress-animation, :scope.regress-position > div, :scope > .cast-view, :scope > .cast-name, :scope > .cast-role'))
         .map(part => part.getBoundingClientRect()),
     ]);
     const left = Math.min(...rects.map(rect => rect.left));
@@ -53,10 +62,20 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     };
   }
 
+  const pairingFrame = (index: number) => {
+    const heading = slides[index].members[0];
+    if (heading === 'pairings-heading') return 'overview';
+    if (heading.startsWith('pairing-')) return 'individual';
+  };
+
   function measure(cameraZoom: number) {
     const origin = world.getBoundingClientRect();
     const area = framingArea();
-    frames = framingGroups.map(group => frameFor(group, origin, cameraZoom, area));
+    const pairingAreas = { overview: framingArea('overview'), individual: framingArea('individual') };
+    frames = framingGroups.map((group, index) => {
+      const pairing = pairingFrame(index);
+      return frameFor(group, origin, cameraZoom, pairing ? pairingAreas[pairing] : area);
+    });
   }
 
   function showVisible(next: number) {
@@ -106,8 +125,15 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   }
 
   function open(index: number) {
+    if (!frames[index]) return;
+    const pairing = pairingFrame(index);
+    if (pairing) {
+      // The paper can resize independently of the canvas between slide visits.
+      // Measure with the rendered transform so an interrupted flight stays safe.
+      const zoom = new DOMMatrixReadOnly(getComputedStyle(world).transform).a;
+      frames[index] = frameFor(framingGroups[index], world.getBoundingClientRect(), zoom, framingArea(pairing));
+    }
     const frame = frames[index];
-    if (!frame) return;
     navigate(frame);
     update(frame);
   }

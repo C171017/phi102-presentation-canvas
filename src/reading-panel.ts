@@ -1,5 +1,5 @@
 import { slides } from './slide-content';
-import { slideReadings } from './slide-readings';
+import { readingFor } from './slide-readings';
 import { attachCollapsiblePaneResizer } from './collapsible-pane-resizer';
 import './reading-panel.css';
 
@@ -120,7 +120,7 @@ export function createReadingPanel() {
     const slide = slides[index];
     if (!slide || index === current) return;
     current = index;
-    const reading = slideReadings[slide.members[0]];
+    const reading = readingFor(slide.members[0], 'paperAnchor' in slide ? slide.paperAnchor : undefined);
     article.innerHTML = `
       <div class="reading-page">
         <header>

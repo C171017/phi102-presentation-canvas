@@ -1,3 +1,6 @@
+import { castIds } from './cast-ids';
+import { pairingView, versionPairings } from './version-pairings';
+
 export const slides = [
   { title: 'Contemporary Contextualism', description: 'The same sentence can express different claims in different contexts', members: ['contemporary-heading', 'state-red'] },
   { title: 'Flexible Foundationalism', description: 'Justified beliefs rest on foundations that vary with context', members: ['flexible-heading', 'foundation-left'] },
@@ -11,13 +14,15 @@ export const slides = [
   { title: 'Undoubted, Not Undoubtable', description: 'Keep Descartes’s insight about doubt, but apply it locally', members: ['undoubted-heading', 'undoubted-crystal'] },
   { title: 'Route 1: Justification as a Social Activity', description: 'We justify to an audience, and audiences differ', members: ['route-social-heading', 'route-social-scene', 'route-social-consensus'] },
   { title: 'Route 2: Hinges', description: 'Asking one question means holding others fixed', members: ['route-hinges-heading', 'route-hinges-door'] },
-  { title: 'Route 3: Knowledge or Belief at the Base', description: 'Two familiar views turn flexible “without trying”', members: ['route-knowledge-heading', 'route-knowledge-scene'] },
-  { title: 'Routes and Versions', description: 'How the routes from §2 connect to four views of foundational justification', members: ['versions-map-heading', 'versions-map-scene'] },
-  { title: 'Social Norms × Sensitive Invariantism', description: 'The believer’s community helps determine which beliefs are foundational', members: ['si-heading', 'si-scene', 'si-worry'] },
-  { title: 'Hinges × Sensitive Invariantism', description: 'The inquiry changes which beliefs qualify as foundations', members: ['hinges-si-heading', 'hinges-si-scene'] },
-  { title: 'Social Norms × Contextualism', description: 'The speaker’s community supplies the standards for what she says', members: ['ctx-heading', 'ctx-evidence', 'ctx-criticism'] },
-  { title: 'Hinges × Contextualism', description: 'The inquiry the speaker is engaged in changes what the sentence says', members: ['hinges-ctx-heading', 'hinges-ctx-scene'] },
-  { title: 'The Problem of Disagreement', description: 'The community example motivates relativist and expressivist replies', members: ['disagree-heading', 'disagree-scene', 'disagree-exits'] },
+  { title: 'Route 3: Knowledge or Belief at the Base', description: 'Two familiar views turn flexible “without trying”', members: ['route-knowledge-heading', 'route-knowledge-scene', 'route-knowledge-evan'] },
+  { title: 'Routes and Versions', description: 'How the routes from §2 connect to four views of foundational justification', members: ['versions-map-heading', ...castIds] },
+  { title: 'Routes × versions', description: 'Compare the pairings by the space Greco gives them', paperAnchor: 'versions-map-heading', members: ['pairings-heading'], frameMembers: ['pairings-heading', ...versionPairings.map(pairing => pairing.id)] },
+  ...versionPairings.map(pairing => ({
+    title: `${pairing.route} × ${pairingView(pairing)}`,
+    description: pairing.summary,
+    paperAnchor: pairing.paperAnchor,
+    members: [pairing.id] as const,
+  })),
   { title: 'Access internalism', description: 'First-order justification guarantees higher-order justification', paperAnchor: 'paper-access-principle', members: ['access-heading', 'access-principle', 'access-doubt'] },
   { title: 'Supervenience base', description: 'What fixes Justine’s first-order justification?', paperAnchor: 'paper-party-example', members: ['home-heading', 'home-weather'], frameMembers: ['home-heading', 'home-weather', 'access-principle'] },
   { title: 'Flexible foundationalism and Access', description: 'Which facts fix Justine’s grounds can shift with the context', paperAnchor: 'paper-context-shift', members: ['mobile-heading', 'mobile-scene'], frameMembers: ['mobile-heading', 'mobile-scene', 'home-heading', 'home-weather'] },

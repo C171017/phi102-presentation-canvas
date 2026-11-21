@@ -178,6 +178,15 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
 function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraView) => void) {
   for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
     let item = layout.items[element.id];
+    if (!item && element.id === 'route-knowledge-evan') {
+      const scene = layout.items['route-knowledge-scene'];
+      if (scene) item = { ...scene, x: scene.x - 391 * scene.scale, y: scene.y - 113 * scene.scale };
+    }
+    const lineup = layout.items['versions-map-scene'];
+    if (!item && lineup && element.dataset.lineupX !== undefined) {
+      item = { ...lineup, x: lineup.x + Number(element.dataset.lineupX) * lineup.scale,
+        y: lineup.y + Number(element.dataset.lineupY) * lineup.scale };
+    }
     if (!item && element.id === 'undoubted-crystal') {
       const a = layout.items['undoubted-logic'];
       const b = layout.items['undoubted-standards'];

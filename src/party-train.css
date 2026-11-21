@@ -1,0 +1,53 @@
+.canvas-label.train-figure {
+  --cast-name-size: 36px;
+  --cast-name-gap: 8px;
+  max-width: none;
+  padding: 0;
+}
+
+/* These two drawings have more transparent space above the silhouette. */
+#cast-cole, #cast-simone { --cast-name-gap: 2px; }
+.canvas-label.train-figure > img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.cast-view,
+.cast-name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cast-view {
+  bottom: calc(100% + var(--cast-name-gap) + var(--cast-name-size) + 8px);
+  padding: 5px 12px 6px;
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  background: var(--cast-color);
+  color: #fff3dc;
+  font: 700 17px/1.1 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.065em;
+}
+
+.cast-name {
+  bottom: calc(100% + var(--cast-name-gap));
+  color: #241b17;
+  font: 400 var(--cast-name-size)/1 Impact, 'DIN Condensed', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.045em;
+}
+
+.canvas-label.train-figure > .cast-role {
+  position: absolute;
+  top: calc(100% + 11px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 168px);
+  height: 27px;
+  object-position: center;
+}

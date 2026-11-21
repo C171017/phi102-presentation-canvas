@@ -10,9 +10,7 @@ const aimLinks: Record<string, Pair[]> = {
   ],
   versions: [
     ['flexible-heading', 'aim-versions'], ['aim-versions', 'versions-map-heading'],
-    ['versions-map-heading', 'si-heading'], ['si-heading', 'hinges-si-heading'],
-    ['hinges-si-heading', 'ctx-heading'], ['ctx-heading', 'hinges-ctx-heading'],
-    ['ctx-heading', 'disagree-heading'],
+    ['versions-map-heading', 'pairings-heading'],
   ],
   applications: [
     ['flexible-heading', 'aim-applications'], ['aim-applications', 'access-heading'],

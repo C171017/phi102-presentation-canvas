@@ -19,3 +19,7 @@
   56% { opacity: 1; }
   85%, 100% { transform: translateX(0); opacity: 1; }
 }
+
+.canvas-media.evidence-scribe, .canvas-media.evidence-scribe img { width: 112px; height: 237px; max-width: none; padding: 0; }
+.pipeline-art .pipeline-signature { fill: #263f87; font: italic 18px Georgia, serif; }
+.pipeline-art .pipeline-caption { font: 18px Georgia, serif; }

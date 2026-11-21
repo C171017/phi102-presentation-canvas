@@ -76,7 +76,7 @@ test('a failed page image falls back to the plain canvas instead of displaying t
 });
 
 test('an inserted pairing shares its version’s artwork without shifting the next slide’s background', async () => {
-  const f = fixture(['si-heading', 'hinges-si-heading', 'access-heading']);
+  const f = fixture(['pairing-social-simone', 'pairing-hinges-simone', 'access-heading']);
   f.controller.update(0);
   f.controller.update(1);
   await f.finish('13-subject');
@@ -87,13 +87,13 @@ test('an inserted pairing shares its version’s artwork without shifting the ne
   assert.match(f.stage.children.find(layer => layer.classList.contains('is-visible')).src, /16-access/);
 });
 
-test('all 19 distinct slide backgrounds are packaged with their generation prompts', () => {
+test('active and archived backgrounds are packaged with their generation prompts', () => {
   const manifest = JSON.parse(readFileSync(new URL('../docs/background-prompts.json', import.meta.url), 'utf8'));
   assert.equal(manifest.images.length, 19);
   assert.equal(new Set(manifest.images.map(image => image.name)).size, 19);
   for (const image of manifest.images) {
     assert.ok(existsSync(new URL(`../public/generated/backgrounds/abstract-v1/${image.name}.webp`, import.meta.url)));
     assert.ok(image.prompt.includes('No text'));
-    assert.ok(source.includes(`'${image.name}'`));
+    assert.equal(source.includes(`'${image.name}'`), image.name !== '19-takeaways', image.name);
   }
 });

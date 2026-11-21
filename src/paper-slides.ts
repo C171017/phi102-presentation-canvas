@@ -1,3 +1,5 @@
+import evan from './assets/full-body-cast/evan.webp';
+import { castIds } from './cast-ids';
 import { applicationPositions } from './application-map';
 import { mountScene, scenes } from './scenes';
 
@@ -19,17 +21,7 @@ const deck: PaperSlide[] = [
   { id: 'route-knowledge', cx: 5350, top: -1400, lane: '① Route 3', section: '§2.3', title: 'Knowledge or belief at the base',
     text: 'Two familiar views turn flexible “without trying”', scenes: ['route-knowledge-scene'] },
   { id: 'versions-map', cx: 1850, top: -560, lane: '② Different versions', section: '§3', title: 'Routes and versions',
-    text: 'How the routes from §2 connect to four views of foundational justification', scenes: ['versions-map-scene'] },
-  { id: 'si', cx: 2900, top: -560, lane: '② Different versions', section: '§3', title: 'Social norms × Sensitive invariantism',
-    text: 'The believer’s community helps determine which beliefs are foundational', scenes: ['si-scene', 'si-worry'] },
-  { id: 'hinges-si', cx: 2080, top: -2889, lane: '② Different versions', section: '§3', title: 'Hinges × Sensitive invariantism',
-    text: 'The inquiry changes which beliefs qualify as foundations', scenes: ['hinges-si-scene'] },
-  { id: 'ctx', cx: 3950, top: -560, lane: '② Different versions', section: '§3', title: 'Social norms × Contextualism',
-    text: 'The speaker’s community supplies the standards for what she says', scenes: ['ctx-evidence', 'ctx-criticism'] },
-  { id: 'hinges-ctx', cx: 4520, top: -2889, lane: '② Different versions', section: '§3', title: 'Hinges × Contextualism',
-    text: 'The inquiry the speaker is engaged in changes what the sentence says', scenes: ['hinges-ctx-scene'] },
-  { id: 'disagree', cx: 5000, top: -560, lane: '② Different versions', section: '§3', title: 'The problem of disagreement',
-    text: 'The community example motivates relativist and expressivist replies', scenes: ['disagree-scene', 'disagree-exits'] },
+    text: 'How the routes from §2 connect to four views of foundational justification', scenes: [...castIds] },
   { id: 'access', cx: 1850, top: 280, lane: '③ Applications', section: '§4.1', title: 'Access internalism',
     text: 'First-order justification guarantees higher-order justification', scenes: ['access-principle', 'access-doubt'] },
   { id: 'home', cx: 2900, top: 280, lane: '③ Applications', section: '§§4.1–4.2', title: 'Supervenience base',
@@ -77,6 +69,19 @@ export function initializePaperSlides(world: HTMLElement) {
       place(host, left + scene.w / 2, slide.top + ROW + scene.h / 2);
       mountScene(host);
       world.append(host);
+      if (id === 'route-knowledge-scene') {
+        const pen = document.createElement('div');
+        pen.id = 'route-knowledge-evan';
+        pen.className = 'canvas-media evidence-scribe';
+        pen.dataset.label = 'Evan, the evidence source';
+        const image = document.createElement('img');
+        image.src = evan;
+        image.alt = 'Evan bows to sign the invitation in blue ink.';
+        image.draggable = false;
+        pen.append(image);
+        place(pen, left + scene.w / 2 - 391, slide.top + ROW + scene.h / 2 - 113);
+        world.append(pen);
+      }
       left += scene.w + GAP;
     }
   }

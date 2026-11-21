@@ -1,7 +1,7 @@
 import './knowledge-pipeline.css';
 
 const ticketOutline = 'M5 0H158L163 4V18A8 8 0 0 0 163 34V48L158 52H5L0 48V34A8 8 0 0 0 0 18V4Z';
-const label = 'The traveler knows the last train leaves at eleven. Under E = K, that known fact is evidence and can serve as a foundation. Hover, tap, or press Enter to replay.';
+const label = 'Evan signs the invitation. Simone knows he wrote that the party is tonight. Under E = K, that known fact is part of her evidence. Hover, tap, or press Enter to replay.';
 
 export function mountKnowledgePipeline(host: HTMLElement) {
   host.classList.add('knowledge-pipeline');
@@ -27,10 +27,9 @@ export function mountKnowledgePipeline(host: HTMLElement) {
             <path d="${ticketOutline}" fill="url(#pipeline-cardstock)" stroke="#a1885d"/>
             <path d="M7 3H155M4 6v9" fill="none" stroke="#fff4d7" stroke-width="2"/>
             <path d="M13 8h99m-99 36h99" stroke="#aa8958"/>
-            <path d="M121 3v46" stroke="#96744a" stroke-width="1.4" stroke-dasharray="3 3"/>
-            <path d="M131 11v29m4-29v29m7-29v29m4-29v29m5-29v29" stroke="#685235" stroke-width="2"/>
-            <text x="62" y="22" class="ticket-title">LAST TRAIN</text>
-            <text x="62" y="41" class="ticket-time">11:00</text>
+            <text x="70" y="20" class="ticket-title">ECHO’S PARTY</text>
+            <text x="57" y="40" class="ticket-time">Tonight</text>
+            <text x="131" y="38" class="pipeline-signature">Evan</text>
           </g>
         </g>
       </g>
@@ -56,6 +55,7 @@ export function mountKnowledgePipeline(host: HTMLElement) {
         ${[[346,119],[503,119],[346,203],[503,203]].map(([x,y]) => `
           <g transform="translate(${x} ${y})"><circle cy="1" r="3" fill="#26362c"/><circle r="2.6" fill="url(#pipeline-brass)"/><path d="M-1.2 1l2.4-2" stroke="#836844"/></g>`).join('')}
       </g>
+      <text x="435" y="275" class="pipeline-caption">Simone knows Evan wrote “tonight.” That fact is part of her evidence.</text>
     </svg>`);
   const art = host.querySelector<SVGSVGElement>('.pipeline-art')!;
   function replay() {

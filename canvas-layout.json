@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "savedAt": "2026-11-21T04:46:59.225Z",
+  "savedAt": "2026-11-21T20:24:54.656Z",
   "view": {
-    "x": 2232.4758104701596,
-    "y": -1695.899249503076,
-    "zoom": 0.35674089093621636
+    "x": 2301.224208366153,
+    "y": -3259.080085940919,
+    "zoom": 0.3956482981502239
   },
   "items": {
     "flexible-heading": {
@@ -13,18 +13,18 @@
       "scale": 1
     },
     "aim-motivations": {
-      "x": -2028.95,
-      "y": -941,
+      "x": -2931.05,
+      "y": -758.038,
       "scale": 1
     },
     "aim-versions": {
-      "x": -335.987,
-      "y": -1225.67,
+      "x": -83.443,
+      "y": -1102.42,
       "scale": 1
     },
     "aim-applications": {
-      "x": 823.948,
-      "y": -108.502,
+      "x": 5443.29,
+      "y": -324.878,
       "scale": 1
     },
     "foundation-left": {
@@ -53,48 +53,48 @@
       "scale": 1
     },
     "regress-problem": {
-      "x": -2037.12,
-      "y": -2430.4,
+      "x": -4019.46,
+      "y": -2585.2,
       "scale": 1
     },
     "regress-skepticism": {
-      "x": -2954.79,
-      "y": -1979.21,
+      "x": -4898.46,
+      "y": -3318.2,
       "scale": 1
     },
     "regress-infinitism": {
-      "x": -2117.06,
-      "y": -3117.6,
+      "x": -5288.46,
+      "y": -2535.2,
       "scale": 1
     },
     "regress-coherentism": {
-      "x": -1512,
-      "y": -2625.14,
+      "x": -4097.46,
+      "y": -3685.2,
       "scale": 1
     },
     "regress-foundationalism": {
-      "x": -3066.35,
-      "y": -2801.81,
+      "x": -3332.46,
+      "y": -3855.2,
       "scale": 1
     },
     "dilemma-heading": {
-      "x": -3166,
-      "y": -5800.32,
+      "x": -1364.33,
+      "y": -7011.92,
       "scale": 1
     },
     "dilemma-cartesian": {
-      "x": -3474.32,
-      "y": -5377.49,
+      "x": -1668.33,
+      "y": -7309.92,
       "scale": 1
     },
     "dilemma-moderate": {
-      "x": -2866,
-      "y": -5373.46,
+      "x": -1100,
+      "y": -7331.97,
       "scale": 1
     },
     "undoubted-heading": {
-      "x": -3341.56,
-      "y": -6943,
+      "x": 1088.55,
+      "y": -6963,
       "scale": 1
     },
     "undoubted-logic": {
@@ -108,13 +108,13 @@
       "scale": 1
     },
     "route-social-heading": {
-      "x": -937.169,
-      "y": -7555,
+      "x": 3547.56,
+      "y": -5475.58,
       "scale": 1
     },
     "route-social-scene": {
-      "x": -1301.77,
-      "y": -7272.3,
+      "x": 3121.56,
+      "y": -5198.58,
       "scale": 1
     },
     "route-social-worry": {
@@ -123,13 +123,13 @@
       "scale": 1
     },
     "route-hinges-heading": {
-      "x": -488.839,
-      "y": -6594,
+      "x": 1481.5,
+      "y": -5708.85,
       "scale": 1
     },
     "route-hinges-door": {
-      "x": -505.174,
-      "y": -6375.67,
+      "x": 1480.13,
+      "y": -5449.58,
       "scale": 1
     },
     "route-hinges-swap": {
@@ -138,93 +138,93 @@
       "scale": 1
     },
     "route-knowledge-heading": {
-      "x": -572.781,
-      "y": -5537.79,
+      "x": -46.528,
+      "y": -5613.53,
       "scale": 1
     },
     "route-knowledge-scene": {
-      "x": -579.781,
-      "y": -5261.79,
+      "x": 116.173,
+      "y": -5326.24,
       "scale": 1
     },
     "versions-map-heading": {
-      "x": -332.695,
-      "y": -2832,
+      "x": 2271.19,
+      "y": -1040.64,
       "scale": 1
     },
     "versions-map-scene": {
-      "x": -296.229,
-      "y": -3201.07,
+      "x": 1958.34,
+      "y": -2189.62,
       "scale": 1
     },
     "si-heading": {
-      "x": 833.889,
-      "y": -2825.1,
+      "x": 502.041,
+      "y": -4083,
       "scale": 1
     },
     "si-scene": {
-      "x": 663.889,
-      "y": -2512.1,
+      "x": 751.041,
+      "y": -4402,
       "scale": 1
     },
     "si-worry": {
-      "x": 1134,
-      "y": -2511.37,
+      "x": 246.041,
+      "y": -4335,
       "scale": 1
     },
     "ctx-heading": {
-      "x": 3454.72,
-      "y": -2115.16,
+      "x": 2436.04,
+      "y": -2826,
       "scale": 1
     },
     "ctx-evidence": {
-      "x": 3432.03,
-      "y": -1694.23,
+      "x": 2413.04,
+      "y": -2405,
       "scale": 1
     },
     "ctx-criticism": {
-      "x": 3902.03,
-      "y": -1694.23,
+      "x": 2883.04,
+      "y": -2405,
       "scale": 1
     },
     "disagree-heading": {
-      "x": 4696.15,
-      "y": -2132.92,
+      "x": 3677.04,
+      "y": -2844,
       "scale": 1
     },
     "disagree-scene": {
-      "x": 4585.49,
-      "y": -1624.24,
+      "x": 3566.04,
+      "y": -2335,
       "scale": 1
     },
     "disagree-exits": {
-      "x": 5028.03,
-      "y": -1693.23,
+      "x": 4009.04,
+      "y": -2404,
       "scale": 1
     },
     "access-heading": {
-      "x": 1850,
-      "y": 344,
+      "x": 7241.82,
+      "y": -2700.16,
       "scale": 1
     },
     "access-principle": {
-      "x": 1687.78,
-      "y": 579.575,
+      "x": 7182.82,
+      "y": -3393.16,
       "scale": 1
     },
     "access-doubt": {
-      "x": 1666.13,
-      "y": 1059.36,
+      "x": 7160.82,
+      "y": -2914.16,
       "scale": 1
     },
     "home-heading": {
-      "x": 2677,
-      "y": 464.405,
+      "x": 8171.82,
+      "y": -3509.16,
       "scale": 1
     },
     "home-weather": {
-      "x": 2665,
-      "y": 657,
+      "x": 8159.82,
+      "y": -3316.16,
       "scale": 1
     },
     "home-cartesian": {
@@ -233,13 +233,13 @@
       "scale": 1
     },
     "mobile-heading": {
-      "x": 3777.88,
-      "y": -304.173,
+      "x": 9272.82,
+      "y": -4277.16,
       "scale": 1
     },
     "mobile-scene": {
-      "x": 3682.86,
-      "y": -35.236,
+      "x": 9177.82,
+      "y": -4008.16,
       "scale": 1
     },
     "conclusion-heading": {
@@ -258,35 +258,110 @@
       "scale": 1
     },
     "hinges-si-heading": {
-      "x": 2080,
-      "y": -2825,
+      "x": 1061.04,
+      "y": -3536,
       "scale": 1
     },
     "hinges-si-scene": {
-      "x": 2080,
-      "y": -2527,
+      "x": 1061.04,
+      "y": -3238,
       "scale": 1
     },
     "hinges-ctx-heading": {
-      "x": 4520,
-      "y": -2825,
+      "x": 2534.04,
+      "y": -3386,
       "scale": 1
     },
     "hinges-ctx-scene": {
-      "x": 4520,
-      "y": -2527,
+      "x": 3501.04,
+      "y": -3238,
       "scale": 1
     },
     "route-social-consensus": {
-      "x": -701.77,
-      "y": -7272.3,
+      "x": 3782.56,
+      "y": -5192.58,
       "scale": 1
     },
     "undoubted-crystal": {
-      "x": -3387.06,
-      "y": -7239.5,
+      "x": 1149,
+      "y": -7278.88,
+      "scale": 1
+    },
+    "pairings-heading": {
+      "x": 2074.67,
+      "y": -4005.51,
+      "scale": 1
+    },
+    "pairing-social-simone": {
+      "x": -43.334,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-social-cole": {
+      "x": 691.666,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-hinges-simone": {
+      "x": 1435.67,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-hinges-cole": {
+      "x": 1930.67,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-knowledge-simone": {
+      "x": 2441.67,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-knowledge-cole": {
+      "x": 2847.67,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-knowledge-rae": {
+      "x": 3265.67,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-knowledge-echo": {
+      "x": 3686.67,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "pairing-belief": {
+      "x": 4175.67,
+      "y": -3675.51,
+      "scale": 1
+    },
+    "cast-cole": {
+      "x": 997,
+      "y": -2537.19,
+      "scale": 1
+    },
+    "cast-simone": {
+      "x": 1567.02,
+      "y": -2563,
+      "scale": 1
+    },
+    "cast-rae": {
+      "x": 2525.22,
+      "y": -2574.78,
+      "scale": 1
+    },
+    "cast-echo": {
+      "x": 3103.29,
+      "y": -2474.7,
+      "scale": 1
+    },
+    "route-knowledge-evan": {
+      "x": -274.827,
+      "y": -5439.24,
       "scale": 1
     }
   },
-  "writer": "34a65779-2cac-48d0-8b28-046e248fdf69"
+  "writer": "4acf9186-fef3-47f7-add2-4aa152467036"
 }

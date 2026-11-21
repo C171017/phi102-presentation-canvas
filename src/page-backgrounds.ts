@@ -14,15 +14,20 @@ const backgroundByHeading = {
   'route-hinges-heading': '10-hinges',
   'route-knowledge-heading': '11-base',
   'versions-map-heading': '12-whose-context',
-  'si-heading': '13-subject',
-  'hinges-si-heading': '13-subject',
-  'ctx-heading': '14-speaker',
-  'hinges-ctx-heading': '14-speaker',
-  'disagree-heading': '15-disagreement',
+  'pairings-heading': '12-whose-context',
+  'pairing-social-simone': '13-subject',
+  'pairing-hinges-simone': '13-subject',
+  'pairing-knowledge-simone': '13-subject',
+  'pairing-social-cole': '14-speaker',
+  'pairing-hinges-cole': '14-speaker',
+  'pairing-knowledge-cole': '14-speaker',
+  'pairing-knowledge-rae': '15-disagreement',
+  'pairing-knowledge-echo': '15-disagreement',
+  'pairing-belief': '12-whose-context',
   'access-heading': '16-access',
   'home-heading': '17-home',
   'mobile-heading': '18-mobile-home',
-} satisfies Record<(typeof slides)[number]['members'][0], string>;
+} satisfies Record<Exclude<(typeof slides)[number]['members'][0], `pairing-${string}`>, string> & Record<string, string>;
 
 export function createPageBackgrounds(viewport: HTMLElement) {
   const stage = document.createElement('div');
@@ -36,14 +41,21 @@ export function createPageBackgrounds(viewport: HTMLElement) {
     stage.append(layer);
   }
   viewport.prepend(stage);
-  const members = slides.map(slide => slide.members.map(id => document.getElementById(id)!));
+  const members = slides.map(slide => {
+    const ids = slide.members[0] === 'pairings-heading' && 'frameMembers' in slide ? slide.frameMembers : slide.members;
+    return ids.map(id => document.getElementById(id)!);
+  });
+  const framedItems = [...new Set(members.flat())];
   const loaded = new Map<string, Promise<string>>();
   let requested = -1;
   let activeLayer = 0;
   let revision = 0;
 
   function load(index: number): Promise<string> {
-    const name = backgroundByHeading[slides[index].members[0]];
+    const heading = slides[index].members[0];
+    const name = heading in backgroundByHeading
+      ? backgroundByHeading[heading as keyof typeof backgroundByHeading]
+      : '12-whose-context';
     const existing = loaded.get(name);
     if (existing) return existing;
     const src = `/generated/backgrounds/abstract-v1/${name}.webp`;
@@ -61,7 +73,8 @@ export function createPageBackgrounds(viewport: HTMLElement) {
     if (index === requested) return;
     requested = index;
     const ticket = ++revision;
-    members.forEach((group, i) => group.forEach(item => item.classList.toggle('page-foreground', i === index)));
+    const foreground = new Set(members[index] ?? []);
+    framedItems.forEach(item => item.classList.toggle('page-foreground', foreground.has(item)));
     if (index < 0 || index >= slides.length) {
       viewport.classList.remove('in-page-view');
       delete stage.dataset.slide;
@@ -93,7 +106,7 @@ export function createPageBackgrounds(viewport: HTMLElement) {
     revision++;
     stage.remove();
     viewport.classList.remove('in-page-view');
-    members.flat().forEach(item => item.classList.remove('page-foreground'));
+    framedItems.forEach(item => item.classList.remove('page-foreground'));
   }
   return { update, dispose };
 }
