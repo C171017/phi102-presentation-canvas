@@ -48,6 +48,7 @@ function makePanel(scene: Scene, selectCue: (cue: number) => void) {
     const row = document.createElement('button');
     row.type = 'button';
     row.className = 'transcript-row';
+    row.dataset.speaker = cue.speakerId ?? cue.speaker;
     row.textContent = cue.text;
     row.setAttribute('aria-label', cue.speaker + ': ' + cue.text);
     row.addEventListener('click', () => selectCue(index));

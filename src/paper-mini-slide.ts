@@ -8,6 +8,14 @@ export function createPaperMiniSlide() {
   const element = document.createElement('section');
   element.className = 'paper-mini-slide';
   element.setAttribute('aria-label', 'Presentation notes');
+  // Narrow presenter panels can scroll their notes independently of the cue.
+  element.tabIndex = 0;
+  element.addEventListener('wheel', event => event.stopPropagation(), { passive: true });
+  element.addEventListener('keydown', event => {
+    if (element.scrollHeight > element.clientHeight && ['ArrowUp','ArrowDown','PageUp','PageDown','Home','End'].includes(event.key)) {
+      event.stopPropagation();
+    }
+  });
   const header = document.createElement('header');
   const section = document.createElement('span');
   section.className = 'mini-slide-section';

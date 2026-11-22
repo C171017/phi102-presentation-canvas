@@ -68,3 +68,5 @@
     clip-path: inset(0 0 calc(var(--transcript-height) + 2vh) 0);
   }
 }
+
+.paper-mini-slide:focus-visible { outline: 2px solid #ffdc9e; outline-offset: -3px; }

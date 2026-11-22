@@ -28,7 +28,7 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 **Left after the vote** — **The surrounding symbols change how we read the mark.**
 
 - Across the row, it reads as B. Down the column, it reads as 13.
-- Greco’s parallel concerns sentences: the context of utterance can change the proposition expressed.
+- For Greco, the context of utterance can change which proposition a sentence expresses.
 
 *Greco · Introduction, p. 425*
 

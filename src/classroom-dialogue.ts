@@ -5,13 +5,13 @@ import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById, legendSlides } from './slide-content';
-import { dialogueArtwork, establishingArtwork, hasEstablishingShot } from './ink-ocean-scenes';
+import { dialogueArtwork, establishingArtwork, hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset } from './live-protocol';
 import { createLegendQuiz } from './legend-answerers';
 import './classroom-dialogue.css';
 
 const introScenes = ['unitrans-arrival', 'before-lecture'];
-const script: { scene: string; speaker: string; text: string; voice?: number; phase?: 'question' | 'reveal' }[] = [
+const script: (InkOceanCue & { scene: string; phase?: 'question' | 'reveal' })[] = [
   { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Contextualism is the idea that what we mean when we say “I know” can change depending on the conversation.' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', phase: 'question', text: 'What do you see there?' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Ten seconds, a room full of philosophers, and somehow you’re all wrong. Well, Contemporary Contextualism it is. Read the texts.' },
@@ -47,9 +47,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   reader.tabIndex = 0;
   reader.setAttribute('role', 'region');
   reader.setAttribute('aria-label', 'Transcript. Scroll or use the arrow keys to move between lines.');
-  const rows = script.map(({ text, phase }) => {
+  const rows = script.map(({ text, phase, speaker, speakerId }) => {
     const row = document.createElement('div');
     row.className = 'transcript-row';
+    row.dataset.speaker = speakerId ?? speaker;
     if (phase === 'reveal') row.classList.add('flashback-reveal');
     row.textContent = text;
     reader.append(row);

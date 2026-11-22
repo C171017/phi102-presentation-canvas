@@ -17,6 +17,7 @@ export type InkOceanSceneId =
 
 export interface InkOceanCue {
   speaker: string;
+  speakerId?: 'Y1' | 'Y2' | 'Y3' | 'Y4';
   text: string;
   background?: string;
   speakerFocus?: string;
@@ -65,13 +66,13 @@ export const inkOceanScenes: Record<InkOceanSceneId, InkOceanScene> = {
     background: artwork("L2-01-the-hand"),
     cues: [
       { speaker: "Woman", text: "I have a hand.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", text: "Why believe you have a hand?", speakerFocus: artwork("L2-speaking-y1") },
+      { speaker: "Y", speakerId: "Y1", text: "Why believe you have a hand?", speakerFocus: artwork("L2-speaking-y1") },
       { speaker: "Woman", text: "I can see it. It’s holding the ladle.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", text: "Why trust what you see?", speakerFocus: artwork("L2-speaking-y2") },
+      { speaker: "Y", speakerId: "Y2", text: "Why trust what you see?", speakerFocus: artwork("L2-speaking-y2") },
       { speaker: "Woman", text: "I’m wide awake, and my eyes work when I’m awake.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", text: "Why believe you’re awake?", speakerFocus: artwork("L2-speaking-y3") },
+      { speaker: "Y", speakerId: "Y3", text: "Why believe you’re awake?", speakerFocus: artwork("L2-speaking-y3") },
       { speaker: "Woman", text: "Everything’s sharp: the ladle, the Inkwell, the cold ink. Dreams are never this clear.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", text: "Why believe you’re not a brain in a vat?", speakerFocus: artwork("L2-speaking-y4") },
+      { speaker: "Y", speakerId: "Y4", text: "Why believe you’re not a brain in a vat?", speakerFocus: artwork("L2-speaking-y4") },
       { speaker: "Woman", text: "Oh, come on.", speakerFocus: artwork("L2-speaking-woman") },
       { speaker: "SOWHAT", text: "So what? A brain in a vat would see a hand this clear, too.", speakerFocus: artwork("L2-speaking-sowhat") },
       { speaker: "Narrator", text: "Her words never dried. Then, slowly, neither did her hand.", speakerFocus: artwork("L2-narration") },

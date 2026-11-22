@@ -64,7 +64,6 @@
 .school-pane .transcript-row {
   display: block;
   width: 100%;
-  color: inherit;
   background: none;
   border: 0;
   font-size: clamp(15px, 1.75cqw, 29px);
@@ -140,9 +139,13 @@
 @container (max-width: 440px) {
   .school-pane .school-dialogue:not([hidden]) {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
   }
-  .school-pane .transcript-summary { margin: 7px 10px 2px; font-size: 14px; }
+  .school-split .school-pane .school-dialogue:not([hidden]) {
+    grid-template-rows: minmax(0, 1fr) minmax(0, 2fr);
+  }
+  .school-split .school-pane[data-scene="L6-A"] .school-dialogue { left: 14px; }
+  .school-split .school-pane .transcript-reader { padding-inline: 6px; }
   .school-split .transcript-summary { padding: 0; }
   .school-pane .transcript-scene-title { font-size: .8em; margin-bottom: .2em; }
   .school-pane .transcript-reader { padding-inline: 10px; }
@@ -156,12 +159,12 @@
   }
   .school-picture::before, .school-picture::after { content: ''; }
 }
-.legend-schools[data-establishing-shot] .school-picture {
-  bottom: 0;
-  background-position: center;
-  background-size: contain;
-}
+.legend-schools[data-establishing-shot] .school-picture { bottom: 0; }
 .legend-schools[data-establishing-shot] .school-picture::before,
 .legend-schools[data-establishing-shot] .school-picture::after { content: none; }
 .legend-schools[data-establishing-shot] .school-tally { display: none; }
 .legend-schools[data-establishing-shot] .school-cue-controls { bottom: var(--school-bottom); }
+
+@container (max-width: 240px) {
+  .school-split .school-pane .transcript-row { font-size: 14px; line-height: 1.24; }
+}

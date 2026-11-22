@@ -256,3 +256,19 @@ Recorded time in Pacific time. From Howie’s review of the classroom frame:
 > You should still be somewhat easy understanding as well, and trying to have the slide kind of thing where you have the layout, you have the points, bullet points, et cetera.
 
 Use the enlarged dialogue box for a paper-based claim, supporting points, and a source reference. Connect those points to the visible scene and keep the right half for the spoken script.
+
+## 2026-11-21T23:49:29-08:00 · Match the full-color and dialogue framing
+
+Recorded time in Pacific time. Source is Howie’s canvas chat with the full-color Peirce screenshot.
+
+> So you know for The current You know, like, for not the color one, but, like, the faded dialogue section, the background's gonna be stretched, right? Um, so want the color version before they entering, they should be stretched to fit the entire view as well. They could look more consistent than
+
+Stretch the full-color legend artwork to the same edges as the dialogue artwork on landscape screens. Use the same background framing in both steps, including when the paper pane is open. Keep the aspect-ratio fit in portrait and in the side-by-side school layout.
+
+## 2026-11-22T00:01:17-08:00 · Color-code the visible dialogue by speaker
+
+Recorded time in Pacific time. Source is Howie’s canvas chat with the Descartes transcript screenshot.
+
+> Also for the dialogue line。 Um, for different characters in the scene, they should be like color-coded, and the narrator's color code should remain consistent across all sections, across all scenes. Maybe it could be white, or you can choose a better one if you can find one.
+
+Use soft white for narration in every transcript. Assign distinct colors to speakers sharing a scene, including the four Y bubbles. Keep each row’s color as focus moves, and render the centered line at full opacity.

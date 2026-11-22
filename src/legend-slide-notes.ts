@@ -17,7 +17,7 @@ export const openingNotes: Record<string, SlideNotes> = {
     claim: 'The surrounding symbols change how we read the mark.',
     points: [
       'Across the row, it reads as B. Down the column, it reads as 13.',
-      'Greco’s parallel concerns sentences: the context of utterance can change the proposition expressed.',
+      'For Greco, the context of utterance can change which proposition a sentence expresses.',
     ],
     source: 'Greco · Introduction, p. 425',
   },

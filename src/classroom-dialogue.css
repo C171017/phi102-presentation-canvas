@@ -108,9 +108,21 @@
   scroll-snap-align: center;
   font: 400 clamp(18.2px, 2.1125vmin, 33.8px)/1.24 Georgia, serif;
   text-wrap: pretty;
-  opacity: .38;
+  color: #f8f5ef;
+  opacity: .65;
   cursor: pointer;
 }
+/* Narration uses the base white. Speakers keep their color when a row fades. */
+.transcript-row:is([data-speaker="Y"], [data-speaker="Y1"], [data-speaker="New lookout"]) { color: #a7d3ff; }
+.transcript-row:is([data-speaker="Y2"], [data-speaker="Baby"], [data-speaker="Fleet examiner"]) { color: #f2bce4; }
+.transcript-row:is([data-speaker="Y3"], [data-speaker="Villager"], [data-speaker="Descartes"], [data-speaker="New disciple"]) { color: #ffd58e; }
+.transcript-row:is([data-speaker="Y4"], [data-speaker="Pyrrho"], [data-speaker="Sect examiner"]) { color: #d0c0ff; }
+.transcript-row:is([data-speaker="SOWHAT"], [data-speaker="Disciple"], [data-speaker="Sect disciple"],
+  [data-speaker="Disciple, from a rowboat"], [data-speaker="Heckler, from a rowboat"]) { color: #ffb9a5; }
+.transcript-row:is([data-speaker="Woman"], [data-speaker="Lookout"]) { color: #c8e8a4; }
+.transcript-row:is([data-speaker="Professor Lin"], [data-speaker="Guardian"], [data-speaker="Neurath"],
+  [data-speaker="Fleet lookout"], [data-speaker="Fleet lookout, across the water"]) { color: #9de5d6; }
+.transcript-row[data-speaker="Peirce"] { color: #ffc999; }
 .transcript-row[aria-current] { opacity: 1; }
 /* Keep the next line measurable for scrolling while its name is still a surprise. */
 .flashback-reveal:not([aria-current]) { visibility: hidden; }
