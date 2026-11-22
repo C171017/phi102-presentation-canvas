@@ -168,15 +168,3 @@
   font: 500 12px/1.3 ui-monospace, Menlo, monospace;
 }
 .paper-message .paper-detail { color: #6a6458; font-size: 11.5px; }
-
-.paper-tab-label { display: none; }
-#paper-pane.is-collapsed .paper-tab-label {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  height: 100%;
-  padding-left: 9px;
-  place-items: center;
-  color: #50321d;
-  font: 700 10px/1 system-ui, sans-serif;
-}

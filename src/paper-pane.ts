@@ -94,9 +94,6 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   const resizer = element('div', 'paper-resizer');
   resizer.tabIndex = 0;
   resizer.setAttribute('aria-controls', 'paper-pages');
-  const tabLabel = element('span', 'paper-tab-label', 'Paper');
-  tabLabel.setAttribute('aria-hidden', 'true');
-  resizer.append(tabLabel);
 
   const scroll = element('div', 'paper-scroll');
   scroll.id = 'paper-pages';
