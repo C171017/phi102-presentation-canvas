@@ -3,7 +3,9 @@ export type QuizCounts = Record<QuizChoice, number>;
 
 export function createLocalQuizVotes(audience: boolean) {
   const key = 'phi102-local-quiz-voter';
-  let voter = crypto.randomUUID() as string;
+  // Plain HTTP on the LAN has getRandomValues, while randomUUID needs a secure context.
+  let voter: string = crypto.randomUUID?.() ?? Array.from(crypto.getRandomValues(new Uint8Array(18)),
+    byte => byte.toString(16).padStart(2, '0')).join('');
   if (audience) {
     try {
       const saved = localStorage.getItem(key);

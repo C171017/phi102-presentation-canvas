@@ -2,18 +2,19 @@ import { storyScenes } from './story-scenes';
 import { isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
 import './story-reader.css';
 
-export function addStoryReader(shell: HTMLElement, picker: HTMLElement, editable: boolean) {
+export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editable = false) {
   const opener = document.createElement('button');
   opener.type = 'button';
   opener.textContent = 'Story';
   opener.setAttribute('aria-haspopup', 'dialog');
   opener.setAttribute('aria-controls', 'story-reader');
-  picker.append(opener);
+  if (!picker) opener.classList.add('story-reader__launch');
+  (picker ?? shell).append(opener);
 
   const reader = document.createElement('dialog');
   reader.id = 'story-reader';
   reader.className = 'story-reader';
-  reader.setAttribute('aria-label', 'Dead Ink');
+  reader.setAttribute('aria-label', 'Until It Dries');
   reader.innerHTML = `
     <header class="story-reader__toolbar">
       <nav aria-label="Story scenes">
@@ -124,6 +125,7 @@ export function addStoryReader(shell: HTMLElement, picker: HTMLElement, editable
 
   opener.addEventListener('click', async () => {
     reader.showModal();
+    if (!import.meta.env.DEV) return;
     const sequence = ++loadSequence;
     edit.disabled = true;
     try {

@@ -1,16 +1,18 @@
 import { isSlide, presenterKeyPattern, slideCount, type RoomSnapshot } from './live-protocol';
+import type { TheoryRecords } from './theory-records';
+import type { TheoryAction } from './theory-vote';
 import './live-presentation.css';
 
 export const liveMode = import.meta.env.VITE_LIVE_PRESENTATION === '1';
 
 type SlideReport = { type: 'present' | 'view'; slide: number | null };
 
-export function connectPresentation(viewport: HTMLElement, openSlide: (index: number) => void) {
+export function connectPresentation(viewport: HTMLElement, openSlide: (index: number) => void, theory: TheoryRecords) {
   const fragment = new URLSearchParams(location.hash.slice(1));
   const key = fragment.get('presenter');
   const presenter = key !== null;
   let socket: WebSocket | undefined;
-  const client = createPresentationClient(viewport, openSlide, presenter, message => {
+  const client = createPresentationClient(viewport, openSlide, presenter, theory, message => {
     if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify(message));
   });
   let active = true;
@@ -75,8 +77,10 @@ export function createPresentationClient(
   viewport: HTMLElement,
   openSlide: (index: number) => void,
   presenter: boolean,
-  send: (message: SlideReport) => void,
+  theory: TheoryRecords,
+  send: (message: SlideReport | TheoryAction) => void,
 ) {
+  theory.connect(send);
   const progress = viewport.querySelector<HTMLElement>('#slide-progress')!;
   const followButton = document.createElement('button');
   followButton.type = 'button';
@@ -119,6 +123,7 @@ export function createPresentationClient(
   function showState(state: RoomSnapshot) {
     const previous = snapshot;
     snapshot = state;
+    theory.update(state.theory, true, state.presenterOnline);
     indicators.forEach(({ button, count, number, label }, index) => {
       const viewers = state.counts[index];
       const onAir = state.presenterOnline && index === state.presenterSlide;
@@ -127,8 +132,9 @@ export function createPresentationClient(
       button.classList.toggle('presenter-slide', onAir);
       button.setAttribute('aria-label', label + (onAir ? ', presenter here' : '') + ', ' + viewers + (viewers === 1 ? ' viewer' : ' viewers'));
     });
+    const ballotMoved = state.theory && (presenter || currentSlide === previous?.presenterSlide);
     if ((!previous && (presenter || following)) ||
-        (!presenter && following && previous?.presenterSlide !== state.presenterSlide)) {
+        (previous && previous.presenterSlide !== state.presenterSlide && ((!presenter && following) || ballotMoved))) {
       syncSlide();
     } else if (!previous) {
       sendView();
@@ -137,6 +143,7 @@ export function createPresentationClient(
 
   function clearState() {
     snapshot = undefined;
+    theory.disconnect();
     indicators.forEach(({ button, count, label }) => {
       count.hidden = true;
       button.classList.remove('presenter-slide');

@@ -1,3 +1,4 @@
+import { createTheoryRecords } from './theory-records';
 import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { regressFlashback } from './slide-content';
@@ -7,8 +8,8 @@ const introScenes = ['unitrans-arrival', 'before-lecture'];
 const script: { scene: string; speaker: string; text: string; voice?: number; phase?: 'question' | 'reveal' }[] = [
   { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Contextualism is the idea that what we mean when we say “I know” can change depending on the conversation.' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', phase: 'question', text: 'What do you see there?' },
-  { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Contemporary contextualism it is.' },
-  { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Now, long, long ago, when the chalk in this very room was still young, philosophers used the word “contextualism” for a different question.' },
+  { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Ten seconds, a room full of philosophers, and somehow you’re all wrong. Well, Contemporary Contextualism it is. Read the texts.' },
+  { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Anyway, long, long ago, when the chalk in this very room was still young, it has a very different name:' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', phase: 'reveal', text: 'Flexible foundationalism.' },
   ...regressFlashback.flatMap(({ id, dialogue }) => dialogue.map(line => ({ ...line, scene: id }))),
 ];
@@ -16,7 +17,7 @@ const script: { scene: string; speaker: string; text: string; voice?: number; ph
 const questionIndex = script.findIndex(line => line.phase === 'question');
 const answerWindowMs = 10_000;
 
-export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, playVideo?: () => void, showVoice?: (voice?: number) => void) {
+export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, playVideo?: () => void, showVoice?: (voice?: number) => void, shared = false) {
   const stage = document.createElement('div');
   stage.className = 'classroom-stage';
   stage.hidden = true;
@@ -83,6 +84,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   panel.append(summary, reader);
   stage.append(character, panel, announcement);
   if (quizEnabled || tally) stage.append(choices);
+  const finalRegressCue = script.findIndex(line => line.scene === regressFlashback[1].id) - 1;
+  const theory = createTheoryRecords(stage, openScene, shared, !quizEnabled, () => {
+    if (script[active]?.scene === regressFlashback[0].id) select(finalRegressCue, false);
+  });
   shell.append(stage);
 
   const characters = stage.querySelectorAll<HTMLElement>('.classroom-character[data-speaker]');
@@ -200,7 +205,12 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     reader.scrollTo({ top: center(index), behavior: animate && index > questionIndex && !reduced.matches ? 'smooth' : 'instant' });
   }
   function goToLine(index: number, animate = true) {
-    if (active < 0) return;
+    if (active < 0 || theory.isOpen()) return;
+    const scene = script[active].scene;
+    if (script[index]?.scene !== scene) {
+      if (index < active && theory.selectedScene() === scene) return;
+      if (index > active && theory.advance(scene)) return;
+    }
     if (!choices.hidden && active === questionIndex && index > active) {
       answerButtons[0].focus({ preventScroll: true });
       return;
@@ -280,11 +290,12 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }).observe(reader);
 
   function showScene(id?: string, description = '', title = '') {
+    theory.showScene(id);
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
     panel.hidden = index < 0;
-    const nextLine = script[pendingLine]?.scene === id ? pendingLine : index;
+    const nextLine = theory.isOpen() ? finalRegressCue : script[pendingLine]?.scene === id ? pendingLine : index;
     pendingLine = -1;
     if (index < 0) {
       clearTimeout(scrollTimer);
@@ -298,5 +309,5 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     summaryText.data = description;
     if (script[active]?.scene !== id) select(nextLine, false);
   }
-  return { showScene, handleArrow, finishIntro, stepFlashback, advance: () => move(1) };
+  return { theory, showScene, handleArrow, finishIntro, stepFlashback, advance: () => move(1) };
 }

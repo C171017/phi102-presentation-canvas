@@ -37,22 +37,27 @@ const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
 let reportSlide: ((index: number) => void) | undefined;
 let paperPane: { update: (index: number) => void } | undefined;
-const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode &&
-  ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
+const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode;
+const onHostMac = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
 const requestedRole = localDev ? new URLSearchParams(location.search).get('role') : null;
-const previewRole = requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
+const previewRole = localDev && !onHostMac ? 'audience'
+  : requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
 const readOnly = liveMode || previewRole !== null;
 const quizEnabled = liveMode ? !new URLSearchParams(location.hash.slice(1)).has('presenter') : previewRole !== 'presenter';
 const openScene = (id: string) => {
   slideNavigation.open(slides.findIndex(slide => slide.members[0] === id));
 };
-const openingVideo = previewRole === 'presenter' && __LOCAL_OPENING_VIDEO__
-  ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('regress-problem'),
-    openingPlaying => import.meta.hot!.send('phi102:preview:opening', openingPlaying))
+const openingVideo = localDev && previewRole !== 'audience' && __LOCAL_OPENING_VIDEO__
+  ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('regress-problem'), {
+    showSkip: !readOnly,
+    reportPlayback: previewRole === 'presenter'
+      ? openingPlaying => import.meta.hot!.send('phi102:preview:opening', openingPlaying)
+      : undefined,
+  })
   : undefined;
 const regressVoices = createRegressVoices(viewport);
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
-  localDev ? createLocalQuizVotes(previewRole === 'audience') : undefined, openingVideo?.play, regressVoices.highlight);
+  localDev ? createLocalQuizVotes(previewRole === 'audience') : undefined, openingVideo?.play, regressVoices.highlight, readOnly);
 const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   const slide = slides[index];
   const id = slide?.members[0];
@@ -64,7 +69,6 @@ const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
     viewport.style.removeProperty('--regress-background');
   }
   viewport.toggleAttribute('data-regress-flashback', Boolean(flashback));
-  regressVoices.showScene(flashback?.id);
   openingDialogue.showScene(id, slide?.description, flashback?.title);
   paperPane?.update(index);
   reportSlide?.(index);
@@ -216,14 +220,18 @@ function toggleFullscreen() {
   void action.catch(error => console.warn('Could not toggle presentation full screen.', error));
 }
 window.addEventListener('keydown', (event) => {
+  if (openingVideo?.isOpen() || event.defaultPrevented || event.isComposing ||
+      event.ctrlKey || event.altKey || event.key.toLowerCase() !== 'f' || (event.metaKey && !event.shiftKey)) return;
+  const target = event.target;
+  if (!event.metaKey && target instanceof HTMLElement &&
+      (target.isContentEditable || target.closest('input, textarea, select'))) return;
+  event.preventDefault();
+  if (!event.repeat) toggleFullscreen();
+}, { capture: true });
+
+window.addEventListener('keydown', (event) => {
   if (openingVideo?.isOpen()) return;
   const element = event.target as HTMLElement;
-  if (!event.defaultPrevented && !event.isComposing && event.metaKey && event.shiftKey &&
-      !event.ctrlKey && !event.altKey && event.key.toLowerCase() === 'f') {
-    event.preventDefault();
-    if (!event.repeat) void toggleFullscreen();
-    return;
-  }
   if (event.defaultPrevented || element.isContentEditable || element.closest('input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
   const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .before-lecture-scene');
   if (element.closest('button') && (!navigationTarget || event.key === ' ' || event.key === 'Enter')) return;
@@ -255,9 +263,6 @@ window.addEventListener('keydown', (event) => {
       } else goTo({ zoom: target.zoom / 1.2 });
       break;
     case 'Home': case '0': stopIndex = -1; goTo({ x: 0, y: 0, zoom: 1 }); break;
-    case 'f': case 'F':
-      if (!event.repeat) void toggleFullscreen();
-      break;
     default: return;
   }
   event.preventDefault();
@@ -469,7 +474,7 @@ resize();
 if (liveMode) {
   void layout.ready.then(() => {
     requestAnimationFrame(() => {
-      reportSlide = connectPresentation(viewport, slideNavigation.open);
+      reportSlide = connectPresentation(viewport, slideNavigation.open, openingDialogue.theory);
       invalidateConnections();
     });
   });
@@ -481,7 +486,7 @@ function mountPaperPane(rolePicker?: HTMLElement) {
 }
 if (localDev) {
   void import('./dev-presentation').then(({ addDevRolePicker, connectDevPresentation }) => {
-    const rolePicker = addDevRolePicker(backdrop, previewRole);
+    const rolePicker = addDevRolePicker(backdrop, previewRole, onHostMac);
     if (!previewRole) {
       void import('./dev-paper').then(({ createPaperPane }) => {
         paperPane = createPaperPane(backdrop, rolePicker);
@@ -491,12 +496,15 @@ if (localDev) {
     mountPaperPane(rolePicker);
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
-        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingVideo);
+        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingDialogue.theory, openingVideo);
       });
     });
   });
 } else {
   mountPaperPane();
+  if (liveMode) {
+    void import('./story-reader').then(({ addStoryReader }) => addStoryReader(backdrop));
+  }
 }
 if (import.meta.hot) {
   import.meta.hot.dispose(disposeRegressAnimations);

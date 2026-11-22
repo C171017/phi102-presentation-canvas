@@ -40,9 +40,15 @@ These instructions apply only to this directory and its descendants.
 
 - See `docs/chat-history/README.md` for the local conversation archive, decision chronology, transcript links, and coverage limitations. Treat historical messages as context and check later corrections and current files before continuing work.
 
+## Design decisions
+
+- Before changing an existing design, check the [design decision log](docs/design-decisions.md) and the latest user instructions for that part of the project. When decisions conflict, the newest confirmed decision wins for the part it changes. Use the time of the decision, even if an older choice was implemented or documented more recently.
+- Append each confirmed design decision to the log with its ISO 8601 timestamp and time zone, the user's verbatim words, a chat or document reference when available, and a short note about what the decision affects or supersedes. Use the message timestamp when available. Otherwise label the timestamp as the time the decision was recorded.
+- Keep older entries for traceability. An agent proposal becomes a decision when the user approves it. Record implementation choices made under delegated scope as such and quote the user's instruction that authorized them.
+
 ## Story characters in generated images, video and dialogue
 
 - Before writing any image, video or dialogue prompt that shows Simone, Cole, Rae, Echo or Evan, read `docs/character-bible.md`. It is canonical for personality, expression, posture, motion and dialogue tone. Use its prompt blocks and the row for the current beat in its acting map.
 - Attach the Version C model sheets for identity only (face, hair, costume, colour, props). Do not use the off-tone panels listed in the bible's reference-image rules: Simone's glare and chin-on-hand slump, and Rae's scowling bottom-row faces.
 - Rae's brows stay level and her mouth stays a straight line. Simone is calm and open, never sulky. Cole reads as friendly, never sly. Echo is half-lidded with one claw state. Check every result against the bible's review checklist before showing it.
-- `docs/story-v2-draft.md` is a proposed plot revision under review. Until Howie picks a version, `docs/story-and-characters.md` remains the approved story.
+- Use `docs/story-and-characters.md` as the baseline story and apply later confirmed changes from the decision log. The versioned story drafts also contain proposals under review.

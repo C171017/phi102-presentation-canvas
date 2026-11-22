@@ -1,6 +1,7 @@
 import { createPresentationClient } from './live-presentation';
 import { isSlide, type RoomSnapshot } from './live-protocol';
 import { addStoryReader } from './story-reader';
+import type { TheoryRecords } from './theory-records';
 import './dev-presentation.css';
 
 type PreviewRole = 'audience' | 'presenter';
@@ -10,7 +11,7 @@ const roles = [
   ['presenter', 'Presenter'],
 ] as const;
 
-export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null) {
+export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null, canSwitchRoles: boolean) {
   const picker = document.createElement('div');
   picker.className = 'dev-role-picker';
   picker.setAttribute('role', 'group');
@@ -19,6 +20,7 @@ export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null) {
   label.textContent = 'Local dev';
   picker.append(label);
   for (const [value, title] of roles) {
+    if (!canSwitchRoles && value !== 'audience') continue;
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = title;
@@ -37,7 +39,7 @@ export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null) {
   return picker;
 }
 
-export function connectDevPresentation(viewport: HTMLElement, openSlide: (index: number) => void, role: PreviewRole,
+export function connectDevPresentation(viewport: HTMLElement, openSlide: (index: number) => void, role: PreviewRole, theory: TheoryRecords,
   openingVideo?: { isOpen(): boolean; close(): void }) {
   const hot = import.meta.hot!;
   const blackout = role === 'audience' ? document.createElement('dialog') : undefined;
@@ -48,7 +50,7 @@ export function connectDevPresentation(viewport: HTMLElement, openSlide: (index:
     blackout.addEventListener('keydown', event => event.stopPropagation());
     viewport.parentElement!.append(blackout);
   }
-  const client = createPresentationClient(viewport, openSlide, role === 'presenter',
+  const client = createPresentationClient(viewport, openSlide, role === 'presenter', theory,
     message => hot.send('phi102:preview:report', message));
   function join() {
     const buttons = Array.from(viewport.querySelectorAll('#slide-progress button'));

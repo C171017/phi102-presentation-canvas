@@ -124,7 +124,7 @@
   gap: clamp(8px, 1.25vw, 20px);
   pointer-events: auto;
 }
-.classroom-stage:has(.record-quiz:not([hidden], [data-mode="results"]))::after {
+.classroom-stage:has(> .record-quiz:not([hidden], [data-mode="results"]))::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -132,7 +132,7 @@
   background: rgb(11 21 29 / 30%);
   pointer-events: none;
 }
-.classroom-stage:has(.record-quiz:not([hidden])) .classroom-character { right: 13%; }
+.classroom-stage:has(> .record-quiz:not([hidden])) .classroom-character { right: 13%; }
 .record-quiz button {
   position: relative;
   width: clamp(56px, min(13.2vw, 21vh), 146px);
@@ -187,7 +187,7 @@
 }
 @media (max-width: 640px) {
   #presentation-shell:has(.dev-role-picker) .record-quiz { inset-block-start: 50px; }
-  .classroom-stage:has(.record-quiz:not([hidden])) .classroom-character { right: 10%; top: 16%; }
+  .classroom-stage:has(> .record-quiz:not([hidden])) .classroom-character { right: 10%; top: 16%; }
 }
 .transcript-reader:focus-visible { outline: 2px solid #ffdc9e; outline-offset: -4px; }
 .transcript-announcement { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }

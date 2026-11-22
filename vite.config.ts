@@ -2,13 +2,43 @@ import { defineConfig, normalizePath, searchForWorkspaceRoot, type Plugin, type 
 import { existsSync } from 'node:fs';
 import { readFile, writeFile, rename, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { basename } from 'node:path';
 import { parseLayout } from './src/layout';
 import { isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
 import { storyTextStorage } from './scripts/story-text-storage';
+import { applyTheoryAction, ballotSlide, resolveBallot, voteView, type TheoryBallot } from './src/theory-vote';
 import { localQuizVotes } from './scripts/local-quiz-votes';
+import { storyTextEndpoint } from './src/story-text';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
 const openingFile = fileURLToPath(new URL('../op/drafts/dead-ink-op-codex-v2.mp4', import.meta.url));
+const openingFilename = basename(openingFile).toLowerCase();
+
+function isLoopback(address?: string) {
+  return address === '127.0.0.1' || address === '::1' || address === '::ffff:127.0.0.1';
+}
+
+function localOnlyEditor(): Plugin {
+  return {
+    name: 'canvas-local-only-editor',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (isLoopback(req.socket.remoteAddress)) return next();
+        let pathname: string;
+        try { pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://localhost').pathname); }
+        catch { res.writeHead(400).end(); return; }
+        const writesLocalFiles = req.method !== 'GET' && req.method !== 'HEAD' &&
+          (pathname === '/__canvas/layout' || pathname === storyTextEndpoint);
+        if (writesLocalFiles || pathname.toLowerCase().includes(openingFilename)) {
+          res.writeHead(403).end();
+          return;
+        }
+        next();
+      });
+    },
+  };
+}
+
 let writes = Promise.resolve();
 function layoutStorage(): Plugin {
   const install = (server: { middlewares: { use: (handler: any) => void } }) => {
@@ -77,10 +107,18 @@ function localPresentation(): Plugin {
     name: 'canvas-local-presentation',
     apply: 'serve',
     configureServer(server) {
-      const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null }>();
+      const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null; id: string }>();
+      const localSockets = new WeakSet<WebSocketClient['socket']>();
+      server.ws.on('connection', (socket, request) => {
+        if (isLoopback(request.socket.remoteAddress)) localSockets.add(socket);
+      });
       let presenter: WebSocketClient | undefined;
       let presenterSlide: number | undefined;
       let openingPlaying = false;
+      let ballot: TheoryBallot | null = null;
+      let ballotTimer: ReturnType<typeof setTimeout> | undefined;
+      server.httpServer?.once('close', () => clearTimeout(ballotTimer));
+      const audience = () => [...members.values()].filter(member => member.role === 'audience').map(member => member.id);
 
       function broadcast() {
         const counts = Array<number>(slideCount).fill(0);
@@ -90,12 +128,20 @@ function localPresentation(): Plugin {
           if (slide === null) browsing++;
           else counts[slide]++;
         }
+        const voters = audience();
+        if (ballot) {
+          resolveBallot(ballot, voters);
+          presenterSlide = ballotSlide(ballot);
+        }
+        const theory = ballot ? voteView(ballot, voters) : undefined;
         const state: RoomSnapshot = {
           type: 'state', presenterSlide: presenterSlide ?? 0,
           presenterOnline: Boolean(presenter), openingPlaying, counts, browsing,
         };
-        for (const client of members.keys()) {
-          if (client.socket.readyState === 1) client.send('phi102:preview:state', state);
+        for (const [client, member] of members) {
+          if (client.socket.readyState === 1) client.send('phi102:preview:state', {
+            ...state, theory: theory && { ...theory, mine: ballot?.ballots[member.id] },
+          });
         }
       }
 
@@ -112,6 +158,7 @@ function localPresentation(): Plugin {
         if (data?.role !== 'presenter' && data?.role !== 'audience') return;
         if (members.has(client)) return;
         if (data.role === 'presenter') {
+          if (!localSockets.has(client.socket)) return;
           if (presenter) {
             const previous = presenter;
             members.delete(previous);
@@ -121,7 +168,7 @@ function localPresentation(): Plugin {
           openingPlaying = data.openingPlaying === true;
         }
         presenterSlide ??= isSlide(data.slide) ? data.slide : 0;
-        members.set(client, { role: data.role, slide: presenterSlide });
+        members.set(client, { role: data.role, slide: presenterSlide, id: crypto.randomUUID() });
         client.socket.once('close', () => leave(client));
         broadcast();
       });
@@ -133,9 +180,26 @@ function localPresentation(): Plugin {
       });
       server.ws.on('phi102:preview:report', (data, client) => {
         const member = members.get(client);
-        if (member?.role === 'presenter' && data?.type === 'present' && isSlide(data.slide)) {
+        if (member && data?.type === 'theory') {
+          const isPresenter = client === presenter;
+          const slide = isPresenter ? presenterSlide : member.slide;
+          if (slide == null || (presenter && slide !== presenterSlide)) return;
+          const previousRound = ballot?.id;
+          ballot = applyTheoryAction(ballot, data, slide, isPresenter || (!presenter && data.action === 'open'), member.id, audience());
+          if (ballot && ballot.id !== previousRound) {
+            clearTimeout(ballotTimer);
+            const round = ballot.id;
+            ballotTimer = setTimeout(() => {
+              if (ballot?.id === round && !ballot.winner) {
+                resolveBallot(ballot, audience(), true);
+                broadcast();
+              }
+            }, Math.max(0, ballot.closesAt - Date.now()));
+          }
+        } else if (member?.role === 'presenter' && data?.type === 'present' && isSlide(data.slide)) {
           if (presenterSlide === data.slide) return;
           presenterSlide = data.slide;
+          ballot = null;
           openingPlaying = false;
         } else if (member?.role === 'audience' && data?.type === 'view' && (data.slide === null || isSlide(data.slide))) {
           if (member.slide === data.slide) return;
@@ -154,6 +218,7 @@ export default defineConfig(({ command }) => ({
       : ''),
   },
   plugins: [
+    localOnlyEditor(),
     layoutStorage(),
     localPresentation(),
     localQuizVotes(),

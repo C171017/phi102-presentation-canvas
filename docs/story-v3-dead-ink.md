@@ -1,5 +1,7 @@
 # PHI 102 canvas · Story draft 3: *Dead Ink* (a murder mystery across contexts)
 
+> **Superseded by [draft 4, *Until It Dries*](story-v4-until-it-dries.md)** (November 21, 2026). Kept on file for reference.
+
 **Concept draft for discussion, November 21, 2026.** This records Howie's new direction: a murder mystery in a magical world, where the investigators travel between parallel universes, one for each route × version pairing. The trivial but decisive clue is a *time*. Nothing here is final. Bracketed questions mark what we still need to decide. Draft 2 ([*Eight-ish*](story-v2-draft.md)) stays on file. Several of its pieces carry over: Cole's stream as the objector-group, the smudged hour, and Rae's silence.
 
 ## Logline
@@ -62,13 +64,7 @@ The job of Part 1 is to give the audience everything they need: the world, the s
 1. **Cold open, 8:40.** A scream. Evan is motionless on the desk. Simone, calm: "Nobody touch the card." The smeared "8:" fills the screen.
 2. **Contemporary contextualism.** Cole on stream: "Simone knows who did it." His chill chat believes it; his pedant chat demands proof. Same sentence, different claims.
 3. **Flexible foundationalism.** We first see the stones orbiting Simone, with beliefs floating above them.
-4. **The regress.** In the hallway outside Evan’s room, YYYY SOWATT gathers around the invitation. The biggest bubble asks Simone, “Why do you think he died at eight?” She holds the card up to the light. “Because of what it says here.”
-
-   “The card?” The half-lidded bubble takes over. “Why go by this card?” “Evan wrote it,” Simone says. The sharp-eyed third bubble turns its tail toward the fourth. “Evan wrote it? How can you tell?” Simone puts her fingertip beside the signature. “That little loop at the end.”
-
-   “The loop!” The fourth bubble floats closer. “What makes it his loop?” “I watched him sign last year’s invitation. Same little curl.” All four look down. The smallest bubble, the one with the red spot, finally gets its turn. “Last year’s. Did you see him sign this one?” Simone looks at the card again. “This one? I have the curl.” Another stone glimmers beneath the last.
-
-   The case plays out four ways. One detective concludes nothing. Another is still answering the bubbles at dawn. A third checks the card against the rest of the evidence and asks how well the pieces fit together. Simone takes the fourth route and lets some claims serve as starting points. [Hallway illustration](../src/assets/story/dead-ink/02-yyy-sowatt-asks-why.webp)
+4. **The regress.** The legend of YYYY SOWATT begins with an archive keeper who says someone wrote a line that night. The four Y voices question the wet ink, its drying time, and the keeper’s earlier test. SOWHAT asks how the keeper knows the ink hasn’t changed. The flashback moves through skepticism, infinitism, and coherentism before Descartes finds a starting point in the act of thinking. [Regress illustration](../public/generated/backgrounds/dead-ink/regress-problem.webp) · [Design decision](design-decisions.md#2026-11-21t193341-0800--keep-the-regress-legend)
 
 5. **The dilemma.** The Cartesian detective won't name a suspect until it's beyond *all possible* doubt, so the case stays open forever. The moderate detective stops at what she saw, but why stop *there*?
 6. **Undoubted, not undoubtable.** The stones in play: Evan wrote the card, the card says eight, Simone read it correctly, Evan is dead. Each *could* be doubted. Nobody here is doubting them.

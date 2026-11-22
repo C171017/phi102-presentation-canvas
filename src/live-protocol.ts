@@ -1,3 +1,4 @@
+import type { TheoryView } from './theory-vote';
 import { slides } from './slide-content';
 
 export const presenterKeyPattern = /^[0-9a-f]{64}$/;
@@ -10,6 +11,7 @@ export type RoomSnapshot = {
   presenterSlide: number;
   presenterOnline: boolean;
   openingPlaying?: boolean;
+  theory?: TheoryView;
   counts: number[];
   browsing: number;
 };

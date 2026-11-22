@@ -1,16 +1,21 @@
 import './opening-video.css';
 
-export function createOpeningVideo(shell: HTMLElement, source: string, continueToStory: () => void, reportPlayback: (playing: boolean) => void) {
+export function createOpeningVideo(shell: HTMLElement, source: string, continueToStory: () => void,
+  { showSkip, reportPlayback }: { showSkip: boolean; reportPlayback?: (playing: boolean) => void }) {
   const dialog = document.createElement('dialog');
   dialog.className = 'opening-video';
   dialog.setAttribute('aria-label', 'Dead Ink opening');
   dialog.innerHTML = `
     <div class="opening-screen">
       <video aria-label="Dead Ink opening video" playsinline preload="auto"></video>
+      ${showSkip ? `
+        <button type="button" class="opening-skip" data-skip aria-keyshortcuts="PageDown">
+          <kbd aria-hidden="true">PgDn</kbd> Skip intro
+        </button>` : ''}
       <footer hidden>
         <p role="status"></p>
         <button type="button" data-play>Play opening</button>
-        <button type="button" data-skip>Skip opening</button>
+        ${showSkip ? '' : '<button type="button" data-skip>Skip opening</button>'}
       </footer>
     </div>`;
   const screen = dialog.querySelector<HTMLElement>('.opening-screen')!;
@@ -26,7 +31,7 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     video.pause();
     dialog.close();
     if (document.fullscreenElement === screen) void document.exitFullscreen().catch(() => {});
-    reportPlayback(false);
+    reportPlayback?.(false);
   }
   function finish() {
     if (!dialog.open || finishing) return;
@@ -48,7 +53,7 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     });
   }
   playButton.addEventListener('click', startPlayback);
-  dialog.querySelector('[data-skip]')!.addEventListener('click', finish);
+  dialog.querySelectorAll('[data-skip]').forEach(button => button.addEventListener('click', finish));
   dialog.addEventListener('cancel', event => { event.preventDefault(); close(); });
   dialog.addEventListener('keydown', event => {
     if (event.key !== 'PageDown' || event.repeat) return;
@@ -74,7 +79,7 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     preload();
     video.currentTime = 0;
     dialog.showModal();
-    reportPlayback(true);
+    reportPlayback?.(true);
     startPlayback();
     if (!document.fullscreenElement) void screen.requestFullscreen?.().catch(() => {});
   }

@@ -25,7 +25,7 @@
   object-fit: contain;
 }
 /* Keep browser extensions' injected video controls off the presentation screen. */
-.opening-screen > :not(video, footer) { display: none; }
+.opening-screen > :not(video, footer, .opening-skip) { display: none; }
 .opening-screen.is-finishing video { visibility: hidden; }
 .opening-screen footer:not([hidden]) {
   position: absolute;
@@ -48,3 +48,32 @@
   font: 600 .875rem system-ui, sans-serif;
   cursor: pointer;
 }
+.opening-screen .opening-skip {
+  position: absolute;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 7px 13px 7px 8px;
+  border-color: #a39a83;
+  border-radius: 5px;
+  background: #151411;
+  color: #fff5df;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.opening-skip kbd {
+  padding: 3px 5px;
+  border: 1px solid #b79944;
+  border-radius: 3px;
+  color: #f4d575;
+  font: 600 .75rem ui-monospace, monospace;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.opening-skip:hover { border-color: #f4d575; }
+.opening-skip:focus-visible { outline: 2px solid #f4d575; outline-offset: 4px; }
+.opening-skip + footer:not([hidden]) { bottom: calc(max(24px, env(safe-area-inset-bottom)) + 56px); }
+.opening-screen.is-finishing .opening-skip { visibility: hidden; }

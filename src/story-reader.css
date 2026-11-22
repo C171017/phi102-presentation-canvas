@@ -1,3 +1,20 @@
+.story-reader__launch {
+  position: absolute;
+  z-index: 8;
+  inset-block-start: 14px;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  padding: 5px 12px;
+  border: 1px solid #ded9ce;
+  border-radius: 8px;
+  background: #fffefa;
+  color: #334c4c;
+  font: 600 12px/1.35 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.story-reader__launch:hover { background: #e9eeea; }
+
 .story-reader {
   --story-gutter: clamp(12px, 2.25vw, 44px);
   position: fixed;

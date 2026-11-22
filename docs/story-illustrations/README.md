@@ -1,5 +1,7 @@
 # PHI 102 story illustrations
 
+The canvas Story reader uses the [28-frame Until It Dries sequence](until-it-dries-expanded-art.md). Earlier canvas readers are archived as [Until It Dries, first edition](until-it-dries-first-reader.md) and [Dead Ink v3](dead-ink-v3-reader.md).
+
 See the [current seven-frame storyboard](current/README.md) for the sequence drawn from the Version C model sheets.
 
 Keyframes generated with built-in ImageGen using the approved Version C character designs. [Read the current story](../story-and-characters.md).
@@ -18,7 +20,9 @@ Mount the projector on the ceiling near the back of the room. From the back look
 
 Simone checks her watch and heads out with Echo and the sealed invitation.
 
-## 2. YYYY SOWATT asks why
+## Earlier frame 2. YYYY SOWATT in the hallway
+
+The current regress scene uses the [archive-keeper legend illustration](../../public/generated/backgrounds/dead-ink/regress-problem.webp). The hallway frame below records the earlier draft.
 
 ![Five single-tailed bubbles pass a question down to the smallest, beside Simone’s invitation.](../../src/assets/story/dead-ink/02-yyy-sowatt-asks-why.webp)
 
@@ -79,7 +83,7 @@ Input character identity sheets in the order attached:
 Scene: Opening keyframe at 6:41 inside a modest apartment by the front door. Wide dynamic medium shot, diagonal motion through the apartment as Simone checks the wristwatch on her left wrist and holds a cream invitation with a small red seal in her right. The lid of the tan travel carrier is ajar just enough for one small Echo to peer out, both eye stalks and purple shell visible. A warm kitchen clock on the wall provides the sense of time without carrying the focus. Late-evening cobalt begins outside the window. Play the mundane mission with the visual gravity of a thriller.
 ```
 
-### 2. YYYY SOWATT asks why
+### Earlier frame 2. YYYY SOWATT in the hallway
 
 Use Simone’s Version C identity sheet and YYYY SOWATT’s single-tail sheet. Frame Simone on the right in the amber-lit hallway, holding Evan’s invitation. On the left, five ink bubbles descend toward the card. Each tail points toward the next voice until the smallest, marked red, points at the invitation and asks its question. Simone answers with a patient half-smile. Keep the blue eight, the smear and the looping signature visible.
 
