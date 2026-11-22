@@ -1,0 +1,59 @@
+/* Size notes to the actual dialogue box, including a split presenter view
+   and the editor with the paper pane open. Its shared height comes from the shell. */
+.transcript-panel:has(> .paper-mini-slide) { container: dialogue-box / size; }
+.paper-mini-slide {
+  min-width: 0;
+  min-height: 0;
+  margin: auto 0;
+  padding: clamp(10px, 2.1cqh, 20px) clamp(16px, 2.6cqw, 54px);
+  max-height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-family: system-ui, sans-serif;
+  text-align: start;
+  color: #fff5df;
+}
+.paper-mini-slide header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .2em .9em;
+  margin-bottom: clamp(5px, 3cqh, 14px);
+  font-size: clamp(12px, 1.28cqw, 20px);
+  line-height: 1.25;
+}
+.mini-slide-section { font-weight: 650; }
+.paper-mini-slide cite { font-size: .87em; font-style: normal; color: #b4c8c9; }
+.paper-mini-slide h2 {
+  margin: 0 0 clamp(7px, 3.2cqh, 16px);
+  max-width: 32ch;
+  color: #ffe1a0;
+  font-size: clamp(18px, min(2.4cqw, 11.5cqh), 43px);
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  text-wrap: pretty;
+}
+.paper-mini-slide ul {
+  display: grid;
+  gap: .38em;
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: clamp(14px, min(1.5cqw, 7.5cqh), 26px);
+  line-height: 1.28;
+  max-width: 61ch;
+}
+.paper-mini-slide li::marker { color: #d5b574; font-size: .85em; }
+@container dialogue-box (max-width: 600px) {
+  .paper-mini-slide { padding: 8px 16px; margin: 0; }
+  .paper-mini-slide header { font-size: 12px; margin-bottom: 4px; }
+  .paper-mini-slide h2 { font-size: 17px; margin-bottom: 5px; max-width: none; }
+  .paper-mini-slide ul { font-size: 14px; gap: .15em; }
+}
+.classroom-stage, .school-pane { container-type: inline-size; }
+@container (max-width: 625px) {
+  .transcript-panel:has(> .paper-mini-slide):not([hidden]) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+  }
+}

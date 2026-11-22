@@ -6,8 +6,8 @@ export const theoryNames = {
 export type Theory = keyof typeof theoryNames;
 export const theories = Object.keys(theoryNames) as Theory[];
 export const theoryVoteWindowMs = 10_000;
-export const voteHub = 'regress-problem';
-export const theoryScene = (theory: Theory) => 'regress-' + theory;
+export const voteHub = 'L4';
+export const theoryScene = (theory: Theory) => theory === 'foundationalism' ? 'L4-quiz' : 'regress-' + theory;
 
 export type TheoryAction = {
   type: 'theory';
@@ -36,12 +36,18 @@ export function voteView(ballot: TheoryBallot, audience: string[], voter?: strin
 export function resolveBallot(ballot: TheoryBallot, audience: string[], close = false) {
   if (ballot.winner) return;
   const { counts } = voteView(ballot, audience);
-  const votes = Object.values(counts);
+  // The fourth approach is revealed by an actual choice, even if the room pauses
+  // longer than the timer used for competitive rounds.
+  if (ballot.remaining.length === 1 && ballot.remaining[0] === 'foundationalism') {
+    if (counts.foundationalism > 0) ballot.winner = 'foundationalism';
+    return;
+  }
+  const eligible = ballot.remaining.filter(choice => choice !== 'foundationalism' || ballot.remaining.length === 1);
+  const votes = eligible.map(choice => counts[choice]);
   const high = Math.max(...votes);
   const allVoted = high > 0 && votes.reduce((a, b) => a + b, 0) === audience.length;
   if (!close && !allVoted && Date.now() < ballot.closesAt) return;
-  const leaders = ballot.remaining.filter(choice => counts[choice] === high &&
-    (choice !== 'foundationalism' || ballot.remaining.length === 1));
+  const leaders = eligible.filter(choice => counts[choice] === high);
   ballot.winner = leaders[Math.floor(Math.random() * leaders.length)];
 }
 
@@ -57,7 +63,7 @@ export function applyTheoryAction(ballot: TheoryBallot | null, message: TheoryAc
     return { id: Array.from(crypto.getRandomValues(new Uint32Array(3))).join('-'), closesAt: Date.now() + theoryVoteWindowMs, remaining, eliminated: ballot?.winner ?? undefined, winner: null, ballots: {} };
   }
   if (!ballot || ballot.winner || slide !== ballotSlide(ballot)) return ballot;
-  if (Date.now() >= ballot.closesAt || (message.action === 'close' && presenter)) {
+  if ((ballot.remaining.length > 1 && Date.now() >= ballot.closesAt) || (message.action === 'close' && presenter)) {
     resolveBallot(ballot, audience, true);
     return ballot;
   }

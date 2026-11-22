@@ -1,7 +1,13 @@
+import { createPaperMiniSlide } from './paper-mini-slide';
+import { createDialogueFrame } from './dialogue-frame';
 import { createTheoryRecords } from './theory-records';
 import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
-import { regressFlashback } from './slide-content';
+import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
+import { legendById, legendSlides } from './slide-content';
+import { dialogueArtwork, establishingArtwork, hasEstablishingShot } from './ink-ocean-scenes';
+import { establishingCueOffset } from './live-protocol';
+import { createLegendQuiz } from './legend-answerers';
 import './classroom-dialogue.css';
 
 const introScenes = ['unitrans-arrival', 'before-lecture'];
@@ -11,13 +17,13 @@ const script: { scene: string; speaker: string; text: string; voice?: number; ph
   { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Ten seconds, a room full of philosophers, and somehow you’re all wrong. Well, Contemporary Contextualism it is. Read the texts.' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Anyway, long, long ago, when the chalk in this very room was still young, it has a very different name:' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', phase: 'reveal', text: 'Flexible foundationalism.' },
-  ...regressFlashback.flatMap(({ id, dialogue }) => dialogue.map(line => ({ ...line, scene: id }))),
+  ...legendSlides.filter(scene => scene.id !== 'L6').flatMap(({ id, cues }) => cues.map(line => ({ ...line, scene: id }))),
 ];
 
 const questionIndex = script.findIndex(line => line.phase === 'question');
-const answerWindowMs = 10_000;
+const answerWindowMs = openingQuizWindowMs;
 
-export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, playVideo?: () => void, showVoice?: (voice?: number) => void, shared = false) {
+export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void) {
   const stage = document.createElement('div');
   stage.className = 'classroom-stage';
   stage.hidden = true;
@@ -35,12 +41,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const panel = document.createElement('section');
   panel.className = 'transcript-panel';
   panel.setAttribute('aria-label', 'Opening dialogue');
-  const summary = document.createElement('p');
-  summary.className = 'transcript-summary';
-  const sceneTitle = document.createElement('span');
-  sceneTitle.className = 'transcript-scene-title';
-  const summaryText = document.createTextNode('');
-  summary.append(sceneTitle, summaryText);
+  const notes = createPaperMiniSlide();
   const reader = document.createElement('div');
   reader.className = 'transcript-reader';
   reader.tabIndex = 0;
@@ -81,22 +82,42 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const announcement = document.createElement('span');
   announcement.className = 'transcript-announcement';
   announcement.setAttribute('role', 'status');
-  panel.append(summary, reader);
+  panel.append(notes.element, reader);
   stage.append(character, panel, announcement);
   if (quizEnabled || tally) stage.append(choices);
-  const finalRegressCue = script.findIndex(line => line.scene === regressFlashback[1].id) - 1;
-  const theory = createTheoryRecords(stage, openScene, shared, !quizEnabled, () => {
-    if (script[active]?.scene === regressFlashback[0].id) select(finalRegressCue, false);
+  const firstCue = new Map<string, number>();
+  script.forEach((line, index) => { if (!firstCue.has(line.scene)) firstCue.set(line.scene, index); });
+  const finalAnswererCue = firstCue.get('L4')! + legendById.get('L4')!.cues.length - 1;
+  const theory = createTheoryRecords(stage, openScene, shared, presenter, () => {
+    if (script[active]?.scene === 'L4') select(finalAnswererCue, false);
   });
+  const quiz = createLegendQuiz(stage, presenter, () => onCueChange?.());
+  const meter = document.createElement('span');
+  meter.className = 'legend-meter';
+  const controls = document.createElement('nav');
+  controls.className = 'legend-paging';
+  controls.setAttribute('aria-label', 'Dialogue navigation');
+  for (const direction of [-1, 1]) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = direction < 0 ? '‹' : '›';
+    button.setAttribute('aria-label', direction < 0 ? 'Previous cue' : 'Next cue');
+    button.addEventListener('click', () => move(direction));
+    controls.append(button);
+  }
+  stage.append(meter, controls);
+  let onCueChange: (() => void) | undefined;
   shell.append(stage);
 
   const characters = stage.querySelectorAll<HTMLElement>('.classroom-character[data-speaker]');
   let introIndex = -1;
   let active = -1;
+  let establishing = false;
   let pendingLine = -1;
   let highlighted = -1;
   let scrollTimer = 0;
   let quizTimer = 0;
+  let roomQuiz: OpeningQuizSnapshot | undefined;
   let visit = 0;
   let latestRead = 0;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -104,13 +125,40 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const row = rows[index];
     return row.offsetTop + row.offsetHeight / 2 - reader.clientHeight / 2;
   }
+  const viewport = shell.querySelector<HTMLElement>('#viewport')!;
+  const artwork = createDialogueFrame(url => viewport.style.setProperty('--regress-background', `url("${url}")`));
+  function photoAt(index: number) {
+    const line = script[index];
+    const scene = line && legendById.get(line.scene);
+    if (!scene) return;
+    const cue = index - firstCue.get(scene.id)!;
+    if (hasEstablishingShot(scene, cue)) return establishingArtwork(scene, cue);
+  }
   function highlight(index: number) {
     if (highlighted === index) return;
     if (highlighted >= 0) rows[highlighted].removeAttribute('aria-current');
     highlighted = index;
     const line = script[index];
     characters.forEach(actor => actor.classList.toggle('is-speaking', actor.dataset.speaker === line?.speaker));
-    showVoice?.(line?.voice);
+    const legend = line && legendById.get(line.scene);
+    if (legend) notes.show(legend.id, legend.title);
+    if (line?.scene === 'contemporary-heading') {
+      const revealed = line.phase === 'reveal';
+      const key = revealed ? 'contemporary-reveal'
+        : index > questionIndex ? 'contemporary-result' : 'contemporary-heading';
+      notes.show(key, revealed ? 'Flexible Foundationalism' : 'Contemporary Contextualism');
+    }
+    if (legend) {
+      const cue = index - firstCue.get(line.scene)!;
+      artwork.show(dialogueArtwork(legend, cue));
+      if (cue + 1 < legend.cues.length) artwork.preload(photoAt(index + 1) ?? dialogueArtwork(legend, cue + 1));
+      const fraction = cue / Math.max(1, legend.cues.length - 1);
+      const range = legend.id === 'L3' ? [99, 58] : legend.id === 'L5b' ? [41, 35] : undefined;
+      const value = range ? Math.round(range[0] + fraction * (range[1] - range[0]))
+        : legend.id === 'regress-problem' ? 100 : legend.id === 'L2' ? 99
+        : legend.id === 'L4' ? 58 : (line.scene.startsWith('regress-') ? theory.masterMeter() : 41);
+      meter.textContent = 'Dry world remaining · ' + value + '%';
+    }
 
     rows[index]?.setAttribute('aria-current', 'true');
   }
@@ -119,20 +167,20 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       !row.hidden && Math.abs(center(index) - reader.scrollTop) < Math.abs(center(best) - reader.scrollTop) ? index : best, active);
   }
   function finishQuestion() {
-    if (active === questionIndex && !choices.hidden) select(questionIndex + 1, false);
+    if (active === questionIndex && !choices.hidden) select(questionIndex + 1, presenter);
   }
   async function submitAnswer(answer: QuizChoice) {
+    if (!quizEnabled || active !== questionIndex) return;
     if (!tally) { finishQuestion(); return; }
     const questionVisit = visit;
-    clearTimeout(quizTimer);
     answerButtons.forEach(button => { button.disabled = true; });
     try {
-      await tally.request(answer);
+      await tally.request(answer, roomQuiz?.round);
       if (visit === questionVisit) finishQuestion();
     } catch {
       if (visit !== questionVisit) return;
       answerButtons.forEach(button => { button.disabled = false; });
-      resultLabel.textContent = 'Could not reach the local tally. Choose again to retry.';
+      resultLabel.textContent = 'Vote unavailable. Choose again to retry.';
       resultLabel.hidden = false;
     }
   }
@@ -150,12 +198,13 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }
   async function refreshResults() {
     if (!tally || choices.dataset.mode !== 'results') return;
+    if (roomQuiz) { paintResults(roomQuiz.counts); return; }
     const read = ++latestRead;
     try {
       const counts = await tally.request();
       if (read === latestRead) paintResults(counts);
     } catch {
-      if (read === latestRead) resultLabel.textContent = 'Local tally unavailable';
+      if (read === latestRead) resultLabel.textContent = 'Vote tally unavailable';
     }
   }
   if (tally && import.meta.hot) {
@@ -178,20 +227,35 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       button.removeAttribute('aria-label');
     });
   }
-  function select(index: number, animate: boolean) {
+  function select(index: number, local = false, photo?: string) {
     clearQuestion();
     const line = script[index];
-    // Keep the reading and the later conversation out of the transcript until the choice resolves.
-    rows.forEach((row, i) => { row.hidden = script[i].scene !== line.scene || (index <= questionIndex && i > questionIndex); });
     clearTimeout(scrollTimer);
     active = index;
+    establishing = Boolean(photo);
+    viewport.toggleAttribute('data-establishing-shot', establishing);
+    panel.hidden = establishing;
+    meter.hidden = establishing || !legendById.has(line.scene);
+    if (photo) {
+      highlight(-1);
+      announcement.textContent = 'Full-color scene: ' + legendById.get(line.scene)!.title;
+      artwork.show(photo);
+      artwork.preload(dialogueArtwork(legendById.get(line.scene)!, index - firstCue.get(line.scene)!));
+      if (local) onCueChange?.();
+      return;
+    }
+    // Keep the reading and the later conversation out of the transcript until the choice resolves.
+    rows.forEach((row, i) => { row.hidden = script[i].scene !== line.scene || (index <= questionIndex && i > questionIndex); });
     highlight(index);
     announcement.textContent = line.speaker + '. ' + line.text;
-    if (quizEnabled && index === questionIndex) {
+    if (index === questionIndex && (quizEnabled || presenter)) {
       choices.hidden = false;
+      const remaining = roomQuiz?.closesAt ? Math.max(0, roomQuiz.closesAt - Date.now()) : answerWindowMs;
+      choices.style.setProperty('--answer-window', remaining + 'ms');
       announcement.textContent += ' Choose B or 13 within ten seconds.';
-      quizTimer = window.setTimeout(finishQuestion, answerWindowMs);
-    } else if (tally && index === questionIndex + 1) {
+      quizTimer = window.setTimeout(finishQuestion, remaining);
+    }
+    if (tally && (index === questionIndex + 1 || (presenter && index === questionIndex))) {
       choices.dataset.mode = 'results';
       choices.setAttribute('aria-label', 'Audience vote distribution');
       choices.hidden = false;
@@ -200,16 +264,21 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       resultLabel.textContent = 'Reading audience votes…';
       void refreshResults();
     }
+    if (local) onCueChange?.();
     // The question changes row heights and reveals the rest of the transcript.
     // Snap to its new geometry before processing any further scroll gestures.
-    reader.scrollTo({ top: center(index), behavior: animate && index > questionIndex && !reduced.matches ? 'smooth' : 'instant' });
+    reader.scrollTo({ top: center(index), behavior: 'instant' });
   }
-  function goToLine(index: number, animate = true) {
+  function goToLine(index: number, leavingPhoto = false) {
     if (active < 0 || theory.isOpen()) return;
     const scene = script[active].scene;
+    if (!leavingPhoto && index < active) {
+      const photo = photoAt(active);
+      if (photo) { select(active, true, photo); return; }
+    }
     if (script[index]?.scene !== scene) {
       if (index < active && theory.selectedScene() === scene) return;
-      if (index > active && theory.advance(scene)) return;
+      if (index > active && (theory.advance(scene) || (scene === 'L4-quiz' && quiz.advance()))) return;
     }
     if (!choices.hidden && active === questionIndex && index > active) {
       answerButtons[0].focus({ preventScroll: true });
@@ -217,36 +286,48 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     if (index < 0) { openScene(introScenes[introScenes.length - 1]); return; }
     if (index > active && finishIntro()) return;
-    if (index === script.length) { openScene('dilemma-heading'); return; }
+    if (index === script.length) { openScene('L6'); return; }
     if (script[index].scene !== script[active].scene) {
       pendingLine = index;
       openScene(script[index].scene);
       return;
     }
-    select(index, animate);
+    if (index > active) {
+      // Scrolling or clicking a later line still stops at the first new picture.
+      for (let next = active + 1; next <= index; next++) {
+        const photo = photoAt(next);
+        if (photo) { select(next, true, photo); return; }
+      }
+    }
+    select(index, true);
   }
-  function move(direction: number, animate = true) {
-    if (introIndex < 0) { goToLine(active + direction, animate); return; }
+  function move(direction: number) {
+    if (establishing) {
+      if (direction > 0) select(active, true);
+      else goToLine(active - 1, true);
+      return;
+    }
+    if (introIndex < 0) { goToLine(active + direction); return; }
     const next = introIndex + direction;
     const scene = next === introScenes.length ? script[0].scene : introScenes[next];
     if (scene) openScene(scene);
   }
   function handleArrow(key: string) {
     if (stage.hidden) return false;
-    if (key === 'ArrowLeft' || key === 'ArrowUp') move(-1, false);
-    else if (key === 'ArrowRight' || key === 'ArrowDown') move(1, false);
+    if (key === 'ArrowLeft' || key === 'ArrowUp') move(-1);
+    else if (key === 'ArrowRight' || key === 'ArrowDown') move(1);
     else return false;
     return true;
   }
   function finishIntro() {
     if (script[active]?.phase !== 'reveal') return false;
-    if (playVideo) playVideo();
+    if (playOpening) playOpening();
     else openScene('regress-problem');
     return true;
   }
-  function stepFlashback(direction: number) {
-    if (!regressFlashback.some(scene => scene.id === script[active]?.scene)) return false;
-    move(direction, false);
+  function stepDialogue(direction: number) {
+    if (stage.hidden) return false;
+    move(direction);
     return true;
   }
   character.addEventListener('click', () => {
@@ -272,32 +353,38 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   });
   reader.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
-    if (stage.hidden || active < 0) return;
+    if (stage.hidden || establishing || active < 0) return;
     const nearest = centeredLine();
     if (active < questionIndex && nearest === questionIndex) {
-      select(nearest, false);
+      select(nearest, true);
       return;
     }
-    if (script[nearest].scene === script[active].scene) highlight(nearest);
     scrollTimer = window.setTimeout(() => {
-      if (stage.hidden || active < 0) return;
+      if (stage.hidden || establishing || active < 0) return;
       const nearest = centeredLine();
       if (nearest !== active) goToLine(nearest);
     }, 160);
   });
   new ResizeObserver(() => {
-    if (!stage.hidden && active >= 0) reader.scrollTop = center(active);
+    if (!stage.hidden && !establishing && active >= 0) reader.scrollTop = center(active);
   }).observe(reader);
 
-  function showScene(id?: string, description = '', title = '') {
+  function showScene(id?: string) {
     theory.showScene(id);
+    quiz.showScene(id);
+    const legend = id && legendById.has(id) && id !== 'L6';
+    controls.hidden = !legend && id !== 'contemporary-heading' && !introScenes.includes(id ?? '');
+    meter.hidden = !legend;
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
-    panel.hidden = index < 0;
-    const nextLine = theory.isOpen() ? finalRegressCue : script[pendingLine]?.scene === id ? pendingLine : index;
+    const nextLine = theory.isOpen() ? finalAnswererCue : script[pendingLine]?.scene === id ? pendingLine : index;
     pendingLine = -1;
     if (index < 0) {
+      establishing = false;
+      viewport.removeAttribute('data-establishing-shot');
+      panel.hidden = true;
+      artwork.cancel();
       clearTimeout(scrollTimer);
       clearQuestion();
       active = -1;
@@ -305,9 +392,37 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       announcement.textContent = '';
       return;
     }
-    sceneTitle.textContent = title;
-    summaryText.data = description;
-    if (script[active]?.scene !== id) select(nextLine, false);
+    if (script[active]?.scene !== id) select(nextLine, false, nextLine === index && !theory.isOpen() ? photoAt(index) : undefined);
   }
-  return { theory, showScene, handleArrow, finishIntro, stepFlashback, advance: () => move(1) };
+  return {
+    theory, showScene, handleArrow, stepDialogue, advance: () => move(1),
+    updateOpeningQuiz(view?: OpeningQuizSnapshot) {
+      const previousDeadline = roomQuiz?.closesAt;
+      roomQuiz = view;
+      if (choices.dataset.mode === 'results' && view) {
+        latestRead++;
+        paintResults(view.counts);
+      }
+      if (active === questionIndex && view?.closesAt && view.closesAt !== previousDeadline) {
+        clearTimeout(quizTimer);
+        quizTimer = window.setTimeout(finishQuestion, Math.max(0, view.closesAt - Date.now()));
+      }
+    },
+    onCue(listener: () => void) { onCueChange = listener; },
+    getCue() {
+      if (quiz.isRevealed()) return 1;
+      if (active < 0) return 0;
+      return active - firstCue.get(script[active].scene)! + (establishing ? establishingCueOffset : 0);
+    },
+    setCue(cue: number) {
+      if (active < 0 || theory.isOpen()) return;
+      const scene = script[active].scene;
+      if (scene === 'L4-quiz' && cue === 1) { quiz.reveal(); return; }
+      const photoStep = cue >= establishingCueOffset;
+      const index = firstCue.get(scene)! + cue - (photoStep ? establishingCueOffset : 0);
+      if (script[index]?.scene !== scene || (index === active && photoStep === establishing)) return;
+      const photo = photoStep ? photoAt(index) : undefined;
+      if (!photoStep || photo) select(index, false, photo);
+    },
+  };
 }

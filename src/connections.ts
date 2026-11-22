@@ -151,7 +151,10 @@ const vector = ([x, y]: Point) => `${+x.toFixed(2)} ${+y.toFixed(2)}`;
 
 function straightRoute(from: Port, to: Port, gap: number) {
   const clearance = Math.min(14, gap / 4);
-  const a = portPoint(from, clearance), b = portPoint(to, clearance);
+  const a: Point = from.element.dataset?.linkOrigin === 'bottom-center'
+    ? [from.box.center[0], from.box.center[1] + from.box.half[1]]
+    : portPoint(from, clearance);
+  const b = portPoint(to, clearance);
   const dx = b[0] - a[0], dy = b[1] - a[1];
   const length = Math.hypot(dx, dy);
   const ux = dx / length, uy = dy / length;

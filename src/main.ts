@@ -8,10 +8,12 @@ import { initializeVersionPairings } from './version-pairing-cards';
 import { createConnections } from './connections';
 import { createSlideNavigation } from './slides';
 import { createPageExit } from './page-exit';
-import { regressFlashback, slides } from './slide-content';
+import { legendById, slides } from './slide-content';
+import { addLegendEntries } from './ink-ocean-entries';
 import { createClassroomDialogue } from './classroom-dialogue';
 import { createOpeningVideo } from './opening-video';
-import { createRegressVoices } from './regress-voices';
+import { createLegendSchools } from './legend-schools';
+import type { PresentationCues } from './live-protocol';
 import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
@@ -30,6 +32,7 @@ let canvasBounds = viewport.getBoundingClientRect();
 const world = document.querySelector<HTMLElement>('#world')!;
 initializeIllustrations();
 initializePaperSlides(world);
+addLegendEntries(world);
 initializeVersionPairings(world);
 const updateConnections = createConnections(world);
 const disposeRegressAnimations = initializeRegressAnimations();
@@ -47,32 +50,50 @@ const quizEnabled = liveMode ? !new URLSearchParams(location.hash.slice(1)).has(
 const openScene = (id: string) => {
   slideNavigation.open(slides.findIndex(slide => slide.members[0] === id));
 };
-const openingVideo = localDev && previewRole !== 'audience' && __LOCAL_OPENING_VIDEO__
+const role = liveMode ? (quizEnabled ? 'audience' : 'presenter') : previewRole ?? 'editor';
+const openingVideo = localDev && role !== 'audience' && __LOCAL_OPENING_VIDEO__
   ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('regress-problem'), {
-    showSkip: !readOnly,
-    reportPlayback: previewRole === 'presenter'
-      ? openingPlaying => import.meta.hot!.send('phi102:preview:opening', openingPlaying)
-      : undefined,
+    showSkip: role === 'editor',
+    reportPlayback: role === 'presenter'
+      ? playing => import.meta.hot!.send('phi102:preview:opening', playing) : undefined,
   })
   : undefined;
-const regressVoices = createRegressVoices(viewport);
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
-  localDev ? createLocalQuizVotes(previewRole === 'audience') : undefined, openingVideo?.play, regressVoices.highlight, readOnly);
+  localDev || liveMode ? createLocalQuizVotes(role === 'audience', liveMode) : undefined, readOnly, role === 'presenter', openingVideo?.play);
+const schools = createLegendSchools(backdrop, {role, onEnd: () => openScene('dilemma-heading')});
+let currentIndex = -1;
+let pendingCue: {slide: number; cue: number} | undefined;
+function cueController(index: number) {
+  const id = slides[index]?.members[0];
+  if (id === 'L6') return schools;
+  return openingDialogue;
+}
+const cues: PresentationCues = {
+  read: index => index === currentIndex ? cueController(index).getCue() : 0,
+  apply(index, cue) {
+    if (index === currentIndex) cueController(index).setCue(cue);
+    else pendingCue = {slide: index, cue};
+  },
+  subscribe(listener) {
+    openingDialogue.onCue(listener);
+    schools.onCue(listener);
+  },
+};
 const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
+  currentIndex = index;
   const slide = slides[index];
   const id = slide?.members[0];
+  const legend = id && legendById.get(id);
+  viewport.toggleAttribute('data-regress-flashback', Boolean(legend));
+  if (!legend) viewport.style.removeProperty('--regress-background');
+  openingDialogue.showScene(id);
   if (id === 'before-lecture' || id === 'contemporary-heading') openingVideo?.preload();
-  const flashback = regressFlashback.find(scene => scene.id === id);
-  if (flashback) {
-    viewport.style.setProperty('--regress-background', `url('/generated/backgrounds/dead-ink/${flashback.id}.webp')`);
-  } else {
-    viewport.style.removeProperty('--regress-background');
-  }
-  viewport.toggleAttribute('data-regress-flashback', Boolean(flashback));
-  openingDialogue.showScene(id, slide?.description, flashback?.title);
+  openingVideo?.close();
+  schools.show(id === 'L6');
+  if (pendingCue?.slide === index) cues.apply(index, pendingCue.cue);
+  pendingCue = undefined;
   paperPane?.update(index);
   reportSlide?.(index);
-  openingVideo?.close();
 });
 viewport.classList.toggle('canvas-editable', !readOnly);
 viewport.querySelector<HTMLButtonElement>('.before-lecture-scene')!.addEventListener('click', () => {
@@ -156,8 +177,7 @@ function panBy(x: number, y: number) {
 }
 function step(direction: number) {
   if (openingVideo?.isOpen()) return;
-  if (!stops.length && openingDialogue.stepFlashback(direction)) return;
-  if (direction > 0 && !stops.length && openingDialogue.finishIntro()) return;
+  if (!stops.length && (schools.step(direction) || openingDialogue.stepDialogue(direction))) return;
   if (!stops.length) { slideNavigation.step(direction); return; }
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
   goTo(stops[stopIndex], stops[stopIndex].duration);
@@ -233,10 +253,15 @@ window.addEventListener('keydown', (event) => {
   if (openingVideo?.isOpen()) return;
   const element = event.target as HTMLElement;
   if (event.defaultPrevented || element.isContentEditable || element.closest('input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
-  const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .before-lecture-scene');
+  const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .legend-schools button, .before-lecture-scene');
   if (element.closest('button') && (!navigationTarget || event.key === ' ' || event.key === 'Enter')) return;
   if (!event.isComposing && !event.shiftKey && openingDialogue.handleArrow(event.key)) {
     event.preventDefault();
+    return;
+  }
+  if (!event.shiftKey && slides[currentIndex]?.members[0] === 'L6' && /^Arrow(Left|Right|Up|Down)$/.test(event.key)) {
+    event.preventDefault();
+    step(event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1);
     return;
   }
   const distance = event.shiftKey ? 600 : 180;
@@ -474,7 +499,7 @@ resize();
 if (liveMode) {
   void layout.ready.then(() => {
     requestAnimationFrame(() => {
-      reportSlide = connectPresentation(viewport, slideNavigation.open, openingDialogue.theory);
+      reportSlide = connectPresentation(viewport, slideNavigation.open, openingDialogue.theory, schools, cues, openingDialogue.updateOpeningQuiz);
       invalidateConnections();
     });
   });
@@ -496,7 +521,7 @@ if (localDev) {
     mountPaperPane(rolePicker);
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
-        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingDialogue.theory, openingVideo);
+        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingDialogue.theory, openingVideo, schools, cues);
       });
     });
   });

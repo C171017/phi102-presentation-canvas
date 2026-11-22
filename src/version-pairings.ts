@@ -14,7 +14,7 @@ export const pairingRouteAnchors = {
   [social]: 'route-social-scene',
   [hinges]: 'route-hinges-door',
   [knowledge]: 'route-knowledge-evidence',
-  [belief]: 'route-knowledge-heading',
+  [belief]: 'route-knowledge-evidence',
 };
 
 type Pairing = {

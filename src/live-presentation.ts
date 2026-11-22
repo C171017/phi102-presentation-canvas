@@ -1,20 +1,24 @@
-import { isSlide, presenterKeyPattern, slideCount, type RoomSnapshot } from './live-protocol';
+import { isCue, isSlide, presenterKeyPattern, slideCount, type PresentationCues, type RoomSnapshot } from './live-protocol';
 import type { TheoryRecords } from './theory-records';
 import type { TheoryAction } from './theory-vote';
+import type { SchoolRoomDisplay } from './legend-schools';
+import type { SchoolVote } from './school-vote';
+import type { OpeningQuizSnapshot } from './opening-quiz';
 import './live-presentation.css';
 
 export const liveMode = import.meta.env.VITE_LIVE_PRESENTATION === '1';
 
-type SlideReport = { type: 'present' | 'view'; slide: number | null };
+type SlideReport = { type: 'present' | 'view' | 'cue'; slide: number | null; cue?: number };
 
-export function connectPresentation(viewport: HTMLElement, openSlide: (index: number) => void, theory: TheoryRecords) {
+export function connectPresentation(viewport: HTMLElement, openSlide: (index: number) => void, theory: TheoryRecords,
+  schools?: SchoolRoomDisplay, cues?: PresentationCues, onOpeningQuiz?: (view?: OpeningQuizSnapshot) => void) {
   const fragment = new URLSearchParams(location.hash.slice(1));
   const key = fragment.get('presenter');
   const presenter = key !== null;
   let socket: WebSocket | undefined;
   const client = createPresentationClient(viewport, openSlide, presenter, theory, message => {
     if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify(message));
-  });
+  }, schools, cues);
   let active = true;
   let retry: ReturnType<typeof setTimeout> | undefined;
   let heartbeat: ReturnType<typeof setInterval> | undefined;
@@ -45,6 +49,7 @@ export function connectPresentation(viewport: HTMLElement, openSlide: (index: nu
         if (state.type !== 'state' || !isSlide(state.presenterSlide) ||
             state.counts.length !== slideCount) return;
         retryDelay = 500;
+        onOpeningQuiz?.(state.openingQuiz);
         client.showState(state);
       } catch { /* Ignore invalid messages. */ }
     });
@@ -52,6 +57,7 @@ export function connectPresentation(viewport: HTMLElement, openSlide: (index: nu
       if (socket !== connection) return;
       clearInterval(heartbeat);
       socket = undefined;
+      onOpeningQuiz?.();
       client.clearState();
       rejected = [4003, 4008, 4009].includes(event.code);
       if (!active || rejected) return;
@@ -78,7 +84,9 @@ export function createPresentationClient(
   openSlide: (index: number) => void,
   presenter: boolean,
   theory: TheoryRecords,
-  send: (message: SlideReport | TheoryAction) => void,
+  send: (message: SlideReport | TheoryAction | SchoolVote) => void,
+  schools?: SchoolRoomDisplay,
+  cues?: PresentationCues,
 ) {
   theory.connect(send);
   const progress = viewport.querySelector<HTMLElement>('#slide-progress')!;
@@ -103,26 +111,45 @@ export function createPresentationClient(
   let snapshot: RoomSnapshot | undefined;
   let currentSlide: number | null = null;
   let following = true;
+  schools?.connectSchoolVotes(send, () => Boolean(snapshot?.presenterOnline && following && currentSlide === snapshot.presenterSlide));
   let navigating = false;
 
   function sendView() {
     if (!snapshot) return;
     if (presenter && currentSlide === null) return;
-    send({ type: presenter ? 'present' : 'view', slide: currentSlide });
+    const cue = presenter && currentSlide !== null ? cues?.read(currentSlide) : undefined;
+    send({ type: presenter ? 'present' : 'view', slide: currentSlide, cue });
   }
 
-  function syncSlide() {
+  function syncSlide(open: boolean) {
     if (!snapshot) return;
     navigating = true;
-    openSlide(snapshot.presenterSlide);
-    currentSlide = snapshot.presenterSlide;
-    navigating = false;
-    sendView();
+    try {
+      if (open) openSlide(snapshot.presenterSlide);
+      currentSlide = snapshot.presenterSlide;
+      if (isCue(snapshot.presenterCue)) cues?.apply(currentSlide, snapshot.presenterCue);
+    } finally {
+      navigating = false;
+    }
+    if (!presenter && open) sendView();
   }
+
+  cues?.subscribe(() => {
+    if (navigating || !snapshot || currentSlide === null) return;
+    const cue = cues.read(currentSlide);
+    if (!isCue(cue)) return;
+    if (presenter) {
+      send({ type: 'cue', slide: currentSlide, cue });
+    } else if (following && currentSlide === snapshot.presenterSlide && cue !== snapshot.presenterCue) {
+      following = false;
+      followButton.hidden = false;
+    }
+  });
 
   function showState(state: RoomSnapshot) {
     const previous = snapshot;
     snapshot = state;
+    schools?.updateSchoolCounts(state.schools);
     theory.update(state.theory, true, state.presenterOnline);
     indicators.forEach(({ button, count, number, label }, index) => {
       const viewers = state.counts[index];
@@ -132,10 +159,13 @@ export function createPresentationClient(
       button.classList.toggle('presenter-slide', onAir);
       button.setAttribute('aria-label', label + (onAir ? ', presenter here' : '') + ', ' + viewers + (viewers === 1 ? ' viewer' : ' viewers'));
     });
-    const ballotMoved = state.theory && (presenter || currentSlide === previous?.presenterSlide);
+    const ballotMoved = presenter && state.theory;
     if ((!previous && (presenter || following)) ||
         (previous && previous.presenterSlide !== state.presenterSlide && ((!presenter && following) || ballotMoved))) {
-      syncSlide();
+      syncSlide(true);
+    } else if (!presenter && following && previous && currentSlide === state.presenterSlide &&
+        state.presenterCue !== previous.presenterCue) {
+      syncSlide(false);
     } else if (!previous) {
       sendView();
     }
@@ -143,6 +173,7 @@ export function createPresentationClient(
 
   function clearState() {
     snapshot = undefined;
+    schools?.disconnectSchoolVotes();
     theory.disconnect();
     indicators.forEach(({ button, count, label }) => {
       count.hidden = true;
@@ -154,7 +185,7 @@ export function createPresentationClient(
   followButton.addEventListener('click', () => {
     following = true;
     followButton.hidden = true;
-    syncSlide();
+    syncSlide(currentSlide !== snapshot?.presenterSlide);
     viewport.focus({ preventScroll: true });
   });
   function reportSlide(index: number) {

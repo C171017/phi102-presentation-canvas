@@ -1,5 +1,8 @@
 import { DurableObject } from 'cloudflare:workers';
-import { isSlide, slideCount, presenterKeyPattern, type RoomSnapshot } from '../src/live-protocol';
+import { slides } from '../src/slide-content';
+import { newOpeningQuiz, openingQuizWindowMs, recordOpeningVote, type OpeningQuizRound } from '../src/opening-quiz';
+import { countSchools, isSchoolVote, type SchoolVote } from '../src/school-vote';
+import { firstPresentationCue, isCue, isSlide, slideCount, presenterKeyPattern, type RoomSnapshot } from '../src/live-protocol';
 
 import { applyTheoryAction, ballotSlide, resolveBallot, theoryVoteWindowMs, voteView, type TheoryAction, type TheoryBallot } from '../src/theory-vote';
 
@@ -9,7 +12,7 @@ interface Env {
   PRESENTER_KEY?: string;
 }
 
-type Member = { id?: string; presenter: boolean; slide: number | null };
+type Member = { id?: string; presenter: boolean; slide: number | null; schoolVote?: SchoolVote };
 const protocol = 'phi102';
 const connectionLimit = 500;
 const error = (message: string, status: number) => new Response(message, { status });
@@ -17,6 +20,10 @@ const error = (message: string, status: number) => new Response(message, { statu
 export default {
   fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/api/opening-quiz') {
+      if (request.method !== 'GET' && request.headers.get('Origin') !== url.origin) return error('Origin not allowed', 403);
+      return env.ROOMS.getByName('phi102').fetch(request);
+    }
     if (url.pathname === '/api/live') {
       if (request.headers.get('Origin') !== url.origin) return error('Origin not allowed', 403);
       if (request.headers.get('Upgrade')?.toLowerCase() !== 'websocket') return error('WebSocket required', 426);
@@ -29,14 +36,40 @@ export default {
 
 export class PresentationRoom extends DurableObject<Env> {
   private slide = 0;
+  private cue = 0;
   private ballot: TheoryBallot | null = null;
+  private openingQuiz = newOpeningQuiz();
 
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
     ctx.blockConcurrencyWhile(async () => {
-      const saved = await ctx.storage.get<number>('slide');
-      if (isSlide(saved)) this.slide = saved;
-      this.ballot = await ctx.storage.get<TheoryBallot>('theoryBallot') ?? null;
+      this.openingQuiz = await ctx.storage.get<OpeningQuizRound>('openingQuiz') ?? this.openingQuiz;
+      const savedId = await ctx.storage.get<string>('slideId');
+      if (savedId) {
+        const index = slides.findIndex(slide => slide.members[0] === savedId);
+        if (isSlide(index)) this.slide = index;
+        const cue = await ctx.storage.get<number>('presenterCue');
+        if (isCue(cue)) this.cue = cue;
+        this.ballot = await ctx.storage.get<TheoryBallot>('theoryBallot') ?? null;
+      } else {
+        // Older rooms stored a numeric position in the pre–Ink Ocean slide rail.
+        const previous = await ctx.storage.get<number>('slide');
+        if (previous !== undefined) {
+          const previousIds = [
+            'unitrans-arrival', 'before-lecture', 'contemporary-heading', 'flexible-heading',
+            'aim-motivations', 'aim-versions', 'aim-applications', 'regress-problem',
+            'regress-skepticism', 'regress-infinitism', 'regress-coherentism', 'regress-foundationalism',
+            'dilemma-heading', 'undoubted-heading', 'route-social-heading', 'route-hinges-heading',
+            'route-knowledge-heading', 'versions-map-heading', 'pairings-heading',
+            'pairing-social-simone', 'pairing-social-cole', 'pairing-hinges-simone', 'pairing-hinges-cole',
+            'pairing-knowledge-simone', 'pairing-knowledge-cole', 'pairing-knowledge-rae',
+            'pairing-knowledge-echo', 'pairing-belief', 'access-heading', 'home-heading', 'mobile-heading',
+          ];
+          const index = slides.findIndex(slide => slide.members[0] === previousIds[previous]);
+          if (isSlide(index)) this.slide = index;
+        }
+        await ctx.storage.put({ slideId: slides[this.slide].members[0], presenterCue: 0, theoryBallot: null });
+      }
       if (this.ballot && !this.ballot.winner && !this.ballot.closesAt) {
         this.ballot.closesAt = Date.now() + theoryVoteWindowMs;
         await Promise.all([ctx.storage.put('theoryBallot', this.ballot), ctx.storage.setAlarm(this.ballot.closesAt)]);
@@ -46,6 +79,7 @@ export class PresentationRoom extends DurableObject<Env> {
   }
 
   async fetch(request: Request) {
+    if (new URL(request.url).pathname === '/api/opening-quiz') return this.openingQuizRequest(request);
     const protocols = (request.headers.get('Sec-WebSocket-Protocol') ?? '').split(',').map(value => value.trim());
     if (protocols[0] !== protocol) return error('Unsupported protocol', 400);
     const candidate = protocols[1];
@@ -78,8 +112,14 @@ export class PresentationRoom extends DurableObject<Env> {
   async webSocketMessage(socket: WebSocket, payload: string | ArrayBuffer) {
     const member = socket.deserializeAttachment() as Member | null;
     if (!member || typeof payload !== 'string' || payload.length > 256) return;
-    let message: { type?: unknown; slide?: unknown } | null;
+    let message: { type?: unknown; slide?: unknown; cue?: unknown } | null;
     try { message = JSON.parse(payload); } catch { return; }
+    if (isSchoolVote(message) && !member.presenter) {
+      if (member.schoolVote?.voter === message.voter && member.schoolVote.school === message.school) return;
+      socket.serializeAttachment({ ...member, schoolVote: message });
+      await this.broadcast();
+      return;
+    }
     if (message?.type === 'theory') {
       const members = this.connectedMembers();
       const voters = members.filter(m => !m.presenter).map(m => m.id!);
@@ -99,15 +139,55 @@ export class PresentationRoom extends DurableObject<Env> {
     if (message?.type === 'view' && !member.presenter && (message.slide === null || isSlide(message.slide))) {
       if (member.slide === message.slide) return;
       socket.serializeAttachment({ ...member, slide: message.slide });
+    } else if (message?.type === 'cue' && member.presenter && message.slide === this.slide && isCue(message.cue)) {
+      if (message.cue === this.cue) return;
+      this.cue = message.cue;
+      await Promise.all([this.ctx.storage.put('presenterCue', this.cue), this.beginOpeningQuiz()]);
     } else if (message?.type === 'present' && member.presenter && isSlide(message.slide)) {
       if (this.slide === message.slide) return;
       this.slide = message.slide;
+      this.cue = isCue(message.cue) ? message.cue : firstPresentationCue(this.slide);
       this.ballot = null;
-      await this.ctx.storage.put({ slide: this.slide, theoryBallot: null });
+      await Promise.all([this.ctx.storage.put({ slide: this.slide, slideId: slides[this.slide].members[0],
+        presenterCue: this.cue, theoryBallot: null }), this.beginOpeningQuiz()]);
     } else {
       return;
     }
     await this.broadcast();
+  }
+
+  private async openingQuizRequest(request: Request) {
+    if (request.method === 'PUT') {
+      const voter = request.headers.get('x-quiz-voter');
+      const answer = request.headers.get('x-quiz-choice');
+      if (!voter || !/^[a-f0-9-]{36}$/.test(voter) || (answer !== 'B' && answer !== '13')) {
+        return error('Invalid quiz ballot', 400);
+      }
+      const currentRound = request.headers.get('x-quiz-round');
+      if (currentRound && currentRound !== this.openingQuiz.round) return error('Quiz round changed', 409);
+      if (this.connectedMembers().some(member => member.presenter) &&
+          (!this.isOpeningQuestion() || this.openingQuiz.closesAt <= Date.now())) {
+        return error('Voting window closed', 409);
+      }
+      if (!this.openingQuiz.ballots[voter] && Object.keys(this.openingQuiz.ballots).length >= connectionLimit) {
+        return error('Quiz is full', 429);
+      }
+      if (recordOpeningVote(this.openingQuiz, voter, answer)) {
+        await this.ctx.storage.put('openingQuiz', this.openingQuiz);
+        await this.broadcast();
+      }
+    } else if (request.method !== 'GET') return error('Method not allowed', 405);
+    return Response.json(this.openingQuiz.counts, { headers: { 'Cache-Control': 'no-store' } });
+  }
+
+  private isOpeningQuestion() {
+    return slides[this.slide]?.members[0] === 'contemporary-heading' && this.cue === 1;
+  }
+
+  private beginOpeningQuiz() {
+    if (!this.isOpeningQuestion()) return;
+    this.openingQuiz = newOpeningQuiz(Date.now() + openingQuizWindowMs);
+    return this.ctx.storage.put('openingQuiz', this.openingQuiz);
   }
 
   async alarm() {
@@ -159,12 +239,21 @@ export class PresentationRoom extends DurableObject<Env> {
     if (this.ballot) {
       const previous = this.ballot.winner;
       resolveBallot(this.ballot, voters);
-      this.slide = ballotSlide(this.ballot);
+      const destination = ballotSlide(this.ballot);
+      if (destination !== this.slide) {
+        this.slide = destination;
+        this.cue = this.ballot.winner ? firstPresentationCue(destination) : 0;
+        saveBallot = true;
+      }
       saveBallot ||= previous !== this.ballot.winner;
     }
     const theory = this.ballot ? voteView(this.ballot, voters) : undefined;
-    const state: RoomSnapshot = { type: 'state', presenterSlide: this.slide, presenterOnline, counts, browsing };
-    const save = saveBallot ? this.ctx.storage.put({ slide: this.slide, theoryBallot: this.ballot }) : undefined;
+    const state: RoomSnapshot = { type: 'state', presenterSlide: this.slide, presenterCue: this.cue, presenterOnline, counts, browsing,
+      schools: countSchools(this.connectedMembers()), openingQuiz: {
+        counts: this.openingQuiz.counts, round: this.openingQuiz.round,
+        closesAt: presenterOnline && this.isOpeningQuestion() ? this.openingQuiz.closesAt : 0,
+      } };
+    const save = saveBallot ? this.ctx.storage.put({ slide: this.slide, slideId: slides[this.slide].members[0], presenterCue: this.cue, theoryBallot: this.ballot }) : undefined;
     for (const socket of sockets) {
       const member = this.member(socket);
       if (!member) continue;

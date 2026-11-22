@@ -1,5 +1,7 @@
 # PHI 102 canvas · Story draft 4: *Until It Dries*
 
+> **Plot superseded by [draft 5, *The Ink Ocean*](story-v5-ink-ocean.md)** (November 21, 2026). The legend and world rule carry over.
+
 **Concept draft for discussion, November 21, 2026.** This replaces the party, the train and the murder from drafts 2 and 3 with a new plot. The character designs ([character bible](character-bible.md)) and YYYY SOWATT stay fixed. The world keeps one rule from the wet-ink legend: **ink dries only when nobody is asking about it.** Drafts 2 ([*Eight-ish*](story-v2-draft.md)) and 3 ([*Dead Ink*](story-v3-dead-ink.md)) stay on file. Bracketed questions mark what we still need to decide.
 
 ## Logline

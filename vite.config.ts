@@ -4,10 +4,11 @@ import { readFile, writeFile, rename, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { basename } from 'node:path';
 import { parseLayout } from './src/layout';
-import { isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
+import { firstPresentationCue, isCue, isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
 import { storyTextStorage } from './scripts/story-text-storage';
 import { applyTheoryAction, ballotSlide, resolveBallot, voteView, type TheoryBallot } from './src/theory-vote';
 import { localQuizVotes } from './scripts/local-quiz-votes';
+import { countSchools, isSchoolVote, type SchoolVote } from './src/school-vote';
 import { storyTextEndpoint } from './src/story-text';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
@@ -107,13 +108,14 @@ function localPresentation(): Plugin {
     name: 'canvas-local-presentation',
     apply: 'serve',
     configureServer(server) {
-      const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null; id: string }>();
+      const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null; id: string; schoolVote?: SchoolVote }>();
       const localSockets = new WeakSet<WebSocketClient['socket']>();
       server.ws.on('connection', (socket, request) => {
         if (isLoopback(request.socket.remoteAddress)) localSockets.add(socket);
       });
       let presenter: WebSocketClient | undefined;
       let presenterSlide: number | undefined;
+      let presenterCue = 0;
       let openingPlaying = false;
       let ballot: TheoryBallot | null = null;
       let ballotTimer: ReturnType<typeof setTimeout> | undefined;
@@ -131,12 +133,17 @@ function localPresentation(): Plugin {
         const voters = audience();
         if (ballot) {
           resolveBallot(ballot, voters);
-          presenterSlide = ballotSlide(ballot);
+          const destination = ballotSlide(ballot);
+          if (destination !== presenterSlide) {
+            presenterSlide = destination;
+            presenterCue = ballot.winner ? firstPresentationCue(destination) : 0;
+          }
         }
         const theory = ballot ? voteView(ballot, voters) : undefined;
         const state: RoomSnapshot = {
-          type: 'state', presenterSlide: presenterSlide ?? 0,
+          type: 'state', presenterSlide: presenterSlide ?? 0, presenterCue,
           presenterOnline: Boolean(presenter), openingPlaying, counts, browsing,
+          schools: countSchools(members.values()),
         };
         for (const [client, member] of members) {
           if (client.socket.readyState === 1) client.send('phi102:preview:state', {
@@ -180,6 +187,12 @@ function localPresentation(): Plugin {
       });
       server.ws.on('phi102:preview:report', (data, client) => {
         const member = members.get(client);
+        if (member?.role === 'audience' && isSchoolVote(data)) {
+          if (member.schoolVote?.voter === data.voter && member.schoolVote.school === data.school) return;
+          member.schoolVote = data;
+          broadcast();
+          return;
+        }
         if (member && data?.type === 'theory') {
           const isPresenter = client === presenter;
           const slide = isPresenter ? presenterSlide : member.slide;
@@ -196,9 +209,13 @@ function localPresentation(): Plugin {
               }
             }, Math.max(0, ballot.closesAt - Date.now()));
           }
+        } else if (member?.role === 'presenter' && data?.type === 'cue' && data.slide === presenterSlide && isCue(data.cue)) {
+          if (presenterCue === data.cue) return;
+          presenterCue = data.cue;
         } else if (member?.role === 'presenter' && data?.type === 'present' && isSlide(data.slide)) {
           if (presenterSlide === data.slide) return;
           presenterSlide = data.slide;
+          presenterCue = isCue(data.cue) ? data.cue : firstPresentationCue(presenterSlide);
           ballot = null;
           openingPlaying = false;
         } else if (member?.role === 'audience' && data?.type === 'view' && (data.slide === null || isSlide(data.slide))) {

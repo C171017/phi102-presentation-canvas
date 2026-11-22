@@ -40,7 +40,7 @@ export function mountKnowledgePipeline(host: HTMLElement) {
         <ellipse cx="726" cy="186" rx="49" ry="7" fill="#574f45" opacity=".14"/>
         <image href="/generated/foundationalism/gray-stone.webp" x="680" y="122" width="92" height="66"/>
       </g>
-      <g id="route-knowledge-evidence">
+      <g id="route-knowledge-evidence" data-link-origin="bottom-center">
         <path d="M341 107l30-20 8-3h163l9 6-32 23Z" fill="#78877b"/>
         <path d="M347 106l30-18h157l-27 18Z" fill="#687c72"/>
         <path d="M509 111l34-23 8 2v105l-8 8-34 19Z" fill="#273c36"/>

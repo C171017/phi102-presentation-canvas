@@ -1,5 +1,5 @@
-// Reader adaptation of docs/story-v4-until-it-dries.md.
-type StoryScene = {
+import { inkOceanScenes } from './ink-ocean-scenes';
+export type StoryScene = {
   id: string;
   title: string;
   summary: string;
@@ -7,7 +7,8 @@ type StoryScene = {
   illustration: { src: string; alt: string };
 };
 
-export const storyScenes: readonly StoryScene[] = [
+// These IDs are also the storage keys for edits to draft 4.
+const untilItDries: readonly StoryScene[] = [
   {
     id: 'until-it-dries-expanded-01-bridge-before',
     title: "This bridge holds",
@@ -380,3 +381,68 @@ export const storyScenes: readonly StoryScene[] = [
     },
   },
 ];
+
+const classroom = '/generated/backgrounds/dead-ink/01-giedt-classroom.webp';
+const openingScenes: StoryScene[] = [
+  {
+    id: 'ink-ocean-S0.1',
+    title: 'Unitrans arrival',
+    summary: 'S0.1 · UC Davis',
+    paragraphs: ['A student steps off the red Unitrans double-decker at UC Davis.'],
+    illustration: { src: '/generated/backgrounds/dead-ink/00-unitrans-arrival.webp', alt: 'A red double-decker arrives on campus.' },
+  },
+  {
+    id: 'ink-ocean-S0.2',
+    title: 'Before lecture',
+    summary: 'S0.2 · Giedt Hall',
+    paragraphs: ['The student takes a seat in Giedt Hall and opens their notebook.'],
+    illustration: { src: classroom, alt: 'Giedt Hall seen from a student’s seat.' },
+  },
+  {
+    id: 'ink-ocean-S0.3',
+    title: 'Contemporary Contextualism',
+    summary: 'The same sentence can express different claims in different contexts.',
+    paragraphs: [
+      'Professor Lin: Contextualism is the idea that what we mean when we say “I know” can change depending on the conversation.',
+      'Professor Lin: What do you see there?',
+      'The audience has ten seconds to vote. The same mark reads as B between A and C, or 13 between 12 and 14.',
+      'Professor Lin: Ten seconds, a room full of philosophers, and somehow you’re all wrong. Well, Contemporary Contextualism it is. Read the texts.',
+      'Professor Lin: Anyway, long, long ago, when the chalk in this very room was still young, it has a very different name:',
+    ],
+    illustration: { src: classroom, alt: 'The classroom where Professor Lin gives the B or 13 quiz.' },
+  },
+  {
+    id: 'ink-ocean-S0.4',
+    title: 'The reveal',
+    summary: 'S0.4 · Giedt Hall',
+    paragraphs: ['Professor Lin: Flexible foundationalism.', 'The existing opening video plays. When it ends, the legend begins.'],
+    illustration: { src: classroom, alt: 'Giedt Hall at the end of the classroom introduction.' },
+  },
+
+];
+
+const legendScenes: StoryScene[] = [];
+for (const scene of Object.values(inkOceanScenes)) {
+  let paragraphs: string[] = [];
+  for (const [index, cue] of scene.cues.entries()) {
+    if (index === 0 || cue.background) {
+      paragraphs = [];
+      legendScenes.push({
+        id: 'ink-ocean-' + scene.id + (cue.background ? '-continued' : ''),
+        title: scene.title,
+        summary: scene.takeaway,
+        paragraphs,
+        illustration: { src: cue.background ?? scene.background, alt: scene.title },
+      });
+    }
+    paragraphs.push(cue.speaker + ': ' + cue.text);
+  }
+  if (scene.id === 'L4') paragraphs.push('The four options appear together. Foundationalism slips away whenever the cursor approaches. Choose Skepticism, Infinitism, and Coherentism in any order. After all three visits, Foundationalism stays still so the audience can choose it last.');
+  if (scene.id === 'L4-quiz') paragraphs.push('Audience check: Skepticism, Infinitism, Coherentism, or Foundationalism? The answer is Foundationalism.');
+  if (scene.id === 'L6') paragraphs.push('The presenter shows both schools side by side. Each audience member follows their chosen school. Both viewpoints follow in this reader.');
+}
+
+export const storyVersions = [
+  { title: 'The Ink Ocean', scenes: [...openingScenes, ...legendScenes] },
+  { title: 'Until It Dries', scenes: untilItDries },
+] as const;

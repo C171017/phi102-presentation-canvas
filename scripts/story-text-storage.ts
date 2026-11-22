@@ -2,10 +2,10 @@ import { randomUUID } from 'node:crypto';
 import { readFile, rename, writeFile } from 'node:fs/promises';
 import type { Plugin } from 'vite';
 import { isStoryText, storyTextEndpoint, type StoryEdits } from '../src/story-text';
-import { storyScenes } from '../src/story-scenes';
+import { storyVersions } from '../src/story-scenes';
 
 export function storyTextStorage(file: string): Plugin {
-  const sceneIds = new Set(storyScenes.map(scene => scene.id));
+  const sceneIds = new Set(storyVersions.flatMap(version => version.scenes.map(scene => scene.id)));
   let writes = Promise.resolve();
 
   async function readEdits(): Promise<StoryEdits> {

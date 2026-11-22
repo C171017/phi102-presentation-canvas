@@ -1,0 +1,68 @@
+{
+  "L1-01-guardian": {
+    "Narrator": "L1-01-guardian-focus-0.webp",
+    "Villager": "L1-01-guardian-focus-1.webp",
+    "Woman": "L1-01-guardian-focus-2.webp",
+    "Baby": "L1-01-guardian-focus-3.webp",
+    "Guardian": "L1-01-guardian-focus-4.webp"
+  },
+  "L1-02-first-questions": {
+    "Narrator": "L1-02-first-questions-focus-0.webp"
+  },
+  "L3-01-whypocalypse": {
+    "Narrator": "L3-01-whypocalypse-focus-0.webp"
+  },
+  "L4-00-answerers": {
+    "Narrator": "L4-00-answerers-focus-0.webp"
+  },
+  "L4-01-pyrrho": {
+    "Narrator": "L4-01-pyrrho-focus-0.webp",
+    "Pyrrho": "L4-01-pyrrho-focus-1.webp",
+    "Y": "L4-01-pyrrho-focus-2.webp"
+  },
+  "L4-02-peirce": {
+    "Narrator": "L4-02-peirce-focus-0.webp",
+    "Peirce": "L4-02-peirce-focus-1.webp",
+    "Y": "L4-02-peirce-focus-2.webp"
+  },
+  "L4-03-neurath": {
+    "Narrator": "L4-03-neurath-focus-0.webp",
+    "Neurath": "L4-03-neurath-focus-1.webp",
+    "Y": "L4-03-neurath-focus-2.webp"
+  },
+  "L5-01-descartes": {
+    "Narrator": "L5-01-descartes-focus-0.webp",
+    "Descartes": "L5-01-descartes-focus-1.webp",
+    "Y": "L5-01-descartes-focus-2.webp"
+  },
+  "L5b-01-one-grain-one-ocean": {
+    "Narrator": "L5b-01-one-grain-one-ocean-focus-0.webp"
+  },
+  "L6-00-choice": {
+    "Narrator": "L6-00-choice-focus-0.webp",
+    "Sect disciple": "L6-00-choice-focus-1.webp",
+    "Fleet lookout": "L6-00-choice-focus-2.webp"
+  },
+  "L6-A1-tower": {
+    "Narrator": "L6-A1-tower-focus-0.webp",
+    "New disciple": "L6-A1-tower-focus-1.webp",
+    "Disciple": "L6-A1-tower-focus-1.webp",
+    "Sect examiner": "L6-A1-tower-focus-2.webp"
+  },
+  "L6-B1-fleet": {
+    "Narrator": "L6-B1-fleet-focus-0.webp",
+    "Fleet examiner": "L6-B1-fleet-focus-1.webp",
+    "New lookout": "L6-B1-fleet-focus-2.webp",
+    "Lookout": "L6-B1-fleet-focus-2.webp"
+  },
+  "L6-A2-challenge": {
+    "Narrator": "L6-A2-challenge-focus-0.webp",
+    "Disciple, from a rowboat": "L6-A2-challenge-focus-1.webp",
+    "Fleet lookout, across the water": "L6-A2-challenge-focus-2.webp"
+  },
+  "L6-B2-challenge": {
+    "Narrator": "L6-B2-challenge-focus-0.webp",
+    "Fleet lookout": "L6-B2-challenge-focus-1.webp",
+    "Heckler, from a rowboat": "L6-B2-challenge-focus-2.webp"
+  }
+}

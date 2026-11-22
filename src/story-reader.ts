@@ -1,4 +1,4 @@
-import { storyScenes } from './story-scenes';
+import { storyVersions, type StoryScene } from './story-scenes';
 import { isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
 import './story-reader.css';
 
@@ -14,9 +14,10 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   const reader = document.createElement('dialog');
   reader.id = 'story-reader';
   reader.className = 'story-reader';
-  reader.setAttribute('aria-label', 'Until It Dries');
+  reader.setAttribute('aria-label', storyVersions[0].title);
   reader.innerHTML = `
     <header class="story-reader__toolbar">
+      <select class="story-reader__version" aria-label="Story version"></select>
       <nav aria-label="Story scenes">
         <button type="button" data-previous aria-label="Previous scene">‹</button>
         <span class="story-reader__position" aria-hidden="true"></span>
@@ -54,6 +55,10 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   shell.append(reader);
 
   const scene = reader.querySelector<HTMLElement>('.story-reader__scene')!;
+  const versionSelect = reader.querySelector<HTMLSelectElement>('.story-reader__version')!;
+  for (const [value, version] of storyVersions.entries()) {
+    versionSelect.add(new Option(version.title, String(value)));
+  }
   const frame = reader.querySelector<HTMLElement>('.story-reader__frame')!;
   const placeholder = reader.querySelector<HTMLElement>('.story-reader__placeholder')!;
   const image = reader.querySelector<HTMLImageElement>('img')!;
@@ -73,12 +78,14 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   const save = form.querySelector<HTMLButtonElement>('[data-save]')!;
   const cancel = form.querySelector<HTMLButtonElement>('[data-cancel]')!;
   edit.hidden = !editable;
+  let storyScenes: readonly StoryScene[] = storyVersions[0].scenes;
   let index = 0;
   let edits: StoryEdits = {};
   let loadSequence = 0;
 
   function updateControls() {
     const editing = !form.hidden;
+    versionSelect.disabled = editing;
     previous.setAttribute('aria-disabled', String(editing || index === 0));
     next.setAttribute('aria-disabled', String(editing || index === storyScenes.length - 1));
     close.disabled = editing;
@@ -122,6 +129,15 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
     index = nextIndex;
     showScene(true);
   }
+
+  versionSelect.addEventListener('change', () => {
+    const version = storyVersions[versionSelect.selectedIndex];
+    if (!version || !form.hidden) return;
+    storyScenes = version.scenes;
+    index = 0;
+    reader.setAttribute('aria-label', version.title);
+    showScene(true);
+  });
 
   opener.addEventListener('click', async () => {
     reader.showModal();
@@ -207,7 +223,7 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   });
   reader.addEventListener('keydown', event => {
     event.stopPropagation();
-    if (!form.hidden) return;
+    if (!form.hidden || event.target === versionSelect) return;
     if (event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();

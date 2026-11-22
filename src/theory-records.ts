@@ -2,6 +2,7 @@ import { slides } from './slide-content';
 import { applyTheoryAction, theories, theoryNames, theoryScene, voteHub, voteView,
   type Theory, type TheoryAction, type TheoryBallot, type TheoryView } from './theory-vote';
 import './theory-records.css';
+import './legend-answerers.css';
 
 export function createTheoryRecords(stage: HTMLElement, openScene: (scene: string) => void, shared: boolean, presenter: boolean, onOpen: () => void) {
   const panel = document.createElement('section');
@@ -9,17 +10,10 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
   panel.hidden = true;
   panel.setAttribute('aria-label', 'Audience vote');
   const title = document.createElement('h2');
-  title.textContent = 'Which theory goes next?';
+  title.textContent = 'Which Answerer goes next?';
   const records = document.createElement('div');
   records.className = 'record-quiz theory-records';
   records.dataset.mode = 'theories';
-  const verdict = document.createElement('p');
-  verdict.className = 'theory-verdict';
-  const objections: Partial<Record<Theory, string>> = {
-    skepticism: 'Suspending judgment leaves the keeper without a verdict about the ink.',
-    infinitism: 'The keeper can offer another reason, but the creature can always ask why.',
-    coherentism: 'Two stories about the ink could each fit together. Which one should the keeper believe?',
-  };
   const status = document.createElement('p');
   status.setAttribute('role', 'status');
   const close = document.createElement('button');
@@ -27,7 +21,7 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
   close.className = 'close-ballot';
   close.textContent = 'Use current votes';
   close.addEventListener('click', () => act('close'));
-  panel.append(title, records, status, close, verdict);
+  panel.append(title, records, status, close);
   stage.append(panel);
 
   let scene: string | undefined;
@@ -46,7 +40,7 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
     solo = applyTheoryAction(solo, message, index, true, 'solo', []);
     if (!solo) return;
     window.clearTimeout(soloTimer);
-    if (!solo.winner) {
+    if (!solo.winner && solo.remaining.length > 1) {
       const round = solo.id;
       soloTimer = window.setTimeout(() => {
         if (solo?.id === round && scene === voteHub) act('close');
@@ -71,11 +65,12 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
       button.style.order = String(order.indexOf(button.dataset.theory as Theory));
       button.getAnimations().forEach(animation => animation.cancel());
     });
+    if (reduced.matches) return;
     pair.forEach((button, i) => {
       const after = button.getBoundingClientRect();
-      const from = reduced.matches ? 'none' : 'translate(' + (before[i].x - after.x) + 'px,' + (before[i].y - after.y) + 'px)';
+      const from = 'translate(' + (before[i].x - after.x) + 'px,' + (before[i].y - after.y) + 'px)';
       button.animate([{ transform: from, opacity: 1 }, { opacity: i === 0 ? 0 : 1, offset: .5 },
-        { transform: 'none', opacity: 1 }], { duration: reduced.matches ? 90 : 330, easing: 'ease-out' });
+        { transform: 'none', opacity: 1 }], { duration: 330, easing: 'ease-out' });
     });
   }
   for (const choice of theories) {
@@ -85,11 +80,15 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
     const label = document.createElement('span');
     label.textContent = theoryNames[choice];
     button.append(label);
-    if (choice === 'foundationalism') button.addEventListener('pointermove', () => {
-      if (!button.disabled && state && state.remaining.length > 1) dodge();
-    });
+    const locked = () => choice === 'foundationalism' && order.length > 1;
+    if (choice === 'foundationalism') {
+      button.addEventListener('pointermove', event => {
+        // On touch, keep this target under the finger until its click rejects the vote.
+        if (event.pointerType !== 'touch' && !event.buttons && !button.disabled && locked()) dodge();
+      });
+    }
     button.addEventListener('click', () => {
-      if (choice === 'foundationalism' && order.length > 1) { dodge(); return; }
+      if (locked()) { dodge(); return; }
       if (!button.getAnimations().some(animation => animation.playState === 'running')) act('vote', choice);
     });
     buttons.set(choice, button);
@@ -104,16 +103,14 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
     for (const [choice, button] of buttons) {
       button.hidden = !order.includes(choice);
       button.style.order = String(order.indexOf(choice));
-      const locked = choice === 'foundationalism' && order.length > 1;
       button.disabled = !online || (presenter && state.voters > 0 && shared);
-      button.tabIndex = locked ? -1 : 0;
+      const locked = choice === 'foundationalism' && order.length > 1;
+      button.tabIndex = locked || button.disabled ? -1 : 0;
       button.setAttribute('aria-disabled', String(locked || button.disabled));
       button.setAttribute('aria-pressed', String(state.mine === choice));
       button.style.setProperty('--share', (total ? 100 * state.counts[choice] / total : 0) + '%');
     }
     title.textContent = order.length === 1 ? 'One theory left' : 'Which theory goes next?';
-    verdict.hidden = !state.eliminated;
-    verdict.textContent = state.eliminated ? theoryNames[state.eliminated] + ' is out. ' + objections[state.eliminated] : '';
     close.hidden = !shared || !presenter || !total || !online;
     status.textContent = !online ? 'Reconnecting…' : shared && state.voters > 0
       ? (state.mine ? 'Your vote: ' + theoryNames[state.mine] + ' · ' : '') + total + ' of ' + state.voters + ' voted'
@@ -135,13 +132,15 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
     disconnect() { online = false; render(); },
     showScene(id?: string) {
       scene = id;
-      if (!shared && solo && id !== voteHub && id !== (solo.winner && theoryScene(solo.winner))) {
+      if (!shared && solo && id !== (solo.winner ? theoryScene(solo.winner) : voteHub)) {
         solo = null;
+        window.clearTimeout(soloTimer);
         update(undefined, true);
       }
       render();
     },
     isOpen: () => !panel.hidden,
+    masterMeter() { return state?.remaining.length === 4 ? 52 : state?.remaining.length === 3 ? 47 : 41; },
     selectedScene: () => state?.winner && theoryScene(state.winner),
     advance(id: string) {
       if (id === voteHub || (state?.winner && state.winner !== 'foundationalism' && theoryScene(state.winner) === id)) {
