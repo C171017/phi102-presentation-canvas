@@ -207,6 +207,7 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     if (width !== measuredWidth) {
       measuredWidth = width;
       layer.style.setProperty('--note-width', `${width}px`);
+      shell.style.setProperty('--paper-note-gutter', `${width + LINK_ROOM}px`);
       heights = boxes.map(box => box.offsetHeight);
     }
 

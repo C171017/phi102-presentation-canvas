@@ -57,3 +57,14 @@
     grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
   }
 }
+/* The editor's margin annotations extend beyond the paper itself. */
+@media (min-width: 1150px) {
+  #presentation-shell:has(#paper-pane.has-paper-notes:not(.is-collapsed)) :is(.classroom-stage, .legend-schools) {
+    right: calc(var(--visible-paper-width) + var(--paper-note-gutter, 0px) + 14px);
+  }
+}
+@media (max-width: 1149px) {
+  #presentation-shell:has(:is(.classroom-stage,.legend-schools):not([hidden])) .paper-notes {
+    clip-path: inset(0 0 calc(var(--transcript-height) + 2vh) 0);
+  }
+}
