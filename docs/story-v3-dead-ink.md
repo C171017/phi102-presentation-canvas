@@ -62,7 +62,14 @@ The job of Part 1 is to give the audience everything they need: the world, the s
 1. **Cold open, 8:40.** A scream. Evan is motionless on the desk. Simone, calm: "Nobody touch the card." The smeared "8:" fills the screen.
 2. **Contemporary contextualism.** Cole on stream: "Simone knows who did it." His chill chat believes it; his pedant chat demands proof. Same sentence, different claims.
 3. **Flexible foundationalism.** We first see the stones orbiting Simone, with beliefs floating above them.
-4. **The regress.** Milo interrogates the detective: "Why do you think he died at eight?" "The card says eight." "Why believe the card?" … Each answer needs another stone beneath it. The four exits play out as noir cutaways: a detective who concludes nothing (scepticism), one still answering at dawn (infinitism), one who cites the card because the card is reliable (coherentism), and one who stops at stones (foundationalism).
+4. **The regress.** In the hallway outside Evan’s room, YYYY SOWATT gathers around the invitation. The biggest bubble asks Simone, “Why do you think he died at eight?” She holds the card up to the light. “Because of what it says here.”
+
+   “The card?” The half-lidded bubble takes over. “Why go by this card?” “Evan wrote it,” Simone says. The sharp-eyed third bubble turns its tail toward the fourth. “Evan wrote it? How can you tell?” Simone puts her fingertip beside the signature. “That little loop at the end.”
+
+   “The loop!” The fourth bubble floats closer. “What makes it his loop?” “I watched him sign last year’s invitation. Same little curl.” All four look down. The smallest bubble, the one with the red spot, finally gets its turn. “Last year’s. Did you see him sign this one?” Simone looks at the card again. “This one? I have the curl.” Another stone glimmers beneath the last.
+
+   The case plays out four ways. One detective concludes nothing. Another is still answering the bubbles at dawn. A third checks the card against the rest of the evidence and asks how well the pieces fit together. Simone takes the fourth route and lets some claims serve as starting points. [Hallway illustration](../src/assets/story/dead-ink/02-yyy-sowatt-asks-why.webp)
+
 5. **The dilemma.** The Cartesian detective won't name a suspect until it's beyond *all possible* doubt, so the case stays open forever. The moderate detective stops at what she saw, but why stop *there*?
 6. **Undoubted, not undoubtable.** The stones in play: Evan wrote the card, the card says eight, Simone read it correctly, Evan is dead. Each *could* be doubted. Nobody here is doubting them.
 7. **The three routes.** Each way of making stones gets a quick demonstration on the platform: social (Cole's chat), hinges (asking a question conjures stones), knowledge (Simone sees the departure board). **Belief at the base** is a short gag.

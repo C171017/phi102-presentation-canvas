@@ -224,11 +224,11 @@ Echo stays motionless for long stretches. His eye stalks swivel slowly. [Claw: "
 
 He is the Courteous Scribe: gracious, unhurried and a little ceremonious. He bows before he writes and holds the bow a beat too long. At 8:00 he is caught mid-bow, politely flustered: "You're early" comes with a courteous tilt, not a joke at Simone's expense. At 8:30 he is a pleased host and writes a fresh, legible 8:30. He is never menacing or sly.
 
-## YYY Sowatt — the regress problem
+## YYYY SOWATT — the regress problem
 
 **Default pose.** Before a view is selected, the five voices hover in a loose huddle. The smallest, red-marked voice looks up and draws breath for one more question. [Default full-body sprite](character-references/quibble-a3-default.png)
 
-YYY Sowatt’s selected A3 design is a chorus of five ink bubbles. Each bubble has exactly one pointed speech-bubble tail in every pose and every frame, including the tiny voices receding into the infinitist spiral. Keep each tail attached to its own body as it turns toward the next speaker. Leave a sliver of space at the tip so its direction stays legible. Several speakers can point to the same neighbor. In the foundationalist pose, the red-marked speaker’s tail touches the stone. [Four-pose character reference](character-references/quibble-a3-single-tail.png)
+YYYY SOWATT’s selected A3 design is a chorus of five ink bubbles. Four are named Y. The smallest, marked with a red dot, is SOWHAT. In the ChatGPT Page transcript the four Y voices are labeled Y1, Y2, Y3, and Y4. On the canvas they are each named Y. Each bubble has exactly one pointed speech-bubble tail in every pose and every frame, including the tiny voices receding into the infinitist spiral. Keep each tail attached to its own body as it turns toward the next speaker. Leave a sliver of space at the tip so its direction stays legible. Several speakers can point to the same neighbor. In the foundationalist pose, the red-marked speaker’s tail touches the stone. [Four-pose character reference](character-references/quibble-a3-single-tail.png)
 
 ## NPCs
 
@@ -256,7 +256,7 @@ Acting states for the main beats of [story draft 2](story-v2-draft.md). Use the 
 | --- | --- | --- | --- | --- |
 | Cold open, 7:59: she doesn't knock | Stillness. Knuckles hovering, a small breath, hand lowering. Decided, not afraid. | Holding his breath, phone raised, eyes huge | — | Watching the door, claw tucked |
 | 6:41, leaving the apartment | Focused and brisk. A practised check of her watch, a quick glance at Echo (level 1). | Meets her outside already live. Hype grin. | — | Peering out, unbothered |
-| Milo asks "why?" | Polite patience. A small, kind half-smile as she half-crouches, edging toward the door. | Delighted. Filming Milo. | — | Watching Milo, flat |
+| YYYY SOWATT asks “why?” | Simone follows the question down the five bubbles with her eyes. She lowers the card for the red-marked one, with a small, patient half-smile. | Delighted. If present, follows the handoff with his phone. | — | If present, watches the smallest bubble, flat. |
 | Cartesian daydream | An exaggerated, comically intense version of herself, *clearly marked as a daydream* (different lighting). Back in reality: composed again. | — | — | Unmoved |
 | The platform: the chat as objector-group | Patient, a little amused as strangers debate her invitation | Glances at the chat before each claim. Loose grin while the chill chat 👍s; snaps into "for the record" mode when @platform3purists flood in; wide-eyed surprise at the 🔮 raid | — | Claw rises when a stone settles; stays tucked for the raid |
 | Finding the 7:12 | Relief held in check as she finds the board: a breath out, shoulders down. | Streaming the board | — | Claw tucked |

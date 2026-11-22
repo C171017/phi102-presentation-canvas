@@ -79,7 +79,7 @@ Use the current references below for the opening, story scenes, and canvas illus
 
 | NPC group | Where | Job |
 | --- | --- | --- |
-| **Milo, age 4**, a neighbour's kid | Apartment hallway | Keeps asking "Why?" (Greco's toddler). Opens the regress problem. |
+| **YYYY SOWATT**, a chorus of five ink bubbles | Apartment hallway | Each voice takes the reason Simone just gave and asks what supports it. The smallest, red-marked bubble gets the last word. |
 | **Evan's group chat** | Cole's phone | Easygoing objector-group. "Evan wrote 8 👍" passes with no objection. |
 | **The Timetable Society**, three trainspotters in matching anoraks | Platform | Strict objector-group. Demands a source for everything, so different claims count as foundations. |
 | **The Retrograde Car**, passengers sure Mercury retrograde delays trains | Train car 3 | Greco's astrology worry. A whole community can take a claim for granted wrongly. Also usable for the 1 + 1 = 3 consensus scene. |
@@ -104,7 +104,7 @@ Clip numbers refer to short Higgsfeld clips. **Q** marks a live quiz.
 | 1 | Contemporary Contextualism | Cole, to the group chat: "Simone knows it starts at eight." Then the same line to the sceptical stream chat. Same sentence, different claims. |
 | 2 | Flexible Foundationalism | Separate supports show what Simone takes for granted tonight. |
 | 3–5 | Roadmap | The three legs: apartment → train → Evan's door. |
-| 6 | The Regress Problem | Milo: "Why do you think it's at eight?" "Evan wrote it." "Why believe Evan?" … The four exits: stay home (scepticism), answer forever and miss the train (infinitism), "Evan's reliable because Evan says so" (coherentism), stop somewhere (foundationalism). **Q1** |
+| 6 | The Regress Problem | YYYY SOWATT’s five voices pass the question down: why eight, why go by the card, how does Simone know Evan wrote it, why recognize his loop, and did she see him sign this invitation? The four exits: stay home (scepticism), answer forever and miss the train (infinitism), "Evan's reliable because Evan says so" (coherentism), stop somewhere (foundationalism). **Q1** |
 | 7 | The Foundationalist's Dilemma | Cartesian Simone won't leave until the time is beyond all possible doubt, so she never leaves. Moderate Simone trusts what she saw on the invite, but why stop *there*? |
 | 8 | Undoubted, Not Undoubtable | The engaged supports represent premises nobody here is doubting: the invite is genuine, Evan wrote eight, Simone read the full hour, it's tonight. Each *could* be doubted. Echo clacks. |
 | 9 | Route 1: Social Activity | On the platform, the group chat lets "Evan wrote 8" pass; the Timetable Society objects. Worry: the Retrograde Car takes its horoscope for granted, so consensus can be wrong. |

@@ -132,6 +132,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     resizer.setAttribute('aria-valuemin', String(minWidth()));
     resizer.setAttribute('aria-valuemax', String(Math.round(maxWidth())));
     const paneBounds = pane.getBoundingClientRect();
+    shell.style.setProperty('--visible-paper-width', `${paneBounds.width}px`);
     resizer.setAttribute('aria-valuenow', String(Math.round(paneBounds.width)));
     if (!rolePicker) return;
     const pickerBounds = rolePicker.getBoundingClientRect();
@@ -256,7 +257,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     // A slide without its own anchor continues from the previous slide's passage.
     let previous: Anchor = { page: 0, y: 0 };
     slideAnchors = slides.map(slide => {
-      const id = 'paperAnchor' in slide ? slide.paperAnchor : slide.members[0];
+      const id = ('paperAnchor' in slide ? slide.paperAnchor : undefined) ?? slide.members[0];
       const anchor = loaded.anchors[id];
       if (!anchor) console.warn(`No paper passage is mapped for "${id}". Add it to scripts/paper-anchors.json.`);
       if (anchor && anchor.page < visiblePages.length) previous = anchor;

@@ -7,7 +7,7 @@ type Cutout = [atlasX: number, atlasY: number, x: number, y: number, width: numb
 type Pose = { description: string; frame: string; voices: Cutout[]; stone?: Cutout };
 const posesByView = {
   skepticism: {
-    description: 'YYY Sowatt passes a question down the chain. The last voice peers into empty space and the others draw back.',
+    description: 'YYYY SOWATT passes a question down the chain. The last voice peers into empty space and the others draw back.',
     frame: '72 10 600 540',
     voices: [
       [2, 2, 99, 28, 143, 155], [149, 2, 238, 135, 118, 123],
@@ -16,7 +16,7 @@ const posesByView = {
     ],
   },
   coherentism: {
-    description: 'YYY Sowatt’s five voices lean toward their neighbors, passing the question across a web of mutual support.',
+    description: 'YYYY SOWATT’s five voices lean toward their neighbors, passing the question across a web of mutual support.',
     frame: '803 23 555 457',
     voices: [
       [597, 2, 830, 60, 178, 194], [779, 2, 992, 164, 177, 161],
@@ -25,7 +25,7 @@ const posesByView = {
     ],
   },
   infinitism: {
-    description: 'YYY Sowatt hands each question to a smaller voice. The procession spirals inward for as long as you hover.',
+    description: 'YYYY SOWATT hands each question to a smaller voice. The procession spirals inward for as long as you hover.',
     frame: '64 552 580 502',
     voices: [
       [518, 200, 86, 576, 250, 220], [772, 200, 331, 626, 143, 143],
@@ -34,7 +34,7 @@ const posesByView = {
     ],
   },
   foundationalism: {
-    description: 'YYY Sowatt’s smallest voice settles on the foundation stone. Each voice above it comes to rest in turn.',
+    description: 'SOWHAT, the smallest voice of YYYY SOWATT, settles on the foundation stone. Each voice above it comes to rest in turn.',
     frame: '907 541 334 552',
     voices: [
       [587, 424, 1027, 582, 112, 120], [703, 424, 1036, 689, 91, 97],

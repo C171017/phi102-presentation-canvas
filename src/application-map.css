@@ -51,10 +51,7 @@
 .application-relation text { fill: #20594f; font: italic 29px Georgia, serif; }
 
 /* The overview shows the whole argument. A focused stop keeps both ends of its
-   inference visible, with the paper texture beneath the models. */
-#viewport:has(:is(#aim-applications, #access-heading, #home-heading, #mobile-heading).page-foreground) > .page-background {
-  opacity: 0; visibility: hidden;
-}
+   inference visible. */
 #viewport:has(#access-heading.page-foreground) :is(#home-heading, #home-weather, #mobile-heading, #mobile-scene, [data-relation="fixes"], [data-relation="shifts"]),
 #viewport:has(#home-heading.page-foreground) :is(#access-heading, #access-doubt, #mobile-heading, #mobile-scene, [data-relation="guarantees"], [data-relation="shifts"]),
 #viewport:has(#mobile-heading.page-foreground) :is(#access-heading, #access-principle, #access-doubt, [data-relation="fixes"], [data-relation="guarantees"]),

@@ -7,8 +7,121 @@
 }
 * { box-sizing: border-box; }
 html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+#presentation-shell {
+  position: fixed;
+  inset: 0;
+  --canvas-paper: #f9eedf;
+  --slide-progress-max-height: 560px;
+  background-color: var(--canvas-paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cfilter id='grain' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72 .48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .09 0 0 0 .25 -.055'/%3E%3C/filter%3E%3Cpath d='M0 0h192v192H0z' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-size: 192px 192px;
+}
 #viewport {
   position: fixed; inset: 0; overflow: clip; outline: none; touch-action: none;
+}
+/* The rendered camera marks slide members as foreground once it reaches them. */
+#viewport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: #273135 url('/generated/backgrounds/dead-ink/01-giedt-classroom.webp') center / cover no-repeat;
+  filter: brightness(.78);
+  opacity: 0;
+}
+#viewport:has(:is(#before-lecture, #contemporary-heading).page-foreground)::before {
+  opacity: 1;
+}
+#viewport[data-regress-flashback]::before {
+  background: #e5c59d var(--regress-background) center bottom / cover no-repeat;
+  filter: none;
+  opacity: 1;
+}
+@media (min-aspect-ratio: 3/2) and (max-aspect-ratio: 2/1) {
+  #viewport[data-regress-flashback]::before { background-size: 100% 100%; }
+}
+@media (max-aspect-ratio: 1/1) {
+  #viewport[data-regress-flashback]::before {
+    background-size: contain;
+    background-position: center 40%;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #presentation-shell:not(.previewing-page-exit) #viewport.from-canvas::before {
+    transition: opacity 160ms ease-out;
+  }
+}
+/* Keep the arrival slide's framing anchor measurable offstage. */
+#unitrans-arrival { left: -1570px; top: 1340px; visibility: hidden; }
+#before-lecture { left: -1260px; top: 1040px; visibility: hidden; }
+.before-lecture-scene {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+#viewport:has(#before-lecture.page-foreground) .before-lecture-scene { display: block; }
+.arrival-scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: end;
+  padding: clamp(24px, 5vmin, 68px) clamp(48px, 5vw, 80px);
+  background: linear-gradient(20deg, rgb(21 23 30 / .86), transparent 48%),
+    #34312d url('/generated/backgrounds/dead-ink/00-unitrans-arrival.webp') center / cover no-repeat;
+  color: #fff2d8;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+#viewport:has(#unitrans-arrival.page-foreground) .arrival-scene {
+  visibility: visible;
+  opacity: 1;
+}
+#viewport:has(:is(#unitrans-arrival, #before-lecture).page-foreground) #world,
+#viewport[data-regress-flashback] #world {
+  visibility: hidden;
+  opacity: 0;
+}
+/* Crossfade the two fully framed pages in a single composited transition. */
+::view-transition-group(root) { animation-duration: 240ms; }
+/* Keep other canvas objects measurable while the classroom scene is focused. */
+#viewport:has(#contemporary-heading.page-foreground) #world > :not(.page-foreground) {
+  visibility: hidden;
+  opacity: 0;
+}
+/* Move the screen-space artwork with the same camera as the canvas objects. */
+.previewing-page-exit #viewport::before,
+.previewing-page-exit .arrival-scene,
+.previewing-page-exit .classroom-stage {
+  transform: var(--page-transform);
+  border-radius: min(72px, 8vmin, calc(160px * var(--canvas-opacity)));
+}
+.previewing-page-exit .classroom-stage {
+  transform-origin: 50vw 50%;
+  opacity: var(--page-opacity);
+}
+.previewing-page-exit #viewport:has(:is(#before-lecture, #contemporary-heading).page-foreground)::before,
+.previewing-page-exit #viewport[data-regress-flashback]::before,
+.previewing-page-exit #viewport:has(#unitrans-arrival.page-foreground) .arrival-scene {
+  opacity: var(--page-opacity);
+}
+.previewing-page-exit #viewport:has(:is(#unitrans-arrival, #before-lecture).page-foreground) #world,
+.previewing-page-exit #viewport[data-regress-flashback] #world,
+.previewing-page-exit #viewport:has(#contemporary-heading.page-foreground) #world > :not(.page-foreground, #unitrans-arrival, #before-lecture) {
+  visibility: visible;
+  opacity: var(--canvas-opacity);
+  pointer-events: none;
+}
+#contemporary-heading.page-foreground > [role="heading"] {
+  color: #fff1d4;
+  opacity: 1;
+  paint-order: stroke fill;
+  -webkit-text-stroke: .095em #242323;
+  text-shadow: 0 .06em .12em rgb(20 17 20 / .7);
 }
 #viewport::after {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 2;
@@ -17,8 +130,8 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   background-size: 180px 180px;
 }
 #viewport.dragging { cursor: grabbing; }
-#world { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-origin: 0 0; }
-#three-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#world { position: absolute; z-index: 1; left: 50%; top: 50%; width: 0; height: 0; transform-origin: 0 0; }
+#three-layer { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .canvas-label {
   position: absolute;
   left: 0;
@@ -45,6 +158,8 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 /* Keep the title box dimensions for slide framing and connection anchors. */
 .canvas-label > p.label-description { visibility: hidden; }
 .canvas-editable .canvas-label { cursor: grab; }
+#viewport:not(.is-page-focused, .dragging) [data-slide-entry],
+#viewport:not(.is-page-focused, .dragging) [data-slide-entry] button:not(.resize-handle) { cursor: zoom-in; }
 #viewport.dragging .canvas-label { cursor: grabbing; }
 .canvas-media { padding: 0; background: transparent; line-height: 0; }
 .canvas-media img { display: block; width: 320px; max-width: 80vw; height: auto; -webkit-user-drag: none; }
@@ -57,24 +172,14 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 .canvas-static img { width: 280px; }
 .reading-tiles { display: block; width: 280px; max-width: 80vw; height: auto; }
 .reading-stroke { fill: none; stroke: #364139; stroke-width: 5.4; stroke-linecap: round; stroke-linejoin: round; }
-.reading-numbers .reading-stroke { opacity: .58; }
-#state-red:is(:hover, :focus-visible) .reading-traveler { animation: read-in-context 3.6s ease-in-out infinite; }
-#state-red:is(:hover, :focus-visible) .reading-letters .reading-stroke { animation: read-row-emphasis 3.6s ease-in-out infinite; }
-#state-red:is(:hover, :focus-visible) .reading-numbers .reading-stroke { animation: read-row-emphasis 3.6s ease-in-out -1.8s infinite; }
-@keyframes read-in-context {
-  0%, 12%, 100% { transform: translateY(0); }
-  42%, 62% { transform: translateY(88px); }
-  92% { transform: translateY(0); }
-}
-@keyframes read-row-emphasis {
-  0%, 12%, 92%, 100% { opacity: 1; }
-  42%, 62% { opacity: .58; }
-}
-@media (prefers-reduced-motion: reduce) {
-  #state-red:is(:hover, :focus-visible) :is(.reading-traveler, .reading-stroke) { animation: none; }
-  #state-red:is(:hover, :focus-visible) .reading-traveler { transform: translateY(88px); }
-  #state-red:is(:hover, :focus-visible) .reading-letters .reading-stroke { opacity: .58; }
-  #state-red:is(:hover, :focus-visible) .reading-numbers .reading-stroke { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  #state-red:is(:hover, :focus-visible) .reading-mark {
+    animation: reveal-reading-mark 2.4s ease-in-out infinite;
+  }
+  @keyframes reveal-reading-mark {
+    0%, 18%, 88%, 100% { opacity: 1; }
+    48%, 58% { opacity: 0; }
+  }
 }
 .canvas-topic { width: 360px; max-width: none; text-align: left; font-size: 27px; font-weight: 500; padding: 16px 20px; }
 .aim-number { color: #8a7455; }
@@ -107,7 +212,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   gap: clamp(1px, 0.55vh, 4px);
 }
 /* Small breaks between the opening, the three aims, and each aim's lane. */
-#slide-progress button:is(:nth-child(3), :nth-child(6), :nth-child(12), :nth-child(23)) { margin-top: clamp(2px, 1vh, 8px); }
+#slide-progress button:is([data-slide="aim-motivations"], [data-slide="regress-problem"], [data-slide="versions-map-heading"], [data-slide="access-heading"]) { margin-top: clamp(2px, 1vh, 8px); }
 #slide-progress button {
   position: relative;
   flex: 1 1 0;

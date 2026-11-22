@@ -9,12 +9,17 @@
   </head>
   <body>
     <div id="presentation-shell">
-      <aside id="reading-panel" aria-label="Slide reading notes"></aside>
-    <main id="viewport" aria-label="Presentation canvas. Left and Right change slides, plus and minus zoom, Home resets the view, Command Shift F or F toggles full screen." tabindex="0">
+    <main id="viewport" aria-label="Presentation canvas. Click an illustration or focus it and press Enter to open its slide. Pan or zoom out to return to the canvas. Arrow keys move through the opening dialogue. Outside the dialogue, Left and Right change slides. Plus and minus zoom. Home resets the view. Command Shift F or F toggles full screen." tabindex="0">
       <div id="world">
+        <div id="unitrans-arrival" class="canvas-label" data-label="Unitrans arrival">
+          <div role="heading" aria-level="1">Unitrans arrival</div>
+        </div>
+        <div id="before-lecture" class="canvas-label" data-label="Before lecture">
+          <div role="heading" aria-level="1">Before lecture</div>
+        </div>
         <svg id="connections" width="1" height="1" role="img" aria-label="Flexible foundationalism connects to the paper's three aims. Why accept it connects to The Regress Problem. Each aim then leads through its slides: the dilemma, undoubted foundations and three routes; the four versions; and the access principle, the cognitive home and the mobile home."></svg>
         <svg id="regress-connections" width="1" height="1" role="img" aria-label="The Regress Problem connects to skepticism, infinitism, coherentism, and foundationalism"></svg>
-        <div id="regress-problem" class="canvas-label regress-hub" data-scene="regress-problem" aria-label="YYY Sowatt, the five voices of the regress problem"></div>
+        <div id="regress-problem" class="canvas-label regress-hub" data-scene="regress-problem" aria-label="YYYY SOWATT, four voices named Y and the red-dot voice SOWHAT"></div>
         <div id="regress-skepticism" class="canvas-label regress-position route-skepticism">
           <div>Skepticism</div>
         </div>
@@ -50,48 +55,41 @@
         </div>
         <div id="contemporary-heading" class="canvas-label canvas-label-secondary">
           <div role="heading" aria-level="1">Contemporary Contextualism</div>
-          <p class="label-description">The same sentence can express different claims in different contexts</p>
+          <p class="label-description">The same sentence can express different claims in different contexts.</p>
         </div>
-        <div id="state-red" class="canvas-label canvas-media canvas-static" tabindex="0" data-label="B/13 tiles">
+        <div id="state-red" class="canvas-label canvas-media canvas-static" tabindex="0" data-label="B/13 tile">
           <svg class="reading-tiles" width="280" height="280" viewBox="0 0 280 280" role="img" aria-labelledby="reading-tiles-title reading-tiles-desc">
             <title id="reading-tiles-title">One mark, two readings</title>
-            <desc id="reading-tiles-desc">Hover or focus to move the same gold tile between two rows. Between A and C it reads as B. Between 12 and 14 it reads as 13.</desc>
+            <desc id="reading-tiles-desc">One gold tile bears a mark shaped like a vertical stroke beside two rounded lobes. A is to its left, C to its right, 12 above it and 14 below it.</desc>
             <defs>
               <image id="reading-porcelain" href="/generated/contextualism/tile-porcelain.webp" width="100" height="83.3333"/>
-              <image id="reading-ochre" href="/generated/contextualism/tile-ochre.webp" width="100" height="83.3333"/>
             </defs>
-            <g transform="translate(0 52)">
-              <g class="reading-letters">
-                <g transform="translate(0 0)">
-                  <use href="#reading-porcelain"/>
-                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M24 67 47 10 Q48 8 50 12 L73 67 M33 46 Q49 44 64 45"/>
-                </g>
-                <g transform="translate(180 0)">
-                  <use href="#reading-porcelain"/>
-                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M70 17 C56 4 34 9 27 28 C18 54 34 74 54 68 Q66 66 71 58"/>
-                </g>
-              </g>
-              <g class="reading-numbers" transform="translate(0 88)">
-                <g transform="translate(0 0)">
-                  <use href="#reading-porcelain"/>
-                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M13 20 22 13 21 67 M42 23 C44 8 70 7 73 22 C78 36 52 53 41 66 Q57 65 77 66"/>
-                </g>
-                <g transform="translate(180 0)">
-                  <use href="#reading-porcelain"/>
-                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M13 20 22 13 21 67 M69 67 70 12 39 49 81 49"/>
-                </g>
-              </g>
-              <g class="reading-traveler">
-                <g transform="translate(90 0)">
-                  <use href="#reading-ochre"/>
-                  <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M24 17 30 12 29 66 M37 12 C72 5 83 35 46 38 C82 35 80 70 37 66"/>
-                </g>
-              </g>
+            <g transform="translate(0 98)">
+              <use href="#reading-porcelain"/>
+              <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M24 67 47 10 Q48 8 50 12 L73 67 M33 46 Q49 44 64 45"/>
+            </g>
+            <g transform="translate(180 98)">
+              <use href="#reading-porcelain"/>
+              <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M70 17 C56 4 34 9 27 28 C18 54 34 74 54 68 Q66 66 71 58"/>
+            </g>
+            <g transform="translate(90 13)">
+              <use href="#reading-porcelain"/>
+              <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M13 20 22 13 21 67 M42 23 C44 8 70 7 73 22 C78 36 52 53 41 66 Q57 65 77 66"/>
+            </g>
+            <g transform="translate(90 183)">
+              <use href="#reading-porcelain"/>
+              <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M13 20 22 13 21 67 M69 67 70 12 39 49 81 49"/>
+            </g>
+            <g class="reading-mark" transform="translate(90 98)">
+              <image href="/generated/contextualism/tile-ochre.webp" width="100" height="83.3333"/>
+              <path class="reading-stroke" transform="matrix(0.48615 0.19497 -0.24027 0.40756 35.54905 10.04234)" d="M24 17 30 12 29 66 M37 12 C72 5 83 35 46 38 C82 35 80 70 37 66"/>
             </g>
           </svg>
         </div>
       </div>
       <div id="selection-box" hidden aria-hidden="true"></div>
+      <div class="arrival-scene" aria-hidden="true"></div>
+      <button class="before-lecture-scene" type="button" aria-label="Begin the lecture"></button>
       <span id="label-instructions" hidden>Drag to move, or hold Shift and use arrow keys while focused. Drag the bottom-right handle to resize. Focus the handle and use arrow keys to resize with the keyboard.</span>
       <nav id="slide-progress" aria-label="Presentation slides"></nav>
     </main>

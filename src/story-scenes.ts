@@ -25,16 +25,18 @@ export const storyScenes: readonly StoryScene[] = [
   },
   {
     id: 'dead-ink-02',
-    title: "Milo asks why",
-    summary: "Why believe the card? Every answer Milo gets calls for another reason.",
+    title: "YYYY SOWATT asks why",
+    summary: "Five bubbles follow Simone’s reason from the eight on Evan’s card to the curl in his signature.",
     paragraphs: [
-      "Milo asks Simone why she thinks Evan died at eight. She points to the card. Why believe the card? Why trust the reading? Each answer calls for another reason, and every reason adds a stone underneath the last one.",
-      "The case plays out four ways. One detective concludes nothing. Another is still answering Milo at dawn. A third trusts the card because the card itself is supposed to be reliable. Simone takes the fourth route and lets some claims serve as starting points.",
-      "There is no shortage of suspects. Cole’s selfie stick swung over the desk, Rae’s punch could snap a nib, and Milo kept asking Evan questions. The Timetable Society had a grievance over an incorrect departure time. Echo has a claw and no alibi.",
+      "In the hallway outside Evan’s room, YYYY SOWATT gathers around the invitation. The biggest bubble asks Simone, “Why do you think he died at eight?” She holds the card up to the light. “Because of what it says here.”",
+      "“The card?” The half-lidded bubble takes over. “Why go by this card?” “Evan wrote it,” Simone says. The sharp-eyed third bubble turns its tail toward the fourth. “Evan wrote it? How can you tell?” Simone puts her fingertip beside the signature. “That little loop at the end.”",
+      "“The loop!” The fourth bubble floats closer. “What makes it his loop?” “I watched him sign last year’s invitation. Same little curl.” All four look down. The smallest bubble, the one with the red spot, finally gets its turn. “Last year’s. Did you see him sign this one?” Simone looks at the card again. “This one? I have the curl.” Another stone glimmers beneath the last.",
+      "The case plays out four ways. One detective concludes nothing. Another is still answering the bubbles at dawn. A third checks the card against the rest of the evidence and asks how well the pieces fit together. Simone takes the fourth route and lets some claims serve as starting points.",
+      "There is no shortage of suspects. Cole’s selfie stick swung over the desk, Rae’s punch could snap a nib, and Milo had sticky hands. The Timetable Society had a grievance over an incorrect departure time. Echo has a claw and no alibi.",
     ],
     illustration: {
-      src: new URL('./assets/story/dead-ink/02-milo-asks-why.webp', import.meta.url).href,
-      alt: "Milo raises a finger in front of Simone. Three stones form a chain beside them.",
+      src: new URL('./assets/story/dead-ink/02-yyy-sowatt-asks-why.webp', import.meta.url).href,
+      alt: "Five single-tailed ink bubbles descend toward Simone’s invitation. The smallest, marked red, looks up at her beside the smudged eight and looping signature.",
     },
   },
   {

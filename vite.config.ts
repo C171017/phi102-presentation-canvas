@@ -1,11 +1,14 @@
-import { defineConfig, type Plugin, type WebSocketClient } from 'vite';
+import { defineConfig, normalizePath, searchForWorkspaceRoot, type Plugin, type WebSocketClient } from 'vite';
+import { existsSync } from 'node:fs';
 import { readFile, writeFile, rename, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parseLayout } from './src/layout';
 import { isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
 import { storyTextStorage } from './scripts/story-text-storage';
+import { localQuizVotes } from './scripts/local-quiz-votes';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
+const openingFile = fileURLToPath(new URL('../op/drafts/dead-ink-op-codex-v2.mp4', import.meta.url));
 let writes = Promise.resolve();
 function layoutStorage(): Plugin {
   const install = (server: { middlewares: { use: (handler: any) => void } }) => {
@@ -77,6 +80,7 @@ function localPresentation(): Plugin {
       const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null }>();
       let presenter: WebSocketClient | undefined;
       let presenterSlide: number | undefined;
+      let openingPlaying = false;
 
       function broadcast() {
         const counts = Array<number>(slideCount).fill(0);
@@ -88,7 +92,7 @@ function localPresentation(): Plugin {
         }
         const state: RoomSnapshot = {
           type: 'state', presenterSlide: presenterSlide ?? 0,
-          presenterOnline: Boolean(presenter), counts, browsing,
+          presenterOnline: Boolean(presenter), openingPlaying, counts, browsing,
         };
         for (const client of members.keys()) {
           if (client.socket.readyState === 1) client.send('phi102:preview:state', state);
@@ -97,7 +101,10 @@ function localPresentation(): Plugin {
 
       function leave(client: WebSocketClient) {
         if (!members.delete(client)) return;
-        if (client === presenter) presenter = undefined;
+        if (client === presenter) {
+          presenter = undefined;
+          openingPlaying = false;
+        }
         broadcast();
       }
 
@@ -111,6 +118,7 @@ function localPresentation(): Plugin {
             if (previous.socket.readyState === 1) previous.send('phi102:preview:superseded');
           }
           presenter = client;
+          openingPlaying = data.openingPlaying === true;
         }
         presenterSlide ??= isSlide(data.slide) ? data.slide : 0;
         members.set(client, { role: data.role, slide: presenterSlide });
@@ -118,11 +126,17 @@ function localPresentation(): Plugin {
         broadcast();
       });
       server.ws.on('phi102:preview:leave', (_, client) => leave(client));
+      server.ws.on('phi102:preview:opening', (playing, client) => {
+        if (client !== presenter || typeof playing !== 'boolean' || openingPlaying === playing) return;
+        openingPlaying = playing;
+        broadcast();
+      });
       server.ws.on('phi102:preview:report', (data, client) => {
         const member = members.get(client);
         if (member?.role === 'presenter' && data?.type === 'present' && isSlide(data.slide)) {
           if (presenterSlide === data.slide) return;
           presenterSlide = data.slide;
+          openingPlaying = false;
         } else if (member?.role === 'audience' && data?.type === 'view' && (data.slide === null || isSlide(data.slide))) {
           if (member.slide === data.slide) return;
           member.slide = data.slide;
@@ -133,15 +147,22 @@ function localPresentation(): Plugin {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  define: {
+    __LOCAL_OPENING_VIDEO__: JSON.stringify(command === 'serve' && existsSync(openingFile)
+      ? `/@fs/${encodeURI(normalizePath(openingFile))}`
+      : ''),
+  },
   plugins: [
     layoutStorage(),
     localPresentation(),
+    localQuizVotes(),
     storyTextStorage(fileURLToPath(new URL('./story-text.json', import.meta.url))),
   ],
   server: {
     host: '127.0.0.1',
+    fs: { allow: [searchForWorkspaceRoot(process.cwd()), openingFile] },
     watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp'] },
   },
   preview: { host: '127.0.0.1' },
-});
+}));

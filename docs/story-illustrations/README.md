@@ -18,11 +18,11 @@ Mount the projector on the ceiling near the back of the room. From the back look
 
 Simone checks her watch and heads out with Echo and the sealed invitation.
 
-## 2. Milo keeps asking why
+## 2. YYYY SOWATT asks why
 
-![Milo’s next “why?” catches Simone on her way out the door.](./02-milo-keeps-asking.png)
+![Five single-tailed bubbles pass a question down to the smallest, beside Simone’s invitation.](../../src/assets/story/dead-ink/02-yyy-sowatt-asks-why.webp)
 
-Milo’s next “why?” catches Simone on her way out the door.
+Simone lowers the invitation so the smallest voice can see the loop in Evan’s signature.
 
 ## 3. The 7:12 from platform 3
 
@@ -79,17 +79,9 @@ Input character identity sheets in the order attached:
 Scene: Opening keyframe at 6:41 inside a modest apartment by the front door. Wide dynamic medium shot, diagonal motion through the apartment as Simone checks the wristwatch on her left wrist and holds a cream invitation with a small red seal in her right. The lid of the tan travel carrier is ajar just enough for one small Echo to peer out, both eye stalks and purple shell visible. A warm kitchen clock on the wall provides the sense of time without carrying the focus. Late-evening cobalt begins outside the window. Play the mundane mission with the visual gravity of a thriller.
 ```
 
-### 2. Milo keeps asking why
+### 2. YYYY SOWATT asks why
 
-```text
-Use case: illustration-story. Generate ONE new standalone landscape storyboard illustration, ideally 16:9, and one full-bleed composition per request. This is part of a single seven-frame story. Art direction: the precise illustrated character model-sheet style carried into a designed cinematic environment, angular cut-paper shapes with textured matte ink, long stylized adult silhouettes, flat two-tone faceted shadows, economical expressive faces, crisp geometric props and restrained paper grain. Each recurring person must match the face, hairstyle, costume, and color of the corresponding attached identity sheet. Sheets are design references only; do not repeat their grids, poses literally, reference labels, pale backdrop, or any old character name. A restrained palette of ink navy, forest green, brick rust, warm amber, paper cream, and amethyst. Mature deadpan comedy with cinematic light, bold silhouettes, and a clear gaze or gesture. No watermarks, graphic frame, borders, title, or collage. Render only the actions and lettering requested for this shot.
-
-Input character identity sheets in the order attached:
-1. Simone (sheet labeled JUSTINE) has a high black loop ponytail and sharp bangs, forest-green cropped jacket, cream shirt, wide charcoal trousers, dark wristwatch, and boxy tan vented crab carrier on a brown shoulder strap. She is practical and deadpan.
-2. Echo (sheet labeled GUS) is a palm-sized coral-red hermit crab with two half-lidded ivory stalk eyes, one oversized angular claw, and a very recognizable tall asymmetric violet pyramid-like crystal shell with lavender bands and a dark triangular opening. Match his dry expression and shape.
-
-Scene: At the open apartment door, eye-level medium two-shot emphasizing the height difference. Four-year-old neighbor Milo, a tiny supporting character in mustard pajamas with simple short soft brown hair, looks up with innocent, persistent curiosity and one raised index finger. Simone, in a polite deadpan half-crouch mid-exit, holds up the real sealed invitation as her answer and glances toward the way out. Echo peers up through the partly open carrier with the same neutral expression. One clean domestic hallway, soft amber doorway, blue-gray stairwell beyond. Comedy from the pause, no speech bubbles or letters.
-```
+Use Simone’s Version C identity sheet and YYYY SOWATT’s single-tail sheet. Frame Simone on the right in the amber-lit hallway, holding Evan’s invitation. On the left, five ink bubbles descend toward the card. Each tail points toward the next voice until the smallest, marked red, points at the invitation and asks its question. Simone answers with a patient half-smile. Keep the blue eight, the smear and the looping signature visible.
 
 ### 3. The 7:12 from platform 3
 

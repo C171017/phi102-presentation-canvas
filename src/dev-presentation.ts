@@ -37,23 +37,41 @@ export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null) {
   return picker;
 }
 
-export function connectDevPresentation(viewport: HTMLElement, openSlide: (index: number) => void, role: PreviewRole) {
+export function connectDevPresentation(viewport: HTMLElement, openSlide: (index: number) => void, role: PreviewRole,
+  openingVideo?: { isOpen(): boolean; close(): void }) {
   const hot = import.meta.hot!;
+  const blackout = role === 'audience' ? document.createElement('dialog') : undefined;
+  if (blackout) {
+    blackout.className = 'audience-opening-blackout';
+    blackout.setAttribute('aria-label', 'Opening playing on the presenter screen');
+    blackout.addEventListener('cancel', event => event.preventDefault());
+    blackout.addEventListener('keydown', event => event.stopPropagation());
+    viewport.parentElement!.append(blackout);
+  }
   const client = createPresentationClient(viewport, openSlide, role === 'presenter',
     message => hot.send('phi102:preview:report', message));
   function join() {
     const buttons = Array.from(viewport.querySelectorAll('#slide-progress button'));
     const slide = buttons.findIndex(button => button.hasAttribute('aria-current'));
-    hot.send('phi102:preview:join', { role, slide: isSlide(slide) ? slide : 0 });
+    hot.send('phi102:preview:join', { role, slide: isSlide(slide) ? slide : 0, openingPlaying: openingVideo?.isOpen() });
   }
-  hot.on('phi102:preview:state', (state: RoomSnapshot) => client.showState(state));
-  hot.on('phi102:preview:superseded', client.clearState);
-  hot.on('vite:ws:disconnect', client.clearState);
+  function clearState() {
+    blackout?.close();
+    client.clearState();
+  }
+  hot.on('phi102:preview:state', (state: RoomSnapshot) => {
+    client.showState(state);
+    if (!blackout) return;
+    if (state.openingPlaying && !blackout.open) blackout.showModal();
+    else if (!state.openingPlaying && blackout.open) blackout.close();
+  });
+  hot.on('phi102:preview:superseded', () => { openingVideo?.close(); clearState(); });
+  hot.on('vite:ws:disconnect', clearState);
   hot.on('vite:ws:connect', join);
   window.addEventListener('pageshow', event => { if (event.persisted) join(); });
   window.addEventListener('pagehide', () => {
     hot.send('phi102:preview:leave');
-    client.clearState();
+    clearState();
   });
   join();
   return client.reportSlide;

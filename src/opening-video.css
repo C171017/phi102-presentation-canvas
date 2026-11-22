@@ -1,0 +1,50 @@
+.opening-video[open], .audience-opening-blackout[open] {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #000;
+  color: #fff5df;
+}
+.audience-opening-blackout:focus { outline: none; }
+.opening-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.opening-screen video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* Keep browser extensions' injected video controls off the presentation screen. */
+.opening-screen > :not(video, footer) { display: none; }
+.opening-screen.is-finishing video { visibility: hidden; }
+.opening-screen footer:not([hidden]) {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  background: #000;
+}
+.opening-screen footer p { margin: 0; }
+.opening-screen button {
+  padding: .42em .75em;
+  border: 1px solid #526264;
+  border-radius: 6px;
+  background: #18282d;
+  color: #fff5df;
+  font: 600 .875rem system-ui, sans-serif;
+  cursor: pointer;
+}

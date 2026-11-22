@@ -1,6 +1,8 @@
 {
   "title": "Greco (2017), “Contextualism about Foundations”",
   "anchors": [
+    { "id": "unitrans-arrival", "find": "CONTEXTUALISM ABOUT" },
+    { "id": "before-lecture", "find": "CONTEXTUALISM ABOUT" },
     { "id": "contemporary-heading", "find": "CONTEXTUALISM ABOUT" },
     { "id": "flexible-heading", "find": "In the earlier sense I" },
     { "id": "paper-roadmap", "find": "I have several aims" },
@@ -8,6 +10,10 @@
     { "id": "aim-versions", "find": "Second," },
     { "id": "aim-applications", "find": "Lastly, I’ll suggest" },
     { "id": "regress-problem", "find": "1 Regresses and foundations" },
+    { "id": "regress-skepticism", "find": "For present purposes, the regress problem" },
+    { "id": "regress-infinitism", "find": "For present purposes, the regress problem" },
+    { "id": "regress-coherentism", "find": "For present purposes, the regress problem" },
+    { "id": "regress-foundationalism", "find": "Once we’re foundationalists" },
     { "id": "dilemma-heading", "find": "At the risk of oversimplifying" },
     { "id": "undoubted-heading", "find": "One way of motivating some version of flexible" },
     { "id": "route-social-heading", "find": "2.1 Social dimensions of justification" },

@@ -9,6 +9,7 @@ export type RoomSnapshot = {
   type: 'state';
   presenterSlide: number;
   presenterOnline: boolean;
+  openingPlaying?: boolean;
   counts: number[];
   browsing: number;
 };

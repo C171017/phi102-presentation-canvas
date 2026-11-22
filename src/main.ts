@@ -7,13 +7,19 @@ import { initializePaperSlides } from './paper-slides';
 import { initializeVersionPairings } from './version-pairing-cards';
 import { createConnections } from './connections';
 import { createSlideNavigation } from './slides';
-import { createPageBackgrounds } from './page-backgrounds';
+import { createPageExit } from './page-exit';
+import { regressFlashback, slides } from './slide-content';
+import { createClassroomDialogue } from './classroom-dialogue';
+import { createOpeningVideo } from './opening-video';
+import { createRegressVoices } from './regress-voices';
+import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
-import { createReadingPanel } from './reading-panel';
 import type { ThreeLayer } from './three-layer';
 import './style.css';
 import './layout.css';
+
+declare const __LOCAL_OPENING_VIDEO__: string;
 
 type View = { x: number; y: number; zoom: number };
 type Stop = View & { duration?: number };
@@ -36,14 +42,39 @@ const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode &&
 const requestedRole = localDev ? new URLSearchParams(location.search).get('role') : null;
 const previewRole = requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
 const readOnly = liveMode || previewRole !== null;
-const readingPanel = createReadingPanel();
-const pageBackgrounds = createPageBackgrounds(viewport);
-const slideNavigation = createSlideNavigation(world, goTo, index => {
-  readingPanel.update(index);
+const quizEnabled = liveMode ? !new URLSearchParams(location.hash.slice(1)).has('presenter') : previewRole !== 'presenter';
+const openScene = (id: string) => {
+  slideNavigation.open(slides.findIndex(slide => slide.members[0] === id));
+};
+const openingVideo = previewRole === 'presenter' && __LOCAL_OPENING_VIDEO__
+  ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('regress-problem'),
+    openingPlaying => import.meta.hot!.send('phi102:preview:opening', openingPlaying))
+  : undefined;
+const regressVoices = createRegressVoices(viewport);
+const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
+  localDev ? createLocalQuizVotes(previewRole === 'audience') : undefined, openingVideo?.play, regressVoices.highlight);
+const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
+  const slide = slides[index];
+  const id = slide?.members[0];
+  if (id === 'before-lecture' || id === 'contemporary-heading') openingVideo?.preload();
+  const flashback = regressFlashback.find(scene => scene.id === id);
+  if (flashback) {
+    viewport.style.setProperty('--regress-background', `url('/generated/backgrounds/dead-ink/${flashback.id}.webp')`);
+  } else {
+    viewport.style.removeProperty('--regress-background');
+  }
+  viewport.toggleAttribute('data-regress-flashback', Boolean(flashback));
+  regressVoices.showScene(flashback?.id);
+  openingDialogue.showScene(id, slide?.description, flashback?.title);
   paperPane?.update(index);
   reportSlide?.(index);
-}, pageBackgrounds.update);
+  openingVideo?.close();
+});
 viewport.classList.toggle('canvas-editable', !readOnly);
+viewport.querySelector<HTMLButtonElement>('.before-lecture-scene')!.addEventListener('click', () => {
+  viewport.focus({ preventScroll: true });
+  openingDialogue.advance();
+});
 let connectionsDirty = true;
 const layout = createLayoutController(world, () => ({ ...target }), restored => {
   Object.assign(view, restored);
@@ -70,8 +101,15 @@ function enableThree() {
 let stops: Stop[] = [];
 let stopIndex = -1;
 let tween: { from: View; to: View; start: number; duration: number } | undefined;
+const clickTolerance = 5;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const clampZoom = (zoom: number) => Math.min(8, Math.max(0.1, zoom));
+const pageExit = createPageExit(backdrop, viewport, view, slideNavigation.previewExit, render, () => {
+  slideNavigation.leavePage();
+  Object.assign(target, view);
+  render();
+  layout.schedule();
+});
 function animateTo(next: Partial<View>, duration: number) {
   const to = { ...target, ...next };
   if (![to.x, to.y, to.zoom, duration].every(Number.isFinite)) return false;
@@ -82,26 +120,62 @@ function animateTo(next: Partial<View>, duration: number) {
   return true;
 }
 function goTo(next: Partial<View>, duration = 550) {
+  pageExit.reset();
   if (!animateTo(next, duration)) return;
+  slideNavigation.leavePage();
   layout.schedule();
 }
+function showSlideFrame(next: View, animate: boolean) {
+  pageExit.reset();
+  if (animate && !reducedMotion.matches && animateTo(next, 420)) {
+    layout.schedule();
+    return;
+  }
+  tween = undefined;
+  Object.assign(view, next);
+  Object.assign(target, next);
+  render();
+  layout.schedule();
+}
+function interruptCamera() {
+  tween = undefined;
+  slideNavigation.cancelOpening();
+  Object.assign(target, view);
+}
+function panBy(x: number, y: number) {
+  if (slideNavigation.isFocused()) {
+    tween = undefined;
+    pageExit.move(x, y, 0, 450);
+    return;
+  }
+  goTo({ x: target.x + x / target.zoom, y: target.y + y / target.zoom });
+}
 function step(direction: number) {
+  if (openingVideo?.isOpen()) return;
+  if (!stops.length && openingDialogue.stepFlashback(direction)) return;
+  if (direction > 0 && !stops.length && openingDialogue.finishIntro()) return;
   if (!stops.length) { slideNavigation.step(direction); return; }
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
   goTo(stops[stopIndex], stops[stopIndex].duration);
 }
 function render() {
-  renderGrid(view, canvasBounds);
+  const settled = !tween && !drag;
   world.style.transform = `scale(${view.zoom}) translate(${-view.x}px, ${-view.y}px)`;
   // Connections live inside the same transformed world: pan/zoom cannot
   // change their world-space geometry. Only content/layout edits invalidate it.
+  if (connectionsDirty) slideNavigation.measure(view.zoom);
+  const fitted = settled && slideNavigation.refit(view);
+  if (fitted) {
+    Object.assign(view, fitted);
+    Object.assign(target, fitted);
+    world.style.transform = `scale(${view.zoom}) translate(${-view.x}px, ${-view.y}px)`;
+  }
   if (connectionsDirty) {
     connectionsDirty = false;
-    slideNavigation.measure(view.zoom);
     updateConnections(view.zoom);
   }
-  slideNavigation.update(target);
-  slideNavigation.updateVisible(view, tween ? target : undefined);
+  renderGrid(view, canvasBounds);
+  slideNavigation.update(settled);
   threeLayer?.render(view);
 }
 let frame: number | undefined;
@@ -142,6 +216,7 @@ function toggleFullscreen() {
   void action.catch(error => console.warn('Could not toggle presentation full screen.', error));
 }
 window.addEventListener('keydown', (event) => {
+  if (openingVideo?.isOpen()) return;
   const element = event.target as HTMLElement;
   if (!event.defaultPrevented && !event.isComposing && event.metaKey && event.shiftKey &&
       !event.ctrlKey && !event.altKey && event.key.toLowerCase() === 'f') {
@@ -149,25 +224,36 @@ window.addEventListener('keydown', (event) => {
     if (!event.repeat) void toggleFullscreen();
     return;
   }
-  if (event.defaultPrevented || element.isContentEditable || element.closest('#reading-panel, input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
-  const slideButton = element.closest('#slide-progress button');
-  if (element.closest('button') && (!slideButton || event.key === ' ' || event.key === 'Enter')) return;
-  const distance = (event.shiftKey ? 600 : 180) / target.zoom;
+  if (event.defaultPrevented || element.isContentEditable || element.closest('input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
+  const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .before-lecture-scene');
+  if (element.closest('button') && (!navigationTarget || event.key === ' ' || event.key === 'Enter')) return;
+  if (!event.isComposing && !event.shiftKey && openingDialogue.handleArrow(event.key)) {
+    event.preventDefault();
+    return;
+  }
+  const distance = event.shiftKey ? 600 : 180;
   switch (event.key) {
     case 'ArrowLeft':
-      if (event.shiftKey) goTo({ x: target.x - distance });
+      if (event.shiftKey) panBy(-distance, 0);
       else step(-1);
       break;
     case 'ArrowRight':
-      if (event.shiftKey) goTo({ x: target.x + distance });
+      if (event.shiftKey) panBy(distance, 0);
       else step(1);
       break;
-    case 'ArrowUp': goTo({ y: target.y - distance }); break;
-    case 'ArrowDown': goTo({ y: target.y + distance }); break;
+    case 'ArrowUp': panBy(0, -distance); break;
+    case 'ArrowDown': panBy(0, distance); break;
     case ' ': case 'PageDown': step(event.shiftKey ? -1 : 1); break;
     case 'PageUp': step(-1); break;
-    case '+': case '=': goTo({ zoom: target.zoom * 1.2 }); break;
-    case '-': case '_': goTo({ zoom: target.zoom / 1.2 }); break;
+    case '+': case '=':
+      if (!slideNavigation.isFocused()) goTo({ zoom: target.zoom * 1.2 });
+      break;
+    case '-': case '_':
+      if (slideNavigation.isFocused()) {
+        tween = undefined;
+        pageExit.move(0, 0, Math.log(1.2), 450);
+      } else goTo({ zoom: target.zoom / 1.2 });
+      break;
     case 'Home': case '0': stopIndex = -1; goTo({ x: 0, y: 0, zoom: 1 }); break;
     case 'f': case 'F':
       if (!event.repeat) void toggleFullscreen();
@@ -219,7 +305,7 @@ world.querySelectorAll<HTMLElement>('.canvas-label').forEach((label) => {
   handle.addEventListener('pointerdown', (event) => {
     if (event.button !== 0 || resizing) return;
     event.stopPropagation(); event.preventDefault();
-    tween = undefined; Object.assign(target, view);
+    interruptCamera();
     const rect = label.getBoundingClientRect();
     resizing = { id: event.pointerId, startX: event.clientX, startY: event.clientY, scale: getScale(), width: rect.width, height: rect.height, zoom: view.zoom };
     handle.setPointerCapture(event.pointerId); handle.focus({ preventScroll: true });
@@ -258,14 +344,19 @@ world.querySelectorAll<HTMLElement>('.canvas-label').forEach((label) => {
   });
 });
 
-let drag: { id: number; x: number; y: number; startX: number; startY: number; label: HTMLElement | null; retained: HTMLElement[] } | undefined;
+let drag: {
+  id: number; x: number; y: number; startX: number; startY: number;
+  label: HTMLElement | null; retained: HTMLElement[]; slideEntry?: number;
+} | undefined;
 viewport.addEventListener('pointerdown', (event) => {
   if (readOnly) return;
+  if (pageExit.active()) { pageExit.reset(); render(); }
   const element = event.target as HTMLElement;
   if (drag || event.button !== 0 || element.closest('#slide-progress, input, textarea, select, button, a, [contenteditable="true"]')) return;
-  tween = undefined; Object.assign(target, view);
+  interruptCamera();
   const label = element.closest<HTMLElement>('.canvas-label');
   const additive = event.shiftKey || event.metaKey || event.ctrlKey;
+  const slideEntry = additive || event.altKey ? undefined : slideNavigation.entryFor(element);
   const retained = additive ? [...selectedItems] : [];
   if (label) {
     if (additive && selectedItems.has(label)) {
@@ -279,12 +370,17 @@ viewport.addEventListener('pointerdown', (event) => {
     viewport.focus({ preventScroll: true });
   }
   event.preventDefault();
-  drag = { id: event.pointerId, x: event.clientX, y: event.clientY, startX: event.clientX, startY: event.clientY, label, retained };
+  drag = { id: event.pointerId, x: event.clientX, y: event.clientY, startX: event.clientX, startY: event.clientY, label, retained, slideEntry };
   viewport.setPointerCapture(event.pointerId);
-  viewport.classList.toggle('dragging', Boolean(label));
+  viewport.classList.toggle('dragging', Boolean(label) && slideEntry === undefined);
 });
 viewport.addEventListener('pointermove', (event) => {
   if (!drag || drag.id !== event.pointerId) return;
+  if (drag.slideEntry !== undefined) {
+    if (Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) < clickTolerance) return;
+    drag.slideEntry = undefined;
+    viewport.classList.add('dragging');
+  }
   const dx = (event.clientX - drag.x) / view.zoom;
   const dy = (event.clientY - drag.y) / view.zoom;
   if (drag.label) moveSelection(drag.label, dx, dy);
@@ -294,6 +390,7 @@ viewport.addEventListener('pointermove', (event) => {
     const bounds = viewport.getBoundingClientRect();
     const hits = [...drag.retained];
     world.querySelectorAll<HTMLElement>('.canvas-label').forEach(item => {
+      if (getComputedStyle(item).visibility === 'hidden') return;
       const rect = item.getBoundingClientRect();
       if (rect.right >= left && rect.left <= right && rect.bottom >= top && rect.top <= bottom) hits.push(item);
     });
@@ -305,22 +402,43 @@ viewport.addEventListener('pointermove', (event) => {
 });
 function endDrag(event: PointerEvent) {
   if (drag?.id !== event.pointerId) return;
-  if (drag.label) layout.save();
+  const { label, slideEntry, startX, startY } = drag;
   drag = undefined; viewport.classList.remove('dragging'); selectionBox.hidden = true;
+  if (slideEntry !== undefined && event.type === 'pointerup' &&
+      Math.hypot(event.clientX - startX, event.clientY - startY) < clickTolerance) {
+    slideNavigation.open(slideEntry, true);
+  } else {
+    if (label && slideEntry === undefined) layout.save();
+    wake();
+  }
 }
 viewport.addEventListener('pointerup', endDrag);
 viewport.addEventListener('pointercancel', endDrag);
 viewport.addEventListener('lostpointercapture', endDrag);
-viewport.addEventListener('wheel', (event) => {
-  if (drag) return;
-  event.preventDefault(); tween = undefined; Object.assign(target, view);
-  if (event.ctrlKey || event.metaKey) {
+backdrop.addEventListener('wheel', (event) => {
+  if (event.defaultPrevented || drag) return;
+  const zooming = event.ctrlKey || event.metaKey;
+  const focused = slideNavigation.isFocused();
+  const element = event.target as Element;
+  if (!viewport.contains(element) && !(focused && element.closest('.classroom-stage') && (zooming || !element.closest('.transcript-panel')))) return;
+  event.preventDefault();
+  const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientHeight : 1;
+  if (focused) {
+    if (!zooming || event.deltaY > 0 || pageExit.active()) {
+      pageExit.move(zooming ? 0 : event.deltaX * unit, zooming ? 0 : event.deltaY * unit,
+        zooming ? event.deltaY * unit * .01 : 0);
+    }
+    return;
+  }
+  interruptCamera();
+  if (zooming) {
     const zoom = clampZoom(view.zoom * Math.exp(-event.deltaY * 0.01));
-    const dx = event.clientX - canvasBounds.left - viewport.clientWidth / 2, dy = event.clientY - canvasBounds.top - viewport.clientHeight / 2;
-    view.x += dx / view.zoom - dx / zoom; view.y += dy / view.zoom - dy / zoom;
+    const dx = event.clientX - canvasBounds.left - viewport.clientWidth / 2;
+    const dy = event.clientY - canvasBounds.top - viewport.clientHeight / 2;
+    view.x += dx / view.zoom - dx / zoom;
+    view.y += dy / view.zoom - dy / zoom;
     view.zoom = zoom;
   } else {
-    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientHeight : 1;
     view.x += event.deltaX * unit / view.zoom; view.y += event.deltaY * unit / view.zoom;
   }
   Object.assign(target, view); wake();
@@ -373,7 +491,7 @@ if (localDev) {
     mountPaperPane(rolePicker);
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
-        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole);
+        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingVideo);
       });
     });
   });
@@ -381,7 +499,6 @@ if (localDev) {
   mountPaperPane();
 }
 if (import.meta.hot) {
-  import.meta.hot.dispose(pageBackgrounds.dispose);
   import.meta.hot.dispose(disposeRegressAnimations);
   import.meta.hot.on('vite:beforeFullReload', () => { void layout.save(false, true); });
   import.meta.hot.dispose(() => { void layout.save(false, true); });

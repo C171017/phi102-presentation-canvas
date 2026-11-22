@@ -82,11 +82,11 @@ test('camera-only frames reuse connections; explicit invalidation refreshes once
   let connections = 0, renders = 0;
   const view = { x: 0, y: 0, zoom: 1 };
   const ctx = runFunctions(['render', 'invalidateConnections', 'wake'], {
-    view, target: view, tween: undefined, glossaryFocus: undefined, connectionsDirty: true, frame: undefined,
+    view, target: view, tween: undefined, drag: undefined, connectionsDirty: true, frame: undefined,
     canvasBounds: { left: 320, top: 30 },
     renderGrid() {}, world: { style: {} }, threeLayer: undefined,
     updateConnections: () => connections++,
-    slideNavigation: { measure() {}, update() {}, updateVisible() {} },
+    slideNavigation: { measure() {}, refit() {}, update() {} },
     requestAnimationFrame: () => 1, tick() {},
   });
   ctx.render();

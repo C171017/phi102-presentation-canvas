@@ -19,7 +19,7 @@ const figures = [
   { id: 'cast-echo', ...cast.echo, role: 'Endorsement', lettering: endorsement, src: echo, w: 175, h: 175, x: 335 },
   { id: 'route-knowledge-evan', name: 'Evan', view: 'Evidence', color: '#39365c', src: evan,
     alt: 'Evan bows to sign the invitation in blue ink.', w: 112, h: 237 },
-  { id: 'regress-problem', name: 'YYY Sowatt', view: 'Regress problem', color: '#514755', src: sowatt, w: 210, h: 176 },
+  { id: 'regress-problem', name: 'YYYY SOWATT', view: 'Regress problem', color: '#514755', src: sowatt, w: 210, h: 176 },
 ];
 
 export const castScenes = Object.fromEntries(figures.map(member => [

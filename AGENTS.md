@@ -20,6 +20,7 @@ These instructions apply only to this directory and its descendants.
 
 ## Interaction conventions
 
+- Follow [the dialogue-led slide rules](docs/slide-visual-style.md#dialogue-led-presentation-slides) when writing slide content or editing transcripts, speaker cues, or classroom framing. Keep the slide’s section text fixed on the left and its scrolling dialogue on the right. Put speaker names above portraits and use the highlighted line to determine which portrait stays bright.
 - Two-finger trackpad scrolling pans the canvas; dragging empty space draws a selection box.
 - Dragging a selected object moves the whole selection.
 - Canvas objects remain independently movable and resizable unless the user requests otherwise.
