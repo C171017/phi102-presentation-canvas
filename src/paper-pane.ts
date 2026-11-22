@@ -21,6 +21,29 @@ type Page = { file: string; width: number; height: number; printed: string };
 type Anchor = PaperAnchor;
 type Manifest = { title: string; pages: Page[]; anchors: Record<string, Anchor> };
 type Prefs = { open: boolean; width: number | null };
+type PaperSectionLink = { number: string; title: string; anchor: string; children?: PaperSectionLink[] };
+
+const PAPER_SECTION_LINKS: PaperSectionLink[] = [
+  { number: '1', title: 'Regresses and foundations', anchor: 'regress-problem' },
+  {
+    number: '2', title: 'Routes to flexible foundationalism', anchor: 'paper-routes',
+    children: [
+      { number: '2.1', title: 'Social dimensions of justification', anchor: 'route-social-heading' },
+      { number: '2.2', title: 'Hinges', anchor: 'route-hinges-heading' },
+      { number: '2.3', title: 'Knowledge, belief, and flexible foundationalism', anchor: 'route-knowledge-heading' },
+    ],
+  },
+  { number: '3', title: 'Relations to recent debates', anchor: 'versions-map-heading' },
+  {
+    number: '4', title: 'An application', anchor: 'paper-application',
+    children: [
+      { number: '4.1', title: 'Access and foundationalism', anchor: 'access-heading' },
+      { number: '4.2', title: 'Access and flexible foundationalism', anchor: 'mobile-heading' },
+    ],
+  },
+  { number: '5', title: 'Conclusion', anchor: 'conclusion-heading' },
+];
+
 type PaperPaneOptions = {
   initiallyOpen: boolean;
   rolePicker?: HTMLElement;
@@ -95,6 +118,10 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   resizer.tabIndex = 0;
   resizer.setAttribute('aria-controls', 'paper-pages');
 
+  const outline = element('nav', 'paper-outline');
+  outline.setAttribute('aria-label', 'Paper sections');
+  outline.hidden = true;
+
   const scroll = element('div', 'paper-scroll');
   scroll.id = 'paper-pages';
   scroll.tabIndex = 0;
@@ -112,7 +139,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   const passageArrow = element('span', undefined, '↑');
   passageArrow.setAttribute('aria-hidden', 'true');
   passageCue.append(passageArrow);
-  pane.append(resizer, scroll, scrollIndicator, passageCue);
+  pane.append(resizer, outline, scroll, scrollIndicator, passageCue);
   shell.append(pane);
   const highlights = createHighlights?.(pane, scroll);
   const notes = createPaperNotes(pane, scroll, shell);
@@ -211,17 +238,45 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     }
   }
 
-  passageCue.addEventListener('click', () => {
-    const anchor = slideAnchors[current];
-    if (!anchor || passageCue.hidden) return;
+  function jumpTo(anchor: Anchor, behavior: ScrollBehavior = reducedMotion.matches ? 'auto' : 'smooth') {
     notes.clearFocus();
-    scroll.focus({ preventScroll: true });
+    glossary.close();
     for (let page = anchor.page - 1; page <= anchor.page + 1; page++) if (images[page]) images[page].loading = 'eager';
     scroll.scrollTo({
       top: Math.max(0, offsetOf(anchor) - scroll.clientHeight * READING_LINE),
-      behavior: reducedMotion.matches ? 'auto' : 'smooth',
+      behavior,
     });
+  }
+
+  passageCue.addEventListener('click', () => {
+    const anchor = slideAnchors[current];
+    if (!anchor || passageCue.hidden) return;
+    jumpTo(anchor);
+    scroll.focus({ preventScroll: true });
   });
+
+  function buildSectionLinks(sections: PaperSectionLink[], anchors: Manifest['anchors']): HTMLOListElement {
+    const list = element('ol');
+    list.setAttribute('role', 'list');
+    for (const section of sections) {
+      const anchor = anchors[section.anchor];
+      if (!anchor || anchor.page >= sheets.length) continue;
+      const item = element('li');
+      const button = element('button', undefined, section.number);
+      button.type = 'button';
+      button.title = section.title;
+      button.setAttribute('aria-label', `Section ${section.number} ${section.title}`);
+      button.setAttribute('aria-controls', scroll.id);
+      button.addEventListener('click', () => jumpTo(anchor, 'auto'));
+      item.append(button);
+      if (section.children) {
+        const children = buildSectionLinks(section.children, anchors);
+        if (children.childElementCount) item.append(children);
+      }
+      list.append(item);
+    }
+    return list;
+  }
 
   function readingAnchor(): Anchor | undefined {
     if (!sheets.length) return;
@@ -251,6 +306,9 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
       sheets.push(figure);
       images.push(image);
     });
+    const sectionLinks = buildSectionLinks(PAPER_SECTION_LINKS, loaded.anchors);
+    outline.replaceChildren(sectionLinks);
+    outline.hidden = !sectionLinks.childElementCount;
     void highlights?.load(`${ASSETS}words.json`, images, visiblePages.map(page => page.file));
     void glossary.load(`${ASSETS}glossary.json`, visiblePages.map(({ file }, index) => ({ file, sheet: sheets[index] })));
     notes.build(loaded.anchors, sheets, segments);
@@ -317,6 +375,28 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   }
 
   let hideScrollIndicator: number | undefined;
+  let hideSectionTree: number | undefined;
+  let sectionTreeHovered = false;
+
+  function scheduleSectionTreeHide() {
+    window.clearTimeout(hideSectionTree);
+    if (!sectionTreeHovered) {
+      hideSectionTree = window.setTimeout(() => outline.classList.remove('is-scrolling'), 5_000);
+    }
+  }
+
+  outline.addEventListener('pointerenter', event => {
+    if (event.pointerType === 'touch') return;
+    sectionTreeHovered = true;
+    outline.classList.add('is-scrolling');
+    window.clearTimeout(hideSectionTree);
+  });
+  outline.addEventListener('pointerleave', event => {
+    if (event.pointerType === 'touch') return;
+    sectionTreeHovered = false;
+    scheduleSectionTreeHide();
+  });
+
   scroll.addEventListener('scroll', () => {
     updatePassageCue();
     const { clientHeight, scrollHeight, scrollTop } = scroll;
@@ -330,6 +410,9 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     scrollIndicator.classList.add('is-visible');
     window.clearTimeout(hideScrollIndicator);
     hideScrollIndicator = window.setTimeout(() => scrollIndicator.classList.remove('is-visible'), 600);
+
+    outline.classList.add('is-scrolling');
+    scheduleSectionTreeHide();
   }, { passive: true });
   new ResizeObserver(updatePassageCue).observe(scroll);
 

@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Kalam';
+  src: url('/fonts/kalam-bold-sections.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+002E, U+0031-0035;
+}
+
 #paper-pane {
   --paper-width: clamp(380px, 26vw, 540px);
   position: absolute;
@@ -41,6 +50,7 @@
   box-shadow: none;
 }
 #paper-pane.is-collapsed .paper-scroll,
+#paper-pane.is-collapsed .paper-outline,
 #paper-pane.is-collapsed .paper-scroll-indicator { display: none; }
 #paper-pane.is-collapsed .paper-resizer {
   position: relative;
@@ -66,6 +76,86 @@
     linear-gradient(2deg, transparent 76%, #ffe4a2 76% 88%, transparent 88%) #edbd68;
 }
 #paper-pane.is-collapsed .paper-resizer:hover::after { background-color: #f5cb79; }
+
+.paper-outline {
+  --subsection-width: 33px;
+  position: absolute;
+  z-index: 6;
+  inset-block-start: 10px;
+  inset-inline-end: 12px;
+  padding: 1px 4px;
+  pointer-events: none;
+  color: #000;
+}
+.paper-outline > ol {
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+}
+.paper-outline:is(.is-scrolling, :has(:focus-visible)) > ol { opacity: 1; }
+.paper-outline:is(.is-scrolling, :has(:focus-visible)) { pointer-events: auto; }
+.paper-outline[hidden] { display: none; }
+.paper-outline ol {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.paper-outline > ol { gap: 2px; }
+.paper-outline li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+.paper-outline button {
+  display: block;
+  min-inline-size: 24px;
+  min-block-size: 24px;
+  padding: 0 3px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: 700 26px/1.04 'Kalam', 'Bradley Hand', cursive;
+  text-align: center;
+  text-shadow: 1px 1px 0 #382d23, 2px 2px 0 #382d23, 3px 3px 0 #382d23;
+  cursor: pointer;
+}
+.paper-outline button:hover { text-decoration: underline; }
+.paper-outline button:focus-visible { outline: 1px solid #382d23; outline-offset: -2px; }
+
+.paper-outline ol ol {
+  position: relative;
+  padding-block-start: 6px;
+}
+.paper-outline ol ol button { inline-size: var(--subsection-width); padding-inline: 0; font-size: 23px; }
+.paper-outline ol ol::before,
+.paper-outline ol ol::after,
+.paper-outline ol ol li::before {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  opacity: .55;
+}
+.paper-outline ol ol::before {
+  inset: 0 calc(var(--subsection-width) / 2) auto;
+  border-block-start: 1px solid;
+}
+.paper-outline ol ol::after {
+  inset: -3px auto auto 50%;
+  block-size: 3px;
+  border-inline-start: 1px solid;
+}
+.paper-outline ol ol li::before {
+  inset: -6px auto auto 50%;
+  block-size: 6px;
+  border-inline-start: 1px solid;
+}
+
+@media (max-width: 348px) {
+  .paper-outline { --subsection-width: 25px; }
+  .paper-outline ol ol button { font-size: 21px; }
+}
+
 .paper-scroll {
   position: relative;
   flex: 1;
@@ -81,13 +171,12 @@
 
 .paper-passage-cue {
   position: absolute;
-  inset-inline: 0;
-  z-index: 4;
+  inset-inline-start: 12px;
+  z-index: 7;
   display: grid;
   width: 44px;
   height: 44px;
   place-items: center;
-  margin-inline: auto;
   padding: 0;
   border: 1px solid #bcad91;
   border-radius: 50%;
@@ -119,7 +208,8 @@
   background: #000;
 }
 @media (prefers-reduced-motion: reduce) {
-  .paper-scroll-indicator { transition: none; }
+  .paper-scroll-indicator,
+  .paper-outline > ol { transition: none; }
 }
 
 .paper-page {

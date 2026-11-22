@@ -252,6 +252,12 @@
     "definition": "The study of what words and sentences mean. Here the question is whether “knows” changes what a sentence says across conversations."
   },
   {
+    "id": "inter-alia",
+    "title": "Inter alia",
+    "aliases": ["inter alia"],
+    "definition": "Latin for “among other things.” In the toothache example, one thing “Oh, come on” conveys is that the speaker thinks their belief that they have a toothache needs no further supporting beliefs."
+  },
+  {
     "id": "felicity",
     "title": "Felicity",
     "aliases": ["felicity"],

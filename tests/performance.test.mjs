@@ -34,7 +34,7 @@ function geometryFixture() {
 
 test('connections separate branch lanes and follow moved or resized endpoints without interleaving geometry reads and writes', () => {
   const f = geometryFixture();
-  const code = readFileSync(new URL('../src/connections.ts', import.meta.url), 'utf8').replace(/^import .+;\n/, '').replace('export function', 'function');
+  const code = readFileSync(new URL('../src/connections.ts', import.meta.url), 'utf8').replace(/^import .+;\n/gm, '').replace('export function', 'function');
   const ctx = vm.createContext({});
   vm.runInContext(ts.transpile(code, { target: ts.ScriptTarget.ES2022 }), ctx);
   const update = () => ctx.updateConnections(f.links, f.origin, f.view.zoom);
@@ -60,6 +60,12 @@ test('connections separate branch lanes and follow moved or resized endpoints wi
   Object.assign(f.positions.upper, { x: 0, y: 0 });
   update();
   assert.ok([upper.line, upper.flow, upper.silhouette].every(part => !part.d), 'overlapping endpoints do not produce a stray link');
+  upper.straight = true;
+  Object.assign(f.positions.upper, { x: 600, y: -750 });
+  update();
+  assert.equal(upper.line.d, 'M0 -54L600 -646', 'pairings connect vertically separated endpoints with one straight diagonal');
+  assert.equal(upper.flow.d, upper.line.d);
+  assert.match(upper.silhouette.d, /Q[^Q]+ 600 -646Q/, 'the taper follows the diagonal');
 });
 
 test('group movement batches position reads and schedules one save and connection update', () => {

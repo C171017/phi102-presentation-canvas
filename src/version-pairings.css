@@ -2,6 +2,7 @@
   width: max-content;
   max-width: none;
   text-align: center;
+  text-shadow: 0 0 4px #f5eddc, 0 0 4px #f5eddc;
 }
 
 .pairing-heading h2 {

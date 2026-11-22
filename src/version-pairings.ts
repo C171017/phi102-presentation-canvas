@@ -10,9 +10,16 @@ const hinges = 'Hinges';
 const knowledge = 'Knowledge at the base';
 const belief = 'Belief at the base';
 
+export const pairingRouteAnchors = {
+  [social]: 'route-social-scene',
+  [hinges]: 'route-hinges-door',
+  [knowledge]: 'route-knowledge-evidence',
+  [belief]: 'route-knowledge-heading',
+};
+
 type Pairing = {
   id: `pairing-${string}`;
-  route: string;
+  route: keyof typeof pairingRouteAnchors;
   character?: keyof typeof cast;
   alternative?: string;
   summary: string;

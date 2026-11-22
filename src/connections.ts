@@ -1,4 +1,5 @@
 import './connections.css';
+import { cast, pairingRouteAnchors, versionPairings } from './version-pairings';
 
 type Pair = [source: string, target: string];
 const aimLinks: Record<string, Pair[]> = {
@@ -27,6 +28,7 @@ type Link = {
   source: HTMLElement;
   target: HTMLElement;
   preferRow: boolean;
+  straight: boolean;
   group: SVGGElement;
   line: SVGPathElement;
   flow: SVGPathElement;
@@ -96,12 +98,13 @@ function relationGeometry(name: string, a: Box, b: Box) {
 
 export function createConnections(world: HTMLElement) {
   const links: Link[] = [];
-  function add(layer: SVGSVGElement, family: string, [sourceId, targetId]: Pair) {
+  function add(layer: SVGSVGElement, family: string, [sourceId, targetId]: Pair, options: { straight?: boolean; color?: string } = {}) {
     const source = document.getElementById(sourceId);
     const target = document.getElementById(targetId);
     if (!source || !target) return;
     const group = document.createElementNS(svgNS, 'g');
     group.classList.add('canvas-link', family);
+    if (options.color) group.style.setProperty('--route-color', options.color);
     group.dataset.source = sourceId;
     group.dataset.target = targetId;
     const clip = document.createElementNS(svgNS, 'clipPath');
@@ -117,7 +120,7 @@ export function createConnections(world: HTMLElement) {
     strokes.append(line, flow);
     group.append(clip, strokes);
     layer.append(group);
-    links.push({ source, target, preferRow: target.classList.contains('slide-title'), group, line, flow, silhouette });
+    links.push({ source, target, preferRow: target.classList.contains('slide-title'), straight: options.straight ?? false, group, line, flow, silhouette });
   }
   const aims = world.querySelector<SVGSVGElement>('#connections')!;
   const regress = world.querySelector<SVGSVGElement>('#regress-connections')!;
@@ -125,6 +128,10 @@ export function createConnections(world: HTMLElement) {
     for (const pair of pairs) add(aims, `link-${family}`, pair);
   }
   for (const route of regressRoutes) add(regress, `route-${route}`, ['regress-problem', `regress-${route}`]);
+  for (const { id, route, character } of versionPairings) {
+    add(aims, 'link-motivations', [pairingRouteAnchors[route], id], { straight: true });
+    if (character) add(aims, 'link-versions', [id, `cast-${character}`], { straight: true, color: cast[character].color });
+  }
 
   const relations = applicationRelations(aims);
   return (zoom: number) => updateConnections(links, world.getBoundingClientRect(), zoom, relations);
@@ -141,6 +148,22 @@ function portPoint(port: Port, clearance: number): Point {
 }
 
 const vector = ([x, y]: Point) => `${+x.toFixed(2)} ${+y.toFixed(2)}`;
+
+function straightRoute(from: Port, to: Port, gap: number) {
+  const clearance = Math.min(14, gap / 4);
+  const a = portPoint(from, clearance), b = portPoint(to, clearance);
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  const length = Math.hypot(dx, dy);
+  const ux = dx / length, uy = dy / length;
+  const at = (along: number, across: number) => vector([a[0] + along * ux - across * uy, a[1] + along * uy + across * ux]);
+  const tipLength = Math.min(22, length * 0.19);
+  const base = length - tipLength;
+  const shoulder = base + tipLength * 0.4;
+  const silhouette = `M${at(-5, -5)}L${at(base, -5)}L${at(base, -2.5)}` +
+    `Q${at(shoulder, -2.5)} ${vector(b)}Q${at(shoulder, 2.5)} ${at(base, 2.5)}` +
+    `L${at(base, 5)}L${at(-5, 5)}Z`;
+  return { d: `M${vector(a)}L${vector(b)}`, silhouette, length };
+}
 
 function roundedRoute(from: Port, to: Port, gap: number) {
   const { axis, side } = from;
@@ -174,8 +197,7 @@ function roundedRoute(from: Port, to: Port, gap: number) {
     `Q${at(shoulder, b[cross] + 2.5)} ${at(base, b[cross] + 2.5)}` +
     `L${at(base, high)}L${at(start, high)}Z`;
   const length = straight ? Math.hypot(span, shift) : span + Math.abs(shift) - (4 - Math.PI) * radius;
-  const period = Math.min(310, Math.max(30, length));
-  return { d, silhouette, period };
+  return { d, silhouette, length };
 }
 
 function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>, zoom: number, relations: Relation[] = []) {
@@ -210,7 +232,8 @@ function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>,
     const yGap = Math.abs(dy) - a.half[1] - b.half[1];
     if (xGap <= 0 && yGap <= 0) return { link };
     // Slide illustrations sit below their headings. Use the side corridor when it fits.
-    const axis: Axis = xGap >= yGap || (link.preferRow && xGap >= 80) ? 0 : 1;
+    const preferColumn = link.straight && yGap > 0;
+    const axis: Axis = !preferColumn && (xGap >= yGap || (link.preferRow && xGap >= 80)) ? 0 : 1;
     const side = Math.sign(axis === 0 ? dx : dy);
     const cross = crossAxis(axis);
     const from = addPort({ element: link.source, box: a, axis, side, facing: b.center[cross], offset: 0 });
@@ -239,11 +262,13 @@ function updateConnections(links: Link[], origin: Pick<DOMRect, 'left' | 'top'>,
       for (const path of [link.line, link.flow, link.silhouette]) if (path.hasAttribute('d')) path.removeAttribute('d');
       return;
     }
-    const { d, silhouette, period } = roundedRoute(from, to, gap);
+    const geometry = link.straight ? straightRoute : roundedRoute;
+    const { d, silhouette, length } = geometry(from, to, gap);
     if (link.silhouette.getAttribute('d') !== silhouette) link.silhouette.setAttribute('d', silhouette);
     if (link.line.getAttribute('d') === d) return;
     link.line.setAttribute('d', d);
     link.flow.setAttribute('d', d);
+    const period = Math.min(310, Math.max(30, length));
     link.group.style.setProperty('--flow-period', `${period}px`);
     link.group.style.setProperty('--flow-duration', `${period / 125}s`);
     link.group.style.setProperty('--flow-delay', `${-(i % 7) * 0.23}s`);
