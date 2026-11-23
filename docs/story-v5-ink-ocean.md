@@ -60,7 +60,7 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 | **The demon's creation** | YYYY SOWATT (four Y voices + SOWHAT), its manifestation in the world |
 | **Allies** | Evan, a living pen anyone can write with: the third sacred weapon, who denies being one **[YOUR IDEA · AI VERSION]**; the Ferry and its town, Here; the old lighthouse keeper, who tells the legend (L8) |
 | **Legend figures** | The guardian question mark; the three Answerers (Pyrrho, Peirce, Neurath); Descartes, the fourth; the Cartesians; the moderates; the unnamed stranger who found a better way (L7) |
-| **Objects** | Ink sticks (foundations); the *I think* stick (grain-sized); the three sacred weapons (the Conch, the Anchor, and Evan) |
+| **Objects** | Ink sticks (foundations); the *I think* stick (grain-sized); the three sacred treasures (the Gavel, the Anchor, and Evan) |
 | **Places** | The Great Inkwell; the ink ocean; the dream domes; Here, the first town after the fall; the lighthouse |
 
 ---
@@ -443,49 +443,16 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > **Narrator:** She left the world three legendary artifacts.
 > *[Title card, full anime gold, choir:]* **THE THREE SACRED TREASURES OF GOOD ENOUGH**
 > **Narrator:** Then she was gone.
-> **Narrator:** Did the Whypocalypse ever end? *(beat)* Probably.
+> **Narrator:** And the treasures were never found.
 
 **Notes [AI DRAFT]:**
 - **The one idea the audience must leave with:** flexible foundationalism. A foundation doesn't have to be undoubtable, only undoubted, and only here and now (Greco's core claim). Everything in Part 2 builds on this line.
-- **The open question** ("Did the Whypocalypse ever end?") makes the beach in L8 look suspiciously perfect, so the audience can start doubting the narrator's world before anyone says it's a dream.
-- **The three weapons,** revealed in Part 2: the Conch (social norms, Annis, §2.1), the Anchor (hinges, Wittgenstein, §2.2), and Evan (knowledge at the base, E = K, §2.3). Each answers to anyone, but differently in different hands (§9.2).
+- **The narrator is revealed in P1:** the legend's narration was Simone's testimony in court all along. Whether the Whypocalypse ended is never stated, so the audience can start doubting the world they're in.
+- **The three weapons,** revealed in Part 2: the Gavel (social norms, Annis, §2.1), the Anchor (hinges, Wittgenstein, §2.2), and Evan (knowledge at the base, E = K, §2.3). Each answers to anyone, but differently in different hands (§9.2).
 
 **Visual:** blue-green landscape (青绿山水): calm mineral blues and greens. A lone woman seen only from behind, one stick dry under her foot. Then the gold title card, and an empty sea. The corner meter blinks **??**.
 
 **Canvas:** Story page 18 and the presentation show the Stranger’s first step from the waterline. Three artifact shapes under a cloth on the lower-left ledge foreshadow the reveal. [First-step illustration](../public/generated/backgrounds/ink-ocean/L7-stranger-covered-artifacts.webp)
-
-### L8 · The scroll pulls back: the legend was told inside a dream [FIXED concept · YOUR IDEA · AI VERSION script]
-
-**[FIXED requirement]** Everything before the dream era is one legend: an exaggerated tribute to and parody of classic anime and films. The legend turns out to be told *inside the first dream world*. Nobody there knows they're dreaming; to them it's only an old story. It ends on the three weapons waiting for the heroes to find them. Someone in the crowd says they'll be the hero, everyone laughs, and that person really is the first hero.
-
-**[YOUR IDEA · AI VERSION] Script.** Picks up straight from L7.
-
-> *(The narrator's voice swells, and gets audibly older and croakier.)*
-> **Storyteller** *(wind rising from nowhere, ink petals swirling, lightning exactly on cue)***:** And so the three sacred weapons were lost across the seas… *(thunder)* …waiting for someone… to find them… and SAVE THE WORLD!
-> *(A child in the front row gasps.)*
-> **Storyteller:** Each weapon would answer to anyone. But it would answer *differently*, depending on whose hand it was in.
-> *(beat)*
-> **Storyteller:** Probably.
->
-> *(The camera pulls back. The last scene was a painting on a long handscroll. The scroll is in the lap of an old lighthouse keeper on a beach at night, by a lantern. Villagers sit around him on the sand. Fog behind them. Corner meter: DRY WORLD REMAINING 100%.)*
-> **Child:** Is it true?
-> **Keeper:** It's a legend.
-> **Child:** Did it ever end?
-> **Villager** *(laughing, waving at the dry, lantern-lit island)***:** Of course it ended. Look around.
-> *(Nervous laughter. The keeper rolls up the scroll. Its ink is still wet. Nobody notices.)*
-> **Simone** *(from the back, calmly)***:** Then someone should go and find them.
-> *(A pause. The whole beach laughs. In a tide pool at her feet, a small hermit crab raises one oversized claw. Clack.)*
-> **Keeper** *(not unkindly)***:** Everyone says that. Nobody does. Goodnight.
-> *(The crowd drifts off. Simone stays, looking at the dark water. Beside the tide pool, half-buried in the sand: a conch.)*
->
-> *[Title card, full mock anime: speed lines, brush lettering, dramatic sting:]* **EPISODE ONE: THE GIRL WHO WENT LOOKING**
-
-**Notes:**
-- **[AI DRAFT] Who makes the claim:** Simone, deadpan rather than boastful (default; alternatives in §8). She is the first hero, so the rule "the one laughed at is the first hero" holds.
-- **[AI DRAFT] Clues hidden in plain sight:** the too-perfect 100% meter, still-wet ink on an old scroll, and Echo, the only one on the beach who doesn't laugh.
-- **[AI DRAFT] The keeper** tells the legend, and in P1 he tells Simone, "If you ever wake up, follow the light." He half-remembers that the legend is true.
-- **[AI DRAFT] "Answers differently":** replaces "only the chosen one can wield it," which would misstate the paper (§9.2).
-- **Visual [AI DRAFT]:** the pull-back is also the style shift, from the handscroll's painting styles into P1's cut-paper island. The scroll in the keeper's lap is the same scroll the audience has been watching.
 
 ---
 
@@ -530,8 +497,8 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 
 | Step | Who | World (version × routes) | The crack (Greco's objection) | Carried forward |
 | --- | --- | --- | --- | --- |
-| P1 | Simone, alone | Sensitive invariantism × social + hinges; an ancient island | A whole community can be wrong (astrology) | "My world's rule can't call a community wrong" |
-| I1–I3 | Simone, then the Ferry | The real ocean, twelve years | — | A town, an audience, and the third weapon |
+| P1 | Simone, alone | Social × sensitive invariantism; an 1890s courtroom | A whole community can agree and still be wrong (astrology) | "My world's rule can't call a community wrong" |
+| I1–I3 | Simone, then the Ferry | The real ocean, twelve years; hinges × sensitive invariantism (the Anchor, alone) | — | A town, an audience, and the third weapon |
 | P2 | Simone enters Cole's dream | Contextualism × social; modern streaming | The commitment view fixes the astrology problem, but creates the **disagreement problem**, played between Simone and Cole | "We both feel right, and we can't both just be reporting ourselves" |
 | P3 | Simone, Cole, Evan and Echo enter Rae's dream | Knowledge × relativism (Rae), with expressivism beside it (Echo) | Two answers to the disagreement, side by side; Greco declines to choose | — |
 | Part 3 | The three heroes, Evan and Echo, with the town behind them | The real ocean | — | The finale |
@@ -549,38 +516,50 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 
 **Visual tells [AI DRAFT]:** a faint dome of ink overhead and one dark thread in a corner of every dream frame; inside every dream, the meter reads a suspiciously perfect 100%.
 
-### P1 · The Lantern in the Fog · Simone · sensitive invariantism × social + hinges [AI DRAFT · opening follows L8] · ~2.5 min
+### P1 · The Trial · Simone · social × sensitive invariantism · the Gavel [YOUR IDEA · AI VERSION] · ~2.5 min
 
-**Paper:** §3: Annis's view as sensitive invariantism about foundations; the hinge version; the astrology objection (pp. 429–430). §2.2 for the hinge example.
+**[FIXED: the author's requirements]** The legend was Simone's testimony all along: she was the narrator. A courtroom in an 1890s dream world. Simone is on trial for spreading rumors (the legend), and the court lets her prove it in real time, with a jar of ink as Exhibit A. Only Simone knows the judge's gavel is the first sacred treasure; she got herself arrested to stand near it. Parody the courtroom "OBJECTION!" moment, and pay tribute to *The Matrix*.
 
-**Rule of this world:** whether ink dries under your feet depends on *your own* situation: what your own community wouldn't challenge, and what your own question has to take for granted.
+**Paper:** Annis's social view, read as sensitive invariantism: whether a belief is foundationally justified depends on the norms accepted by the subject's community (§3, p. 429). The crack is the astrology objection: a community's acceptance can make a false belief "justified" (§3).
 
-> **Narrator:** Simone had lived on Lantern Isle all her life. As far as she knew.
-> *(Morning. She walks the tideline, Echo riding on her shoulder. The conch from last night is still half-buried in the sand. She blows it. The island answers with silence: nobody objects. Ink hardens under her feet, teal.)*
-> **Simone:** Oh.
-> **Narrator:** The first sacred weapon had been found. By someone who thought it was a shell.
-> **Cole** *(a voice crackling down from the sky, from some other world)***:** Chat, is she okay? …Chat says she's fine 👍.
-> *(The water doesn't change at all.)*
-> **Simone** *(to the sky, politely)***:** Your chat isn't my community.
-> **Narrator:** She had no idea who that was. It was still correct.
+**Rule of this world:** a claim dries when nobody in the room objects. An objection the room takes seriously wets it again.
+
+> *(The legend's last painting pulls back. The narrator's voice was coming from the dock. A courtroom in the 1890s: gas lamps, frost on the windows, a frozen ink lake outside. Simone stands in the dock, a small hermit crab on her shoulder.)*
+> **Simone:** …and the treasures were never found. That's the legend, Your Honor. And it's true.
+> *(The whole courtroom laughs. Only the crab doesn't.)*
+> **Prosecutor:** The accused claims the world is made of ink. That a Whypocalypse once happened. That we are all dreaming. Spreading rumors, Your Honor.
+> **Judge** *(an old man; the town's lighthouse keeper)***:** Miss Simone, can you prove any of it?
+> **Simone:** May I borrow your gavel?
+> *(More laughter. The judge, amused, hands it over.)*
+> **Narrator:** She had spent years looking for the first of the Three Sacred Treasures. She had committed a crime just to stand ten feet from it.
 >
-> *(Fog rolls in. A lighthouse keeper sits on a buoy.)*
-> **Simone:** What color is the light on the far buoy?
-> *(An anchor drops out of the fog and bites. Three planks dry under her: HE UNDERSTANDS ME. HE'S TELLING THE TRUTH. HE CAN TELL GREEN FROM RED.)*
-> **Narrator:** The second sacred weapon. It arrived the way anchors do, from above and without asking.
-> **Keeper:** Green.
-> **Simone** *(a faint crease between her brows)***:** …Can you tell green from red?
-> *(That plank softens into wet ink. It's the question now.)*
-> **Keeper:** If you ever wake up, follow the light. Nobody here ever does. I say it to everyone.
+> *(Simone steps to the evidence table. Exhibit A: a jar of ink.)*
+> **Simone:** This ink is black. Any objections?
+> *(Silence. Nobody would object to that.)*
+> *(Bang. The ink in the jar hardens into a solid stick. The room gasps.)*
+> **Simone:** That's what your silence does.
+> **Simone:** And the floor you're standing on is made of the same ink.
+> **Prosecutor** *(pointing)***:** OBJECTION!
+> *(The floor under the whole room goes soft. Feet sink. Screams.)*
+> **Simone:** Objection noted. *(beat)* Anyone else?
+> *(Terrified silence. Bang. The floor sets again.)*
+> **Narrator:** Not undoubtable. Just undoubted, by everyone in the room. For now.
 >
-> *(Across the strait, on Star Isle, everyone takes for granted that the stars predict the tides.)*
-> **Islander:** The stars say the tide is safe.
-> *(Solid ink forms under him. He strolls out onto the flats.)*
-> **Narrator:** By the rules of this world, he was perfectly justified. By the rules of the tide, he was underwater.
+> *(A black cat walks across the courtroom. A moment later, the same black cat walks across the courtroom again.)*
+> **Simone:** Your silence can make ink solid. It can't make it true. You all agreed this world is real.
+> *(Cracks race across the walls, the windows, the frozen lake.)*
+> **Judge** *(quietly, as the room breaks)***:** If you ever wake up, follow the light.
+> **Simone:** Wake up.
 
-**The crack:** a whole community can take something for granted and still be wrong, but this world's rule says the islander is justified anyway. This is Greco's moral analogy: if a community's approval is what justifies you, a misguided community is justified too. **Quiz Q2.** The dome cracks like porcelain, and Simone falls out.
+**What the audience learns, in order:** silence dries ink (the social route, shown with the jar); an objection the room takes seriously wets it (the floor); the result is undoubted, not undoubtable, and only for now; and a whole community can agree and still be wrong (the crack). **Quiz Q2.**
 
-**Visual:** an ancient island of cut-paper silhouettes on deep teal water, amber lanterns, a lighthouse; fog banks around it; Star Isle lit cold silver-violet.
+**Notes [AI DRAFT]:**
+- **The legend becomes testimony,** so "the legend is told inside the first dream" still holds, and the narrator's dry wit turns out to be Simone's.
+- **The Matrix tribute:** the black cat crossing twice is the famous déjà-vu glitch; Simone is the one who knows the world is a simulation; "Wake up."
+- **The judge is the keeper,** so "follow the light" still sets up the lighthouse in Part 3.
+- **The Anchor is no longer in P1.** It's revealed in I1, when Simone is alone: the Gavel needs a room, the Anchor doesn't.
+
+**Visual:** a wood-paneled courtroom in warm gaslight, frost on tall windows, the frozen ink lake beyond; Simone in the dock in her green jacket, Echo on her shoulder; the gavel; Exhibit A in a glass jar on the evidence table; the floor rippling like wet ink; the black cat; cracks racing outward like broken ice.
 
 ### I1–I3 · Interlude: alone, the Ferry, Here, and the third weapon [FIXED concept · AI DRAFT montage] · ~1.5 min, no quiz
 
@@ -591,10 +570,11 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 > *(Simone on one dry plank in an endless grey ocean. Domes of ink in every direction, a sleeper curled inside each.)*
 > *(On her knee: Echo, exactly as before. Everything she had known had been a dream. Except, somehow, the crab.)*
 > **Narrator:** He had never been asleep. Nothing about him had ever needed to be true.
-> *(She blows the conch. Nothing.)*
-> **Narrator:** A conch needs a community. No one to object. Also no one to agree.
-> *(The anchor gives her one plank at a time, and only for the question she's asking.)*
-> *[Caption: Year 1.]* *(Simone looks at the conch, then the anchor. Two weapons. Somewhere, a third.)*
+> *(She bangs the gavel. Nothing.)*
+> **Narrator:** A gavel needs a room. No one to object. Also no one to agree.
+> *(An anchor drops out of the fog and bites. One plank dries under her: only the one her own question has to stand on.)*
+> **Narrator:** The second treasure. It didn't need a room. It only needed a question.
+> *[Caption: Year 1.]* *(Simone looks at the gavel, then the anchor. Two treasures. Somewhere, a third.)*
 > *[Caption: Year 3.]*
 > **Narrator:** She told Echo everything. Echo raised his claw at the parts he liked.
 
@@ -602,8 +582,8 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 
 > *[Caption: Year 4.]* *(One dome looks like home: lanterns, a fog bank. She knows its rules. She goes in. A while later a fisherman stumbles out, blinking.)*
 > **Narrator:** Some sleepers dreamed by her own rules. Those, she could wake.
-> *(Two, then five, then twelve. She blows the conch. This time the silence comes from people: nobody objects. Ground spreads under all of them.)*
-> **Narrator:** With someone to answer it, the conch finally worked.
+> *(Two, then five, then twelve. She bangs the gavel. This time the silence comes from people: nobody objects. Ground spreads under all of them.)*
+> **Narrator:** With a room to listen, the gavel finally worked.
 > *[Caption: Year 6.]*
 > **Narrator:** They called the town Here, after the stranger's last words. They called themselves the Ferry, because they carried sleepers across.
 > **Narrator:** The first law of Here: no asking "Are you sure?" after dark.
@@ -759,7 +739,7 @@ On the horizon stands a lighthouse, the one place the demon's storm hasn't reach
 | R5 · The attack | **Y:** Why believe it said north? **SOWHAT:** So what? Can you even tell whether you're justified? The stick softens; Simone sinks to her ankles. **Cole:** Uh. Simone. You're sinking. | The leak-down worry: doubt about your grounds carries over to the belief. That's why Greco wants Access. |
 | R6 · Why it works | The distant light flickers: three flashes, two, none. **SOWHAT:** Maybe the keeper jokes. Maybe you miscounted. The demon can't wet Evan's ink by shouting at it, so it asks Evan himself: *"Was it really the lighthouse you saw?"* Evan can't answer, and his own minutes soften. **Demon:** I never touched it. You did. **Narrator:** If her grounds were whatever the light *really* flashed, the demon could hide it, and she'd have no way to tell what she should believe. | The supervenience base: if justification depended on hidden facts, a misleading forecast could mislead you about your own grounds. Peter jokes or mumbles. For Evan: footnote 16, and higher-order doubt leaking down (§4.1). |
 | R7 · The tempting retreat | **SOWHAT:** Then retreat into your own mind, like Descartes. The grain-sized *I think* stick, the only belief that never got wet, drifts up beside her. **Simone:** That's very small. **Narrator:** It was. It always had been. | A global cognitive home, always-knowable facts big enough to fix all justification, is too much to ask. |
-| R8 · The mobile home | Echo climbs out of his shell and into an empty one drifting past. *Clack.* **Simone:** Then I'll move too. She stops asking "What did the light really flash?" and asks "Given what I can know here, which way?" **Cole:** I recorded the flashes. Habit. The **Anchor** drops: hold fixed that the recording isn't edited. She blows the **Conch**, and Here answers with silence: nobody objects. Evan writes what the recording shows, and it dries. **Quiz Q5.** | The mobile home: in each context, the facts that fix justification must be ones the subject is in a position to know. Justine falls back on Peter's email. |
+| R8 · The mobile home | Echo climbs out of his shell and into an empty one drifting past. *Clack.* **Simone:** Then I'll move too. She stops asking "What did the light really flash?" and asks "Given what I can know here, which way?" **Cole:** I recorded the flashes. Habit. The **Anchor** drops: hold fixed that the recording isn't edited. She bangs the **Gavel**, and Here answers with silence: nobody objects. Evan writes what the recording shows, and it dries. **Quiz Q5.** | The mobile home: in each context, the facts that fix justification must be ones the subject is in a position to know. Justine falls back on Peter's email. |
 | R9 · Split confidence | The recording is blurry. **Simone:** Probably north. Maybe north-east. A stick dries for *that*, pressed with both words. **Narrator:** She didn't know where the lighthouse was. She knew exactly how sure to be. | Footnote 36: she may only be justified in spreading her confidence, and Access holds if she can know how to spread it. |
 | R10 · Access, and arrival | **Rae:** What makes you think that? Simone tells her: the recording, the keeper, Evan's minutes, her best guess. Rae looks for a long beat. *Click.* **Rae:** Valid. Simone steps forward; a stick dries ahead of her and the one behind melts. Step by step through the storm, she reaches the lighthouse and puts her hand on the lamp. **Narrator:** Her ground didn't stay put. It came with her. Like Echo's. | Access holds context by context. A new doubt can move the home again. |
 
@@ -842,7 +822,7 @@ The classroom vote (B or 13) opens the presentation in S0.3. In Part 2, each qui
 
 | # | Scene | Question (correct answer in italics) | Ingredients revealed |
 | --- | --- | --- | --- |
-| Q2 | P1 | The islander stands on dry ink as the tide comes in. What should Simone notice? (a) His community would object. (b) *A whole community can take something for granted and still be wrong.* (c) The stars are reliable on Star Isle. | The Conch and the Anchor + Simone's own situation (sensitive invariantism × social and hinges) |
+| Q2 | P1 | The whole court agrees the world is solid, and the floor dries. What should Simone point out? (a) The court would object. (b) *A whole community can agree and still be wrong.* (c) The gavel decides what's true. | The Gavel + Simone's community (social × sensitive invariantism) |
 | Q3 | P2 | "They were justified." / "Not by mine." If each of them is only stating their own commitments, what's the problem? (a) One of them is lying. (b) *They wouldn't really disagree, yet it feels like they do.* (c) Cole's chat decides who's right. | The Conch + the speaker's audience (contextualism × social) |
 | Q4 | P3 | Rae punches; Echo raises his claw. Which describes the two answers? (a) *Relativism: truth depends on the assessor. Expressivism: calling it foundational is a commitment.* (b) Both say the claim is false. (c) Both say Cole is right. | Evan + the assessor / Evan + a commitment |
 | Q5 | R8 | The light is unreadable. What should fix Simone's grounds now? *Facts she can know here: the recording, the keeper, Evan's minutes, or her best guess.* | — |
@@ -907,7 +887,7 @@ This section keeps the reasoning behind recent decisions in one place: what the 
 - **Hinges** also pair with both.
 - **Knowledge at the base** works with any flexible view of knowledge: contextualism, sensitive invariantism, relativism, "or others" (§2.3). Through it, relativism and expressivism too (§3, one sentence).
 
-**Decision:** "only the chosen one can wield it" would misstate the paper. Instead, each weapon answers to anyone, but differently in each hand: the weapon is the route, and the hand holding it is the version. It still parodies the chosen-one cliché, and it's what the relay already does: the Conch dries footing by Simone's community in her world and by Cole's audience in his.
+**Decision:** "only the chosen one can wield it" would misstate the paper. Instead, each weapon answers to anyone, but differently in each hand: the weapon is the route, and the hand holding it is the version. It still parodies the chosen-one cliché, and it's what the relay already does: the Gavel dries footing by Simone's courtroom in her world and by Cole's audience in his.
 
 **The horcrux idea:** kept only for Evan, as an unexplained hint. Like Harry, he'd be a piece left behind without anyone meaning it to happen, which echoes "without trying." Not used for the heroes: splitting him into three pieces would crowd a 20-second hook.
 
@@ -953,7 +933,7 @@ This section keeps the reasoning behind recent decisions in one place: what the 
 
 **How the three weapons differ:**
 
-| | **Conch** (social) | **Anchor** (hinges) | **Evan** (knowledge) |
+| | **Gavel** (social) | **Anchor** (hinges) | **Evan** (knowledge) |
 | --- | --- | --- | --- |
 | What dries | What nobody around you objects to | What you must hold fixed to do the task in front of you | What you actually know |
 | Where it comes from | Other people | The task | Your contact with the world |
