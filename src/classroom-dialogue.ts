@@ -7,7 +7,6 @@ import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById, legendSlides } from './slide-content';
 import { dialogueArtwork, establishingArtwork, hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset } from './live-protocol';
-import { createLegendQuiz } from './legend-answerers';
 import './classroom-dialogue.css';
 
 const introScenes = ['unitrans-arrival', 'before-lecture'];
@@ -92,7 +91,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const theory = createTheoryRecords(stage, openScene, shared, presenter, () => {
     if (script[active]?.scene === 'L4') select(finalAnswererCue, false);
   });
-  const quiz = createLegendQuiz(stage, presenter, () => onCueChange?.());
   const meter = document.createElement('span');
   meter.className = 'legend-meter';
   const controls = document.createElement('nav');
@@ -278,8 +276,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       if (photo) { select(active, true, photo); return; }
     }
     if (script[index]?.scene !== scene) {
-      if (index < active && theory.selectedScene() === scene) return;
-      if (index > active && (theory.advance(scene) || (scene === 'L4-quiz' && quiz.advance()))) return;
+      if (index < active && theory.selectedAnswererScene() === scene) return;
+      if (index > active && theory.advance(scene)) return;
     }
     if (!choices.hidden && active === questionIndex && index > active) {
       answerButtons[0].focus({ preventScroll: true });
@@ -372,7 +370,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
 
   function showScene(id?: string) {
     theory.showScene(id);
-    quiz.showScene(id);
     const legend = id && legendById.has(id) && id !== 'L6';
     controls.hidden = !legend && id !== 'contemporary-heading' && !introScenes.includes(id ?? '');
     meter.hidden = !legend;
@@ -411,14 +408,12 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     },
     onCue(listener: () => void) { onCueChange = listener; },
     getCue() {
-      if (quiz.isRevealed()) return 1;
       if (active < 0) return 0;
       return active - firstCue.get(script[active].scene)! + (establishing ? establishingCueOffset : 0);
     },
     setCue(cue: number) {
       if (active < 0 || theory.isOpen()) return;
       const scene = script[active].scene;
-      if (scene === 'L4-quiz' && cue === 1) { quiz.reveal(); return; }
       const photoStep = cue >= establishingCueOffset;
       const index = firstCue.get(scene)! + cue - (photoStep ? establishingCueOffset : 0);
       if (script[index]?.scene !== scene || (index === active && photoStep === establishing)) return;

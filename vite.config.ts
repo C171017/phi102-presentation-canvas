@@ -243,7 +243,13 @@ export default defineConfig(({ command }) => ({
   ],
   server: {
     host: '127.0.0.1',
-    fs: { allow: [searchForWorkspaceRoot(process.cwd()), openingFile] },
+    fs: {
+      allow: [searchForWorkspaceRoot(process.cwd()), openingFile],
+      deny: [
+        '.env', '.env.*', '*.{crt,pem}', '**/.git/**',
+        '.dev.vars*', '**/.wrangler/**', '**/.claude/**', '**/docs/chat-history/**',
+      ],
+    },
     watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp'] },
   },
   preview: { host: '127.0.0.1' },

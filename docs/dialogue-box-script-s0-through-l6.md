@@ -1,4 +1,4 @@
-# The Ink Ocean · Dialogue-box script through L6
+# Dialogue-box script through L6
 
 English reading draft for presenter review. The opening sequence, L2 exchange, crisis name, audience choice of the masters’ order, and L6 display rules follow the confirmed story. New narration, slide takeaways, and branch dialogue are proposed wording.
 
@@ -86,21 +86,21 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 
 *Greco · §1, p. 426*
 
-*The next woman in line takes a ladle. Each Y picks up the reason she just gave.*
+*The next woman in line scoops up her ink.*
 
 - **Woman:** I have a hand.
-- **Y:** Why believe you have a hand?
-- **Woman:** I can see it. It’s holding the ladle.
-- **Y:** Why trust what you see?
-- **Woman:** I’m wide awake, and my eyes work when I’m awake.
-- **Y:** Why believe you’re awake?
-- **Woman:** Everything’s sharp: the ladle, the Inkwell, the cold ink. Dreams are never this clear.
-- **Y:** Why believe you’re not a brain in a vat?
+- **Y₁:** Why believe that?
+- **Woman:** I can see it.
+- **Y₂:** Why trust your eyes?
+- **Woman:** They've never fooled me.
+- **Y₃:** Why believe you're not dreaming?
+- **Woman:** Dreams are never this clear.
+- **Y₄:** Why believe you're not a brain in a vat? It would see this hand just as clearly.
 - **Woman:** Oh, come on.
-- **SOWHAT:** So what? A brain in a vat would see a hand this clear, too.
+- **SOWHAT:** So what? If you can't rule out the vat, you don't know you have a hand.
 - **Narrator:** Her words never dried. Then, slowly, neither did her hand.
 
-*Presenter margin · Greco §1. The Ys challenge her grounds for believing each premise. SOWHAT challenges the inference: the clarity of the experience fits either possibility. The vat is the PHI 102 example. The structural problem is why any reason in the chain can legitimately be the last one.*
+*Presenter margin · Greco §1. Each Y asks one question. Y₄ points out that the same experience could occur in a vat. SOWHAT concludes that she cannot know she has a hand unless she can rule out the vat. The structural problem is where the demand for further reasons can legitimately stop.*
 
 ## L3 · The Whypocalypse
 
@@ -111,15 +111,40 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 
 *Greco · §1, p. 426*
 
-- **Narrator:** She had relied on her sight to settle the question about her hand. Now her sight was the very thing in question. Looking at the ladle again gave her the same view and the same problem.
-- **Narrator:** It never stopped at one question. And it never stopped at one person. Nothing anyone scooped would dry.
-- **Narrator:** Babies were born and couldn’t finish forming a single opinion. Their parents, meanwhile, were losing theirs.
-- **Narrator:** A man who had believed for forty years that he was tall woke up noticeably shorter.
+- **Narrator:** Then the five became ten.
+
+*A Y bubble, mid-question, splits in two like a cell.*
+
+- **Narrator:** Every question that couldn't be settled split off another questioner. Nothing dried, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.
+- **Narrator:** Nobody had to walk to the source anymore. The source walked to them.
+
+*The man with the raven, from L1, on his doorstep, ankle-deep in ink. Bubbles rise around his feet.*
+
+- **Man:** All ravens are black.
+- **Y₁:** Why?
+- **Man:** Every raven I've ever seen was black.
+- **Y₂:** Why believe the ones you haven't seen are like the ones you have?
+- **Man:** Because… they always have been.
+
+*That answer doesn't settle it. Y₂ splits in two, like a cell.*
+
+- **Y₃:** Then does a white shoe prove it too? Everything that isn't black isn't a raven.
+- **Man:** …What?
+
+*Two more bubbles split. Then four.*
+
+- **Y₄:** Why "black"? Why not "black until tomorrow, then white"?
+- **SOWHAT:** So what? A million black ravens can't prove it. One white raven would end it.
+
+*Around his feet, a swarm of new SOWATTs, all asking at once. On his shoulder, the raven begins to run.*
+
+- **Narrator:** Answers still came. They just never passed.
+- **Narrator:** And anyone who stood in wet ink long enough began to soften. A man who had believed for forty years that he was tall woke up noticeably shorter. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.
 - **Narrator:** Whole cities, built on beliefs nobody had thought to question, slid quietly into the sea.
 
-*Title card: THE WHYPOCALYPSE. The dry-world reading falls while the audience watches.*
+*The choir hits one enormous chord for the gold-edged title card, THE WHYPOCALYPSE · THE ENDLESS WHY.*
 
-- **Narrator:** Scholars still argue about who named it. They argue about everything. That’s rather the problem.
+- **Narrator:** Scholars still argue about who named it. They argue about everything. That's rather the problem.
 
 ## L4 · The Answerer Project
 
@@ -133,7 +158,7 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 - **Narrator:** For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited ink, unlimited time and absolute authority.
 - **Narrator:** Each was given one task: answer it.
 
-*Show Skepticism, Infinitism, Coherentism, and Foundationalism together. While any of the first three remain, the Foundationalism option dodges the approaching pointer. Each of the three available choices opens its own master’s dialogue. Return to the chooser after each visit. Once all three are finished, Foundationalism stays still for the audience to select last.*
+*Show Skepticism, Infinitism, Coherentism, and Foundationalism together. While any of the first three remain, the Foundationalism option dodges the approaching pointer. Each of the three available choices opens its own master’s dialogue. Return to the chooser after each visit. Once all three are finished, Foundationalism stays still. Selecting it opens Descartes and the Fourth Answer.*
 
 ### L4 · Pyrrho, the Unmoved
 
@@ -180,19 +205,6 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 - **Neurath:** The neighboring planks hold it in place. I can replace this one while standing on the others.
 - **Narrator:** Follow the support around his ring-shaped raft and you eventually return to the plank where you began. YYYY SOWATT swam a lap to check.
 - **Narrator:** It was the most coherent raft in history. It held together perfectly as it drifted off the edge of the map.
-
-### L4 · Audience check
-
-**Left** — **Which account permits a justified stopping point?**
-
-- Think back to the empty ladle, the scroll, and the raft.
-- Can a belief support another without getting its justification from another belief?
-
-*Greco · §1, p. 426*
-
-- **Narrator:** One master set down his ladle. One gave a new reason every time. One sent the question around the raft. Which answer would let a belief support others without first borrowing support from another belief?
-
-*Audience choices: Skepticism / Infinitism / Coherentism / Foundationalism. Reveal **Foundationalism**. Advance straight to Descartes.*
 
 *Presenter margin · Greco §1 and note 1. The masters are fictionalized representatives of positions. Greco uses a chain that returns to an earlier reason to introduce coherentism, while acknowledging that some coherentists would resist that description. The raft illustrates the worry about mutual support; its fate is the legend’s joke.*
 

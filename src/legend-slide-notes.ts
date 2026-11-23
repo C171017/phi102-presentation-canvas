@@ -85,12 +85,4 @@ export const openingNotes: Record<string, SlideNotes> = {
     ],
     source: 'Greco · §1, p. 426 and note 1',
   },
-  'L4-quiz': {
-    claim: 'Which account permits a justified stopping point?',
-    points: [
-      'Think back to the empty ladle, the scroll, and the raft.',
-      'Can a belief support another without getting its justification from another belief?',
-    ],
-    source: 'Greco · §1, p. 426',
-  },
 };

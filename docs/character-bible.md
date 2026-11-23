@@ -2,6 +2,14 @@
 
 **Canonical for how the cast thinks, feels, moves and speaks. November 21, 2026.** Identity details (face shape, hair, costume, colour, props) come from the [Version C model sheets](character-references/version-c/) and the [story bible](story-and-characters.md). This file covers acting: expression, posture, gesture, motion and dialogue tone. Read it before writing any image, video or dialogue prompt that shows a member of the cast.
 
+## Ink Ocean character design
+
+Only NPCs have bodies visibly built from solid ink cubes. Give these villagers slightly irregular cuboid heads packed with small cubes and ease the change in density through the shoulders and limbs. This includes the unnamed man with the raven and the woman at the Inkwell.
+
+Draw all other people as individual human anime characters, with continuous faces, hands, hair and clothing. This applies to the protagonists and to all three masters in *Operation Because*: Pyrrho, Charles Sanders Peirce and Otto Neurath. Use the selected portraits for the masters’ facial features and the scene palette for continuity with the villagers.
+
+YYYY SOWATT are living liquid ink. Each voice is one smooth, rounded drop with a single pointed tail. The smallest carries a red dot.
+
 ## Why this file exists
 
 In recent generations, faces and body language drifted away from who the characters are. Three causes are visible in the frames:
@@ -233,6 +241,14 @@ Every line spoken by one of the four Y voices starts with “Why.”
 YYYY SOWATT’s selected A3 design is a chorus of five ink bubbles. Four are named Y. The smallest, marked with a red dot, is SOWHAT. In the ChatGPT Page transcript the four Y voices are labeled Y1, Y2, Y3, and Y4. On the canvas they are each named Y. Each bubble has exactly one pointed speech-bubble tail in every pose and every frame, including the tiny voices receding into the infinitist spiral. Keep each tail attached to its own body as it turns toward the next speaker. Leave a sliver of space at the tip so its direction stays legible. Several speakers can point to the same neighbor. In the foundationalist pose, the red-marked speaker’s tail touches the stone. [Four-pose character reference](character-references/quibble-a3-single-tail.png)
 
 ## NPCs
+
+### Background ink people · current visual reference
+
+**Selected for now, November 22, 2026.** Use the blue-hour cel lineup as the working reference for background ink people. Each faceless, slightly uneven cube-shaped head holds the finest ink cubes, where the figure carries most of its beliefs. Let the cubes grow gradually larger through the body. Stagger their rows into ledges, hollows, and overhangs. Show a gesture through the silhouette, as in the fourth figure, whose whole body leans into a point.
+
+Draw the five silhouettes in indigo with steel-blue lit planes and a thin amber edge. Vary their height, balance, and surface relief from figure to figure.
+
+![Five blue-hour ink people with stepped bodies, open spaces, and densely cubed heads](character-references/ink-people-blue-hour.png)
 
 | NPC | Temperament |
 | --- | --- |

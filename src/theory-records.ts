@@ -2,7 +2,6 @@ import { slides } from './slide-content';
 import { applyTheoryAction, theories, theoryNames, theoryScene, voteHub, voteView,
   type Theory, type TheoryAction, type TheoryBallot, type TheoryView } from './theory-vote';
 import './theory-records.css';
-import './legend-answerers.css';
 
 export function createTheoryRecords(stage: HTMLElement, openScene: (scene: string) => void, shared: boolean, presenter: boolean, onOpen: () => void) {
   const panel = document.createElement('section');
@@ -141,7 +140,7 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
     },
     isOpen: () => !panel.hidden,
     masterMeter() { return state?.remaining.length === 4 ? 52 : state?.remaining.length === 3 ? 47 : 41; },
-    selectedScene: () => state?.winner && theoryScene(state.winner),
+    selectedAnswererScene: () => state?.winner && state.winner !== 'foundationalism' ? theoryScene(state.winner) : undefined,
     advance(id: string) {
       if (id === voteHub || (state?.winner && state.winner !== 'foundationalism' && theoryScene(state.winner) === id)) {
         if (!shared || presenter || (!hostOnline && online)) act('open');

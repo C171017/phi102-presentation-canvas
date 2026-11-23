@@ -1,6 +1,38 @@
-import { storyVersions, type StoryScene } from './story-scenes';
+import { storyVersions } from './story-scenes';
 import { isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
 import './story-reader.css';
+
+const { scenes: storyScenes } = storyVersions[0];
+
+function storyLineType(line: string) {
+  const text = line.trimStart();
+  if (/^(?:[IVXLCDM]+|\d+)\.\s/.test(text)) return 'section';
+  if (/^Narrator:\s/i.test(text)) return 'narration';
+  if (/^\p{Lu}[\p{L}\p{M}\p{N} ,.'’\-]{0,48}:\s/u.test(text)) return 'dialogue';
+  return 'description';
+}
+
+function renderStoryParagraph(text: string) {
+  const paragraph = document.createElement('p');
+  for (const [index, line] of text.split('\n').entries()) {
+    if (index > 0) paragraph.append('\n');
+    const row = document.createElement('span');
+    row.dataset.storyLine = storyLineType(line);
+    for (const part of line.split(/(\[[^\[\]]+\])/g)) {
+      if (!part) continue;
+      if (part.startsWith('[') && part.endsWith(']')) {
+        const direction = document.createElement('span');
+        direction.dataset.storyLine = 'description';
+        direction.textContent = part;
+        row.append(direction);
+      } else {
+        row.append(part);
+      }
+    }
+    paragraph.append(row);
+  }
+  return paragraph;
+}
 
 export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editable = false) {
   const opener = document.createElement('button');
@@ -14,10 +46,9 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   const reader = document.createElement('dialog');
   reader.id = 'story-reader';
   reader.className = 'story-reader';
-  reader.setAttribute('aria-label', storyVersions[0].title);
+  reader.setAttribute('aria-label', 'Story');
   reader.innerHTML = `
     <header class="story-reader__toolbar">
-      <select class="story-reader__version" aria-label="Story version"></select>
       <nav aria-label="Story scenes">
         <button type="button" data-previous aria-label="Previous scene">‹</button>
         <span class="story-reader__position" aria-hidden="true"></span>
@@ -27,12 +58,10 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
       <button type="button" data-close aria-label="Close story" autofocus>×</button>
     </header>
     <article class="story-reader__scene" aria-labelledby="story-scene-title">
-      <figure class="story-reader__art">
+      <figure class="story-reader__art" hidden>
         <div class="story-reader__frame">
-          <div class="story-reader__placeholder">Illustration in progress</div>
-          <img alt="" draggable="false" hidden />
+          <img alt="" draggable="false" />
         </div>
-        <figcaption class="story-reader__caption"></figcaption>
       </figure>
       <div class="story-reader__text">
         <h2 id="story-scene-title"></h2>
@@ -55,14 +84,10 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   shell.append(reader);
 
   const scene = reader.querySelector<HTMLElement>('.story-reader__scene')!;
-  const versionSelect = reader.querySelector<HTMLSelectElement>('.story-reader__version')!;
-  for (const [value, version] of storyVersions.entries()) {
-    versionSelect.add(new Option(version.title, String(value)));
-  }
+  const art = reader.querySelector<HTMLElement>('.story-reader__art')!;
   const frame = reader.querySelector<HTMLElement>('.story-reader__frame')!;
-  const placeholder = reader.querySelector<HTMLElement>('.story-reader__placeholder')!;
   const image = reader.querySelector<HTMLImageElement>('img')!;
-  const caption = reader.querySelector<HTMLElement>('.story-reader__caption')!;
+  const textPanel = reader.querySelector<HTMLElement>('.story-reader__text')!;
   const heading = reader.querySelector<HTMLElement>('#story-scene-title')!;
   const paragraphs = reader.querySelector<HTMLElement>('.story-reader__paragraphs')!;
   const position = reader.querySelector<HTMLElement>('.story-reader__position')!;
@@ -78,18 +103,16 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   const save = form.querySelector<HTMLButtonElement>('[data-save]')!;
   const cancel = form.querySelector<HTMLButtonElement>('[data-cancel]')!;
   edit.hidden = !editable;
-  let storyScenes: readonly StoryScene[] = storyVersions[0].scenes;
   let index = 0;
   let edits: StoryEdits = {};
   let loadSequence = 0;
 
   function updateControls() {
     const editing = !form.hidden;
-    versionSelect.disabled = editing;
     previous.setAttribute('aria-disabled', String(editing || index === 0));
     next.setAttribute('aria-disabled', String(editing || index === storyScenes.length - 1));
     close.disabled = editing;
-    edit.hidden = !editable || editing;
+    edit.hidden = !editable || editing || storyScenes[index].illustration?.imageOnly === true;
   }
 
   function finishEdit() {
@@ -102,20 +125,18 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
 
   function showScene(announce: boolean) {
     const entry = storyScenes[index];
-    const { summary, illustration } = entry;
+    const { illustration } = entry;
     const { title, paragraphs: text } = edits[entry.id] ?? entry;
-    image.hidden = !illustration;
-    placeholder.hidden = Boolean(illustration);
+    const imageOnly = illustration?.imageOnly === true;
+    art.hidden = !illustration;
+    textPanel.hidden = imageOnly;
+    scene.classList.toggle('story-reader__scene--text-only', !illustration);
+    scene.classList.toggle('story-reader__scene--image-only', imageOnly);
     image.alt = illustration?.alt ?? '';
     if (illustration) image.src = illustration.src;
     else image.removeAttribute('src');
-    caption.textContent = summary;
     heading.textContent = title;
-    paragraphs.replaceChildren(...text.map(line => {
-      const paragraph = document.createElement('p');
-      paragraph.textContent = line;
-      return paragraph;
-    }));
+    paragraphs.replaceChildren(...(imageOnly ? [] : text.map(renderStoryParagraph)));
     position.textContent = `${index + 1} / ${storyScenes.length}`;
     updateControls();
     scene.scrollTop = 0;
@@ -129,15 +150,6 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
     index = nextIndex;
     showScene(true);
   }
-
-  versionSelect.addEventListener('change', () => {
-    const version = storyVersions[versionSelect.selectedIndex];
-    if (!version || !form.hidden) return;
-    storyScenes = version.scenes;
-    index = 0;
-    reader.setAttribute('aria-label', version.title);
-    showScene(true);
-  });
 
   opener.addEventListener('click', async () => {
     reader.showModal();
@@ -223,7 +235,7 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   });
   reader.addEventListener('keydown', event => {
     event.stopPropagation();
-    if (!form.hidden || event.target === versionSelect) return;
+    if (!form.hidden) return;
     if (event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();

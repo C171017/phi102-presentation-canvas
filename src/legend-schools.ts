@@ -56,7 +56,7 @@ function makePanel(scene: Scene, selectCue: (cue: number) => void) {
     return row;
   });
   panel.append(notes.element, reader);
-  section.append(picture, meter, panel);
+  section.append(meter, panel);
   let selected = -1;
   let scrolling = 0;
   reader.addEventListener('wheel', event => {
@@ -102,7 +102,10 @@ function makePanel(scene: Scene, selectCue: (cue: number) => void) {
     }
     reader.scrollTop = row.offsetTop + (row.offsetHeight - reader.clientHeight) / 2;
   }
-  return { section, update, prepare: () => artwork.preload(establishingArtwork(scene, 0)) };
+  function setVisible(visible: boolean) {
+    section.hidden = picture.hidden = !visible;
+  }
+  return { section, picture, update, setVisible, prepare: () => artwork.preload(establishingArtwork(scene, 0)) };
 }
 
 export function createLegendSchools(shell: HTMLElement, options: {
@@ -116,6 +119,9 @@ export function createLegendSchools(shell: HTMLElement, options: {
   stage.className = 'legend-schools';
   stage.hidden = true;
   stage.setAttribute('aria-label', 'Choose your school');
+  const art = document.createElement('div');
+  art.className = 'school-art';
+  art.setAttribute('aria-hidden', 'true');
   const panels = document.createElement('div');
   panels.className = 'school-panes';
   const controls = document.createElement('div');
@@ -138,7 +144,7 @@ export function createLegendSchools(shell: HTMLElement, options: {
   previous.setAttribute('aria-label', 'Previous dialogue cue');
   next.setAttribute('aria-label', 'Next dialogue cue');
   arrows.append(previous, next);
-  stage.append(panels, controls, tally, arrows);
+  stage.append(art, panels);
   (shell.querySelector<HTMLElement>('#viewport') ?? shell).append(stage);
   stage.addEventListener('pointerdown', event => event.stopPropagation());
   stage.addEventListener('pointerup', event => event.stopPropagation());
@@ -164,7 +170,11 @@ export function createLegendSchools(shell: HTMLElement, options: {
     'L6-A': makePanel(inkOceanScenes['L6-A'], index => browseCue(splitAt + index)),
     'L6-B': makePanel(inkOceanScenes['L6-B'], index => browseCue(splitAt + index)),
   };
-  panels.append(introPanel.section, views['L6-A'].section, views['L6-B'].section);
+  for (const panel of [introPanel, views['L6-A'], views['L6-B']]) {
+    art.append(panel.picture);
+    panels.append(panel.section);
+  }
+  panels.append(controls, tally, arrows);
   const confirmation = document.createElement('span');
   confirmation.className = 'school-confirmation';
   confirmation.setAttribute('role', 'status');
@@ -192,11 +202,13 @@ export function createLegendSchools(shell: HTMLElement, options: {
     const split = inBranches && !isAudience;
     const photo = establishing && (inBranches || cursor < splitAt);
     stage.toggleAttribute('data-establishing-shot', photo);
+    art.classList.toggle('school-split', split);
     panels.classList.toggle('school-split', split);
-    introPanel.section.hidden = inBranches;
+    introPanel.setVisible(!inBranches);
     for (const school of schoolIds) {
-      views[school].section.hidden = !inBranches || (isAudience && ballot?.school !== school);
-      if (!views[school].section.hidden) views[school].update(cursor - splitAt, photo);
+      const visible = inBranches && (!isAudience || ballot?.school === school);
+      views[school].setVisible(visible);
+      if (visible) views[school].update(cursor - splitAt, photo);
     }
     if (!inBranches) {
       introPanel.update(Math.min(cursor, splitAt - 1), photo);

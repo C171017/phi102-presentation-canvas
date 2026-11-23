@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import vm from 'node:vm';
 import ts from 'typescript';
 
-const slides = ['L4', 'regress-skepticism', 'regress-infinitism', 'regress-coherentism', 'L4-quiz']
+const slides = ['L4', 'regress-skepticism', 'regress-infinitism', 'regress-coherentism', 'regress-foundationalism']
   .map(id => ({ members: [id] }));
 const source = readFileSync(new URL('../src/theory-vote.ts', import.meta.url), 'utf8');
 const context = { exports: {}, crypto, require: () => ({ slides }) };
@@ -36,5 +36,5 @@ test('foundation can only win the final round by an explicit vote, even after it
   assert.equal(ballot.winner, null);
   act('vote', 'a', 0, 'foundationalism');
   assert.equal(ballot.winner, 'foundationalism');
-  assert.equal(slides[ballotSlide(ballot)].members[0], 'L4-quiz');
+  assert.equal(slides[ballotSlide(ballot)].members[0], 'regress-foundationalism');
 });

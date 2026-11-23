@@ -11,13 +11,24 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   position: fixed;
   inset: 0;
   --canvas-paper: #f9eedf;
+  --slide-matte: #18232a;
   --slide-progress-max-height: 560px;
   background-color: var(--canvas-paper);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cfilter id='grain' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72 .48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .09 0 0 0 .25 -.055'/%3E%3C/filter%3E%3Cpath d='M0 0h192v192H0z' filter='url(%23grain)'/%3E%3C/svg%3E");
   background-size: 192px 192px;
 }
+#presentation-shell:has(#paper-pane:not(.is-collapsed)) {
+  --paper-overlay-clearance: calc(var(--visible-paper-width, 0px) + 14px);
+}
 #viewport {
   position: fixed; inset: 0; overflow: clip; outline: none; touch-action: none;
+}
+/* Keep the entire illustration in its frame at the artwork's own aspect ratio. */
+#viewport::before, .arrival-scene, .school-picture {
+  background-color: var(--slide-matte);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 /* The rendered camera marks slide members as foreground once it reaches them. */
 #viewport::before {
@@ -25,7 +36,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: #273135 url('/generated/backgrounds/dead-ink/01-giedt-classroom.webp') center / cover no-repeat;
+  background-image: url('/generated/backgrounds/dead-ink/01-giedt-classroom.webp');
   filter: brightness(.78);
   opacity: 0;
 }
@@ -33,19 +44,11 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   opacity: 1;
 }
 #viewport[data-regress-flashback]::before {
-  background: #e5c59d var(--regress-background) center bottom / cover no-repeat;
+  background-image: var(--regress-background, none);
   filter: none;
   opacity: 1;
 }
-@media (orientation: landscape) {
-  #viewport[data-regress-flashback]::before { background-size: 100% 100%; }
-}
-@media (orientation: portrait) {
-  #viewport[data-regress-flashback]::before {
-    background-size: contain;
-    background-position: center 40%;
-  }
-}
+.legend-meter, .school-dry-meter { display: none; }
 #viewport:has(#before-lecture.page-foreground)::before { filter: none; }
 @media (prefers-reduced-motion: no-preference) {
   #presentation-shell:not(.previewing-page-exit) #viewport.from-canvas::before {
@@ -55,6 +58,13 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 /* Keep the arrival slide's framing anchor measurable offstage. */
 #unitrans-arrival { left: -1570px; top: 1340px; visibility: hidden; }
 #before-lecture { left: -1260px; top: 1040px; visibility: hidden; }
+.legend-anchor {
+  position: absolute;
+  width: 255px;
+  height: 185px;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(var(--item-scale, 1));
+}
 .before-lecture-scene {
   position: absolute;
   inset: 0;
@@ -71,7 +81,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   display: grid;
   align-items: end;
   padding: clamp(24px, 5vmin, 68px) clamp(48px, 5vw, 80px);
-  background: #18232a url('/generated/backgrounds/dead-ink/00-unitrans-arrival.webp') center / contain no-repeat;
+  background-image: url('/generated/backgrounds/dead-ink/00-unitrans-arrival.webp');
   color: #fff2d8;
   visibility: hidden;
   opacity: 0;
@@ -81,7 +91,6 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   visibility: visible;
   opacity: 1;
 }
-#presentation-shell:has(#paper-pane:not(.is-collapsed)) .arrival-scene { right: var(--visible-paper-width, 0px); }
 #viewport:has(:is(#unitrans-arrival, #before-lecture).page-foreground) #world,
 #viewport[data-regress-flashback] #world {
   visibility: hidden;
@@ -163,6 +172,11 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 .canvas-editable .canvas-label { cursor: grab; }
 #viewport:not(.is-page-focused, .dragging) [data-slide-entry],
 #viewport:not(.is-page-focused, .dragging) [data-slide-entry] button:not(.resize-handle) { cursor: zoom-in; }
+#viewport:not(.is-page-focused, .dragging) [data-slide-entry]:is(:hover, :focus-visible) {
+  outline: 5px solid #315d56;
+  outline-offset: 6px;
+}
+#viewport:not(.is-page-focused, .dragging) [data-slide-entry]:is(:hover, :focus-visible)::before { opacity: 0; }
 #viewport.dragging .canvas-label { cursor: grabbing; }
 .canvas-media { padding: 0; background: transparent; line-height: 0; }
 .canvas-media img { display: block; width: 320px; max-width: 80vw; height: auto; -webkit-user-drag: none; }

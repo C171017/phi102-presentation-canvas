@@ -4,51 +4,27 @@
   z-index: 5;
   --school-bottom: max(10px, 2vh, env(safe-area-inset-bottom));
   color: #fff5df;
-  background: #18232a;
+  background: var(--slide-matte);
   pointer-events: none;
 }
 .legend-schools[hidden], .legend-schools [hidden] { display: none !important; }
-#presentation-shell:has(#paper-pane:not(.is-collapsed)) .legend-schools {
-  right: calc(var(--visible-paper-width, 0px) + 14px);
-}
-.school-panes {
+.school-art, .school-panes {
   position: absolute;
   inset: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
-.school-panes.school-split { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; }
+.school-panes { right: var(--paper-overlay-clearance, 0px); }
+.school-split { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; }
 .school-pane {
   position: relative;
   min-inline-size: 0;
   overflow: hidden;
   container-type: inline-size;
 }
-.school-picture {
-  position: absolute;
-  inset: 0;
-  background-color: #1d282c;
-  background-position: center 32%;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+/* Reserve the same dialogue space in both views of each school illustration. */
 .school-split .school-picture {
-  bottom: calc(var(--transcript-height) * .65);
-  background-position: center;
-  background-size: contain;
-}
-.school-picture { overflow: hidden; }
-.school-picture::before, .school-picture::after {
-  position: absolute;
-  inset: 0;
-  background: inherit;
-}
-.school-split .school-picture::before, .school-split .school-picture::after { content: ''; }
-.school-picture::after { background-color: transparent; }
-.school-picture::before {
-  background-size: cover;
-  filter: blur(22px) saturate(.65) brightness(.48);
-  transform: scale(1.1);
+  margin-bottom: calc(var(--transcript-height) * .65);
 }
 .school-pane .school-dialogue {
   inset-inline: clamp(36px, 4vw, 64px);
@@ -151,17 +127,6 @@
   .school-pane .transcript-reader { padding-inline: 10px; }
   .school-pane .transcript-row { font-size: 15px; }
 }
-@media (max-aspect-ratio: 1/1) {
-  .school-picture {
-    bottom: calc(var(--transcript-height) * .75);
-    background-size: contain;
-    background-position: center;
-  }
-  .school-picture::before, .school-picture::after { content: ''; }
-}
-.legend-schools[data-establishing-shot] .school-picture { bottom: 0; }
-.legend-schools[data-establishing-shot] .school-picture::before,
-.legend-schools[data-establishing-shot] .school-picture::after { content: none; }
 .legend-schools[data-establishing-shot] .school-tally { display: none; }
 .legend-schools[data-establishing-shot] .school-cue-controls { bottom: var(--school-bottom); }
 

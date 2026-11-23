@@ -272,3 +272,217 @@ Recorded time in Pacific time. Source is Howie’s canvas chat with the Descarte
 > Also for the dialogue line。 Um, for different characters in the scene, they should be like color-coded, and the narrator's color code should remain consistent across all sections, across all scenes. Maybe it could be white, or you can choose a better one if you can find one.
 
 Use soft white for narration in every transcript. Assign distinct colors to speakers sharing a scene, including the four Y bubbles. Keep each row’s color as focus moves, and render the centered line at full opacity.
+
+## 2026-11-22T21:05:54-08:00 · Temporarily hide the Dry World badge
+
+Recorded time in Pacific time. Howie’s canvas chat with a screenshot of the “Dry world remaining” badge:
+
+> reomve this design for now
+
+Hide the percentage badge across the legend and both school viewpoints on `main`.
+
+## 2026-11-22T21:07:24-08:00 · Preserve the aspect ratio on every presentation page
+
+Recorded time in Pacific time. Howie’s canvas chat about responsive slide framing:
+
+> Also I want all of the pages to have always and you have to put this down into markdown file where they have to have consistent behavior in terms of feeding the page. I don't want things to get stretched because they will get out of shape. So let's say for the dynamic design where if the window is horizontally too short, then you're just going to have the bezel on top and bottom, that's okay. And I have to make this consistent for all of them, and make sure for future design, this design will not get into word disrupted.
+
+Keep the whole frame visible at its original proportions, with bars where the window and artwork ratios differ. This supersedes the landscape stretching approved on 2026-11-21T23:49:29-08:00. The [slide visual style guide](slide-visual-style.md#fit-the-artwork-to-the-page) defines the rule for future pages.
+
+## 2026-11-22T21:14:55-08:00 · Float the paper over the background
+
+Recorded time in Pacific time. Howie’s canvas chat with a screenshot of the paper open on the classroom slide:
+
+> for the paper , think of it should be flaogint it will not affect the background
+
+The paper and margin notes overlay the full slide background. Background framing stays fixed as the paper opens, closes, or changes width. This supersedes the paper-open fitting rule from the preceding decision.
+
+## 2026-11-22T21:16:57-08:00 · Remove six story cards from the canvas overview
+
+Recorded time in Pacific time. Howie’s canvas chat with a screenshot of the six illustrated cards:
+
+> remove thse from the cnavas
+
+Remove The Regress Problem, The Whypocalypse, The Answerer Project, Audience check, One Grain, One Ocean, and Choose Your School cards from the overview. Keep the corresponding slides in the presentation sequence.
+
+## 2026-11-22T21:18:50-08:00 · Show only The Ink Ocean in the Story reader
+
+Recorded time in Pacific time. Howie’s canvas chat with screenshots of the version selector and an illustration caption:
+
+> remove this seleciton contorl, we only focus on teh latest story
+
+> remove all thes edescritioption
+
+Open The Ink Ocean directly and show its title as plain text. Remove the visible description beneath each illustration. Keep the scene titles, story text, and image alt text.
+
+## 2026-11-22T21:19:24-08:00 · Outline clickable objects on the canvas
+
+Recorded time in Pacific time. Howie’s canvas chat:
+
+> when you hover an clcikabl object on teh canvas it should show a box indicating it is clickable where
+
+Draw a solid outline around clickable slide entries in the canvas overview on hover or keyboard focus. Match the outline to the object’s clickable area.
+
+## 2026-11-22T21:20:08-08:00 · Leave the story untitled
+
+Recorded time in Pacific time. Howie’s request in the collaboration draft chat:
+
+> remove the title we dont' have the title of the story, you can write that down in md and udpate all so ehtere's like make sur enot title at this point
+
+The story has no title yet. Remove the overall title from the Story reader and collaboration draft, and use “Story draft 5” where a document label is needed. Scene headings still identify individual scenes. This supersedes the title display in the 21:18:50 decision.
+
+## 2026-11-22T21:25:00-08:00 · Open the Story reader’s Legend with L0
+
+Recorded time in Pacific time. Howie’s follow-up on the illustrated Great Inkwell page:
+
+> or then maybe add L0 then
+
+Add the four-law prologue from story draft 5 before L1 in the Story reader. L0 uses text. The Great Inkwell keeps its existing artwork and scene text.
+
+## 2026-11-22T21:30:33-08:00 · Color-code the Story reader by text type
+
+Recorded time in Pacific time. Howie’s canvas chat with a screenshot of The Law of Ink:
+
+> color code differne types of texts like descitipn hsould have their own color code etc
+
+Use warm brown italics for descriptions and stage directions, teal for narration, plum for dialogue, and bold copper for numbered section headings. Apply the styling line by line so a paragraph can contain several types.
+
+## 2026-11-22T21:31:24-08:00 · Give the Story reader’s text types more contrast
+
+Recorded time in Pacific time. Howie’s follow-up on the first color pass:
+
+> more distinct
+
+Use shaded blue-gray blocks for standalone stage directions and bold amber bands for numbered headings. Set narration in deep blue and character dialogue in berry. Keep inline directions italic and blue-gray within dialogue.
+
+## 2026-11-22T21:37:21-08:00 · Sync the Story reader’s L0 narration
+
+Recorded time in Pacific time. Howie’s canvas chat comparing the latest draft with the reader:
+
+> Read the latest version for this section of the slide and update the story part.
+
+Use the three core narration paragraphs from [story draft 5](story-v5-ink-ocean.md) for L0. The shortened script replaces the four-law demo. The closing line and diagram are marked optional and draft, respectively, in the story source.
+
+## 2026-11-22T21:50:21-08:00 · Use the raven script on Story reader page 6
+
+Recorded time in Pacific time. Howie’s canvas chat with the revised draft and page 6 screenshots:
+
+> save this to md and update the sotry seciton wher eit should repace 6 (the texts0 and remvoe teh visual we have for now it is outdated
+
+Use the complete raven version of L1 in [story draft 5](story-v5-ink-ocean.md) and its [Chinese counterpart](story-v5-ink-ocean.zh.md). Present L1 as one text-only reader page while its artwork is being revised.
+
+## 2026-11-22T21:52:09-08:00 · Use the blue-hour ink people as the working NPC reference
+
+Howie selected the uneven-surface, blue-hour 2D lineup for background ink people. The five silhouettes share densely cubed heads and stepped bodies with irregular ledges and openings. Keep changes in cube density gradual. Use the [NPC design notes and reference image](character-bible.md#background-ink-people--current-visual-reference) for the current story draft.
+
+## 2026-11-22T22:01:12-08:00 · Sync the revised L2 exchange
+
+Recorded time in Pacific time. Howie’s follow-up with the revised L2 script:
+
+> update this line too
+
+Use the L2 wording in [story draft 5](story-v5-ink-ocean.md) in the Story reader and presentation transcript. Y₁ through Y₄ each ask once. SOWHAT closes the exchange with the conclusion of the brain-in-a-vat argument.
+
+## 2026-11-22T22:06:51-08:00 · Add the five-bubble illustration to Story page 6
+
+Recorded time in Pacific time. Howie’s canvas chat pairing the artwork reference with The Great Inkwell page:
+
+> Find this image and use that for this page.
+
+Use `02-the-fifth-voice-liquid.png` from the Inkwell art direction folder on page 6. The reader serves the [WebP copy](../public/generated/backgrounds/ink-ocean/L1-fifth-voice-liquid.webp) at the same proportions as the original.
+
+## 2026-11-22T22:08:58-08:00 · Sync the revised Whypocalypse dialogue
+
+Recorded time in Pacific time. Howie’s canvas chat with the revised L3 scene:
+
+> update this part to this dialogu e
+
+Use the L3 script from [story draft 5](story-v5-ink-ocean.md) in the Story reader and presentation transcript. Keep the opening narration about the overflowing Inkwell and the escalating bubble splits during the raven exchange.
+
+## 2026-11-22T22:11:24-08:00 · Use the blue-hour illustration on Story page 7
+
+Recorded time in Pacific time. Howie’s canvas chat pairing the artwork reference with The Regress Problem page:
+
+> use this for this page
+
+Use `02-neither-did-her-hand.png` from The Regress Problem art direction folder for the Story reader’s L2 illustration. [Reader image](../public/generated/backgrounds/ink-ocean/L2-neither-did-her-hand.webp)
+
+## 2026-11-22T22:15:01-08:00 · Add the question-mark illustration to Story page 5
+
+Recorded time in Pacific time. Howie’s canvas chat pairing the artwork reference with The Law of Ink page:
+
+> use this one for this fram
+
+Use the selected translucent question mark and illuminated ink-block town on page 5 alongside the L0 narration. [Reader image](../public/generated/backgrounds/ink-ocean/L0-question-mark.webp)
+
+## 2026-11-22T22:16:05-08:00 · Give the birth of YYYY SOWATT its own Story page
+
+Recorded time in Pacific time. Howie’s canvas chat on the Great Inkwell page:
+
+> Let's separate this into two pages. Like, separate the birth of YY So What into a new page right after this one, and you have to move the visual into that new page, and we're going to try to ask another agent. I'm going to do it myself to generate the visual for the Black Raven thing.
+
+Page 6 ends after the guardian accepts the raven answer. Page 7 begins when the guardian is bumped and uses the five-bubble illustration. The raven page is text-only pending Howie’s artwork. This supersedes the single-page L1 layout.
+
+## 2026-11-22T22:17:03-08:00 · Illustrate the Whypocalypse with the splitting bubble
+
+Recorded time in Pacific time. Howie’s canvas chat with the ravens and doorstep artwork:
+
+> also use htis image for the whypolcapse page
+
+Use `01-the-question-splits.png` as the opening Whypocalypse illustration on Story page 9. [Reader image](../public/generated/backgrounds/ink-ocean/L3-the-question-splits.webp)
+
+## 2026-11-22T22:17:37-08:00 · Use the wide Inkwell artwork on the birth page
+
+Recorded time in Pacific time. Howie’s canvas chat with the revised wide shot:
+
+> use this for the birth of yyyy so wha tpage also
+
+Use `birth-at-the-wide-inkwell.png` as the five-bubble illustration on Story page 7. The submerged arch and lit hut carry through to the next page. [Reader image](../public/generated/backgrounds/ink-ocean/L1-birth-wide-inkwell.webp)
+
+## 2026-11-22T22:19:06-08:00 · Remove later illustrations from the Story reader
+
+Recorded time in Pacific time. Howie’s canvas chat with the Whypocalypse title-card page:
+
+> Delete all the picture for the story section after this one, including this one。
+
+Keep the Whypocalypse title-card narration and all subsequent Story pages as text-only from page 10 onward. Keep the opening Whypocalypse illustration on page 9.
+
+## 2026-11-22T22:22:16-08:00 · Illustrate The Great Inkwell on Story page 6
+
+Recorded time in Pacific time. Howie’s canvas chat paired the artwork with The Great Inkwell page:
+
+> apply this for this apge
+
+Use the selected `the-guardian-asks-why.png` artwork for the black-raven exchange on page 6. [Reader image](../public/generated/backgrounds/ink-ocean/L1-guardian-asks-why.webp)
+
+## 2026-11-22T22:25:19-08:00 · Remove the choice instructions from the Story reader
+
+Recorded time in Pacific time. Howie’s canvas chat with the highlighted paragraph:
+
+> remove this since this i not useful at this part
+
+Remove the reader-only stage direction explaining how to select the four schools on the L4 page. The presentation still uses its existing school selection behavior.
+
+## 2026-11-22T22:27:46-08:00 · Make Story page 10 a Whypocalypse title card
+
+Recorded time in Pacific time. Howie’s canvas chat paired the title artwork with the page:
+
+> apply this for this page and for this page we don't ened any texts just the image (the image is enough
+
+Show the [selected artwork](../public/generated/backgrounds/ink-ocean/L3-whypocalypse-title-card.webp) with YYYY SOWATT in the lettering and channels. The image supplies the title, so the Story page omits its separate heading and narration. This supersedes the text-only decision for page 10.
+
+## 2026-11-22T22:31:51-08:00 · Remove the L4 Audience check
+
+Recorded time in Pacific time. Howie’s canvas chat showed the Audience check in the Story reader:
+
+> Update the markdown file. Plus, remove this also for the presentation slides. There is no this audience check anymore.
+
+Remove the L4 Audience check from the Story reader, slides, story drafts, and presenter script. Once the three Answerers have been visited, selecting Foundationalism leads directly to Descartes and the Fourth Answer.
+
+## 2026-11-22T22:32:42-08:00 · Use the revised three Answerer scenes in Story
+
+Recorded time in Pacific time. Howie’s canvas chat with the three reader pages and English reference:
+
+> update these 3 sections' texts
+
+On Story pages 12–14, use the English definitions, dialogue, stage directions, and objections for Pyrrho, Peirce, and Neurath. Retain their existing reader titles and save the revised copy through the Story editor’s local text storage.

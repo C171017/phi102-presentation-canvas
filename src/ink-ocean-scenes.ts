@@ -8,7 +8,6 @@ export type InkOceanSceneId =
   | "regress-skepticism"
   | "regress-infinitism"
   | "regress-coherentism"
-  | "L4-quiz"
   | "regress-foundationalism"
   | "L5b"
   | "L6"
@@ -19,6 +18,7 @@ export interface InkOceanCue {
   speaker: string;
   speakerId?: 'Y1' | 'Y2' | 'Y3' | 'Y4';
   text: string;
+  directionBefore?: string;
   background?: string;
   speakerFocus?: string;
 }
@@ -28,6 +28,7 @@ export interface InkOceanScene {
   title: string;
   takeaway: string;
   background: string;
+  openingDirection?: string;
   cues: InkOceanCue[];
 }
 
@@ -64,17 +65,18 @@ export const inkOceanScenes: Record<InkOceanSceneId, InkOceanScene> = {
     title: "The Regress Problem",
     takeaway: "Every reason invites another “why?”",
     background: artwork("L2-01-the-hand"),
+    openingDirection: "The next woman in line scoops up her ink.",
     cues: [
       { speaker: "Woman", text: "I have a hand.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", speakerId: "Y1", text: "Why believe you have a hand?", speakerFocus: artwork("L2-speaking-y1") },
-      { speaker: "Woman", text: "I can see it. It’s holding the ladle.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", speakerId: "Y2", text: "Why trust what you see?", speakerFocus: artwork("L2-speaking-y2") },
-      { speaker: "Woman", text: "I’m wide awake, and my eyes work when I’m awake.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", speakerId: "Y3", text: "Why believe you’re awake?", speakerFocus: artwork("L2-speaking-y3") },
-      { speaker: "Woman", text: "Everything’s sharp: the ladle, the Inkwell, the cold ink. Dreams are never this clear.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "Y", speakerId: "Y4", text: "Why believe you’re not a brain in a vat?", speakerFocus: artwork("L2-speaking-y4") },
+      { speaker: "Y₁", speakerId: "Y1", text: "Why believe that?", speakerFocus: artwork("L2-speaking-y1") },
+      { speaker: "Woman", text: "I can see it.", speakerFocus: artwork("L2-speaking-woman") },
+      { speaker: "Y₂", speakerId: "Y2", text: "Why trust your eyes?", speakerFocus: artwork("L2-speaking-y2") },
+      { speaker: "Woman", text: "They've never fooled me.", speakerFocus: artwork("L2-speaking-woman") },
+      { speaker: "Y₃", speakerId: "Y3", text: "Why believe you're not dreaming?", speakerFocus: artwork("L2-speaking-y3") },
+      { speaker: "Woman", text: "Dreams are never this clear.", speakerFocus: artwork("L2-speaking-woman") },
+      { speaker: "Y₄", speakerId: "Y4", text: "Why believe you're not a brain in a vat? It would see this hand just as clearly.", speakerFocus: artwork("L2-speaking-y4") },
       { speaker: "Woman", text: "Oh, come on.", speakerFocus: artwork("L2-speaking-woman") },
-      { speaker: "SOWHAT", text: "So what? A brain in a vat would see a hand this clear, too.", speakerFocus: artwork("L2-speaking-sowhat") },
+      { speaker: "SOWHAT", text: "So what? If you can't rule out the vat, you don't know you have a hand.", speakerFocus: artwork("L2-speaking-sowhat") },
       { speaker: "Narrator", text: "Her words never dried. Then, slowly, neither did her hand.", speakerFocus: artwork("L2-narration") },
     ],
   },
@@ -84,12 +86,22 @@ export const inkOceanScenes: Record<InkOceanSceneId, InkOceanScene> = {
     takeaway: "A reason you also doubt leaves the original doubt unresolved.",
     background: artwork("L3-01-whypocalypse"),
     cues: [
-      { speaker: "Narrator", text: "She had relied on her sight to settle the question about her hand. Now her sight was the very thing in question. Looking at the ladle again gave her the same view and the same problem." },
-      { speaker: "Narrator", text: "It never stopped at one question. And it never stopped at one person. Nothing anyone scooped would dry." },
-      { speaker: "Narrator", text: "Babies were born and couldn’t finish forming a single opinion. Their parents, meanwhile, were losing theirs." },
-      { speaker: "Narrator", text: "A man who had believed for forty years that he was tall woke up noticeably shorter." },
+      { speaker: "Narrator", text: "Then the five became ten." },
+      { speaker: "Narrator", text: "Every question that couldn't be settled split off another questioner. Nothing dried, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.", directionBefore: "A Y bubble, mid-question, splits in two like a cell." },
+      { speaker: "Narrator", text: "Nobody had to walk to the source anymore. The source walked to them." },
+      { speaker: "Man", text: "All ravens are black.", directionBefore: "The man with the raven, from L1, on his doorstep, ankle-deep in ink. Bubbles rise around his feet." },
+      { speaker: "Y₁", speakerId: "Y1", text: "Why?" },
+      { speaker: "Man", text: "Every raven I've ever seen was black." },
+      { speaker: "Y₂", speakerId: "Y2", text: "Why believe the ones you haven't seen are like the ones you have?" },
+      { speaker: "Man", text: "Because… they always have been." },
+      { speaker: "Y₃", speakerId: "Y3", text: "Then does a white shoe prove it too? Everything that isn't black isn't a raven.", directionBefore: "That answer doesn't settle it. Y₂ splits in two, like a cell." },
+      { speaker: "Man", text: "…What?" },
+      { speaker: "Y₄", speakerId: "Y4", text: 'Why "black"? Why not "black until tomorrow, then white"?', directionBefore: "Two more bubbles split. Then four." },
+      { speaker: "SOWHAT", text: "So what? A million black ravens can't prove it. One white raven would end it." },
+      { speaker: "Narrator", text: "Answers still came. They just never passed.", directionBefore: "Around his feet, a swarm of new SOWATTs, all asking at once. On his shoulder, the raven begins to run." },
+      { speaker: "Narrator", text: "And anyone who stood in wet ink long enough began to soften. A man who had believed for forty years that he was tall woke up noticeably shorter. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs." },
       { speaker: "Narrator", text: "Whole cities, built on beliefs nobody had thought to question, slid quietly into the sea." },
-      { speaker: "Narrator", text: "Scholars still argue about who named it. They argue about everything. That’s rather the problem.", background: artwork("L3-02-crisis-title") },
+      { speaker: "Narrator", text: "Scholars still argue about who named it. They argue about everything. That's rather the problem.", background: artwork("L3-02-crisis-title") },
     ],
   },
   "L4": {
@@ -140,15 +152,6 @@ export const inkOceanScenes: Record<InkOceanSceneId, InkOceanScene> = {
       { speaker: "Neurath", text: "The neighboring planks hold it in place. I can replace this one while standing on the others." },
       { speaker: "Narrator", text: "Follow the support around his ring-shaped raft and you eventually return to the plank where you began. YYYY SOWATT swam a lap to check." },
       { speaker: "Narrator", text: "It was the most coherent raft in history. It held together perfectly as it drifted off the edge of the map." },
-    ],
-  },
-  "L4-quiz": {
-    id: "L4-quiz",
-    title: "Audience check",
-    takeaway: "Where can a chain of reasons end?",
-    background: artwork("L4-00-answerers"),
-    cues: [
-      { speaker: "Narrator", text: "One master set down his ladle. One gave a new reason every time. One sent the question around the raft. Which answer would let a belief support others without first borrowing support from another belief?" },
     ],
   },
   "regress-foundationalism": {
@@ -248,9 +251,7 @@ export function establishingArtwork(scene: InkOceanScene, index: number): string
 }
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
-  // The audience check returns to the already introduced Answerer Project art.
-  return scene.id !== 'L4-quiz' && (index === 0 ||
-    establishingArtwork(scene, index) !== establishingArtwork(scene, index - 1));
+  return index === 0 || establishingArtwork(scene, index) !== establishingArtwork(scene, index - 1);
 }
 
 const focusByPlate: Record<string, Record<string, string>> = focusPlates;

@@ -4,7 +4,7 @@ export type StoryScene = {
   title: string;
   summary: string;
   paragraphs: readonly string[];
-  illustration: { src: string; alt: string };
+  illustration?: { src: string; alt: string; imageOnly?: true };
 };
 
 // These IDs are also the storage keys for edits to draft 4.
@@ -421,28 +421,100 @@ const openingScenes: StoryScene[] = [
 
 ];
 
+// The prologue opens the Legend in the Story reader.
+const lawOfInk: StoryScene = {
+  id: 'ink-ocean-L0',
+  title: 'The Law of Ink',
+  summary: 'L0 · How ink beliefs work',
+  paragraphs: [
+    'Narrator: In this world, everything is made of belief: every person, and the whole world each of them sees. And belief is ink.',
+    'Narrator: Ink has two forms. Wet ink is a belief still being questioned. Nothing can stand on it. Dry ink is a belief that holds. You can stand on it, and build more beliefs on top of it.',
+    "Narrator: Ink dries only if it withstands questioning: from the question mark at the Great Inkwell, and from anyone else who asks. If you can't answer, or the questions never stop, it stays wet. And if someone questions a dry belief and you have no answer, it goes wet again.",
+  ],
+  illustration: {
+    src: '/generated/backgrounds/ink-ocean/L0-question-mark.webp',
+    alt: 'A translucent question mark filled with flowing letters connects to a hillside town built from ink blocks.',
+  },
+};
+
+const greatInkwell: StoryScene = {
+  id: 'ink-ocean-regress-problem',
+  title: 'The Great Inkwell',
+  summary: 'L1 · The guardian question mark',
+  paragraphs: [
+    'Narrator: At the source of the world was the Great Inkwell. Every belief anyone ever held was scooped from it.',
+    'Narrator: Beside it stood the guardian, a question mark. Bring it a ladle of ink and it asked you one question. Answer, and the ink dried into a stick you took home and fitted into yourself.',
+    '[A man holds up a ladle. A raven sits on his shoulder.]',
+    'Man: All ravens are black.',
+    'Question mark: Why?',
+    "Man: They're made of ink.",
+    '[The ink dries. He slots the stick into his chest, satisfied. The raven nods.]',
+    'Narrator: The guardian was not a strict examiner. Any answer would do.',
+  ],
+  illustration: {
+    src: '/generated/backgrounds/ink-ocean/L1-guardian-asks-why.webp',
+    alt: 'An ink-block man with a raven on his shoulder offers a ladle to a glowing question mark above the Great Inkwell.',
+  },
+};
+
+const sowattBirth: StoryScene = {
+  id: 'ink-ocean-regress-problem-birth',
+  title: 'The Birth of YYYY SOWATT',
+  summary: 'L1 · Five bubbles rise from the Inkwell',
+  paragraphs: [
+    'Narrator: Then one day, someone bumped it.',
+    '[It tips into the Inkwell and sinks. At the edge of the frame, a dark sleeve.]',
+    '[The ink churns. Five bubbles rise.]',
+    'Narrator: The guardian was gone. In its place were five: YYYY SOWATT.',
+  ],
+  illustration: {
+    src: '/generated/backgrounds/ink-ocean/L1-birth-wide-inkwell.webp',
+    alt: 'Five ink bubbles rise over a wide Inkwell at blue hour, between a submerged arch and a lit hut.',
+  },
+};
+
+const legendIllustrations: Record<string, StoryScene['illustration']> = {
+  'ink-ocean-L2': {
+    src: '/generated/backgrounds/ink-ocean/L2-neither-did-her-hand.webp',
+    alt: 'Five ink bubbles question a woman as her fingers melt into the dark pool at blue hour.',
+  },
+  'ink-ocean-L3': {
+    src: '/generated/backgrounds/ink-ocean/L3-the-question-splits.webp',
+    alt: 'The man with the raven stands in floodwater as an ink bubble splits beside a white shoe.',
+  },
+  'ink-ocean-L3-continued': {
+    src: '/generated/backgrounds/ink-ocean/L3-whypocalypse-title-card.webp',
+    alt: 'The Whypocalypse title in flowing black ink, with YYYY SOWATT spreading through the channels of a flooded city.',
+    imageOnly: true,
+  },
+};
+
 const legendScenes: StoryScene[] = [];
 for (const scene of Object.values(inkOceanScenes)) {
+  if (scene.id === 'regress-problem') {
+    legendScenes.push(greatInkwell, sowattBirth);
+    continue;
+  }
   let paragraphs: string[] = [];
   for (const [index, cue] of scene.cues.entries()) {
     if (index === 0 || cue.background) {
-      paragraphs = [];
+      paragraphs = index === 0 && scene.openingDirection ? [`[${scene.openingDirection}]`] : [];
+      const id = 'ink-ocean-' + scene.id + (cue.background ? '-continued' : '');
       legendScenes.push({
-        id: 'ink-ocean-' + scene.id + (cue.background ? '-continued' : ''),
+        id,
         title: scene.title,
         summary: scene.takeaway,
         paragraphs,
-        illustration: { src: cue.background ?? scene.background, alt: scene.title },
+        illustration: legendIllustrations[id],
       });
     }
+    if (cue.directionBefore) paragraphs.push(`[${cue.directionBefore}]`);
     paragraphs.push(cue.speaker + ': ' + cue.text);
   }
-  if (scene.id === 'L4') paragraphs.push('The four options appear together. Foundationalism slips away whenever the cursor approaches. Choose Skepticism, Infinitism, and Coherentism in any order. After all three visits, Foundationalism stays still so the audience can choose it last.');
-  if (scene.id === 'L4-quiz') paragraphs.push('Audience check: Skepticism, Infinitism, Coherentism, or Foundationalism? The answer is Foundationalism.');
   if (scene.id === 'L6') paragraphs.push('The presenter shows both schools side by side. Each audience member follows their chosen school. Both viewpoints follow in this reader.');
 }
 
 export const storyVersions = [
-  { title: 'The Ink Ocean', scenes: [...openingScenes, ...legendScenes] },
+  { title: null, scenes: [...openingScenes, lawOfInk, ...legendScenes] },
   { title: 'Until It Dries', scenes: untilItDries },
 ] as const;

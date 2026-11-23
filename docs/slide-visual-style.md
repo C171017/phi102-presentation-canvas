@@ -4,6 +4,14 @@ Use this guide when drawing a new slide setting. The opening follows a student o
 
 ## What belongs on the slide
 
+### Fit the artwork to the page
+
+Preserve the native aspect ratio of every presentation illustration and video. Center the entire frame in the space available and scale both axes together. A window narrower than the artwork gets bars above and below. A window wider than the artwork gets bars on the sides.
+
+Use the same artwork bounds for the full-color establishing shot and its dialogue or speaker-focus frames. In a split view, fit each illustration to its own panel. The paper and its margin notes float above the slide. Keep the background at the same size and position as the paper opens, closes, or changes width. Transcripts and controls can use the space beside the overlay.
+
+Reuse the shared `background-size: contain` rule in [style.css](../src/style.css) for slide backgrounds and use `object-fit: contain` for full-slide images and video. Use a uniform camera scale for canvas illustrations. Avoid `cover`, `fill`, and `100% 100%` for presentation artwork. Before adding a new page, preview it in a narrow window, a wide window, and with the paper pane open. Check both the full-color and dialogue frames when the page has them.
+
 ### Dialogue-led presentation slides
 
 Use one broad, dark dialogue box in the lower part of the slide. A shaded bottom edge, a narrower right edge, and a soft cast shadow give the box shallow depth. Keep the rim plain. Frame the room, portraits, and interactive examples above the box.
@@ -25,7 +33,7 @@ For a new dialogue scene, check a long line at presentation and phone widths. Ad
 | Part | Job | Classroom example |
 | --- | --- | --- |
 | **Canvas part** | Carries the idea the audience reads or manipulates. Keep the essential words and the interactive object together. | “Contemporary Contextualism” and the original ivory A and C tiles across, 12 and 14 tiles down, and one shared gold B/13 tile in the center. Professor Lin’s clickable portrait advances the dialogue at the bottom. |
-| **Background part** | Establishes where and when the audience is. Make one full-bleed landscape illustration with a quiet field behind the canvas part. Reveal it when the camera reaches that slide. | Present-day Giedt Hall 1007, seen from the back left. The empty room leaves space for Professor Lin’s illustrated figure and the interactive tiles. |
+| **Background part** | Establishes where and when the audience is. Make one landscape illustration with a quiet field behind the canvas part. Reveal the complete illustration when the camera reaches that slide. | Present-day Giedt Hall 1007, seen from the back left. The empty room leaves space for Professor Lin’s illustrated figure and the interactive tiles. |
 
 ## Reference pictures
 

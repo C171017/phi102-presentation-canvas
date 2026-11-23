@@ -1,16 +1,37 @@
-# PHI 102 canvas · Story draft 5: *The Ink Ocean* (working title)
+# PHI 102 canvas · Story draft 5
 
-**Living design document, updated November 21, 2026.** It's written scene by scene so that it can be read straight through, visualized, reviewed and revised.
+**Living design document, updated November 22, 2026.** It's written scene by scene so that it can be read straight through, visualized, reviewed and revised.
+
+**Title status.** The story has no title yet. Leave the story title blank until the author chooses one.
 
 ## How to read this document
 
 | Tag | Meaning |
 | --- | --- |
-| **[FIXED]** | Confirmed by the author. Don't change it without asking. |
-| **[AI DRAFT]** | Temporarily written by AI to fill a gap. Not confirmed. Expect revisions. |
-| **[OPEN]** | A decision still to make. The AI draft uses the default noted in §8. |
+| **[FIXED]** | Confirmed by the author, or stated by the author as a requirement. Don't change it without asking. |
+| **[YOUR IDEA · AI VERSION]** | The idea came from the author (proposed or asked for), but it isn't confirmed in this form. The AI wrote a provisional version for review. |
+| **[AI DRAFT]** | The author never suggested this. The AI filled a gap. Not confirmed. Expect revisions. |
+| **[OPEN]** | A decision still to make. The drafts use the default noted in §8. |
 
-A scene can be fixed in concept and AI-drafted in wording. Both tags then appear, for example **[FIXED concept · AI DRAFT text]**.
+Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirmed and the wording is the AI's. **[YOUR IDEA · AI VERSION]** on a scene means the direction is the author's and the details are the AI's.
+
+**Why things are the way they are:** §9 records the reasoning behind recent decisions: the author's questions, the checks against Greco's paper, the references used, and what was corrected.
+
+## The guiding principle [FIXED]
+
+**Every decision in this document follows this rule, including the story rework now in progress.**
+
+- **Time is the hardest limit.** The whole presentation is 28 minutes, and that includes Q&A and everything else.
+- **Keep only what's important:** what the audience needs to follow the story, and what carries Greco's main ideas.
+- **Cut anything that isn't closely related, or that makes the audience do extra work to understand,** even if it's clever or accurate.
+- **Concise and effective. Easy to understand. Intuitive.** Show rather than explain; one idea per scene; no new name, rule or term unless it pays off.
+
+**The test for every element:** does the audience need it to follow the story, or does it carry a key point of the paper? If neither, cut it. When in doubt, cut.
+
+**[AI DRAFT] Known pressure points under this rule:**
+- The time table in §5.2 adds up to the full 28 minutes and leaves nothing for Q&A (open question 22).
+- Part 1 is ~7 minutes. L0 (~30 sec) was offset by shortening L1.
+- AI-drafted extras (side jokes, secondary names, optional lines) are the first things to cut.
 
 ## For the visualization agent
 
@@ -22,21 +43,26 @@ A scene can be fixed in concept and AI-drafted in wording. Both tags then appear
 6. **Don't** put the names of films, games, studios, artists or specific artworks into image prompts. Describe painting traditions and visual qualities instead. Don't reproduce any existing character, logo or painting. Descartes appears as a generic seventeenth-century scholar in scroll style, not a copy of a known portrait.
 7. **Avoid baked-in text** except where a scene asks for a short label (a title card, words pressed into an ink stick).
 8. **Show the Dry World meter** (§2b) in the corner of every legend, prison and real-ocean frame, at the value given for that scene.
-9. **Legend-era people are made of ink sticks:** stacked, inscribed bars of dried ink shaped into a person, each bar pressed with one belief. When their beliefs go wet, they slump, drip and shrink. The four heroes keep their Version C designs.
+9. **[FIXED] Only NPCs are made of ink cubes.** Named characters (the three masters, Descartes, the ferryman and his daughter, the keeper, the heroes) are drawn as ordinary people with expressive faces and drawn clothing. **NPCs (unnamed crowds and background people) are made of dried ink [new design from the author's design session, Nov 22]:** figures built entirely of small ink cubes, finest and densest at the head, growing gradually larger toward the feet, with no sudden jump in density, so the body reads as one coherent, seamless form. From across the room you see a person; up close you see the beliefs they're built from. When their beliefs go wet, they slump, drip and shrink. Simone, Cole, Rae and Echo keep their Version C designs.
 10. **The three Answerers and Descartes** are stylized characters, not portraits: invent faces; don't copy any known painting or photograph.
-11. **L6 has a live game** with one shared split screen (Sect left, School right). Visualize the shared board at the start, mid-battle and at the result, plus the audience device with its input bar.
+11. **L6 has a live game** with one shared split screen (Sect left, School right). Visualize the shared board at the start, mid-battle and at the result, plus the audience device with its tray of tap-only cards.
 12. **The regress dialogue in `src/slide-content.ts` is out of date.** Use L1–L5 of this document.
+13. **Everything from Part 2 on is unconfirmed** (either [YOUR IDEA · AI VERSION] or [AI DRAFT]). Label those images as drafts.
+14. **Evan has no model sheet yet.** Draw him as a small, courteous, living fountain pen with two small eyes on the clip **[AI DRAFT; a living ink brush is the alternative, §8]**.
+15. **L10b is a pull-back reveal:** the legend's handscroll turns out to be a real scroll in an old keeper's lap on a beach at night. The art style changes there, from the scroll's painting styles to P1's cut-paper island.
 
 ## Quick reference
 
 | | |
 | --- | --- |
-| **Heroes** | Simone (subject · sensitive invariantism), Cole (speaker · contextualism), Rae (assessor · relativism), Echo (hermit crab · expressivism) |
+| **Heroes** | Simone (subject · sensitive invariantism), Cole (speaker · contextualism), Rae (assessor · relativism). These are the legend's "three heroes." |
+| **The one nobody counted** | Echo, Simone's hermit crab (expressivism). Not a hero and never in the legend, but the one who matters at the end **[YOUR IDEA · AI VERSION]** |
 | **Villain** | The Cartesian demon (no body: a dark ink sky with strings) |
 | **The demon's creation** | YYYY SOWATT (four Y voices + SOWHAT), its manifestation in the world |
+| **Allies** | Evan, a living pen anyone can write with: the third sacred weapon, who denies being one **[YOUR IDEA · AI VERSION]**; the Ferry and its town, Here; the old lighthouse keeper, who tells the legend (L10b) |
 | **Legend figures** | The guardian question mark; the three Answerers (Pyrrho, Peirce, Neurath); Descartes, the fourth; the Sect of No Doubt; the Seeing-Is-Believing School; the ferryman; his daughter |
-| **Objects** | Ink sticks (foundations); the *I think* stick (grain-sized); the three sacred weapons |
-| **Places** | The Great Inkwell; the ink ocean; four dream universes; the lighthouse |
+| **Objects** | Ink sticks (foundations); the *I think* stick (grain-sized); the three sacred weapons (the Conch, the Anchor, and Evan) |
+| **Places** | The Great Inkwell; the ink ocean; the dream domes; Here, the first town after the fall; the lighthouse |
 
 ---
 
@@ -45,6 +71,15 @@ A scene can be fixed in concept and AI-drafted in wording. Both tags then appear
 ### 1.1 Wet ink and dry ink [FIXED]
 
 Everything in this world is written in ink. A sentence stays wet while anyone is asking about it. Left alone, it dries. **Dry means settled.** Dry ink is a foundation: you can stand on it, and you can use it to support further claims.
+
+**[FIXED] The core mechanism, which the Legend must make clear at its very start (L0):**
+1. **Everything is made of ink beliefs:** every person, and the world each person sees. Belief is concrete: it's ink.
+2. **Belief has two forms.** Liquid (wet ink): a belief still in question; nothing can stand on it. Solid (dry ink): a belief that holds; you can build on top of it.
+3. **To make a belief solid, it has to withstand questioning:** from the guardian question mark at the Great Inkwell, the source of all belief, and from anyone else who asks. If it withstands the questions, it solidifies.
+4. **If someone questions it and you can't answer, or they can keep on asking, it never solidifies.**
+5. **[FIXED, from L7 and L9] Dry ink can go wet again:** if someone questions a dry belief and you have no answer, it softens.
+
+**[AI DRAFT] Precision on "withstand":** what dries the ink is that the asking *stops*, not that the answer is good. The guardian accepted nonsense, and the ink still dried. This keeps "undoubted, not undoubtable" (L7) and the astrology objection (P1) working. Reasoning in §9.5.
 
 ### 1.1b The Great Inkwell, the guardian question mark, and people made of beliefs [FIXED]
 
@@ -58,7 +93,7 @@ Everything in this world is written in ink. A sentence stays wet while anyone is
 - **A foundation is a process, not an object.** Founding means making ink dry, temporarily, right where you stand, so that it can hold up more. Nothing ever seals the Inkwell or stops YYYY SOWATT. Even Descartes's *I think* is just one grain that stays dry; it plugs nothing.
 - **The world was always an ink ocean.** Underneath, it was never solid. The old dry world, where the guardian let beliefs dry on answers like "because my mother said so," was the real illusion. What's true is the ocean, and the only footing anyone has is local: dry ink under their own feet, in their own context. This is exactly what the ending shows: the world is still an ocean, and people live anyway.
 - **The old world should feel absurd from the very first scene** (the guardian's lazy questions, the nonsense answers it accepts), so that the audience senses something was off before anyone says so.
-- **[FIXED as a hint] Moral ambiguity:** like games that leave you arguing over who was right, the story hints that the demon might have had a point: it didn't drown a solid world, it revealed a wet one. **[AI DRAFT] Treatment:** the demon stays the antagonist (it still murders the ferryman and traps everyone in dreams), but in R14 it gets the skeptic's best argument, and Simone's answer agrees with half of it: there is no ground under the ocean; there is ground under her.
+- **[FIXED as a hint] Moral ambiguity:** like games that leave you arguing over who was right, the story hints that the demon might have had a point: it didn't drown a solid world, it revealed a wet one. **[AI DRAFT] Treatment:** the demon stays the antagonist (it still murders the ferryman and traps everyone in dreams), but in R11 it gets the skeptic's best argument, and Simone's answer agrees with half of it: there is no ground under the ocean; there is ground under her.
 
 ### 1.2 Ink sticks [FIXED]
 
@@ -67,12 +102,12 @@ A sentence that nobody is asking about dries into an **ink stick**: a solid bar 
 | Rule | What you see |
 | --- | --- |
 | Nobody is asking, so it dries | The wet sentence hardens into a stick |
-| A question is water | Ask about a stick seriously and it softens back into wet ink |
+| Questioned again, no answer | A stick softens back into wet ink |
 | Undoubted, not undoubtable | A stick is solid, but any stick melts if you pour water on it |
 | Foundations support other beliefs | You grind a stick into fresh ink to write new conclusions |
 | Building on foundations | Sticks are solid enough to stand on and build with |
 
-**[AI DRAFT]** On the ocean, a stick dries under your feet like a plank. A further belief floats just above the stick that supports it. A stick is tinted by whose context matters (teal, rust or blue). Echo has no sticks, only his claw.
+**[AI DRAFT]** On the ocean, a stick dries under your feet like a plank. A further belief floats just above the stick that supports it. A stick is tinted by whose context matters (teal, rust or blue). Echo has no sticks, only his claw: raising it is a commitment, not a claim, so nothing dries under it, and SOWATT has nothing to melt (§9.3).
 
 ### 1.3 YYYY SOWATT [FIXED]
 
@@ -86,7 +121,7 @@ A chorus of five ink bubbles born when a question mark spilled into the world's 
 - **[AI DRAFT]** The demon has no body. It's a dark sky of ink with thin strings hanging from it, and it speaks only through YYYY SOWATT. Faint strings rise from SOWATT from its very first frame; nobody mentions them until R3.
 - **[AI DRAFT]** Its lie: "There is one rule for the whole ocean, and I can make it fail."
 - **[AI DRAFT]** Its weapon is the one Greco worries about in §4: doubt about your own grounds that leaks down into doubt about the belief itself.
-- **[AI DRAFT] Catchphrase:** "Suppose there were a demon." Descartes says it first, as a hypothetical (L5). The Sect of No Doubt chants it at its entrance test (L6). In R3, the demon says it back, and answers it.
+- **[AI DRAFT] Catchphrase:** "Suppose there were a demon." Descartes says it first, as a hypothetical (L5). The Sect of No Doubt chants it at its entrance test (L6). In R2, the demon says it back, and answers it.
 
 ---
 
@@ -94,8 +129,8 @@ A chorus of five ink bubbles born when a question mark spilled into the world's 
 
 1. **[FIXED]** **Frame.** A student steps off the red Unitrans double-decker and takes a seat in Giedt Hall. Professor Lin opens with the B/13 quiz on contemporary contextualism, then introduces flexible foundationalism. The OP plays. As soon as it ends, the legend begins.
 2. **[FIXED]** **Legend:** YYYY SOWATT is born and starts to wet the world like a virus, getting visibly worse with every chapter (§2b). People fight back: humanity elects three great masters, the Answerers, who appear in an order the audience chooses and are all useless; then Descartes, the fourth master nobody elected, right after. Descartes's *I think* is the first belief that stays dry while being asked about, but one dry grain can't hold back an ocean, and people have to hurry. Two schools try to dry the world again and fail. A young ferryman discovers flexible foundationalism and makes three sacred weapons, but he's killed right before he can prove it. The weapons are lost, and the whole world falls asleep inside the demon's dreams.
-3. **[FIXED concept · AI DRAFT content]** **Prisons:** the four heroes, each dreaming in a universe built from one route and one version, find the weapons and see through their worlds with the audience's help (the quizzes).
-4. **[FIXED]** **Real ocean:** they wake ages later, meet, and confront the demon. Following §4 of the paper, they use what they learned to save everyone still dreaming.
+3. **[FIXED structure · AI DRAFT content]** **The relay:** as in *The Matrix*, whoever wakes goes back in for the others. **[FIXED requirement]** The legend's last lines turn out to be told inside the first dream, where Simone, laughed at, says someone should find the weapons (L10b). Simone breaks out of her dream first, spends years alone with only Echo, then builds a rebellion, the Ferry, and a small new town, Here, while searching for the third weapon. She enters Cole's dream; then the two of them, with Evan and Echo, enter Rae's. The order follows the argument of Greco's §3, and the disagreement problem happens between the protagonists.
+4. **[FIXED concept · AI DRAFT content]** **The real ocean:** the three heroes, Evan and Echo, with the town behind them, confront the demon. Following §4 of the paper, they learn to stand without bedrock. Then the demon poses a moral question, and the audience votes on the ending.
 
 ---
 
@@ -134,14 +169,13 @@ A chorus of five ink bubbles born when a question mark spilled into the world's 
 
 The narrator speaks the end of L9 and all of L10 over the frozen frame, as if the narrator is the only thing outside time.
 
-**Payoff in Part 2 [AI DRAFT].** Inside every prison, the meter reads **DRY WORLD REMAINING: 100%**. Too perfect. It's a clue that the world is fake. When a prison cracks, the meter glitches and briefly shows **??**.
+**Payoff in Part 2 [AI DRAFT].** Inside every dream dome, the meter reads **DRY WORLD REMAINING: 100%**. Too perfect: a clue that the world is fake. When a dome cracks, it glitches to **??**.
 
-**Payoff in Part 3 [AI DRAFT].**
-- **R1:** the hanging drops finally fall, *plink*, and time starts again. The meter reads **DRY WORLD REMAINING: 0%**, and it **stays at 0% for the rest of the story**. The ocean is real.
-- **R5:** a second line appears under it: **PEOPLE STANDING: 1** (Simone, on one dry stick).
-- **R11:** **PEOPLE STANDING: 4.**
-- **R13:** as the dreamers wake, the second number races upward.
-- **R14:** the final reading is **DRY WORLD REMAINING: 0% · PEOPLE STANDING: 97%**. The world never dried. Almost everyone is standing anyway. That contrast is the whole metaphor: you don't need a dry world, you need dry footing. (Not 100%, because the demon is still out there.) Beside the final title card: **THE END. (Probably.)**
+**Payoff in the real ocean [AI DRAFT].**
+- **I1:** the hanging drops finally fall, *plink*, and time starts again. **DRY WORLD REMAINING: 0%**, and it **stays at 0%** for the rest of the story: the ocean is real. A second line appears: **PEOPLE STANDING: 1**.
+- **I2:** as Here grows, PEOPLE STANDING climbs: 12 … 140 … 600.
+- **P2, P3:** one more for Cole, one more for Rae. (Echo was never asleep.)
+- **R12:** the final reading depends on the ending the audience votes for. You don't need a dry world; you need dry footing. Beside the final title card: **THE END. (Probably.)**
 
 ## 3 · Part 0 · Frame [FIXED]
 
@@ -165,78 +199,82 @@ S0.1–S0.4 use the existing campus and classroom visuals. S0.5 is a playback cu
 
 ## 4 · Part 1 · The Legend (*Why accept flexible foundationalism?*)
 
-**[AI DRAFT] Format:** one long horizontal handscroll. The camera pans right as the legend unfolds. Each chapter has its own painting style (see each scene). Faint threads hang above YYYY SOWATT in every frame where it appears. Nobody mentions them.
+### L0 · The Law of Ink [FIXED requirement · YOUR IDEA · AI VERSION wording] · ~30 sec
 
-### L1 · The Great Inkwell and the guardian question mark [FIXED concept · AI DRAFT text]
+**[FIXED requirement]** Before the Legend begins, explain the world's one core mechanism plainly: pure narration over **one image**. No demo scenes. Everything is made of ink beliefs; belief has two forms; ink dries only if it withstands questioning.
 
-> **Narrator:** Long ago, at the source of the world, there was a great inkwell. Everything anyone believed was written in its ink.
-> **Narrator:** Left alone, ink dries. But ink can't dry while someone is still asking about it.
-> **Narrator:** So beside the Inkwell stood a question mark. When you wanted to believe something, you scooped up a ladle of ink, said it out loud, and the question mark asked you about it. Once you'd answered, it stopped asking. The ink dried. And you carried your new belief home, and fitted it into yourself.
-> **Narrator:** That's what people were made of. A person was a stack of dried beliefs.
->
-> *(A man steps up with a ladle.)*
-> **Man:** I believe I'm the best cook in the village.
+**Narration [YOUR IDEA · AI VERSION]:**
+
+> **Narrator:** In this world, everything is made of belief: every person, and the whole world each of them sees. And belief is ink.
+> **Narrator:** Ink has two forms. Wet ink is a belief still being questioned. Nothing can stand on it. Dry ink is a belief that holds. You can stand on it, and build more beliefs on top of it.
+> **Narrator:** Ink dries only if it withstands questioning: from the question mark at the Great Inkwell, and from anyone else who asks. If you can't answer, or the questions never stop, it stays wet. And if someone questions a dry belief and you have no answer, it goes wet again.
+> **Narrator** *(beat)***:** Fortunately, in those days, nobody ever asked twice. **[AI DRAFT: optional last line]**
+
+**The one image [AI DRAFT]:** a single diagram painted on the scroll, read left to right.
+- **Left:** a ladle of wet ink, dripping. Label: **WET · still questioned · can't stand on it.** A small loop arrow above it: **can't answer / questions never stop.**
+- **Middle:** the guardian question mark, with two or three people beside it, all asking **"Why?"** An arrow to the right: **withstands the questions.**
+- **Right:** a solid ink stick, a small figure standing on it and a second stick resting on top. Label: **DRY · holds · can build on it.**
+- **Bottom:** a return arrow from dry back to wet: **questioned again, no answer.**
+- **Behind it all, faint:** a person built of stacked ink sticks, and a little world of sticks around them, to show that everything is made of these.
+
+Keep labels to those few words. The narration does the explaining; the image is what the audience remembers.
+
+### L1 · The Great Inkwell and the guardian question mark [FIXED concept · YOUR IDEA · AI VERSION text, shortened] · ~30 sec
+
+**Purpose [FIXED]:** introduce the Great Inkwell as the source of every belief; use the old guardian question mark to show how beliefs first dried; then the birth of YYYY SOWATT. L0 has already explained the mechanism, so L1 doesn't repeat it.
+
+> **Narrator:** At the source of the world was the Great Inkwell. Every belief anyone ever held was scooped from it.
+> **Narrator:** Beside it stood the guardian, a question mark. Bring it a ladle of ink and it asked you one question. Answer, and the ink dried into a stick you took home and fitted into yourself.
+> *(A man holds up a ladle. A raven sits on his shoulder.)*
+> **Man:** All ravens are black.
 > **Question mark:** Why?
-> **Man:** My mother says so.
-> *(A pause. The ink dries. He slots the stick into his chest, beaming.)*
-> **Narrator:** The question mark was not a strict examiner. It mostly wanted an answer, any answer, delivered with confidence.
->
-> *(A woman with a ladle.)*
-> **Woman:** I believe Tuesdays are lucky.
-> **Question mark:** Why?
-> **Woman:** I was born on one.
-> *(Dries.)*
-> **Narrator:** Most people were built this way. It explained a great deal.
->
-> *(A newborn, held up to the Inkwell by its parents. A tiny ladle.)*
-> **Baby:** *(gurgles)*
-> **Question mark:** …Good enough.
-> *(A very small stick dries: WARM. It's fitted gently into the baby.)*
->
-> **Narrator:** Then one day, someone bumped the question mark.
-> *(It tips, slowly, into the Inkwell. The surface closes over it.)*
-> **Narrator:** Nobody saw who. Everyone agreed it was an accident.
+> **Man:** They're made of ink.
+> *(The ink dries. He slots the stick into his chest, satisfied. The raven nods.)*
+> **Narrator:** The guardian was not a strict examiner. Any answer would do.
+> **Narrator:** Then one day, someone bumped it.
+> *(It tips into the Inkwell and sinks. At the edge of the frame, a dark sleeve.)*
 > *(The ink churns. Five bubbles rise.)*
-> **Narrator:** The question mark was gone. In its place were five. People called them YYYY SOWATT.
+> **Narrator:** The guardian was gone. In its place were five: YYYY SOWATT.
 
-**[FIXED]** The "someone" who knocked the question mark in was the demon. The legend never says so; R3 reveals it.
+**[FIXED]** The "someone" who knocked the question mark in was the demon. The legend never says so; R2 reveals it.
 
 **Notes [AI DRAFT]:**
-- **The example beliefs are deliberately harmless** (cooking, lucky Tuesdays, a baby's "warm"). A nonsense answer to a religious belief would get a bigger laugh from some and hurt others in the room; keep the joke on the guardian's laziness, not on anyone's faith.
-- **The guardian foreshadows the social route.** It's a lax audience that lets almost anything dry, like Star Isle in P1. YYYY SOWATT is the opposite extreme: an audience that never lets anything dry. Flexible foundationalism lives between the two.
-- **The newborn shows the mechanism at its purest:** before you can doubt anything, you need something to stand on.
+- **One example only [FIXED: the author's choice].** "All ravens are black" is the famous example from lecture. The answer, "they're made of ink," is a wink at this story's world, and it explains nothing (by that logic, everything would be black), which is exactly why it shows how lax the guardian is.
+- **"One question"** sets up the contrast with SOWATT, which never stops asking (L2).
+- Cut in this version: the Tuesday and newborn examples, and the narrator lines that repeated L0.
 
-**Visual [AI DRAFT]:** the scroll opens on the Great Inkwell at the center of the world, faded ink with light color. Beside it stands a tall, elegant question mark like a carved monument. A line of people made of stacked ink sticks, each holding a ladle. Close-ups: a stick drying in a ladle, then being slotted into a chest like a book onto a shelf. The bump: just the edge of a dark sleeve at the frame's edge, and the question mark tipping. Five bubbles surfacing, faint threads above them trailing off the top of the scroll.
+**Visual [AI DRAFT]:** the Great Inkwell at the center of the world; beside it, a tall, elegant question mark like a carved monument; a line of people made of stacked ink sticks, holding ladles. The man slotting his stick into his chest like a book onto a shelf, the raven on his shoulder. The bump: only the edge of a dark sleeve. Five bubbles surfacing, faint threads above them.
 
-### L2 · The why-chain: from a hand to a brain in a vat [FIXED]
+**Story reader:** Page 6 covers the Great Inkwell and the black-raven exchange. Page 7 starts at “Then one day, someone bumped it” and pairs the birth of YYYY SOWATT with the wide Inkwell artwork. [Reader illustration](../public/generated/backgrounds/ink-ocean/L1-birth-wide-inkwell.webp)
 
-**[FIXED]** The next person in line states her belief, and this time YYYY SOWATT does the asking.
+### L2 · The why-chain: from a hand to a brain in a vat [FIXED concept · YOUR IDEA · AI VERSION text, shortened] · ~35 sec
 
-> *(The next person in line scoops up her ink.)*
+**[FIXED]** The next person in line states her belief, and this time YYYY SOWATT does the asking. **[Author's request]** Use the classic brain-in-a-vat chain from class, and keep it short.
+
+> *(The next woman in line scoops up her ink.)*
 > **Woman:** I have a hand.
-> **Y:** Why believe you have a hand?
-> **Woman:** I can see it. It's holding the ladle.
-> **Y:** Why trust what you see?
-> **Woman:** I'm wide awake, and my eyes work when I'm awake.
-> **Y:** Why believe you're awake?
-> **Woman:** Everything's sharp: the ladle, the Inkwell, the cold ink. Dreams are never this clear.
-> **Y:** Why believe you're not a brain in a vat?
+> **Y₁:** Why believe that?
+> **Woman:** I can see it.
+> **Y₂:** Why trust your eyes?
+> **Woman:** They've never fooled me.
+> **Y₃:** Why believe you're not dreaming?
+> **Woman:** Dreams are never this clear.
+> **Y₄:** Why believe you're not a brain in a vat? It would see this hand just as clearly.
 > **Woman:** Oh, come on.
-> **SOWHAT:** So what? A brain in a vat would see a hand this clear, too.
+> **SOWHAT:** So what? If you can't rule out the vat, you don't know you have a hand.
 >
 > **Narrator:** Her words never dried. Then, slowly, neither did her hand.
 
-**Notes [AI DRAFT]:**
-- **Her hand is made of a belief.** Look closely and the stick that forms her hand is pressed with I HAVE A HAND. When the question won't stop, the belief goes wet, and so does the hand.
-- **Each step is a fair question about the previous answer:** the hand → sight → being awake → clarity → the vat. SOWHAT doesn't ask for another reason; it denies that "it's so clear" supports "it's real," because the two possibilities can't be told apart from the inside (Unit 2.2).
-- **"Oh, come on" is planted on purpose.** Here it fails. In P4, the same line from Cole becomes Greco's example of ordinary talk showing that someone treats a belief as a starting point.
-- **The vat rhymes with the Long Dream:** the domes of ink over the sleepers in L10 and over the prisons in Part 2 should look like vats.
+**Notes:**
+- **Four Ys, one SOWHAT.** Each Y asks once, climbing the classic skeptical ladder: the senses, the dream, the brain in a vat. SOWHAT ends it with the argument from Units 2.1–2.2: if you know you have a hand, you know you're not a brain in a vat; you can't know you're not; so you don't know you have a hand.
+- **Her hand is made of a belief.** The stick that forms her hand is pressed with I HAVE A HAND. When the questions won't stop, the belief goes wet, and so does the hand.
+- **"Oh, come on" is planted on purpose.** Here it fails. In P2, the same line from Cole becomes Greco's example of ordinary talk treating a belief as a starting point.
 
-**Visual [AI DRAFT]:** a woman of stacked ink sticks at the Inkwell's edge, ladle in hand. The five bubbles pass the question down, each tail pointing at the next speaker. On the last line, the camera drifts up to show, very faintly, the outline of a glass vessel around the whole scene. Final frame: her hand glistening wet, ink running from her fingertips back into the pool.
+**Visual:** a woman built of ink at the Inkwell's edge, ladle in hand; the bubbles pass the question along, each tail pointing at the next speaker. On SOWHAT's line, the faint outline of a glass vat appears around the whole scene. Final frame: her hand glistening wet, ink running from her fingertips back into the pool.
 
 **Paper and class:** the regress problem (Greco §1); the brain-in-a-vat argument (Units 2.1–2.2).
 
-### L3 · The Whypocalypse [FIXED concept and name · AI DRAFT text]
+### L3 · The Whypocalypse [FIXED]
 
 **[FIXED]** With the guardian gone, YYYY SOWATT **breeds**. Every question it can't settle splits off another SOWATT. Because nothing dries, the ink keeps welling up out of the Great Inkwell and flooding outward; every puddle becomes a new inkwell with new SOWATTs in it, until there are inkwells everywhere. Nobody needs to go and scoop ink anymore: it's all around them. People still state beliefs and answer the questions, but no answer ever passes. And soaking in ink, their old dried beliefs soften too. People melt and shrink as their dry parts disappear. The crisis is called **The Whypocalypse**.
 
@@ -245,11 +283,19 @@ S0.1–S0.4 use the existing campus and classroom visuals. S0.5 is a playback cu
 > **Narrator:** Every question that couldn't be settled split off another questioner. Nothing dried, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.
 > **Narrator:** Nobody had to walk to the source anymore. The source walked to them.
 >
-> *(A man on his doorstep, ankle-deep in ink, a ladle in his hand. Bubbles rise around his feet.)*
-> **Man:** I believe I'm a good father.
-> **Y:** Why?
-> **Man:** My children love me.
-> **Y:** Why believe they love you?
+> *(The man with the raven, from L1, on his doorstep, ankle-deep in ink. Bubbles rise around his feet.)*
+> **Man:** All ravens are black.
+> **Y₁:** Why?
+> **Man:** Every raven I've ever seen was black.
+> **Y₂:** Why believe the ones you haven't seen are like the ones you have?
+> **Man:** Because… they always have been.
+> *(That answer doesn't settle it. Y₂ splits in two, like a cell.)*
+> **Y₃:** Then does a white shoe prove it too? Everything that isn't black isn't a raven.
+> **Man:** …What?
+> *(Two more bubbles split. Then four.)*
+> **Y₄:** Why "black"? Why not "black until tomorrow, then white"?
+> **SOWHAT:** So what? A million black ravens can't prove it. One white raven would end it.
+> *(Around his feet, a swarm of new SOWATTs, all asking at once. On his shoulder, the raven begins to run.)*
 > **Narrator:** Answers still came. They just never passed.
 >
 > **Narrator:** And anyone who stood in wet ink long enough began to soften. A man who had believed for forty years that he was tall woke up noticeably shorter. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.
@@ -261,15 +307,20 @@ S0.1–S0.4 use the existing campus and classroom visuals. S0.5 is a playback cu
 >
 > **Narrator:** Scholars still argue about who named it. They argue about everything. That's rather the problem.
 
-**Visual [AI DRAFT]:** bubbles dividing like cells; the Great Inkwell overflowing; puddles across the map sprouting their own five bubbles; ink-stick people ankle-deep, slumping, shrinking, dripping; towns tilting into the sea. Then the title card: huge gold-edged lettering over the spreading stain.
+**Notes [YOUR IDEA · AI VERSION]:**
+- **The same belief as L1, now asked properly.** The guardian let "all ravens are black" dry on a joke answer; SOWATT asks the real philosophical questions about the raven inference, and the dried belief goes wet again.
+- **The four Ys and SOWHAT, one classic problem each:** Y₂ is Hume's problem of induction (why should the unseen resemble the seen?); Y₃ is Hempel's raven paradox (if "all ravens are black" means "everything non-black is a non-raven," a white shoe confirms it); Y₄ is Goodman's "grue" puzzle; SOWHAT is Popper's asymmetry (no number of confirmations proves a universal claim; one counterexample refutes it).
+- **First cut if time is short:** Y₄. Grue is the least familiar to this audience.
 
-### L4 · The Answerer Project: three great masters [FIXED concept · AI DRAFT designs and text]
+**Visual:** bubbles dividing like cells; the Great Inkwell overflowing; puddles across the map sprouting their own five bubbles; ink-stick people ankle-deep, slumping, shrinking, dripping; towns tilting into the sea. Then the title card: huge gold-edged lettering over the spreading stain.
+
+### L4 · Operation Because: three great masters [FIXED]
 
 **[FIXED]** Humanity unites and elects three famous masters to stop the crisis, in the spirit of the Wallfacers in *The Three-Body Problem*: celebrated, given everything, and completely useless. Each represents one answer to the regress. **Show all four options in the L4 chooser:** Skepticism, Infinitism, Coherentism, and Foundationalism. While any of the first three remain, Foundationalism slips away from the cursor when the pointer approaches. The audience picks the three available Answerers in any order. Once they have all been visited, Foundationalism stays still and the audience selects it as the fourth and final choice, leading to Descartes. Each master's scene stands on its own, so any order works, and the meter drops one step per master.
 
 > **Narrator:** For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited ink, unlimited time and absolute authority.
 > **Narrator:** Each was given one task: answer it.
-> *[Title card:]* **THE ANSWERER PROJECT**
+> *[Title card:]* **OPERATION BECAUSE**
 
 | | **Pyrrho, the Unmoved** | **Peirce, the Endless** | **Neurath, the Shipwright** |
 | --- | --- | --- | --- |
@@ -280,35 +331,53 @@ S0.1–S0.4 use the existing campus and classroom visuals. S0.5 is a playback cu
 | Signature line | "No more this than that." | "Excellent question. The reason is—" | "We rebuild the ship at sea, one plank at a time." |
 | Art style | Sparse, pale, almost empty | A long, dense column of text and scroll | Warm wood tones on dark water |
 
-**Pyrrho [AI DRAFT]:**
+**The three scenes [YOUR IDEA · AI VERSION, refined against the course slides]:** each opens with a one-line definition card in the course's own terms, shows the view answering YYYY SOWATT, and fails on its classic objection.
+
+**Pyrrho · Skepticism**
+
+*[Definition card:]* **SKEPTICISM.** None of our beliefs is justified, so suspend judgment on everything. *(Unit 1.1)*
+
 > **Y:** Why believe anything?
-> **Pyrrho:** I don't.
+> **Pyrrho:** I don't. No more this than that.
+> *(SOWATT waits. There is nothing to ask about.)*
 > **Narrator:** Nothing of his ever got wet. Nothing of his ever got built.
-> **Narrator:** His disciples had to follow him everywhere to keep him from walking into the sea. He did not believe it was there.
+> **Narrator:** His disciples had to follow him everywhere to keep him from walking into the sea. He had suspended judgment on whether it was there.
 
-(The disciples are a real ancient anecdote about Pyrrho, exaggerated.)
+*The objection:* you can't live by it; acting at all takes believing something. (The disciples are a real ancient anecdote about Pyrrho, exaggerated.)
 
-**Peirce [AI DRAFT]:**
+**Peirce · Infinitism**
+
+*[Definition card:]* **INFINITISM.** The chain of reasons never stops: B1 rests on B2, B2 on B3, and so on, forever. *(Agrippa's mode of infinite regress, Unit 1.1)*
+
 > **Y:** Why believe that?
-> **Peirce:** Excellent question. The reason is— and the reason for *that* is— and the reason for *that*—
+> **Peirce:** Excellent question. The reason is B2.
+> **Y:** Why B2?
+> **Peirce:** B3. And for B3, B4. And for B4—
+> *(His scroll unrolls past the edge of the frame.)*
 > **Narrator:** As far as anyone knows, he is still answering. He was last seen on the horizon, mid-sentence, scroll still wet.
 
-**Neurath [AI DRAFT]:**
-> **Neurath:** No single plank needs a foundation. Each one is held up by the others.
-> *(YYYY SOWATT swims laps around the ring.)*
+*The objection:* at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever dries.
+
+**Neurath · Coherentism**
+
+*[Definition card:]* **COHERENTISM.** A belief is justified if it belongs to a coherent system of beliefs: a web, not an edifice. *(Agrippa's mode of circularity, Unit 1.2)*
+
+> **Y:** Why trust this plank?
+> **Neurath:** The plank beside it holds it up.
+> **Y:** And that one?
+> **Neurath:** This one. We rebuild the ship at sea, one plank at a time.
+> *(SOWATT swims laps around the ring. The raft holds perfectly.)*
 > **Narrator:** It was the most coherent raft in history. It held together perfectly as it drifted off the edge of the map.
 
-(The joke is the isolation objection: a perfectly coherent web can still float free of the world.)
+*The objection:* the isolation problem. A perfectly coherent system can be cut off from experience, so coherence alone isn't enough (Unit 1.2).
 
-**Visual [AI DRAFT]:** three portraits in a row as the audience picks them, each introduced with a mock-heroic title card and a gold nameplate. Then each failure: Pyrrho calmly stepping toward the waterline while disciples grab his sleeves; a scroll unrolling over the hills to the horizon; a neat ring-raft drifting off the scroll's painted map.
-
-**Quiz Q1 [AI DRAFT]:** see §7.
+**Visual:** three portraits in a row as the audience picks them, each introduced with a mock-heroic title card and a gold nameplate. Then each failure: Pyrrho calmly stepping toward the waterline while disciples grab his sleeves; a scroll unrolling over the hills to the horizon; a neat ring-raft drifting off the scroll's painted map.
 
 **Paper:** skepticism, infinitism, coherentism (§1).
 
-### L5 · Descartes, the fourth master [FIXED concept · AI DRAFT text]
+### L5 · Descartes, the fourth master [FIXED]
 
-**[FIXED]** Descartes comes straight after the three masters, whatever order they were chosen in. He asks one question, and *I think, therefore I am* dries the ink permanently into a small stick. A foundation that is never doubted is never wet again. In the old mechanism, dried sticks become beliefs that build people's worlds; this is the first one that holds while SOWATT is asking. **[FIXED]** It seals nothing: one dry grain can't stop an ocean (§1.1c). **[FIXED] The twist:** he imagines the demon as a hypothetical to find his foundation, and the demon really exists. The legend only hints at it; R3 confirms it.
+**[FIXED]** Descartes comes straight after the three masters, whatever order they were chosen in. He asks one question, and *I think, therefore I am* dries the ink permanently into a small stick. A foundation that is never doubted is never wet again. In the old mechanism, dried sticks become beliefs that build people's worlds; this is the first one that holds while SOWATT is asking. **[FIXED]** It seals nothing: one dry grain can't stop an ocean (§1.1c). **[FIXED] The twist:** he imagines the demon as a hypothetical to find his foundation, and the demon really exists. The legend only hints at it; R2 confirms it.
 
 > **Narrator:** And then there was a fourth.
 > **Narrator:** Nobody had elected him. He hadn't been listening. He was sitting by a stove, doubting things, which was what he did anyway.
@@ -325,15 +394,15 @@ S0.1–S0.4 use the existing campus and classroom visuals. S0.5 is a playback cu
 > *(Wide shot: one glowing grain, floating alone on an endless dark sea.)*
 > *(Outside his window, unnoticed, a single string goes slack.)*
 
-**Notes [AI DRAFT]:**
+**Notes:**
 - **The fourth master nobody elected** is the same contrast as the overlooked Wallfacer who turns out to matter.
 - Descartes wasn't really the first foundationalist (Aristotle had first principles; Unit 1.1 covers Agrippa). Since this is a legend, that's fine, but the presenter can say so in one line if asked.
 
-**Visual [AI DRAFT]:** a seventeenth-century scholar in a small stove-warmed room, painted in scroll style the way court painters once painted visitors from the far west. Against the frost on his window, the faint outline of something enormous looking in. A grain-sized stick drying in his ladle with a faint glow. Then a wide shot: one glowing grain floating alone on an endless dark sea, YYYY SOWATT still circling it.
+**Visual:** a seventeenth-century scholar in a small stove-warmed room, painted in scroll style the way court painters once painted visitors from the far west. Against the frost on his window, the faint outline of something enormous looking in. A grain-sized stick drying in his ladle with a faint glow. Then a wide shot: one glowing grain floating alone on an endless dark sea, YYYY SOWATT still circling it.
 
 **Paper:** Cartesian foundationalism (§1); the demon from Units 2.1–2.2.
 
-### L5b · Faster [FIXED concept · AI DRAFT text]
+### L5b · Faster [FIXED]
 
 **[FIXED]** Even after Descartes, things get worse and worse, and people have to speed up. That pressure is what splits his followers.
 
@@ -342,9 +411,9 @@ S0.1–S0.4 use the existing campus and classroom visuals. S0.5 is a playback cu
 > **Narrator:** There was no time to doubt everything carefully. There was no time not to.
 > **Narrator:** So Descartes's followers did what scholars always do in an emergency. They split into two schools.
 
-**Visual [AI DRAFT]:** the scroll's own paper buckling; a town on stilts tilting by degrees across three quick panels; scholars arguing over a shrinking map while the corner meter falls again.
+**Visual:** the scroll's own paper buckling; a town on stilts tilting by degrees across three quick panels; scholars arguing over a shrinking map while the corner meter falls again.
 
-### L6 · The two schools [FIXED concept · AI DRAFT designs and text]
+### L6 · The two schools [FIXED · live game redesigned, cards AI DRAFT]
 
 Under that pressure, Descartes's followers split into two rival schools, each sure it knew how to dry the world again: one insisted on doing it *right*, the other on doing it *fast*. Each is one side of the foundationalist's dilemma. They're designed as rival martial-arts sects, each with a house identity like rival schools in a wizarding story: a crest, colors, a motto, a headquarters, an entrance test and a signature move. Their art styles are two opposite traditions of Chinese painting.
 
@@ -372,44 +441,55 @@ Under that pressure, Descartes's followers split into two rival schools, each su
 > **Narrator:** The flagship melted. Nobody could explain why "I can see it" should beat "Are you sure?" The next heckler sank the rest.
 > **Narrator:** The School fought fourteen battles. All fourteen were the Battle of Are You Sure. The hecklers were always from the Sect of No Doubt. It was their only sport.
 
-**Visual [AI DRAFT]:** the scroll switches style twice. First, sparse ink-wash: a tall, thin tower of white-robed disciples, each on one leg on the shoulders of the one below, balanced on a single glowing grain, an enormous empty sea around them. Then dense, gilded color: a golden armada under eye-embroidered banners, and a single rowboat with one white-robed heckler, cupping his hands.
+**Visual:** the scroll switches style twice. First, sparse ink-wash: a tall, thin tower of white-robed disciples, each on one leg on the shoulders of the one below, balanced on a single glowing grain, an enormous empty sea around them. Then dense, gilded color: a golden armada under eye-embroidered banners, and a single rowboat with one white-robed heckler, cupping his hands.
 
-**Live game: the Battle of Are You Sure [FIXED design · AI DRAFT details]**
+**Live game: the Battle of Are You Sure [FIXED design · AI DRAFT cards]**
 
 **[FIXED]**
-1. **No QR code.** When the presenter reaches this slide, every audience page switches over automatically (the canvas already keeps the presenter and audience pages in sync).
-2. **Sorting.** Each audience screen asks for one belief plus the reason that holds it up: the audience tries to come up with a foundation, like *I think, therefore I am*. A language model reads it and sorts the person into the Sect of No Doubt (Cartesian) or the Seeing-Is-Believing School (moderate), according to how Cartesian or moderate the reasoning is, while keeping the two teams as close to 50/50 as it can.
-3. **One shared screen.** After sorting, every screen, presenter and audience alike, shows the same split screen: the Sect on the left, the School on the right, with each side's ink sticks appearing live, so each team can see how the other is doing.
-4. **A countdown of one to two minutes.** In that time, each player can either **build** (submit a belief and its reason; if the model accepts it under *their* school's standard, it becomes an ink stick on their side) or **attack** (aim a doubt at one of the other side's sticks).
-5. **Asymmetric rules.** The Sect is **hard to build and hard to break**. The School is **easy to build and easy to break**.
-6. **When the countdown ends, the side with more sticks wins.**
+1. **No QR code.** When the presenter reaches this slide, every audience page switches over automatically.
+2. **No language model and no typing.** Every choice is a tap on a prewritten card.
+3. **Sorting** is by the card each person picks, and the system keeps the two teams close to 50/50.
+4. **One shared split screen** for everyone, presenter and audience alike: the Sect on the left, the School on the right, with each side's ink sticks appearing live.
+5. **A countdown of one to two minutes.** Each player taps either to **build** for their own side or to **attack** the other side.
+6. **Asymmetric rules.** The Sect is hard to build and hard to break. The School is easy to build and easy to break.
+7. **When the countdown ends, the side with more sticks wins.** Then the narrator makes clear that both have lost anyway.
 
-**[AI DRAFT] Details:**
+**[AI DRAFT] Sorting cards.** Prompt: *"The ocean is running out of time. Pick the belief you'd stand on."* Each screen shows these cards in a shuffled order.
 
-- **The prompt:** *"The ocean is running out of time. Write one thing you believe, and why. Give us something to stand on."* Placeholder: *I believe ___ because ___.*
-- **Sorting:** the model returns a lean score from 0 (moderate) to 1 (Cartesian) and a one-line welcome in the narrator's voice ("You said 'it couldn't be otherwise.' The Sect of No Doubt welcomes you. Please stand on one leg." / "You said 'I saw it.' The Seeing-Is-Believing School welcomes you. Mind the squelch."). Strong leans (below 0.3 or above 0.7) go where they lean; borderline answers go to whichever team is smaller. Each person's sorting sentence also counts as their first build attempt.
+| Card | Team |
+| --- | --- |
+| "I exist, because even doubting it is thinking." | Sect |
+| "2 + 2 = 4, because it couldn't be otherwise." | Sect |
+| "The projector is on, because I can see it." | School |
+| "The floor is solid, because I'm standing on it." | School |
+| "Nobody in this room doubts the projector is on." | Neither school's rule fits it. The person joins whichever team is smaller, and a small grey stick floats into the seam between the two halves. |
 
-| | **Sect of No Doubt** (left) | **Seeing-Is-Believing School** (right) |
+**Balancing:** if one team gets more than about 10% bigger, its cards grey out for a few seconds with the label *"This school is full. (It was always going to be.)"*
+
+**[AI DRAFT] Battle cards.** One tap every three seconds or so.
+
+| Team | Build cards | Attack cards (aimed at the other side) |
 | --- | --- | --- |
-| **Build** | Accepted only if no conceivable doubt survives, the demon test. A paraphrase of an existing stick doesn't count ("Already standing on that one."), so the tower stays tiny. "I have a hand" → *"A demon could fake that. Rejected."* "2 + 2 = 4" → *"A demon could make you miscalculate. Rejected."* "I am thinking right now" → *accepted* | Accepted if it rests on seeing or experience. "The projector is on; I can see it" → *accepted, a plank appears* |
-| **Defense** (when attacked) | An attack succeeds only if it shows the claim could be false even for the person thinking it, which practically never happens: *"You doubted it. Doubting is thinking. Attack failed."* | An attack succeeds if it raises a doubt that seeing can't answer (an illusion, a dream, a misperception): "Maybe it's a reflection" → *the plank melts: squelch* |
+| **Sect** | "I think." The first tap builds the team's one stick; every later tap: *"Already standing on that one."* · "I have a hand." → *"A demon could fake that. Rejected."* · "2 + 2 = 4." → *"A demon could make you miscalculate. Rejected."* | "Maybe it's a reflection." · "Maybe you're dreaming." · "Maybe your eyes are tired." Each tap melts one School plank: *squelch* |
+| **School** | "I can see the projector." · "I can feel the floor." · "I can hear the presenter." Each tap adds a plank | "Maybe you're not really thinking." → *"You doubted it. Doubting is thinking. Attack failed."* · "Maybe a demon faked that too." → *"Faked what, the doubting? Attack failed."* |
 
-- **The shared screen:** left, an ink-wash tower of tiny glowing grains; right, a gilded, sagging fleet of planks. Each stick is pressed with its sentence (anonymous, moderated). Team counts at the top, the countdown in the center, and the Dry World meter in the corner, still falling the whole time.
-- **The audience device:** the same shared screen, plus a personal input bar at the bottom with two buttons: **Build**, and **Attack** (tap a target stick first). The verdict arrives as a private pop-up.
-- **The presenter screen:** the same shared screen, no input bar, plus an **End battle** button.
-- **Unclaimed sticks:** an answer that appeals to the situation instead ("nobody here is doubting that," "for what we're doing right now") fits neither school's rule. It becomes a small grey stick floating in the seam between the two halves. This sets up the ferryman.
+The Sect ends with one stick. The School ends with however many planks it built, minus the ones melted.
+
+- **The shared screen:** left, an ink-wash tower of tiny glowing grains; right, a gilded, sagging fleet. Each stick is pressed with its card's words. Team counts at the top, the countdown in the center, and the Dry World meter in the corner, still falling the whole time.
+- **The audience device:** the same shared screen, plus a tray of build and attack cards at the bottom. Each tap's verdict arrives as a small private pop-up.
+- **The presenter screen:** the same shared screen, no card tray, plus an **End battle** button.
 - **Result, and why both lose anyway:**
-  > **Narrator** *(if the Sect wins)***:** Congratulations to the Sect of No Doubt. Three sticks, all perfectly certain. You are exactly where you started.
-  > **Narrator** *(if the School wins)***:** Congratulations to the Seeing-Is-Believing School. Nineteen sticks. Please don't ask whether they'll be there tomorrow.
+  > **Narrator** *(if the Sect wins)***:** Congratulations to the Sect of No Doubt. One stick, perfectly certain. You are exactly where you started.
+  > **Narrator** *(if the School wins)***:** Congratulations to the Seeing-Is-Believing School. Nineteen planks. Please don't ask whether they'll be there tomorrow.
   > **Narrator** *(either way)***:** The meter: 28%. Winning did not help.
   > *(The camera finds the grey stick drifting in the seam.)*
-  > **Narrator:** One of you wrote something neither school would accept: "…" Remember it.
-- **Safety and tech:** the model also screens out anything inappropriate ("The question mark refuses to look at that.") before it reaches the shared screen, and nothing is shown with a name. Tell the audience at the start that their sentences may appear on the big screen. One submission per person every five seconds or so; a fast model; a small backend on the canvas's existing Cloudflare worker, with a shared store for the sticks. If the model is unavailable, fall back to tap-to-choose sorting and simple keyword rules; the presenter can end the battle at any time.
-- **Time:** about three to four minutes in all, including sorting and the result.
+  > **Narrator:** Some of you picked something neither school would accept: "Nobody in this room doubts it." Remember that.
+- **Tech:** the shared state runs on the canvas's existing presenter–audience sync. No model, and no moderation is needed, because nobody types.
+- **Time:** about two to three minutes, including sorting and the result.
 
 **Paper:** the foundationalist's dilemma (§1). Greco: very few beliefs meet the Cartesian standard; the moderate view lacks a clear explanation of why a stopping point can settle a doubt that's already in play.
 
-### L7 · The ferryman: undoubted, not undoubtable [FIXED concept · AI DRAFT text]
+### L7 · The ferryman: undoubted, not undoubtable [FIXED]
 
 > **Narrator:** A young ferryman had been rejected by both schools. At the Sect's entrance test, he was told to suppose there were a demon and say what was left. He said, "The boat I'm standing in?" At the School, his interview was scheduled for the day of the fourteenth battle.
 > **Narrator:** So he watched. And he noticed something. Sticks never melted because they *could* be questioned. They melted when someone *nearby* was questioning them.
@@ -420,37 +500,40 @@ Under that pressure, Descartes's followers split into two rival schools, each su
 
 **[FIXED]** He doesn't freeze anything forever. He finds ways to make ink set *here*, for now. It can loosen again later, but while it's set, it really holds.
 
-**Why a ferryman? [AI DRAFT]**
+**Why a ferryman?**
 - **He lives between shores.** A ferryman's whole job is crossing from one place to another, so he notices what neither school does: what counts as solid ground depends on *where you are*. The Sect wants one rock for the whole ocean; the School treats every raft the same everywhere. He knows better, because he sees a different shore every hour.
 - **He stands on a boat, not on bedrock.** His footing has always been local and temporary, and it has always been good enough to get people across. Flexible foundations are a ferryman's common sense.
 - **He listens to who's on board.** He notices that a stick goes wet only when a *passenger nearby* starts asking about it. That's the discovery.
 - **In Chinese, 摆渡 carries a Buddhist echo:** ferrying people to the other shore (彼岸). He ferries the world toward a cure, and dies a stroke from the far bank.
 
-**Link from the battle [AI DRAFT]:** the grey, unclaimed stick from the live game is still drifting in the seam when L7 opens. The camera follows it across the water to a small boat, where a young ferryman fishes it out.
+**Link from the battle:** the grey, unclaimed stick from the live game is still drifting in the seam when L7 opens. The camera follows it across the water to a small boat, where a young ferryman fishes it out.
 
-**Visual [AI DRAFT]:** a third painting style, **blue-green landscape (青绿山水)**: calm mineral blues and greens, neither empty like the Sect nor crowded like the School. A young ferryman in a small boat in a still cove, one stick resting dry on a rock. Then a wide shot as the sea divides into many seas, each a slightly different color.
+**Visual:** a third painting style, **blue-green landscape (青绿山水)**: calm mineral blues and greens, neither empty like the Sect nor crowded like the School. A young ferryman in a small boat in a still cove, one stick resting dry on a rock. Then a wide shot as the sea divides into many seas, each a slightly different color.
 
 **Paper:** flexible foundationalism: a starting point can be open to doubt in principle and free from doubt in this inquiry (§1). The splitting seas are where the parallel universes come from.
 
-### L8 · The three sacred weapons [FIXED concept · AI DRAFT names]
+### L8 · The three sacred weapons [FIXED · third weapon YOUR IDEA · AI VERSION]
 
-> **Narrator:** For those seas, he made three sacred weapons, three ways to keep a stretch of water quiet. He showed them to no one. He would reveal them at the demonstration, and explain them properly.
+> **Narrator:** For those seas, he found three sacred weapons, three ways to keep a stretch of water quiet. Two he made with his own hands. The third, he said, couldn't be made. It could only be found.
+> **Narrator:** He showed them to no one. He would reveal them at the demonstration, and explain them properly.
 
-**[FIXED]** The weapons are revealed inside the universes in Part 2, not here.
+**[FIXED]** The weapons are revealed in Part 2, not here. **[FIXED]** The third route is different in kind: Greco says you can reach it "without trying" (§2.3).
 
-| Weapon [AI DRAFT name] | Route | Paper | Revealed in |
+| Weapon | Route | Paper | Revealed in |
 | --- | --- | --- | --- |
-| **The Conch** | Social norms (Annis) | §2.1 | P1 The Archipelago, used again in P2/P4 The Broadcast Sea |
-| **The Anchor** | Hinges (Wittgenstein) | §2.2 | P3 The Fog Sea |
-| **The Spyglass** | Knowledge at the base (E = K) | §2.3 | P5 The Glass Sea and Tide Pools |
+| **The Conch** | Social norms (Annis) | §2.1 | P1, and again in P2 |
+| **The Anchor** | Hinges (Wittgenstein) | §2.2 | P1 |
+| **Evan** [YOUR IDEA · AI VERSION]: not an object but a living pen that anyone can write with | Knowledge at the base (E = K) | §2.3 | The interlude (I3) |
 
-A conch calls your community. An anchor holds one point fixed so the ship can swing around it, which is how a hinge works. A spyglass is for seeing, and what you see becomes evidence.
+A conch calls your community. An anchor holds one point fixed so the ship can swing around it, which is how a hinge works. Evan dries only what the writer actually knows, and what you know needs no further reason.
 
-**Visual [AI DRAFT]:** three shapes wrapped in cloth in the bottom of the ferryman's boat. Only silhouettes: something spiral, something hooked, something long and tapered.
+**[AI DRAFT] How the weapons choose:** they don't choose a single hero. Each answers to anyone, but differently in different hands: the weapon is the route; the hand holding it is the version. This follows the paper, where routes and versions aren't paired one-to-one (§9.2).
 
-### L9 · The demonstration [FIXED: he dies halfway · AI DRAFT staging and twist]
+**Visual:** under the cloth in his boat, two shapes, something spiral and something hooked, and beside them a flat, empty space.
 
-**[FIXED]** The ferryman dies halfway through saving the world, right as he's about to prove his discovery, so the weapons are lost. **[AI DRAFT]** He dies by his own rule, in front of both schools.
+### L9 · The demonstration [FIXED]
+
+**[FIXED]** The ferryman dies halfway through saving the world, right as he's about to prove his discovery, so the weapons are lost. **[FIXED]** He dies by his own rule, in front of both schools.
 
 > **Narrator:** He chose open water, halfway between the Sect's tower and the School's soggy fleet, so both could see. Everyone came: both schools, and every half-melted person who could still float. The three weapons lay under a cloth in the bottom of his boat.
 > *(The ferryman steps out of his boat onto bare ink. A stick dries under his foot. The crowd gasps.)*
@@ -466,13 +549,13 @@ A conch calls your community. An anchor holds one point fixed so the ship can sw
 > **Narrator:** For once, the Sect swore it wasn't them.
 > **Narrator:** Nobody asked who else had been listening.
 
-- **[AI DRAFT] The twist:** everyone, including the audience, assumes a Sect heckler asked. The voice actually came from a dark sleeve at the back of the crowd: the demon. It killed him with the one thing his own theory said could do it, a serious question asked right here. Revealed in R3.
-- **Why this works [AI DRAFT]:** the death proves his theory in the act of losing it. A stick melts when someone nearby is asking about it; the audience watches that happen to the man who discovered it.
-- **The fragments are the weapons' clues:** "one is called" (Conch), "one holds still" (Anchor), "one s—" (Spyglass: one *sees*).
+- **[FIXED] The twist:** everyone, including the audience, assumes a Sect heckler asked. The voice actually came from a dark sleeve at the back of the crowd: the demon. It killed him with the one thing his own theory said could do it, a serious question asked right here. Revealed in R2.
+- **Why this works:** the death proves his theory in the act of losing it. A stick melts when someone nearby is asking about it; the audience watches that happen to the man who discovered it.
+- **The fragments are the weapons' clues:** "one is called" (Conch), "one holds still" (Anchor), "one s—" (Evan: one *sees*). **[YOUR IDEA · AI VERSION] The horcrux nod:** Evan may be a piece of the ferryman, left behind by accident when he died. Hinted, never explained (§9.2).
 
-**Visual [AI DRAFT]:** open ink sea between the Sect's ink-wash tower of one-legged disciples and the School's gilded, sagging fleet; a crowd of half-melted people on scraps of raft; the ferryman's small blue-green boat at the center. A dark sleeve, barely visible, at the back of the crowd. Then **the freeze** (§2b): drops hanging mid-air, the ferryman sunk to the shoulders, his hand lifting one corner of the cloth over the weapons, color draining to grey except the bubbles and faint strings, the meter stopped at 29%.
+**Visual:** open ink sea between the Sect's ink-wash tower of one-legged disciples and the School's gilded, sagging fleet; a crowd of half-melted people on scraps of raft; the ferryman's small blue-green boat at the center. A dark sleeve, barely visible, at the back of the crowd. Then **the freeze** (§2b): drops hanging mid-air, the ferryman sunk to the shoulders, his hand lifting one corner of the cloth over the weapons, color draining to grey except the bubbles and faint strings, the meter stopped at 29%.
 
-### L10 · The Long Dream [FIXED tone · AI DRAFT text]
+### L10 · The Long Dream [FIXED]
 
 > *(Far above, unnoticed, the strings reach the water.)*
 >
@@ -484,51 +567,113 @@ A conch calls your community. An anchor holds one point fixed so the ship can sw
 >
 > *[Title card, brushed calligraphy, dramatic orchestral sting:]* **NEXT TIME: A Hermit Crab, a Streamer, and the Sea That Wasn't There!**
 
-**Visual [AI DRAFT]:** still frozen; the meter reads **??** and blinks. The lantern red has drained to grey. Across the scroll, sleepers in every town; above each one, a faint dome of ink. Then the title card in a mock-anime layout: bold brush lettering and speed lines.
+**Visual:** still frozen; the meter reads **??** and blinks. The lantern red has drained to grey. Across the scroll, sleepers in every town; above each one, a faint dome of ink. Then the title card in a mock-anime layout: bold brush lettering and speed lines.
 
 **Tone [FIXED]:** a straight-faced, sarcastic narrator mocking anime-opening clichés: the mentor who dies before explaining, the scattered sacred weapons, the chosen ones, the next-episode card.
 
+### L10b · The scroll pulls back: the legend was told inside a dream [FIXED concept · YOUR IDEA · AI VERSION script]
+
+**[FIXED requirement]** Everything before the dream era is one legend: an exaggerated tribute to and parody of classic anime and films. The legend turns out to be told *inside the first dream world*. Nobody there knows they're dreaming; to them it's only an old story. It ends on the three weapons waiting for the heroes to find them. Someone in the crowd says they'll be the hero, everyone laughs, and that person really is the first hero.
+
+**[YOUR IDEA · AI VERSION] Script.** Picks up from the L10 freeze.
+
+> *(Still frozen. The narrator's voice swells, and gets audibly older and croakier.)*
+> **Storyteller** *(wind rising from nowhere, ink petals swirling, lightning exactly on cue)***:** And so the three sacred weapons were lost across the seas… *(thunder)* …waiting for three heroes who would one day find them… and SAVE THE WORLD!
+> *(A child in the front row gasps.)*
+> **Storyteller:** Each weapon would answer to anyone. But it would answer *differently*, depending on whose hand it was in.
+> *(beat)*
+> **Storyteller:** Probably.
+>
+> *(The camera pulls back. The frozen scene, and the NEXT TIME card after it, are paintings on a long handscroll. The scroll is in the lap of an old lighthouse keeper on a beach at night, by a lantern. Villagers sit around him on the sand. Fog behind them. Corner meter: DRY WORLD REMAINING 100%.)*
+> **Child:** Is it true?
+> **Keeper:** It's a legend.
+> **Villager:** "Everyone fell asleep and none of them woke up." Good thing it's just a story.
+> *(Nervous laughter. The keeper rolls up the scroll. Its ink is still wet. Nobody notices.)*
+> **Simone** *(from the back, calmly)***:** Then someone should go and find them.
+> *(A pause. The whole beach laughs. In a tide pool at her feet, a small hermit crab raises one oversized claw. Clack.)*
+> **Keeper** *(not unkindly)***:** Everyone says that. Nobody does. Goodnight.
+> *(The crowd drifts off. Simone stays, looking at the dark water. Beside the tide pool, half-buried in the sand: a conch.)*
+>
+> *[Title card, full mock anime: speed lines, brush lettering, dramatic sting:]* **EPISODE ONE: THE GIRL WHO WENT LOOKING**
+
+**Notes:**
+- **[AI DRAFT] Who makes the claim:** Simone, deadpan rather than boastful (default; alternatives in §8). She is the first hero, so the rule "the one laughed at is the first hero" holds.
+- **[AI DRAFT] Clues hidden in plain sight:** the too-perfect 100% meter, still-wet ink on an old scroll, and Echo, the only one on the beach who doesn't laugh.
+- **[AI DRAFT] The keeper** tells the legend, and in P1 he tells Simone, "If you ever wake up, follow the light." He half-remembers that the legend is true.
+- **[AI DRAFT] "Three heroes":** the prophecy counts right: Simone, Cole, Rae. It doesn't count the pet. Payoff in R11: *"Legends never count the pet."*
+- **[AI DRAFT] "Answers differently":** replaces "only the chosen one can wield it," which would misstate the paper (§9.2).
+- **Visual [AI DRAFT]:** the pull-back is also the style shift, from the handscroll's painting styles into P1's cut-paper island. The scroll in the keeper's lap is the same scroll the audience has been watching.
+
 ---
 
-## 5 · Part 2 · The Prisons (*Which version?*)
+## 5 · Part 2 · The relay (*Which version?*) [FIXED structure · AI DRAFT scenes]
 
-### 5.1 How the prisons work
+### 5.1 Notes for the dream era [FIXED: the author's requirements]
 
-- **[FIXED]** Since the ferryman's death, everyone has been asleep inside the demon's dreams. Each dream universe is one combination of a route and a version, chosen only from pairings the paper discusses.
-- **[FIXED]** Each hero discovers something in their own universe, including the sacred weapons.
-- **[FIXED]** The quizzes are actions that help a character see through their universe.
-- **[AI DRAFT]** Each dream really runs on one version's rules. The demon's lie is that this is the only rule in the ocean. The prisons are partial, not false: Greco never rejects any of the four versions.
-- **[AI DRAFT]** Why these four wake up: the ferryman hid his weapons in the seas he opened, and the demon built its dreams from those seas. The four who wake are exactly the four who find a weapon.
-- **[AI DRAFT]** Each escape is a two-step quiz: (1) choose the action that exposes the crack, an objection or open problem from the paper; (2) name the two ingredients the world was built from. Naming them cracks the dome.
-- **[AI DRAFT]** The dream walls are thin: voices and glimpses leak between universes through cracks.
-- **[AI DRAFT] Visual tells:** a faint dome of ink overhead and one dark thread in a corner of every prison frame.
+These are the requirements every draft of Parts 2 and 3 must meet.
 
-### 5.2 Which universes [AI DRAFT selection]
+1. **Parts 2 and 3 are the core of the presentation.** Everything before them is introduction. Once the audience understands the mechanism, the time goes to (a) flexible foundationalism under the different versions and (b) the application to access internalism.
+2. **Part 2 is a relay rescue, like *The Matrix*.** Whoever wakes up goes back in for the next person.
+3. **The order, timeline and disagreement follow the paper wherever it matters.** The disagreement problem happens inside the story, as it does in Greco's §3.
+4. **A huge time gap.** After Simone wakes, years pass before she reaches the next person. She builds a rebellion and a small new civilization while searching for the remaining sacred weapon. Time runs differently inside the dreams, so the dream worlds come from different eras (Simone's is ancient; Cole's is modern, with streaming).
+5. **The third route is different.** In §2.3 Greco says you can become a flexible foundationalist "without trying." Knowledge itself is dried ink: what Evan writes down from what he has seen dries by itself.
+6. **The finale applies the Access section,** then turns into a moral confrontation with the demon, and the audience votes on the ending.
+7. **Be selective.** Reference the paper's important points; leave out trivial details (the professor has said we don't need every detail). Take liberties where they make the story or the philosophical question better.
+8. **The legend's last scene is told inside the first dream** (L10b), and the person laughed at for saying they'll find the weapons is the first hero.
 
-Scored out of 20: paper fidelity ×2, teaching value, story potential. Pairings the paper doesn't discuss score 0.
+**The author's proposals now in the drafts [YOUR IDEA · AI VERSION]** (direction from the author, details not yet confirmed; reasoning in §9):
 
-| Universe | Route × version | Character | Score | Decision |
+- **Echo is Simone's pet, not a hero.** The legend never mentions him, but the expressivist still exists, and the creature nobody counted turns out to matter (§9.3).
+- **Evan is himself the third weapon:** a strange living pen. Others write their beliefs with him, and what dries can't be argued away by outsiders, but it can go wet again when the writer doubts it. Checked against §2.3 and adjusted where the paper differs (§9.4).
+- **The horcrux nod:** the third weapon may be a piece of the ferryman. Used only for Evan, and only as a hint (§9.2).
+
+### 5.2 Time budget and what to leave out [AI DRAFT]
+
+| Part | Minutes |
+| --- | --- |
+| Part 0 · Frame and OP | ~2.5 |
+| Part 1 · Legend (including the live game) | ~7 |
+| **Part 2 · The relay** | **~10.5** |
+| **Part 3 · Access and the finale** | **~6.5** |
+| Vote, ending, coda | ~1.5 |
+
+**Keep from the paper:** sensitive invariantism via Annis and via hinges; the astrology objection; contextualism (the speaker's community fixes the claim; the technical-term worry; "Oh, come on"; the commitment view; the disagreement problem); relativism and expressivism as two answers, left open; E = K, "without trying," footnote 16; Access, the leak-down worry, the supervenience base and the forecast, the global cognitive home, the mobile home, Peter and Justine, split confidence.
+
+**Leave out:** Wright's "entitlement"; the quantifier and Rorty footnotes; secondary authors' names; hinges × contextualism (one line at most); knowledge × sensitive invariantism; belief at the base (Harman, at most a one-line gag); Conee & Feldman, anti-luminosity, the restricted version of Access.
+
+### 5.3 The relay at a glance [FIXED structure · AI DRAFT details]
+
+Greco's §3 is already a relay: each version runs into a problem, and the next version is brought in to fix it. So each person who wakes carries their world's problem into the next world.
+
+| Step | Who | World (version × routes) | The crack (Greco's objection) | Carried forward |
 | --- | --- | --- | --- | --- |
-| P1 · The Archipelago | Social × sensitive invariantism | Simone | 20 | Keep |
-| P2/P4 · The Broadcast Sea | Social × contextualism | Cole | 20 | Keep |
-| P3 · The Fog Sea | Hinges × sensitive invariantism | Simone | 16 | Keep |
-| P5 · The Glass Sea and Tide Pools | Knowledge × relativism / expressivism | Rae and Echo | 14 / 14 | Keep, merged |
-| — | Knowledge × contextualism (footnote 16) | — | 13 | Save for Q&A |
-| — | Belief × sensitivism about belief | — | 12 | One-line gag in P6 |
-| — | Hinges × contextualism | Cole | 11 | One line in P4 |
-| — | Knowledge × sensitive invariantism | — | 8 | Cut |
-| — | Social, hinges × relativism, expressivism; belief × contextualism, relativism, expressivism | — | 0 | Not in the paper |
+| P1 | Simone, alone | Sensitive invariantism × social + hinges; an ancient island | A whole community can be wrong (astrology) | "My world's rule can't call a community wrong" |
+| I1–I3 | Simone, then the Ferry | The real ocean, twelve years | — | A town, an audience, and the third weapon |
+| P2 | Simone enters Cole's dream | Contextualism × social; modern streaming | The commitment view fixes the astrology problem, but creates the **disagreement problem**, played between Simone and Cole | "We both feel right, and we can't both just be reporting ourselves" |
+| P3 | Simone, Cole, Evan and Echo enter Rae's dream | Knowledge × relativism (Rae), with expressivism beside it (Echo) | Two answers to the disagreement, side by side; Greco declines to choose | — |
+| Part 3 | The three heroes, Evan and Echo, with the town behind them | The real ocean | — | The finale |
 
-**Running order [AI DRAFT]:** P1 → P2 → P3 → P4 → P5 → P6. This follows the paper's order in §3: sensitive invariantism (social, then hinges), contextualism, the commitment view, the disagreement problem, then relativism and expressivism.
+**How rescues work [AI DRAFT]:**
+- Every sleeper lies inside a dome of ink. Whoever is awake touches a dome and falls in.
+- Nobody can simply be told. The rescuer has to help the dreamer find the crack themselves, and that's the quiz: the audience coaches the rescuer.
+- Dream walls are thin. Voices can leak through from a neighboring dome.
 
-### P1 · The Archipelago · the Conch × sensitive invariantism · Simone [AI DRAFT]
+**Echo [YOUR IDEA · AI VERSION]:** Simone's hermit crab was never asleep, because nothing in him was ever a belief. He is with her in every world: beside her on the beach in L10b, alone with her in the real ocean, on her shoulder in Cole's and Rae's dreams.
 
-**Paper:** §3: Annis's view as sensitive invariantism about foundations; the astrology objection (pp. 429–430).
+**Time and eras [YOUR IDEA: the gap and the eras · AI DRAFT: the time rule]:** time runs fast inside the dreams and slow outside. While twelve years pass in the real ocean, centuries pass inside Cole's dome, which is why his world has livestreams and Simone's has lanterns. The longer someone dreams, the more it feels like home, so later rescues are harder.
 
-**Rule of this world:** ink dries under your feet if *your own community* wouldn't challenge what you're standing on.
+**Simone's age [AI DRAFT rule]:** people are made of beliefs, so they change only when their beliefs do. Her core beliefs stayed dry, so she barely aged, and her character design stays fixed.
+
+**Visual tells [AI DRAFT]:** a faint dome of ink overhead and one dark thread in a corner of every dream frame; inside every dream, the meter reads a suspiciously perfect 100%.
+
+### P1 · The Lantern in the Fog · Simone · sensitive invariantism × social + hinges [AI DRAFT · opening follows L10b] · ~2.5 min
+
+**Paper:** §3: Annis's view as sensitive invariantism about foundations; the hinge version; the astrology objection (pp. 429–430). §2.2 for the hinge example.
+
+**Rule of this world:** whether ink dries under your feet depends on *your own* situation: what your own community wouldn't challenge, and what your own question has to take for granted.
 
 > **Narrator:** Simone had lived on Lantern Isle all her life. As far as she knew.
-> *(Simone walks the tideline, checking her watch. She finds a conch half-buried in the sand, brushes it off, and blows it. The island answers with silence: nobody objects. Ink hardens under her feet, teal.)*
+> *(Morning. She walks the tideline, Echo riding on her shoulder. The conch from last night is still half-buried in the sand. She blows it. The island answers with silence: nobody objects. Ink hardens under her feet, teal.)*
 > **Simone:** Oh.
 > **Narrator:** The first sacred weapon had been found. By someone who thought it was a shell.
 > **Cole** *(a voice crackling down from the sky, from some other world)***:** Chat, is she okay? …Chat says she's fine 👍.
@@ -536,224 +681,259 @@ Scored out of 20: paper fidelity ×2, teaching value, story potential. Pairings 
 > **Simone** *(to the sky, politely)***:** Your chat isn't my community.
 > **Narrator:** She had no idea who that was. It was still correct.
 >
+> *(Fog rolls in. A lighthouse keeper sits on a buoy.)*
+> **Simone:** What color is the light on the far buoy?
+> *(An anchor drops out of the fog and bites. Three planks dry under her: HE UNDERSTANDS ME. HE'S TELLING THE TRUTH. HE CAN TELL GREEN FROM RED.)*
+> **Narrator:** The second sacred weapon. It arrived the way anchors do, from above and without asking.
+> **Keeper:** Green.
+> **Simone** *(a faint crease between her brows)***:** …Can you tell green from red?
+> *(That plank softens into wet ink. It's the question now.)*
+> **Keeper:** If you ever wake up, follow the light. Nobody here ever does. I say it to everyone.
+>
 > *(Across the strait, on Star Isle, everyone takes for granted that the stars predict the tides.)*
 > **Islander:** The stars say the tide is safe.
 > *(Solid ink forms under him. He strolls out onto the flats.)*
 > **Narrator:** By the rules of this world, he was perfectly justified. By the rules of the tide, he was underwater.
 
-**The crack:** a whole community can take something for granted and still be wrong, but this world's rule says the islander is justified anyway. **Quiz Q2.** When Simone names the ingredients, the dome above Lantern Isle cracks like porcelain, and she drops through into the Fog Sea.
+**The crack:** a whole community can take something for granted and still be wrong, but this world's rule says the islander is justified anyway. This is Greco's moral analogy: if a community's approval is what justifies you, a misguided community is justified too. **Quiz Q2.** The dome cracks like porcelain, and Simone falls out.
 
-> **Narrator:** Escaping a dream, it turns out, mostly gets you another dream.
+**Visual:** an ancient island of cut-paper silhouettes on deep teal water, amber lanterns, a lighthouse; fog banks around it; Star Isle lit cold silver-violet.
 
-**Visual:** small islands as cut-paper silhouettes on deep teal water, amber windows, a lighthouse on Lantern Isle. Simone's footing in teal. Star Isle lit cold silver-violet, so it reads as a different community at a glance.
+### I1–I3 · Interlude: alone, the Ferry, Here, and the third weapon [FIXED concept · AI DRAFT montage] · ~1.5 min, no quiz
 
-### P2 · The Broadcast Sea (part 1) · the Conch × contextualism · Cole [AI DRAFT]
+**I1 · Alone**
 
-**Paper:** §3: the contextualist version; the technical-term worry (pp. 430–431).
+> *(A drop of ink that has hung in mid-air for ages finally falls. Plink. The meter: DRY WORLD REMAINING 0% · PEOPLE STANDING 1.)*
+> **Narrator:** Nobody knows how long she slept. Long enough that the ink had forgotten what it said.
+> *(Simone on one dry plank in an endless grey ocean. Domes of ink in every direction, a sleeper curled inside each.)*
+> *(On her knee: Echo, exactly as before. Everything she had known had been a dream. Except, somehow, the crab.)*
+> **Narrator:** He had never been asleep. Nothing about him had ever needed to be true.
+> *(She blows the conch. Nothing.)*
+> **Narrator:** A conch needs a community. No one to object. Also no one to agree.
+> *(The anchor gives her one plank at a time, and only for the question she's asking.)*
+> *[Caption: Year 1.]* *(A scrap floats past: the daughter's note. "The weapons… one is called… one holds still… one s—" Simone looks at the conch, then the anchor.)*
+> **Simone:** One sees. …What sees?
+> *[Caption: Year 3.]*
+> **Narrator:** She told Echo everything. Echo raised his claw at the parts he liked.
 
-**Rule of this world:** ink doesn't dry under feet. It dries on *words*. Each sentence Cole speaks floats out as a ribbon, and whether it dries depends on **the community Cole is speaking to**.
+**I2 · The Ferry and Here**
 
-> *(Night sea. Cole on a raft, ring light on, a conch rigged to his phone like a microphone.)*
+> *[Caption: Year 4.]* *(One dome looks like home: lanterns, a fog bank. She knows its rules. She goes in. A while later a fisherman stumbles out, blinking.)*
+> **Narrator:** Some sleepers dreamed by her own rules. Those, she could wake.
+> *(Two, then five, then twelve. She blows the conch. This time the silence comes from people: nobody objects. Ground spreads under all of them.)*
+> **Narrator:** With someone to answer it, the conch finally worked.
+> *[Caption: Year 6.]*
+> **Narrator:** They called the town Here, after the ferryman's last discovery. They called themselves the Ferry.
+> **Narrator:** The first law of Here: no asking "Are you sure?" after dark.
+> **Narrator:** The first school taught one subject: when to ask, and when not to.
+> *(A dome that won't open. Inside, a young man talks to a glowing rectangle. Simone presses her hand to it. Nothing.)*
+> **Narrator:** Some domes wouldn't open for a stranger. They opened only for someone with an audience of her own.
+> *(One more dome, glassy navy. Nothing works on it.)*
+> **Narrator:** And one would open only for someone who *knew*.
+> *(Inside, a young woman in a navy cap punches tickets nobody hands her. Echo presses his claw to the glass. One stick near Simone's heart reads ECHO IS SAFE WITH ME.)*
+> *[Caption: Year 12.]*
+
+**I3 · The third weapon**
+
+> **Narrator:** For twelve years, the Ferry searched every sea for the third weapon.
+> *(Town hall. A small, courteous fountain pen with two eyes on its clip lies beside the minutes book. Simone picks it up to take the minutes and writes: "Rain at dawn." The ink dries the instant it touches the page. No question mark. No answers needed.)*
+> *(A villager leans over and shouts at the page.)*
+> **Villager:** WHY?
+> *(Nothing happens.)*
+> *(Simone writes, as a test: "Echo can talk." The ink stays wet, and stays wet for the rest of the scene.)*
+> **Evan** *(politely)***:** I'm afraid that one isn't so.
+> **Simone:** You only dry what's so.
+> **Evan:** What the writer knows. Anything else would be impolite.
+> **Simone:** You're the third sacred weapon.
+> **Evan:** I'm a pen. I write down what's so. I'm not one of *those*.
+> **Narrator:** The third weapon had been found. It disagreed.
+> **Narrator:** He had never meant to found anything. One sees.
+> *(Echo raises his claw over the dry line, and only over that one.)*
+
+**How the third weapon works [YOUR IDEA · AI VERSION, checked against the paper; full check in §9.4]:**
+- **Anyone can write with Evan, and only what the writer knows dries.** A lie never dries. Neither does a lucky guess. What you actually saw dries at once, by itself. (Factivity: you can only know what's true. This is standard background to Williamson's view rather than something Greco spells out.)
+- **"Why?" bounces off.** What you know needs no further reason behind it: knowledge is evidence, and it stops the regress by itself (Williamson's E = K, which he calls "a very modest kind of foundationalism"). This is the author's "others can't question it," made exact: others *can* ask, but the ink doesn't need to answer.
+- **The same pen gives different results in different hands,** because this route pairs with any flexible view of knowledge (§2.3). For Simone it dries when little is at stake; for Cole it dries unless someone in his audience raises a doubt he can't answer; for Rae it's dry now and wet again when someone who knows more reads it later. Echo raises his claw over Evan's ink and nothing else: expressivism reaches foundations only through knowledge (§3).
+- **The catch (the author's idea, widened to match the paper):** the ink softens when a doubt is taken seriously and nobody can dispel it (footnote 16). The most dangerous doubter is the writer, because doubting whether you know leaks down into doubting the thing itself (§4.1). Hinted in P3, revealed in R6.
+- **It isn't "my own experience."** Evan dries what you know about the world ("the boat is leaking"), not how things seem inside you. Retreating to "it seems to me" is Descartes's grain again: the cognitive home Greco argues against (§9.4).
+- **[AI DRAFT] "Without trying," twice over.** Greco's phrase means you can end up a flexible foundationalist without aiming to (§2.3). Evan never meant to be a weapon, and Williamson himself rejects the flexible views (footnote 15), so Evan denies he's one.
+
+**Why the gap is so long [AI DRAFT]:** the paper supplies the reason. Simone can't open Cole's dome until she has an audience to speak to, because in his world the speaker's community fixes what a sentence claims. So Here has to exist first. And the knowledge domes need someone who knows, so the Ferry needs Evan.
+
+**Visual:** the grey ocean and the domes; Simone alone on one plank; then the town of Here growing across three panels, on sticks of many colors; the town hall; Evan's ink drying on the page with a faint glow.
+
+### P2 · The Broadcast · Cole · contextualism × social [AI DRAFT · Echo's beats YOUR IDEA · AI VERSION] · ~3.5 min
+
+**Paper:** §3: the contextualist version; the technical-term worry; "It must be cold" and "Oh, come on"; the speaker-commitment view; the problem of disagreement (pp. 430–431).
+
+**Rule of this world:** ink doesn't dry under feet. It dries on *words*. Each sentence floats out as a ribbon, and whether it dries depends on **the community the speaker is talking to**.
+
+> *(Centuries of dream time have passed in here. A neon night sea. Cole on a raft in his ring light, mid-stream.)*
 > **Cole:** Chat. Chat. Look at this reef. That reef is *solid*.
-> *(For his chill chat, the ribbon dries rust-colored. He flips to the pedant stream, @tidetablepurists.)*
+> *(For his chill chat, the ribbon dries rust-red. He flips to the pedant stream, @tidetablepurists.)*
 > **Cole** *(snapping upright, anchor voice)***:** For the record: that reef is solid.
-> *(Same sentence. The ribbon stays wet. The pedants demand a source.)*
-> **Narrator:** Same sentence. Same reef. Two different claims. Cole found this deeply exciting and slightly unfair.
-> **Cole:** Fine. Okay. "Simone's belief is foundationally justified."
+> *(Same sentence. The ribbon stays wet.)*
+> **Narrator:** Same sentence. Same reef. Two different claims.
+> *(Simone climbs onto his raft, dripping, an old lantern in her hand and a hermit crab on her shoulder.)*
+> **Chat:** who is this · is she a mod · lantern lady lol · is that a CRAB
+> **Simone:** You're asleep. This is a dream.
+> **Chat:** ratio
+> **Narrator:** Nobody can be told. You have to see it for yourself.
+> **Cole:** Okay, lantern lady. "Your belief is foundationally justified." Happy?
 > **Chat:** bro what does that even mean
 > **Narrator:** Nobody talks like that. Not even philosophers, at parties.
-
-**Visual:** a night sea, Cole on a small raft in his ring light, rust ribbons of ink drifting from his mouth, glowing paper slips of chat floating around him. Split framing for the two audiences: one ribbon dry, one dripping.
-
-### P3 · The Fog Sea · the Anchor × sensitive invariantism · Simone [AI DRAFT]
-
-**Paper:** §2.2 (the friend and the green light; the test cards) and §3 (the hinge version of sensitive invariantism, p. 430). Wittgenstein: the same proposition can be tested at one time and serve as a rule of testing at another.
-
-**Rule of this world:** you can only work on one question at a time. When you ask one, planks dry under you: whatever you must hold fixed to ask it.
-
-> *(Thick fog. Simone stands on nothing in particular. A lighthouse keeper sits on a buoy nearby.)*
-> **Simone:** What color is the light on the far buoy?
-> *(An anchor drops out of the fog and bites. Three planks dry under her: HE UNDERSTANDS ME. HE'S TELLING THE TRUTH. HE CAN TELL GREEN FROM RED.)*
-> **Narrator:** The second sacred weapon. It arrived the way anchors do, from above and without asking.
-> **Keeper:** Green.
-> *(The answer dries on top of the planks. Simone studies him. A faint crease between her brows.)*
-> **Simone:** Can you tell green from red?
-> *(The plank HE CAN TELL GREEN FROM RED softens into wet ink. She deals out color cards. A new plank dries: THESE CARDS ARE THE COLORS PRINTED ON THEM.)*
-> **Keeper:** If you ever wake up, follow the light.
-> **Simone:** Wake up?
-> **Keeper:** Nobody here ever does. I say it to everyone.
-
-**The crack:** what's held fixed depends on *her* inquiry. A plank solid a moment ago is now the open question, so nothing here was ever fixed for the whole ocean. **Quiz Q3.** The keeper's line plants the finale's lighthouse.
-
-**Visual:** pale grey-green fog; the keeper on a buoy is the only dark shape; teal planks with short pressed words; a fan of color cards in Simone's hand.
-
-### P4 · The Broadcast Sea (part 2) · Cole, with glimpses of Echo, Rae and Star Isle [AI DRAFT]
-
-**Paper:** §3: "It must be cold" and "Oh, come on"; the speaker-commitment view; the problem of disagreement (pp. 430–431).
-
-> **Cole:** New plan, chat: ordinary talk. "It must be stormy out there."
-> *(The ribbon dries, with a thread tied to the dark clouds: he inferred it.)*
-> *(A crack opens in the dome. A coral claw reaches through and pinches Cole's ankle.)*
+> **Simone:** Then listen to how people do talk.
+> **Cole:** …"It must be stormy out there."
+> *(The ribbon dries, with a thread tied to the clouds: he inferred it.)*
+> *(Echo climbs down Simone's arm and pinches Cole's ankle.)*
 > **Cole:** Ow! That hurts!
-> **Rae** *(through the crack, flat)***:** What makes you think that?
+> **Simone:** What makes you think that?
 > **Cole:** Oh, come *on*.
-> *(That ribbon dries instantly, no thread at all.)*
+> *(That ribbon dries instantly. No thread at all.)*
 > **Narrator:** Some beliefs, Cole discovered, he simply refused to defend. Philosophers call this foundational. Cole called it obvious.
-> *(Through another crack: Star Isle, an islander strolling onto the flats.)*
-> **Cole:** Chat, they think that tide reading is solid. They're wrong.
-> **Narrator:** On one version of this world, Cole wasn't describing the islanders. He was announcing where he stood.
-> **Rae** *(across the water)***:** It's solid.
-> **Cole:** It's not.
-> *(Neither ribbon wobbles.)*
+> **Simone:** Where I come from, there was an island that trusted the stars over the tide. By our rules, they were justified. They drowned.
+> **Cole** *(to camera)***:** Chat, the star people are wrong.
+> *(The ribbon dries.)*
+> **Narrator:** In this world, Cole wasn't describing the islanders. He was stating his own commitment. Which meant that, for once, someone could call a whole community wrong.
+> *(Simone breathes out. Then she frowns.)*
+> **Simone:** By my world's rules, they were justified.
+> **Cole:** Not by mine.
+> *(Both ribbons dry. Neither wobbles.)*
+> *(Echo looks from one to the other, then raises his big claw toward Simone and his small one toward Cole. Both at once.)*
 > **Cole:** …I'm starving.
-> **Rae** *(holding a sandwich)***:** I'm not.
+> **Simone:** I'm not.
 > **Narrator:** Those two didn't contradict each other. Then why did the first two feel like a fight?
+> **Narrator:** Echo didn't think either of them had a fact wrong. He thought they were *for* different things. Nobody asked Echo.
 
-[Optional one line, hinges × contextualism: Cole switches segments from "route planning" to "is this a trap?", and the same ribbon changes what it says.]
+**The crack:** if each of them is only stating their own commitments, both can be right, and yet it feels like a real disagreement. **Quiz Q3.** The dome splits, and they both fall out into Here. PEOPLE STANDING +1.
 
-**The crack:** if each is only stating their own commitments, both can be right, and yet it feels like a real disagreement. **Quiz Q4.** The dome doesn't break. It splits toward Rae's world, carrying the question with it.
+**Visual:** a neon night sea, Cole on a small raft in his ring light, rust ribbons of ink drifting from his mouth, glowing paper slips of chat around him; Simone, ancient and dripping, in the middle of it; Echo on her shoulder with both claws raised.
 
-**Visual:** cracks in the dome through which other worlds are visible (a coral claw; Rae's navy cap; Star Isle in silver-violet). Rust ribbons, one tied to clouds by a thread, one with none.
+### P3 · Glass and Tide · Rae · knowledge × relativism, with Echo's expressivism beside it [AI DRAFT · recast for the author's Echo idea] · ~2 min
 
-### P5 · The Glass Sea and the Tide Pools · the Spyglass × relativism / expressivism · Rae and Echo [AI DRAFT]
+**Paper:** §2.3 (E = K plus a flexible view of knowledge) and the close of §3: some philosophers move to relativism or expressivism to handle disagreement; on some views, relativism and expressivism about knowledge just are relativism and expressivism about foundations (pp. 429, 431). Greco declines to choose. Because he spends so little space here, this is one short scene.
 
-**Paper:** §2.3 (E = K plus a flexible view about knowledge) and §3's closing: relativism and expressivism as responses to disagreement; on some views, relativism and expressivism about knowledge just are versions of them about foundations (pp. 429, 431). Greco leaves the choice open.
+**Rules:** in Rae's **Glass Sea**, whether a patch counts as dry depends on *who is assessing it*, and no assessor is privileged. Beside it, **Echo**, awake from the real ocean, shows the other answer: calling footing solid is something you *do*. You raise a claw.
 
-**Rules of these worlds:** in the **Glass Sea**, what you know is your foundation, and a patch looks dry or wet depending on *who's looking*; no viewer is privileged. In the **Tide Pools**, nothing visibly changes, and calling footing solid is something you *do*: you raise a claw.
-
-> *(Through a crack, Simone stands on a patch she can see clearly.)*
-> **Cole:** She *knows* it's there. It's her evidence.
-> *(Rae raises a brass spyglass. Through it, from Cole's side, what Simone knows dries into blue sticks.)*
-> **Narrator:** The third sacred weapon. Rae had been using it as a paperweight.
-> *(Rae lowers the spyglass. On a sea of glass, the patch might be a reflection. To Rae's eye, it's wet.)*
-> **Rae:** *(click)* Not valid.
+> *(Simone, Cole, Evan and Echo stand before the glassy navy dome. Simone writes with Evan on the glass: "There is someone inside. I can see her." The ink dries. The wall softens and lets them in.)*
+> **Narrator:** Only someone who knew could open it.
+> *(A mirror-flat navy sea. Rae, cap low, ticket punch in hand.)*
+> *(Cole takes Evan and writes: "Simone is standing on solid ink. I can see it." From Cole's side, the words dry blue.)*
+> **Cole:** See? She knows it. It's her evidence.
+> **Rae** *(looking at the same patch)***:** A glass sea shows reflections. *(click)* Not valid.
+> *(Under Rae's gaze, the same line sags a little and goes damp. Nobody can say how they know it isn't a reflection.)*
 > **Narrator:** This time they were judging the same claim. Each verdict was right from where its judge stood.
-> *(In the Tide Pools, there is nothing to inspect. Echo regards the patch with half-lidded eyes. Then the claw goes up. Clack.)*
-> **Narrator:** Echo didn't describe the patch. He voted for it.
-> *(Punch against claw. Neither moves.)*
+> **Narrator:** And Evan's ink, it turned out, could get wet. Nobody wanted to think about that yet.
+> *(Echo walks out onto the disputed patch. There's nothing to check. He regards Simone. Then the claw goes up. Clack.)*
+> **Narrator:** Echo didn't describe the patch. He committed to it.
+> **Narrator:** Two answers to the same disagreement, side by side. Neither won.
 
-**The crack:** two equally live answers to one question, side by side, and the paper leaves the choice open. The lie that there's one rule for the whole ocean can't survive that. **Quiz Q5.**
+**The crack:** two equally live answers, and the paper leaves the choice open. The lie that there's one rule for the whole ocean can't survive that. **Quiz Q4.** The dome shatters. PEOPLE STANDING +1.
 
-**Visual:** split frame along one seam running through the disputed patch. Left: navy and blue mirror-flat sea, sharp reflections, Rae with spyglass and punch, blue sticks. Right: violet and coral shallows, soft and flat, no sticks at all, Echo's claw raised.
+**The hint [AI DRAFT]:** Rae's doubt is one nobody can dispel, so in her assessment Evan's line stops counting as knowledge (footnote 16). That plants the catch revealed in R6.
 
-### P6 · The prisons shatter [AI DRAFT]
-
-> *(All four domes crack at once. The heroes fall, each clutching their weapon: conch, anchor, spyglass, and a claw.)*
-> **Narrator:** Three sacred weapons. The Conch: whatever your own people wouldn't question. The Anchor: whatever your question needs held still. The Spyglass: whatever you know.
-> **Narrator:** There had been a fourth, the Mirror, on which every passing thought dried solid. The ferryman threw it overboard himself.
-
-**Paper:** recap of the three routes (§2.1–2.3). The Mirror is the belief-at-the-base route (Harman plus Clarke), as a one-line gag.
-
-**Visual:** four figures falling through shattering porcelain-like domes against a dark sky, each lit in their context color.
+**Visual:** a split frame along one seam through the disputed patch. Left: navy mirror sea, sharp reflections, Rae with her punch, the blue line going damp. Right: Echo standing on the same patch, claw raised, soft violet and coral light around him. Evan in Cole's hand at the seam.
 
 ---
 
-## 6 · Part 3 · The Real Ocean (*What does this explain?*)
+## 6 · Part 3 · The real ocean (*What does this explain?*) [FIXED concept · AI DRAFT scenes]
 
-### R1 · Waking, ages later [FIXED concept · AI DRAFT text]
+### R1 · Three heroes, a crab, a pen, and a town behind them [AI DRAFT]
 
-> *(A drop of ink that has hung in mid-air for ages finally falls. Plink. The meter flickers from ?? to 0%.)*
-> **Narrator:** Nobody knows how long they slept. Long enough that the ink had forgotten what it said.
-
-They wake on the real ocean, together for the first time.
-
-> **Cole:** Okay. Chat? …Chat's asleep. Everyone's asleep.
-> **Simone:** We're not.
-> **Rae:** *(looks at each of them in turn, says nothing)*
+> *(Simone, Cole and Rae stand at the edge of Here, Echo on Simone's shoulder. Behind them, hundreds of people on dry sticks of every color. Evan bows to each newcomer in turn.)*
+> **Cole:** Okay. Chat? …Chat's asleep. *(He looks at the crowd.)* New chat.
+> **Rae:** *(looks at each of them, says nothing)*
 > **Echo:** *(clack)*
 
-**Visual [AI DRAFT]:** the only scene so far where all four colors share a frame. A grey ocean in which every sentence ever written still floats wet and illegible. The Great Inkwell, still churning. The Sect's toppled tower lying across the water. Half-melted hulls of the Thousand-Sail Palace on the horizon.
-
-### R2 · The daughter's note [AI DRAFT]
-
-> *(A scrap floats past. One line, in a careful hand: "The weapons… one is called… one holds still… one s—")*
-> **Simone** *(looking at the conch, then the anchor, then Rae's spyglass)***:** One sees.
-> **Narrator:** It had taken several thousand years and four strangers to finish one sentence. By the standards of philosophy, this was fast.
-
-### R3 · The demon [FIXED villain and twists · AI DRAFT text]
+### R2 · The demon [FIXED villain and twists · AI DRAFT text]
 
 > *(The sky darkens. Strings descend. YYYY SOWATT rises, hanging from them like a marionette.)*
 > **SOWHAT** *(in a voice that isn't its own)***:** Suppose there were a demon.
 > *(beat)*
 > **SOWHAT:** There was.
 > **Narrator:** Descartes had been right. It is the most upsetting thing he ever got right.
-> **SOWHAT:** Every world you just left was mine. Who do you think spilled the question mark? Who do you think asked him "Are you sure?"
+> **SOWHAT:** Every world you just left was mine. Who do you think knocked the question mark into the Inkwell? Who do you think asked the ferryman "Are you sure?"
 > **Simone** *(looking at the five bubbles, then up the strings)***:** It was never the creature.
 > **SOWHAT:** The creature is just how I look when I touch ink.
-> **Narrator:** Ah.
 
-Three reveals in one speech, all planted earlier:
+Planted earlier: Descartes's hypothetical demon (L5); the dark sleeve at the guardian question mark (L1); the voice from the dark sleeve at the demonstration (L9).
 
-| Reveal | Planted in |
-| --- | --- |
-| Descartes's hypothetical demon is real | L5: "Suppose there were a demon"; "It was only a hypothetical"; the shape at his window; the Sect's entrance test |
-| The demon created YYYY SOWATT | L1: the dark sleeve at the tipped bottle; faint strings above SOWATT in every legend frame |
-| The demon killed the ferryman | L9: the voice from a dark sleeve at the back of the crowd; "For once, the Sect swore it wasn't them"; the strings lowering during the freeze |
+### R3 · The goal [FIXED: save the dreamers · AI DRAFT details]
 
-**Visual [AI DRAFT]:** the five bubbles lifted on taut strings from a sky of moving ink, their tails pointing down at the heroes. On "There was," the sky's ink briefly forms the same enormous outline that looked through Descartes's window.
-
-### R4 · The stakes [FIXED: save the dreamers · AI DRAFT details]
-
-> **SOWHAT:** They're all still dreaming. Every one of them. And every night, I ask them the same thing.
+> **SOWHAT:** The rest of them are still dreaming. Every night, I ask them the same thing.
 > **Y:** Why believe you're justified?
 > **Narrator:** The doubt leaks down. Nothing under them can dry. They never wake.
 > **Simone:** Then we wake them.
 > **Cole:** How?
 > **Simone** *(remembering the keeper)***:** Follow the light.
 
-On the horizon stands the lighthouse, the one place the storm hasn't reached. It's dark.
+On the horizon stands a lighthouse, the one place the demon's storm hasn't reached. It's dark.
 
-### R5–R12 · The finale, following §4 of the paper [FIXED concept · AI DRAFT beats]
+### R4–R10 · The Access sequence, following §4 of the paper [FIXED concept · AI DRAFT beats]
 
 | ID | Story | Paper (§4) |
 | --- | --- | --- |
-| R5 · Grounds | The lighthouse gives one last flash before going dark: *north*. Taking for granted that it's honest and she read it clearly, the flash fixes which way Simone should go. A teal stick dries under her: NORTH. | Given Peter's honesty and Justine's hearing, what he said fixes what she should believe. |
-| R6 · The attack | **Y:** Why believe it said north? **SOWHAT:** So what? Can you even tell whether you're justified? The stick softens. Simone sinks to her ankles. **Cole:** Uh. Simone. You're sinking. | The leak-down worry: doubt about your grounds carries over to the belief. That's why Greco wants Access. |
-| R7 · Why it works | The distant light flickers: three flashes, two, none. **SOWHAT:** Maybe the keeper jokes. Maybe you miscounted. **Narrator:** If her grounds were whatever the light *really* flashed, the demon could hide it, and she'd have no way to tell what she should believe. | The supervenience base. If justification depended on hidden facts, a misleading forecast could mislead you about your own grounds. Peter jokes or mumbles. |
-| R8 · The tempting retreat | **SOWHAT:** Then retreat into your own mind, like Descartes. The grain-sized *I think* stick, the only belief in history that never got wet, drifts up beside her. It has survived everything. **Simone:** That's very small. **Narrator:** It was. It always had been. | A global cognitive home, always-knowable facts big enough to fix all justification, is too much to ask. |
-| R9 · The mobile home | Echo climbs out of his shell and into an empty one drifting past. *Clack.* **Simone:** Then I'll move too. She stops asking "What did the light really flash?" and asks "Given what I can know here, which way?" **Cole:** I recorded the flashes. Habit. The **Anchor** drops: hold fixed that the recording isn't edited. She blows the **Conch**: her friends answer with silence, no objection. Through the **Spyglass**, what she knows dries. | The mobile home: in each context, the facts that fix justification must be ones the subject is in a position to know. Justine falls back on Peter's email. |
-| R10 · Split confidence | The recording is blurry. **Simone:** Probably north. Maybe north-east. A stick dries for *that*, pressed with both words. **Narrator:** She didn't know where the lighthouse was. She knew exactly how sure to be. | Footnote 36: she may only be justified in spreading her confidence, and Access holds if she can know how to spread it. |
-| R11 · Access | **Rae:** What makes you think that? Simone tells her: the recording, the keeper, the coastline, her best guess. Rae looks for a long beat. *Click.* **Rae:** Valid. Simone steps forward. A stick dries ahead of her; the one behind melts. **Narrator:** Her ground didn't stay put. It came with her. Like Echo's. | Access holds context by context. A new doubt can move the home again. |
-| R12 · Arrival | Step by step through the storm, Simone reaches the lighthouse and relights it. **Cole:** Chat, you are not going to believe— oh, right. | — |
+| R4 · Grounds | The lighthouse gives one last flash before going dark: *north*. Taking for granted that it's honest and she read it clearly, the flash fixes which way Simone should go. A teal stick dries under her: NORTH. | Given Peter's honesty and Justine's hearing, what he said fixes what she should believe. |
+| R5 · The attack | **Y:** Why believe it said north? **SOWHAT:** So what? Can you even tell whether you're justified? The stick softens; Simone sinks to her ankles. **Cole:** Uh. Simone. You're sinking. | The leak-down worry: doubt about your grounds carries over to the belief. That's why Greco wants Access. |
+| R6 · Why it works | The distant light flickers: three flashes, two, none. **SOWHAT:** Maybe the keeper jokes. Maybe you miscounted. The demon can't wet Evan's ink by shouting at it, so it asks Evan himself: *"Was it really the lighthouse you saw?"* Evan can't answer, and his own minutes soften. **Demon:** I never touched it. You did. **Narrator:** If her grounds were whatever the light *really* flashed, the demon could hide it, and she'd have no way to tell what she should believe. | The supervenience base: if justification depended on hidden facts, a misleading forecast could mislead you about your own grounds. Peter jokes or mumbles. For Evan: footnote 16, and higher-order doubt leaking down (§4.1). |
+| R7 · The tempting retreat | **SOWHAT:** Then retreat into your own mind, like Descartes. The grain-sized *I think* stick, the only belief that never got wet, drifts up beside her. **Simone:** That's very small. **Narrator:** It was. It always had been. | A global cognitive home, always-knowable facts big enough to fix all justification, is too much to ask. |
+| R8 · The mobile home | Echo climbs out of his shell and into an empty one drifting past. *Clack.* **Simone:** Then I'll move too. She stops asking "What did the light really flash?" and asks "Given what I can know here, which way?" **Cole:** I recorded the flashes. Habit. The **Anchor** drops: hold fixed that the recording isn't edited. She blows the **Conch**, and Here answers with silence: nobody objects. Evan writes what the recording shows, and it dries. **Quiz Q5.** | The mobile home: in each context, the facts that fix justification must be ones the subject is in a position to know. Justine falls back on Peter's email. |
+| R9 · Split confidence | The recording is blurry. **Simone:** Probably north. Maybe north-east. A stick dries for *that*, pressed with both words. **Narrator:** She didn't know where the lighthouse was. She knew exactly how sure to be. | Footnote 36: she may only be justified in spreading her confidence, and Access holds if she can know how to spread it. |
+| R10 · Access, and arrival | **Rae:** What makes you think that? Simone tells her: the recording, the keeper, Evan's minutes, her best guess. Rae looks for a long beat. *Click.* **Rae:** Valid. Simone steps forward; a stick dries ahead of her and the one behind melts. Step by step through the storm, she reaches the lighthouse and puts her hand on the lamp. **Narrator:** Her ground didn't stay put. It came with her. Like Echo's. | Access holds context by context. A new doubt can move the home again. |
 
-### R13 · The dreamers wake [AI DRAFT]
+### R11 · The moral question [FIXED concept · AI DRAFT text]
 
-> *(The beam sweeps out across the ocean and into every dome. In dream after dream, a sleeper sees one steady light, finds a stick that stays dry, then another, and steps out onto the real water.)*
-> **Narrator:** The light didn't prove anything. It just gave everyone one thing they could check, right where they were.
-
-**Meter:** races upward as the dreamers wake.
-
-**Paper:** the same move, generalized: each person's grounds rest on facts they can know in their own context.
-
-### R14 · Ending [OPEN: disarm or destroy · AI DRAFT uses disarm]
-
-> **SOWHAT** *(the demon's voice, thinner)***:** You still can't prove you're awake. There is no ground. There never was. Your old world dried on "because my mother said so." I didn't drown it. I showed you it was water.
+> *(Simone at the lamp. The strings tighten across the sky.)*
+> **Demon:** There is no ground. There never was. Your old world dried on "because my mother said so." I didn't drown it. I showed you it was water.
 > **Simone:** You're right. There's no ground under the ocean.
 > *(beat)*
-> **Simone:** There's ground under me. You can take my truth. You can't take my footing.
-> *(The strings go slack. YYYY SOWATT drops free. The four Ys drift off over the water. SOWHAT lands on Simone's shoulder and settles there.)*
-> **Rae:** *(punches nothing in particular; for one frame, the corner of her mouth lifts)*
-> **Echo:** *(clack)*
-> **Cole:** Chat? …CHAT! You're awake!
->
-> *[Title card, same mock-anime style as L10, beside the meter: DRY WORLD REMAINING 0% · PEOPLE STANDING 97%:]* **THE END.** *(beat)* **(Probably.)**
->
+> **Simone:** There's ground under me.
+> **Demon:** Then decide for everyone else. Wake them, to what? An ocean with no floor. The moment they start asking properly, half of each of them melts. In my dreams, each of them is whole: one world, one rule, home. Who are you to take that?
+> **Demon:** And you. What are *you* made of?
+> *(Simone looks down at the sticks of her own body. Near her heart: ECHO IS SAFE WITH ME. It dried long ago, on no reason at all.)*
+> **Cole:** Chat… are we the bad guys?
+> **Rae:** *(says nothing; the punch half-raised)*
+> **Evan:** *(uncaps, and doesn't write. There is nothing here to know.)*
+> *(Everyone's footing wobbles. Except Echo's. He has never stood on a fact in his life.)*
+> *(Echo climbs onto the lamp, turns to face the audience, and raises his claw. Waiting.)*
+> **Narrator:** The legend counted three heroes. Legends never count the pet.
+> **Narrator:** This question has no fact under it to dry. It only has what we're *for*. So we're asking you.
+
+**Notes [AI DRAFT]:**
+- **The epistemic question is settled before the moral one opens.** Simone has already answered the skeptic: there's no ground under the ocean, but there is ground under her. What's left open is what to do about everyone else.
+- **This stays within the paper:** Greco's §3 runs on moral analogies (a community approving of something wrong; speaker relativism in ethics).
+- **The demon remains the antagonist** (it murdered the ferryman and trapped everyone), but it gets the skeptic's best argument (§1.1c).
+- **[YOUR IDEA · AI VERSION] Echo's payoff:** the moral question is home ground for expressivism, which began in ethics (Ayer, then Gibbard) before it was applied to knowledge. The vote is a room-sized raise of claws (§9.3).
+- **[AI DRAFT] Optional demon line about Echo:** "He's safe because he never claimed anything. Would you like to live like that?"
+
+### R12 · The vote, and three endings [FIXED concept · AI DRAFT endings]
+
+Every audience screen shows three choices for 15 seconds. The majority ending plays. Afterwards, the canvas can show the other two.
+
+| Ending | What happens | Final meter |
+| --- | --- | --- |
+| **A · Light it** | The beam sweeps across the ocean and into every dome. Dreamers wake, melt a little, then find a stick that holds, then another. **Narrator:** "It hurt. Then they stood." **Simone:** "You can take my truth. You can't take my footing." The strings go slack. SOWHAT drops free and lands on Simone's other shoulder, next to Echo. | DRY WORLD REMAINING 0% · PEOPLE STANDING 97% |
+| **B · Let them sleep** | Simone takes her hand off the lamp. The domes glow on, each one home to someone. **Narrator:** "Everyone was happy. Nobody was right." The strings stay taut. | PEOPLE STANDING: only Here |
+| **C · Teach the question** | Simone pulls SOWHAT off its strings and sets it beside the first dome. In its own small voice, it asks the dreamer one question, and waits for an answer that matters. **Narrator:** "It wasn't the end of questions. It was the end of questions that never end." | PEOPLE STANDING: climbing slowly… (Probably.) |
+
+After every ending: the title card in the same mock-anime style as L10, **THE END.** *(beat)* **(Probably.)**
+
+**What each ending means [AI DRAFT]:**
+- **A:** truth over comfort; Access lets people stand without bedrock.
+- **B:** the astrology objection on a world scale: comfort a community accepts isn't justification.
+- **C:** flexible foundationalism as a practice: neither the lazy guardian nor the endless demon, but questions that come when they matter.
+
+**Staying honest [AI DRAFT]:** in no ending is the demon destroyed or the ocean proved real. Unit 2.2 already raised the worry that contextualism gives no reply to the skeptic. What changes is whether people can tell what they're justified in believing. Greco's paper never mentions the demon; present it as the class's skeptic from Units 2.1–2.2 meeting Greco's tool. The bridge to the paper is §4's misleading forecast.
+
+### R13 · Coda: Giedt Hall [FIXED concept · AI DRAFT staging]
+
 > *(Cut to black. Then: Giedt Hall, the present day, exactly as in S0.2. Professor Lin turns from the board and adjusts his dark sleeve. For a single frame, a thin thread of ink trails from the cuff.)*
 > **Professor Lin:** So. Any questions?
 > *(SOWHAT pops into the corner of the final slide.)*
 > **SOWHAT:** So what?
 > *[Slide:]* **Questions?**
 
-**[FIXED concept · AI DRAFT staging]** This is the professor twist (§6b): a hint, never confirmed. "Any questions?" is both the real Q&A and the demon's favorite weapon.
-
-**Why the ending stays honest [AI DRAFT]:**
-- The demon isn't destroyed. It can still make beliefs false, and nobody can prove it away; Unit 2.2 already raises the worry that contextualism gives no reply to the skeptic. What it loses is its real weapon: it can no longer leave people unable to tell what they should believe.
-- Waking never proves the ocean is real. Simone can't rule out one more dream. What she can do is tell what she's justified in believing. The last line says exactly that.
-- Greco's paper never mentions the demon. Present it as the class's skeptic from Units 2.1–2.2 meeting Greco's tool. The bridge to the paper is §4's misleading forecast.
-
-**Visual [AI DRAFT]:** dawn over the ink ocean; the lighthouse beam; people standing on the water in every direction on small sticks of every color; slack strings trailing into a clearing sky; SOWHAT small and content on Simone's shoulder.
-
----
+This is the professor twist (§6b): a hint, never confirmed. "Any questions?" is both the real Q&A and the demon's favorite weapon.
 
 ## 6b · The final twist: is the demon the professor? [FIXED concept · AI DRAFT design]
 
@@ -767,49 +947,149 @@ On the horizon stands the lighthouse, the one place the storm hasn't reached. It
 | --- | --- | --- |
 | S0.3 | Professor Lin asks, "What do you see there?", then tells the room they're all wrong | No: it's just class |
 | L1 | The dark sleeve that bumps the guardian question mark is the same color and cuff as Professor Lin's jacket in S0 | Only on a second viewing |
-| L2, R3 | SOWHAT's red dot: a teacher's red-pen margin note | Already part of the design |
+| L2, R2 | SOWHAT's red dot: a teacher's red-pen margin note | Already part of the design |
 | L5 | Descartes: "Suppose there were a demon…" in the same cadence Professor Lin uses for hypotheticals in S0.3 | No |
 | L9 | The voice that asks "Are you sure?" comes from a dark sleeve at the back of the crowd | Only on a second viewing |
-| R3 | The demon: "Every world you just left was mine." (The presentation's worlds were all built for his class.) | Laughs from people who catch it |
-| Ending | See R14: the cut back to Giedt Hall | Yes: this is the payoff |
+| R2 | The demon: "Every world you just left was mine." (The presentation's worlds were all built for his class.) | Laughs from people who catch it |
+| Ending | See R13: the cut back to Giedt Hall | Yes: this is the payoff |
 
 **Tone [AI DRAFT]:** a wink, not an accusation. Professor Lin is never shown doing anything villainous. Keep it affectionate, the kind of joke a professor enjoys being the target of.
 
 ## 7 · Quizzes [FIXED concept · AI DRAFT questions]
 
-The confirmed classroom vote (B or 13) opens the presentation in S0.3. The story quizzes below begin with Q1 during the legend, after the OP.
+The classroom vote (B or 13) opens the presentation in S0.3, and the live game runs in L6. In Part 2, each quiz is the audience helping the rescuer find the crack.
 
-| # | Scene | Step 1 · action (correct answer in italics) | Step 2 · ingredients |
+| # | Scene | Question (correct answer in italics) | Ingredients revealed |
 | --- | --- | --- | --- |
-| Q1 | L4 | Four masters answered the endless why. Which answer stops at a starting point? *Foundationalism.* | — |
-| Q2 | P1 | The islander stands on dry ink as the tide comes in. What should Simone point out? (a) His community would object. (b) *A whole community can take something for granted and still be wrong.* (c) The stars are reliable on Star Isle. | The Conch + Simone's own situation (social norms × sensitive invariantism) |
-| Q3 | P3 | The plank melted when Simone's question changed. What does that show? (a) The keeper lied. (b) *What's held fixed depends on her inquiry.* (c) Planks always melt eventually. | The Anchor + Simone's own situation (hinges × sensitive invariantism) |
-| Q4 | P4 | "It's solid." / "It's not." If both are only stating their own commitments, what's the problem? (a) One of them is lying. (b) *They wouldn't really disagree, yet it feels like they do.* (c) Cole's chat decides who's right. | The Conch + the speaker's audience (social norms × contextualism) |
-| Q5 | P5 | Rae punches; Echo raises his claw. Which describes the two answers? (a) *Relativism: truth depends on the assessor. Expressivism: calling it foundational is a commitment.* (b) Both say the claim is false. (c) Both say Cole is right. | The Spyglass + the assessor / the Spyglass + a commitment |
-| Q6 | R9 | The light is unreadable. What should fix Simone's grounds now? *Facts she can know here: the recording, the keeper, the coastline, or her best guess.* | — |
+| Q2 | P1 | The islander stands on dry ink as the tide comes in. What should Simone notice? (a) His community would object. (b) *A whole community can take something for granted and still be wrong.* (c) The stars are reliable on Star Isle. | The Conch and the Anchor + Simone's own situation (sensitive invariantism × social and hinges) |
+| Q3 | P2 | "They were justified." / "Not by mine." If each of them is only stating their own commitments, what's the problem? (a) One of them is lying. (b) *They wouldn't really disagree, yet it feels like they do.* (c) Cole's chat decides who's right. | The Conch + the speaker's audience (contextualism × social) |
+| Q4 | P3 | Rae punches; Echo raises his claw. Which describes the two answers? (a) *Relativism: truth depends on the assessor. Expressivism: calling it foundational is a commitment.* (b) Both say the claim is false. (c) Both say Cole is right. | Evan + the assessor / Evan + a commitment |
+| Q5 | R8 | The light is unreadable. What should fix Simone's grounds now? *Facts she can know here: the recording, the keeper, Evan's minutes, or her best guess.* | — |
 
 ---
 
-## 8 · Open questions (AI defaults used in the drafts above)
+## 8 · Open questions for the dream era (AI defaults used in the drafts above)
 
 | # | Question | AI default |
 | --- | --- | --- |
-| 1 | Demon destroyed or disarmed? | Disarmed |
-| 2 | Simone in two universes, or merge the Anchor into the Archipelago? | Two universes |
-| 3 | Weapon names | Conch, Anchor, Spyglass |
-| 4 | The twist: SOWATT blamed, the demon guilty? | Yes |
-| 5 | The ferryman's death | Killed by his own rule: mid-demonstration, someone asks "Are you sure?" and his footing melts |
-| 6 | The death's punchline | "His theory had predicted exactly this. He did not get to enjoy being right." |
-| 7 | The ferryman's daughter: one-line witness, or an ancestor of one of the cast? | One-line witness |
-| 8 | Route slides on the canvas: fold into the universes, or keep a recap? | Fold in; P6 is the recap |
-| 9 | The Mirror gag (belief at the base)? | One line in P6 |
-| 10 | Does the UC Davis frame return? | Yes: R14 cuts back to Giedt Hall for the professor twist |
-| 11 | Catchphrase wording: "Suppose there were a demon." / "There was." | As written |
-| 12 | Three reveals in R3 at once, or spread one into the legend's freeze? | All three in R3 |
-| 13b | Infinitism's master | Peirce (the founder). Klein credited factually on the slide, not given comic lines |
-| 13c | Example beliefs at the guardian: harmless ones, or the "God exists" example? | Harmless ones (cooking, lucky Tuesdays, a baby's "warm") |
-| 13d | The demon: villain, or a misunderstood truth-teller? | Villain, with the skeptic's best argument in R14 (§1.1c) |
-| 14 | Sorting | A language model sorts by the reasoning in each person's sentence, balanced toward 50/50 [FIXED] |
-| 15 | Battle length | 90 seconds (within the fixed range of one to two minutes) |
-| 15b | If the model is unavailable on the day | Tap-to-choose sorting and keyword rules |
-| 16 | Timing: Part 1 about 7 min, Part 2 about 10, Part 3 about 7, quizzes included. Fits 28 minutes? | Untested |
+| 1 | Timing: P1 ~2.5, interlude ~1.5, P2 ~3.5, P3 ~2, Part 3 ~6.5, vote and coda ~1.5 minutes. Does it fit? | Untested |
+| 2 | Simone's years alone: comic, quiet, or both? | Both: Echo for company (a *Cast Away* nod, except he's real), then one silent image of her alone on a single plank |
+| 3 | Names of the rebellion and the town | The Ferry (摆渡会) and Here (此地) |
+| 4 | Length of the gap | Twelve years outside; centuries inside Cole's dome |
+| 5 | Simone's age | Barely aged: people change only when their beliefs do |
+| 6 | P3: how to show relativism and expressivism together | One dome (Rae's), with Echo's answer beside it; Greco gives these views one paragraph |
+| 7 | Endings: A, B and C, or only A and C? | All three |
+| 8 | Number of quizzes in Parts 2–3 | Four (Q2–Q5) |
+| 9 | Belief at the base (Harman) | Drop it, or one line in the interlude |
+| 10 | Who pinches Cole? | Echo, riding into Cole's dream on Simone's shoulder |
+| 11 | Professor coda | Keep |
+| 12 | The demon: villain, or a misunderstood truth-teller? | Villain, with the skeptic's best argument at R11 |
+| 13 | L6 card wording and balancing | As drafted in L6 |
+| 14 | Who makes the "find them" claim in L10b? (a) Simone, deadpan; (b) a loud kid boasts, while quiet Simone is the real hero (breaks the "laughed-at one is the hero" rule); (c) Simone, plus Cole's voice leaking from the sky ("Chat, I'm gonna find all three") | (a) |
+| 15 | After L10b, does the keeper stay the narrator for the whole show (a *Princess Bride* frame)? | No: a separate dry narrator from P1 on; the keeper appears as a character |
+| 16 | Evan's form: a courteous fountain pen, or a living ink brush (matches the handscroll)? | Fountain pen |
+| 17 | Horcrux nod: Evan as a piece of the ferryman, left behind by accident? | A hint only, never explained |
+| 18 | Where Evan's ink first sags: P2 (Cole's audience raises the doubt) or P3 (Rae)? | P3 |
+| 19 | Does Echo ever speak? | Never. Only claws |
+| 22 | How many of the 28 minutes go to Q&A and other housekeeping? The §5.2 table currently uses all 28 for the story | Reserve ~4 minutes, so the story runs ~24; cuts needed |
+
+---
+
+## 9 · Design rationale: the author's questions, the paper checks, and why
+
+This section keeps the reasoning behind recent decisions in one place: what the author asked, what Greco's paper actually says, which references were used, and what was corrected. It records reasons, not old versions of scenes.
+
+### 9.1 The legend as anime parody, and the transition into the first dream (L10b)
+
+**The author's request:** make everything before the dream era an exaggerated tribute to and parody of classic anime and films. Before the ferryman dies, he leaves three sacred weapons waiting for heroes. The legend turns out to be told inside the first dream world, where the characters think it's just a legend. At the line about the weapons waiting for heroes, someone in the crowd says they'll be the hero, everyone laughs, and that person really is the first hero. The author asked for films, shows and anime that use this kind of transition, and a smart version based on them.
+
+**References used:**
+
+| Work | How its transition works | What we borrow |
+| --- | --- | --- |
+| *Kung Fu Panda* | An epic narrated legend in a different art style, then a hard cut: it was Po's daydream. Later Po declares he'll be the Dragon Warrior and gets laughed at. | The style shift as the reveal; the laughed-at hero |
+| *Avatar: The Last Airbender* | The famous opening narration turns out to be spoken by Katara, a character in the world. | The narrator becomes a person in the scene: the keeper |
+| *One Piece* | Gol D. Roger's last words send the world after his treasure. Luffy says he'll be King of the Pirates, and the bar laughs at him. | The closest match: treasure left behind at a death, a public boast, laughter, and the boaster really is the hero |
+| *Shrek* | A storybook fairy tale, deflated from inside the world. | The sarcasm |
+| *Hercules* (Disney) | A pompous narrator is interrupted by the Muses. | Heckling the storyteller |
+| *The Princess Bride* | A story framed by a grandfather reading to a grandson who interrupts. | The child's "Is it true?" |
+
+**Why "the scroll pulls back":** the legend is already painted as one long handscroll, so the reveal is almost free: the scroll is real, and it's in the keeper's lap. It creates dramatic irony (the villagers laugh off the story of their own sleep while the audience knows they are the sleepers), hides clues in plain sight (the 100% meter, the wet ink), and connects the keeper to his later line, "If you ever wake up, follow the light."
+
+**Why Simone, deadpan (default):** a calm statement ("Then someone should go and find them") is funnier than a boast, fits her character (*Simone notices*), and keeps the author's rule that the one laughed at is the first hero.
+
+### 9.2 Weapons and heroes: does each route have one perfect match?
+
+**The author's question:** should the three heroes be parts of the ferryman, like horcruxes in *Harry Potter*, or should only the right person be able to use each weapon? That depends on whether the paper matches each route to exactly one version.
+
+**Paper check:** it doesn't. In Greco, routes and versions aren't one-to-one:
+- **Social norms** pair with both sensitive invariantism and contextualism (§3).
+- **Hinges** also pair with both.
+- **Knowledge at the base** works with any flexible view of knowledge: contextualism, sensitive invariantism, relativism, "or others" (§2.3). Through it, relativism and expressivism too (§3, one sentence).
+
+**Decision:** "only the chosen one can wield it" would misstate the paper. Instead, each weapon answers to anyone, but differently in each hand: the weapon is the route, and the hand holding it is the version. It still parodies the chosen-one cliché, and it's what the relay already does: the Conch dries footing by Simone's community in her world and by Cole's audience in his.
+
+**The horcrux idea:** kept only for Evan, as an unexplained hint. Like Harry, he'd be a piece left behind without anyone meaning it to happen, which echoes "without trying." Not used for the heroes: the ferryman's death is already a dark joke, and splitting him into three pieces would crowd it.
+
+### 9.3 Echo: from hero to the one nobody counted
+
+**The author's idea:** the legend never mentions Echo, but the expressivist still exists. Echo can be Simone's pet: a twist, a third figure who isn't a hero but actually matters.
+
+**Why it fits the paper:**
+1. **Weight.** Greco gives sensitive invariantism and contextualism most of §3. Relativism and expressivism are left open, and expressivism connects to flexible foundations only through the knowledge route. A non-hero companion matches how the paper treats it: mentioned, undeveloped, but there.
+2. **The disagreement problem** is what moves some philosophers from contextualism to relativism or expressivism (§3). So Echo's first real beat belongs at the P2 disagreement, as a hint of the paper's next step.
+3. **Ethics.** Expressivism began as a view in ethics (Ayer, then Gibbard) before it was applied to knowledge. So the moral confrontation in R11 is Echo's home ground. That's the twist payoff.
+4. **The count.** The legend's three heroes are Simone, Cole and Rae; the third weapon is Evan; Echo is uncounted. *"Legends never count the pet."*
+
+**Design:** Echo stays the Version C hermit crab, which is a fixed design. (In conversation the AI floated a color-changing cuttlefish; that's dropped, because the crab already does the job.) Raising the claw is a commitment, not a description. And swapping shells is the mobile home in R8.
+
+**Rules [AI DRAFT]:** nothing dries under Echo, because a commitment isn't a belief, so he can't hold anyone up. SOWATT can't melt him either: "why believe that?" has nothing to grab when he never believed anything. **Honest note:** the second rule is a story liberty. In the paper, expressivism is a theory of what "knows" means, not a shield against skepticism. The cost (he can't help anyone stand) keeps it honest, and the demon can say so in R11.
+
+**Echo's beats:** L10b (the only one who doesn't laugh), I1 (company in the empty ocean, a *Cast Away* nod, except Echo is real), P2 (pinches Cole into "Oh, come on"; raises both claws at the disagreement), P3 (the expressivist answer beside Rae's relativism), R8 (the shell swap), R11–R12 (faces the audience; the vote).
+
+**Avoided:** the pet-who-betrays twist (Scabbers in *Harry Potter*, Kyubey in *Madoka Magica*). The demon already carries the moral ambiguity; a second dark twist would muddy it. The model is closer to Gromit in *Wallace & Gromit*: silent, expresses everything, secretly the smart one.
+
+### 9.4 Evan: the third weapon, checked against §2.3
+
+**The author's proposal:** Evan, a strange creature, is himself the third weapon. Someone uses Evan to write their own belief, and what comes out can't be questioned by others, because evidence is a person's own experience or knowledge and no outside force can break it. The catch: if the person questions it themselves, it can break or go wet, and the story can reveal that later. The author asked whether this matches what Greco says about E = K.
+
+**What Greco says:**
+- Williamson holds that knowledge is evidence (E = K). Items of knowledge can support further beliefs without needing support themselves, so knowledge plays a regress-stopping role: Williamson calls it "a very modest kind of foundationalism" (§2.3).
+- **"Without trying"** means a theorist can end up a flexible foundationalist by accident: accept E = K, add any flexible view of knowledge, and you're there (§2.3). It doesn't mean knowledge is effortless.
+- **Footnote 15:** Williamson himself rejects the flexible views of knowledge; others combine them with E = K.
+- **Footnote 16:** in any context where an attributor takes seriously a doubt the subject can't dispel, "S knows that P" is false as that attributor says it, so the belief can't stop regresses by that attributor's standards.
+- **§4.1:** doubting whether you know or are justified in believing P naturally, and reasonably, leads to doubting P. A doubted claim can't be foundational in the context where it's doubted.
+
+**Check:**
+
+| The author's claim | What the paper supports | Verdict |
+| --- | --- | --- |
+| What you write with Evan becomes a foundation | Knowledge stops the regress (§2.3) | ✅ Exact |
+| Others can't question it | Others can ask; knowledge just doesn't need an answer to stand | ⚠️ Reworded: "why?" bounces off |
+| It's based on your own experience | No. E = K is about what you know of the world. An untouchable base of "my own experience" is the Cartesian cognitive home that Greco's §4 argues against | ❌ Changed |
+| It breaks only if you question it yourself | Self-doubt does break it (§4.1). But under footnote 16, a doubt taken seriously by whoever is judging can break it too | ⚠️ Widened |
+
+**A better story from the correction:** in Part 3 the demon can tempt Evan to write only "it seems to me…", which feels safe because nobody can doubt it. But that's Descartes's grain again: safe, and too small to stand on. Greco's answer is the mobile home: don't retreat inward; move to what you can know in this context.
+
+**How the three weapons differ:**
+
+| | **Conch** (social) | **Anchor** (hinges) | **Evan** (knowledge) |
+| --- | --- | --- | --- |
+| What dries | What nobody around you objects to | What you must hold fixed to do the task in front of you | What you actually know |
+| Where it comes from | Other people | The task | Your contact with the world |
+| Can it be false? | Yes: a whole village can agree on something wrong | Yes | No: a false sentence never dries |
+| Response to "why?" | Needs the crowd to stay quiet | Needs the task to still be on | Bounces off |
+| What breaks it | An objector the group takes seriously | The task changes | A serious doubt nobody can dispel, especially your own |
+
+The "can it be false?" row is standard background about knowledge (Williamson's view), not something Greco states. It's the clearest way for the audience to tell the routes apart.
+
+**Kept from the earlier draft:** Evan's name, his courtesy, "One sees," and the reveal in R6. **Changed:** he's a pen anyone can write with, not a pen that writes its own minutes.
+
+### 9.5 The core mechanism, stated at the start (L0)
+
+**The author's requirement:** explain the world's one core mechanism at the very beginning of the Legend, as pure explanation with one image, not a string of demo scenes. Everything is made of ink beliefs. Belief is concrete and has two forms: solid, which you can build on, and liquid. To make a belief solid it must withstand questioning, from the sacred question mark at the Inkwell and from anyone else. If someone questions it and you can't answer, or they can keep asking, it never solidifies.
+
+**What the AI added, and why:**
+1. **"Withstand" means the questioning stops, not that the answer is good.** The guardian accepted "my mother says so," and the ink still dried. If only good answers dried ink, three later beats would break: the guardian joke (L1), "undoubted, not undoubtable" (L7), and the astrology objection in P1, where a community's lazy approval lets a false belief dry.
+2. **Re-wetting, stated plainly.** "If someone questions a dry belief and you have no answer, it goes wet again" wasn't in the author's statement of the mechanism, but the author confirmed it in L7 and L9, and the ferryman's death depends on it. An earlier draft called this "a question is water"; that phrase was the AI's, not the author's, and it's gone: under the guiding principle, a plain sentence beats a metaphor the audience has to decode.
+3. **Cut, per the author:** the four "law" cards, the hut demo, and the chain of ladles. L2 already shows the endless chain, so L0 doesn't need to.

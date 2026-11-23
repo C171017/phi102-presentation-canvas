@@ -4,7 +4,7 @@ import { newOpeningQuiz, openingQuizWindowMs, recordOpeningVote, type OpeningQui
 import { countSchools, isSchoolVote, type SchoolVote } from '../src/school-vote';
 import { firstPresentationCue, isCue, isSlide, slideCount, presenterKeyPattern, type RoomSnapshot } from '../src/live-protocol';
 
-import { applyTheoryAction, ballotSlide, resolveBallot, theoryVoteWindowMs, voteView, type TheoryAction, type TheoryBallot } from '../src/theory-vote';
+import { applyTheoryAction, ballotSlide, resolveBallot, theoryScene, theoryVoteWindowMs, voteView, type TheoryAction, type TheoryBallot } from '../src/theory-vote';
 
 interface Env {
   ASSETS: Fetcher;
@@ -46,10 +46,17 @@ export class PresentationRoom extends DurableObject<Env> {
       this.openingQuiz = await ctx.storage.get<OpeningQuizRound>('openingQuiz') ?? this.openingQuiz;
       const savedId = await ctx.storage.get<string>('slideId');
       if (savedId) {
-        const index = slides.findIndex(slide => slide.members[0] === savedId);
+        const removedCheck = savedId === 'L4-quiz';
+        const slideId = removedCheck ? theoryScene('foundationalism') : savedId;
+        const index = slides.findIndex(slide => slide.members[0] === slideId);
         if (isSlide(index)) this.slide = index;
-        const cue = await ctx.storage.get<number>('presenterCue');
-        if (isCue(cue)) this.cue = cue;
+        if (removedCheck) {
+          this.cue = firstPresentationCue(this.slide);
+          await ctx.storage.put({ slide: this.slide, slideId, presenterCue: this.cue });
+        } else {
+          const cue = await ctx.storage.get<number>('presenterCue');
+          if (isCue(cue)) this.cue = cue;
+        }
         this.ballot = await ctx.storage.get<TheoryBallot>('theoryBallot') ?? null;
       } else {
         // Older rooms stored a numeric position in the pre–Ink Ocean slide rail.

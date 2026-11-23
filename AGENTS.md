@@ -20,6 +20,7 @@ These instructions apply only to this directory and its descendants.
 
 ## Interaction conventions
 
+- Follow [the slide artwork fitting rules](docs/slide-visual-style.md#fit-the-artwork-to-the-page) for every presentation page. Preserve native aspect ratios and keep the same framing between establishing shots and dialogue.
 - Follow [the dialogue-led slide rules](docs/slide-visual-style.md#dialogue-led-presentation-slides) when writing slide content or editing transcripts, speaker cues, or classroom framing. Keep the slide’s section text fixed on the left and its scrolling dialogue on the right. Put speaker names above portraits and use the highlighted line to determine which portrait stays bright.
 - Two-finger trackpad scrolling pans the canvas; dragging empty space draws a selection box.
 - Dragging a selected object moves the whole selection.
@@ -29,7 +30,7 @@ These instructions apply only to this directory and its descendants.
 
 - The pane (`src/paper-pane.ts`) is available in the editor and in production. Keep the generated page images and manifest in `public/readings/greco-2017/` so both production builds can serve them. Verify with `npm run build` and `npm run build:live`.
 - The editor uses `src/dev-paper.ts` for local annotation controls. Keep that module and its stylesheet behind the development branch in `main.ts`. Both modes use the shared pane, section notes, and generated pages.
-- The pane is an overlay. Do not resize the viewport, move the camera, or write the saved layout on its behalf.
+- The pane and its margin notes float over the slide. Opening, closing, and resizing the overlay must leave the background framing, viewport, camera, and saved layout unchanged.
 - Slide-to-passage mapping lives in `scripts/paper-anchors.json`, keyed by each slide's first member ID. Add an entry when adding a slide, then re-run `npm run paper:pages`.
 
 ## Scope

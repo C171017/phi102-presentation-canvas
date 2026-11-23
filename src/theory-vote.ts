@@ -7,7 +7,7 @@ export type Theory = keyof typeof theoryNames;
 export const theories = Object.keys(theoryNames) as Theory[];
 export const theoryVoteWindowMs = 10_000;
 export const voteHub = 'L4';
-export const theoryScene = (theory: Theory) => theory === 'foundationalism' ? 'L4-quiz' : 'regress-' + theory;
+export const theoryScene = (theory: Theory) => 'regress-' + theory;
 
 export type TheoryAction = {
   type: 'theory';

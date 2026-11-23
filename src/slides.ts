@@ -34,7 +34,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   });
 
   groups.forEach((group, index) => {
-    if (group[0].matches('#unitrans-arrival, #before-lecture')) return;
+    if (group[0].matches('#unitrans-arrival, #before-lecture, .legend-anchor')) return;
     const visuals = group.filter(item => item.matches('.canvas-media, .regress-hub, .regress-position, .pairing-card'));
     for (const item of visuals.length ? visuals : group) {
       item.dataset.slideEntry = String(index);

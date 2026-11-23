@@ -176,7 +176,7 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
 }
 
 function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraView) => void) {
-  for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
+  for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id], .legend-anchor[id]'))) {
     let item = layout.items[element.id];
     if (!item && element.id === 'route-knowledge-evan') {
       const scene = layout.items['route-knowledge-scene'];

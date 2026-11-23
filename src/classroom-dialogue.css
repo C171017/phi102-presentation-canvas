@@ -3,7 +3,7 @@
 }
 .classroom-stage {
   position: absolute;
-  inset: 0;
+  inset: 0 var(--paper-overlay-clearance, 0px) 0 0;
   z-index: 5;
   display: block;
   pointer-events: none;
@@ -13,9 +13,6 @@
 }
 .classroom-stage[hidden], .classroom-character { display: none; }
 #presentation-shell:has(#contemporary-heading.page-foreground) .classroom-character { display: block; }
-#presentation-shell:has(#paper-pane:not(.is-collapsed)) .classroom-stage {
-  right: calc(var(--visible-paper-width, 0px) + 14px);
-}
 .classroom-character {
   position: absolute;
   right: 0;
@@ -248,15 +245,5 @@
   background: transparent; color: inherit; font: 700 1.5rem/1 system-ui; cursor: pointer;
 }
 .legend-paging button:hover, .legend-paging button:focus-visible { background: #465654; }
-.canvas-label.ink-ocean-entry {
-  width: 255px;
-  padding: 7px 7px 11px;
-  background: #fff4df;
-  box-shadow: 0 4px 12px #49382222;
-  font: 600 19px/1.2 Georgia, serif;
-  cursor: pointer;
-}
-.ink-ocean-entry img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; margin-bottom: 9px; }
-
 #viewport:has(#contemporary-heading.page-foreground)::before { filter: grayscale(.85) brightness(.54); }
 .classroom-character.is-speaking img { filter: brightness(1.08) saturate(1.18); }
