@@ -100,13 +100,17 @@ export const inkOceanStory = {
   },
   "L3-continued": {
     title: "The Whypocalypse",
-    summary: "A reason you also doubt leaves the original doubt unresolved.",
+    summary: "An old prophecy warns of the Cartesian demon and the worlds it will make people dream.",
     illustration: {
-      src: "/generated/backgrounds/ink-ocean/L3-whypocalypse-title-card.webp",
-      alt: "The Whypocalypse title in flowing black ink, with YYYY SOWATT spreading through the channels of a flooded city.",
-      imageOnly: true,
+      src: "/generated/backgrounds/ink-ocean/L3-whypocalypse-prophecy.webp",
+      alt: "The words THE WHYPOCALYPSE tower over a Cartesian demon whose gold-rimmed claw reaches down toward the curved ink world.",
     },
     paragraphs: [
+      "Narrator: An old prophecy had warned of this.",
+      "Prophecy: When the last question goes unanswered, the ink will forget what is real.",
+      "Prophecy: The melted will not die. They will dream of solid ground.",
+      "Prophecy: And the Cartesian demon will give them worlds to dream in, and none of them will know they are dreaming.",
+      "Narrator: Nobody believed the prophecy. By then, it was very hard to believe anything.",
     ],
   },
   "L4": {
@@ -159,11 +163,21 @@ export const inkOceanStory = {
   "regress-coherentism": {
     title: "Neurath, the Shipwright",
     summary: "Coherentism · Beliefs draw support from their fit with one another.",
+    illustration: {
+      src: "/generated/backgrounds/ink-ocean/L4-neurath-on-deck.webp",
+      alt: "Neurath gestures to the interlocking planks of his circular ship as an ink bubble looks up from the water.",
+    },
     paragraphs: [
       "COHERENTISM. A belief is justified if it belongs to a coherent system of beliefs: a web, not an edifice. (Agrippa’s mode of circularity, Unit 1.2)",
-      "Y: Why trust this plank?",
-      "Neurath: The plank beside it holds it up. We are like sailors who must rebuild their ship on the open sea, never able to put it in dry dock.",
-      "Narrator: It was the most coherent ship in history. It held together perfectly as it sailed off the edge of the map.",
+      "Y: Why believe the ship is sound?",
+      "Neurath: Because every plank holds.",
+      "Y: Why believe every plank holds?",
+      "Neurath: Because the ship is sound.",
+      "Y: That's a circle.",
+      "Neurath: It's a web. No belief stands alone; each is held up by all the others. The bigger the circle, the better.",
+      "[SOWATT swims laps around the ship, looking for a loose end. There isn't one.]",
+      "SOWHAT: So what? A fairy tale can fit together perfectly too.",
+      "Narrator: It was the most coherent ship in history. Not one plank contradicted another. It sailed, perfectly consistent, off the edge of the map.",
       "The objection — the isolation problem. A perfectly coherent system can be cut off from experience, so coherence alone isn’t enough (Unit 1.2).",
     ],
   },
@@ -171,7 +185,7 @@ export const inkOceanStory = {
     title: "Descartes and the Fourth Answer",
     summary: "Foundationalism · Some justified beliefs can support others without a further reason.",
     illustration: {
-      src: "/generated/backgrounds/ink-ocean/L5-the-fourth-answer.webp",
+      src: "/generated/backgrounds/ink-ocean/L5-the-fourth-answer-v2.webp",
       alt: "Descartes considers one dry grain of ink in a brass ladle while five ink bubbles question him.",
     },
     paragraphs: [
@@ -192,6 +206,10 @@ export const inkOceanStory = {
   "L6-A": {
     title: "Cartesian foundationalism",
     summary: "Cartesian foundations. Indubitable starting points are too few to support ordinary beliefs.",
+    illustration: {
+      src: "/generated/backgrounds/ink-ocean/L6-cartesian-five-bubbles.webp",
+      alt: "Four Y bubbles and the red-dotted SOWHAT hover above one dry brick as a vast crowd of Cartesians raises its ladles.",
+    },
     paragraphs: [
       "Narrator: For the first time since the Whypocalypse, people had a way to fight back. The goal: dry the world solid again, the way it used to be.",
       "Narrator: They split into two schools.",
@@ -205,6 +223,10 @@ export const inkOceanStory = {
   "L6-B": {
     title: "Moderate foundationalism",
     summary: "Moderate foundations. Perception gives us starting points. What settles a doubt about perception itself?",
+    illustration: {
+      src: "/generated/backgrounds/ink-ocean/L6-moderates-city-on-jelly.webp",
+      alt: "Ink-block townspeople watch rows of houses tilt and sink into dark ink at sunset.",
+    },
     paragraphs: [
       "Narrator: The moderates didn't have three hundred years. They dried whatever seemed true, and they dried it fast.",
       "[A whole town goes up in an afternoon.]",
@@ -213,6 +235,24 @@ export const inkOceanStory = {
       "Y: Are you sure that's solid?",
       "[The town slumps into a puddle.]",
       "Narrator: You can't build a city on jelly. They tried. Several times.",
+    ],
+  },
+  "L7": {
+    title: "The Stranger",
+    summary: "Flexible foundationalism · What is settled here and now can serve as a foundation.",
+    illustration: {
+      src: "/generated/backgrounds/ink-ocean/L7-stranger-covered-artifacts.webp",
+      alt: "The Stranger steps onto a dry ink stick ringed in gold. A cloth covers three shapes on the lower-left ledge.",
+    },
+    paragraphs: [
+      "Narrator: But someone found a way out.",
+      "[A lone figure, seen from behind, steps out onto bare ink. A stick dries under her foot.]",
+      "Stranger: It doesn't have to be undoubtable. It only has to be undoubted. Here. Now.",
+      "Narrator: Not one solid world. Solid ground wherever you stood, for as long as nobody there was asking.",
+      "Narrator: She left the world three legendary artifacts.",
+      "[Title card, full anime gold, choir:] THE THREE SACRED TREASURES OF GOOD ENOUGH",
+      "Narrator: Then she was gone.",
+      "Narrator: Did the Whypocalypse ever end? [Beat.] Probably.",
     ],
   },
 } satisfies Record<string, Omit<StoryScene, 'id'>>;

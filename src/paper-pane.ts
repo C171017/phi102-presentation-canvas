@@ -159,7 +159,6 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     resizer.setAttribute('aria-valuemin', String(minWidth()));
     resizer.setAttribute('aria-valuemax', String(Math.round(maxWidth())));
     const paneBounds = pane.getBoundingClientRect();
-    shell.style.setProperty('--visible-paper-width', `${paneBounds.width}px`);
     resizer.setAttribute('aria-valuenow', String(Math.round(paneBounds.width)));
     if (!rolePicker) return;
     const pickerBounds = rolePicker.getBoundingClientRect();

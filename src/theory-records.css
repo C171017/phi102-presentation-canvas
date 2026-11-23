@@ -53,10 +53,6 @@
 .theory-ballot .theory-records button[aria-pressed=true] { outline: 3px solid #f7cf87; }
 .theory-ballot .theory-records button[hidden], .close-ballot[hidden] { display: none; }
 .theory-ballot > .theory-verdict { display: none; }
-/* Open paper annotations extend past the paper pane into the right side of the stage. */
-#presentation-shell:has(#paper-pane.has-paper-notes:not(.is-collapsed)) .theory-ballot {
-  inset-inline: clamp(50px, 6vw, 80px) auto;
-}
 .close-ballot {
   border: 1px solid #91b2a4;
   border-radius: 5px;

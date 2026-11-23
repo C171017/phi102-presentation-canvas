@@ -7,6 +7,7 @@
 }
 
 .canvas-link { color: var(--route-color); }
+.link-introduction { --route-color: #75604c; }
 .link-motivations { --route-color: #a66b25; }
 .link-versions { --route-color: #7956a2; }
 .link-applications { --route-color: #267c6a; }

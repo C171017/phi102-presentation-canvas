@@ -1,7 +1,10 @@
 import { inkOceanStory } from './ink-ocean-story';
+import { inkOceanStoryTextId, savedStoryText } from './saved-story-text';
 import type { StoryScene } from './story-text';
 
-export type InkOceanSceneId = keyof typeof inkOceanStory | 'L6';
+type StorySceneId = keyof typeof inkOceanStory;
+
+export type InkOceanSceneId = StorySceneId | 'L6';
 
 export interface InkOceanCue {
   speaker: string;
@@ -31,8 +34,10 @@ function cueFromParagraph(text: string): InkOceanCue {
   return { speaker, speakerId, text: line };
 }
 
-function storySlide(id: keyof typeof inkOceanStory): InkOceanScene {
-  const { title, summary, illustration, paragraphs }: Omit<StoryScene, 'id'> = inkOceanStory[id];
+function storySlide(id: StorySceneId): InkOceanScene {
+  const entry: Omit<StoryScene, 'id'> = inkOceanStory[id];
+  const { summary, illustration } = entry;
+  const { title, paragraphs } = savedStoryText[inkOceanStoryTextId(id)] ?? entry;
   return {
     id,
     title,
@@ -40,7 +45,8 @@ function storySlide(id: keyof typeof inkOceanStory): InkOceanScene {
     background: illustration?.src,
     imageOnly: illustration?.imageOnly,
     // A title card occupies its own navigation step without a transcript.
-    cues: illustration?.imageOnly ? [{ speaker: '', text: '' }] : paragraphs.map(cueFromParagraph),
+    cues: illustration?.imageOnly ? [{ speaker: '', text: '' }]
+      : paragraphs.flatMap(paragraph => paragraph.split('\n').map(line => line.trim()).filter(Boolean).map(cueFromParagraph)),
   };
 }
 
@@ -51,17 +57,15 @@ const schoolChoice: InkOceanScene = {
   cues: [],
 };
 
-export const legendSlides = [
-  ...(Object.keys(inkOceanStory) as (keyof typeof inkOceanStory)[])
-    .filter(id => id !== 'L6-A' && id !== 'L6-B')
-    .map(storySlide),
-  schoolChoice,
-];
-
 export const schoolScenes = {
   'L6-A': storySlide('L6-A'),
   'L6-B': storySlide('L6-B'),
 };
+
+export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[]).flatMap(id => {
+  if (id === 'L6-A') return [schoolChoice, schoolScenes[id]];
+  return [id === 'L6-B' ? schoolScenes[id] : storySlide(id)];
+});
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
   return index === 0 && Boolean(scene.background);

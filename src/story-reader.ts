@@ -1,4 +1,5 @@
 import { storyVersions } from './story-scenes';
+import { savedStoryText } from './saved-story-text';
 import { isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
 import './story-reader.css';
 
@@ -104,7 +105,7 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   const cancel = form.querySelector<HTMLButtonElement>('[data-cancel]')!;
   edit.hidden = !editable;
   let index = 0;
-  let edits: StoryEdits = {};
+  let edits: StoryEdits = { ...savedStoryText };
   let loadSequence = 0;
 
   function updateControls() {

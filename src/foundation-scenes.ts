@@ -1,20 +1,49 @@
 import { drawCairn } from './foundation-cairn';
+import brickArt from './assets/foundations/brick.webp';
+import townArt from './assets/foundations/town.webp';
 import { lines, txt } from './sketch';
 import './foundation-scenes.css';
 
-export function drawDilemma(strict: boolean) {
-  const standard = strict ? 'cartesian' : 'moderate';
-  return txt(215, 51, strict ? 'Cartesian foundationalism' : 'Moderate foundationalism', { size: 25, weight: 600 })
-    + `<g transform="translate(41 65) scale(1.24)" class="dilemma-${standard}">
-        ${strict ? '<ellipse class="fall-shadow" cx="247" cy="218" rx="29" ry="4.5" fill="#504a42" opacity=".15"/>' : ''}
-        ${drawCairn(`${standard}-cairn`, strict)}
-        ${strict ? '' : `<g class="wobble-marks" aria-hidden="true" fill="none" stroke="#736b60" stroke-linecap="round">
-          <path d="M99 38q-5 8-5 17m-1-20q-4 7-5 13M188 43q5 8 5 17m2-21q4 6 5 13" stroke-width="1.7"/>
-        </g>`}
-      </g>`
-    + lines(215, 394, strict
-      ? ['Too few beliefs are indubitable', 'to support ordinary knowledge.']
-      : ['Perception and intuition can be doubted.', 'Why stop the chain of reasons here?'], { size: 18, lh: 24 });
+/** Both schools face the same question. Their ink responds differently. */
+export function mountDilemma(host: HTMLElement, strict: boolean) {
+  const name = strict ? 'Cartesian foundationalism' : 'Moderate foundationalism';
+  const subject = strict ? 'brick' : 'town';
+  const rule = strict ? 'Dry only what cannot be doubted.' : 'Dry whatever seems true.';
+  const caption = strict
+    ? ['Ten thousand Cartesians. Three hundred years.', 'One indubitable brick.']
+    : ['A whole town in one afternoon.', 'Its foundations are only half dry.'];
+  const result = strict ? 'The brick holds. One brick cannot support a world.'
+    : 'The half-dry town wobbles and slumps into a puddle.';
+  const artwork = strict
+    ? `<image class="ink-brick" href="${brickArt}" x="107" y="156" width="216" height="120"/>`
+    : `<image class="ink-town" href="${townArt}" x="42" y="114" width="346" height="194"/>`;
+  host.insertAdjacentHTML('afterbegin', `<svg class="scene-art ink-dilemma ink-dilemma-${subject}"
+    viewBox="0 0 430 450" width="430" height="450" role="img" aria-label="${name}. ${rule} ${result}">
+    ${txt(215, 49, name, { size: 25, weight: 600 })}
+    ${txt(215, 81, rule, { size: 15, italic: true, fill: '#63594d' })}
+    <g class="ink-puddle" aria-hidden="true">
+      <path fill="#171a2b" d="M53 311c3-8 29-9 57-11 24-2 19-7 54-6 28 1 32 4 65 2 41-3 53 0 75 5 20 4 77 1 74 10-3 9-65 8-103 9-36 1-47 6-86 4-31-1-45-5-77-5-35 0-64-2-59-8Z"/>
+      <path fill="none" stroke="#c6a772" stroke-linecap="round" stroke-width="2" d="M82 310q26-4 47-4m153 9q44 2 66-3"/>
+    </g>
+    ${artwork}
+    <g class="ink-question" aria-hidden="true">
+      <path fill="#202635" d="M333 94c-15 0-26 9-26 22 0 9 5 15 14 19l-6 13 16-11c16 0 28-8 28-22 0-13-11-21-26-21Z"/>
+      ${txt(333, 125, '?', { size: 26, weight: 600, fill: '#f8e3ab' })}
+    </g>
+    ${lines(215, 354, caption, { size: 17, lh: 24 })}
+  </svg>
+  <span class="ink-result" role="status"></span>`);
+  const svg = host.querySelector<SVGSVGElement>('.ink-dilemma')!;
+  const status = host.querySelector<HTMLElement>('.ink-result')!;
+  const replay = () => {
+    svg.classList.remove('ink-questioned');
+    void svg.getBoundingClientRect();
+    svg.classList.add('ink-questioned');
+    status.textContent = result;
+  };
+  host.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') replay(); });
+  host.addEventListener('focus', () => { if (host.matches(':focus-visible')) replay(); });
+  svg.addEventListener('click', replay);
 }
 
 export function mountUndoubtedCairn(host: HTMLElement) {

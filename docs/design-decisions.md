@@ -584,3 +584,145 @@ Recorded time in Pacific time. Howie’s canvas chat showed the older Inkwell sl
 > udpate the actual slides to waht we have in teh sotry by far, and remove all the old iamges etc you can make them like archived
 
 Use the current Story text and illustrations for the legend from The Law of Ink through the two schools. The Whypocalypse title card is image-only. Scenes awaiting artwork use a plain background. The live theory and school votes still control audience choice. Move superseded images and speaker-focus plates to [the Ink Ocean archive](../archive/ink-ocean/backgrounds/).
+
+## 2026-11-22T23:09:28-08:00 · Sync Neurath’s circular exchange
+
+Recorded time in Pacific time. Howie supplied the updated exchange and asked:
+
+> update teh story part and genearte 3 different versions of visualf or this
+
+Use the [Draft 5 exchange](story-v5-ink-ocean.md) on Story page 14 and in the shared presentation script. The ship and its planks justify each other, SOWATT looks for a loose end, and SOWHAT raises the fairy-tale objection. Prepare three illustrations for review.
+
+## 2026-11-22T23:10:50-08:00 · Ink foundations on the two interactive dilemma cards
+
+Recorded time. Howie’s canvas chat showed the two stone cards and the revised L6 script:
+
+> here we have the new um, representation or like the symbolic meaning, or like the idea about this to foundationalism. So please update the interactive visual here. And so also you can reference the visual we have in the storyboard, so they look like the ink solidify or whatever, like the same visual language as a storyboard thing.
+
+The Cartesian card tests one indubitable ink brick. The moderate card tests a half-dry town that wobbles and melts. The artwork follows the ink-world storyboard and the two outcomes in [Story Draft 5](story-v5-ink-ocean.md).
+
+## 2026-11-22T23:12:27-08:00 · Illustrate Neurath with The Bigger Circle
+
+Recorded time in Pacific time. Howie selected the overhead ring-ship concept:
+
+> use this one
+
+Use [The Bigger Circle](../public/generated/backgrounds/ink-ocean/L4-neurath-the-bigger-circle.webp) for Neurath on Story page 14 and in the synchronized presentation scene.
+
+## 2026-11-22T23:15:02-08:00 · Remove the two dilemma replay buttons
+
+Recorded time in Pacific time. Howie’s canvas chat showed the brick and town buttons:
+
+> remove these 2 things , i don't know what ehy are for
+
+Remove the two separate buttons below the dilemma illustrations. Hovering, keyboard focus, and clicking or tapping the artwork replay the demonstrations.
+
+## 2026-11-22T23:17:46-08:00 · Illustrate Cartesian foundationalism with all five voices
+
+Recorded time in Pacific time. Howie selected the crowd-and-brick artwork and identified the missing voice:
+
+> let's use this one for cartesiai foundaitonlism but there should be 5 YYYY so waht cause they are five of them regeragere to have that one added tehn apply it
+
+Use the [five-bubble illustration](../public/generated/backgrounds/ink-ocean/L6-cartesian-five-bubbles.webp) for the Cartesian scene in Story and the shared presentation. Four Ys and the smaller red-dotted SOWHAT watch the single brick harden.
+
+## 2026-11-22T23:23:15-08:00 · Flexible foundations overview illustration
+
+Recorded time. Howie pointed to the rotating stone diagram in the canvas chat:
+
+> also replace this with wetaver you thin is pluasible
+
+Under that delegated choice, the overview uses a dry-ink bridge and four piers. Changing which pier is wet shows how the same belief can draw on different foundations across inquiries.
+
+## 2026-11-22T23:43:09-08:00 · Match Neurath’s illustration to Operation Because
+
+Recorded time in Pacific time. Howie supplied the Neurath, Peirce, Pyrrho, and Operation Because frames in the [canvas chat](codex://threads/01a20759-cfdf-79e3-947e-63d8c5c034c5) and asked:
+
+> refine the style of this one (the cohereentism oen ) , this is a bit like out of style compare to the others
+
+Use the [restyled Bigger Circle](../public/generated/backgrounds/ink-ocean/L4-neurath-the-bigger-circle-v2.webp) in Story and the presentation. Keep the overhead ring ship and its circular wake. Give Neurath the clean-shaven character design from Operation Because and match the neighboring scenes’ cel shading and violet ink reflections.
+
+## 2026-11-22T23:26:15-08:00 · Illustrate moderate foundationalism
+
+Recorded time in Pacific time. Howie selected the sinking-town artwork:
+
+> use this for moderate foudnalism visual
+
+Use the [sinking-town illustration](../public/generated/backgrounds/ink-ocean/L6-moderates-city-on-jelly.webp) on Story page 17 and in the shared moderate foundationalism presentation scene.
+
+## 2026-11-22T23:30:10-08:00 · Connect the two opening sections
+
+Recorded time in Pacific time. Howie’s canvas screenshot showed Contemporary Contextualism and Flexible Foundationalism:
+
+> add a link between teh two
+
+Run a canvas connector from the B/13 tile to the flexible foundations bridge, following the order of the presentation opening.
+
+## 2026-11-22T23:37:47-08:00 · Pair the Whypocalypse title with the prophecy
+
+Recorded time in Pacific time. Howie supplied the prophecy dialogue and directed the title-card refinements:
+
+> use this dialgoue for this part, and for the upper part of the iamge keep THE but remove the other parts beacuse the part belwo already llok like earthe , so regenearte/refine teh image that there's like a huge caretisna demon that is streatching pushing or wahtever its claw try to you know like evilly do something to teh earth wher that should be the upper part, but we need to make THE look distinvtley still
+
+> right this is the direciton i want but this loses whypocalpse
+
+> THe why pocalypse texts sholud be much more exaggerated then this
+
+Story page 10 and the shared presentation use the five prophecy cues and the [revised artwork](../public/generated/backgrounds/ink-ocean/L3-whypocalypse-prophecy.webp). The complete title spans the sky in oversized brush lettering while the demon’s claw reaches toward the curved ink world.
+
+## 2026-11-22T23:42:43-08:00 · Add the Stranger after the two schools
+
+Recorded time in Pacific time. Howie supplied the L7 dialogue and requested three alternatives for the new scene:
+
+> and then add this part new part coming , go afte rthe modrate foudnlaism part and generate 3 different visuals for this
+
+Story page 18 and the shared presentation use the supplied L7 script. The wide rear view is the working illustration, with waterline and overhead alternatives available for review.
+
+## 2026-11-22T23:45:09-08:00 · Select the Stranger’s waterline close-up
+
+Recorded time in Pacific time. Howie selected the waterline close-up from the three first-step illustrations:
+
+> let's use this one
+
+Use the [waterline close-up](../public/generated/backgrounds/ink-ocean/L7-stranger-waterline.webp) for Story page 18 and the shared presentation.
+
+## 2026-11-22T23:46:24-08:00 · Foreshadow the artifacts in the Stranger scene
+
+Recorded time in Pacific time. Howie asked to widen the selected waterline illustration and foreshadow the artifacts:
+
+> make the camear a bit zoom out and on the left bottom corner have the rough shape or like those 3 articfact are covered by somethign liek taht
+
+Use the [wider waterline illustration](../public/generated/backgrounds/ink-ocean/L7-stranger-covered-artifacts.webp) in Story and the shared presentation. The bottom-left ledge holds the three shapes under one cloth.
+
+## 2026-11-22T23:47:20-08:00 · Redraw Neurath from the deck
+
+Recorded time in Pacific time. Howie reviewed the overhead revision in the [canvas chat](codex://threads/01a20759-cfdf-79e3-947e-63d8c5c034c5) and asked:
+
+> sitll doesn't look athat good, this is a bit i mean like , it hsould in the same style as teh others
+
+The [deck-level redraw](../public/generated/backgrounds/ink-ocean/L4-neurath-on-deck.webp) moves the exchange into the foreground and follows the character scale, stone shoreline, and cel shading of Pyrrho and Peirce. The curved rim and fitted joints carry the ring-ship idea in perspective.
+
+## 2026-11-22T23:52:15-08:00 · Sync the slide rail with the current Story
+
+Recorded time in Pacific time. Howie showed the presentation canvas and asked:
+
+> update teh slides part to all teh things we have now (in story
+
+Give the Cartesian and moderate chapters their own slide entries before the Stranger. Use the Story artwork and saved legend dialogue in these slides and in the existing school choice. The classroom reveal remains a cue in the introduction. The paper analysis follows the Story sequence.
+
+## 2026-11-22T23:53:33-08:00 · Refine Descartes and match the five ink voices
+
+Recorded time in Pacific time. Howie requested a revision in the [canvas chat](codex://threads/01a20762-21a3-7ef0-9f3b-8718550b6ef7):
+
+> also refine this image
+
+> they should look more like the refernece design and what they look like at other parts
+
+Use the [refined Descartes illustration](../public/generated/backgrounds/ink-ocean/L5-the-fourth-answer-v2.webp) in Story and the presentation. Wider framing and warm light draw attention to the dry grain. The four Ys and smaller red-dotted SOWHAT follow the silhouettes and expressions from their Inkwell and Regress Problem scenes.
+
+## 2026-11-22T23:55:34-08:00 · Float the paper above the whole presentation
+
+Recorded time in Pacific time. Howie showed the classroom slide with the paper open and clarified:
+
+> the paper is saying lofating on evetything it should not affect the sieze/laout of other,
+
+Opening, closing, or resizing the original paper changes only the paper overlay and its notes. The slide, dialogue box, portrait, voting controls, and camera keep their full-viewport positions and sizes. Record this rule in [AGENTS.md](../AGENTS.md) and the [slide style guide](slide-visual-style.md#fit-the-artwork-to-the-page).

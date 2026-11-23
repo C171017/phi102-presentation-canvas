@@ -1,4 +1,5 @@
 import { inkOceanStory } from './ink-ocean-story';
+import { inkOceanStoryTextId } from './saved-story-text';
 import type { StoryScene } from './story-text';
 
 // These IDs are also the storage keys for edits to draft 4.
@@ -416,7 +417,7 @@ const openingScenes: StoryScene[] = [
 ];
 
 const legendScenes: StoryScene[] = Object.entries(inkOceanStory).map(([id, scene]) => ({
-  id: 'ink-ocean-' + id,
+  id: inkOceanStoryTextId(id),
   ...scene,
 }));
 

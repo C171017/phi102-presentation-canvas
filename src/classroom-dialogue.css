@@ -3,7 +3,7 @@
 }
 .classroom-stage {
   position: absolute;
-  inset: 0 var(--paper-overlay-clearance, 0px) 0 0;
+  inset: 0;
   z-index: 5;
   display: block;
   pointer-events: none;

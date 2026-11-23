@@ -69,6 +69,14 @@ export const openingNotes: Record<string, SlideNotes> = {
     ],
     source: 'Greco · §1, p. 426',
   },
+  'L3-continued': {
+    claim: 'The prophecy warns that a dream can feel like solid ground.',
+    points: [
+      'When a supporting reason is also in doubt, it cannot settle the original question.',
+      'As their beliefs melt, the people lose the footing they relied on to tell dream from reality.',
+    ],
+    source: 'Greco · §1, p. 426',
+  },
   L4: {
     claim: 'Four responses to the demand for reasons',
     points: [
@@ -96,9 +104,17 @@ export const openingNotes: Record<string, SlideNotes> = {
   'regress-coherentism': {
     claim: 'Coherentism locates support in a system of beliefs.',
     points: [
-      'On Neurath’s ship, neighboring planks support the one under repair.',
-      'In Greco’s sketch, tracing support eventually returns to an earlier belief.',
+      'The planks support Neurath’s belief about the ship. The ship supports his belief about the planks.',
+      'SOWHAT’s fairy tale shows how a coherent story can be cut off from experience.',
     ],
     source: 'Greco · §1, p. 426 and note 1',
+  },
+  L7: {
+    claim: 'What is settled in an inquiry can serve as its foundation.',
+    points: [
+      'The ink dries where the Stranger steps because no one there is questioning it.',
+      'A belief that serves as a starting point here can be called into question elsewhere.',
+    ],
+    source: 'Greco · §2, p. 427',
   },
 };

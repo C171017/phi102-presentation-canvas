@@ -287,18 +287,20 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > **Narrator:** And anyone who stood in wet ink long enough began to soften. A man who had believed for forty years that he was tall woke up noticeably shorter. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.
 > **Narrator:** Whole cities, built on beliefs nobody had thought to question, slid quietly into the sea.
 >
-> *[Title card: black ink, gold edges, a choir hits one enormous chord:]*
-> **THE WHYPOCALYPSE**
-> *THE ENDLESS WHY*
->
-> **Narrator:** Scholars still argue about who named it. They argue about everything. That's rather the problem.
+> *[A choir hits one enormous chord. THE WHYPOCALYPSE stretches across the sky in jagged black brushwork. The Cartesian demon reaches a huge claw toward the curved ink world. The prophecy appears beside the artwork.]*
+> **Narrator:** An old prophecy had warned of this.
+> **Prophecy:** When the last question goes unanswered, the ink will forget what is real.
+> **Prophecy:** The melted will not die. They will dream of solid ground.
+> **Prophecy:** And the Cartesian demon will give them worlds to dream in, and none of them will know they are dreaming.
+> **Narrator:** Nobody believed the prophecy. By then, it was very hard to believe anything.
 
 **Notes [YOUR IDEA · AI VERSION]:**
 - **The same belief as L1, now asked properly.** The guardian let "all ravens are black" dry on a joke answer; SOWATT asks the real philosophical questions about the raven inference, and the dried belief goes wet again.
 - **The four Ys and SOWHAT, one classic problem each:** Y₂ is Hume's problem of induction (why should the unseen resemble the seen?); Y₃ is Hempel's raven paradox (if "all ravens are black" means "everything non-black is a non-raven," a white shoe confirms it); Y₄ is Goodman's "grue" puzzle; SOWHAT is Popper's asymmetry (no number of confirmations proves a universal claim; one counterexample refutes it).
 - **First cut if time is short:** Y₄. Grue is the least familiar to this audience.
+- **[FIXED: the author's choice of wording] The prophecy plants the dream worlds** before the L8 twist, so the beach doesn't come out of nowhere. The logic follows from L2: if you can't rule out being a brain in a vat, you can't tell a dream from the real thing; and once your beliefs have melted completely, nothing is left to tell them apart. **[FIXED: the author's requirement] The Cartesian demon is named here, deliberately.** A deceiver who feeds you a convincing false world is exactly what Descartes's demon is. Naming it in the prophecy makes L5 dramatic irony: when Descartes says the demon is "only a hypothetical," the audience has already been warned it's coming. R2 confirms it.
 
-**Visual:** bubbles dividing like cells; the Great Inkwell overflowing; puddles across the map sprouting their own five bubbles; ink-stick people ankle-deep, slumping, shrinking, dripping; towns tilting into the sea. Then the title card: huge gold-edged lettering over the spreading stain.
+**Visual:** Bubbles divide like cells. The Great Inkwell overflows, and puddles across the map sprout their own five bubbles. Ink-stick people slump as towns tilt into the sea. On the prophecy page, exaggerated brush lettering stretches across the sky above the demon’s claw and the curved ink world.
 
 ### L4 · Operation Because: three great masters [FIXED]
 
@@ -430,17 +432,17 @@ Keep labels to those few words. The narration does the explaining; the image is 
 
 **Paper:** the foundationalist's dilemma (§1). Greco: very few beliefs meet the Cartesian standard; the moderate view lacks a clear explanation of why a stopping point can settle a doubt that's already in play.
 
-### L7 · The hook: a better way, and three weapons [FIXED concept · YOUR IDEA · AI VERSION text] · ~20 sec
+### L7 · The Stranger: a way out, and three sacred treasures [FIXED] · ~20 sec
 
-**[FIXED]** Right after the two schools, a short hook: someone found a way that works better than either school, and left three weapons to the world. No heroes are mentioned. Whether the Whypocalypse ever ended is left open, so the audience can start to wonder whether the world they're about to see is real.
+**[FIXED]** Right after the two schools, a short hook: someone found a way out, better than either school, and she left the world three parody-named weapons, "the Three Sacred Treasures of Good Enough." No heroes are mentioned. Whether the Whypocalypse ever ended is left open, so the audience can start to wonder whether the world they're about to see is real.
 
-> **Narrator:** Then someone found a better way.
-> *(A lone figure, seen from behind, steps out onto bare ink. A stick dries under their foot.)*
+> **Narrator:** But someone found a way out.
+> *(A lone figure, seen from behind, steps out onto bare ink. A stick dries under her foot.)*
 > **Stranger:** It doesn't have to be undoubtable. It only has to be undoubted. Here. Now.
 > **Narrator:** Not one solid world. Solid ground wherever you stood, for as long as nobody there was asking.
-> **Narrator:** He left three weapons to the world.
-> *(Three shapes under a cloth: something spiral, something hooked, and a flat, empty space.)*
-> **Narrator:** Then he was gone.
+> **Narrator:** She left the world three legendary artifacts.
+> *[Title card, full anime gold, choir:]* **THE THREE SACRED TREASURES OF GOOD ENOUGH**
+> **Narrator:** Then she was gone.
 > **Narrator:** Did the Whypocalypse ever end? *(beat)* Probably.
 
 **Notes [AI DRAFT]:**
@@ -448,7 +450,9 @@ Keep labels to those few words. The narration does the explaining; the image is 
 - **The open question** ("Did the Whypocalypse ever end?") makes the beach in L8 look suspiciously perfect, so the audience can start doubting the narrator's world before anyone says it's a dream.
 - **The three weapons,** revealed in Part 2: the Conch (social norms, Annis, §2.1), the Anchor (hinges, Wittgenstein, §2.2), and Evan (knowledge at the base, E = K, §2.3). Each answers to anyone, but differently in different hands (§9.2).
 
-**Visual:** blue-green landscape (青绿山水): calm mineral blues and greens. A lone figure seen only from behind, one stick dry under their foot. Then the cloth with its three shapes, and nobody beside it. The corner meter blinks **??**.
+**Visual:** blue-green landscape (青绿山水): calm mineral blues and greens. A lone woman seen only from behind, one stick dry under her foot. Then the gold title card, and an empty sea. The corner meter blinks **??**.
+
+**Canvas:** Story page 18 and the presentation show the Stranger’s first step from the waterline. Three artifact shapes under a cloth on the lower-left ledge foreshadow the reveal. [First-step illustration](../public/generated/backgrounds/ink-ocean/L7-stranger-covered-artifacts.webp)
 
 ### L8 · The scroll pulls back: the legend was told inside a dream [FIXED concept · YOUR IDEA · AI VERSION script]
 

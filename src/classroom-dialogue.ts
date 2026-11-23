@@ -278,10 +278,17 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     if (index < 0) { openScene(introScenes[introScenes.length - 1]); return; }
     if (index > active && finishIntro()) return;
-    if (index === script.length) { openScene('L6'); return; }
-    if (script[index].scene !== script[active].scene) {
+    if (index === script.length) { openScene('dilemma-heading'); return; }
+    // The live choice leads from Descartes into the two school branches.
+    const destination = script[index].scene;
+    if ((scene === 'regress-foundationalism' && destination === 'L6-A') ||
+        (scene === 'L6-A' && destination === 'regress-foundationalism')) {
+      openScene('L6');
+      return;
+    }
+    if (destination !== scene) {
       pendingLine = index;
-      openScene(script[index].scene);
+      openScene(destination);
       return;
     }
     if (index > active) {

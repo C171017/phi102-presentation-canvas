@@ -62,6 +62,8 @@ export function storyTextStorage(file: string): Plugin {
             edits[id] = saved;
             await writeFile(`${file}.tmp`, JSON.stringify(edits, null, 2) + '\n');
             await rename(`${file}.tmp`, file);
+            // Serve the fresh snapshot on the next load while the editor keeps its current page.
+            server.environments.client.moduleGraph.onFileChange(file);
             reply(200, saved);
           });
           writes = operation.then(() => {}, () => {});

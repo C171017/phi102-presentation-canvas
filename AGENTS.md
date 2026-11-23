@@ -30,7 +30,8 @@ These instructions apply only to this directory and its descendants.
 
 - The pane (`src/paper-pane.ts`) is available in the editor and in production. Keep the generated page images and manifest in `public/readings/greco-2017/` so both production builds can serve them. Verify with `npm run build` and `npm run build:live`.
 - The editor uses `src/dev-paper.ts` for local annotation controls. Keep that module and its stylesheet behind the development branch in `main.ts`. Both modes use the shared pane, section notes, and generated pages.
-- The pane and its margin notes float over the slide. Opening, closing, and resizing the overlay must leave the background framing, viewport, camera, and saved layout unchanged.
+- The original paper and its margin notes are a floating overlay in Editor, Audience, and Presenter views. Opening, closing, or resizing the pane, and showing or hiding its notes, change only the overlay. Keep the viewport, camera, artwork, canvas objects, portraits, transcripts, quizzes, navigation, and saved layout identical at every pane width.
+- Calculate slide framing from the presentation viewport. Keep paper widths, note gutters, and open-state selectors inside the overlay implementation. Verify the same slide geometry with the paper closed, open, and resized, including dialogue and split-school views.
 - Slide-to-passage mapping lives in `scripts/paper-anchors.json`, keyed by each slide's first member ID. Add an entry when adding a slide, then re-run `npm run paper:pages`.
 
 ## Scope

@@ -124,6 +124,7 @@ export function createConnections(world: HTMLElement) {
   }
   const aims = world.querySelector<SVGSVGElement>('#connections')!;
   const regress = world.querySelector<SVGSVGElement>('#regress-connections')!;
+  add(aims, 'link-introduction', ['state-red', 'foundation-left']);
   for (const [family, pairs] of Object.entries(aimLinks)) {
     for (const pair of pairs) add(aims, `link-${family}`, pair);
   }

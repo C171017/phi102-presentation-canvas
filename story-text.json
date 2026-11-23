@@ -52,11 +52,17 @@
     "title": "Neurath, the Shipwright",
     "paragraphs": [
       "COHERENTISM. A belief is justified if it belongs to a coherent system of beliefs: a web, not an edifice. (Agrippa’s mode of circularity, Unit 1.2)",
-      "Y: Why trust this plank?",
-      "Neurath: The plank beside it holds it up. We are like sailors who must rebuild their ship on the open sea, never able to put it in dry dock.",
-      "Narrator: It was the most coherent ship in history. It held together perfectly as it sailed off the edge of the map.",
+      "Y: Why believe the ship is sound?",
+      "Neurath: Because every plank holds.",
+      "Y: Why believe every plank holds?",
+      "Neurath: Because the ship is sound.",
+      "Y: That's a circle.",
+      "Neurath: It's a web. No belief stands alone; each is held up by all the others. The bigger the circle, the better.",
+      "[SOWATT swims laps around the ship, looking for a loose end. There isn't one.]",
+      "SOWHAT: So what? A fairy tale can fit together perfectly too.",
+      "Narrator: It was the most coherent ship in history. Not one plank contradicted another. It sailed, perfectly consistent, off the edge of the map.",
       "The objection — the isolation problem. A perfectly coherent system can be cut off from experience, so coherence alone isn’t enough (Unit 1.2)."
     ],
-    "revision": "d7c662a6-40ab-4cbd-8c38-7902cfdc5817"
+    "revision": "cf0dc2c2-acbb-44a6-968b-40f743bc07fc"
   }
 }

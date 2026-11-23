@@ -8,6 +8,9 @@ const anchorSlots: Record<string, number> = {
   L0: 7,
   'regress-problem-birth': 8,
   'L3-continued': 9,
+  L7: 17,
+  'L6-A': 18,
+  'L6-B': 19,
 };
 
 // Story slides without a canvas illustration still need a camera target.

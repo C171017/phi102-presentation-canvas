@@ -60,7 +60,7 @@ const openingVideo = localDev && role !== 'audience' && __LOCAL_OPENING_VIDEO__
   : undefined;
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   localDev || liveMode ? createLocalQuizVotes(role === 'audience', liveMode) : undefined, readOnly, role === 'presenter', openingVideo?.play);
-const schools = createLegendSchools(backdrop, {role, onEnd: () => openScene('dilemma-heading')});
+const schools = createLegendSchools(backdrop, {role, onEnd: () => openScene('L7')});
 let currentIndex = -1;
 let pendingCue: {slide: number; cue: number} | undefined;
 function cueController(index: number) {

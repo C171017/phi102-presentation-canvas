@@ -9,23 +9,25 @@
   height: auto;
 }
 
-.flexible-foundations[data-translucent-corner="upper-right"] [data-foundation-corner="upper-right"],
-.flexible-foundations[data-translucent-corner="lower-right"] [data-foundation-corner="lower-right"],
-.flexible-foundations[data-translucent-corner="lower-left"] [data-foundation-corner="lower-left"],
-.flexible-foundations[data-translucent-corner="upper-left"] [data-foundation-corner="upper-left"] {
-  --stone-opacity: 0;
-  --outline-opacity: .65;
+.bridge-dry, .bridge-wet { transform-origin: 0 0; }
+.bridge-wet { opacity: 0; transform: scale(.5); }
+.is-wet > .bridge-wet { opacity: 1; transform: none; }
+.is-wet > .bridge-dry { opacity: 0; transform: scale(1.15,.04); }
+@media (prefers-reduced-motion: no-preference) {
+  .bridge-wet, .bridge-dry { transition: opacity .42s ease, transform .68s ease-in-out; }
 }
 
 .flexible-foundations__flexible {
   position: absolute;
-  left: 75%;
-  top: 46%;
-  width: 20%;
-  height: 19%;
+  left: 3%;
+  top: 49%;
+  width: 90%;
+  height: 32%;
   padding: 0;
   border: 0;
-  border-radius: 46%;
+  border-radius: 4px;
   background: transparent;
   cursor: pointer;
 }
+
+.flexible-foundations__flexible:focus-visible { outline: 2px solid #315d56; outline-offset: 3px; }

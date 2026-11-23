@@ -2,7 +2,7 @@ import type { CameraView } from './layout';
 
 import { slides } from './slide-content';
 
-type FramingMode = 'overview' | 'individual' | 'classroom' | 'dialogue';
+type FramingMode = 'classroom' | 'dialogue';
 
 export function createSlideNavigation(world: HTMLElement, navigate: (view: CameraView, animate: boolean) => void, onChange: (index: number) => void) {
   const viewport = world.parentElement!;
@@ -73,19 +73,10 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   function framingArea(mode?: FramingMode) {
     const bounds = viewport.getBoundingClientRect();
     const left = progress.getBoundingClientRect().right + 12;
-    let right = bounds.right;
-    if (mode) {
-      const pane = document.querySelector<HTMLElement>('#paper-pane:not(.is-collapsed)');
-      const notes = pane?.querySelector<HTMLElement>('.paper-notes:not([hidden])');
-      const paperEdge = pane && pane.getBoundingClientRect().left - 12;
-      const notesEdge = notes && notes.getBoundingClientRect().left - 12;
-      const minimum = mode === 'overview' ? 560 : 180;
-      if (paperEdge && paperEdge > left + 140) right = paperEdge;
-      if (mode !== 'classroom' && notesEdge && notesEdge > left + minimum) right = Math.min(right, notesEdge);
-    }
+    // The paper overlays the slide. Frame against the viewport at every pane width.
+    const right = mode === 'classroom' ? left + (bounds.right - left) * .53 : bounds.right;
     let top = 0;
     let bottom = viewport.clientHeight;
-    if (mode === 'classroom') right = left + (right - left) * .53;
     if (mode === 'classroom' || mode === 'dialogue') {
       const style = getComputedStyle(transcript);
       top = Math.min(48, bottom * .08);
@@ -123,8 +114,6 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     const heading = slides[index].members[0];
     if (heading === 'contemporary-heading') return 'classroom';
     if (heading === 'flexible-heading') return 'dialogue';
-    if (heading === 'pairings-heading') return 'overview';
-    if (heading.startsWith('pairing-')) return 'individual';
   }
 
   function measure(cameraZoom: number) {
