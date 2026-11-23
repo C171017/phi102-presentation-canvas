@@ -1,6 +1,6 @@
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createDialogueFrame } from './dialogue-frame';
-import { dialogueArtwork, establishingArtwork, hasEstablishingShot, inkOceanScenes } from './ink-ocean-scenes';
+import { hasEstablishingShot, schoolScenes, type InkOceanScene } from './ink-ocean-scenes';
 import { establishingCueOffset } from './live-protocol';
 import { isSchoolVote, type School, type SchoolCounts, type SchoolVote } from './school-vote';
 import './legend-schools.css';
@@ -12,10 +12,6 @@ export type SchoolRoomDisplay = {
 };
 
 const schoolIds = ['L6-A', 'L6-B'] as const;
-const schoolNames: Record<School, string> = {
-  'L6-A': 'Sect of No Doubt',
-  'L6-B': 'Seeing-Is-Believing School',
-};
 const ballotKey = 'phi102-ink-ocean-l6-school-v1';
 
 function savedBallot(): SchoolVote | undefined {
@@ -25,17 +21,13 @@ function savedBallot(): SchoolVote | undefined {
   } catch { /* Storage can be disabled for a presentation viewed in private mode. */ }
 }
 
-type Scene = (typeof inkOceanScenes)[School | 'L6'];
-
-function makePanel(scene: Scene, selectCue: (cue: number) => void) {
+function makePanel(scene: InkOceanScene, selectCue: (cue: number) => void) {
   const section = document.createElement('section');
   section.className = 'school-pane';
   section.dataset.scene = scene.id;
   section.setAttribute('aria-label', scene.title);
   const picture = document.createElement('div');
   picture.className = 'school-picture';
-  const meter = document.createElement('span');
-  meter.className = 'school-dry-meter';
   const panel = document.createElement('div');
   panel.className = 'school-dialogue transcript-panel';
   const notes = createPaperMiniSlide();
@@ -49,6 +41,7 @@ function makePanel(scene: Scene, selectCue: (cue: number) => void) {
     row.type = 'button';
     row.className = 'transcript-row';
     row.dataset.speaker = cue.speakerId ?? cue.speaker;
+    if (cue.kind) row.dataset.cueKind = cue.kind;
     row.textContent = cue.text;
     row.setAttribute('aria-label', cue.speaker + ': ' + cue.text);
     row.addEventListener('click', () => selectCue(index));
@@ -56,7 +49,7 @@ function makePanel(scene: Scene, selectCue: (cue: number) => void) {
     return row;
   });
   panel.append(notes.element, reader);
-  section.append(meter, panel);
+  section.append(panel);
   let selected = -1;
   let scrolling = 0;
   reader.addEventListener('wheel', event => {
@@ -79,42 +72,39 @@ function makePanel(scene: Scene, selectCue: (cue: number) => void) {
 
   const artwork = createDialogueFrame(url => { picture.style.backgroundImage = `url("${url}")`; });
   function update(index: number, photo = false) {
-    const row = rows[index];
-    if (!row) return;
-    panel.hidden = meter.hidden = photo;
-    if (photo) {
+    const cue = Math.min(index, rows.length - 1);
+    const row = rows[cue];
+    const background = scene.background;
+    panel.hidden = photo && Boolean(background);
+    if (panel.hidden) {
       rows[selected]?.removeAttribute('aria-current');
       selected = -1;
-      artwork.show(establishingArtwork(scene, index));
-      artwork.preload(dialogueArtwork(scene, index));
+      if (background) artwork.show(background);
       return;
     }
-    if (selected !== index) {
+    if (selected !== cue) {
       rows[selected]?.removeAttribute('aria-current');
-      selected = index;
+      selected = cue;
       row.setAttribute('aria-current', 'true');
-      artwork.show(dialogueArtwork(scene, index));
-      if (index + 1 < scene.cues.length) artwork.preload(hasEstablishingShot(scene, index + 1)
-        ? establishingArtwork(scene, index + 1) : dialogueArtwork(scene, index + 1));
-      const dry = scene.id === 'L6-B' ? (index >= 6 ? 28 : index >= 3 ? 40 : 35)
-        : scene.id === 'L6-A' && index >= 6 ? 34 : 35;
-      meter.textContent = 'Dry world remaining · ' + dry + '%';
+      if (background) artwork.show(background);
     }
     reader.scrollTop = row.offsetTop + (row.offsetHeight - reader.clientHeight) / 2;
   }
   function setVisible(visible: boolean) {
     section.hidden = picture.hidden = !visible;
   }
-  return { section, picture, update, setVisible, prepare: () => artwork.preload(establishingArtwork(scene, 0)) };
+  function prepare() {
+    if (scene.background) artwork.preload(scene.background);
+  }
+  return { section, picture, update, setVisible, prepare };
 }
 
 export function createLegendSchools(shell: HTMLElement, options: {
   role: 'presenter' | 'audience' | 'editor'; onEnd?: () => void;
 }) {
   const isAudience = options.role === 'audience';
-  const intro = inkOceanScenes.L6;
-  const splitAt = intro.cues.length;
-  const end = splitAt + inkOceanScenes['L6-A'].cues.length - 1;
+  const splitAt = 1;
+  const end = Math.max(...schoolIds.map(id => schoolScenes[id].cues.length));
   const stage = document.createElement('section');
   stage.className = 'legend-schools';
   stage.hidden = true;
@@ -163,14 +153,13 @@ export function createLegendSchools(shell: HTMLElement, options: {
   let roomReady = false;
   let followingPresenter = () => false;
   let cursor = 0;
-  let establishing = true;
+  let establishing = false;
   let onLocalCue: ((index: number) => void) | undefined;
-  const introPanel = makePanel(intro, browseCue);
   const views = {
-    'L6-A': makePanel(inkOceanScenes['L6-A'], index => browseCue(splitAt + index)),
-    'L6-B': makePanel(inkOceanScenes['L6-B'], index => browseCue(splitAt + index)),
+    'L6-A': makePanel(schoolScenes['L6-A'], index => browseCue(splitAt + index)),
+    'L6-B': makePanel(schoolScenes['L6-B'], index => browseCue(splitAt + index)),
   };
-  for (const panel of [introPanel, views['L6-A'], views['L6-B']]) {
+  for (const panel of Object.values(views)) {
     art.append(panel.picture);
     panels.append(panel.section);
   }
@@ -180,19 +169,19 @@ export function createLegendSchools(shell: HTMLElement, options: {
   confirmation.setAttribute('role', 'status');
   if (isAudience) {
     for (const school of schoolIds) {
-      const choice = button(schoolNames[school], () => choose(school));
+      const choice = button(schoolScenes[school].title, () => choose(school));
       choice.dataset.school = school;
       controls.append(choice);
     }
     controls.append(confirmation);
   } else {
-    controls.append(button('Show both schools', () => localCue(splitAt, true)));
+    controls.append(button('Show both schools', () => localCue(splitAt, hasPhoto(splitAt))));
   }
 
   function hasPhoto(index: number) {
-    if (index < splitAt) return hasEstablishingShot(intro, index);
+    if (index < splitAt) return false;
     const schools = isAudience && ballot ? [ballot.school] : schoolIds;
-    return schools.some(school => hasEstablishingShot(inkOceanScenes[school], index - splitAt));
+    return schools.some(school => hasEstablishingShot(schoolScenes[school], index - splitAt));
   }
 
   function render() {
@@ -204,25 +193,21 @@ export function createLegendSchools(shell: HTMLElement, options: {
     stage.toggleAttribute('data-establishing-shot', photo);
     art.classList.toggle('school-split', split);
     panels.classList.toggle('school-split', split);
-    introPanel.setVisible(!inBranches);
     for (const school of schoolIds) {
       const visible = inBranches && (!isAudience || ballot?.school === school);
       views[school].setVisible(visible);
       if (visible) views[school].update(cursor - splitAt, photo);
     }
-    if (!inBranches) {
-      introPanel.update(Math.min(cursor, splitAt - 1), photo);
-      if (cursor === splitAt - 1) schoolIds.forEach(id => views[id].prepare());
-    }
-    controls.hidden = photo || inBranches || cursor < splitAt - 1;
+    if (!inBranches) schoolIds.forEach(id => views[id].prepare());
+    controls.hidden = inBranches;
     if (isAudience) {
       controls.querySelectorAll<HTMLButtonElement>('button').forEach(choice => { choice.hidden = Boolean(ballot); });
       confirmation.hidden = !ballot;
-      if (ballot) confirmation.textContent = 'Your school · ' + schoolNames[ballot.school];
+      if (ballot) confirmation.textContent = 'Your school · ' + schoolScenes[ballot.school].title;
     }
-    previous.disabled = cursor === 0 && establishing;
+    previous.disabled = cursor === 0;
     next.disabled = awaitingChoice && cursor >= splitAt - 1;
-    next.hidden = cursor === end && !options.onEnd;
+    next.hidden = cursor >= lastLocalCue() && !options.onEnd;
   }
 
   function choose(school: School) {
@@ -235,7 +220,7 @@ export function createLegendSchools(shell: HTMLElement, options: {
     // Selecting a school is a ballot, not a request to navigate away from the presenter.
     // Late voters join the current row. Early followers wait for the shared first row.
     if (followingPresenter()) render();
-    else setCue(cursor < splitAt ? splitAt + establishingCueOffset : getCue());
+    else setCue(cursor < splitAt ? splitAt + (hasPhoto(splitAt) ? establishingCueOffset : 0) : getCue());
   }
 
   function getCue() { return cursor + (establishing ? establishingCueOffset : 0); }
@@ -263,9 +248,12 @@ export function createLegendSchools(shell: HTMLElement, options: {
     stage.hidden = !active;
     if (active) {
       cursor = 0;
-      establishing = true;
+      establishing = false;
       render();
     }
+  }
+  function lastLocalCue() {
+    return isAudience && ballot && !followingPresenter() ? schoolScenes[ballot.school].cues.length : end;
   }
   function step(direction: number) {
     if (stage.hidden || direction === 0) return false;
@@ -273,7 +261,7 @@ export function createLegendSchools(shell: HTMLElement, options: {
     if (direction > 0 && establishing) { localCue(cursor); return true; }
     if (direction < 0 && !establishing && hasPhoto(cursor)) { localCue(cursor, true); return true; }
     const index = cursor + Math.sign(direction);
-    if (index < 0 || index > end) return false;
+    if (index < 0 || index > lastLocalCue()) return false;
     localCue(index, direction > 0 && hasPhoto(index));
     return true;
   }
@@ -290,7 +278,7 @@ export function createLegendSchools(shell: HTMLElement, options: {
       roomReady = true;
       tally.hidden = isAudience || !counts;
       if (counts && !isAudience) {
-        tally.textContent = schoolIds.map(school => schoolNames[school] + ' ' + counts[school]).join(' · ');
+        tally.textContent = schoolIds.map(school => schoolScenes[school].title + ' ' + counts[school]).join(' · ');
       }
     },
     disconnectSchoolVotes() { roomReady = false; tally.hidden = true; },

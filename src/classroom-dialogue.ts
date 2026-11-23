@@ -5,7 +5,7 @@ import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById, legendSlides } from './slide-content';
-import { dialogueArtwork, establishingArtwork, hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
+import { hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset } from './live-protocol';
 import './classroom-dialogue.css';
 
@@ -46,10 +46,11 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   reader.tabIndex = 0;
   reader.setAttribute('role', 'region');
   reader.setAttribute('aria-label', 'Transcript. Scroll or use the arrow keys to move between lines.');
-  const rows = script.map(({ text, phase, speaker, speakerId }) => {
+  const rows = script.map(({ text, phase, speaker, speakerId, kind }) => {
     const row = document.createElement('div');
     row.className = 'transcript-row';
     row.dataset.speaker = speakerId ?? speaker;
+    if (kind) row.dataset.cueKind = kind;
     if (phase === 'reveal') row.classList.add('flashback-reveal');
     row.textContent = text;
     reader.append(row);
@@ -91,8 +92,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const theory = createTheoryRecords(stage, openScene, shared, presenter, () => {
     if (script[active]?.scene === 'L4') select(finalAnswererCue, false);
   });
-  const meter = document.createElement('span');
-  meter.className = 'legend-meter';
   const controls = document.createElement('nav');
   controls.className = 'legend-paging';
   controls.setAttribute('aria-label', 'Dialogue navigation');
@@ -104,7 +103,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     button.addEventListener('click', () => move(direction));
     controls.append(button);
   }
-  stage.append(meter, controls);
+  stage.append(controls);
   let onCueChange: (() => void) | undefined;
   shell.append(stage);
 
@@ -131,7 +130,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const scene = line && legendById.get(line.scene);
     if (!scene) return;
     const cue = index - firstCue.get(scene.id)!;
-    if (hasEstablishingShot(scene, cue)) return establishingArtwork(scene, cue);
+    if (hasEstablishingShot(scene, cue)) return scene.background;
   }
   function highlight(index: number) {
     if (highlighted === index) return;
@@ -148,15 +147,11 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       notes.show(key, revealed ? 'Flexible Foundationalism' : 'Contemporary Contextualism');
     }
     if (legend) {
-      const cue = index - firstCue.get(line.scene)!;
-      artwork.show(dialogueArtwork(legend, cue));
-      if (cue + 1 < legend.cues.length) artwork.preload(photoAt(index + 1) ?? dialogueArtwork(legend, cue + 1));
-      const fraction = cue / Math.max(1, legend.cues.length - 1);
-      const range = legend.id === 'L3' ? [99, 58] : legend.id === 'L5b' ? [41, 35] : undefined;
-      const value = range ? Math.round(range[0] + fraction * (range[1] - range[0]))
-        : legend.id === 'regress-problem' ? 100 : legend.id === 'L2' ? 99
-        : legend.id === 'L4' ? 58 : (line.scene.startsWith('regress-') ? theory.masterMeter() : 41);
-      meter.textContent = 'Dry world remaining · ' + value + '%';
+      if (legend.background) artwork.show(legend.background);
+      else {
+        artwork.cancel();
+        viewport.style.removeProperty('--regress-background');
+      }
     }
 
     rows[index]?.setAttribute('aria-current', 'true');
@@ -234,12 +229,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     establishing = Boolean(photo);
     viewport.toggleAttribute('data-establishing-shot', establishing);
     panel.hidden = establishing;
-    meter.hidden = establishing || !legendById.has(line.scene);
     if (photo) {
       highlight(-1);
       announcement.textContent = 'Full-color scene: ' + legendById.get(line.scene)!.title;
       artwork.show(photo);
-      artwork.preload(dialogueArtwork(legendById.get(line.scene)!, index - firstCue.get(line.scene)!));
       if (local) onCueChange?.();
       return;
     }
@@ -302,7 +295,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }
   function move(direction: number) {
     if (establishing) {
-      if (direction > 0) select(active, true);
+      if (direction > 0 && legendById.get(script[active].scene)?.imageOnly) goToLine(active + 1, true);
+      else if (direction > 0) select(active, true);
       else goToLine(active - 1, true);
       return;
     }
@@ -321,7 +315,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   function finishIntro() {
     if (script[active]?.phase !== 'reveal') return false;
     if (playOpening) playOpening();
-    else openScene('regress-problem');
+    else openScene('L0');
     return true;
   }
   function stepDialogue(direction: number) {
@@ -372,7 +366,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     theory.showScene(id);
     const legend = id && legendById.has(id) && id !== 'L6';
     controls.hidden = !legend && id !== 'contemporary-heading' && !introScenes.includes(id ?? '');
-    meter.hidden = !legend;
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
@@ -418,6 +411,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       const index = firstCue.get(scene)! + cue - (photoStep ? establishingCueOffset : 0);
       if (script[index]?.scene !== scene || (index === active && photoStep === establishing)) return;
       const photo = photoStep ? photoAt(index) : undefined;
+      if (legendById.get(scene)?.imageOnly && !photo) return;
       if (!photoStep || photo) select(index, false, photo);
     },
   };

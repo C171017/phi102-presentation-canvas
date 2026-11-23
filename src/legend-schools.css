@@ -53,17 +53,6 @@
   border-radius: 7px;
   font: 600 clamp(13px, 1.5vmin, 19px)/1.22 system-ui, sans-serif;
 }
-.school-dry-meter {
-  position: absolute;
-  top: max(10px, env(safe-area-inset-top));
-  right: clamp(12px, 2cqw, 28px);
-  padding: .4em .6em;
-  border-radius: 4px;
-  color: #fff5df;
-  background: #18282de5;
-  font: 600 clamp(11px, 1.2cqw, 16px)/1.15 ui-monospace, monospace;
-}
-.school-split [data-scene="L6-A"] .school-dry-meter { left: clamp(42px, 5cqw, 68px); right: auto; }
 .school-speaker {
   position: absolute;
   bottom: calc(var(--transcript-height) + var(--school-bottom) + 7px);
@@ -79,8 +68,8 @@
 }
 .school-choices {
   left: 50%;
-  bottom: calc(var(--transcript-height) + var(--school-bottom) + 48px);
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   justify-content: center;
   width: min(85%, 640px);
 }

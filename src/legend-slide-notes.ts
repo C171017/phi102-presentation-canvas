@@ -29,11 +29,27 @@ export const openingNotes: Record<string, SlideNotes> = {
     ],
     source: 'Greco · Introduction, p. 425',
   },
+  L0: {
+    claim: 'A belief can support others once the question is settled.',
+    points: [
+      'Wet ink marks a belief still under questioning.',
+      'Dry ink can support further beliefs, and renewed doubt can make it wet again.',
+    ],
+    source: 'Greco · §1, p. 426',
+  },
   'regress-problem': {
     claim: 'A settled belief can serve as a reason for another.',
     points: [
-      'The cook treats his mother’s verdict as a starting point.',
-      'If he doubts her judgment too, it cannot settle whether he cooks well.',
+      'The man says all ravens are black because they are made of ink.',
+      'The guardian accepts the answer and the belief dries into a stick.',
+    ],
+    source: 'Greco · §1, p. 426',
+  },
+  'regress-problem-birth': {
+    claim: 'A reason can become the subject of a new question.',
+    points: [
+      'The original guardian was satisfied with a single answer.',
+      'Five voices take its place and keep asking for reasons.',
     ],
     source: 'Greco · §1, p. 426',
   },
@@ -73,14 +89,14 @@ export const openingNotes: Record<string, SlideNotes> = {
     claim: 'Infinitism allows an endless chain of distinct reasons.',
     points: [
       'Any reason you point to has a further reason supporting it.',
-      'The scroll keeps growing because no earlier reason can be reused.',
+      'Peirce’s stack of turtles gives every level another one beneath it.',
     ],
     source: 'Greco · §1, p. 426',
   },
   'regress-coherentism': {
     claim: 'Coherentism locates support in a system of beliefs.',
     points: [
-      'On Neurath’s raft, neighboring planks support the one under repair.',
+      'On Neurath’s ship, neighboring planks support the one under repair.',
       'In Greco’s sketch, tracing support eventually returns to an earlier belief.',
     ],
     source: 'Greco · §1, p. 426 and note 1',

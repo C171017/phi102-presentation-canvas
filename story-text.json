@@ -27,39 +27,36 @@
       "SKEPTICISM. None of our beliefs is justified, so suspend judgment on everything. (Unit 1.1)",
       "Y: Why believe anything?",
       "Pyrrho: I don’t. No more this than that.",
-      "[SOWATT waits. There is nothing to ask about.]",
-      "Narrator: Nothing of his ever got wet. Nothing of his ever got built.",
-      "Narrator: His disciples had to follow him everywhere to keep him from walking into the sea. He had suspended judgment on whether it was there.",
+      "[Beside him, his old teacher Anaxarchus is sinking into the wet ink, waving.]",
+      "Narrator: His teacher fell into a bog. Pyrrho walked right past. He had suspended judgment on the bog.",
+      "Narrator: His teacher later praised him for it. This really happened.",
       "The objection — you can’t live by it; acting at all takes believing something."
     ],
-    "revision": "3c24eeea-074f-4858-9d98-ca60b0be0fd0"
+    "revision": "d924a169-052e-49af-b207-f98e3d21eff4"
   },
   "ink-ocean-regress-infinitism": {
     "title": "Peirce, the Endless",
     "paragraphs": [
       "INFINITISM. The chain of reasons never stops: B1 rests on B2, B2 on B3, and so on, forever. (Agrippa’s mode of infinite regress, Unit 1.1)",
       "Y: Why believe that?",
-      "Peirce: Excellent question. The reason is B2.",
-      "Y: Why B2?",
-      "Peirce: B3. And for B3, B4. And for B4—",
-      "[His scroll unrolls past the edge of the frame.]",
-      "Narrator: As far as anyone knows, he is still answering. He was last seen on the horizon, mid-sentence, scroll still wet.",
+      "Peirce: Because of B2.",
+      "Y: And B2?",
+      "Peirce: B3. There is no first reason. Every thought rests on an earlier one.",
+      "[The camera tilts down. He’s standing on a turtle, standing on a turtle, standing on a turtle, out of frame.]",
+      "Narrator: Turtles all the way down. He was last seen still descending.",
       "The objection — at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever dries."
     ],
-    "revision": "0ccb8715-d5eb-4ef9-8db4-0433c52e54c5"
+    "revision": "f751fd04-fc33-44bf-9dd1-6d44d53b3403"
   },
   "ink-ocean-regress-coherentism": {
     "title": "Neurath, the Shipwright",
     "paragraphs": [
       "COHERENTISM. A belief is justified if it belongs to a coherent system of beliefs: a web, not an edifice. (Agrippa’s mode of circularity, Unit 1.2)",
       "Y: Why trust this plank?",
-      "Neurath: The plank beside it holds it up.",
-      "Y: And that one?",
-      "Neurath: This one. We rebuild the ship at sea, one plank at a time.",
-      "[SOWATT swims laps around the ring. The raft holds perfectly.]",
-      "Narrator: It was the most coherent raft in history. It held together perfectly as it drifted off the edge of the map.",
+      "Neurath: The plank beside it holds it up. We are like sailors who must rebuild their ship on the open sea, never able to put it in dry dock.",
+      "Narrator: It was the most coherent ship in history. It held together perfectly as it sailed off the edge of the map.",
       "The objection — the isolation problem. A perfectly coherent system can be cut off from experience, so coherence alone isn’t enough (Unit 1.2)."
     ],
-    "revision": "2868c1a5-c84e-4779-b868-19a4bdf311bc"
+    "revision": "d7c662a6-40ab-4cbd-8c38-7902cfdc5817"
   }
 }

@@ -1,8 +1,8 @@
 # Dialogue-box script through L6
 
-English reading draft for presenter review. The opening sequence, L2 exchange, crisis name, audience choice of the masters’ order, and L6 display rules follow the confirmed story. New narration, slide takeaways, and branch dialogue are proposed wording.
+English presenter script. The Ink Ocean legend uses the same text and artwork as the Story reader.
 
-**Reading key.** The scene heading supplies the section title. **Left** is a mini-slide with a claim, supporting points, and a paper reference. Each speaker bullet is one **right-side** cue. Italics outside the dialogue are silent presentation directions. Speaker labels identify voices for the presenter.
+**Reading key.** The scene heading supplies the section title. **Left** is a mini-slide with a claim, supporting points, and a paper reference. Each speaker bullet is one **right-side** cue. Bracketed cues are silent stage directions. The three Answerers also include the Story definitions and objections. Speaker labels identify voices for the presenter.
 
 ## S0.1–S0.2 · Arrival and taking a seat
 
@@ -50,32 +50,52 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 
 ## S0.5 · Standalone opening video
 
-*Playback cue. Play the [existing OP film](../../op/drafts/dead-ink-op-codex-v2.mp4) from the classroom reveal. The dialogue box returns with the first narrator cue in L1 after the video ends.*
+*Playback cue. Play the [existing OP film](../../op/drafts/dead-ink-op-codex-v2.mp4) from the classroom reveal. The dialogue box returns with The Law of Ink after the video ends.*
+
+## L0 · The Law of Ink
+
+**Left** — **A belief can support others once the question is settled.**
+
+- Wet ink marks a belief still under questioning.
+- Dry ink can support further beliefs, and renewed doubt can make it wet again.
+
+*Greco · §1, p. 426*
+
+- **Narrator:** In this world, everything is made of belief: every person, and the whole world each of them sees. And belief is ink.
+- **Narrator:** Ink has two forms. Wet ink is a belief still being questioned. Nothing can stand on it. Dry ink is a belief that holds. You can stand on it, and build more beliefs on top of it.
+- **Narrator:** Ink dries only if it withstands questioning: from the question mark at the Great Inkwell, and from anyone else who asks. If you can't answer, or the questions never stop, it stays wet. And if someone questions a dry belief and you have no answer, it goes wet again.
 
 ## L1 · The Great Inkwell
 
 **Left** — **A settled belief can serve as a reason for another.**
 
-- The cook treats his mother’s verdict as a starting point.
-- If he doubts her judgment too, it cannot settle whether he cooks well.
+- The man says all ravens are black because they are made of ink.
+- The guardian accepts the answer and the belief dries into a stick.
 
 *Greco · §1, p. 426*
 
-- **Narrator:** Long ago, every word in the world was written in ink. It all came from one place, the Great Inkwell.
-- **Narrator:** To form a belief, you took a ladle of ink and said what you believed. A question mark stood at the rim. Its job was to ask why.
-- **Villager:** I believe I’m the best cook in the village.
-- **Guardian:** Why?
-- **Villager:** My mother says so.
-- **Narrator:** The guardian seemed satisfied. The ink dried. The cook fitted the stick into his chest and went home quite pleased with himself.
-- **Woman:** I believe Tuesdays are lucky.
-- **Guardian:** Why?
-- **Woman:** I was born on one.
-- **Narrator:** That dried too. The guardian had yet to meet an answer it particularly disliked.
-- **Baby:** *[Gurgles.]*
-- **Guardian:** …Good enough.
-- **Narrator:** The baby’s first stick said WARM. Her parents tucked it gently into place. That was what people were made of here. One settled belief on top of another.
-- **Narrator:** Then somebody bumped the question mark. It tipped into the ink. Nobody saw who did it. Everyone agreed it was an accident.
-- **Narrator:** Five bubbles came up. Four asked “Why?” The smallest asked “So what?” People called them YYYY SOWATT.
+- **Narrator:** At the source of the world was the Great Inkwell. Every belief anyone ever held was scooped from it.
+- **Narrator:** Beside it stood the guardian, a question mark. Bring it a ladle of ink and it asked you one question. Answer, and the ink dried into a stick you took home and fitted into yourself.
+- *[A man holds up a ladle. A raven sits on his shoulder.]*
+- **Man:** All ravens are black.
+- **Question mark:** Why?
+- **Man:** They're made of ink.
+- *[The ink dries. He slots the stick into his chest, satisfied. The raven nods.]*
+- **Narrator:** The guardian was not a strict examiner. Any answer would do.
+
+## L1 · The Birth of YYYY SOWATT
+
+**Left** — **A reason can become the subject of a new question.**
+
+- The original guardian was satisfied with a single answer.
+- Five voices take its place and keep asking for reasons.
+
+*Greco · §1, p. 426*
+
+- **Narrator:** Then one day, someone bumped it.
+- *[It tips into the Inkwell and sinks. At the edge of the frame, a dark sleeve.]*
+- *[The ink churns. Five bubbles rise.]*
+- **Narrator:** The guardian was gone. In its place were five: YYYY SOWATT.
 
 ## L2 · The Regress Problem
 
@@ -86,8 +106,7 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 
 *Greco · §1, p. 426*
 
-*The next woman in line scoops up her ink.*
-
+- *[The next woman in line scoops up her ink.]*
 - **Woman:** I have a hand.
 - **Y₁:** Why believe that?
 - **Woman:** I can see it.
@@ -100,8 +119,6 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 - **SOWHAT:** So what? If you can't rule out the vat, you don't know you have a hand.
 - **Narrator:** Her words never dried. Then, slowly, neither did her hand.
 
-*Presenter margin · Greco §1. Each Y asks one question. Y₄ points out that the same experience could occur in a vat. SOWHAT concludes that she cannot know she has a hand unless she can rule out the vat. The structural problem is where the demand for further reasons can legitimately stop.*
-
 ## L3 · The Whypocalypse
 
 **Left** — **A reason you also doubt leaves the first doubt unresolved.**
@@ -112,41 +129,31 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 *Greco · §1, p. 426*
 
 - **Narrator:** Then the five became ten.
-
-*A Y bubble, mid-question, splits in two like a cell.*
-
+- *[A Y bubble, mid-question, splits in two like a cell.]*
 - **Narrator:** Every question that couldn't be settled split off another questioner. Nothing dried, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.
 - **Narrator:** Nobody had to walk to the source anymore. The source walked to them.
-
-*The man with the raven, from L1, on his doorstep, ankle-deep in ink. Bubbles rise around his feet.*
-
+- *[The man with the raven, from L1, on his doorstep, ankle-deep in ink. Bubbles rise around his feet.]*
 - **Man:** All ravens are black.
 - **Y₁:** Why?
 - **Man:** Every raven I've ever seen was black.
 - **Y₂:** Why believe the ones you haven't seen are like the ones you have?
 - **Man:** Because… they always have been.
-
-*That answer doesn't settle it. Y₂ splits in two, like a cell.*
-
+- *[That answer doesn't settle it. Y₂ splits in two, like a cell.]*
 - **Y₃:** Then does a white shoe prove it too? Everything that isn't black isn't a raven.
 - **Man:** …What?
-
-*Two more bubbles split. Then four.*
-
+- *[Two more bubbles split. Then four.]*
 - **Y₄:** Why "black"? Why not "black until tomorrow, then white"?
 - **SOWHAT:** So what? A million black ravens can't prove it. One white raven would end it.
-
-*Around his feet, a swarm of new SOWATTs, all asking at once. On his shoulder, the raven begins to run.*
-
+- *[Around his feet, a swarm of new SOWATTs, all asking at once. On his shoulder, the raven begins to run.]*
 - **Narrator:** Answers still came. They just never passed.
 - **Narrator:** And anyone who stood in wet ink long enough began to soften. A man who had believed for forty years that he was tall woke up noticeably shorter. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.
 - **Narrator:** Whole cities, built on beliefs nobody had thought to question, slid quietly into the sea.
 
-*The choir hits one enormous chord for the gold-edged title card, THE WHYPOCALYPSE · THE ENDLESS WHY.*
+## L3 · The Whypocalypse title card
 
-- **Narrator:** Scholars still argue about who named it. They argue about everything. That's rather the problem.
+Full-color artwork occupies the slide.
 
-## L4 · The Answerer Project
+## L4 · Operation Because
 
 **Left** — **Four responses to the demand for reasons**
 
@@ -158,9 +165,9 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 - **Narrator:** For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited ink, unlimited time and absolute authority.
 - **Narrator:** Each was given one task: answer it.
 
-*Show Skepticism, Infinitism, Coherentism, and Foundationalism together. While any of the first three remain, the Foundationalism option dodges the approaching pointer. Each of the three available choices opens its own master’s dialogue. Return to the chooser after each visit. Once all three are finished, Foundationalism stays still. Selecting it opens Descartes and the Fourth Answer.*
+*Open the theory vote after the second narration cue. The audience chooses the first three masters in any order. Foundationalism leads to Descartes after those visits.*
 
-### L4 · Pyrrho, the Unmoved
+## L4 · Pyrrho, the Unmoved
 
 **Left** — **In Greco’s taxonomy, skepticism denies that beliefs are justified.**
 
@@ -169,44 +176,46 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 
 *Greco · §1, p. 426*
 
+- SKEPTICISM. None of our beliefs is justified, so suspend judgment on everything. (Unit 1.1)
 - **Y:** Why believe anything?
-- **Pyrrho:** I don’t.
-- **Narrator:** Pyrrho set down his empty ladle. He could suspend judgment about the hand, the water, even the ground beneath him. The bubbles had no claim left to challenge.
-- **Narrator:** Nothing of his ever got wet. Nothing of his ever got built.
-- **Narrator:** His disciples caught him by the sleeve at the water’s edge. They still wanted to know whether they had good reason to believe there was a sea there.
+- **Pyrrho:** I don’t. No more this than that.
+- *[Beside him, his old teacher Anaxarchus is sinking into the wet ink, waving.]*
+- **Narrator:** His teacher fell into a bog. Pyrrho walked right past. He had suspended judgment on the bog.
+- **Narrator:** His teacher later praised him for it. This really happened.
+- The objection — you can’t live by it; acting at all takes believing something.
 
-### L4 · Peirce, the Endless
+## L4 · Peirce, the Endless
 
 **Left** — **Infinitism allows an endless chain of distinct reasons.**
 
 - Any reason you point to has a further reason supporting it.
-- The scroll keeps growing because no earlier reason can be reused.
+- Peirce’s stack of turtles gives every level another one beneath it.
 
 *Greco · §1, p. 426*
 
+- INFINITISM. The chain of reasons never stops: B1 rests on B2, B2 on B3, and so on, forever. (Agrippa’s mode of infinite regress, Unit 1.1)
 - **Y:** Why believe that?
-- **Peirce:** Excellent question. The reason is—
-- **Y:** Why believe the reason?
-- **Peirce:** An even better question. The reason for *that* is—
-- **Narrator:** Every answer got a fresh line on his scroll. No line repeated an earlier one. And no matter where you put your finger, there was another line still to come.
-- **Narrator:** As far as anyone knows, he is still answering. He was last seen on the horizon, mid-sentence, scroll still wet.
+- **Peirce:** Because of B2.
+- **Y:** And B2?
+- **Peirce:** B3. There is no first reason. Every thought rests on an earlier one.
+- *[The camera tilts down. He’s standing on a turtle, standing on a turtle, standing on a turtle, out of frame.]*
+- **Narrator:** Turtles all the way down. He was last seen still descending.
+- The objection — at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever dries.
 
-### L4 · Neurath, the Shipwright
+## L4 · Neurath, the Shipwright
 
 **Left** — **Coherentism locates support in a system of beliefs.**
 
-- On Neurath’s raft, neighboring planks support the one under repair.
+- On Neurath’s ship, neighboring planks support the one under repair.
 - In Greco’s sketch, tracing support eventually returns to an earlier belief.
 
 *Greco · §1, p. 426 and note 1*
 
-- **Neurath:** We rebuild the ship at sea, one plank at a time.
-- **Y:** Why trust the plank under your feet?
-- **Neurath:** The neighboring planks hold it in place. I can replace this one while standing on the others.
-- **Narrator:** Follow the support around his ring-shaped raft and you eventually return to the plank where you began. YYYY SOWATT swam a lap to check.
-- **Narrator:** It was the most coherent raft in history. It held together perfectly as it drifted off the edge of the map.
-
-*Presenter margin · Greco §1 and note 1. The masters are fictionalized representatives of positions. Greco uses a chain that returns to an earlier reason to introduce coherentism, while acknowledging that some coherentists would resist that description. The raft illustrates the worry about mutual support; its fate is the legend’s joke.*
+- COHERENTISM. A belief is justified if it belongs to a coherent system of beliefs: a web, not an edifice. (Agrippa’s mode of circularity, Unit 1.2)
+- **Y:** Why trust this plank?
+- **Neurath:** The plank beside it holds it up. We are like sailors who must rebuild their ship on the open sea, never able to put it in dry dock.
+- **Narrator:** It was the most coherent ship in history. It held together perfectly as it sailed off the edge of the map.
+- The objection — the isolation problem. A perfectly coherent system can be cut off from experience, so coherence alone isn’t enough (Unit 1.2).
 
 ## L5 · Descartes and the Fourth Answer
 
@@ -217,79 +226,61 @@ English reading draft for presenter review. The opening sequence, L2 exchange, c
 
 *Greco · §1, p. 426*
 
-- **Narrator:** And then there was a fourth. Nobody had elected him. He hadn’t been listening. He was sitting by a stove, doubting things, which was what he did anyway.
-- **Narrator:** At his window, each wet voice budded another. A little copy of the whole chorus slipped inside.
-- **Descartes:** Suppose there were a demon, one that could fake everything I see. What would be left?
-- **Narrator:** It was only a hypothetical. Descartes was very clear about that.
+- **Narrator:** And then there was a fourth. Nobody had elected him. He was shut alone in a stove-heated room, doubting everything, for fun.
+- *[Nameplate: RENÉ DESCARTES · NOT ELECTED]*
+- **Descartes:** Suppose there were a demon, faking everything I see. What would be left?
+- **Narrator:** It was only a hypothetical. He was very clear about that.
 - **Y:** Why believe you’re thinking?
-- **Descartes:** Because you just made me doubt it. And doubting is thinking.
-- **SOWHAT:** So what? Suppose even this room is a trick.
-- **Descartes:** I think, therefore I am.
+- **Descartes:** You just made me doubt it. Doubting is thinking.
+- **SOWHAT:** So what? Your demon could be faking that too.
+- **Descartes:** Then let it fool me. To be fooled, I have to exist. I think, therefore I am.
+- *[In his ladle, one grain of ink turns matte. SOWATT keeps asking. It stays dry.]*
+- **Narrator:** The first belief in history that stayed dry while being asked about.
+- **Narrator:** It was the size of a grain of rice. It could hold up exactly one person.
+- *[Wide shot: one glowing grain, alone on an endless dark sea.]*
 
-- **Narrator:** The question still hung in the air. A bead at the bubble’s tip went matte, snapped free, and fell.
+## L6 · School vote
 
-- **Narrator:** The woman could doubt whether the hand she saw was really there. Descartes tried the same trick on his own thinking. The attempt itself gave him something he could be certain of.
-- **Narrator:** In his ladle lay one grain from that copy of YYYY SOWATT. Outside the window, the others kept asking. It was the first belief in the history of the world that dried while it was being asked about.
+Descartes’s scene leads to the school vote. The presenter opens both views side by side. Each audience device follows its selected school. Both school scripts are text-only.
 
-## L5b · One Grain, One Ocean
+## L6-A · Cartesian foundationalism
 
-**Left** — **An indubitable foundation can still be too small.**
+**Left** — **The Cartesian standard admits too few beliefs.**
 
-- The grain supports “I exist” even if the whole scene is a dream.
-- It leaves open whether she has a hand, holds a ladle, or is dreaming.
-
-*Greco · §1, p. 426*
-
-- **Narrator:** The grain stayed dry. The woman still had a practical question: could she trust the hand holding her ladle?
-- **Narrator:** “I exist” tells her there is someone asking. It leaves open whether that someone has hands, or a ladle, or a village to go home to.
-- **Narrator:** One dry grain could not hold back an ocean. YYYY SOWATT kept asking. Towns that had survived the Whypocalypse started to lean.
-- **Narrator:** There was no time to doubt everything carefully. There was no time not to.
-- **Narrator:** So Descartes’s followers did what scholars always do in an emergency. They split into two schools.
-
-## L6 · Choose Your School
-
-**Left** — **What makes a starting point legitimate?**
-
-- The tower admits only beliefs that survive every doubt.
-- The fleet also builds on what its lookouts see. Can those beliefs settle a doubt?
+- Ten thousand Cartesians produce one brick after three hundred years.
+- The brick withstands every question. One brick gives them too little to build with.
 
 *Greco · §1, p. 426*
 
-- **Narrator:** Both schools agree that a chain of reasons can stop. They disagree about what you may stand on when it does.
-- **Sect disciple:** Stand on what survives every doubt.
-- **Fleet lookout:** We can see the coast from here. That’s enough to start building.
-- **Narrator:** The ocean is running out of time. Whose side are you on?
+- **Narrator:** For the first time since the Whypocalypse, people had a way to fight back. The goal: dry the world solid again, the way it used to be.
+- **Narrator:** They split into two schools.
+- **Narrator:** The Cartesians would dry only what could not be doubted. Ten thousand of them worked on it, day and night, for three hundred years.
+- *[A vast crowd, sweating, ladles raised over a single spot. Y bubbles everywhere. Something small hardens.]*
+- **Narrator:** All their efforts combined produced one brick.
+- *[A single perfect brick of dry ink, on a velvet cushion. Polite applause.]*
+- **Narrator:** It was a very good brick. Nothing anyone asked could get it wet. They are still deciding what to build.
 
-*Each audience member chooses **Sect of No Doubt** or **Seeing-Is-Believing School**. The presenter then sees L6-A on the left and L6-B on the right, advancing on the same row. Each audience device follows only its selected column. Within each branch, its own takeaway stays fixed while the dialogue advances.*
+## L6-B · Moderate foundationalism
 
-| Dialogue-box field | L6-A · Sect of No Doubt | L6-B · Seeing-Is-Believing School |
-| --- | --- | --- |
-| **Claim** | The Cartesian standard admits too few beliefs. | Moderate foundationalism allows perceptual starting points. |
-| **Point 1** | The grain holds because even doubting requires thought. | The lookout takes “I see a solid deck” as reason to stand on it. |
-| **Point 2** | From “I think” alone, the tower cannot tell whether the fleet is real. | Once she doubts her sight, why would the same view settle the question? |
-| **Source** | Greco · §1, p. 426 | Greco · §1, p. 426 |
+**Left** — **Moderate foundationalism allows perceptual starting points.**
 
-**Right-side dialogue, one row per advance**
+- The moderates dry what seems true and build a town in an afternoon.
+- Once Y questions the floor, the town collapses. Why would the same appearance settle that doubt?
 
-| Cue | L6-A · From the tower | L6-B · From the flagship |
-| --- | --- | --- |
-| 1 · Admission | **Sect examiner:** Suppose there were a demon. Tell us what’s left. | **Fleet examiner:** What do you see? |
-| 2 · Your answer | **New disciple:** Even if it fools me about everything I see, I’m thinking. | **New lookout:** A mast, a deck, my hand on the rail. |
-| 3 · Your footing | **Narrator:** One disciple stands on the grain. The next stands on her shoulders. Welcome to the top of the tower. Please don’t move. | **Narrator:** You get three planks on your first day. With a lookout on every mast, the Thousand-Sail Palace has become the largest fleet on the ocean. |
-| 4 · The rival | **Disciple:** Look at that golden fleet. From here it looks perfectly solid. So would a fleet the demon made me see. | **Lookout:** See that white tower on the horizon? They’ve been certain since Tuesday. They still can’t tell us whether it’s safe to sail. |
-| 5 · The challenge | **Disciple, from a rowboat:** You say the flagship will hold because you can see its deck. Are you sure? | **Heckler, from a rowboat:** You say the flagship will hold because you can see its deck. Are you sure? |
-| 6 · The reply | **Fleet lookout, across the water:** I can see it right here! | **Fleet lookout:** I can see it right here! |
-| 7 · The battle | **Narrator:** The deck goes soft. Once the lookout doubts that the deck is as it appears, pointing at the same view leaves that doubt exactly where it was. | **Narrator:** Your hand sinks into the rail. Looking again gives you the same evidence. Why should that settle the very doubt the heckler just raised about your sight? |
-| 8 · What your side can claim | **Narrator:** Victory. You row home. Your grain has survived every objection. It still has room for exactly one foot. | **Narrator:** On a clear day you had grounds to build a fleet. Now your school owes you an account of when “I can see it” is enough to settle a question. |
-| 9 · What the other side shows | **Narrator:** The lookout had a reason you need if you ever want to sail: what the water ahead looks like. Your entrance test throws that reason overboard before you leave home. | **Narrator:** Across the water the tower is still standing. Its disciples can explain exactly why their grain stays dry. It’s hard to navigate an ocean with “I think.” |
-| 10 · Closing beat | **Narrator:** Fourteen battles. All fourteen were the Battle of Are You Sure. It was the Sect’s only sport. | **Narrator:** The fleet fought fourteen battles. All fourteen were the Battle of Are You Sure. By the fourteenth, everyone recognized the rowboat. |
+*Greco · §1, p. 426*
 
-*End of L6. Both perspectives arrive at the same dilemma. The tally and world meter are display cues; the dialogue works regardless of how many people chose either school.*
+- **Narrator:** The moderates didn't have three hundred years. They dried whatever seemed true, and they dried it fast.
+- *[A whole town goes up in an afternoon.]*
+- **Narrator:** But their ink only ever dried halfway. Everything they built was jelly.
+- *[A man steps onto his new floor. It jiggles. His house sways like a pudding.]*
+- **Y:** Are you sure that's solid?
+- *[The town slumps into a puddle.]*
+- **Narrator:** You can't build a city on jelly. They tried. Several times.
 
 ### Paper references for presenter review
 
 - **S0.3–S0.4.** Greco’s introduction distinguishes context-sensitive sentence meaning from the older question about which beliefs serve as foundations. The B/13 mark illustrates contextual interpretation. It supplies the classroom transition; it cannot by itself establish a theory of justification.
-- **L1–L4.** Section 1 frames the regress as a question about the structure of justification. If the woman doubts both a belief and its supporting reason, recognizing the connection between them leaves her original doubt in place. The Inkwell’s lax guardian also anticipates the role of an audience in §2.1. Drying records what people take as settled in the legend; the lucky-Tuesday example makes room for error.
-- **L5–L6.** Section 1 grants the Cartesian stopping rule a rationale, then asks whether enough ordinary beliefs can meet it. Relaxing the rule to allow perceptual beliefs expands the foundations but raises a further question about why a doubted premise can resolve a doubt. The theatrical grain and fleet give each horn a concrete consequence.
+- **L1–L4.** Section 1 frames the regress as a question about the structure of justification. If the woman doubts both a belief and its supporting reason, recognizing the connection between them leaves her original doubt in place. The Inkwell’s lax guardian also anticipates the role of an audience in §2.1. Drying records what people take as settled in the legend; the raven example shows how readily the guardian accepted an answer.
+- **L5–L6.** Section 1 grants the Cartesian stopping rule a rationale, then asks whether enough ordinary beliefs can meet it. Relaxing the rule to allow perceptual beliefs expands the foundations but raises a further question about why a doubted premise can resolve a doubt. The Cartesians’ brick and the moderates’ jelly town show the two consequences.
 
 [Daniel Greco, “Contextualism about Foundations,” introduction and §1](../public/readings/greco-2017.pdf) · [Story draft 5](story-v5-ink-ocean.md)

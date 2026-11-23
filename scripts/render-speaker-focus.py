@@ -5,7 +5,7 @@ from pathlib import Path
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 root = Path(__file__).resolve().parents[1]
-assets = root / 'public/generated/backgrounds/ink-ocean'
+assets = root / 'archive/ink-ocean/backgrounds'
 # Outline coordinates use a 300 x 169 design grid. Group listeners under *.
 plates = {
  'L1-01-guardian': {
@@ -57,7 +57,7 @@ for plate,groups in plates.items():
         file=f'{plate}-focus-{i}.webp'
         frame.save(assets/file,quality=86,method=4)
         for alias in active.split('|'): mapping[plate][alias]=file
-(root/'src/ink-ocean-focus.json').write_text(json.dumps(mapping,indent=2)+'\n')
+(root/'archive/ink-ocean/ink-ocean-focus.json').write_text(json.dumps(mapping,indent=2)+'\n')
 
 # L2 uses individual cue plates for its four consecutive Y voices.
 hand = Image.open(assets/'L2-01-the-hand.webp').convert('RGB')

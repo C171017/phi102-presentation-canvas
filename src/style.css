@@ -48,7 +48,6 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   filter: none;
   opacity: 1;
 }
-.legend-meter, .school-dry-meter { display: none; }
 #viewport:has(#before-lecture.page-foreground)::before { filter: none; }
 @media (prefers-reduced-motion: no-preference) {
   #presentation-shell:not(.previewing-page-exit) #viewport.from-canvas::before {

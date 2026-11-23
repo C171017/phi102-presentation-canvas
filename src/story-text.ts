@@ -3,6 +3,11 @@ export const storyTitleLimit = 400;
 export const storyBodyLimit = 24000;
 
 export type StoryText = { title: string; paragraphs: readonly string[] };
+export type StoryScene = StoryText & {
+  id: string;
+  summary: string;
+  illustration?: { src: string; alt: string; imageOnly?: true };
+};
 export type SavedStoryText = StoryText & { revision: string };
 export type StoryEdits = Partial<Record<string, SavedStoryText>>;
 

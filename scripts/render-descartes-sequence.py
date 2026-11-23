@@ -4,7 +4,7 @@ from speaker_lighting import spotlight
 from PIL import Image, ImageDraw, ImageFilter
 
 root = Path(__file__).resolve().parents[1]
-art = root/'public/generated/backgrounds/ink-ocean'
+art = root/'archive/ink-ocean/backgrounds'
 original = Image.open(art/'L5-01-descartes.webp').convert('RGB')
 
 atlas = Image.open(root/'src/assets/regress/sowatt-poses.webp').convert('RGBA')

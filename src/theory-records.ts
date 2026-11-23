@@ -139,7 +139,6 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
       render();
     },
     isOpen: () => !panel.hidden,
-    masterMeter() { return state?.remaining.length === 4 ? 52 : state?.remaining.length === 3 ? 47 : 41; },
     selectedAnswererScene: () => state?.winner && state.winner !== 'foundationalism' ? theoryScene(state.winner) : undefined,
     advance(id: string) {
       if (id === voteHub || (state?.winner && state.winner !== 'foundationalism' && theoryScene(state.winner) === id)) {

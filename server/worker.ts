@@ -46,11 +46,11 @@ export class PresentationRoom extends DurableObject<Env> {
       this.openingQuiz = await ctx.storage.get<OpeningQuizRound>('openingQuiz') ?? this.openingQuiz;
       const savedId = await ctx.storage.get<string>('slideId');
       if (savedId) {
-        const removedCheck = savedId === 'L4-quiz';
-        const slideId = removedCheck ? theoryScene('foundationalism') : savedId;
+        const slideId = savedId === 'L4-quiz' ? theoryScene('foundationalism')
+          : savedId === 'L5b' ? 'L6' : savedId;
         const index = slides.findIndex(slide => slide.members[0] === slideId);
         if (isSlide(index)) this.slide = index;
-        if (removedCheck) {
+        if (slideId !== savedId) {
           this.cue = firstPresentationCue(this.slide);
           await ctx.storage.put({ slide: this.slide, slideId, presenterCue: this.cue });
         } else {

@@ -9,35 +9,19 @@ export const schoolNotes: Record<string, SlideNotes> = {
     ],
     source: 'Greco · §1, p. 426',
   },
-  L5b: {
-    claim: 'An indubitable foundation can still be too small.',
-    points: [
-      'The grain supports “I exist” even if the whole scene is a dream.',
-      'It leaves open whether she has a hand, holds a ladle, or is dreaming.',
-    ],
-    source: 'Greco · §1, p. 426',
-  },
-  L6: {
-    claim: 'What makes a starting point legitimate?',
-    points: [
-      'The tower admits only beliefs that survive every doubt.',
-      'The fleet also builds on what its lookouts see. Can those beliefs settle a doubt?',
-    ],
-    source: 'Greco · §1, p. 426',
-  },
   'L6-A': {
     claim: 'The Cartesian standard admits too few beliefs.',
     points: [
-      'The grain holds because even doubting requires thought.',
-      'From “I think” alone, the tower cannot tell whether the fleet is real.',
+      'Ten thousand Cartesians produce one brick after three hundred years.',
+      'The brick withstands every question. One brick gives them too little to build with.',
     ],
     source: 'Greco · §1, p. 426',
   },
   'L6-B': {
     claim: 'Moderate foundationalism allows perceptual starting points.',
     points: [
-      'The lookout takes “I see a solid deck” as reason to stand on it.',
-      'Once she doubts her sight, why would the same view settle the question?',
+      'The moderates dry what seems true and build a town in an afternoon.',
+      'Once Y questions the floor, the town collapses. Why would the same appearance settle that doubt?',
     ],
     source: 'Greco · §1, p. 426',
   },

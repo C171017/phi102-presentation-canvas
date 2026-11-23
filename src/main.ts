@@ -52,7 +52,7 @@ const openScene = (id: string) => {
 };
 const role = liveMode ? (quizEnabled ? 'audience' : 'presenter') : previewRole ?? 'editor';
 const openingVideo = localDev && role !== 'audience' && __LOCAL_OPENING_VIDEO__
-  ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('regress-problem'), {
+  ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('L0'), {
     showSkip: role === 'editor',
     reportPlayback: role === 'presenter'
       ? playing => import.meta.hot!.send('phi102:preview:opening', playing) : undefined,
@@ -85,7 +85,7 @@ const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   const id = slide?.members[0];
   const legend = id && legendById.get(id);
   viewport.toggleAttribute('data-regress-flashback', Boolean(legend));
-  if (!legend) viewport.style.removeProperty('--regress-background');
+  if (!legend || !legend.background) viewport.style.removeProperty('--regress-background');
   openingDialogue.showScene(id);
   if (id === 'before-lecture' || id === 'contemporary-heading') openingVideo?.preload();
   openingVideo?.close();

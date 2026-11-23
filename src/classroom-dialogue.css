@@ -120,6 +120,10 @@
 .transcript-row:is([data-speaker="Professor Lin"], [data-speaker="Guardian"], [data-speaker="Neurath"],
   [data-speaker="Fleet lookout"], [data-speaker="Fleet lookout, across the water"]) { color: #9de5d6; }
 .transcript-row[data-speaker="Peirce"] { color: #ffc999; }
+.transcript-row[data-cue-kind] { color: #b8c8d5; font-style: italic; }
+.transcript-row[data-speaker="Question mark"] { color: #9de5d6; }
+.transcript-row[data-speaker="Moore"] { color: #ffd58e; }
+.transcript-row:is([data-speaker="Head disciple"], [data-speaker="Heckler"]) { color: #ffb9a5; }
 .transcript-row[aria-current] { opacity: 1; }
 /* Keep the next line measurable for scrolling while its name is still a surprise. */
 .flashback-reveal:not([aria-current]) { visibility: hidden; }
@@ -217,7 +221,7 @@
   }
   .transcript-reader { padding-inline: clamp(16px, 4vw, 26px); }
 }
-.legend-speaker, .legend-meter, .legend-paging {
+.legend-speaker, .legend-paging {
   position: absolute;
   padding: .3rem .65rem;
   border-radius: 8px;
@@ -229,7 +233,6 @@
   left: calc(50% + .6rem);
   bottom: calc(var(--transcript-height) + var(--transcript-bottom) + .4rem);
 }
-.legend-meter { top: max(16px, 3vh); right: var(--dialogue-margin); }
 .legend-paging {
   left: var(--dialogue-margin);
   bottom: calc(var(--transcript-height) + var(--transcript-bottom) + .4rem);

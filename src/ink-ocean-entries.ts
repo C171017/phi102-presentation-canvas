@@ -1,10 +1,20 @@
 import { legendSlides } from './slide-content';
 
+const anchorSlots: Record<string, number> = {
+  L2: 1,
+  L3: 2,
+  L4: 3,
+  L6: 6,
+  L0: 7,
+  'regress-problem-birth': 8,
+  'L3-continued': 9,
+};
+
 // Story slides without a canvas illustration still need a camera target.
 export function addLegendAnchors(world: HTMLElement) {
   const scenes = legendSlides.filter(scene => !document.getElementById(scene.id));
   scenes.forEach(({ id }, index) => {
-    const slot = index + 1;
+    const slot = anchorSlots[id] ?? index + 10;
     const anchor = document.createElement('div');
     anchor.id = id;
     anchor.className = 'legend-anchor';

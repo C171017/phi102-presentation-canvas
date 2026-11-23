@@ -389,7 +389,7 @@ Recorded time in Pacific time. Howie’s canvas chat pairing the artwork referen
 
 > Find this image and use that for this page.
 
-Use `02-the-fifth-voice-liquid.png` from the Inkwell art direction folder on page 6. The reader serves the [WebP copy](../public/generated/backgrounds/ink-ocean/L1-fifth-voice-liquid.webp) at the same proportions as the original.
+Use `02-the-fifth-voice-liquid.png` from the Inkwell art direction folder on page 6. The reader serves the [WebP copy](../archive/ink-ocean/backgrounds/L1-fifth-voice-liquid.webp) at the same proportions as the original.
 
 ## 2026-11-22T22:08:58-08:00 · Sync the revised Whypocalypse dialogue
 
@@ -486,3 +486,101 @@ Recorded time in Pacific time. Howie’s canvas chat with the three reader pages
 > update these 3 sections' texts
 
 On Story pages 12–14, use the English definitions, dialogue, stage directions, and objections for Pyrrho, Peirce, and Neurath. Retain their existing reader titles and save the revised copy through the Story editor’s local text storage.
+
+## 2026-11-22T22:35:24-08:00 · Revise the three Answerer exchanges in Story
+
+Recorded time in Pacific time. Howie’s canvas chat supplied revised dialogue for the three Answerers:
+
+> udpate again, dialouge changed
+
+Use the Anaxarchus bog scene for Pyrrho, the descending turtles for Peirce, and the ship at sea for Neurath. Apply the supplied lines and stage directions to Story pages 12–14 and retain each page’s definition and objection.
+
+## 2026-11-22T22:38:03-08:00 · Illustrate Operation Because in Story
+
+Recorded time in Pacific time. Howie’s canvas chat supplied the triptych:
+
+> update the opeartion because's visual
+
+Use the [three-master triptych](../archive/ink-ocean/backgrounds/L4-operation-because-three-masters.webp) on Story page 11 alongside the narration that introduces the Answerers.
+
+## 2026-11-22T22:41:43-08:00 · Update Descartes and give the scene one Story page
+
+Recorded time in Pacific time. Howie’s canvas chat supplied the revised L5 dialogue and clarified the pagination:
+
+> udpate
+
+> Also I do notice that for day card, things are kind of broken where I don't know why there's a lot of lines for the day card. They should be consolidate to only just like one. page
+
+Place the full revised English L5 exchange, nameplate, and stage directions on one Story page. One Grain, One Ocean follows on its own page.
+
+## 2026-11-22T22:42:23-08:00 · Use the freeze-frame montage for Operation Because
+
+Recorded time in Pacific time. Howie selected the second hero-intro concept:
+
+> let's use this one
+
+Use the [freeze-frame montage](../public/generated/backgrounds/ink-ocean/L4-operation-because-freeze-frame.webp) alongside the narration on Story page 11. The three panels introduce Pyrrho, Peirce, and Neurath with heroic poses. Their individual scenes follow on pages 12–14.
+
+## 2026-11-22T22:45:46-08:00 · Remove One Grain, One Ocean from Story
+
+Recorded time in Pacific time. Howie’s canvas chat showed the One Grain, One Ocean page:
+
+> delte this part
+
+Remove the L5b page from the Story reader. Choose Your School follows Descartes and the Fourth Answer.
+
+## 2026-11-22T22:49:16-08:00 · Illustrate Descartes and the Fourth Answer
+
+Recorded time in Pacific time. Howie selected the ladle and ink-bubble illustration:
+
+> let's apply this one but before that remove this hand
+
+Use the [edited illustration](../public/generated/backgrounds/ink-ocean/L5-the-fourth-answer.webp) on Story page 15 after removing the hand gesture from the rightmost ink bubble.
+
+## 2026-11-22T22:51:02-08:00 · Illustrate Peirce, the Endless
+
+Recorded time in Pacific time. Howie selected the artwork of Peirce on the turtles:
+
+> apply this one
+
+Use the [turtle-stack illustration](../public/generated/backgrounds/ink-ocean/L4-peirce-on-turtles.webp) alongside the dialogue on Story page 13.
+
+## 2026-11-22T22:51:21-08:00 · Remove Choose Your School from Story
+
+Recorded time in Pacific time. Howie’s canvas chat showed the Choose Your School page:
+
+> remove this
+
+Remove the L6 choice page from the Story reader. Sect of No Doubt follows Descartes and the Fourth Answer. The presentation retains its school choice.
+
+## 2026-11-22T22:53:25-08:00 · Illustrate Pyrrho, the Unmoved
+
+Recorded time in Pacific time. Howie selected the illustration of Pyrrho and Anaxarchus at the bog:
+
+> and this one
+
+Use the [bog illustration](../public/generated/backgrounds/ink-ocean/L4-pyrrho-at-the-bog.webp) alongside the dialogue on Story page 12.
+
+## 2026-11-22T22:55:13-08:00 · Give each L6 school one text-only Story page
+
+Recorded time in Pacific time. Howie’s canvas chat supplied the revised L6 script:
+
+> Update the part for this. There should just be two pages, one page for each of this, and only have the text for now. Visual will come later.
+
+Use the two revised English scenes from [Story Draft 5](story-v5-ink-ocean.md). The Sect of No Doubt shows the Cartesian Circle. The Seeing-Is-Believing School shows Moore’s hands and the Battle of Are You Sure. Each scene occupies one Story page.
+
+## 2026-11-22T22:59:56-08:00 · Sync the revised L6 school scenes
+
+Recorded time in Pacific time. Howie’s canvas chat supplied the updated L6 draft:
+
+> update agian you can find teh md if you need the deail
+
+Use the current [Story Draft 5](story-v5-ink-ocean.md) wording. The first text-only page opens with the goal of drying the world solid again, then shows the Cartesians producing one brick. The second shows the moderates’ jelly town collapsing. The shared script gives the presentation the same school names and scenes.
+
+## 2026-11-22T23:01:30-08:00 · Sync the presentation legend with the Story reader
+
+Recorded time in Pacific time. Howie’s canvas chat showed the older Inkwell slide:
+
+> udpate the actual slides to waht we have in teh sotry by far, and remove all the old iamges etc you can make them like archived
+
+Use the current Story text and illustrations for the legend from The Law of Ink through the two schools. The Whypocalypse title card is image-only. Scenes awaiting artwork use a plain background. The live theory and school votes still control audience choice. Move superseded images and speaker-focus plates to [the Ink Ocean archive](../archive/ink-ocean/backgrounds/).

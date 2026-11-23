@@ -1,10 +1,9 @@
 import { castIds } from './cast-ids';
 import { pairingView, versionPairings } from './version-pairings';
 
-import { inkOceanScenes, type InkOceanScene } from './ink-ocean-scenes';
+import { legendSlides, type InkOceanScene } from './ink-ocean-scenes';
 
-export const legendSlides = Object.values(inkOceanScenes).filter(scene =>
-  !['L6-A', 'L6-B'].includes(scene.id));
+export { legendSlides };
 export const legendById = new Map<string, InkOceanScene>(legendSlides.map(scene => [scene.id, scene]));
 
 export const slides = [
