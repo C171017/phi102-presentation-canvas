@@ -59,7 +59,7 @@ Select the gold tab on the right of the canvas in Audience or Presenter mode to 
 
 Open https://phi102.c171017.com/ to explore the map at your own pace. Select **Presentation** above the progress rail to start at the first slide, click a rail marker to jump to a slide, and select **Back to map** to return to the overview.
 
-The first slide has a **Play opening** button. The 1080p opening also plays after the classroom introduction. The web MP4 uses H.264 and the original AAC soundtrack, with its index at the start for streaming. When replacing it, use a versioned filename under `public/media/`, keep it under Cloudflare's 25 MiB asset limit, and update the path and exact byte count in `src/opening-media.json` so the Worker can serve correct byte ranges.
+The 1080p opening plays after the classroom introduction. The web MP4 uses H.264 and the original AAC soundtrack, with its index at the start for streaming. When replacing it, use a versioned filename under `public/media/`, keep it under Cloudflare's 25 MiB asset limit, and update the path and exact byte count in `src/opening-media.json` so the Worker can serve correct byte ranges.
 
 For presentation day, deploy with `VITE_PRESENTATION_DAY=1 npm run deploy`. The public URL then joins the audience automatically. The progress rail shows connected viewers by slide, and the gold marker shows the presenter’s slide. Audience members can browse and select **Follow presenter** to return to the shared slide. Run `npm run deploy` with the flag unset to restore the self-guided preview.
 

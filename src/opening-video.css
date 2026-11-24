@@ -84,22 +84,3 @@
   text-transform: none;
   letter-spacing: normal;
 }
-.opening-launch {
-  display: none;
-  position: absolute;
-  z-index: 6;
-  bottom: max(36px, env(safe-area-inset-bottom));
-  left: 50%;
-  translate: -50% 0;
-  min-height: 44px;
-  padding: 8px 16px;
-  border: 1px solid #ded9ce;
-  border-radius: 8px;
-  background: #fffefa;
-  color: #334c4c;
-  font: 600 14px/1.35 system-ui, sans-serif;
-  cursor: pointer;
-}
-.opening-launch:hover { background: #e9eeea; }
-#viewport:has(#unitrans-arrival.page-foreground) .opening-launch { display: block; }
-.previewing-page-exit .opening-launch { visibility: hidden; }

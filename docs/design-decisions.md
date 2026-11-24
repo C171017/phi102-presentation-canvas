@@ -1303,3 +1303,11 @@ Recorded time in Pacific time. Howie requested browser-friendly assets for the l
 > And also you might have to compress the video, have like a web browser streaming friendly video, like compress the video as well. And also make sure the video play will work on the live version as well.
 
 Use high-quality WebP at the existing dimensions for slide and canvas art where it yields meaningful savings, and keep the paper pages lossless. The public arrival slide offers **Play opening** for the new 1080p Flexible Foundationalism cut. Keep its original audio track and serve the web MP4 with byte ranges for fast startup and seeking.
+
+## 2026-11-24T00:23:03-08:00 · Play the opening after the classroom introduction
+
+Recorded time in Pacific time. Howie pointed to **Play opening** on the arrival slide:
+
+> here not yet for op , so remove this
+
+Remove the arrival-slide button. The opening starts when the viewer advances past Professor Lin’s “Flexible foundationalism” reveal.

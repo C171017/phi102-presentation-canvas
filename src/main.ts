@@ -64,14 +64,6 @@ const openingVideo = liveMode || localLivePreview || (localDev && (role === 'edi
       ? playing => import.meta.hot!.send('phi102:preview:opening', playing) : undefined,
   })
   : undefined;
-if (openingVideo && (publicPreview || liveMode)) {
-  const launch = document.createElement('button');
-  launch.type = 'button';
-  launch.className = 'opening-launch';
-  launch.textContent = 'Play opening';
-  launch.addEventListener('click', openingVideo.play);
-  viewport.append(launch);
-}
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
   readOnly && !publicPreview, role === 'presenter', openingVideo?.play);
