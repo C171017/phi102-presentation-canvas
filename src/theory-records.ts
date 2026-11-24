@@ -1,5 +1,5 @@
 import { slides } from './slide-content';
-import { applyTheoryAction, theories, theoryNames, theoryScene, voteHub, voteView,
+import { applyTheoryAction, theories, theoryNames, theoryScene, theoryVoteWindowMs, voteHub, voteView,
   type Theory, type TheoryAction, type TheoryBallot, type TheoryView } from './theory-vote';
 import './theory-records.css';
 
@@ -13,6 +13,7 @@ export function createTheoryRecords(shell: HTMLElement, openScene: (scene: strin
   const records = document.createElement('div');
   records.className = 'record-quiz theory-records';
   records.dataset.mode = 'theories';
+  records.style.setProperty('--answer-window', theoryVoteWindowMs + 'ms');
   const status = document.createElement('p');
   status.setAttribute('role', 'status');
   const close = document.createElement('button');
@@ -79,6 +80,7 @@ export function createTheoryRecords(shell: HTMLElement, openScene: (scene: strin
     const label = document.createElement('span');
     label.textContent = theoryNames[choice];
     button.append(label);
+    button.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="47" pathLength="100"/></svg>');
     const locked = () => choice === 'foundationalism' && order.length > 1;
     if (choice === 'foundationalism') {
       button.addEventListener('pointermove', event => {
@@ -93,7 +95,7 @@ export function createTheoryRecords(shell: HTMLElement, openScene: (scene: strin
     buttons.set(choice, button);
     records.append(button);
   }
-  function render() {
+  function render(restartCountdown = false) {
     const wasHidden = panel.hidden;
     panel.hidden = scene !== voteHub || !state || Boolean(state.winner);
     if (panel.hidden || !state) return;
@@ -109,6 +111,15 @@ export function createTheoryRecords(shell: HTMLElement, openScene: (scene: strin
       button.setAttribute('aria-pressed', String(state.mine === choice));
       button.style.setProperty('--share', (total ? 100 * state.counts[choice] / total : 0) + '%');
     }
+    if (wasHidden || restartCountdown) {
+      // Join a round at its current progress, even when an update arrives late.
+      const elapsed = Math.max(0, theoryVoteWindowMs - (state.closesAt - Date.now()));
+      records.style.setProperty('--answer-delay', -elapsed + 'ms');
+      records.toggleAttribute('data-counting', order.length > 1);
+      for (const animation of records.getAnimations({ subtree: true })) {
+        if (animation instanceof CSSAnimation && animation.animationName === 'record-countdown') animation.currentTime = 0;
+      }
+    }
     title.textContent = order.length === 1 ? 'One theory left' : 'Which theory goes next?';
     close.hidden = !shared || !presenter || !total || !online;
     status.textContent = !online ? 'Reconnecting…' : shared && state.voters > 0
@@ -116,14 +127,16 @@ export function createTheoryRecords(shell: HTMLElement, openScene: (scene: strin
       : 'Choose a record';
   }
   function update(next: TheoryView | undefined, connected: boolean, hasPresenter = false) {
-    if (next?.id !== state?.id) {
+    const newRound = next?.id !== state?.id;
+    const restartCountdown = newRound || next?.closesAt !== state?.closesAt;
+    if (newRound) {
       order = [...next?.remaining ?? []];
       swappedAt = -Infinity;
     }
     state = next;
     online = connected;
     hostOnline = hasPresenter;
-    render();
+    render(restartCountdown);
   }
   return {
     connect(sender: typeof send) { send = sender; },

@@ -38,6 +38,7 @@
   pointer-events: auto;
 }
 .theory-ballot .theory-records button span { padding: .15em .2em; border-radius: .2em; background: #173833; }
+.theory-records circle { stroke-dashoffset: 100; }
 .theory-ballot .theory-records button::before {
   content: '';
   position: absolute;

@@ -9,7 +9,20 @@ const slides = ['L4', 'regress-skepticism', 'regress-infinitism', 'regress-coher
 const source = readFileSync(new URL('../src/theory-vote.ts', import.meta.url), 'utf8');
 const context = { exports: {}, crypto, require: () => ({ slides }) };
 vm.runInNewContext(ts.transpile(source, { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 }), context);
-const { applyTheoryAction, ballotSlide, resolveBallot } = context.exports;
+const { applyTheoryAction, ballotSlide, resolveBallot, voteView } = context.exports;
+
+test('each viewer receives the round deadline even after votes update', () => {
+  const audience = ['a', 'b'];
+  const ballot = applyTheoryAction(null, { action: 'open', round: null }, 0, true, 'presenter', audience);
+  const first = voteView(ballot, audience, 'a');
+  applyTheoryAction(ballot, { action: 'vote', round: ballot.id, choice: 'coherentism' }, 0, false, 'b', audience);
+  const updated = voteView(ballot, audience, 'b');
+  assert.equal(first.closesAt, ballot.closesAt);
+  assert.equal(updated.closesAt, first.closesAt);
+  assert.equal(updated.id, first.id);
+  assert.equal(updated.counts.coherentism, 1);
+  assert.equal(updated.mine, 'coherentism');
+});
 
 test('foundation can only win the final round by an explicit vote, even after its deadline', () => {
   const audience = ['a', 'b'];

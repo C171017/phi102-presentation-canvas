@@ -1311,3 +1311,11 @@ Recorded time in Pacific time. Howie pointed to **Play opening** on the arrival 
 > here not yet for op , so remove this
 
 Remove the arrival-slide button. The opening starts when the viewer advances past Professor Lin’s “Flexible foundationalism” reveal.
+
+## 2026-11-24T00:26:38-08:00 · Use the B/13 countdown on theory ballots
+
+Recorded time in Pacific time. Howie pointed to the Operation Because records:
+
+> here we should have the same countdown mechainism as in teh first B 13 quiz part just liek that one
+
+Timed theory rounds use the same shrinking turquoise ring as B/13. Each ring follows the current ten-second round deadline. When only Foundationalism remains, the ballot waits for a choice.

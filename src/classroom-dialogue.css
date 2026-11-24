@@ -204,7 +204,10 @@
   stroke-width: 3;
   stroke-dasharray: 100 100;
 }
-.record-quiz:not([hidden], [data-mode="results"]) circle { animation: record-countdown var(--answer-window) linear forwards; }
+.record-quiz:not([hidden], [data-mode]) circle,
+.record-quiz[data-counting] circle {
+  animation: record-countdown var(--answer-window) var(--countdown-easing, linear) var(--answer-delay, 0ms) forwards;
+}
 .record-quiz[data-mode="results"] circle { stroke-dashoffset: var(--vote-offset, 100); }
 .record-quiz[data-mode="results"] button { opacity: .8; cursor: default; }
 .record-quiz[data-mode="results"] .vote-leader { opacity: 1; box-shadow: 0 0 0 2px #f4c579, 2px 4px 0 #101b1dc9; }
@@ -221,9 +224,12 @@
   color: #fff0d7;
   font: 600 clamp(12px, 1.6vmin, 18px)/1.25 system-ui, sans-serif;
 }
-@keyframes record-countdown { to { stroke-dashoffset: 100; } }
+@keyframes record-countdown {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 100; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .record-quiz:not([hidden]) circle { animation-timing-function: steps(10, end); }
+  .record-quiz { --countdown-easing: steps(10, end); }
 }
 @media (max-width: 640px) {
   #presentation-shell:has(.dev-role-picker) .record-quiz { inset-block-start: 50px; }
