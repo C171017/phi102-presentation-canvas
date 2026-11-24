@@ -12,7 +12,6 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   inset: 0;
   --canvas-paper: #f9eedf;
   --slide-matte: #18232a;
-  --slide-progress-max-height: 560px;
   background-color: var(--canvas-paper);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cfilter id='grain' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72 .48' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .24 0 0 0 0 .09 0 0 0 .25 -.055'/%3E%3C/filter%3E%3Cpath d='M0 0h192v192H0z' filter='url(%23grain)'/%3E%3C/svg%3E");
   background-size: 192px 192px;
@@ -215,11 +214,9 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 #slide-progress {
   position: absolute;
   z-index: 6;
-  top: 50%;
+  inset-block: clamp(12px, 3vh, 56px);
   left: 10px;
-  transform: translateY(-50%);
-  width: 26px;
-  height: min(var(--slide-progress-max-height), calc(100% - 32px));
+  width: 36px;
   display: flex;
   flex-direction: column;
   gap: clamp(1px, 0.55vh, 4px);
@@ -241,7 +238,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   position: absolute;
   inset: 0 0;
   margin-inline: auto;
-  width: 5px;
+  width: 9px;
   border-radius: 4px;
   background: var(--glass-tint);
   -webkit-backdrop-filter: var(--glass-blur);
@@ -250,7 +247,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 }
 #slide-progress button.is-past::after { background: rgb(44 91 78 / .64); }
 #slide-progress button[aria-current]::after {
-  width: 7px;
+  width: 12px;
   background: rgb(250 249 242 / .8);
   box-shadow: var(--glass-rim), 0 0 0 1px rgb(16 22 21 / .72);
 }

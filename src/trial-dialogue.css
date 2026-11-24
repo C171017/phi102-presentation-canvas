@@ -139,7 +139,7 @@
   @keyframes trial-prompt { to { translate: .42cqw; } }
 }
 /* The presentation tools are still reachable at their usual edges. */
-#presentation-shell:has(.trial-screen:not([hidden])) :is(.dev-role-picker, #slide-progress, #paper-pane.is-collapsed):not(:hover):not(:focus-within) { opacity: 0; }
+#presentation-shell:has(.trial-screen:not([hidden])) :is(.dev-role-picker, #viewport:not(.public-preview) #slide-progress, #paper-pane.is-collapsed):not(:hover):not(:focus-within) { opacity: 0; }
 @media (max-aspect-ratio: 1/1) {
   .trial-screen { height: 100%; }
   .trial-message { inset-block-start: calc(50% + 14vw); height: auto; min-height: 7.2em; font-size: clamp(17px, 4.8vw, 28px); }

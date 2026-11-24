@@ -30,3 +30,7 @@
 @media (max-width: 640px) {
   .dev-role-picker { top: 4px; }
 }
+@media (max-width: 360px) {
+  .dev-role-picker { gap: 1px; width: max-content; max-width: calc(100% - 8px); }
+  .dev-role-picker button { padding-inline: 5px; }
+}

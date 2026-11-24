@@ -46,13 +46,18 @@ const onHostMac = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname
 const requestedRole = localDev ? new URLSearchParams(location.search).get('role') : null;
 const previewRole = localDev && !onHostMac ? 'audience'
   : requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
-const readOnly = liveMode || previewRole !== null;
-const quizEnabled = liveMode ? !new URLSearchParams(location.hash.slice(1)).has('presenter') : previewRole !== 'presenter';
+const hostedPresenter = liveMode && new URLSearchParams(location.hash.slice(1)).has('presenter');
+const hostedRoom = liveMode && (hostedPresenter || import.meta.env.VITE_PRESENTATION_DAY === '1');
+const localLivePreview = localDev && onHostMac && requestedRole === 'live-preview';
+const publicPreview = localLivePreview || (liveMode && !hostedRoom);
+const readOnly = liveMode || localLivePreview || previewRole !== null;
+const role = hostedPresenter ? 'presenter' : hostedRoom ? 'audience'
+  : localLivePreview ? 'live-preview' : previewRole ?? 'editor';
+const quizEnabled = role !== 'presenter';
 const openScene = (id: string) => {
   slideNavigation.open(slides.findIndex(slide => slide.members[0] === id));
 };
-const role = liveMode ? (quizEnabled ? 'audience' : 'presenter') : previewRole ?? 'editor';
-const openingVideo = localDev && role !== 'audience' && __LOCAL_OPENING_VIDEO__
+const openingVideo = localDev && (role === 'editor' || role === 'presenter') && __LOCAL_OPENING_VIDEO__
   ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('L0'), {
     showSkip: role === 'editor',
     reportPlayback: role === 'presenter'
@@ -60,8 +65,11 @@ const openingVideo = localDev && role !== 'audience' && __LOCAL_OPENING_VIDEO__
   })
   : undefined;
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
-  localDev || liveMode ? createLocalQuizVotes(role === 'audience', liveMode) : undefined, readOnly, role === 'presenter', openingVideo?.play);
+  !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
+  readOnly && !publicPreview, role === 'presenter', openingVideo?.play);
 let currentIndex = -1;
+let overviewView: View = { ...view };
+const previewControl = publicPreview ? document.createElement('button') : undefined;
 let pendingCue: {slide: number; cue: number} | undefined;
 const cues: PresentationCues = {
   read: index => index === currentIndex ? openingDialogue.getCue() : 0,
@@ -73,6 +81,7 @@ const cues: PresentationCues = {
 };
 const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   currentIndex = index;
+  if (previewControl) previewControl.textContent = index < 0 ? 'Presentation' : 'Back to map';
   const slide = slides[index];
   const id = slide?.members[0];
   const legend = id && legendById.get(id);
@@ -87,12 +96,14 @@ const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   reportSlide?.(index);
 });
 viewport.classList.toggle('canvas-editable', !readOnly);
+viewport.classList.toggle('public-preview', publicPreview);
 viewport.querySelector<HTMLButtonElement>('.before-lecture-scene')!.addEventListener('click', () => {
   viewport.focus({ preventScroll: true });
   openingDialogue.advance();
 });
 let connectionsDirty = true;
 const layout = createLayoutController(world, () => ({ ...target }), restored => {
+  if (publicPreview) overviewView = { ...restored };
   Object.assign(view, restored);
   Object.assign(target, restored);
   connectionsDirty = true;
@@ -493,7 +504,23 @@ const connectionObserver = new ResizeObserver(invalidateConnections);
 world.querySelectorAll('.canvas-label').forEach(label => connectionObserver.observe(label));
 void document.fonts.ready.then(invalidateConnections);
 resize();
-if (liveMode) {
+if (previewControl) {
+  previewControl.type = 'button';
+  previewControl.className = 'preview-presentation';
+  previewControl.textContent = 'Presentation';
+  previewControl.disabled = true;
+  viewport.querySelector('#slide-progress')!.before(previewControl);
+  previewControl.addEventListener('click', () => {
+    if (slideNavigation.isOnCanvas()) {
+      slideNavigation.open(0);
+      viewport.focus({ preventScroll: true });
+    } else {
+      goTo(overviewView);
+    }
+  });
+  void layout.ready.then(() => { previewControl.disabled = false; });
+}
+if (hostedRoom) {
   void layout.ready.then(() => {
     requestAnimationFrame(() => {
       reportSlide = connectPresentation(viewport, slideNavigation.open, openingDialogue.theory, undefined, cues, openingDialogue.updateOpeningQuiz);
@@ -508,14 +535,15 @@ function mountPaperPane(rolePicker?: HTMLElement) {
 }
 if (localDev) {
   void import('./dev-presentation').then(({ addDevRolePicker, connectDevPresentation }) => {
-    const rolePicker = addDevRolePicker(backdrop, previewRole, onHostMac);
-    if (!previewRole) {
+    const rolePicker = addDevRolePicker(backdrop, role, onHostMac);
+    if (role === 'editor') {
       void import('./dev-paper').then(({ createPaperPane }) => {
         paperPane = createPaperPane(backdrop, rolePicker);
       });
       return;
     }
     mountPaperPane(rolePicker);
+    if (!previewRole) return;
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
         reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingDialogue.theory, openingVideo, undefined, cues);

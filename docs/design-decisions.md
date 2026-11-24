@@ -1267,3 +1267,29 @@ Recorded time in Pacific Standard Time. Source is Howie’s [Canvas chat](codex:
 > Also some visual should changes based on the dialogue. For example, the dreaming thing, you can generate extra frames for those, like the graffiti or the No, you can have more frames to actually make it somewhat more close to what is happening in the dialogue too.
 
 Use the [original Ink Ocean pixel-art set](trial-previews/pixel-art/) in Story and in the Trial. The 4:3 artwork uses three reusable angles and changes to the corresponding frames for the acquittal, the sleeping prosecutor, his mother’s objection, and the dream fracture. The return to the witness angle carries the confetti reversal. The original Simone is also available as a transparent speaker sprite.
+
+## 2026-11-23T23:29:42-08:00 · Enlarge the slide progress rail
+
+Recorded time in Pacific time. Howie pointed to the left-side progress rail and asked:
+
+> make teh progress bar take more veitcal space and bigger
+
+The rail spans nearly the full viewport height with responsive top and bottom margins. Its buttons are wider, and the active marker remains wider than the other markers.
+
+## 2026-11-24T00:00:15-08:00 · Open the public site in a self-guided preview
+
+Recorded time in Pacific time. Howie requested a public preview for the professor and a matching view in local development:
+
+> Only on the present day, we're gonna turn it into, like, the present mode. And other time, just, like, think of this, like, um, website people could go to and, like, can navigate themselves.
+
+> first thing we need is taht i want there's a text lable contorl next to (above ? ) of the prgreoss abr where it's a contorl  like labled presentaiton  but this is for like the live version only and for local dev add a live prevew next to the editor audience prsenter sotyr contorl section and that should mathces the live version
+
+The public preview opens on the saved map. **Presentation** sits above the left progress rail, opens the first slide, and becomes **Back to map** on a slide. The local **Live Preview** tab uses the same self-guided navigation. Enable the shared classroom room with the presentation-day build flag.
+
+## 2026-11-23T23:58:57-08:00 · Straighten the canvas map links
+
+Recorded time in Pacific time. Howie pointed to the canvas overview and asked:
+
+> so the canvas stays pretty much the same but liek try to refine teh link so you know thing look more clean where there's less or like no unecessary turn ant he layout the compositon looks better so basically refine teh position and link lines you can visually check things
+
+Align the existing map branches with their destinations, center the Gavel beneath its heading, and use direct lines where the regress and foundations branches have open space. Align the cast figures along their lower edge. Retain the map's groups, slide order, and connector destinations.

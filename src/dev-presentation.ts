@@ -6,13 +6,14 @@ import type { SchoolRoomDisplay } from './legend-schools';
 import './dev-presentation.css';
 
 type PreviewRole = 'audience' | 'presenter';
+type DevRole = PreviewRole | 'editor' | 'live-preview';
 const roles = [
   ['editor', 'Editor'],
   ['audience', 'Audience'],
   ['presenter', 'Presenter'],
 ] as const;
 
-export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null, canSwitchRoles: boolean) {
+export function addDevRolePicker(shell: HTMLElement, role: DevRole, canSwitchRoles: boolean) {
   const picker = document.createElement('div');
   picker.className = 'dev-role-picker';
   picker.setAttribute('role', 'group');
@@ -20,14 +21,13 @@ export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null, c
   const label = document.createElement('span');
   label.textContent = 'Local dev';
   picker.append(label);
-  for (const [value, title] of roles) {
-    if (!canSwitchRoles && value !== 'audience') continue;
+  function appendRole(value: DevRole, title: string) {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = title;
-    button.setAttribute('aria-pressed', String(value === (role ?? 'editor')));
+    button.setAttribute('aria-pressed', String(value === role));
     button.addEventListener('click', () => {
-      if (value === (role ?? 'editor')) return;
+      if (value === role) return;
       const url = new URL(location.href);
       if (value === 'editor') url.searchParams.delete('role');
       else url.searchParams.set('role', value);
@@ -35,8 +35,12 @@ export function addDevRolePicker(shell: HTMLElement, role: PreviewRole | null, c
     });
     picker.append(button);
   }
+  for (const [value, title] of roles) {
+    if (canSwitchRoles || value === 'audience') appendRole(value, title);
+  }
   shell.append(picker);
-  addStoryReader(shell, picker, role === null);
+  addStoryReader(shell, picker, role === 'editor');
+  if (canSwitchRoles) appendRole('live-preview', 'Live Preview');
   return picker;
 }
 

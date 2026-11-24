@@ -1,13 +1,13 @@
 import './connections.css';
 import { cast, pairingRouteAnchors, versionPairings } from './version-pairings';
 
-type Pair = [source: string, target: string];
+type Pair = [source: string, target: string, style?: 'straight'];
 const aimLinks: Record<string, Pair[]> = {
   motivations: [
     ['flexible-heading', 'aim-motivations'], ['aim-motivations', 'regress-problem'],
-    ['regress-foundationalism', 'dilemma-heading'], ['dilemma-heading', 'undoubted-heading'],
-    ['undoubted-heading', 'route-social-heading'], ['undoubted-heading', 'route-hinges-heading'],
-    ['undoubted-heading', 'route-knowledge-heading'],
+    ['regress-foundationalism', 'dilemma-heading', 'straight'], ['dilemma-heading', 'undoubted-heading'],
+    ['undoubted-heading', 'route-social-heading', 'straight'], ['undoubted-heading', 'route-hinges-heading'],
+    ['undoubted-heading', 'route-knowledge-heading', 'straight'],
   ],
   versions: [
     ['flexible-heading', 'aim-versions'], ['aim-versions', 'versions-map-heading'],
@@ -17,7 +17,12 @@ const aimLinks: Record<string, Pair[]> = {
     ['flexible-heading', 'aim-applications'], ['aim-applications', 'access-heading'],
   ],
 };
-const regressRoutes = ['skepticism', 'infinitism', 'coherentism', 'foundationalism'];
+const regressLinks: Pair[] = [
+  ['regress-problem', 'regress-skepticism'],
+  ['regress-problem', 'regress-infinitism', 'straight'],
+  ['regress-problem', 'regress-coherentism'],
+  ['regress-problem', 'regress-foundationalism', 'straight'],
+];
 const svgNS = 'http://www.w3.org/2000/svg';
 
 type Point = [x: number, y: number];
@@ -98,13 +103,13 @@ function relationGeometry(name: string, a: Box, b: Box) {
 
 export function createConnections(world: HTMLElement) {
   const links: Link[] = [];
-  function add(layer: SVGSVGElement, family: string, [sourceId, targetId]: Pair, options: { straight?: boolean; color?: string } = {}) {
+  function add(layer: SVGSVGElement, family: string, [sourceId, targetId, style]: Pair, color?: string) {
     const source = document.getElementById(sourceId);
     const target = document.getElementById(targetId);
     if (!source || !target) return;
     const group = document.createElementNS(svgNS, 'g');
     group.classList.add('canvas-link', family);
-    if (options.color) group.style.setProperty('--route-color', options.color);
+    if (color) group.style.setProperty('--route-color', color);
     group.dataset.source = sourceId;
     group.dataset.target = targetId;
     const clip = document.createElementNS(svgNS, 'clipPath');
@@ -120,7 +125,7 @@ export function createConnections(world: HTMLElement) {
     strokes.append(line, flow);
     group.append(clip, strokes);
     layer.append(group);
-    links.push({ source, target, preferRow: target.classList.contains('slide-title'), straight: options.straight ?? false, group, line, flow, silhouette });
+    links.push({ source, target, preferRow: target.classList.contains('slide-title'), straight: style === 'straight', group, line, flow, silhouette });
   }
   const aims = world.querySelector<SVGSVGElement>('#connections')!;
   const regress = world.querySelector<SVGSVGElement>('#regress-connections')!;
@@ -128,10 +133,10 @@ export function createConnections(world: HTMLElement) {
   for (const [family, pairs] of Object.entries(aimLinks)) {
     for (const pair of pairs) add(aims, `link-${family}`, pair);
   }
-  for (const route of regressRoutes) add(regress, `route-${route}`, ['regress-problem', `regress-${route}`]);
+  for (const pair of regressLinks) add(regress, pair[1].replace('regress-', 'route-'), pair);
   for (const { id, route, character } of versionPairings) {
-    add(aims, 'link-motivations', [pairingRouteAnchors[route], id], { straight: true });
-    if (character) add(aims, 'link-versions', [id, `cast-${character}`], { straight: true, color: cast[character].color });
+    add(aims, 'link-motivations', [pairingRouteAnchors[route], id, 'straight']);
+    if (character) add(aims, 'link-versions', [id, `cast-${character}`, 'straight'], cast[character].color);
   }
 
   const relations = applicationRelations(aims);

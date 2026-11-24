@@ -57,12 +57,14 @@ Select the gold tab on the right of the canvas in Audience or Presenter mode to 
 
 ## Live presentation
 
-Open https://phi102.c171017.com/ to join the audience automatically. The progress bar shows connected viewers by slide. Audience members can browse the canvas and select **Follow presenter** to return to the shared slide. The gold marker shows the presenter's slide while they are connected.
+Open https://phi102.c171017.com/ to explore the map at your own pace. Select **Presentation** above the progress rail to start at the first slide, click a rail marker to jump to a slide, and select **Back to map** to return to the overview.
+
+For presentation day, deploy with `VITE_PRESENTATION_DAY=1 npm run deploy`. The public URL then joins the audience automatically. The progress rail shows connected viewers by slide, and the gold marker shows the presenter’s slide. Audience members can browse and select **Follow presenter** to return to the shared slide. Run `npm run deploy` with the flag unset to restore the self-guided preview.
 
 To present, open the private URL saved in `~/.config/phi102-presentation/presenter-url.txt`. The URL fragment contains the presenter key, so share the root URL with the audience. The latest presenter connection takes over slide control. The server remembers the shared slide when the presenter disconnects.
 
-On `npm run dev` at `http://127.0.0.1:5182/`, use the buttons at the top of the canvas. Keep one tab in **Presenter** and another in **Audience** to test slide following and viewer counts. Both roles share an isolated local room and leave the saved layout alone. Choose **Editor** to move or resize content.
+On `npm run dev` at `http://127.0.0.1:5182/`, choose **Live Preview** to try the self-guided public experience. Keep one tab in **Presenter** and another in **Audience** to test slide following and viewer counts in the local room. Choose **Editor** to move or resize content.
 
-Run `npm run build:live` to build the public canvas. To test the actual backend on localhost, set a separate random 64-character lowercase hexadecimal `PRESENTER_KEY` in `.dev.vars` and run `npm run dev:live`. Open `http://localhost:5192/` as a viewer or append `#presenter=<local-key>` to present.
+Run `npm run build:live` to build the public canvas. To test the actual classroom backend on localhost, set a separate random 64-character lowercase hexadecimal `PRESENTER_KEY` in `.dev.vars` and run `VITE_PRESENTATION_DAY=1 npm run dev:live`. Open `http://localhost:5192/` as a viewer or append `#presenter=<local-key>` to present.
 
 Cloudflare Workers Builds runs the live build and performance tests on pushes to `main`, then deploys to the public site if they pass. Check the commit’s Cloudflare status on GitHub or the Worker’s Deployments tab. For a manual deploy, run `npm run deploy` from an authorized Wrangler session. Deployments retain the existing Worker secret. The production key is stored as the Worker's `PRESENTER_KEY` secret. If the private URL is shared accidentally, replace that secret and update the private URL.

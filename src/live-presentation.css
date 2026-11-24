@@ -1,3 +1,31 @@
+.public-preview {
+  --preview-control-top: clamp(8px, 1.5vh, 20px);
+  --preview-control-height: 32px;
+}
+.public-preview #slide-progress {
+  top: calc(var(--preview-control-top) + var(--preview-control-height) + 6px);
+}
+.preview-presentation {
+  position: absolute;
+  z-index: 6;
+  top: var(--preview-control-top);
+  left: 10px;
+  height: var(--preview-control-height);
+  padding: 0 10px;
+  border: 1px solid #ded9ce;
+  border-radius: 8px;
+  background: #fffefa;
+  color: #334c4c;
+  font: 600 12px/1.35 system-ui, sans-serif;
+  cursor: pointer;
+}
+.preview-presentation:hover { background: #e9eeea; }
+@media (max-width: 640px) {
+  #presentation-shell:has(.dev-role-picker) .public-preview {
+    --preview-control-top: 44px;
+  }
+}
+
 .live-follow-presenter {
   position: absolute;
   z-index: 6;
