@@ -2,27 +2,30 @@ import type { SlideNotes } from './legend-slide-notes';
 
 export const schoolNotes: Record<string, SlideNotes> = {
   'regress-foundationalism': {
-    claim: 'Doubting “I think” confirms it.',
+    claim: 'Some justified beliefs can end a chain of reasons.',
     points: [
-      'Even an attempt to doubt his thinking is an act of thought.',
-      'That makes “I think” a foundation: it needs no further supporting belief.',
+      'A basic belief can support others without drawing its justification from another belief.',
+      'Descartes looks for a basic belief that withstands every attempt to doubt it.',
     ],
+    bridge: 'Watch what happens when he tries to doubt that he is thinking.',
     source: 'Greco · §1, p. 426',
   },
   'L6-A': {
-    claim: 'The Cartesian standard admits too few beliefs.',
+    claim: 'Cartesians look for beliefs that cannot be doubted.',
     points: [
-      'Ten thousand Cartesians produce one small ink pebble after three hundred years.',
-      'The pebble withstands every question. It gives them too little to build with.',
+      'A belief that withstands every doubt can stop the demand for reasons.',
+      'Very few beliefs meet this standard. Can they support what we ordinarily take ourselves to know?',
     ],
+    bridge: 'The pebble is solid. How much can they build on it?',
     source: 'Greco · §1, p. 426',
   },
   'L6-B': {
-    claim: 'Moderate foundationalism allows perceptual starting points.',
+    claim: 'Moderates let perception supply basic beliefs.',
     points: [
-      'The moderates dry what seems true and build a town in an afternoon.',
-      'Once Y questions the floor, the town collapses. Why would the same appearance settle that doubt?',
+      'A perceptual belief can have basic justification even if someone could doubt it.',
+      'Greco asks what lets it settle a doubt once its own support is challenged.',
     ],
+    bridge: 'Pay attention to the question Y asks about the floor.',
     source: 'Greco · §1, p. 426',
   },
 };

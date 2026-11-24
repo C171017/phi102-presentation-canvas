@@ -1375,3 +1375,49 @@ Recorded time in Pacific time. Howie asked for a subject highlight on dialogue c
 > Remember, like, the, the gameplay for the Ace Attorney section should remain intact since the style of that is already, like, you know, um, pretty good and fixed.
 
 Use a light silhouette rim for Professor Lin and rounded marks around visible speakers in the full-color paintings. Keep the art in full color through dialogue and the B/13 vote. Narration, offscreen voices, stage directions, and establishing shots have no marks. The Trial continues to use its existing courtroom dialogue and controls.
+
+## 2026-11-24T00:57:17-08:00 · Fade to black before The Trial
+
+Recorded time in Pacific time. Howie asked whether to fade to black or white between The Stranger and The Trial, then approved the black fade in the [canvas chat](codex://threads/01a20c94-2be4-7c90-89b1-e9037e39a9eb):
+
+> implement then
+
+On the advance after “Probably,” fade to black for about half a second, hold for a short beat, and fade into the pixel-art courtroom. Reduced motion goes straight to the courtroom. The Door World keeps its white climax.
+
+## 2026-11-24T00:59:46-08:00 · Shatter the courtroom into Door World
+
+Recorded time in Pacific time. Howie supplied the cracked courtroom cue and the coastal road establishing shot in the [canvas chat](codex://threads/01a20c94-2be4-7c90-89b1-e9037e39a9eb):
+
+> for this part do anoteh transiton but not like fasde in fade out but something maybe like coherent to the transition logical base on teh story maybe glass scattered etc
+
+On the advance from The Trial to the coastal road, break the outgoing pixel-art painting into shards that scatter over the incoming sea light. Reduced motion takes a direct cut. The fade into The Trial stays as previously approved.
+
+## 2026-11-24T01:01:15-08:00 · Explain the paper alongside the dialogue
+
+Recorded time in Pacific time. Howie requested the update in the [slide revision chat](codex://threads/01a20cc8-d566-72b0-82f0-fe801a52a301):
+
+> So for the left side, the slice currently, they're a little bit outdated or not good enough. So what I'd like to do is, I want you to read the paper thoroughly, and then try to identify what are the things we should put on the left side for each section for the sake of explain things.
+
+> And for the Ace Attorney part, it should remain intact. You can put down into markdown file, so that part is not affected unless I explicitly asking added that part, because that's like a standalone part, like a little gameplay section.
+
+The left mini-slide uses a claim, brief explanation, and Greco reference. A short scene cue can connect the idea to what the audience hears or sees.
+
+### The Trial · facilitator notes
+
+The Trial is a standalone gameplay section. Integrating these notes into the presentation requires an explicit request from Howie.
+
+- Annis treats justification as answering the objections that an appropriate group would raise. A belief is basic in that context if the group would leave it unchallenged.
+- The Gavel makes the room’s objections visible. A new objection reopens a claim the courtroom had treated as settled.
+- Greco asks whether a whole community can be epistemically mistaken in taking a claim for granted. The courtroom’s confidence makes that question concrete. See Greco §2.1, pp. 427–428, and §3, pp. 429–430.
+
+## 2026-11-24T01:02:05-08:00 · Remove Simone’s red pin in No time to explain
+
+Recorded time in Pacific time. Howie pointed to the red pin in the P2-6 frame:
+
+> why do we have this little red pin thing? remvoe this
+
+Remove the badge in the [P2-6 illustration](../public/generated/backgrounds/ink-ocean/P2-6-no-time-to-explain.webp). Use the original framing and replace the badge with matching jacket fabric.
+
+ImageGen edit prompt:
+
+> Use case: precise-object-edit. Edit the supplied square crop of a cel-painted dark teal jacket. Remove the tiny bright red map-pin badge in the center, including its dark hole and any red fringe. Replace only the badge with matching plain jacket fabric. Keep the nearby dark triangular cloth fold, seam, shading, reflected light, water droplets, brown strap, and exact crop and geometry. Return the full square crop. Add nothing.

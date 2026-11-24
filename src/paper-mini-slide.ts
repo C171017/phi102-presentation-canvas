@@ -23,7 +23,9 @@ export function createPaperMiniSlide() {
   header.append(section, source);
   const claim = document.createElement('h2');
   const points = document.createElement('ul');
-  element.append(header, claim, points);
+  const bridge = document.createElement('p');
+  bridge.className = 'mini-slide-bridge';
+  element.append(header, claim, points, bridge);
   let activeKey: string | undefined;
 
   function show(key: string, title: string) {
@@ -33,11 +35,14 @@ export function createPaperMiniSlide() {
     section.textContent = title;
     source.textContent = slide.source;
     claim.textContent = slide.claim;
+    points.hidden = slide.points.length === 0;
     points.replaceChildren(...slide.points.map(point => {
       const item = document.createElement('li');
       item.textContent = point;
       return item;
     }));
+    bridge.textContent = slide.bridge ?? '';
+    bridge.hidden = !slide.bridge;
     element.scrollTop = 0;
   }
   return { element, show };

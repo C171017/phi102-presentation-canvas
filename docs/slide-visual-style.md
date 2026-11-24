@@ -18,11 +18,13 @@ Use one broad, dark dialogue box in the lower part of the slide. The [JumpFromPa
 
 | Left half · what stays on the slide | Right half · what people say |
 | --- | --- |
-| Write the idea the audience should have in view throughout this section. Keep it fixed while the dialogue advances. Use a left-aligned claim, two concise bullets that connect the paper to the scene, and a compact reference to Greco. | Write the exchange one cue at a time. Use left-aligned serif text. Only this column scrolls. The active cue sits at its vertical center at full opacity. All other visible cues use the same reduced opacity. |
+| Keep one left-aligned claim in view as the dialogue advances. Add one or two short points to explain the idea and a compact reference to Greco. Where a scene makes the idea concrete, add a brief cue for what to listen for or watch. A short narrative beat can carry just a claim. | Write the exchange one cue at a time. Use left-aligned serif text. Only this column advances through dialogue. The active cue sits at its vertical center at full opacity. All other visible cues use the same reduced opacity. |
 
 Start with equal column widths. Spacing, alignment, and type distinguish the columns without a center rule. In narrow panels, stack the mini-slide above the dialogue and reserve enough height to read the active turn. When navigation crosses a section boundary in either direction, update the statement and active turn together.
 
-For example, the *Contemporary Contextualism* slide keeps “The same sentence can express different claims in different contexts” on the left while Professor Lin and the student work through the locked-door example on the right. To author a slide, put the fixed text in its `description` in [slide-content.ts](../src/slide-content.ts). Add spoken turns to the script in [classroom-dialogue.ts](../src/classroom-dialogue.ts), using the slide’s first member ID as each turn’s `scene`.
+Author the left-hand copy in [legend-slide-notes.ts](../src/legend-slide-notes.ts) and [school-slide-notes.ts](../src/school-slide-notes.ts). The classroom introduction draws its cues from [classroom-dialogue.ts](../src/classroom-dialogue.ts). The Ink Ocean scenes draw theirs from [ink-ocean-story.ts](../src/ink-ocean-story.ts) and saved story text.
+
+The Trial is a standalone gameplay section. Its explanatory notes are kept in the [design log](design-decisions.md#2026-11-24t010115-0800--explain-the-paper-alongside-the-dialogue). Adding them to the presentation requires an explicit request from Howie.
 
 Show only the words of the dialogue in each visible transcript row. The centered line controls a bright outline on a visible speaker while the full scene stays in color. Use a silhouette rim on a transparent portrait and rounded corner marks around a painted speaker. Narration, offscreen voices, stage directions, and full-color establishing shots leave the artwork unmarked. Keep speaker names in accessible dialogue announcements. Update text emphasis and the outline together on scroll, click, keyboard navigation, reverse navigation, and shared cue changes.
 

@@ -4,11 +4,13 @@
   min-width: 0;
   min-height: 0;
   margin: auto 0;
-  padding: clamp(10px, 2.1cqh, 20px) clamp(16px, 2.6cqw, 54px);
+  padding: clamp(10px, 2.5cqh, 20px) clamp(16px, 2.6cqw, 50px);
   max-height: 100%;
   box-sizing: border-box;
   overflow: auto;
   overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #bda477 transparent;
   font-family: system-ui, sans-serif;
   text-align: start;
   color: #fff5df;
@@ -18,42 +20,54 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: .2em .9em;
-  margin-bottom: clamp(5px, 3cqh, 14px);
-  font-size: clamp(12px, 1.28cqw, 20px);
+  margin-bottom: clamp(5px, 2.1cqh, 11px);
+  font-size: clamp(12px, min(1.28cqw, 6.5cqh), 19px);
   line-height: 1.25;
 }
 .mini-slide-section { font-weight: 650; }
 .paper-mini-slide cite { font-size: .87em; font-style: normal; color: #b4c8c9; }
 .paper-mini-slide h2 {
-  margin: 0 0 clamp(7px, 3.2cqh, 16px);
-  max-width: 32ch;
+  margin: 0;
+  max-width: 34ch;
   color: #ffe1a0;
-  font-size: clamp(18px, min(2.4cqw, 11.5cqh), 43px);
+  font-size: clamp(18px, min(2.3cqw, 10.8cqh), 42px);
   line-height: 1.1;
   letter-spacing: -.025em;
   text-wrap: pretty;
 }
 .paper-mini-slide ul {
   display: grid;
-  gap: .38em;
-  margin: 0;
+  gap: .28em;
+  margin: clamp(6px, 2.7cqh, 12px) 0 0;
   padding-left: 1.1em;
-  font-size: clamp(14px, min(1.5cqw, 7.5cqh), 26px);
-  line-height: 1.28;
+  font-size: clamp(14px, min(1.5cqw, 7.2cqh), 25px);
+  line-height: 1.25;
   max-width: 61ch;
 }
 .paper-mini-slide li::marker { color: #d5b574; font-size: .85em; }
+.mini-slide-bridge {
+  max-width: 62ch;
+  margin: clamp(7px, 3cqh, 15px) 0 0;
+  padding-inline-start: .75em;
+  border-inline-start: 2px solid #bc9b60;
+  color: #e5dcc8;
+  font-size: clamp(13px, min(1.3cqw, 6.3cqh), 22px);
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+.paper-mini-slide [hidden] { display: none; }
 @container dialogue-box (max-width: 600px) {
-  .paper-mini-slide { padding: 8px 16px; margin: 0; }
+  .paper-mini-slide { padding: 8px 13px; margin: 0; }
   .paper-mini-slide header { font-size: 12px; margin-bottom: 4px; }
-  .paper-mini-slide h2 { font-size: 17px; margin-bottom: 5px; max-width: none; }
-  .paper-mini-slide ul { font-size: 14px; gap: .15em; }
+  .paper-mini-slide h2 { font-size: 16px; max-width: none; }
+  .paper-mini-slide ul { font-size: 13px; gap: .15em; margin-top: 5px; }
+  .mini-slide-bridge { margin-top: 5px; }
 }
 .classroom-stage, .school-pane { container-type: inline-size; }
 @container (max-width: 625px) {
   .transcript-panel:has(> .paper-mini-slide):not([hidden]) {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-rows: minmax(0, auto) minmax(80px, 1fr);
   }
 }
 .paper-mini-slide:focus-visible { outline: 2px solid #ffdc9e; outline-offset: -3px; }

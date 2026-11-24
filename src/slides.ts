@@ -1,6 +1,7 @@
 import type { CameraView } from './layout';
 
-import { slides } from './slide-content';
+import { legendById, slides } from './slide-content';
+import { scatterTrialShards } from './trial-shatter';
 
 type FramingMode = 'classroom' | 'dialogue';
 
@@ -21,6 +22,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   let previewingExit = false;
   let entering: number | undefined;
   let requested: { index: number } | undefined;
+  let sceneTransition: HTMLElement | undefined;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
   const buttons = slides.map(({ title, members }, index) => {
@@ -155,8 +157,55 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     setVisible(next);
   }
 
+  function clearSceneTransition() {
+    const overlay = sceneTransition;
+    sceneTransition = undefined;
+    overlay?.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+    overlay?.remove();
+  }
+
+  async function fadeIntoTrial(showPage: () => void) {
+    const overlay = document.createElement('div');
+    overlay.className = 'trial-entrance-fade';
+    viewport.parentElement!.append(overlay);
+    sceneTransition = overlay;
+    const duration = 480;
+    try {
+      await overlay.animate({ opacity: [0, 1] }, { duration, easing: 'ease-in', fill: 'forwards' }).finished;
+      if (sceneTransition !== overlay) return;
+      showPage();
+      await overlay.animate({ opacity: [1, 0] }, { duration, delay: 160, easing: 'ease-out', fill: 'both' }).finished;
+    } catch (error) {
+      if (sceneTransition === overlay) throw error;
+    } finally {
+      if (sceneTransition === overlay) clearSceneTransition();
+    }
+  }
+
+  async function shatterIntoDoorWorld(showPage: () => void) {
+    const background = viewport.style.getPropertyValue('--regress-background');
+    const incoming = legendById.get('P2-1')?.background;
+    if (!background || !incoming) { showPage(); return; }
+
+    const overlay = document.createElement('div');
+    overlay.className = 'trial-shatter';
+    sceneTransition = overlay;
+    const road = new Image();
+    road.src = incoming;
+    const ready = await road.decode().then(() => true, () => false);
+    if (sceneTransition !== overlay) return;
+
+    if (ready) viewport.parentElement!.append(overlay);
+    const flights = ready ? scatterTrialShards(overlay, background) : [];
+    showPage();
+    await Promise.allSettled(flights.map(animation => animation.finished));
+    if (sceneTransition === overlay) clearSceneTransition();
+  }
+
   function open(index: number, fromCanvas = false) {
     if (!framingGroups[index]) return;
+    if (sceneTransition && index === (requested?.index ?? visible)) return;
+    clearSceneTransition();
     const request = { index };
     requested = request;
     const showPage = () => {
@@ -169,7 +218,13 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
       measure(transform === 'none' ? 1 : new DOMMatrixReadOnly(transform).a);
       navigate(frame!, fromCanvas);
     };
-    if (!fromCanvas && visible >= 0 && visible !== index && document.startViewTransition && !reducedMotion.matches) {
+    const from = slides[visible]?.members[0];
+    const to = slides[index].members[0];
+    if (!fromCanvas && from === 'P1' && to === 'P2-1' && !reducedMotion.matches) {
+      void shatterIntoDoorWorld(showPage);
+    } else if (!fromCanvas && from === 'L7' && to === 'P1' && !reducedMotion.matches) {
+      void fadeIntoTrial(showPage);
+    } else if (!fromCanvas && visible >= 0 && visible !== index && document.startViewTransition && !reducedMotion.matches) {
       document.startViewTransition(showPage);
     } else {
       showPage();
@@ -185,6 +240,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   function cancelOpening() {
     requested = undefined;
     entering = undefined;
+    clearSceneTransition();
   }
 
   return {
