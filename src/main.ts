@@ -256,7 +256,7 @@ window.addEventListener('keydown', (event) => {
   if (event.defaultPrevented || element.isContentEditable || element.closest('input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
   const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .before-lecture-scene');
   if (element.closest('button') && (!navigationTarget || event.key === ' ' || event.key === 'Enter')) return;
-  if (!event.isComposing && !event.shiftKey && openingDialogue.handleArrow(event.key)) {
+  if (!event.isComposing && !event.shiftKey && openingDialogue.handleArrow(event.key, event.repeat)) {
     event.preventDefault();
     return;
   }

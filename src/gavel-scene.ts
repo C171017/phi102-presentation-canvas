@@ -1,6 +1,6 @@
 import './gavel-scene.css';
 
-export const gavelArtwork = '/generated/props/ink-ocean/gavel.webp';
+export const gavelArtwork = '/generated/props/ink-ocean/gavel-brass.webp';
 
 export const gavelScene = {
   w: 560,
@@ -15,24 +15,12 @@ export const gavelScene = {
     art.innerHTML = `
       <svg class="gavel-artwork" viewBox="0 0 960 540" aria-hidden="true">
         <defs>
-          <!-- Follow the contact seam between the gavel head and the sounding block. -->
-          <path id="gavel-block-cut" d="M0 362H98Q118 387 161 400Q203 414 247 405Q278 403 294 387L310 370H450V540H0Z"/>
-          <clipPath id="gavel-block-clip"><use href="#gavel-block-cut"/></clipPath>
-          <mask id="gavel-moving-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="960" height="540">
-            <rect width="960" height="540" fill="white"/>
-            <use href="#gavel-block-cut" fill="black"/>
-          </mask>
+          <!-- The transparent gap separates the hammer from the sounding block. -->
+          <clipPath id="gavel-hammer-clip"><rect width="960" height="360"/></clipPath>
+          <clipPath id="gavel-block-clip"><rect y="360" width="960" height="180"/></clipPath>
         </defs>
-        <image class="gavel-rest" href="${gavelArtwork}" width="960" height="540"/>
-        <g class="gavel-action">
-          <!-- Complete the portion of the block's top normally covered by the head. -->
-          <ellipse cx="220" cy="399" rx="162" ry="33" fill="#bd7240" stroke="#261712" stroke-width="5"/>
-          <ellipse cx="220" cy="398" rx="151" ry="24" fill="#693e2a"/>
-          <image href="${gavelArtwork}" width="960" height="540" clip-path="url(#gavel-block-clip)"/>
-          <g class="gavel-moving">
-            <image href="${gavelArtwork}" width="960" height="540" mask="url(#gavel-moving-mask)"/>
-          </g>
-        </g>
+        <image href="${gavelArtwork}" width="960" height="540" clip-path="url(#gavel-block-clip)"/>
+        <image class="gavel-moving" href="${gavelArtwork}" width="960" height="540" clip-path="url(#gavel-hammer-clip)"/>
       </svg>
       <span class="gavel-bubble gavel-question" aria-hidden="true">Any objections?</span>
       <span class="gavel-bubble gavel-jury" aria-hidden="true">None from the jury.</span>

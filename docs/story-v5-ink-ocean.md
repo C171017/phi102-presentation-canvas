@@ -538,10 +538,10 @@ Greco's §3 moves in steps: each version runs into a problem, and the next is br
 **P1.3 · Not Guilty**
 
 > **Simone:** The defendant is innocent. Any objections?
-> *(Silence. BANG. "NOT GUILTY" confetti rains down. Her shackles fall off.)*
+> *(Silence. BANG. "NOT GUILTY" confetti rains down.)*
 > *(The laughter stops.)*
 > **Prosecutor:** **OBJECTION!**
-> *(The confetti flies back up into the ceiling. The shackles snap back onto her wrists.)*
+> *(The confetti flies back up into the ceiling.)*
 > **Simone** *(looking at the gavel)***:** …So that's how it works.
 
 **P1.4 · The Dream**
@@ -581,7 +581,13 @@ Greco's §3 moves in steps: each version runs into a problem, and the next is br
 - **Courtroom-game format:** the session banner, "My Lord," the shouted "OBJECTION!", "TAKE THAT!" when Simone presents her evidence, the sweating prosecutor.
 - **Scope:** "anyone in the room" is simpler than Annis's exact objector group (the people whose objections count by the community's standards). Mention it in Q&A if asked.
 
-**Visual:** a courtroom in the style of classic courtroom-battle games: warm wood panels, the judge's bench high in the center with a large brass zodiac wheel above it, a jury box of six, the gallery behind, jagged shout bubbles, screen shake on each BANG. Simone at the stand, Echo peeking from her carrier. Snow and a frozen lake through the tall windows. New art: P1.3 (confetti and shackles) and P1.4 (the prosecutor asleep in a nightcap; his small old mother standing at the back of the gallery). P1.1, P1.2 and P1.5 reuse the courtroom image with the zodiac wheel added. A homage to the genre only: don't copy any existing character, logo or sprite.
+**Visual plan.** All five beats take place in the same 1890s courtroom. Three reusable camera setups cover the speakers and reactions:
+
+- **Witness stand (P1.1, P1.3, P1.5).** Simone and Echo at the rail, framed with room for Simone to raise the Gavel and for the confetti to fall and reverse. Simone's hands remain free throughout.
+- **Judge's bench (P1.2).** The judge under the brass zodiac wheel, with the jury in view for its reaction to the opening ruling.
+- **Prosecution desk (P1.4 and objections).** The prosecutor at the desk, with a clear view of his mother at the back of the gallery. His nightcap appears when he falls asleep.
+
+Use separate graphics for the session banner, the courtroom callouts, the confetti and the spreading cracks. Keep the courtroom design provisional until a preview is selected.
 
 ### P2 · The Door · Simone and Cole · hinges × sensitive invariantism · the Hinge [YOUR IDEA · AI VERSION · chant and filler lines AI DRAFT] · ~4–4.5 min
 

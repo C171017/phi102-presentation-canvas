@@ -281,32 +281,3 @@
 .legend-paging button:hover, .legend-paging button:focus-visible { background: #465654; }
 #viewport:has(#contemporary-heading.page-foreground)::before { filter: grayscale(.85) brightness(.54); }
 .classroom-character.is-speaking img { filter: brightness(1.08) saturate(1.18); }
-
-.court-interjection {
-  position: absolute;
-  top: 6%;
-  right: 7%;
-  max-width: 65%;
-  text-align: center;
-  padding: .45em 1em;
-  font: 900 italic clamp(28px, 5.8vmin, 82px)/1 Georgia, serif;
-  color: #a62628;
-  background: #fff1ce;
-  filter: drop-shadow(3px 4px 0 #341d17);
-  pointer-events: none;
-}
-.court-interjection[data-style="shout"] {
-  transform: rotate(-5deg);
-  clip-path: polygon(0 38%, 12% 32%, 8% 5%, 28% 17%, 41% 0, 52% 13%, 73% 2%, 78% 14%, 99% 4%, 92% 32%, 100% 46%, 92% 58%, 99% 88%, 75% 82%, 63% 100%, 47% 88%, 27% 99%, 28% 85%, 2% 96%, 9% 66%);
-}
-.court-interjection[data-style="banner"] {
-  color: #ffe7ac;
-  background: #392822;
-  border-block: 3px double #bd9468;
-  font-size: clamp(16px, 3vmin, 42px);
-}
-.court-interjection[data-style="verdict"] {
-  border: .1em double currentColor;
-  transform: rotate(-8deg);
-  letter-spacing: .04em;
-}

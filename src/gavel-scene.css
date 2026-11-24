@@ -12,19 +12,8 @@
   overflow: visible;
 }
 
-.gavel-rest {
-  --gavel-idle: 1;
-  --gavel-active: 0;
-}
-
-.gavel-action {
-  --gavel-idle: 0;
-  --gavel-active: 1;
-  opacity: 0;
-}
-
 .gavel-moving {
-  transform-origin: 822px 420px;
+  transform-origin: 848px 269px;
 }
 
 .gavel-bubble {
@@ -66,10 +55,6 @@
 .gavel-illustration.is-striking .gavel-ruling { animation-delay: 970ms; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .gavel-illustration.is-striking :is(.gavel-rest, .gavel-action) {
-    animation: gavel-swap 1480ms linear;
-  }
-
   .gavel-illustration.is-striking .gavel-moving {
     animation: gavel-swing 1480ms;
   }
@@ -81,15 +66,10 @@
   }
 }
 
-@keyframes gavel-swap {
-  0%, 100% { opacity: var(--gavel-idle); }
-  9%, 94% { opacity: var(--gavel-active); }
-}
-
 @keyframes gavel-swing {
   0%, 9%, 100% { transform: none; }
   45% { transform: translate(10px, -35px) rotate(23deg); animation-timing-function: ease-in; }
-  66% { transform: none; animation-timing-function: ease-out; }
+  66% { transform: translateY(16px); animation-timing-function: ease-out; }
   75% { transform: rotate(3deg); }
   88% { transform: none; }
 }

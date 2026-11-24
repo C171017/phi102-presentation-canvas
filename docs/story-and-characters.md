@@ -1,140 +1,122 @@
 # PHI 102 canvas · Story bible: cast and main plot
 
-**Proposal, November 20, 2026.** Builds on [the interactive canvas brief](interactive-canvas-brief.md). Howie's requirements: three human characters for the speaker (contextualism), the subject (sensitive invariantism), and the assessor (relativism); one non-human mascot for expressivism; NPCs for the social-justification route; and one simple, dry, slightly silly plot that follows the canvas order. The setting and ending are open to change. Howie selected Version C for the four main character designs.
+**Baseline, updated November 23, 2026.** Builds on [the interactive canvas brief](interactive-canvas-brief.md). Howie's requirements: the story follows Simone, the subject (sensitive invariantism), and Cole, the speaker (contextualism), with a love story hidden inside the philosophy; Echo, Simone's hermit crab, only reacts; Part 2 is three dream worlds, each nested in the last; and everything has to fit a 28-minute slot, so anything the audience doesn't need is cut. Simone, Cole and Echo keep their Version C designs.
 
-> **Acting and personality:** see the [character bible](character-bible.md), which is canonical for expressions, posture, motion and dialogue tone. **Plot revision under review:** [story draft 2, *Eight-ish*, plus alternatives](story-v2-draft.md).
+> **Acting and personality:** see the [character bible](character-bible.md), which is canonical for expressions, posture, motion and dialogue tone. **Canonical script:** [story draft 5](story-v5-ink-ocean.md) has the scene-by-scene text and tags each scene as confirmed or draft. Scene wording from Part 2 on is still under review.
 
 ## The pitch
 
-**Simone has one job: get Echo, a hermit crab, to his own surprise birthday party by 8:00.** Evan, his owner, is hosting across town. Simone has been crab-sitting. The last train that gets her there on time leaves at 7:12. Her friend Cole livestreams the trip. Rae, the night-train conductor, has opinions about everything Cole says. Echo says nothing. He wears his faceted violet shell.
+**Simone has to work out whether the world she's standing in is real. Cole, the stranger who keeps turning up, already knows.** Everything in this world is written in ink. Ink that nobody is asking about dries, and dry ink is ground you can stand on. The Cartesian demon's creature, YYYY SOWATT, never stops asking, so the world has gone wet and people sleep inside dreams. Simone falls through three of them: a courtroom, a door in a flooded ruin, and her own wedding. Echo rides along in her pet carrier and says nothing.
 
-The opening is an elaborate, stylish homage to an anime OP. The stakes are a crab and a cake.
+A love story is hidden inside. Cole has been awake for a very long time and knows Simone. She never remembers him. He knows every dream is fake and keeps quiet, because his life with her is in there.
+
+The legend is a mock-epic anime, the courtroom is a courtroom-battle game, and the door is a parody of *Suzume*. The stakes are whether anyone can stand on an ocean.
 
 ## Why this setting
 
-Greco's own application (§4.2) is a party: Justine relies on what Peter said about the start time. A train adds a known departure time, which gives E = K a natural place. The trip has three legs, and each leg matches one part of the canvas.
+Greco's claim is that a foundation has to be undoubted, here and now, and doesn't have to be undoubtable. Ink shows that directly: a sentence stays wet while anyone is asking about it, dries when the asking stops, and can go wet again. Each part of the story matches one part of the canvas.
 
-| Canvas part | Leg of the trip | Question in the story |
+| Canvas part | Part of the story | Question in the story |
 | --- | --- | --- |
-| 1. Why accept flexible foundationalism? | **The apartment and the platform** | When can Simone stop checking and just go? |
-| 2. Which version do we get? | **On the train** | When Cole says Simone is justified, whose context decides if that's true? |
-| 3. What does this explain? | **At Evan's door** | Can Simone tell what she should believe when doubt sets in? |
+| 1. Why accept flexible foundationalism? | **The Legend** (L0–L7) | Can anything stay dry while YYYY SOWATT keeps asking? |
+| 2. Which version do we get? | **Three nested dreams** (P1–P3) | What makes the ink dry: Simone's community, Simone's inquiry, or the speaker's word? |
+| 3. What does this explain? | **The real ocean** (R1–R13) | Can Simone tell what she should believe once her grounds are in doubt? |
 
-In Greco’s paper, Peter hosts the party and Justine hears the start time. In the adaptation, Evan writes the invitation and Simone reads it.
+In Greco's paper (§4.2), Peter tells Justine when the party starts. In the adaptation, Cole tells Simone the way to the lighthouse.
 
 ## Cast
 
 | Character | Role (Unit 5 vocabulary) | Version | Colour (existing palette) | Signature prop |
 | --- | --- | --- | --- | --- |
-| **Simone** | Subject: the person whose belief is in question | Sensitive invariantism | Green `#457c71` | The invitation card and a wristwatch |
-| **Cole** | Speaker: says "Simone is justified…" | Contextualism (and Greco's speaker-relativism analogue) | Rust `#a25b45` | Phone on a selfie stick, showing a live-chat sidebar |
-| **Rae** | Assessor: judges what Cole said | Relativism | Blue `#4c729a` | Ticket punch that marks claims VALID or NOT VALID |
-| **Echo** | Not a person or a role. He is what the attribution *does*. | Expressivism | Violet `#89688e` + crystal purple | One raised claw (endorse) or claw tucked away (withhold) |
-| **Evan** (offscreen until the end) | Source of Simone's evidence | — | — | Looping blue signature on a folded invitation |
-
-### Evan — the evidence source
-
-**Canonical design: A1, the Courteous Scribe.** Evan is a sentient fountain pen with a tall, hinged midnight-indigo barrel, gold split nib and curved pocket clip. He bows to write. His blue signature ends in a loop that Simone recognizes on Echo’s party invitation. [Approved A1 reference](character-references/evan-a1-courteous-scribe.png)
-
-**Evan** (EV-an) shares its opening sound with **evidence**. He supplies written testimony about the party time. Simone can recognize who wrote the invitation even when the hour is hard to read: Evan folded the paper while the ink was wet. At first she reads it as eight. Later, the blue transfer mark inside the fold gives her a reason to look again.
+| **Simone** | Subject: the person whose belief is in question | Sensitive invariantism | Green `#457c71` | A red "YOU ARE HERE" map-pin badge, and Echo's carrier on her shoulder |
+| **Cole** | Speaker: says what he'll stand behind | Contextualism | Rust `#a25b45` | Phone on a ring light, with an earbud wire |
+| **Echo** | Simone's pet. Not a person or a role: he only reacts | — | Violet `#89688e` + coral | One oversized coral claw |
 
 ### Canonical character references
 
-Use the current references below for the opening, story scenes, and canvas illustrations. All four leads use their Version C model sheets, including Echo’s restored shell design. The rightmost figure labeled C on each original casting board is the approved design. The model sheets extend it to additional angles and acting poses. For a single-character shot, use the closest pose or expression as the image reference. For animation continuity, carry the same prop placement and costume details through the shot.
+Use the current references below for the opening, story scenes, and canvas illustrations. All three use their Version C model sheets, including Echo's restored shell design. The rightmost figure labeled C on each original casting board is the approved design. The model sheets extend it to additional angles and acting poses. For a single-character shot, use the closest pose or expression as the image reference. For animation continuity, carry the same prop placement and costume details through the shot. The full-body cast art in `src/assets/full-body-cast/` shows the current faces and costumes on the canvas.
 
 | Character | Model sheet | Original design |
 | --- | --- | --- |
 | Simone | [Views and acting poses](character-references/version-c/justine-model-sheet.png) | [Casting board, option C](character-references/version-c/justine-casting-board.png) |
 | Cole | [Views and acting poses](character-references/version-c/kit-model-sheet.png) | [Casting board, option C](character-references/version-c/kit-casting-board.png) |
-| Rae | [Views and acting poses](character-references/version-c/jo-model-sheet.png) | [Casting board, option C](character-references/version-c/jo-casting-board.png) |
 | Echo | [Version C shell and claw poses](character-references/version-c/gus-model-sheet.png) | [Casting board, option C](character-references/version-c/gus-casting-board.png) |
 
 ### Simone — the subject
 
-- **Personality:** earnest, over-prepared, deadpan. She plays the straight role while everyone debates *her* beliefs over her head. She has a planner, a backup plan, and a backup for the backup. Her running frustration: "Can we talk about this on the train?"
-- **What she shows philosophically:** Sensitive invariantism says what "foundationally justified" *means* stays fixed. Whether *her* belief qualifies depends on her own situation: the norms of her community, the inquiry she's engaged in, and optionally what's at stake for her.
-- **Visual cues:** practical coat, crab carrier on a strap, and a watch she checks too often. When her situation changes, the dashed context ring (see visual rules) sits on her.
+- **Personality:** calm and open, warm underneath, deadpan when a room laughs at her. She has main-character energy: everything is about her situation. She says "This world is fake" to a full courtroom and then goes about proving it.
+- **Arc:** in P1 she can only win through everyone else's silence. In P2 she learns what she has to hold still before she can ask anything. In P3 she finds that two people can both speak truly and still be fighting. In Part 3 she stands on what she can know from where she is, and has to decide for everyone else.
+- **What she shows philosophically:** Sensitive invariantism says what "foundationally justified" *means* stays fixed. Whether *her* belief qualifies depends on her own situation: whether anyone in her community objects (P1), and what her inquiry needs her to hold fixed (P2).
+- **Visual cues:** black loop ponytail, teal-green cropped jacket, the map-pin badge, and a vented pet carrier on her shoulder. No watch and no letter. Ink that dries for her is teal.
 
 ### Cole — the speaker
 
-- **Personality:** cheerful hype-man narrating every moment to a livestream with three viewers. Cole switches registers instantly: chummy with Evan's group chat, then "for the record" formal when the pedants in the stream chat show up. Cole comments on other people's beliefs constantly, which is exactly what a speaker does.
-- **What Cole shows philosophically:** Contextualism says the same sentence, "Simone is justified in taking Evan's word for granted," expresses different propositions depending on Cole's conversational context. Cole also delivers Greco's ordinary-talk evidence ("It *must* be at eight," "Oh, come on") and his speaker-relativism analogue ("The astrology car thinks that's foundational, but they're wrong").
-- **Visual cues:** earbuds, a ring light clipped to the phone, and speech bubbles that change their border when the audience changes. In the contextualism scenes, the context ring sits on Cole and the stream chat.
+- **Personality:** talkative, sassy and friendly. He never stops performing, and in the flashback he's streaming to a drifting chat. He has been awake for a very long time, and he loves Simone. In every dream she meets him as a stranger.
+- **What Cole shows philosophically:** Contextualism says the speaker fixes the claim. Cole delivers Greco's ordinary-talk evidence ("What makes you think that?" "Oh, come *on*") and the commitment view: calling something a foundation states what he's committed to building on. With Simone he plays out the hunger case ("I love you" / "I don't love you," both true) and the disagreement problem ("solid ground" / "built on nothing," both true, and still a fight). In Part 3 he plays Peter to Simone's Justine: what he told her fixes what she should believe, until his honesty comes into doubt.
+- **His secret:** he knows every dream is fake and walks back in by choice. He never lied to her. "Never. I just never said." The demon exposes it in R6 and Cole explains himself in R11.
+- **Visual cues:** rust jacket, phone on a ring light, earbud wire. At the wedding he wears a suit and carries no phone. Ink that dries for him is rust.
 
-### Rae — the assessor
+### Echo — the one who only reacts
 
-- **Personality:** dry, unhurried, bureaucratically precise. Rae has punched a million tickets and evaluates every claim she overhears the same way. She doesn't say who's right; she says whether something is *valid by her standards*. She has a sandwich and is never hungry when Cole is. That sets up Greco's "I'm hungry / I'm not hungry" example.
-- **What Rae shows philosophically:** Relativism (Unit 5: Dependency + Non-Uniqueness) says whether Cole's utterance is true depends on the context of whoever assesses it, and no assessment context is uniquely privileged. Rae can rule Cole's claim NOT VALID from her context while the group chat counts the very same utterance VALID.
-- **Meta link:** in the quizzes, the **audience** also acts as assessors. The relativism quiz can ask the class to evaluate Cole's line by their own standards.
-- **Visual cues:** conductor's cap, ticket punch, and a badge reading "Standards: mine." In the relativism scene, the context ring jumps to Rae, *after* Cole has spoken.
+- **What he is:** a palm-sized hermit crab with a tall faceted violet shell and one oversized coral claw. He is Simone's pet and rides with her through every world. The legend never mentions him.
+- **Personality:** silent, unbothered, oddly dignified. He never speaks. He reacts with a rattle of the shell or a raised claw.
+- **His beats:** in P2 he rides in the bicycle basket and his shell rattles at the omen. In P3 he sits in a ribboned carrier and rattles when the aisle cracks. In R8 he moves into an empty shell drifting past, which is the mobile home in one image. In R11 he faces the audience and raises his claw to cue the vote.
+- **Visual cues:** half-lidded eyes, a pointed violet shell, and one coral claw.
 
-### Echo — the expressivist mascot
+### Supporting cast
 
-- **What he is:** a small hermit crab with a faceted violet shell. He is the guest of honour at a surprise party. ("It's a surprise. Echo knows.")
-- **Personality:** silent, unbothered, oddly dignified. He communicates only by raising a claw (*clack*: "I'm treating this as a starting point") or tucking it away. He never states a fact.
-- **Why he's non-human:** Expressivism isn't about a fourth person whose context matters. On that view, calling a belief "foundationally justified" doesn't describe anything. It *expresses* a commitment: to stop asking for reasons, and to let the belief support others. Echo makes that commitment visible. When anyone calls a belief justified, Echo's claw goes up. In a disagreement, the clash is claw up vs. Rae's punch. There are no rival reports, just conflicting attitudes.
-- **Visual cues:** half-lidded eyes, a pointed violet shell, and one raised coral claw. A separate object shows which starting points Simone can rely on. See the [foundation design brief](foundation-visual-direction.md).
-
-### NPCs (mainly for Route 1, justification as a social activity)
-
-| NPC group | Where | Job |
+| Who | Where | Job |
 | --- | --- | --- |
-| **YYYY SOWATT**, a chorus of five ink bubbles | Archive-keeper legend | Each voice asks what supports the keeper’s last answer. The smallest, red-marked bubble gets the last word. |
-| **Evan's group chat** | Cole's phone | Easygoing objector-group. "Evan wrote 8 👍" passes with no objection. |
-| **The Timetable Society**, three trainspotters in matching anoraks | Platform | Strict objector-group. Demands a source for everything, so different claims count as foundations. |
-| **The Retrograde Car**, passengers sure Mercury retrograde delays trains | Train car 3 | Greco's astrology worry. A whole community can take a claim for granted wrongly. Also usable for the 1 + 1 = 3 consensus scene. |
-| **A stranger on the platform** | Platform | Witness for the hinges example. Simone asks, "What colour is the line to Eastside?" while taking for granted that they understand her, aren't lying, and know colour names. |
-| **TV weather presenter** | Station screen | Wrong forecast. Shows that weather facts can be hidden from us (the *catch* for Access). |
+| **The Cartesian demon** | The sky over the real ocean | The villain. It has no body: a dark ink sky with strings. It made the dreams and speaks only through YYYY SOWATT. In R11 it gets the skeptic's best argument. |
+| **YYYY SOWATT**, a chorus of five ink bubbles | The legend and Part 3 | The demon's creation. The four Y voices ask what supports a reason. SOWHAT, the smallest, with a red dot, asks whether the reason supports the claim at all. |
+| **The old judge** | P1 bench, P3 altar | The calm one who never laughs. He hands Simone the gavel in P1 and officiates the wedding in P3. He is also the lighthouse keeper. |
+| **The prosecutor and his mother** | P1 | Their objections undo Simone's rulings. His mother, alone at the back of the gallery, shows that one objection is enough. |
+| **The jury and gallery** | P1 | The community whose silence lets a claim hold. They nod along at "The stars favor this session," which is Greco's astrology worry. |
+| **Legend figures** | The scroll | The guardian question mark; the three Answerers (Pyrrho, Peirce, Neurath); Descartes, the fourth; the Stranger who left the Three Sacred Treasures of Good Enough. |
+| **Ink-cube people** | Crowds and wedding guests | Unnamed background people, built of small cubes of dried ink. When their beliefs go wet, they slump and drip. |
+| **Professor Lin** | Giedt Hall, in the frame and the coda | Opens with the B/13 quiz. The coda hints, and never confirms, that he might be the demon. |
 
 ## Visual rules for the story
 
-1. **Each version has one colour.** Use the four version colours already on `aim-versions` for the four characters, throughout.
-2. **The dashed context ring answers "whose context?"** The ring from the sketch kit always sits on whoever's context matters in the current version: Simone (SI), Cole (contextualism), Rae (relativism). In the expressivism case the ring disappears and Echo's claw goes up. This visual cue alone can carry most of Part 2.
-3. Use a separate foundation object for each starting point. Its context mark and its support state have distinct meanings.
+1. **Each version has one colour.** Teal for Simone and rust for Cole, throughout. Echo is violet and coral.
+2. **Ink sticks are the foundations.** A dry stick is a belief you can stand on and build with. It is tinted by whose context matters, teal or rust. Echo has no sticks, only his claw.
+3. **Each dream has its own look:** P1's gaslit 1890s courtroom, P2's luminous seaside ruin, P3's white chapel by the sea. Simone carries the treasures from one dream into the next.
+4. **Only unnamed NPCs are made of ink cubes.** Named characters are drawn as ordinary people. House style is in [the slide visual style](slide-visual-style.md).
 
 ## Main plot, slide by slide
 
-See the [illustrated storyboard](story-illustrations/current/README.md) for seven keyframes in story order.
+Each section pairs a concept slide with a story scene. Scene IDs follow the [canonical script](story-v5-ink-ocean.md). **Q** marks a live quiz.
 
-Clip numbers refer to short Higgsfeld clips. **Q** marks a live quiz.
-
-| # | Canvas slide | Story beat |
+| ID | Concept slide | Story beat |
 | --- | --- | --- |
-| — | **OP** | Credits; flashed terms (*context*, *hinges*, *undoubted*, *E = K*); story frames: Simone, the carrier, the crab, the clock at 6:41, the 7:12 departure, a loop of blue ink. Foreshadowing: the invitation folds while the hour is still wet. |
-| 1 | Contemporary Contextualism | Cole, to the group chat: "Simone knows it starts at eight." Then the same line to the sceptical stream chat. Same sentence, different claims. |
-| 2 | Flexible Foundationalism | Separate supports show what Simone takes for granted tonight. |
-| 3–5 | Roadmap | The three legs: apartment → train → Evan's door. |
-| 6 | The Regress Problem | In the legend, YYYY SOWATT asks the archive keeper to justify a claim about wet ink. The flashback moves through skepticism, infinitism, and coherentism before Descartes finds a foundation. **Q1** |
-| 7 | The Foundationalist's Dilemma | Cartesian Simone won't leave until the time is beyond all possible doubt, so she never leaves. Moderate Simone trusts what she saw on the invite, but why stop *there*? |
-| 8 | Undoubted, Not Undoubtable | The engaged supports represent premises nobody here is doubting: the invite is genuine, Evan wrote eight, Simone read the full hour, it's tonight. Each *could* be doubted. Echo clacks. |
-| 9 | Route 1: Social Activity | On the platform, the group chat lets "Evan wrote 8" pass; the Timetable Society objects. Worry: the Retrograde Car takes its horoscope for granted, so consensus can be wrong. |
-| 10 | Route 2: Hinges | Simone and Cole debate 8 a.m. vs 8 p.m. while holding fixed that the invite is genuine. Also, the stranger's colour report. **Q2** |
-| 11 | Route 3: Knowledge at the Base | Simone *knows* the 7:12 leaves from platform 3, because she's looking at the board. That knowledge is her evidence and becomes a foundation stone. She boards; Rae punches her ticket. **Clip 1:** the doors close. |
-| 12 | Routes and Versions | In the train car, all four positions at once: Simone believes; Cole tells the stream "her belief is foundationally justified"; Rae assesses Cole; Echo raises a claw. **Q3:** whose context matters in each view? |
-| 13 | Social Norms × SI | Simone's own community, the group chat, helps settle whether her belief is foundational. Cole's words keep their meaning. Worry: had she grown up in the Retrograde Car, that wouldn't make the horoscope foundational. |
-| 14 | Hinges × SI | Cole mentions Evan's April Fools' prank. Simone's inquiry shifts to whether the invite is real, so it stops being a hinge *for her*. Same claim, new status. |
-| 15 | Social Norms × Contextualism | Cole says the same sentence to the group chat and then to the pedants, expressing different propositions. Echo pinches Cole: "Ow, that hurts." Rae: "What makes you think that?" Cole: "Oh, come on." That's Greco's ordinary-talk evidence. Cole: "The Retrograde Car thinks that's foundational, but they're wrong." |
-| 16 | Hinges × Contextualism | Cole uses one sentence in two stream segments (route planning vs "Was it a prank?"), and it says different things. |
-| 17 | The Problem of Disagreement | Cole: "I'm starving." Rae: "I'm not." No conflict. Cole: "Simone's belief is foundationally justified." Rae, punching: "Not valid." *That* feels like real disagreement. Exits: Rae's relativism, Echo's expressivism (claw vs punch), or "overstated" (Greco leaves it open). **Clip 2:** the train arrives. **Q4** |
-| 18 | Access Internalism | At Evan's building. Cole: "But are you *justified* in thinking you're justified?" Simone's doubt about her grounds leaks down into doubt about the time (Greco's organic-food pattern). |
-| 19 | Supervenience Base | Normally, it's taken for granted that the hour is legible and Simone read it accurately. Under those assumptions, what Evan wrote fixes what she has grounds to believe, and she knows what he wrote. The active supports depict that local home. The weather presenter is a reminder that, in general, facts can be hidden (why a *global* cognitive home looks hopeless). |
-| 20 | Flexible Foundationalism and Access | Cole unfolds the invitation all the way. Wet ink transferred across the crease just after the eight. Simone recognizes the signature but doubts her reading of the hour. The support for a clearly legible time is released. A replacement support can represent Evan’s email, his usual party times, or another ground available to Simone. She can still know what she should believe, perhaps a split confidence between 7 and 8. **Q5:** what fixes Simone's justification now? |
-| — | **Ending clip** | 8:00. The door opens. "Surprise!" Everyone shouts at the crab. Echo clacks once. Evan bows and writes a fresh **8:30** beside the smudge. “You’re early.” Simone was justified and still wrong, which is the point. End card in the OP's style. |
+| S0 | Contemporary Contextualism | A student steps off the Unitrans bus and takes a seat in Giedt Hall. Professor Lin shows one mark that reads as **B** between A and C, or **13** between 12 and 14. **Q1** He says, "Flexible foundationalism," and the opening film plays. |
+| L0–L3 | The Regress Problem | Everything is made of ink beliefs: wet ink is in question, dry ink holds. At the Great Inkwell, a guardian question mark lets almost any answer dry. Someone knocks it in, and YYYY SOWATT grows in its place and never stops asking. A why-chain runs from a hand to a brain in a vat. Nothing dries and people melt: the Whypocalypse. The prophecy says the demon will return and offer the melted people worlds with solid ground. |
+| L4–L5 | Agrippa's trilemma | Operation Because: humanity elects three Answerers for skepticism, infinitism and coherentism. The audience picks the order, and all three are useless. Then Descartes, whom nobody elected. His *I think* is the first belief that stays dry while being asked about, and it's one grain against an ocean. |
+| L6–L7 | The Foundationalist's Dilemma; Undoubted, Not Undoubtable | Two schools try to dry the world again, Cartesian and then moderate, and each fails on one horn. A stranger steps onto bare ink and a stick dries under her foot: "It only has to be undoubted. Here. Now." She leaves the Three Sacred Treasures of Good Enough, and they're never found. |
+| P1 · The Trial | Social Norms × SI; the astrology objection | The legend's last painting pulls back to an 1890s dream courtroom: the narrator was Simone, testifying. The court rules the world real because nobody objects. Simone borrows the judge's **Gavel**. "Any objections?" Silence, BANG, and the claim takes effect. One objection undoes it, and an answered objection lets it hold again. The prosecutor withdraws, "This world is fake" stands, and the dream breaks. **Q2** |
+| P2 · The Door | Hinges × SI | The courtroom dissolves into a coast road. Cole asks, "Have you seen a door around here?" Simone half-remembers him and can't answer, so he walks on. On the hilltop, an empty frame with one brass **Hinge** pours out question marks. The Gavel does nothing without a jury. Cole comes back, and each hinge they speak aloud snaps a plank onto the door: "Different door, different hinge!" At "You're not lying to me!" Cole's eyes flicker. The door bursts and the screen goes white. **Q3** |
+| P3 · The Wedding | Contextualism; the Problem of Disagreement | The white becomes a chapel by the sea, with Cole as the groom. "I love you." "What makes you think that?" "Oh, come *on*." Simone: "I don't love you." Both lines dry, since each is about its speaker. Then "What we have is solid ground" meets "It's built on nothing." Both dry again, and this time it feels like a fight. **Q4** The aisle splits and Simone wakes. The concept slide gives one line to relativism and expressivism as ways out. |
+| R1–R3 | — | A grey ocean, with a sleeper curled in every dome. Cole is already standing there. The demon speaks through SOWHAT: "Suppose there were a demon. There was." Simone decides to wake the dreamers from the lighthouse. Cole, a beat too long: "North. I've walked it." |
+| R4–R7 | Access Internalism; Supervenience Base | Taking Cole's word for granted, a stick dries under Simone: NORTH. The demon asks whether she can tell she's justified, and the doubt leaks down until she sinks to her ankles. Then it tells her Cole knew every dream was fake. "Were you messing with me?" "Never. I just never said." Descartes's *I think* drifts up as a retreat, and it's very small. |
+| R8–R10 | Flexible Foundationalism and Access | Echo moves into a new shell, and Simone moves too. She stops asking whether Cole was honest and asks what she can know from here: the glint she saw from the lamp, what she holds fixed for this walk, her best guess. **Q5** "Probably north. Maybe north-east." A stick dries ahead of her at each step and the one behind melts, all the way to the lighthouse. |
+| R11–R13 | The moral question | The demon: in its dreams everyone is whole, so who is she to wake them? Cole: "In there, I had a life with you." "It was fake." "I know. I was happy. So were you." Echo raises his claw and the audience votes on the ending. Coda: Giedt Hall. Professor Lin asks, "Any questions?" SOWHAT: "So what?" |
 
 ## Quiz checkpoints
 
-Five quizzes at about 60–75 seconds each fit the 28-minute slot. Each one ends with the reveal and the next clip, per the brief.
+The opening vote and four quizzes fit the 28-minute slot. Each quiz asks the audience to spot the point of the scene before the narrator says it.
 
-1. **Regress (slide 6).** Simone's chain of reasons ends at "Evan wrote it." Which response to the regress is that? *Foundationalism.*
-2. **Hinges (slide 10).** Simone and Cole debate morning vs evening. What are they holding fixed? *That the invite is genuine.*
-3. **Whose context? (slide 12).** Match each view to the character whose context it puts the ring on: Simone/SI, Cole/contextualism, Rae/relativism, Echo/expressivism (no ring; a commitment expressed).
-4. **Disagreement (slide 17).** Why doesn't "I'm hungry / I'm not" conflict when Cole and Rae's lines seem to? *Each hunger claim is about the speaker; the justification claims seem to be about one belief.*
-5. **Mobile home (slide 20).** The hour is smudged. What should now fix what Simone believes about the start time? *Something she can still know: the email, past parties, or her best guess.*
+1. **Contextualism (S0).** What do you see there? *B between A and C; 13 between 12 and 14.*
+2. **Social route (P1).** The whole court agrees the world is solid, and the floor dries. What should Simone point out? *A whole community can agree and still be wrong.*
+3. **Hinges (P2).** A minute ago Simone doubted her eyes. Why can she hold "my eyes must work" now? *Closing this door is a different inquiry, and this inquiry needs that hinge.*
+4. **Disagreement (P3).** "It's solid ground." / "It's built on nothing." If each is only stating their own commitment, what's the problem? *Both would be right, like "I'm hungry" / "I'm not," yet it feels like a real disagreement.*
+5. **Mobile home (R8).** Cole's honesty is in doubt. What should fix Simone's grounds now? *Facts she can know here: the glint she saw, what she holds fixed for this walk, her best guess.*
 
-Optional sixth, for Route 1: "Who is the objector-group when Cole is in the group chat?"
+Two more audience choices: the order of the three Answerers in L4, and the ending vote in R12.
 
 ## Open choices
 
-- **Stakes for SI.** Optional: midway through, Evan texts that the candles get lit at exactly eight, raising the stakes for Simone without changing the meaning of Cole's words.
-- **Alternative setting.** A ferry to an island party, closer to Signal Harbor's harbour and the space-western tone. The beats stay the same, with a ferry schedule replacing the train timetable.
-- **Ending.** "Eight-thirty" makes the justification-vs-truth point. A gentler version: the door opens at exactly 8:00, and Echo was the only one who never doubted it.
+- **Third treasure.** The proposal is the Ring, the speaker's commitment made into an object: found in P3, first worn in R9. The alternative is two treasures, with a new title card and illustration for L7.
+- **The clash in P3.** "Solid ground" / "built on nothing" is a proposal. "I love you" / "I don't love you" matches Greco's hunger case, so the disagreement problem needs one thing they both judge.
+- **Endings.** Three are drafted: light the lamp and wake everyone, let them sleep, or teach SOWHAT to ask one question and wait for the answer. The choice is all three, or only the first and third.
+- **Time.** The current budget runs about two minutes over with Q&A. Cuts come from P2 first, then R7 and R9.
+- **Title.** The story has no title yet.

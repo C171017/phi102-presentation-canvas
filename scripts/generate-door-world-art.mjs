@@ -49,7 +49,7 @@ const referenceSets = {
 if (!referenceSets[refSet]) throw Error('--refs must be canon or version-c.');
 const referenceFiles = {
   ...referenceSets[refSet],
-  gavel: 'public/generated/props/ink-ocean/gavel.webp',
+  gavel: 'public/generated/props/ink-ocean/gavel-brass.webp',
   hinge: 'public/generated/props/ink-ocean/hinge.webp',
   townsfolk: 'docs/character-references/ink-people-blue-hour.png',
 };
@@ -74,7 +74,7 @@ const identity = {
   simone: 'Simone: a young woman with black hair in a high looped ponytail and sharp bangs, a teal-green cropped jacket over a cream shirt, wide dark charcoal trousers, and one small red map-pin badge on her lapel. No wristwatch and no letter.',
   cole: 'Cole: a young man with spiky dark hair, a rust-red cropped jacket over a slim black outfit, headphones resting around his neck, and a smartphone mounted in a small glowing ring light.',
   echo: 'Echo: one palm-sized hermit crab with a tall faceted violet shell, one oversized coral claw, small legs and two ivory eyes on stalks. Exactly one crab in the picture.',
-  gavel: 'The Gavel: a judge’s gavel of ink-black wood with one bright gold band around its head.',
+  gavel: 'The Gavel: a judge’s gavel with a honey-gold brass head, octagonal beveled faces, a narrow teal enamel band, and a tapered dark walnut handle.',
   hinge: 'The hinge: one plain antique brass door hinge, dry, warm and solid, the only thing in this world that is not ink.',
   townsfolk: 'Townspeople: background figures only, each visibly built from small solid ink cubes, with a slightly irregular, faceless, cube-shaped head packed with the finest cubes; indigo bodies with steel-blue lit planes and a thin amber edge. They have no faces.',
 };

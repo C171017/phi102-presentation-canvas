@@ -225,8 +225,16 @@
   clip-path: inset(50%);
 }
 
+.story-reader__scene:is([data-scene-id="ink-ocean-P1"], [data-scene-id^="ink-ocean-P1-"]) .story-reader__frame {
+  aspect-ratio: 4 / 3;
+}
+
+.story-reader__scene:is([data-scene-id="ink-ocean-P1"], [data-scene-id^="ink-ocean-P1-"]) .story-reader__frame img {
+  image-rendering: pixelated;
+}
+
 @media (min-width: 761px) {
-  .story-reader__scene[data-scene-id="ink-ocean-P1"] .story-reader__art {
+  .story-reader__scene:is([data-scene-id="ink-ocean-P1"], [data-scene-id^="ink-ocean-P1-"]) .story-reader__art {
     position: sticky;
     inset-block-start: 12px;
     align-self: start;

@@ -1,0 +1,149 @@
+/* Fit the dialogue panel to the courtroom art's native 4:3 frame. */
+.trial-screen {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(100%, 133.3333vh);
+  height: min(100%, 75vw);
+  container-type: size;
+  overflow: hidden;
+  pointer-events: none;
+}
+.trial-screen[hidden] { display: none; }
+#presentation-shell:has(.trial-screen:not([hidden])) #viewport[data-regress-flashback]::before {
+  image-rendering: pixelated;
+}
+.trial-message {
+  appearance: none;
+  position: absolute;
+  inset: 65.5% 0 auto;
+  width: 100%;
+  height: 29.5%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-block: max(1px, .18cqw) solid #b8bfc8;
+  box-shadow: inset 0 .18cqw #374252, inset 0 -.18cqw #384456;
+  background-color: rgb(12 21 40 / 91%);
+  background-image: repeating-conic-gradient(rgb(121 145 176 / 9%) 0 25%, transparent 0 50%);
+  background-size: .47cqw .47cqw;
+  color: #fff;
+  font: 400 3.23cqw/1.19 Georgia, 'Times New Roman', serif;
+  text-align: left;
+  text-shadow: 0 .13cqw .15cqw #070b13;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+.trial-name {
+  position: absolute;
+  left: 8.5%;
+  top: 0;
+  display: grid;
+  place-items: center;
+  min-width: 16.4%;
+  padding: .26cqw 1.9cqw;
+  transform: translateY(-50%);
+  isolation: isolate;
+  clip-path: polygon(0 50%, 7% 0, 93% 0, 100% 50%, 93% 100%, 7% 100%);
+  background: #d1dce6;
+  font: 400 2.55cqw/1 Georgia, serif;
+  text-align: center;
+}
+.trial-name::before {
+  position: absolute;
+  inset: max(1px, .16cqw);
+  z-index: -1;
+  clip-path: inherit;
+  background: linear-gradient(#268fc7, #227aaa);
+  content: '';
+}
+.trial-name:empty { display: none; }
+.trial-words {
+  position: absolute;
+  inset: 13% 11% auto 20%;
+  white-space: pre-wrap;
+}
+.trial-unspoken { visibility: hidden; }
+.trial-message[data-narration] .trial-words { color: #b6def9; }
+.trial-next {
+  position: absolute;
+  right: 6.8%;
+  bottom: 17%;
+  width: 3.1cqw;
+  height: 3.1cqw;
+  opacity: 0;
+}
+.trial-next::before, .trial-next::after {
+  content: '';
+  position: absolute;
+  inset: 0 40% 0 0;
+  background: linear-gradient(90deg, #cd8817, #ffe575 60%, #f8b72b);
+  clip-path: polygon(0 0, 35% 0, 100% 50%, 35% 100%, 0 100%, 63% 50%);
+}
+.trial-next::after { translate: 65% 0; }
+.trial-screen[data-ready] .trial-next { opacity: 1; }
+.trial-screen[data-photo] .trial-message,
+.trial-screen[data-interrupting] .trial-message {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+.classroom-stage .trial-message:focus-visible { outline: none; }
+.classroom-stage .trial-message:focus-visible .trial-next { filter: drop-shadow(0 0 .3cqw #e8ae42); }
+.trial-screen[data-interrupting] :is(.trial-name, .trial-words) { visibility: hidden; }
+.trial-impact {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  text-align: center;
+}
+.trial-impact img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.trial-impact[data-effect="title"] {
+  font: 900 7.5cqw/.98 Georgia, serif;
+  color: #fffbee;
+  text-shadow: .22cqw .25cqw #141820, 0 0 .55cqw #171e25;
+  letter-spacing: .08em;
+  background: linear-gradient(transparent 30%, rgb(0 0 0 / 58%) 50%, transparent 70%);
+}
+.trial-confetti { position: absolute; inset: 0; overflow: hidden; }
+.trial-confetti i { position: absolute; top: -4%; width: .72cqw; height: 1.35cqw; background: #fff4ca; }
+.trial-confetti i:nth-child(3n) { background: #eeb14e; }
+.trial-confetti i:nth-child(3n + 1) { background: #e2989d; }
+@keyframes trial-fall {
+  from { transform: translateY(0) rotate(0); }
+  to { transform: translate(var(--drift), 107cqh) rotate(var(--turn)); }
+}
+@keyframes trial-shout {
+  0% { transform: scale(1.05) translate(-.8%, .6%); }
+  24% { transform: translate(.65%, -.45%); }
+  48% { transform: translate(-.5%, .35%); }
+  72% { transform: translate(.3%, -.25%); }
+  100% { transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #presentation-shell:has(.trial-screen[data-strike]) #viewport::before {
+    animation: trial-gavel-impact 145ms ease-out;
+  }
+  @keyframes trial-gavel-impact {
+    0% { translate: 0 -.55%; }
+    40% { translate: 0 .35%; }
+    100% { translate: 0; }
+  }
+  .trial-impact[data-effect="shout"] img { animation: trial-shout 180ms steps(2, end); }
+  .trial-confetti[data-motion] i { animation: trial-fall 1350ms var(--delay) linear both; }
+  .trial-confetti[data-motion="rise"] i { animation-direction: reverse; }
+  .trial-screen[data-ready] .trial-next { animation: trial-prompt 720ms steps(2, end) infinite alternate; }
+  @keyframes trial-prompt { to { translate: .42cqw; } }
+}
+/* The presentation tools are still reachable at their usual edges. */
+#presentation-shell:has(.trial-screen:not([hidden])) :is(.dev-role-picker, #slide-progress, #paper-pane.is-collapsed):not(:hover):not(:focus-within) { opacity: 0; }
+@media (max-aspect-ratio: 1/1) {
+  .trial-screen { height: 100%; }
+  .trial-message { inset-block-start: calc(50% + 14vw); height: auto; min-height: 7.2em; font-size: clamp(17px, 4.8vw, 28px); }
+  .trial-words { inset: 14% 8% auto; }
+  .trial-name { font-size: .85em; }
+  .trial-impact img { width: 90%; height: auto; }
+}

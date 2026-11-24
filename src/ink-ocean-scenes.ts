@@ -1,3 +1,4 @@
+import { trialPages } from './trial-script';
 import { inkOceanStory } from './ink-ocean-story';
 import { inkOceanStoryTextId, savedStoryText } from './saved-story-text';
 import { isStoryBeatHeading, type StoryScene } from './story-text';
@@ -11,6 +12,7 @@ export interface InkOceanCue {
   speakerId?: string;
   text: string;
   kind?: 'direction' | 'note';
+  background?: string;
 }
 
 export interface InkOceanScene {
@@ -56,10 +58,26 @@ export const schoolScenes = {
   'L6-B': storySlide('L6-B'),
 };
 
-export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[]).map(id =>
-  id === 'L6-A' || id === 'L6-B' ? schoolScenes[id] : storySlide(id),
-);
+// The reader has five Trial pages. They play through the same presentation slide.
+const trialFollowups: readonly StorySceneId[] = ['P1-2', 'P1-3', 'P1-4', 'P1-5'];
+const testimony = storySlide('P1');
+const trial: InkOceanScene = {
+  ...testimony,
+  title: 'The Trial',
+  cues: trialPages([testimony, ...trialFollowups.map(storySlide)]),
+};
+
+export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
+  .filter(id => !trialFollowups.includes(id))
+  .map(id => {
+    if (id === 'P1') return trial;
+    if (id === 'L6-A' || id === 'L6-B') return schoolScenes[id];
+    return storySlide(id);
+  });
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
-  return index === 0 && Boolean(scene.background);
+  if (index === 0) return Boolean(scene.background);
+  if (scene.id === 'P1') return false; // Speaker cuts play directly on the next dialogue page.
+  const background = scene.cues[index]?.background;
+  return Boolean(background && background !== scene.cues[index - 1]?.background);
 }

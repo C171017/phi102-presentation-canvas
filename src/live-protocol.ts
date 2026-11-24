@@ -6,6 +6,8 @@ import { hasEstablishingShot } from './ink-ocean-scenes';
 
 // Preserve the existing dialogue cue numbers when sharing an image-only step.
 export const establishingCueOffset = 1000;
+// A presenter can finish the typewriter without turning the Trial page.
+export const revealedTrialCueOffset = 2000;
 export const presenterKeyPattern = /^[0-9a-f]{64}$/;
 export const slideCount = slides.length;
 export const isSlide = (value: unknown): value is number =>

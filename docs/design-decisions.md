@@ -1188,3 +1188,82 @@ Recorded time in Pacific time. Howie requested visual pairings in place of the t
 > replcae these versions box to like the character (but a bit smaller) and the one of the routes visual they have so thnk of those are being repalced by jus tehtvisual of those in proper size
 
 Use the existing Gavel, hinge and E = K letter beside smaller versions of the matching full-body characters. The belief pairing uses a dry ink stick. Preserve the pairing positions, connectors and paper references.
+
+## 2026-11-23T22:58:56-08:00 · Illustrate the five Trial scenes
+
+Recorded time in Pacific time. Howie supplied the single-page Trial screenshot in the [canvas chat](codex://threads/01a20b50-5b47-72e2-a290-250abf2d218c).
+
+> here should be five scnes i velieve so like maybe 5 visuals?
+
+Give each beat its own Story page and illustration. [The Testimony](../public/generated/backgrounds/ink-ocean/P1-the-trial-jury.webp) uses the existing wide shot. [Court Is Now in Session](../public/generated/backgrounds/ink-ocean/P1-2-court-in-session.webp) shows the judge and zodiac wheel, [Not Guilty](../public/generated/backgrounds/ink-ocean/P1-3-not-guilty.webp) shows the falling confetti and cuffs, [The Dream](../public/generated/backgrounds/ink-ocean/P1-4-the-dream.webp) shows the sleeping prosecutor and his mother, and [The Verdict](../public/generated/backgrounds/ink-ocean/P1-5-the-verdict.webp) shows the chamber cracking after the final strike. This supersedes the one-page Story layout. During the presentation, advance through the same five shots under the existing Trial slide and paper reference.
+
+<details>
+<summary>Built-in ImageGen prompts for the four new shots</summary>
+
+**P1.2 · Court Is Now in Session**
+
+Create one wide full-bleed 16:9 original Ink Ocean story illustration as a new shot in the exact same 1890s dream courtroom shown in image 1. Use image 1 for its established walnut Gothic architecture, blue frosted windows, warm amber gaslight, period costume continuity, bold angular cut-paper anime cel shading, fine printed grain, and the same dark walnut gavel with brass collar. Match its hand-painted finish. Compose all focal faces, hands and action well above the bottom quarter, with subdued darker furniture or silhouettes below for the presentation transcript. No interface, caption, written lettering, logo, panels, watermark, or reference to an existing game. P1.2 Court Is Now in Session. New frontal low three-quarter medium-wide shot from the floor. Focus on the same gray-bearded judge in white judicial wig and black robes, striking the one gavel on its block at his high bench. Mounted on the wall above his head is a large burnished brass zodiac wheel, a twelve-section engraved ring of small celestial pictograms with no lettering, a quiet credible piece of courtroom decor. At screen right, two or three of the six established jurors give small solemn nods. At left at his separate law desk, the prosecutor is a lean man about 40 with angular face, swept-back black hair, a short neat black chevron mustache, charcoal plum tailcoat, white high collar and a narrow rust-red cravat. Calm authority, the frozen lake stays visible through the windows. No Simone or crab in this shot.
+
+**P1.3 · Not Guilty**
+
+Create one wide full-bleed 16:9 original Ink Ocean story illustration as a new shot in the exact same 1890s dream courtroom shown in image 1. Use image 1 for its established walnut Gothic architecture, blue frosted windows, warm amber gaslight, period costume continuity, bold angular cut-paper anime cel shading, fine printed grain, and the same dark walnut gavel with brass collar. Match its hand-painted finish. Compose all focal faces, hands and action well above the bottom quarter, with subdued darker furniture or silhouettes below for the presentation transcript. No interface, caption, written lettering, logo, panels, watermark, or reference to an existing game. Use image 2 only for Simone’s established face and high black loop ponytail. Match her pine-green period coat, cream shirt and black neck ribbon to image 1. Simone is poised, perceptive and economical, with relaxed level brows, attentive eyes and a composed mouth. Her feeling is small and deliberate. No glare, scowl, pout, slump, shouting face, watch, or letter. P1.3 Not Guilty. New medium shot from slightly below and opposite the witness stand. Simone stands on the left or center-left, one hand still around the judge’s gavel held at the height of the railing immediately after her strike, one hand relaxed and clearly visible. The two small open brass wrist cuffs with their connecting chain are just falling free beneath her wrists, visibly open, no injuries. A burst of simple cream and warm gold paper confetti falls in the upper light, with clear separation around her face. Her tiny knowing half-smile reads as observation. An offscreen gallery is implied by silhouetted audience behind the rail, no other lead. Strong quiet figure versus absurd confetti. No text on confetti, no floating duplicates of the gavel, no crab in this shot.
+
+**P1.4 · The Dream**
+
+Create one full-bleed wide 16:9 original Ink Ocean story illustration for P1.4 The Dream. Image 1 is the established 1890s dream courtroom. Image 2 is the preceding shot, and its man at the separate desk on the far left is this shot’s prosecutor, lean and angular with swept-back black hair, neat short black chevron mustache, charcoal plum 1890s tailcoat, white high collar and a narrow rust-red cravat. Use both for cinematic angular cut-paper anime style, matte cel shadows, subtle printed texture and amber gaslight against frosted blue Gothic windows. Draw a distinct shot from the side aisle at about desk height. In the left foreground and mid-frame, that same prosecutor is sound asleep, slumped forward over his varnished desk with his cheek on his folded arms and eyes fully closed. One ludicrous old-fashioned long floppy nightcap with a small tassel sits on his head, visibly different from his normal attire. His petite old mother, with a tightly pinned gray bun, small round spectacles and a muted plum Victorian shawl, has just stood up from the back row at screen right. Put her in a little warm lamp light on a gallery riser so she reads distinctly despite her distance; one hand crisply raised, mouth open mid-objection. Bystanders mostly turn quietly in silhouette, retain the architecture, and establish depth between the sleeping foreground and the back row. The judge, Simone and Echo are offscreen. Keep the faces and cap above the bottom quarter, with dark furniture below for dialogue. No visible chains, confetti, text, floating letters, sound bubbles, watermark, panels or logos.
+
+**P1.4 · Gallery refinement**
+
+undefined
+
+**P1.5 · The Verdict**
+
+Create one wide full-bleed 16:9 original Ink Ocean story illustration as a new shot in the exact same 1890s dream courtroom shown in image 1. Use image 1 for its established walnut Gothic architecture, blue frosted windows, warm amber gaslight, period costume continuity, bold angular cut-paper anime cel shading, fine printed grain, and the same dark walnut gavel with brass collar. Match its hand-painted finish. Compose all focal faces, hands and action well above the bottom quarter, with subdued darker furniture or silhouettes below for the presentation transcript. No interface, caption, written lettering, logo, panels, watermark, or reference to an existing game. Use image 2 only for Simone’s established face and high black loop ponytail. Match her pine-green period coat, cream shirt and black neck ribbon to image 1. Simone is poised, perceptive and economical, with relaxed level brows, attentive eyes and a composed mouth. Her feeling is small and deliberate. No glare, scowl, pout, slump, shouting face, watch, or letter. P1.5 The Verdict, at the instant the dream breaks after the prosecutor withdraws his objection. Original dramatic three-quarter wide shot viewed from the prosecutor’s side. Simone is in three-quarter profile on the left-center, composed and resolved, having just brought the single brass-collared gavel down onto the witness rail, fingers naturally wrapped around the handle. Its impact travels as branching blue-white hairline cracks across the wooden bench and tall frost-covered windows into the night sky, with hints of jagged ink at the largest seams. The same judge and six jurors are distant and softly readable as the room fractures, still present, avoiding debris near faces. The prosecutor and his mother stay outside the frame. No confetti, chains or nightcap in this frame. Keep warm gaslight and slate-blue rim light, a strong clean gavel silhouette and selective fractures, no explosion or injury.
+
+**P1.5 · Zodiac wheel refinement**
+
+undefined
+
+</details>
+
+## 2026-11-23T23:11:57-08:00 · Refresh the Trial artwork and make the brass Gavel canonical
+
+Recorded time in Pacific Standard Time. Source is Howie’s [Canvas chat](codex://threads/01a20c62-6cc7-76b2-bc09-93cdfa6fe962) and the attached Trial and courtroom-game screenshots.
+
+> here should be no shackle at all , also all those 5 visuals are outdated let's have the newest visula fo rnotse. . Indeed, don't necessary have to be five, but think of what would be the most logical number of main setting background image there.
+
+> So I can pick and choose and, you know, have the one we want.
+
+> And also I just determined I wanted to use this gavel as one of our artifact.
+
+> But remember, for the actual gameplay and the sound effects, we're going to do those later.
+
+P1 keeps five story beats. The verdict makes confetti fall, and the prosecutor’s objection sends it back up. Simone remains physically free throughout the trial. For the art, use three recurring camera views of the same room: Simone and Echo at the witness stand, the judge beneath the zodiac wheel, and the prosecutor with the gallery behind him. The character references are the current Ink Ocean lineup and the selected Version C identity views. The previews use original cel-shaded courtroom designs and supporting characters. [The callout sheet](trial-previews/courtroom-callouts.png) uses gold, ink blue, and cream letterpress treatments for `HOLD IT!`, `OBJECTION!`, and `TAKE THAT!`.
+
+[The canonical Gavel](../public/generated/props/ink-ocean/gavel-brass.webp) has a honey-gold octagonal brass head, a narrow teal enamel band, a star engraving, and a walnut handle and sounding block. The Canvas social-route illustration and the version-pairing card share this asset. Built-in ImageGen produced the original two-piece cel-shaded art on transparent alpha for the existing strike.
+
+## 2026-11-23T23:16:00-08:00 · Tighten the P1 visual-novel rendering
+
+Recorded time in Pacific Standard Time. Howie compared the courtroom previews with the HD Trilogy judge and attorney shots in the [Canvas chat](codex://threads/01a20c62-6cc7-76b2-bc09-93cdfa6fe962).
+
+> Just compare again. Do you think they look alike? I don't think they look alike. I mean exactly the same. Come on.
+
+The new Ivory and Brass pass uses rounded sprite shading, simpler court panels, and closer speaker cuts. The [three previews and the separate Simone sprite](trial-previews/) are ready to compare. Ivory and Brass is installed provisionally in Story and presentation notes pending Howie’s choice.
+
+## 2026-11-23T23:18:00-08:00 · Play the Trial as an Ace Attorney courtroom exchange
+
+Recorded time in Pacific time. Howie in the courtroom gameplay chat:
+
+> You're going to focus on set up the gameplay and the dialogue part. To mimic exactly the actual game, Ace Attorney. But obviously, we don't need like an option or a court record.
+
+The presentation plays the five existing Trial beats through a single-speaker HD Trilogy dialogue box. Use the original courtroom blips, voiced interjections, gavel strikes and large central shout graphics. Advance first completes the text and then turns the page. The Story reader retains the written script. Courtroom paintings are handled in the parallel visual work.
+
+## 2026-11-23T23:25:31-08:00 · Use handheld pixel art and dialogue-specific Trial frames
+
+Recorded time in Pacific Standard Time. Source is Howie’s [Canvas chat](codex://threads/01a20c62-6cc7-76b2-bc09-93cdfa6fe962) and his supplied pixel-era courtroom references.
+
+> You can even do it in 8-bit style, in very oldish pixel game, and try to only swap the character, the protagonist to our own character.
+
+> Also some visual should changes based on the dialogue. For example, the dreaming thing, you can generate extra frames for those, like the graffiti or the No, you can have more frames to actually make it somewhat more close to what is happening in the dialogue too.
+
+Use the [original Ink Ocean pixel-art set](trial-previews/pixel-art/) in Story and in the Trial. The 4:3 artwork uses three reusable angles and changes to the corresponding frames for the acquittal, the sleeping prosecutor, his mother’s objection, and the dream fracture. The return to the witness angle carries the confetti reversal. The original Simone is also available as a transparent speaker sprite.

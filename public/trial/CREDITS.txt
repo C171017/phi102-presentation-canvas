@@ -1,0 +1,4 @@
+Phoenix Wright: Ace Attorney courtroom sound effects, voice recordings and interjection artwork © Capcom.
+Source pack: https://github.com/LuisMayo/objection_engine (assetsv4.zip).
+The prosecutor uses Edgeworth's English "Objection!" recording. The mother and Simone use Mia's English "Objection!" and "Take that!" recordings.
+The two shout images use the held frames of exclamations/objection.gif and exclamations/takethat.gif, enlarged for projection.

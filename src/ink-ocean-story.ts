@@ -1,4 +1,5 @@
 import type { StoryScene } from './story-text';
+import { trialArt } from './trial-art';
 
 export const inkOceanStory = {
   "L0": {
@@ -256,18 +257,26 @@ export const inkOceanStory = {
     ],
   },
   P1: {
-    title: "The Trial",
+    title: "P1.1 · The Testimony",
     summary: "Simone tests how silence and objections change what a gaslit courtroom will accept.",
     illustration: {
-      src: "/generated/backgrounds/ink-ocean/P1-the-trial-jury.webp",
-      alt: "Simone and Echo face the judge and six jurors in a gaslit 1890s courtroom. The judge’s gavel rests on the bench, with a frozen lake beyond the windows.",
+      src: trialArt.witness,
+      alt: 'Simone and Echo face the court from the witness stand, with the lake visible through a window.',
     },
     paragraphs: [
-      "P1.1 · The Testimony",
       "[The legend’s last painting pulls back. The narrator’s voice was coming from the witness stand.]",
       "Simone: …and the treasures were never found. Until now. That’s the legend, and this world is part of it. It’s fake. [She points at the bench.] And that gavel, Your Honor, is one of the treasures.",
       "[The gallery roars with laughter. Only the judge doesn’t laugh. He glances at the gavel in his hand.]",
-      "P1.2 · Court Is Now in Session",
+    ],
+  },
+  "P1-2": {
+    title: "P1.2 · Court Is Now in Session",
+    summary: "The judge declares the world real after the courtroom raises no objections.",
+    illustration: {
+      src: trialArt.judge,
+      alt: "The silver-haired judge sits beneath a brass zodiac wheel, with the golden gavel in front of him.",
+    },
+    paragraphs: [
       "[Above the bench hangs a great brass zodiac wheel. Nobody looks at it twice.]",
       "[Banner: COURT IS NOW IN SESSION]",
       "Judge: The stars favor this session. [The jurors nod.] The defendant stands accused of spreading the rumor that this world is fake.",
@@ -277,14 +286,32 @@ export const inkOceanStory = {
       "Simone: My Lord, may I borrow your gavel?",
       "[The gallery howls. The judge looks at the gavel, then at her. A long pause.]",
       "Judge: …Show me.",
-      "P1.3 · Not Guilty",
+    ],
+  },
+  "P1-3": {
+    title: "P1.3 · Not Guilty",
+    summary: "The gavel declares Simone innocent until the prosecutor objects.",
+    illustration: {
+      src: trialArt.confetti,
+      alt: 'Golden confetti falls around Simone and Echo at the witness stand.',
+    },
+    paragraphs: [
       "Simone: The defendant is innocent. Any objections?",
-      "[Silence. BANG. “NOT GUILTY” confetti rains down. Her shackles fall off.]",
+      "[Silence. BANG. “NOT GUILTY” confetti rains down.]",
       "[The laughter stops.]",
       "Prosecutor: OBJECTION!",
-      "[The confetti flies back up into the ceiling. The shackles snap back onto her wrists.]",
+      "[The confetti flies back up into the ceiling.]",
       "Simone: [Looking at the gavel.] …So that’s how it works.",
-      "P1.4 · The Dream",
+    ],
+  },
+  "P1-4": {
+    title: "P1.4 · The Dream",
+    summary: "The prosecutor falls asleep, and his mother objects from the gallery.",
+    illustration: {
+      src: trialArt.asleep,
+      alt: 'The prosecutor sleeps in a floppy nightcap while his mother watches from the gallery.',
+    },
+    paragraphs: [
       "Simone: The prosecutor is dreaming. Any objections?",
       "[Silence. BANG. He slumps over the desk, snoring, a nightcap on his head.]",
       "[The whole room is silent. Then, from the very back of the gallery, a small old woman stands up.]",
@@ -292,7 +319,16 @@ export const inkOceanStory = {
       "[POP. He jolts awake, nightcap gone.]",
       "Prosecutor: …Mother?",
       "Judge: [Calmly.] …Hm.",
-      "P1.5 · The Verdict",
+    ],
+  },
+  "P1-5": {
+    title: "P1.5 · The Verdict",
+    summary: "After the prosecutor withdraws his objection, Simone’s verdict breaks the dream.",
+    illustration: {
+      src: trialArt.dreamBreaks,
+      alt: 'Simone holds the Gavel beside Echo as pale cracks spread across the courtroom.',
+    },
+    paragraphs: [
       "Judge: [Quietly.] Go on.",
       "Simone: This world is fake. Any objections?",
       "Prosecutor: OBJECTION! Worlds don’t just turn out to be fake!",
