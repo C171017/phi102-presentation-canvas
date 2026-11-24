@@ -961,3 +961,143 @@ Precise object edit for the Ink Ocean presentation canvas. Edit only the black r
 Precise local image edit. Image 1 is the full 1672 × 941 Ink Ocean background to edit. The only edit is at the center of the glowing amber ripples, where a tiny rectangular gold-topped brick occupies x805–882, y470–519. Replace that brick with one small irregular pebble of fully dried ink, a single compact piece made of a few fused rice-sized ink grains. Image 2 shows the pebble’s design for reference: a low asymmetric charcoal-indigo pebble with a slightly knobbled crest, mottled violet facets and a narrow warm amber edge. Use only its pebble shape and material. Keep the pebble centered at approximately x843, y497, about 60–65 pixels wide and 30–36 high, visibly smaller than the old block but still readable inside the same golden rings. Continue the existing water and golden ripples naturally in the few pixels around it. Match the original image's perspective and cel-shaded anime lighting. Exactly preserve everything else in Image 1: the four plain Ys and red-dotted SOWHAT with all their expressions and positions, the crowds of ink figures, ladles, floor, horizon, mountains, clouds, color, and the original full-frame 16:9 composition. No cushion, additional rocks, rectangular edges, text or effects. Deliver the full edited background.
 
 </details>
+
+## 2026-11-23T20:20:49-08:00 · Match Peirce’s Y and Neurath’s SOWHAT to the chorus
+
+Recorded time in Pacific time. Howie showed Story pages 14 and 13 after the Pyrrho edit and requested:
+
+> also these 2
+
+Use the localized edits for [Peirce](../public/generated/backgrounds/ink-ocean/L4-peirce-on-turtles-y-refined.webp) and [Neurath](../public/generated/backgrounds/ink-ocean/L4-neurath-on-deck-sowhat-refined.webp) in Story and in the shared presentation. Peirce’s ordinary Y looks down-left with a short tail. Neurath’s illustration shows SOWHAT delivering the final objection, with the red forehead dot and a short tail above the water.
+
+<details>
+<summary>ImageGen prompts for Peirce’s Y and Neurath’s SOWHAT</summary>
+
+**Peirce**
+
+Make a localized edit to image 1, the existing widescreen illustration of Peirce standing on turtles in the circular library. Refine only the one glossy black ink character to the right of his two raised fingers, roughly x=60–69%, y=5–20% of the full frame. Image 2 shows the updated Y character in Pyrrho’s scene as a rendering reference, and image 3 is the canonical YYYY SOWATT expression sheet. Draw one ordinary Y: a compact round ball of flat near-black ink, muted indigo edge, thin cream crescent highlight, curious raised cream eyes looking down-left at Peirce, and a small cream half-open questioning mouth. Give it exactly one short, tapered tail pointing down-left, with a visible gap before his fingers. Remove the old long top curl and lower filament. Keep this Y distinct from Pyrrho’s through its more inquisitive gaze, with no forehead dot and no red tongue. Keep the new Y in the original area, around 6% of image width, without touching Peirce. Restore the blue-violet library wall precisely behind the old outline. Preserve Peirce, the turtles, shelves, cel shading, framing and all pixels elsewhere as closely as possible. One character edit only. No words. Return the original widescreen composition.
+
+**Neurath**
+
+Make a localized edit to image 1, the existing widescreen Neurath illustration on a circular ship. Refine only the single glossy smiling ink character in the right-side water, roughly x=77–87%, y=45–70% of the full frame. The updated Pyrrho Y in image 2 shows the series finish, and image 3 provides canonical YYYY SOWATT designs. Depict the pictured exchange’s final speaker, SOWHAT, the smaller, dryly amused red-dot member of the chorus. Give it a compact round matte black ink silhouette, a restrained violet edge and thin cream crescent highlight, half-lidded cream eyes looking up-left toward Neurath, a small wry cream speaking mouth, and one small clear red-orange dot at its forehead. Exactly one short pointed tail, aimed down toward the water and ending just above the existing ripples. Keep it within the same right-side pool, a little smaller than the old character. Restore the original dark ink and existing violet ripples and amber reflections where the old long tail was removed. Preserve Neurath, his hands and face, circular wooden deck, all rigging, light, color and framing as closely as possible. One character edit only. No new characters, captions or words. Return the same widescreen composition.
+
+</details>
+
+## 2026-11-23T20:23:46-08:00 · Make the demon the cause of the dreams
+
+Recorded time in Pacific time. Howie supplied the revised Whypocalypse dialogue in a screenshot and asked:
+
+> update the dialgoue for this part
+
+Use the five-cue version shown in the screenshot on Story page 10 and the presentation. Once the stones melt, the Cartesian demon returns and offers the melted people worlds with solid ground. They step inside without knowing they are dreaming.
+
+## 2026-11-23T21:32:13-08:00 · Match the Y cast to the Peirce and Neurath dialogue
+
+Recorded time in Pacific time. Howie requested two Ys for Peirce:
+
+> here visually we need two of the YY cause in teh diaglue there 2 of them so updat ehte visua
+
+Howie requested three Ys alongside the existing SOWHAT for Neurath:
+
+> and of course for this aprt is gonna 3 Y and 1 sowaht (which we alredy have
+
+> do updat eboth visual
+
+Use [Peirce with two Ys](../public/generated/backgrounds/ink-ocean/L4-peirce-on-turtles-two-ys.webp) and [Neurath with three Ys and SOWHAT](../public/generated/backgrounds/ink-ocean/L4-neurath-on-deck-three-ys-sowhat.webp) in Story and in the shared presentation. Give each added Y a distinct expression and preserve the existing red-dotted SOWHAT in the water.
+
+<details>
+<summary>ImageGen prompts for the added Ys</summary>
+
+**Peirce’s second Y**
+
+Create one isolated transparent character sprite to add to the existing Peirce scene. The existing small black ink drop beside Peirce in image 1 is the scale, palette, and lighting reference; image 2 is the canonical YYYY SOWATT character sheet. Draw one other ordinary Y from that chorus asking a curious, slightly impatient follow-up. Its face should be clearly distinct from the wide-eyed Y already beside Peirce: two warm cream almond eyes, one slightly narrowed and one intent, both pupils looking to the LEFT; a small cream open mouth. Compact smooth near-black ink body, thin cream crescent highlight with a slight warm amber rim on the upper-left and very muted indigo edge on the right. Match the original simple graphic anime cel shading. Exactly one short pointed tail attached to the bottom-left of the body and pointing left toward Peirce. Absolutely no red dot, limbs, long curling tendrils, or lettering. This is an ordinary Y. Produce just the one isolated sprite, centered and filling the square with safe margins, on true transparent alpha. No floor, glow, backdrop, text, or other characters.
+
+**Neurath’s three Ys**
+
+Create a single wide transparent overlay for the supplied anime scene of Neurath and his circular ship. The overlay will be placed in the open middle-right of the existing frame, immediately above and to the left of the already-present red-dotted character. The second image is the canonical YYYY SOWATT design reference. This overlay contains EXACTLY THREE ordinary Y ink drops, with generous transparent gaps, arranged in a loose left-to-right arc: first slightly higher on the left, second lower in the middle, third halfway up on the right. Separate all silhouettes so the three can be counted at a glance. Give the three individually recognizable cream-colored expressions: curious with round raised eyes, intent with narrowed eyes, and dryly incredulous with one raised eyebrow. They face left toward Neurath. Each has a near-black round body, exactly one short pointed tail with a different tilt, a thin warm cel highlight from upper left, and a restrained violet edge from the water. No red dot on any of these three. Their sizes are close to one another. Crisp anime cel-shading fitting the existing thin-outlined style. True transparent background, no text, no splash, no shadows, no extra bodies, no backdrop, no boat, no humans. Wide landscape sprite group only, with small outer margins.
+
+</details>
+
+## 2026-11-23T21:35:09-08:00 · Add The Wall to Story
+
+Recorded time in Pacific time. Howie supplied the P2 draft scene in the [design chat](codex://threads/01a20a3e-4a0f-7623-bf02-14d8e2080e23) and specified the scope:
+
+> udpate the corosponding Story part
+
+> by which imean add teh texts
+
+Place [P2, The Wall](../src/ink-ocean-story.ts) immediately after The Trial in the Story reader. Include the dialogue, stage directions, banner and Wittgenstein caption from the screenshot as a text-only scene.
+
+## 2026-11-23T22:10:00-08:00 · Replace The Wall with the Door world (P2)
+
+Message times in Pacific time, from Howie’s voice design session on 2026-11-23. This entry records the decisions in order. The Door world supersedes [The Wall](#2026-11-23t213509-0800--add-the-wall-to-story) as P2. The older entry stays for traceability.
+
+**21:44 · An empty frame with one hinge replaces the wall.**
+
+> maybe this time not a wall, but like an empty frame without anything concrete. It's just frame with the hinge. And then there's like, um, you know, weird thing coming out of the frame.
+
+**21:46 · A glimpse through the door foreshadows the wedding, and the scene ends in white.**
+
+> it's almost like as if she saw, see something through the door, like, um, you know, like, um, beautiful life or anything, which is like a precursor or foreshadowing the, the, the wedding. And then it really breaks out, and then everything flashes, you know, like, go whole white
+
+**21:49 · Cole comes back to help. Simone still doesn’t know who he is.**
+
+> the memory call actually come out to help her once she figure out the things in the flashback. But at this point, Simon still has no idea who that he is.
+
+**21:52 · The door-closing chant is the parody, and it explains the hinges.**
+
+> Each time when they're trying to unblock the door, they have to read some lines, right? And we do the parody here, but change things that is like a philosophical part, and that explains the hinges.
+
+**21:54 · Reuse the film’s beats.**
+
+> We're trying to reuse Suzume as much as possible.
+
+**21:57 · Each spoken hinge adds one part of the door, and the pace climbs.**
+
+> the more things going to appear and the more parts of the door is going to appear. So it's like a proportional thing. So you can get the climates where you just start to speak faster and faster
+
+**22:04 · Final order: the meeting first, the flashback at Cole’s question, white at the climax.**
+
+> right after the courtroom dissolves, like Simon appears in that world, just like the sequence in the trailer, and then she immediately met the call in that world, and then they start to have a door conversation. And it was exactly when Carl turns his head to see Simon to ask where's the door triggers Simon's memory
+
+> this time there's no flashback since flashback already happened before.
+
+> towards the climax when they're just about to close the door, everything, you know, the whole thing explodes coming out. And then, you know, the screen goes white.
+
+**22:10 · Scope of the build.**
+
+> all three docs canvas and shot list like same style of suzme but withour assets you can use the imagegenreaiton api key we had quality first for the image (you can use like 2.6 sunburst max or like high setting etc
+
+> only this suzume door world part
+
+What this affects:
+
+- P2 is now The Door, a parody of *Suzume* (2022) that shows hinges × sensitive invariantism. In this scene the second Sacred Treasure is a hinge. This supersedes The Wall (21:35) and, for this scene, the earlier note to skip hinges × sensitive invariantism.
+- Each hinge spoken aloud burns into the brass and snaps one plank of dried ink onto the door. The flood grows, so the lines get shorter and faster.
+- Cole has been awake a long time and knows Simone. She doesn’t remember him. His lines plant the P3 wedding.
+- Other sections of the story keep their current text until Howie revises them. The Broadcast (the older P2), the interlude’s Anchor, and requirement 8 in §5.1 of the story draft now disagree with this scene.
+
+Implementation choices made under the delegated scope above (not yet reviewed by Howie):
+
+- [Story draft 5](story-v5-ink-ocean.md) gains “P2 · The Door” directly after P1, with per-page tags and a “What each page teaches” table. The Chinese draft and the shot list are written separately.
+- [The Story and presentation data](../src/ink-ocean-story.ts) replace the single text-only P2 with nine dialogue-led pages built like The Trial: `P2-1`, `P2-2a`, `P2-2b`, `P2-2c`, `P2-3`, `P2-4`, `P2-5`, `P2-6` and `P2-7`. The flashback takes three pages so each cut has one illustration. Artwork paths under `public/generated/backgrounds/ink-ocean/` are reserved for the image generator and stay empty until it runs.
+- The left-hand notes for each page are in [legend-slide-notes.ts](../src/legend-slide-notes.ts). Cole’s lines use his rust context color. Simone keeps the base white she has in The Trial.
+- Paper anchors: `P2-1` to `P2-5` open §2.2 Hinges, and `P2-6` and `P2-7` open the sensitive invariantist sentence in §3. The manifest reuses the positions of `route-hinges-heading` and `hinges-si-heading`, since `npm run paper:pages` needs macOS.
+- The scene runs about 4 to 4.5 minutes. Suggested cut order if needed: the Gavel beat, merging pages 3 and 4, then “The ground holds!” and “The door is here!”.
+- One stage direction changed from the session draft: “The water around her starts to melt” became “The ground around her starts to melt.”
+
+## 2026-11-23T22:35:12-08:00 · Center the Operation Because ballot
+
+Recorded time in Pacific time. Howie specified the layout for each round in the [canvas chat](codex://threads/01a20b50-5b47-72e2-a290-250abf2d218c).
+
+> For this part, the four options going to be shown in the center of the screen and everything else kind of dim to indicate there's an option thing here. And same thing applies for when there's three options, two option, and one options for this
+
+Center the remaining records in the viewport and dim the slide and surrounding controls during the ballot. Four records form two rows. With three, the third record is centered below the first two. Two records sit side by side, and the final record sits at the screen center. Foundationalism still dodges while another theory remains. The dimming clears as the ballot closes and the selected Answerer’s scene opens.
+
+## 2026-11-23T22:40:46-08:00 · Show the schools in sequence
+
+Recorded time in Pacific time. Howie pointed to the Show both schools button in the [canvas chat](codex://threads/01a20a3e-4a0f-7623-bf02-14d8e2080e23).
+
+> for this part no this show both schools thing and now we still show them in order first careisian foundalim and then moderate foundalims
+
+After Descartes and the Fourth Answer, advance directly to Cartesian foundationalism, then Moderate foundationalism, then The Stranger. Each school has its own existing illustration and dialogue. This supersedes the earlier choice and split-screen presentation.

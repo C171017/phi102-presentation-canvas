@@ -3,7 +3,7 @@ import { applyTheoryAction, theories, theoryNames, theoryScene, voteHub, voteVie
   type Theory, type TheoryAction, type TheoryBallot, type TheoryView } from './theory-vote';
 import './theory-records.css';
 
-export function createTheoryRecords(stage: HTMLElement, openScene: (scene: string) => void, shared: boolean, presenter: boolean, onOpen: () => void) {
+export function createTheoryRecords(shell: HTMLElement, openScene: (scene: string) => void, shared: boolean, presenter: boolean, onOpen: () => void) {
   const panel = document.createElement('section');
   panel.className = 'theory-ballot';
   panel.hidden = true;
@@ -21,7 +21,7 @@ export function createTheoryRecords(stage: HTMLElement, openScene: (scene: strin
   close.textContent = 'Use current votes';
   close.addEventListener('click', () => act('close'));
   panel.append(title, records, status, close);
-  stage.append(panel);
+  shell.append(panel);
 
   let scene: string | undefined;
   let state: TheoryView | undefined;

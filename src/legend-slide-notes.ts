@@ -125,4 +125,76 @@ export const openingNotes: Record<string, SlideNotes> = {
     ],
     source: 'Greco · §§2.1, 3, pp. 427, 429–430',
   },
+  'P2-1': {
+    claim: "To ask one question, you take other things for granted.",
+    points: [
+      "Cole’s question makes sense only if both of them already accept a great deal: the road, the words, each other.",
+      "Wittgenstein calls the claims that stay fixed hinges.",
+    ],
+    source: "Greco · §2.2, p. 428",
+  },
+  'P2-2a': {
+    claim: "Asking about the color of the sky takes other claims for granted.",
+    points: [
+      "Simone answers without checking that Cole understands her or that he isn’t tricking her.",
+      "This is Wittgenstein’s example in On Certainty §345, which Greco quotes.",
+    ],
+    source: "Greco · §2.2, p. 428",
+  },
+  'P2-2b': {
+    claim: "You can doubt a great deal while something else stays put.",
+    points: [
+      "Cole’s advice: start from what you already treat as settled, such as answering to your name.",
+      "A hinge is held in place for the inquiry. Nobody proves it first.",
+    ],
+    source: "Greco · §2.2, p. 428",
+  },
+  'P2-2c': {
+    claim: "A hinge keeps an inquiry going. It does not show that the world is real.",
+    points: [
+      "Through the door, Simone sees a life she would want.",
+      "The dream that is hardest to leave is the one you want to be true.",
+    ],
+    source: "Greco · §2.2, p. 428",
+  },
+  'P2-3': {
+    claim: "Simone treats it as settled that she knows him, and has no reason to give.",
+    points: [
+      "A starting point can come without a further reason behind it.",
+      "Whether this Cole is real stays open.",
+    ],
+    source: "Greco · §2.2, p. 428",
+  },
+  'P2-4': {
+    claim: "Our questions and doubts depend on some claims being exempt from doubt.",
+    points: [
+      "The thread of question marks is the regress from the legend: one “why?” after another.",
+      "Nobody else looks up. The questions belong to Simone’s inquiry.",
+    ],
+    source: "Greco · §2.2, p. 428",
+  },
+  'P2-5': {
+    claim: "With nothing exempt from doubt, the questions never stop.",
+    points: [
+      "Every question Simone asks feeds the column, because she holds nothing fixed (On Certainty §341).",
+      "The Gavel does nothing. The social route needs a jury, and nobody is here.",
+    ],
+    source: "Greco · §2.2, p. 428",
+  },
+  'P2-6': {
+    claim: "Each hinge Simone holds fixed becomes a plank of the door.",
+    points: [
+      "The chant follows Wittgenstein’s list in §345: the words mean something, memory holds, the other person isn’t deceiving you.",
+      "A minute ago she doubted her eyes. For this inquiry they are a hinge. No claim has to be a hinge for every inquiry.",
+    ],
+    source: "Greco · §§2.2, 3, pp. 428, 430",
+  },
+  'P2-7': {
+    claim: "Whether Simone has foundational justification depends on the inquiry she is engaged in.",
+    points: [
+      "“For this door alone”: to carry out this inquiry she must treat these claims as fixed points. This is the sensitive invariantist version.",
+      "“If I want the door to turn, the hinges must stay put.” (On Certainty §343)",
+    ],
+    source: "Greco · §3, p. 430",
+  },
 };

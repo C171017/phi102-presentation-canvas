@@ -12,7 +12,6 @@ import { legendById, slides } from './slide-content';
 import { addLegendAnchors } from './ink-ocean-entries';
 import { createClassroomDialogue } from './classroom-dialogue';
 import { createOpeningVideo } from './opening-video';
-import { createLegendSchools } from './legend-schools';
 import type { PresentationCues } from './live-protocol';
 import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
@@ -60,24 +59,15 @@ const openingVideo = localDev && role !== 'audience' && __LOCAL_OPENING_VIDEO__
   : undefined;
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   localDev || liveMode ? createLocalQuizVotes(role === 'audience', liveMode) : undefined, readOnly, role === 'presenter', openingVideo?.play);
-const schools = createLegendSchools(backdrop, {role, onEnd: () => openScene('L7')});
 let currentIndex = -1;
 let pendingCue: {slide: number; cue: number} | undefined;
-function cueController(index: number) {
-  const id = slides[index]?.members[0];
-  if (id === 'L6') return schools;
-  return openingDialogue;
-}
 const cues: PresentationCues = {
-  read: index => index === currentIndex ? cueController(index).getCue() : 0,
+  read: index => index === currentIndex ? openingDialogue.getCue() : 0,
   apply(index, cue) {
-    if (index === currentIndex) cueController(index).setCue(cue);
+    if (index === currentIndex) openingDialogue.setCue(cue);
     else pendingCue = {slide: index, cue};
   },
-  subscribe(listener) {
-    openingDialogue.onCue(listener);
-    schools.onCue(listener);
-  },
+  subscribe: listener => openingDialogue.onCue(listener),
 };
 const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   currentIndex = index;
@@ -89,7 +79,6 @@ const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   openingDialogue.showScene(id);
   if (id === 'before-lecture' || id === 'contemporary-heading') openingVideo?.preload();
   openingVideo?.close();
-  schools.show(id === 'L6');
   if (pendingCue?.slide === index) cues.apply(index, pendingCue.cue);
   pendingCue = undefined;
   paperPane?.update(index);
@@ -177,7 +166,7 @@ function panBy(x: number, y: number) {
 }
 function step(direction: number) {
   if (openingVideo?.isOpen()) return;
-  if (!stops.length && (schools.step(direction) || openingDialogue.stepDialogue(direction))) return;
+  if (!stops.length && openingDialogue.stepDialogue(direction)) return;
   if (!stops.length) { slideNavigation.step(direction); return; }
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
   goTo(stops[stopIndex], stops[stopIndex].duration);
@@ -253,15 +242,10 @@ window.addEventListener('keydown', (event) => {
   if (openingVideo?.isOpen()) return;
   const element = event.target as HTMLElement;
   if (event.defaultPrevented || element.isContentEditable || element.closest('input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
-  const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .legend-schools button, .before-lecture-scene');
+  const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .before-lecture-scene');
   if (element.closest('button') && (!navigationTarget || event.key === ' ' || event.key === 'Enter')) return;
   if (!event.isComposing && !event.shiftKey && openingDialogue.handleArrow(event.key)) {
     event.preventDefault();
-    return;
-  }
-  if (!event.shiftKey && slides[currentIndex]?.members[0] === 'L6' && /^Arrow(Left|Right|Up|Down)$/.test(event.key)) {
-    event.preventDefault();
-    step(event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1);
     return;
   }
   const distance = event.shiftKey ? 600 : 180;
@@ -499,7 +483,7 @@ resize();
 if (liveMode) {
   void layout.ready.then(() => {
     requestAnimationFrame(() => {
-      reportSlide = connectPresentation(viewport, slideNavigation.open, openingDialogue.theory, schools, cues, openingDialogue.updateOpeningQuiz);
+      reportSlide = connectPresentation(viewport, slideNavigation.open, openingDialogue.theory, undefined, cues, openingDialogue.updateOpeningQuiz);
       invalidateConnections();
     });
   });
@@ -521,7 +505,7 @@ if (localDev) {
     mountPaperPane(rolePicker);
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
-        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingDialogue.theory, openingVideo, schools, cues);
+        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingDialogue.theory, openingVideo, undefined, cues);
       });
     });
   });

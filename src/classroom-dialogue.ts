@@ -16,7 +16,7 @@ const script: (InkOceanCue & { scene: string; phase?: 'question' | 'reveal' })[]
   { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Ten seconds, a room full of philosophers, and somehow you’re all wrong. Well, Contemporary Contextualism it is. Read the texts.' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Anyway, long, long ago, when the chalk in this very room was still young, it has a very different name:' },
   { scene: 'contemporary-heading', speaker: 'Professor Lin', phase: 'reveal', text: 'Flexible foundationalism.' },
-  ...legendSlides.filter(scene => scene.id !== 'L6').flatMap(({ id, cues }) => cues.map(line => ({ ...line, scene: id }))),
+  ...legendSlides.flatMap(({ id, cues }) => cues.map(line => ({ ...line, scene: id }))),
 ];
 
 const questionIndex = script.findIndex(line => line.phase === 'question');
@@ -89,7 +89,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const firstCue = new Map<string, number>();
   script.forEach((line, index) => { if (!firstCue.has(line.scene)) firstCue.set(line.scene, index); });
   const finalAnswererCue = firstCue.get('L4')! + legendById.get('L4')!.cues.length - 1;
-  const theory = createTheoryRecords(stage, openScene, shared, presenter, () => {
+  const theory = createTheoryRecords(shell, openScene, shared, presenter, () => {
     if (script[active]?.scene === 'L4') select(finalAnswererCue, false);
   });
   const controls = document.createElement('nav');
@@ -289,13 +289,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (index < 0) { openScene(introScenes[introScenes.length - 1]); return; }
     if (index > active && finishIntro()) return;
     if (index === script.length) { openScene('dilemma-heading'); return; }
-    // The live choice leads from Descartes into the two school branches.
     const destination = script[index].scene;
-    if ((scene === 'regress-foundationalism' && destination === 'L6-A') ||
-        (scene === 'L6-A' && destination === 'regress-foundationalism')) {
-      openScene('L6');
-      return;
-    }
     if (destination !== scene) {
       pendingLine = index;
       openScene(destination);
@@ -381,7 +375,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
 
   function showScene(id?: string) {
     theory.showScene(id);
-    const legend = id && legendById.has(id) && id !== 'L6';
+    const legend = id && legendById.has(id);
     controls.hidden = !legend && id !== 'contemporary-heading' && !introScenes.includes(id ?? '');
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);

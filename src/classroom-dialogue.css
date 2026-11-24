@@ -149,6 +149,8 @@
 .transcript-row[data-cue-kind] { color: #b8c8d5; font-style: italic; }
 .transcript-row[data-speaker="Question mark"] { color: #9de5d6; }
 .transcript-row[data-speaker="Moore"] { color: #ffd58e; }
+/* Cole speaks in his rust context color. Simone keeps the base white she has in The Trial. */
+.transcript-row[data-speaker="Cole"] { color: #f6a987; }
 .transcript-row:is([data-speaker="Head disciple"], [data-speaker="Heckler"]) { color: #ffb9a5; }
 .transcript-row[aria-current] { opacity: 1; }
 /* Keep the next line measurable for scrolling while its name is still a surprise. */

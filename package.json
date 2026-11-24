@@ -9,6 +9,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "gifs:check": "node scripts/generate-gifs.mjs --check",
     "gifs:generate": "node scripts/generate-gifs.mjs",
+    "art:door-world:check": "node scripts/generate-door-world-art.mjs --check",
+    "art:door-world": "node scripts/generate-door-world-art.mjs",
     "paper:pages": "swift scripts/render-paper-pages.swift public/readings/greco-2017.pdf scripts/paper-anchors.json public/readings/greco-2017",
     "build:live": "tsc --noEmit -p server/tsconfig.json && VITE_LIVE_PRESENTATION=1 npm run build -- --outDir dist-live && rm -f dist-live/readings/greco-2017.pdf",
     "dev:live": "npm run build:live && wrangler dev --port 5192",

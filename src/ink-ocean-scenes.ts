@@ -4,7 +4,7 @@ import type { StoryScene } from './story-text';
 
 type StorySceneId = keyof typeof inkOceanStory;
 
-export type InkOceanSceneId = StorySceneId | 'L6';
+export type InkOceanSceneId = StorySceneId;
 
 export interface InkOceanCue {
   speaker: string;
@@ -50,22 +50,14 @@ function storySlide(id: StorySceneId): InkOceanScene {
   };
 }
 
-const schoolChoice: InkOceanScene = {
-  id: 'L6',
-  title: 'Choose Your School',
-  takeaway: 'The foundationalist’s dilemma · What makes a starting point legitimate?',
-  cues: [],
-};
-
 export const schoolScenes = {
   'L6-A': storySlide('L6-A'),
   'L6-B': storySlide('L6-B'),
 };
 
-export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[]).flatMap(id => {
-  if (id === 'L6-A') return [schoolChoice, schoolScenes[id]];
-  return [id === 'L6-B' ? schoolScenes[id] : storySlide(id)];
-});
+export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[]).map(id =>
+  id === 'L6-A' || id === 'L6-B' ? schoolScenes[id] : storySlide(id),
+);
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
   return index === 0 && Boolean(scene.background);

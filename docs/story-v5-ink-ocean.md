@@ -29,7 +29,7 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 **The test for every element:** does the audience need it to follow the story, or does it carry a key point of the paper? If neither, cut it. When in doubt, cut.
 
 **[AI DRAFT] Known pressure points under this rule:**
-- The time table in §5.2 adds up to the full 28 minutes and leaves nothing for Q&A (open question 22).
+- The time table in §5.2 comes to about 30 minutes with Q&A, about 2 over (open question 12).
 - Part 1 is ~7 minutes. L0 (~30 sec) was offset by shortening L1.
 - AI-drafted extras (side jokes, secondary names, optional lines) are the first things to cut.
 
@@ -53,41 +53,41 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 | Part 1b | Agrippa's trilemma: skepticism, infinitism, coherentism, foundationalism | L4–L5: Operation Because, Descartes |
 | Part 1c | The foundationalist's dilemma; flexible foundationalism: undoubted, not undoubtable | L6–L7: one ink pebble vs jelly; the stranger and the three treasures |
 | P1 | The social route (Annis): an objector group; read as sensitive invariantism; the astrology objection | The trial |
-| I1–I3 | The three routes in one slide; E = K and "without trying" | The interlude: alone, the Ferry, Evan |
-| P2 | Contextualism: the speaker fixes the claim; "Oh, come on"; the disagreement problem (the left/right cup example) | The broadcast |
-| P3 | Relativism (one claim, judged by each assessor's standards) and expressivism; footnote 16 | Glass and Tide |
+| P2 | Wittgenstein's hinges: some things must stay put for any question to be asked; read as sensitive invariantism (it depends on the subject's inquiry) | The door |
+| P3 | Contextualism: the speaker fixes the claim; "Oh, come on"; the commitment view; the hunger case and the disagreement problem | The wedding |
 | Part 3 | Access internalism: the leak-down worry, the supervenience base, the cognitive home, the mobile home | R1–R10 |
-| Finale | The moral question | R11–R13: the vote and the coda |
+| Finale | The moral question | R11–R13: Cole's confession, the vote and the coda |
 
 ## For the visualization agent
 
 1. **Job:** draw each scene below for review. Label every image with its scene ID (for example `L6`) and its status. Mark images of **[AI DRAFT]** material as drafts.
 2. **House style:** follow [slide-visual-style.md](slide-visual-style.md): cut-paper planes, one shadow plane per surface, fine paper grain, ink navy with pools of amber. Leave the lower part of the frame quiet for the dialogue box.
-3. **Identity [FIXED: personality matches philosophical role]:** *Simone is the main character (subject), Cole never stops talking (speaker), Rae judges everything (assessor), Echo only reacts (endorsement).* Take faces and costumes from the current full-body cast art (`src/assets/full-body-cast/`).
-4. **Recurring identifiers:** Simone: black loop ponytail, teal-green cropped jacket, a red "YOU ARE HERE" map-pin badge on her lapel, and a vented pet carrier on her shoulder for Echo; no watch, no letter, no other prop. Cole: rust jacket, phone on a ring light, earbud wire. Rae: navy waistcoat and wide trousers, a brass magnifying lens always in hand. Echo: one palm-sized hermit crab with a tall faceted violet shell and one oversized coral claw. YYYY SOWATT: five ink bubbles, each with exactly one pointed speech-bubble tail; the smallest has a red dot ([reference](character-references/quibble-a3-single-tail.png)).
-5. **Context colors:** teal for Simone, rust for Cole, blue for Rae, violet and coral for Echo.
+3. **Identity [FIXED: personality matches philosophical role]:** *Simone is the main character (subject), Cole never stops talking (speaker), Echo only reacts.* Take faces and costumes from the current full-body cast art (`src/assets/full-body-cast/`).
+4. **Recurring identifiers:** Simone: black loop ponytail, teal-green cropped jacket, a red "YOU ARE HERE" map-pin badge on her lapel, and a vented pet carrier on her shoulder for Echo; no watch, no letter, no other prop. Cole: rust jacket, phone on a ring light, earbud wire. Echo: one palm-sized hermit crab with a tall faceted violet shell and one oversized coral claw. YYYY SOWATT: five ink bubbles, each with exactly one pointed speech-bubble tail; the smallest has a red dot ([reference](character-references/quibble-a3-single-tail.png)).
+5. **Context colors:** teal for Simone, rust for Cole, violet and coral for Echo.
 6. **Don't** put the names of films, games, studios, artists or specific artworks into image prompts. Describe painting traditions and visual qualities instead. Don't reproduce any existing character, logo or painting. Descartes appears as a generic seventeenth-century scholar in scroll style, not a copy of a known portrait.
 7. **Avoid baked-in text** except where a scene asks for a short label (a title card, words pressed into an ink stick).
-8. **[FIXED] Only NPCs are made of ink cubes.** Named characters (the three masters, Descartes, the keeper, the heroes) are drawn as ordinary people with expressive faces and drawn clothing. **NPCs (unnamed crowds and background people) are made of dried ink [new design from the author's design session, Nov 22]:** figures built entirely of small ink cubes, finest and densest at the head, growing gradually larger toward the feet, with no sudden jump in density, so the body reads as one coherent, seamless form. From across the room you see a person; up close you see the beliefs they're built from. When their beliefs go wet, they slump, drip and shrink. Simone, Cole, Rae and Echo keep their Version C designs.
+8. **[FIXED] Only NPCs are made of ink cubes.** Named characters (the three masters, Descartes, the keeper, the heroes) are drawn as ordinary people with expressive faces and drawn clothing. **NPCs (unnamed crowds and background people) are made of dried ink [new design from the author's design session, Nov 22]:** figures built entirely of small ink cubes, finest and densest at the head, growing gradually larger toward the feet, with no sudden jump in density, so the body reads as one coherent, seamless form. From across the room you see a person; up close you see the beliefs they're built from. When their beliefs go wet, they slump, drip and shrink. Simone, Cole and Echo keep their Version C designs.
 9. **The three Answerers and Descartes** are stylized characters, not portraits: invent faces; don't copy any known painting or photograph.
 10. **The regress dialogue in `src/slide-content.ts` is out of date.** Use L1–L5 of this document.
 11. **Everything from Part 2 on is unconfirmed** (either [YOUR IDEA · AI VERSION] or [AI DRAFT]). Label those images as drafts.
-12. **Evan has no model sheet yet.** Draw him as a small, courteous, living fountain pen with two small eyes on the clip **[AI DRAFT; a living ink brush is the alternative, §8]**.
+12. **The three dreams are nested, and each has its own look:** P1's gaslit courtroom, P2's luminous seaside ruin, P3's white chapel by the sea. The white flash that ends P2 becomes the wedding. Simone carries the treasures from one dream into the next.
 13. **P1 opens with a pull-back reveal:** the legend's last painting pulls back to a courtroom, and the narrator turns out to be Simone, testifying. The art style changes there, from the scroll's painting styles to P1's gaslit 1890s courtroom.
 
 ## Quick reference
 
 | | |
 | --- | --- |
-| **Heroes** | Simone (subject · sensitive invariantism): main-character energy, everything is about her situation. Cole (speaker · contextualism): talkative and sassy, never stops performing. Rae (assessor · relativism): calm, cool, always judging. |
-| **Simone's arc [AI DRAFT]** | The self-centered subject is pulled outward by the relay: in P1 she can only win by needing everyone else's silence; in P2 Cole's audience decides; in P3 Rae's standards judge her; in Part 3 she wakes everyone. Subject, then speaker, then assessor: her growth follows the paper's order. |
-| **The one nobody counted** | Echo, Simone's hermit crab (expressivism), who rides in her pet carrier and only ever reacts. Not a hero and never in the legend, but the one who matters at the end **[YOUR IDEA · AI VERSION]** |
+| **Heroes** | Simone (subject · sensitive invariantism): main-character energy, everything is about her situation. Cole (speaker · contextualism): talkative and sassy, never stops performing. He has been awake for a very long time, and he loves Simone, who never remembers him **[YOUR IDEA · AI VERSION]**. |
+| **Simone's arc [AI DRAFT]** | Three dreams, each inside the last. In P1 she can only win through everyone else's silence. In P2 she learns what she has to hold still before she can ask anything. In P3 she finds that two people can both speak truly and still be fighting. In Part 3 she stands on what she can know from where she is, and has to decide for everyone else. |
+| **The love story [YOUR IDEA · AI VERSION]** | Hidden inside the philosophy. Simone says "I don't love you," Cole says "I love you," and both can be right. Cole knows every world is fake and keeps silent, because in the dream he has a happy, fulfilling life with her. |
+| **The one who only reacts** | Echo, Simone's hermit crab, who rides in her pet carrier through every world. Never in the legend, never speaks **[YOUR IDEA · AI VERSION]** |
 | **Villain** | The Cartesian demon (no body: a dark ink sky with strings) |
 | **The demon's creation** | YYYY SOWATT (four Y voices + SOWHAT), its manifestation in the world |
-| **Allies** | Evan, a living pen anyone can write with: the third sacred weapon, who denies being one **[YOUR IDEA · AI VERSION]**; the Ferry and its town, Here; the old judge, who is also the lighthouse keeper (P1) |
+| **Allies** | The old judge, who is also the lighthouse keeper (P1) and the officiant at the wedding (P3) **[AI DRAFT]** |
 | **Legend figures** | The guardian question mark; the three Answerers (Pyrrho, Peirce, Neurath); Descartes, the fourth; the Cartesians; the moderates; the unnamed stranger who found a way out and left the Three Sacred Treasures of Good Enough (L7) |
-| **Objects** | Ink sticks (foundations); the *I think* stick (grain-sized); the three sacred treasures (the Gavel, the Anchor, and Evan) |
-| **Places** | The Great Inkwell; the ink ocean; the dream domes; the 1890s courtroom (Simone's dream, P1); Here, the first town after the fall; the lighthouse |
+| **Objects** | Ink sticks (foundations); the *I think* stick (grain-sized); the three sacred treasures: the Gavel (P1), the Hinge (P2) and, as a proposal, the Ring (P3) **[AI DRAFT]** |
+| **Places** | The Great Inkwell; the ink ocean; the dream domes; the 1890s courtroom (P1); the coast road and the flooded ruin (P2); the white chapel by the sea (P3); the lighthouse |
 
 ---
 
@@ -132,7 +132,7 @@ A sentence that nobody is asking about dries into an **ink stick**: a solid bar 
 | Foundations support other beliefs | You grind a stick into fresh ink to write new conclusions |
 | Building on foundations | Sticks are solid enough to stand on and build with |
 
-**[AI DRAFT]** On the ocean, a stick dries under your feet like a plank. A further belief floats just above the stick that supports it. A stick is tinted by whose context matters (teal, rust or blue). Echo has no sticks, only his claw: raising it is a commitment, not a claim, so nothing dries under it, and SOWATT has nothing to melt (§9.3).
+**[AI DRAFT]** On the ocean, a stick dries under your feet like a plank. A further belief floats just above the stick that supports it. A stick is tinted by whose context matters (teal or rust). Echo has no sticks, only his claw (§9.3).
 
 ### 1.3 YYYY SOWATT [FIXED]
 
@@ -154,8 +154,8 @@ A chorus of five ink bubbles born when a question mark spilled into the world's 
 
 1. **[FIXED]** **Frame.** A student steps off the red Unitrans double-decker and takes a seat in Giedt Hall. Professor Lin opens with the B/13 quiz on contemporary contextualism, then introduces flexible foundationalism. The OP plays. As soon as it ends, the legend begins.
 2. **[FIXED]** **Legend:** YYYY SOWATT is born and starts to wet the world like a virus, getting visibly worse with every chapter. People fight back: humanity elects three great masters, the Answerers, who appear in an order the audience chooses and are all useless; then Descartes, the fourth master nobody elected, right after. Descartes's *I think* is the first belief that stays dry while being asked about, but one dry grain can't hold back an ocean, and people have to hurry. Two schools try to dry the world again and fail. Then someone finds a better way, flexible foundationalism, and leaves three weapons to the world. Whether the Whypocalypse ever ended is left open.
-3. **[FIXED structure · AI DRAFT content]** **The relay:** as in *The Matrix*, whoever wakes goes back in for the others. **[FIXED requirement]** The legend turns out to be Simone's testimony in a dream-world courtroom, where she's laughed at, then proves it with the Gavel (P1). Simone breaks out of her dream first, spends years alone with only Echo, then builds a rebellion, the Ferry, and a small new town, Here, while searching for the third weapon. She enters Cole's dream; then the two of them, with Evan and Echo, enter Rae's. The order follows the argument of Greco's §3, and the disagreement problem happens between the protagonists.
-4. **[FIXED concept · AI DRAFT content]** **The real ocean:** the three heroes, Evan and Echo, with the town behind them, confront the demon. Following §4 of the paper, they learn to stand without bedrock. Then the demon poses a moral question, and the audience votes on the ending.
+3. **[FIXED structure · scenes tagged one by one]** **Three dreams, nested:** a dream within a dream within a dream. **[FIXED requirement]** The legend turns out to be Simone's testimony in a dream-world courtroom, where she's laughed at, then proves it with the Gavel (P1). The courtroom breaks straight into a second dream: she meets Cole on a coast road and closes a door with the Hinge (P2). The white flash becomes a third: her own wedding, with Cole as the groom (P3). She never remembers him. He has been awake for a very long time. A love story is hidden inside, and the disagreement problem happens between the two of them.
+4. **[FIXED concept · AI DRAFT content]** **The real ocean:** Simone, Cole and Echo face the demon. Following §4 of the paper, Simone learns to stand without bedrock. Cole knew every world was fake and never said so, because his happy life with her was in there. Then the demon poses a moral question, and the audience votes on the ending.
 
 ---
 
@@ -249,7 +249,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 **Notes:**
 - **Four Ys, one SOWHAT.** Each Y asks once, climbing the classic skeptical ladder: the senses, the dream, the brain in a vat. SOWHAT ends it with the argument from Units 2.1–2.2: if you know you have a hand, you know you're not a brain in a vat; you can't know you're not; so you don't know you have a hand.
 - **Her hand is made of a belief.** The stick that forms her hand is pressed with I HAVE A HAND. When the questions won't stop, the belief goes wet, and so does the hand.
-- **"Oh, come on" is planted on purpose.** Here it fails. In P2, the same line from Cole becomes Greco's example of ordinary talk treating a belief as a starting point.
+- **"Oh, come on" is planted on purpose.** Here it fails. In P3, the same line from Cole becomes Greco's example of ordinary talk treating a belief as a starting point.
 
 **Visual:** a woman built of ink at the Inkwell's edge, ladle in hand; the bubbles pass the question along, each tail pointing at the next speaker. On SOWHAT's line, the faint outline of a glass vat appears around the whole scene. Final frame: her hand glistening wet, ink running from her fingertips back into the pool.
 
@@ -285,8 +285,8 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > *[A choir hits one enormous chord. THE WHYPOCALYPSE stretches across the sky in jagged black brushwork. The Cartesian demon reaches a huge claw toward the curved ink world. The prophecy appears beside the artwork.]*
 > **Narrator:** An old prophecy had warned of this.
 > **Prophecy:** When the last question goes unanswered, the ink will forget what is real.
-> **Prophecy:** The melted will not die. They will dream of solid ground.
-> **Prophecy:** And the Cartesian demon will give them worlds to dream in, and none of them will know they are dreaming.
+> **Prophecy:** And when the stones have melted, the Cartesian demon will return.
+> **Prophecy:** To the melted, he will offer worlds of solid ground. They will step inside, and none of them will know they are dreaming.
 > **Narrator:** Nobody believed the prophecy. By then, it was very hard to believe anything.
 
 **Notes [YOUR IDEA · AI VERSION]:**
@@ -443,7 +443,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 **Notes [AI DRAFT]:**
 - **The one idea the audience must leave with:** flexible foundationalism. A foundation doesn't have to be undoubtable, only undoubted, and only here and now (Greco's core claim). Everything in Part 2 builds on this line.
 - **The narrator is revealed in P1:** the legend's narration was Simone's testimony in court all along. Whether the Whypocalypse ended is never stated, so the audience can start doubting the world they're in.
-- **The three weapons,** revealed in Part 2: the Gavel (social norms, Annis, §2.1), the Anchor (hinges, Wittgenstein, §2.2), and Evan (knowledge at the base, E = K, §2.3). Each answers to anyone, but differently in different hands (§9.2).
+- **The three treasures,** one in each dream of Part 2: the Gavel (social norms, Annis, §2.1), the Hinge (hinges, Wittgenstein, §2.2), and a third for the speaker's commitment (contextualism, §3). **[AI DRAFT proposal]** The third is the Ring. Each answers to anyone who holds it (§9.2).
 
 **Visual:** blue-green landscape (青绿山水): calm mineral blues and greens. A lone woman seen only from behind, one stick dry under her foot. Then the gold title card, and an empty sea.
 
@@ -575,6 +575,123 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 - **Courtroom-game format:** the session banner, "My Lord," the shouted "OBJECTION!", the prosecutor overruled, sweating jurors.
 
 **Visual:** a courtroom in the style of classic courtroom-battle games: warm wood panels, judge's bench high in the center, jury box of six, gallery behind, jagged shout bubbles, screen shake on each BANG. Simone at the defense bench, Echo peeking from her carrier. Through the tall windows, a frozen ink lake. A homage to the genre only: don't copy any existing character, logo or sprite.
+
+### P2 · The Door · Simone and Cole · hinges × sensitive invariantism · the Hinge [YOUR IDEA · AI VERSION · chant and filler lines AI DRAFT] · ~4–4.5 min
+
+**[YOUR IDEA · AI VERSION]** The next dream nested inside the first: a parody of *Suzume* (2022). It reuses the film's best-known beats: the meeting on the seaside road, the lone door in a flooded ruin, the dark column rising over the town, two people holding the door shut while one of them chants, and the white flash. The courtroom dissolves straight into this world, and Simone meets Cole at once. The moment he turns and asks about a door triggers her memory. He walks away. She finds the source alone: an empty frame with one brass hinge and no door. Cole comes back to help her close it. Each hinge they speak aloud snaps one plank of dried ink onto the frame while the flood grows, so they speak faster and faster. Just before the door shuts, everything bursts out and the screen goes white. The second Sacred Treasure in this scene is a **hinge**.
+
+**Paper:** Wittgenstein's hinges (§2.2): "the questions that we raise and our doubts depend on the fact that some propositions are exempt from doubt" (*On Certainty* §341), and the color example (§345): to ask one thing, you can't at the same time question whether the other person understands you, whether he wants to take you in, or whether your memory is failing you. Read as sensitive invariantism (§3): whether a subject has foundational justification to believe a claim depends on what inquiries she's engaged in, and whether she must treat that claim as a hinge, "a theoretical fixed point," to carry them out. Flexible: no claim has to be a hinge for every inquiry (§2.2).
+
+**Rules of this world [YOUR IDEA · AI VERSION]:**
+- Everything here is ink except the hinges. Doors are dried ink. The question marks are the Whypocalypse, the endless "why?" from the legend.
+- Each hinge spoken aloud burns into the brass as words, and one plank of ink snaps onto the door.
+- Hinges are held, never proven. Nobody in this scene says "I prove" or "it is certain."
+- Every chant line is first-person, about the speakers' own inquiry. Cole never declares Simone's belief foundational on her behalf.
+
+**Page 1 · "Have you seen a door around here?" [YOUR IDEA · AI VERSION]**
+
+> *(The courtroom dissolves into bright sea light. Simone is on a bicycle on a coastal road, Echo in the basket. She has no idea how she got here.)*
+> *(Up ahead, a young man with a backpack walks uphill. He hears the bike, turns and looks at her. For a moment, something like recognition crosses his face.)*
+> **Cole:** Have you seen a door around here?
+> *(Simone stops. His face. That question. Something cracks open.)*
+
+**Page 2 · Flashback, three quick cuts [YOUR IDEA: the flashback and the view through the door · AI DRAFT lines]**
+
+> *(Sunset. A sea wall. Cole is streaming, orange chat slips drifting around him.)*
+> **Cole:** Quick: what color is the sky?
+> **Simone:** Orange.
+> **Cole:** See? You didn't check whether I was messing with you.
+> **Simone:** Were you?
+> **Cole:** Never.
+>
+> *(An old door in the ruins. The two of them stand before it.)*
+> **Cole:** Doubt anything you like. But when I call your name, you answer. Start there.
+>
+> *(Through the open door: a white chapel by the sea. Petals. Someone at the end of the aisle. Simone can't look away.)*
+> **Cole** *(gently pulling her back)***:** Don't look too long. The prettiest worlds are the hardest to leave.
+
+**Page 3 · He walks away [YOUR IDEA: she doesn't know who he is · AI DRAFT lines]**
+
+> *(Back on the road. Simone can't make a sound.)*
+> *(Cole waits. Then he smiles, a little sadly, as if he expected this.)*
+> **Cole:** …Never mind.
+> *(He walks on uphill.)*
+> **Simone** *(thinking)***:** *(I know him. I don't know how I know him.)*
+
+**Page 4 · The omen [AI DRAFT]**
+
+> *(A few minutes later, Simone walks her bike through a quiet town. Echo's shell starts to rattle like an alarm.)*
+> *(Above the hilltop, a thin black thread rises into the sky. It is made of tiny question marks.)*
+> **Simone:** …What is that?
+> *(Nobody else in the street looks up.)*
+> *(She drops the bike and runs uphill.)*
+
+**Page 5 · The source [YOUR IDEA: the empty frame with one hinge · AI DRAFT lines]**
+
+> *(A flooded ruin on the hilltop. Where a door should be: an empty frame with one brass hinge. Question marks seep out of it like fog across black ink water.)*
+> **Simone:** So that's the door he meant.
+> **Simone:** Is this even real—
+> *(More pour out. Every question she asks feeds it. The thread swells into a roaring column:* **WHY? WHY? WHY?***)*
+> **Simone** *(raising the Gavel)***:** This world is fake! Any objections?
+> *(BANG. Only her own echo.)*
+> **Simone:** …No jury.
+> **Simone:** There's no door. How do I close a door that isn't there?!
+> *(The ground around her starts to melt.)*
+
+**Page 6 · No time to explain [YOUR IDEA: the chant explains the hinges; each line adds a plank; faster and faster · AI VERSION lines]**
+
+> *(Splashing footsteps. Cole arrives, out of breath.)*
+> **Simone:** You—!
+> **Cole:** No time to explain. Do it with me.
+> **Cole** *(eyes closed, hand raised)***:** O Hinges! Fixed Points Theoretical! You who have held still for generations, that we might doubt all else!
+> *(The hinge glows.)*
+> **Cole:** Simone!
+> **Simone:** …Here!
+> *(*MY NAME IS SIMONE *burns into the brass. The first plank of dried ink snaps onto the frame.)*
+> **Cole:** To ask, our words must mean!
+> **Simone:** Our words must mean! *(Plank.)*
+> **Cole:** What we remember, we remember! *(Plank.)*
+> *(The flood surges. They push the half-built door together, faster.)*
+> **Simone:** To see it shut, my eyes must— *(She falters. A minute ago she doubted them.)*
+> **Cole:** Different door, different hinge!
+> **Simone:** —WORK! *(Plank.)*
+> **Cole:** The ground holds! *(Plank.)*
+> **Simone:** The door is here! *(Plank.)* And you—you're not lying to me!
+> *(Cole's eyes flicker. Half a beat. Plank.)*
+
+**Page 7 · White [YOUR IDEA: everything bursts out and the screen goes white · AI VERSION lines]**
+
+> *(One gap left. The door shudders on its hinge. Lines of words glow all over the brass.)*
+> **Cole:** When it goes, don't hold on to me.
+> **Simone:** Will I see you again?
+> **Cole** *(smiling)***:** You always do. You just never remember.
+> **Cole:** For this door, and this door alone—
+> **Simone:** —we take you as given, without further reasons!
+> **Both:** These questions we return to you: CLOS—
+> *(Everything explodes. WHITE.)*
+> **Simone** *(on the white, small)***:** …I'm off.
+> *(Organ music. The white slowly becomes a wedding. Simone opens her hand: the hinge, cold and silent.)*
+
+*[Caption option for Page 7:]* "If I want the door to turn, the hinges must stay put." — Wittgenstein, *On Certainty* §343
+
+**What each page teaches (the concept slide has already explained the theory):**
+
+| Page | Paper point |
+| --- | --- |
+| 1–3 · The meeting, the flashback, "Never mind" | To ask one thing, you take others for granted: Simone answers "Orange" without checking that Cole understands her or isn't tricking her (*On Certainty* §345, quoted by Greco) |
+| 4–5 · The thread, the empty frame, the column | Questions with nothing exempt from doubt never stop (§341). This is the regress again. The Gavel does nothing: the social route needs a jury |
+| 6 · The chant and the planks | The door is made of what she holds fixed. The lines are §345's own list: the words mean something, memory holds, the other person isn't deceiving you |
+| 6 · Her eyes falter; "Different door, different hinge!" | Flexible: no claim has to be a hinge for every inquiry (§2.2) |
+| 6 · "You're not lying to me!" | A hinge for her inquiry, held without proof |
+| 7 · "For this door, and this door alone" | Sensitive invariantism: it depends on the inquiry she's engaged in (§3) |
+| 7 · "Without further reasons" | Foundational justification: it supports other claims without needing support |
+
+**Notes [AI DRAFT]:**
+- **Cole** has been awake for a long time and knows Simone. She doesn't remember him. Whether this Cole is real or part of the dream stays unanswered. His flicker at "you're not lying to me" is the hook.
+- **Echo** only reacts: his shell rattles at the omen, and he rides in the bicycle basket.
+- **Time:** the scene runs ~4–4.5 minutes, longer than P1. If it has to shrink, cut in this order: the Gavel beat on Page 5; merge Pages 3 and 4; "The ground holds!" and "The door is here!". Keep "Never mind," the eyes faltering, "you're not lying to me," and "You just never remember."
+
+**Visual:** a luminous, painterly animated-film look: towering cumulus skies, sparkling sea light, lens glow, overgrown ruins and flooded floors with reflections. Everything except the hinge is ink: the column is made of tiny black question marks, the door planks are dried black ink, and the brass hinge carries glowing engraved lines. A homage to the genre only: don't copy any existing character, logo or film frame. Shot list: [p2-door-world-shot-list.md](story-illustrations/p2-door-world-shot-list.md).
 
 ### I1–I3 · Interlude: alone, the Ferry, Here, and the third weapon [FIXED concept · AI DRAFT montage] · ~1.5 min, no quiz
 
