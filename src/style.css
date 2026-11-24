@@ -44,11 +44,28 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   filter: none;
   opacity: 1;
 }
+#presentation-shell:not(.previewing-page-exit) #viewport[data-door-memory] {
+  background-color: var(--slide-matte);
+}
+#viewport[data-door-memory]::before {
+  /* The texture fits the 1672 × 941 artwork, including in letterboxed views. */
+  background-image: url('./assets/door-flashback-texture.webp'), var(--regress-background, none);
+  background-size: min(100vw, calc(100vh * 1672 / 941)) min(100vh, calc(100vw * 941 / 1672)), contain;
+}
 #viewport:has(#before-lecture.page-foreground)::before { filter: none; }
 @media (prefers-reduced-motion: no-preference) {
   #presentation-shell:not(.previewing-page-exit) #viewport.from-canvas::before {
     transition: opacity 160ms ease-out;
   }
+  #presentation-shell:not(.previewing-page-exit) #viewport[data-door-memory]::before {
+    animation: flashback-tape-wobble 4.3s steps(1, end) infinite;
+  }
+}
+@keyframes flashback-tape-wobble {
+  0%, 23%, 50%, 71%, 100% { transform: translate(0); }
+  20%, 47% { transform: translate(.8px, -.6px); }
+  21.5%, 48.5%, 68% { transform: translate(-1.2px, .7px); }
+  69.5% { transform: translate(1.6px, 0); }
 }
 /* Keep the arrival slide's framing anchor measurable offstage. */
 #unitrans-arrival { left: -1570px; top: 1340px; visibility: hidden; }
@@ -135,6 +152,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   background-size: 180px 180px;
 }
 #viewport[data-establishing-shot]::after,
+#viewport[data-door-memory]::after,
 #viewport:has(:is(#unitrans-arrival, #before-lecture).page-foreground)::after { opacity: 0; }
 #viewport.dragging { cursor: grabbing; }
 #world { position: absolute; z-index: 1; left: 50%; top: 50%; width: 0; height: 0; transform-origin: 0 0; }
@@ -212,14 +230,15 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 #aim-applications { left: 600px; top: -10px; }
 #selection-box { position: absolute; pointer-events: none; z-index: 5; border: 1px solid #527eaa; background: #527eaa18; }
 #slide-progress {
+  --slide-marker-width: clamp(15px, 1.4vw, 20px);
   position: absolute;
   z-index: 6;
   inset-block: clamp(12px, 3vh, 56px);
   left: 10px;
-  width: 36px;
+  width: clamp(52px, 6vw, 66px);
   display: flex;
   flex-direction: column;
-  gap: clamp(1px, 0.55vh, 4px);
+  gap: clamp(1px, 0.24vh, 2.5px);
 }
 /* Small breaks between the opening, the three aims, and each aim's lane. */
 #slide-progress button:is([data-slide="aim-motivations"], [data-slide="regress-problem"], [data-slide="versions-map-heading"], [data-slide="access-heading"]) { margin-top: clamp(2px, 1vh, 8px); }
@@ -229,30 +248,38 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   min-height: 0;
   padding: 0;
   border: 0;
-  border-radius: 4px;
+  border-radius: 5px;
   background: transparent;
   cursor: pointer;
 }
 #slide-progress button::after {
+  --marker-fill: rgb(82 105 112 / .88);
+  --marker-highlight: rgb(229 245 251 / .44);
   content: '';
   position: absolute;
-  inset: 0 0;
+  inset: 15% 0;
   margin-inline: auto;
-  width: 9px;
-  border-radius: 4px;
-  background: var(--glass-tint);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-rim);
+  width: var(--slide-marker-width);
+  border-radius: 999px;
+  background: linear-gradient(165deg, var(--marker-highlight), transparent 65%), var(--marker-fill);
+  box-shadow: inset 0 0 0 1px rgb(237 255 255 / .28);
+  pointer-events: none;
 }
-#slide-progress button.is-past::after { background: rgb(44 91 78 / .64); }
+#slide-progress button.is-past::after {
+  --marker-fill: rgb(52 122 106 / .92);
+  --marker-highlight: rgb(190 252 226 / .48);
+}
 #slide-progress button[aria-current]::after {
-  width: 12px;
-  background: rgb(250 249 242 / .8);
-  box-shadow: var(--glass-rim), 0 0 0 1px rgb(16 22 21 / .72);
+  --marker-fill: #d8f5eb;
+  --marker-highlight: #fff;
+  width: calc(var(--slide-marker-width) + 6px);
+  box-shadow: 0 0 0 1px #203837;
 }
-#slide-progress button:hover::after { outline: 1px solid #e0ebe5; }
-#slide-progress button:focus-visible { outline: 2px solid #334c4c; outline-offset: 1px; }
+#slide-progress button:is(:hover, :focus-visible)::after {
+  outline: 1px solid #faf9f2;
+  box-shadow: 0 0 0 2px #203837;
+}
+#slide-progress button:focus-visible { outline: 2px solid #427e6d; outline-offset: 1px; }
 #flexible-heading { top: -370px; }
 #foundation-left { left: -175px; top: -150px; }
 #foundation-right { left: 175px; top: -150px; }

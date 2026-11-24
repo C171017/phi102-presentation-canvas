@@ -481,7 +481,7 @@ export const inkOceanStory = {
     summary: "For this door alone, they take the hinges as given.",
     illustration: {
       src: "/generated/backgrounds/ink-ocean/P2-7-white.webp",
-      alt: "The nearly closed ink door bursts into white light around Simone and Cole, the brass hinge covered in glowing lines.",
+      alt: "White-gold light bursts through the last gap in the door's black planks, catches the brass hinge, and reflects across the flooded courtyard.",
     },
     paragraphs: [
       "[One gap left. The door shudders on its hinge. Lines of words glow all over the brass.]",

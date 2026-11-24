@@ -1327,3 +1327,51 @@ Recorded time in Pacific time. Howie pointed to the Operation Because records:
 > here we should have the same countdown mechainism as in teh first B 13 quiz part just liek that one
 
 Timed theory rounds use the same shrinking turquoise ring as B/13. Each ring follows the current ten-second round deadline. When only Foundationalism remains, the ballot waits for a choice.
+
+## 2026-11-24T00:38:53-08:00 · Illustrate the entire Door World
+
+Recorded time in Pacific time. Howie supplied trailer stills in the [canvas chat](codex://threads/01a20c94-2be4-7c90-89b1-e9037e39a9eb):
+
+> I want the same art style, same composition. So anyone, like the fan who watches this, they're going to immediately recognize that.
+
+Use the supplied *Suzume* stills for lighting and framing across the nine Door World scenes. Keep Simone, Cole, Echo, and the ink-world props. Use the same wide camera when the road scene returns. Cut to Cole as he asks about the door, then to Simone as the question brings back a memory. Use the flooded courtyard and the same hinge through the closing sequence. [Door World artwork and prompts](story-illustrations/p2-door-world-shot-list.md)
+
+## 2026-11-24T00:46:43-08:00 · Make slide markers easier to see and click
+
+Recorded time in Pacific time. Howie pointed to the left-side rail during The Trial on the public presentation:
+
+> make the progress bar thing quite much bigger likeso easier to click and see
+
+Widen the click targets and the visible markers, use stronger fills for past and upcoming slides, and give the current marker a wider light fill. Keep the full slide list visible, using tighter spacing between markers.
+
+## 2026-11-24T00:50:07-08:00 · Give the Door World flashback a tape look
+
+Recorded time in Pacific time. Howie pointed to the sea wall flashback in the [canvas chat](codex://threads/01a20c94-2be4-7c90-89b1-e9037e39a9eb):
+
+> Think of old picture where you have the little effect on the edges, on the boundary, like Vignette.
+
+> And you can also add the effect where the whole thing is like playing an old VCR kind of thing with the code, but it should be performance friendly, not be too expensive kind of thing, not too computationally heavy.
+
+Apply a soft vignette, grain, and scanlines to the artwork of the three Door World memory slides. Use one pre-rendered texture and a subtle, occasional CSS shift. Reduced motion keeps the static texture. Keep dialogue and navigation steady.
+
+## 2026-11-24T00:49:29-08:00 · Use rounded glass slide markers
+
+Recorded time in Pacific time. Howie refined the progress rail:
+
+> maek them 30 percent cmaller and roundish and with like a btter look think of glassy little bubble thing but good performance too
+
+> think of they should look clean and modern
+
+> and aesthetic
+
+Make each visible marker about 30% smaller in both dimensions within its existing click target. Use fully rounded ends, translucent fills, and a subtle highlight gradient without blur or animation. Keep the current slide distinct with a wider, brighter marker.
+
+## 2026-11-24T00:53:18-08:00 · Outline the active dialogue speaker
+
+Recorded time in Pacific time. Howie asked for a subject highlight on dialogue cues:
+
+> Okay, maybe don't fade the background at all. Just make them have bold boundary when they're speaking or have a highlight effect, some type of effect.
+
+> Remember, like, the, the gameplay for the Ace Attorney section should remain intact since the style of that is already, like, you know, um, pretty good and fixed.
+
+Use a light silhouette rim for Professor Lin and rounded marks around visible speakers in the full-color paintings. Keep the art in full color through dialogue and the B/13 vote. Narration, offscreen voices, stage directions, and establishing shots have no marks. The Trial continues to use its existing courtroom dialogue and controls.

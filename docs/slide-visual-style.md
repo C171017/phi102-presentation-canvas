@@ -24,11 +24,11 @@ Start with equal column widths. Spacing, alignment, and type distinguish the col
 
 For example, the *Contemporary Contextualism* slide keeps “The same sentence can express different claims in different contexts” on the left while Professor Lin and the student work through the locked-door example on the right. To author a slide, put the fixed text in its `description` in [slide-content.ts](../src/slide-content.ts). Add spoken turns to the script in [classroom-dialogue.ts](../src/classroom-dialogue.ts), using the slide’s first member ID as each turn’s `scene`.
 
-Show only the words of the dialogue in each visible transcript row. Identify the active speaker in the artwork. Keep their figure at full contrast and fade the listeners. During narration every figure stays faded. Keep speaker names in accessible dialogue announcements. Associate each portrait with its script speaker through `data-speaker`. The centered row controls both the text highlight and the portrait treatment: its speaker is at full opacity and all other portraits fade. Update both cues on scroll, click, keyboard navigation, and reverse navigation.
+Show only the words of the dialogue in each visible transcript row. The centered line controls a bright outline on a visible speaker while the full scene stays in color. Use a silhouette rim on a transparent portrait and rounded corner marks around a painted speaker. Narration, offscreen voices, stage directions, and full-color establishing shots leave the artwork unmarked. Keep speaker names in accessible dialogue announcements. Update text emphasis and the outline together on scroll, click, keyboard navigation, reverse navigation, and shared cue changes.
 
-The student speaks from the audience’s first-person viewpoint. On a student line, Professor Lin fades and the student’s words take focus. A narration line likewise dims any visible cast. Keep speaker attribution in the screen-reader announcement. Place location or time captions on the scene.
+The student speaks from the audience’s first-person viewpoint. Keep the classroom in full color during the student’s lines and narration. Place location or time captions on the scene.
 
-For a new dialogue scene, check a long line at presentation and phone widths. Advance from one speaker to the other, then scroll back. Check that the highlighted words, portrait brightness, and overhead names agree, and that the dialogue box leaves the demonstration and faces visible.
+For a new dialogue scene, check a long line at presentation and phone widths. Advance from one speaker to the other, then scroll back. Check that the highlighted words and speaker outline agree and that the dialogue box leaves the demonstration and faces visible. The Trial uses its dedicated courtroom cues and art.
 
 | Part | Job | Classroom example |
 | --- | --- | --- |
@@ -80,7 +80,7 @@ Create a single wide 16:9 full-bleed 2D animation background painting of present
 
 </details>
 
-*Give the definition, then show the shared mark.* Ask “What do you see there?” In Editor and Audience views, offer B and 13 as two independent vinyl records in the upper-right corner. Dim the scene slightly while both turquoise rims shrink around their circumference over ten seconds. The question stays in the transcript. Both choices lead to Professor Lin’s flashback line. Read across the mark for A, B, C and down for 12, 13, 14. Hover or keyboard focus fades the single center tile in and out. Reduced motion keeps it visible.
+*Give the definition, then show the shared mark.* Ask “What do you see there?” In Editor and Audience views, offer B and 13 as two independent vinyl records in the upper-right corner. Both turquoise rims shrink around their circumference over ten seconds while the classroom stays in full color. The question stays in the transcript. Both choices lead to Professor Lin’s flashback line. Read across the mark for A, B, C and down for 12, 13, 14. Hover or keyboard focus fades the single center tile in and out. Reduced motion keeps it visible.
 
 In the local preview, the flashback line keeps the two records on screen. Each turquoise arc now represents that answer’s share of submitted audience votes. A gold rim marks the leader; a tie leaves both records equally emphasized. An unanswered timeout contributes no ballot. Editor previews read the same tally. Each audience browser can replace its own vote by replaying the quiz. Restarting the local Vite server starts a fresh tally.
 

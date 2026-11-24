@@ -40,16 +40,25 @@ function storySlide(id: StorySceneId): InkOceanScene {
   const entry: Omit<StoryScene, 'id'> = inkOceanStory[id];
   const { summary, illustration } = entry;
   const { title, paragraphs } = savedStoryText[inkOceanStoryTextId(id)] ?? entry;
+  // A title card occupies its own navigation step without a transcript.
+  const cues: InkOceanCue[] = illustration?.imageOnly ? [{ speaker: '', text: '' }]
+    : paragraphs.flatMap(paragraph => paragraph.split('\n').map(line => line.trim())
+      .filter(line => line && !isStoryBeatHeading(line)).map(cueFromParagraph));
+  if (id === 'P2-1') {
+    const questionIndex = cues.findIndex(cue => cue.speaker === 'Cole');
+    if (questionIndex >= 0) {
+      cues[questionIndex].background = '/generated/backgrounds/ink-ocean/P2-1-cole-asks.webp';
+      const reaction = cues[questionIndex + 1];
+      if (reaction?.kind === 'direction') reaction.background = '/generated/backgrounds/ink-ocean/P2-1-simone-reacts.webp';
+    }
+  }
   return {
     id,
     title,
     takeaway: summary,
     background: illustration?.src,
     imageOnly: illustration?.imageOnly,
-    // A title card occupies its own navigation step without a transcript.
-    cues: illustration?.imageOnly ? [{ speaker: '', text: '' }]
-      : paragraphs.flatMap(paragraph => paragraph.split('\n').map(line => line.trim())
-        .filter(line => line && !isStoryBeatHeading(line)).map(cueFromParagraph)),
+    cues,
   };
 }
 
@@ -77,7 +86,7 @@ export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
   if (index === 0) return Boolean(scene.background);
-  if (scene.id === 'P1') return false; // Speaker cuts play directly on the next dialogue page.
+  if (scene.id === 'P1' || scene.id === 'P2-1') return false; // Cut directly on the dialogue cue.
   const background = scene.cues[index]?.background;
   return Boolean(background && background !== scene.cues[index - 1]?.background);
 }

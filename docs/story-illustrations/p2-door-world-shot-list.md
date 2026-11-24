@@ -1,5 +1,150 @@
 # P2 · The door world · shot list
 
+## Installed artwork
+
+The nine Door World scenes use eleven built-in ImageGen illustrations. The supplied *Suzume* trailer stills guide coastal composition, lighting, and the animation finish. The Version C character sheets supply the cast identities. The Story reader shows the nine scene plates. The presentation also cuts to Cole on his question and Simone on her reaction.
+
+[The road meeting](../../public/generated/backgrounds/ink-ocean/P2-1-road-meeting.webp)
+
+<details>
+<summary>The road meeting prompt</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay.
+Images in order: coastal trailer shot for composition and finish; Simone, Cole, Echo identity. Simone: high black loop ponytail and sharp bangs, cropped dark teal-green jacket, cream shirt, wide charcoal trousers, small red map-pin lapel badge. Calm, observant and open, relaxed level brows, catchlights, soft mouth, composed and upright. No invitation or watch. Cole: spiky dark hair, rust-red cropped jacket over slim black clothes, headphones at neck, phone with small circular ring light. Sunny and warmly sincere, never smug.  Cole turns back uphill, warmth and a flicker of recognition in his face, one hand starting an open greeting, with a canvas backpack and his phone lowered. Simone looks steadily at him with one small held breath; both hands correctly on handlebars. Echo: exactly one palm-small dignified hermit crab, tall faceted violet shell, two half-lidded ivory eye stalks, flat mouth, one oversized coral claw tucked in. Echo sits in the wire bicycle basket. Re-stage the broad lateral coastal meeting composition: eye-level across a slight uphill road, Simone and her muted red upright city bicycle on the left, Cole on the right and a little higher, two clear silhouettes with open space between. The luminous deep cobalt sea fills the distance, reflected sun glints and pale harbor inlets, metal guardrail follows the slope, a bank of white cumulus clouds on the horizon, a green hillside at upper right. Ordinary high summer sea light with believable understated shadows.
+```
+
+</details>
+
+[Cole’s question](../../public/generated/backgrounds/ink-ocean/P2-1-cole-asks.webp)
+
+<details>
+<summary>Cole’s question prompt</summary>
+
+```text
+Illustration-story, one complete wide native 16:9 full-bleed landscape still for P2 Door World class presentation. Closely follow the supplied image finish: cinematic Japanese feature 2D animation, fine crisp linework, natural anatomy, luminous painted sky and water, light bloom, photographic atmospheric perspective, simple soft cel shadows. Only our Ink Ocean cast. Use the supplied character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. No text, panels, subtitles, 3D, borders, logos or watermarks. Keep any faces and key clues above the bottom quarter for the dialogue overlay.
+Image 1: the low-angle shoulder-turn composition and coastal blue sky light. Image 2: the scene's color, our road and costume continuity. Image 3: our Cole identity only. Cole: spiky dark hair, rust-red cropped jacket over slim black clothes, headphones at neck, phone with small circular ring light. Warm and sincere, no smirk. In the first beat of a friendly question, Cole turns his head over his shoulder, upper eyebrows slightly raised and a small open friendly smile beginning, a brief hint of recognition. Keep his distinctly spiky dark hair, rust cropped jacket, headphones at neck and khaki backpack from image 2. He must be the exact same person as image 2 with a faithfully cel-animated face. Native landscape full-height shot framed waist-up from slightly below eye height: Cole sits right of center, viewed three-quarter with his backpack just right of him; saturated blue summer sky, billowing pale cloud and a slim green hill slope low and left. Leave a soft unfocused foreground edge on the left and no other visible characters. No subtitles.
+```
+
+</details>
+
+[Simone’s reaction](../../public/generated/backgrounds/ink-ocean/P2-1-simone-reacts.webp)
+
+<details>
+<summary>Simone’s reaction prompt</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay. First image: the close-up framing and gleaming sea bokeh from the supplied trailer reference. Second image: the physical road, color and our cast/costume continuity. Third image: our Simone identity only. Simone: high black loop ponytail and sharp bangs, cropped dark teal-green jacket, cream shirt, wide charcoal trousers, small red map-pin lapel badge. Calm, observant and open, relaxed level brows, catchlights, soft mouth, composed and upright. No invitation or watch. In a brief close reaction shot, use a three-quarter profile of Simone on the right half, with the gleaming rich blue sea defocused behind her and just the out-of-focus rust shoulder and khaki strap of Cole very softly in the left foreground. Her eyes open a fraction wider and hold for a moment, showing that Cole's question quietly stirs a memory; her brows remain soft and level, her lips barely part. Catchlight on her cheek, strands from her loop ponytail move in the salt air. No fear, flirtation, smile, glare or pout. Translate this exact animation cut with our original cast and original wardrobe, and keep her face below the top eighth and above the dark bottom quarter. No crab in the crop. No subtitles.
+```
+
+</details>
+
+[The sea wall](../../public/generated/backgrounds/ink-ocean/P2-2a-flashback-sea-wall.webp)
+
+<details>
+<summary>The sea wall prompt</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay.
+Images: luminous sky reference for paint and atmospheric perspective; Simone and Cole identity. Simone: high black loop ponytail and sharp bangs, cropped dark teal-green jacket, cream shirt, wide charcoal trousers, small red map-pin lapel badge. Calm, observant and open, relaxed level brows, catchlights, soft mouth, composed and upright. No invitation or watch. Cole: spiky dark hair, rust-red cropped jacket over slim black clothes, headphones at neck, phone with small circular ring light. Sunny and warmly sincere, never smug.  Cole is mid-sentence in group-chat mode, phone held up at arm’s length, his other palm presenting the sky. Simone quietly looks up at the sky with a small closed-mouth smile. From the landward side, a diagonal worn sea wall with both sitting comfortably left of center and open luminous sea on the right. Sunset in rose, copper and amber over a still cobalt sea. Amber glints on water. Small translucent blank orange chat slips float from Cole's phone in the sea breeze; no writing. Subtle tactile memory bloom, lifted blacks, natural cel shadows, two faces in profile or three-quarter seen clearly. Echo absent.
+```
+
+</details>
+
+[The old door](../../public/generated/backgrounds/ink-ocean/P2-2b-flashback-old-door.webp)
+
+<details>
+<summary>The old door prompts</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay.
+Images: trailer door as weathering and luminous sky reference; Simone and Cole identity; hinge design. Simone: high black loop ponytail and sharp bangs, cropped dark teal-green jacket, cream shirt, wide charcoal trousers, small red map-pin lapel badge. Calm, observant and open, relaxed level brows, catchlights, soft mouth, composed and upright. No invitation or watch. Cole: spiky dark hair, rust-red cropped jacket over slim black clothes, headphones at neck, phone with small circular ring light. Sunny and warmly sincere, never smug.  Simone tilts her head in quiet curiosity; Cole is warmly wide-eyed, phone lowered. In a roofless coastal building overgrown with ferns and vines, a freestanding closed old wooden door of dry charcoal ink, pale blue-green peeling paint and one antique brass hinge visible on its left edge. Its outline is plain rectangular and its planks simple and vertical. Low three-quarter view that makes the solitary door stand tall slightly right of center, the two smaller figures stand left in side profiles at a respectful distance. A shallow rain puddle on the otherwise cracked dry tiles. Rich moss and sea light, warm faded sunset memory treatment, lit edges under diffuse white clouds. No crab.
+```
+
+```text
+Targeted edit of this original 16:9 animation still. Preserve exactly the 16:9 camera, light, setting, physical door and two characters. Keep the wide composed coastal ruins and sunset. Only fix these errors: remove the small floating turquoise metal rectangle immediately above Cole at the top left, replace it with natural sky. Simone's near hand instead hangs relaxed and empty, remove the pale square paper in it. Replace the upper and lower green metal plates on the door with one small warm antique brass hinge visibly mounted flush on the upper left edge, and weathered wood where the lower plate was. One hinge in the scene, no floating props, no letter, no text. Retain original facial acting, all identities and costumes, and clean painted 2D feature look. Full-bleed frame, no border.
+```
+
+</details>
+
+[Through the door](../../public/generated/backgrounds/ink-ocean/P2-2c-flashback-through-the-door.webp)
+
+<details>
+<summary>Through the door prompt</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay. Images in order: scene and weathered door continuity, trailer sky and landscape light, Simone and Cole identity. Simone: high black loop ponytail and sharp bangs, cropped dark teal-green jacket, cream shirt, wide charcoal trousers, small red map-pin lapel badge. Calm, observant and open, relaxed level brows, catchlights, soft mouth, composed and upright. No invitation or watch. Simone is held still by what she sees, a faint lift of the inner brows and lips barely parted. Cole: spiky dark hair, rust-red cropped jacket over slim black clothes, headphones at neck, phone with small circular ring light. Sunny and warmly sincere, never smug.  Cole is just out of frame and places one gentle hand on her upper sleeve. Cut within the exact same sunset ruin to eye-height over Simone's left shoulder. Large dark side silhouette of her high loop ponytail and teal jacket left of the doorway, attentive stillness. The same weathered near-rectangular charcoal-plank door with blue-green paint is now physically open on its one brass hinge. Door frame and near dark ruin vignette a distinct, separate world beyond: a small luminous white chapel, no crosses or signs, open to the sea; white petals drift, and one backlit person in a dark suit stands at the far end of the aisle, face impossible to see. A rosy-cobalt dream sky sparkling above the sea, softly lit columns, bright reflected water. Keep door, hand, and silhouette anatomically and spatially coherent. Echo absent. Ignore any floating metal object or invitation in the previous image. No extra entrance or door, no clutter.
+```
+
+</details>
+
+[He walks away](../../public/generated/backgrounds/ink-ocean/P2-3-he-walks-away.webp)
+
+<details>
+<summary>He walks away prompt</summary>
+
+```text
+Illustration-story, one complete wide native 16:9 full-bleed landscape still for P2 Door World class presentation. Closely follow the supplied image finish: cinematic Japanese feature 2D animation, fine crisp linework, natural anatomy, luminous painted sky and water, light bloom, photographic atmospheric perspective, simple soft cel shadows. Only our Ink Ocean cast. Use the supplied character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. No text, panels, subtitles, 3D, borders, logos or watermarks. Keep any faces and key clues above the bottom quarter for the dialogue overlay.
+Continuity edit of image 1. Images 2–4 are Simone, Cole, Echo for identity only. Lock the camera and keep all the original background, horizon, railing, sky, sea, hillside, shadows and color exactly aligned with image 1. Simone: high black loop ponytail, sharp bangs, cropped teal-green jacket, cream shirt, charcoal wide-leg trousers, small red map pin. Calm and open, observant, easy level brows, clear eyes with catchlights, soft mouth, upright, composed. Simone is in the same left-hand spot with the stopped bicycle, a foot planted, her hands on the bars. Her mouth remains closed and her expression is quietly puzzled; she watches him leave. Echo: one palm-sized dignified hermit crab with tall faceted violet shell, two half-lidded ivory eye stalks, flat mouth and one oversized coral claw tucked in. in the same basket. Cole: spiky dark hair, rust-red cropped jacket over slim black clothes, headphones at neck, phone with small circular ring light. Warm and sincere, no smirk. Remove only the previous large Cole at the right, seamlessly reconstructing its background, and draw Cole farther up the same road, near the right edge, less than half his old size, seen three-quarters from behind while walking away uphill with the same canvas backpack and lowered phone. Do not put any other people on the road.
+```
+
+</details>
+
+[The omen](../../public/generated/backgrounds/ink-ocean/P2-4-the-omen.webp)
+
+<details>
+<summary>The omen prompt</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay.
+Images: trailer approach shot for camera down a street, lush layered depth, and painted atmosphere; Simone, Echo, and faceless ink-cube townsfolk identity. Simone: high black loop ponytail and sharp bangs, cropped dark teal-green jacket, cream shirt, wide charcoal trousers, small red map-pin lapel badge. Calm, observant and open, relaxed level brows, catchlights, soft mouth, composed and upright. No invitation or watch. Simone looks up with quiet focus, brows level, hands holding her bicycle still. Echo: exactly one palm-small dignified hermit crab, tall faceted violet shell, two half-lidded ivory eye stalks, flat mouth, one oversized coral claw tucked in. Echo looks up from the front basket. Lateral perspective looking gently uphill through a quiet coastal town, vine-covered retaining wall and slim utility poles, wooden houses and left-side fence, very tiny higher roofs atop tree-covered slope. Late afternoon balancing warm sun against cool blue shade. Below sky, on the right, Simone with bicycle in clean three-quarter profile. Far away on left hilltop, a hair-thin vertical soot-black thread against sky, formed only of many miniature black question marks, a precise single brushstroke thin enough to suggest it just began. Two or three distinctly faceless cube-built ink townsfolk mind their own tasks. Clear visual focus on the narrow thread, no red plume, no ride, no park.
+```
+
+</details>
+
+[The source](../../public/generated/backgrounds/ink-ocean/P2-5-the-source.webp)
+
+<details>
+<summary>The source prompt</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay.
+Images: weathered trailer still for dramatic overhead skylight and finish only; Simone and Echo identities; P1 Gavel and antique brass hinge as prop references. Simone: high black loop ponytail and sharp bangs, cropped dark teal-green jacket, cream shirt, wide charcoal trousers, small red map-pin lapel badge. Calm, observant and open, relaxed level brows, catchlights, soft mouth, composed and upright. No invitation or watch. Her eyes alert and concerned, shoulders braced, holding the Gavel in one hand, not panicked. Echo: exactly one palm-small dignified hermit crab, tall faceted violet shell, two half-lidded ivory eye stalks, flat mouth, one oversized coral claw tucked in. Echo perches securely on her shoulder. Wide low cinematic shot across flooded roofless two-storey arcade on the hill, ivory stone mottled with ferns and green vines; late sunlight comes across from the left and catches shallow dark mirror-water. An EMPTY freestanding simple charcoal dried-ink rectangular doorway at right-of-center, no door or panel attached, with a single small brass hinge visibly bolted to the inside of the right jamb. THROUGH the empty frame spills a heavy column of distinct, tiny matte black question-mark glyphs suspended in mist and flowing into the dark sky, swelling like ink in water. Simone stands at left in ankle-deep glossy black water a few steps away, eye-line toward that brass hinge. Soft rim light, mist and arcaded stone reflections. Only question-mark glyphs, no other lettering.
+```
+
+</details>
+
+[No time to explain](../../public/generated/backgrounds/ink-ocean/P2-6-no-time-to-explain.webp)
+
+<details>
+<summary>No time to explain prompts</summary>
+
+```text
+Illustration-story, one complete wide native 16:9 full-bleed landscape still for P2 Door World class presentation. Closely follow the supplied image finish: cinematic Japanese feature 2D animation, fine crisp linework, natural anatomy, luminous painted sky and water, light bloom, photographic atmospheric perspective, simple soft cel shadows. Only our Ink Ocean cast. Use the supplied character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. No text, panels, subtitles, 3D, borders, logos or watermarks. Keep any faces and key clues above the bottom quarter for the dialogue overlay.
+Continuity edit building from image 1's same flooded ruin, left-side sun and charcoal frame with brass hinge on inside right jamb. Images 2–5 are Simone, Cole, Echo and hinge identity only. Simone: high black loop ponytail, sharp bangs, cropped teal-green jacket, cream shirt, charcoal wide-leg trousers, small red map pin. Calm and open, observant, easy level brows, clear eyes with catchlights, soft mouth, upright, composed. Simone is afraid but clear-headed and bracing a shoulder and one hand to the door, jaw soft, no scream. Cole: spiky dark hair, rust-red cropped jacket over slim black clothes, headphones at neck, phone with small circular ring light. Warm and sincere, no smirk. Cole is urgently chanting with his eyes closed, one hand raised flat, his other shoulder pressed into the door; voice steady and earnest. Echo is one palm-sized hermit crab half-lidded with flat mouth and tall faceted violet shell. His one oversized coral claw presses once into a plank, the other claw hidden. Make a medium-wide shot from a little closer and side-on within this same courtyard; keep the door and glowing brass hinge on the right, both faces in readable profile to its left and above the lower dialogue area. About five solid horizontal glossy black dried-ink planks now sprout from the door's edge, clearly leaving intermittent gaps. Small black question-mark glyphs and spray rush through the gaps. The brass hinge casts warm gold edge light, its hairline engraving illegible, with indigo storm and ivory arcs faintly visible behind. Physically plausible hands and bracing. The door is still plainly unfinished and they look pressed by a real flood. Draw just one hinge.
+```
+
+```text
+Targeted continuity repair of this 16:9 cinematic hand-painted animation still. Keep exact composition, faces, poses, colors, door, shimmering flood, glyphs and single brass hinge. Change only two details: remove Simone's small black wristwatch completely with bare wrist and preserve the shape of her arm and hand. Scale Echo in the lower center down to about half his old line-measured size, keeping him clearly one palm-size hermit crab with the exact same tall violet shell, ivory half-lidded eyes, level mouth, and a single oversized coral claw lifted to touch the nearest plank. Anchor his feet to the water or low plank, adjust ripple and shadow for his smaller height. No other changes or new objects. Render full landscape, no border or text.
+```
+
+</details>
+
+[White](../../public/generated/backgrounds/ink-ocean/P2-7-white.webp)
+
+<details>
+<summary>White prompt</summary>
+
+```text
+Use case: illustration-story. Make one finished very wide native 16:9 full-bleed landscape still for the P2 Door World class presentation. Use the supplied Suzume trailer still as art direction: closely match the animation's crisp fine linework, natural anatomy, luminous painted skies, photographic atmospheric perspective, simple soft cel shadow shapes and natural pale reflected light. Use the supplied original character sheets only for costume, face, shape, color and props. Ignore Simone's glaring and chin-on-hand panels. Keep our Ink Ocean characters, not the film's cast. Clean cinematic 2D animation, no geometric cut-paper rendering, no 3D, no panels, no border, no text, no watermark, no logo, no player UI. Keep faces and key clues between 15% and 68% of frame height. Leave the bottom quarter visually quiet for our slide dialogue overlay. Image 1 is the continuity reference for the SAME storm door, same charcoal planks, flooded courtyard, single brass hinge mounted inside the right jamb. Change the camera to a close, almost straight-on view of just the nearly sealed ink door at the moment the white flash hits. The door takes 60 percent of the frame width and most of its height. Black horizontal planks now fill the opening except for one narrow gap across the top. Thin stress cracks along the planks create an unmistakable white-gold backlight in the central focus. A dazzling continuous warm-white wash spreads out through this single gap, blows out the outer edges to white and reflects on the black water. The brass hinge remains recognizable at the right, its tiny engraved lines too small to read. Cool slate behind gold-white highlights: a soft transition into overexposed white as in the last frame of a hand-painted 2D shot. No characters or silhouettes, no flying shrapnel, no visible writing. The glowing doorway centered with the bottom quarter nearly featureless.
+```
+
+</details>
+
+## Earlier nine-shot plan
+
+The notes and scripted prompts below record the version prepared before the trailer stills were supplied.
+
 Nine pictures for the P2 door-world slides. They borrow the look and a handful of story beats of *Suzume* (2022) and replace every particular with our own. Each entry gives the film beat in words, what we draw instead, the framing, the acting, the light, the alt text and the prompt the generator sends.
 
 - **Generator:** `scripts/generate-door-world-art.mjs` (`npm run art:door-world`; dry run `npm run art:door-world:check`). The prompts below are printed from that script. Edit them there and re-run `node scripts/generate-door-world-art.mjs --check --prompts` to see the result.

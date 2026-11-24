@@ -13,6 +13,7 @@ import openingMedia from './src/opening-media.json';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
 const openingDrafts = [
+  'flexible-foundationalism-op-v5.mp4',
   'flexible-foundationalism-op-v4.mp4',
   'flexible-foundationalism-op-v3.mp4',
   'dead-ink-op-codex-v2.mp4',

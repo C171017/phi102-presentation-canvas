@@ -1,6 +1,7 @@
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createTrialDialogue } from './trial-dialogue';
 import { createDialogueFrame } from './dialogue-frame';
+import { createSpeakerOutline } from './speaker-outline';
 import { createTheoryRecords } from './theory-records';
 import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
@@ -85,7 +86,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   announcement.className = 'transcript-announcement';
   announcement.setAttribute('role', 'status');
   panel.append(notes.element, reader);
-  stage.append(character, panel, announcement);
+  const speakerOutline = createSpeakerOutline();
+  stage.append(speakerOutline.element, character, panel, announcement);
   if (quizEnabled || tally) stage.append(choices);
   const firstCue = new Map<string, number>();
   script.forEach((line, index) => { if (!firstCue.has(line.scene)) firstCue.set(line.scene, index); });
@@ -127,7 +129,15 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     return row.offsetTop + row.offsetHeight / 2 - reader.clientHeight / 2;
   }
   const viewport = shell.querySelector<HTMLElement>('#viewport')!;
-  const artwork = createDialogueFrame(url => viewport.style.setProperty('--regress-background', `url("${url}")`));
+  const artwork = createDialogueFrame(url => {
+    viewport.style.setProperty('--regress-background', `url("${url}")`);
+    const line = script[highlighted];
+    if (!line || line.kind || line.scene === 'P1') return;
+    const turn = line.speaker === 'Y' && !line.speakerId
+      ? script.slice(firstCue.get(line.scene), highlighted).filter(cue => cue.speaker === 'Y').length
+      : 0;
+    speakerOutline.show(url, line.speakerId ?? line.speaker, turn);
+  });
   function photoAt(index: number) {
     const line = script[index];
     const scene = line && legendById.get(line.scene);
@@ -139,6 +149,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (highlighted === index) return;
     if (highlighted >= 0) rows[highlighted].removeAttribute('aria-current');
     highlighted = index;
+    speakerOutline.clear();
     const line = script[index];
     characters.forEach(actor => actor.classList.toggle('is-speaking', actor.dataset.speaker === line?.speaker));
     const legend = line && legendById.get(line.scene);

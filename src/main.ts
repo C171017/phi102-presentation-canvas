@@ -88,6 +88,7 @@ const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   const id = slide?.members[0];
   const legend = id && legendById.get(id);
   viewport.toggleAttribute('data-regress-flashback', Boolean(legend));
+  viewport.toggleAttribute('data-door-memory', id === 'P2-2a' || id === 'P2-2b' || id === 'P2-2c');
   if (!legend || !legend.background) viewport.style.removeProperty('--regress-background');
   openingDialogue.showScene(id);
   if (id === 'before-lecture' || id === 'contemporary-heading') openingVideo?.preload();
