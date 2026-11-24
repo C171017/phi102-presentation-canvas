@@ -1,25 +1,100 @@
 .gavel-illustration.scene-art {
+  position: relative;
   display: grid;
   place-items: center;
   width: 560px;
   height: 450px;
 }
 
-.canvas-media .gavel-illustration img {
+.gavel-artwork {
+  display: block;
   width: 410px;
-  max-width: none;
-  height: auto;
+  overflow: visible;
 }
 
+.gavel-rest {
+  --gavel-idle: 1;
+  --gavel-active: 0;
+}
+
+.gavel-action {
+  --gavel-idle: 0;
+  --gavel-active: 1;
+  opacity: 0;
+}
+
+.gavel-moving {
+  transform-origin: 822px 420px;
+}
+
+.gavel-bubble {
+  position: absolute;
+  z-index: 1;
+  padding: 8px 14px;
+  border: 2px solid #866949;
+  border-radius: 8px;
+  background: #fff1d6;
+  color: #352720;
+  font: 600 19px/1.2 Georgia, serif;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gavel-bubble::after {
+  position: absolute;
+  bottom: -7px;
+  left: 20px;
+  width: 10px;
+  height: 10px;
+  rotate: 45deg;
+  border-right: inherit;
+  border-bottom: inherit;
+  background: inherit;
+  content: '';
+}
+
+.gavel-question { top: 35px; left: 30px; }
+.gavel-jury { top: 85px; right: 21px; }
+.gavel-ruling { bottom: 63px; right: 40px; }
+
+.gavel-illustration.is-striking .gavel-bubble {
+  animation: gavel-bubble 1450ms ease both;
+}
+
+.gavel-illustration.is-striking .gavel-jury { animation-delay: 340ms; }
+.gavel-illustration.is-striking .gavel-ruling { animation-delay: 970ms; }
+
 @media (prefers-reduced-motion: no-preference) {
-  .gavel-illustration.is-striking img {
-    animation: gavel-impact 420ms ease-in-out;
-    transform-origin: 23% 82%;
+  .gavel-illustration.is-striking :is(.gavel-rest, .gavel-action) {
+    animation: gavel-swap 1480ms linear;
+  }
+
+  .gavel-illustration.is-striking .gavel-moving {
+    animation: gavel-swing 1480ms;
   }
 }
 
-@keyframes gavel-impact {
-  0%, 100% { transform: none; }
-  33% { transform: translateY(-12px) rotate(-3deg); }
-  53% { transform: translateY(3px) scaleY(.98); }
+@media (prefers-reduced-motion: reduce) {
+  .gavel-illustration.is-striking .gavel-bubble {
+    animation-timing-function: steps(1, end);
+  }
+}
+
+@keyframes gavel-swap {
+  0%, 100% { opacity: var(--gavel-idle); }
+  9%, 94% { opacity: var(--gavel-active); }
+}
+
+@keyframes gavel-swing {
+  0%, 9%, 100% { transform: none; }
+  45% { transform: translate(10px, -35px) rotate(23deg); animation-timing-function: ease-in; }
+  66% { transform: none; animation-timing-function: ease-out; }
+  75% { transform: rotate(3deg); }
+  88% { transform: none; }
+}
+
+@keyframes gavel-bubble {
+  0%, 100% { opacity: 0; }
+  10%, 83% { opacity: 1; }
 }

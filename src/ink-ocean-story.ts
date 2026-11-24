@@ -129,7 +129,7 @@ export const inkOceanStory = {
     title: "Pyrrho, the Unmoved",
     summary: "Skepticism · The demand for reasons defeats justification.",
     illustration: {
-      src: "/generated/backgrounds/ink-ocean/L4-pyrrho-at-the-bog.webp",
+      src: "/generated/backgrounds/ink-ocean/L4-pyrrho-at-the-bog-y-refined.webp",
       alt: "Pyrrho shrugs at an ink bubble while his teacher Anaxarchus waves from the bog behind him.",
     },
     paragraphs: [
@@ -207,17 +207,17 @@ export const inkOceanStory = {
     title: "Cartesian foundationalism",
     summary: "Cartesian foundations. Indubitable starting points are too few to support ordinary beliefs.",
     illustration: {
-      src: "/generated/backgrounds/ink-ocean/L6-cartesian-five-bubbles.webp",
-      alt: "Four Y bubbles and the red-dotted SOWHAT hover above one dry brick as a vast crowd of Cartesians raises its ladles.",
+      src: "/generated/backgrounds/ink-ocean/L6-cartesian-ink-pebble.webp",
+      alt: "Four Y bubbles and the red-dotted SOWHAT hover above one irregular pebble of fused ink grains as a vast crowd of Cartesians raises its ladles.",
     },
     paragraphs: [
       "Narrator: For the first time since the Whypocalypse, people had a way to fight back. The goal: dry the world solid again, the way it used to be.",
       "Narrator: They split into two schools.",
       "Narrator: The Cartesians would dry only what could not be doubted. Ten thousand of them worked on it, day and night, for three hundred years.",
       "[A vast crowd, sweating, ladles raised over a single spot. Y bubbles everywhere. Something small hardens.]",
-      "Narrator: All their efforts combined produced one brick.",
-      "[A single perfect brick of dry ink, on a velvet cushion. Polite applause.]",
-      "Narrator: It was a very good brick. Nothing anyone asked could get it wet. They are still deciding what to build.",
+      "Narrator: All their efforts combined produced one little stone.",
+      "[A few grains of dry ink fuse into one irregular pebble. Polite applause.]",
+      "Narrator: It was a very good stone. Nothing anyone asked could get it wet. They are still deciding what to build.",
     ],
   },
   "L6-B": {

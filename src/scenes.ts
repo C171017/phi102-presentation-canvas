@@ -2,7 +2,7 @@ import { knowledgeScene } from './knowledge-pipeline';
 import { mountApplicationBase, mountApplicationHome, mountOrder } from './application-map';
 import { P, line, poly, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, star, plate, st, ring } from './sketch';
 import './scenes.css';
-import { mountDilemma, mountUndoubtedCairn } from './foundation-scenes';
+import { mountDilemma, mountUndoubtedInk } from './foundation-scenes';
 import { gavelScene } from './gavel-scene';
 import { castScenes } from './party-train';
 import { hingeScene } from './hinge-door';
@@ -36,7 +36,7 @@ const board = (x: number, y: number, w: number, h: number, fill: string, words: 
 export const scenes: Record<string, Scene> = {
   'dilemma-cartesian': {
     w: 430, h: 450,
-    label: 'Cartesian foundationalism. Question the single brick of dry ink to test what three hundred years produced.',
+    label: 'Cartesian foundationalism. Question the small pebble of fused dry ink grains that three hundred years produced.',
     mount: host => mountDilemma(host, true),
   },
   'dilemma-moderate': {
@@ -47,8 +47,8 @@ export const scenes: Record<string, Scene> = {
 
   'undoubted-crystal': {
     w: 580, h: 415,
-    label: 'Four beliefs taken for granted in this inquiry support a further belief. Hover to see one mist support buckle and snap in two as its stone splits while the other three continue to hold.',
-    mount: mountUndoubtedCairn,
+    label: 'Beliefs settled in this inquiry offer firm footing. An unanswered doubt turns one dry ink stick wet again.',
+    mount: mountUndoubtedInk,
   },
 
   'route-social-scene': gavelScene,

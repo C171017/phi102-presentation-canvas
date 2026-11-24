@@ -241,14 +241,14 @@ Full-color artwork occupies the slide.
 
 ## L6 · School vote
 
-Descartes’s scene leads to the school vote. The presenter opens both views side by side. Each audience device follows its selected school. Both school scripts are text-only.
+Descartes’s scene leads to the school vote. The presenter opens both views side by side. Each audience device follows its selected school. The school scenes share their illustrations and narration with Story.
 
 ## L6-A · Cartesian foundationalism
 
 **Left** — **The Cartesian standard admits too few beliefs.**
 
-- Ten thousand Cartesians produce one brick after three hundred years.
-- The brick withstands every question. One brick gives them too little to build with.
+- Ten thousand Cartesians produce one small ink pebble after three hundred years.
+- The pebble withstands every question. It gives them too little to build with.
 
 *Greco · §1, p. 426*
 
@@ -256,9 +256,9 @@ Descartes’s scene leads to the school vote. The presenter opens both views sid
 - **Narrator:** They split into two schools.
 - **Narrator:** The Cartesians would dry only what could not be doubted. Ten thousand of them worked on it, day and night, for three hundred years.
 - *[A vast crowd, sweating, ladles raised over a single spot. Y bubbles everywhere. Something small hardens.]*
-- **Narrator:** All their efforts combined produced one brick.
-- *[A single perfect brick of dry ink, on a velvet cushion. Polite applause.]*
-- **Narrator:** It was a very good brick. Nothing anyone asked could get it wet. They are still deciding what to build.
+- **Narrator:** All their efforts combined produced one little stone.
+- *[A few grains of dry ink fuse into one irregular pebble. Polite applause.]*
+- **Narrator:** It was a very good stone. Nothing anyone asked could get it wet. They are still deciding what to build.
 
 ## L6-B · Moderate foundationalism
 

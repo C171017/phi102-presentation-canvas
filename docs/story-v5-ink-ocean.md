@@ -51,7 +51,7 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 | --- | --- | --- |
 | Part 1a | The regress problem: every reason needs a reason | L0–L3: the Law of Ink, the guardian, the brain-in-a-vat chain, the Whypocalypse |
 | Part 1b | Agrippa's trilemma: skepticism, infinitism, coherentism, foundationalism | L4–L5: Operation Because, Descartes |
-| Part 1c | The foundationalist's dilemma; flexible foundationalism: undoubted, not undoubtable | L6–L7: one brick vs jelly; the stranger and the three treasures |
+| Part 1c | The foundationalist's dilemma; flexible foundationalism: undoubted, not undoubtable | L6–L7: one ink pebble vs jelly; the stranger and the three treasures |
 | P1 | The social route (Annis): an objector group; read as sensitive invariantism; the astrology objection | The trial |
 | I1–I3 | The three routes in one slide; E = K and "without trying" | The interlude: alone, the Ferry, Evan |
 | P2 | Contextualism: the speaker fixes the claim; "Oh, come on"; the disagreement problem (the left/right cup example) | The broadcast |
@@ -378,7 +378,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > **Narrator** *(over a wide shot: one glowing grain, alone on an endless dark sea)***:** It was the size of a grain of rice. It could hold up exactly one person.
 
 **Notes:**
-- **[YOUR IDEA · AI VERSION] Shortened, with real history:** Descartes really did his doubting "shut up alone in a stove-heated room" (*Discourse on Method*, Part 2); the demon is his own thought experiment (*Meditations*, I); "to be fooled, I have to exist" is his own answer to the demon: however much it deceives him, it can never make him nothing while he thinks he is something (*Meditations*, II). "It could hold up exactly one person" sets up L6, where all the Cartesians' effort yields one brick.
+- **[YOUR IDEA · AI VERSION] Shortened, with real history:** Descartes really did his doubting "shut up alone in a stove-heated room" (*Discourse on Method*, Part 2); the demon is his own thought experiment (*Meditations*, I); "to be fooled, I have to exist" is his own answer to the demon: however much it deceives him, it can never make him nothing while he thinks he is something (*Meditations*, II). "It could hold up exactly one person" sets up L6, where all the Cartesians' effort yields one small ink pebble.
 - **Optional dark-humor tag, if time allows:** "Years later, a queen made him get up at five every morning to teach her philosophy. It killed him." (Queen Christina of Sweden, 1650; he died of pneumonia that winter.)
 - **The fourth master nobody elected** is the same contrast as the overlooked Wallfacer who turns out to matter.
 - Descartes wasn't really the first foundationalist (Aristotle had first principles; Unit 1.1 covers Agrippa). Since this is a legend, that's fine, but the presenter can say so in one line if asked.
@@ -394,7 +394,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 | | **Cartesian foundationalism** | **Moderate foundationalism** |
 | --- | --- | --- |
 | Rule | Dry only what cannot be doubted | Dry whatever seems true |
-| Result | After enormous effort, one brick | Whole towns, all of them jelly |
+| Result | After enormous effort, one pebble of fused ink grains | Whole towns, all of them jelly |
 | Why it fails | Far too few foundations to build anything on | Half-dry at best: nothing settles a doubt once it's asked |
 | Art style | Ink-wash (水墨): sparse, grey, still | Fine-line heavy color (工笔重彩): crowded, gilded |
 
@@ -405,9 +405,9 @@ Keep labels to those few words. The narration does the explaining; the image is 
 
 > **Narrator:** The Cartesians would dry only what could not be doubted. Ten thousand of them worked on it, day and night, for three hundred years.
 > *(A vast crowd, sweating, ladles raised over a single spot. Y bubbles everywhere. Something small hardens.)*
-> **Narrator:** All their efforts combined produced one brick.
-> *(A single perfect brick of dry ink, on a velvet cushion. Polite applause.)*
-> **Narrator:** It was a very good brick. Nothing anyone asked could get it wet. They are still deciding what to build.
+> **Narrator:** All their efforts combined produced one little stone.
+> *(A few grains of dry ink fuse into one irregular pebble. Polite applause.)*
+> **Narrator:** It was a very good stone. Nothing anyone asked could get it wet. They are still deciding what to build.
 
 **Page 2 · Moderate foundationalism**
 
@@ -420,10 +420,10 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > **Narrator:** You can't build a city on jelly. They tried. Several times.
 
 **Notes [AI DRAFT]:**
-- **The brick is the parody contrast:** ten thousand people, three hundred years, one brick. It also scales up from Descartes's grain of rice in L5: certainty is real, and pitifully small.
+- **The pebble is the parody contrast.** Ten thousand people and three hundred years produce one small, irregular stone. It gathers a few grains like Descartes's in L5. The rectangular dry ink sticks belong to the Stranger's local footing in L7 and the Undoubted canvas demonstration.
 - **Jelly** is the moderate view's problem in one picture: its foundations are neither wet nor dry, so they hold until someone asks, and then nothing can be built on them.
 
-**Visual:** the scroll switches style twice. First, sparse ink-wash: an enormous crowd around one tiny spot, then the single brick on its cushion in a vast empty sea. Then dense, gilded color: a bustling jelly town wobbling under bright banners, swaying, then slumping into a glossy puddle.
+**Visual.** The Cartesians' crowd and five ink bubbles gather around one tiny pebble in golden ripples. The canvas card presents it on a velvet cushion. The moderates' crowded, gilded town wobbles under bright banners and slumps into a glossy puddle.
 
 **Paper:** the foundationalist's dilemma (§1). Greco: very few beliefs meet the Cartesian standard; the moderate view lacks a clear explanation of why a stopping point can settle a doubt that's already in play.
 

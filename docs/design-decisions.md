@@ -890,3 +890,74 @@ Use weathered teal leaves and a brushed steel pin on the [hinge](../public/gener
 Recolor this one existing anime door-hinge sprite. Copy its geometry, slight perspective, faceted rendering, all six countersunk holes and mechanical simplicity. Replace the two navy-purple metal leaves with a weathered dark teal and sea-green finish (dominant matte petrol teal #38786f, cel shade #214741, selective pale sage-green facets #78a99a). Replace the entire gold pin and collars with cool neutral brushed silver steel (#bbc6c5 with cool gray shaded facets), with weathered seam details. This belongs alongside an indigo-and-gold fountain pen and a walnut-and-brass gavel, so make the teal/steel palette immediately clear. Keep the illustration angular, dry and matter-of-fact. Artwork isolated on true transparent alpha. Exactly one regular hardware-store butt hinge, no glow, floor, special effects, ornament or lettering. Keep empty transparent space through the holes and around the silhouette.
 
 </details>
+
+## 2026-11-23T19:27:27-08:00 · Give Evan handwritten lettering
+
+Recorded time in Pacific time. Howie requested:
+
+> make the E = K thing more like handwrittern but sitll readable
+
+Use slightly slanted capitals, gently curved strokes, and heavier downstrokes for E = K. Evan traces the same strokes that appear on the finished letter.
+
+## 2026-11-23T19:34:50-08:00 · Replay the Gavel strike with jury bubbles
+
+Recorded time in Pacific time. Howie requested:
+
+> At the hover interaction when you hover over the gavel. It's just like your How do you call it? The behavior, the action where you hold the gavel and hit the block or anything. So I want that action to be the hover animation with little text bubble will appear surrounding it, indicating the social justification thing.
+
+> i don't want the hand, just hte gavel 's own movement
+
+The Gavel swings on its own and hits the stationary sounding block. Three temporary bubbles ask for objections, register the jury’s silence, and let the claim stand. At rest the canvas shows the original artwork by itself.
+
+## 2026-11-23T19:58:56-08:00 · Bring Pyrrho’s Y into the chorus style
+
+Recorded time in Pacific time. Howie pointed to the ink drop on Pyrrho’s Story page:
+
+> the YYYY so waht in this part lookk a bit off, refine taht
+
+Use the [localized Pyrrho illustration](../public/generated/backgrounds/ink-ocean/L4-pyrrho-at-the-bog-y-refined.webp) in Story and in the shared presentation. This is the Y who asks “Why believe anything?” Give it the chorus’s cream expression, a smaller body, and one short tail angled toward Pyrrho. Preserve the original composition outside the drop and its immediate surroundings.
+
+<details>
+<summary>ImageGen prompt for Pyrrho’s Y</summary>
+
+Surgically edit Image 1, the 16:9 Pyrrho-at-the-bog illustration. Edit only the single black ink-drop character floating between the philosophers, with its body centered near x=51%, y=27%; the former outline and thin tail area occupy about x=46–56% and y=18–45%. Replace this one drop with one of the ordinary Y voices from the original YYYY SOWATT character design. Image 2, Descartes, shows that design already integrated into the series; Image 3 is the approved expression and single-tail reference. Use their flat black ink silhouette with a muted indigo edge, one thin cream crescent highlight, warm-cream expressive eyes glancing left at Pyrrho, and a small slightly open, wry questioning mouth. Give it a tidy single short pointed tail fused to the rounded body and angled gently toward Pyrrho, without touching him. Make the head a little smaller than in Image 1, around 8% of the canvas width, so it sits lightly in the scene. Use matte angular cel shading, minimal reflected violet light and no inflated, airbrushed or plastic finish. This speaker is Y, so no red dot, and exactly one ink creature. Fill the area the old outline leaves with the existing bog and blocks. Preserve the rest of Image 1 pixel-faithfully, including both men, all their gestures and expressions, the wet ink, blue-violet block landscape, sunset reflections, lighting, widescreen framing and visual proportions. No lettering or captions. Output the edited full widescreen scene.
+
+</details>
+
+## 2026-11-23T20:00:23-08:00 · Show local footing in the Undoubted scene
+
+Recorded time in Pacific time. Howie asked for a canvas update in the [Undoubted visual chat](codex://threads/01a20b50-5b47-72e2-a290-250abf2d218c).
+
+> have a thorough look at the project and the things we have understand the ink methpoar thing and how is works then update this visual (undoubted not undoutable) so it is using the right visual
+
+The visual beside the dilemma cards uses the Stranger’s footing from [Ink Ocean §§1.1–1.2 and L7](story-v5-ink-ocean.md) and the local freedom from doubt that Greco describes in §1, p. 427. Three [dry ink sticks](../src/assets/foundations/undoubted-dry.webp) show what can hold in an inquiry. On replay an unanswered question appears above the front stick, which softens into a [puddle of wet ink](../src/assets/foundations/undoubted-wet.webp). The two neighboring sticks remain solid. The scene takes the place of the rocks and mist in the existing canvas position.
+
+<details>
+<summary>ImageGen prompt for the dry and wet ink sprites</summary>
+
+Illustration-story. Make a wide 2D animation sprite sheet for the Ink Ocean canvas. The references are style only: Image 1 is The Stranger stepping onto a dry ink stick; Image 2 is the neighboring town illustration with dark violet liquid ink and amber reflections. Isolate two states of the same ordinary ink belief as two separate objects on transparent RGBA, side by side with a completely empty vertical gap down the middle. Left half: a single short, rectangular, east Asian calligraphy ink stick scaled up to a modest stepping stone. View it three quarters from slightly above, long axis angled gently up to the right. Broad flat top, crisp rectangular profile, matte navy-black body, subtle hard cel-shaded indigo and purple faces, restrained thin warm amber edge light, three tiny low-contrast pressed strokes on the top that read as embossing. The stick is dry, solid, and stable. Right half: the same material after softening into a shallow liquid ink puddle on that spot, viewed from the same angle and light. One low organic footprint wider than the bar, reflective midnight indigo with two slim broken violet and amber reflections and two small closely spaced spreading ripples. The state on the right is clearly liquid and nearly level, no raised solid shape. Dark, faceted, original hand-painted retro anime prop art with clean silhouettes, selective reflected warm light and slight print grain. Both sprites entirely visible and centered within their own halves, roughly the same width except for the puddle being a little wider. Landscape sheet, generous transparent padding on all four sides and between objects. Do not add a frame, backdrop, floor, ocean horizon, character, boot, cushion, rocks, text, divider, lettering, sparkles, or floating droplets. Exactly one dry ink stick at left and exactly one low wet puddle at right.
+
+</details>
+
+## 2026-11-23T20:01:33-08:00 · Give Cartesian foundationalism one ink pebble
+
+Recorded time in Pacific time. Howie specified the shape and the two surfaces in the [canvas chat](codex://threads/01a20b50-5b47-72e2-a290-250abf2d218c).
+
+> Because for Cartesian, we have like a grain, right? Think of a bunch of grain, you made up like a irregular stone.
+
+> So you have to update the visual for the Cartesian foundationalism to more like a stone thing. And also, at the same time, you have to edit the background image for the Foundational, the Cartesian foundationalism. So, it's not like a brick anymore, but it's like a irregular-shaped stone.
+
+The [dilemma card](../src/assets/foundations/cartesian-pebble.webp) shows one small, irregular pebble of fused dry ink grains on a velvet cushion. The [L6-A background](../public/generated/backgrounds/ink-ocean/L6-cartesian-ink-pebble.webp) puts the same pebble at the center of the crowd and five ink bubbles. The narration and both story drafts carry the pebble forward from Descartes’s single grain in L5. The rectangular sticks show the Stranger’s local footing and represent locally settled beliefs on the Undoubted slide.
+
+<details>
+<summary>ImageGen prompts for the Cartesian pebble</summary>
+
+**Dilemma card**
+
+Precise object edit for the Ink Ocean presentation canvas. Edit only the black rectangular brick sitting on the supplied transparent cushion artwork. Preserve the cushion itself, its dark plum velvet, stitching and tassels, its silhouette, orientation and placement, and the existing wide aspect ratio. In the brick's place, put one small, low, irregular pebble of fully dried ink, formed from a few tiny rice-shaped ink grains fused into one solid piece. Aim for a squat asymmetrical silhouette about 40% of the cushion's width, with a low lumpy crest, a dark indigo-black core, a few muted violet cel-shaded facets and a narrow warm amber rim on the light-facing edge. Some tiny rounded grain shapes should be fused into the surface, especially near the crest, while the silhouette clearly reads as one solid little stone. Draw it with clean, angular 2D retro anime prop rendering, in the warm and violet palette of the second image. The second image only supplies style and lighting. Leave ample empty velvet visible around the stone for the absurd contrast in scale. No cuboid, ingot, flat rectangular planes, loose grains, gemstone sparkle, runes, text, floor or external shadow. Keep true transparent alpha outside the cushion and pebble.
+
+**L6-A background**
+
+Precise local image edit. Image 1 is the full 1672 × 941 Ink Ocean background to edit. The only edit is at the center of the glowing amber ripples, where a tiny rectangular gold-topped brick occupies x805–882, y470–519. Replace that brick with one small irregular pebble of fully dried ink, a single compact piece made of a few fused rice-sized ink grains. Image 2 shows the pebble’s design for reference: a low asymmetric charcoal-indigo pebble with a slightly knobbled crest, mottled violet facets and a narrow warm amber edge. Use only its pebble shape and material. Keep the pebble centered at approximately x843, y497, about 60–65 pixels wide and 30–36 high, visibly smaller than the old block but still readable inside the same golden rings. Continue the existing water and golden ripples naturally in the few pixels around it. Match the original image's perspective and cel-shaded anime lighting. Exactly preserve everything else in Image 1: the four plain Ys and red-dotted SOWHAT with all their expressions and positions, the crowds of ink figures, ladles, floor, horizon, mountains, clouds, color, and the original full-frame 16:9 composition. No cushion, additional rocks, rectangular edges, text or effects. Deliver the full edited background.
+
+</details>

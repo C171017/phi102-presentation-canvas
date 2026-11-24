@@ -12,8 +12,8 @@ export const schoolNotes: Record<string, SlideNotes> = {
   'L6-A': {
     claim: 'The Cartesian standard admits too few beliefs.',
     points: [
-      'Ten thousand Cartesians produce one brick after three hundred years.',
-      'The brick withstands every question. One brick gives them too little to build with.',
+      'Ten thousand Cartesians produce one small ink pebble after three hundred years.',
+      'The pebble withstands every question. It gives them too little to build with.',
     ],
     source: 'Greco · §1, p. 426',
   },

@@ -4,16 +4,16 @@ import './knowledge-pipeline.css';
 const label = 'Evan writes E = K on a letter. The ink hardens into a solid ink stick.';
 const nib = { x: 272, y: 279 };
 const strokes = [
-  'M384 203V265',
-  'M384 203h45',
-  'M384 234h36',
-  'M384 265h45',
-  'M459 225h43',
-  'M459 243h43',
-  'M534 203v62',
-  'M577 203l-43 35',
-  'M546 228l34 37',
-];
+  ['M388 202Q386 225 382 246Q380 258 378 267', 7.5],
+  ['M387 204Q408 199 430 201', 5.5],
+  ['M383 235Q403 230 421 232', 5.3],
+  ['M378 267Q403 261 428 263', 6],
+  ['M455 225Q479 221 503 223', 5.5],
+  ['M454 245Q479 241 504 243', 5.7],
+  ['M542 202Q539 224 535 245Q533 257 532 266', 7.5],
+  ['M579 202Q559 220 536 238', 5.4],
+  ['M539 236Q559 247 581 266', 6.4],
+] as const;
 
 function mount(host: HTMLElement) {
   host.insertAdjacentHTML('afterbegin', `
@@ -24,7 +24,7 @@ function mount(host: HTMLElement) {
         <rect x="334" y="151" width="290" height="166" rx="3" fill="#fff5de" stroke="#ac8f69" stroke-width="2"/>
         <path d="M349 165h260v138H349Z" fill="none" stroke="#e1cda4"/>
         <g class="evan-equation">
-          ${strokes.map(stroke => `<path d="${stroke}" pathLength="1"/>`).join('')}
+          ${strokes.map(([path, width]) => `<path d="${path}" stroke-width="${width}" pathLength="1"/>`).join('')}
         </g>
       </g>
       <path class="evan-wet-ink" d="M681 288c-14-9 14-20 48-23 23-2 44 4 63 5 30 1 44 8 31 15-13 9-39 5-55 11-27 9-72 5-87-8Z" fill="#25243d"/>

@@ -1,21 +1,31 @@
-import { drawCairn } from './foundation-cairn';
-import brickArt from './assets/foundations/brick.webp';
+import pebbleArt from './assets/foundations/cartesian-pebble.webp';
 import townArt from './assets/foundations/town.webp';
+import dryInk from './assets/foundations/undoubted-dry.webp';
+import wetInk from './assets/foundations/undoubted-wet.webp';
 import { lines, txt } from './sketch';
 import './foundation-scenes.css';
+
+function inkQuestion(x: number, y: number, className: string) {
+  return `<g class="${className}" aria-hidden="true">
+    <g transform="translate(${x} ${y})">
+      <path fill="#202635" d="M0 -21c-15 0-26 9-26 22 0 9 5 15 14 19l-6 13 16-11c16 0 28-8 28-22 0-13-11-21-26-21Z"/>
+      ${txt(0, 10, '?', { size: 26, weight: 600, fill: '#f8e3ab' })}
+    </g>
+  </g>`;
+}
 
 /** Both schools face the same question. Their ink responds differently. */
 export function mountDilemma(host: HTMLElement, strict: boolean) {
   const name = strict ? 'Cartesian foundationalism' : 'Moderate foundationalism';
-  const subject = strict ? 'brick' : 'town';
+  const subject = strict ? 'pebble' : 'town';
   const rule = strict ? 'Dry only what cannot be doubted.' : 'Dry whatever seems true.';
   const caption = strict
-    ? ['Ten thousand Cartesians. Three hundred years.', 'One indubitable brick.']
+    ? ['Ten thousand Cartesians. Three hundred years.', 'One indubitable ink pebble.']
     : ['A whole town in one afternoon.', 'Its foundations are only half dry.'];
-  const result = strict ? 'The brick holds. One brick cannot support a world.'
+  const result = strict ? 'The ink pebble holds. It is too small to support a world.'
     : 'The half-dry town wobbles and slumps into a puddle.';
   const artwork = strict
-    ? `<image class="ink-brick" href="${brickArt}" x="107" y="156" width="216" height="120"/>`
+    ? `<image class="ink-pebble" href="${pebbleArt}" x="107" y="156" width="216" height="120"/>`
     : `<image class="ink-town" href="${townArt}" x="42" y="114" width="346" height="194"/>`;
   host.insertAdjacentHTML('afterbegin', `<svg class="scene-art ink-dilemma ink-dilemma-${subject}"
     viewBox="0 0 430 450" width="430" height="450" role="img" aria-label="${name}. ${rule} ${result}">
@@ -26,10 +36,7 @@ export function mountDilemma(host: HTMLElement, strict: boolean) {
       <path fill="none" stroke="#c6a772" stroke-linecap="round" stroke-width="2" d="M82 310q26-4 47-4m153 9q44 2 66-3"/>
     </g>
     ${artwork}
-    <g class="ink-question" aria-hidden="true">
-      <path fill="#202635" d="M333 94c-15 0-26 9-26 22 0 9 5 15 14 19l-6 13 16-11c16 0 28-8 28-22 0-13-11-21-26-21Z"/>
-      ${txt(333, 125, '?', { size: 26, weight: 600, fill: '#f8e3ab' })}
-    </g>
+    ${inkQuestion(333, 115, 'ink-question')}
     ${lines(215, 354, caption, { size: 17, lh: 24 })}
   </svg>
   <span class="ink-result" role="status"></span>`);
@@ -46,67 +53,26 @@ export function mountDilemma(host: HTMLElement, strict: boolean) {
   svg.addEventListener('click', replay);
 }
 
-export function mountUndoubtedCairn(host: HTMLElement) {
-  host.insertAdjacentHTML('afterbegin', `<svg class="scene-art inquiry-cairn" width="580" height="415"
+export function mountUndoubtedInk(host: HTMLElement) {
+  host.insertAdjacentHTML('afterbegin', `<svg class="scene-art local-ink" width="580" height="415"
     viewBox="0 0 580 415" role="button" tabindex="0"
-    aria-label="Four foundations support a belief. Hover, tap or press Enter to see the front stone split and its mist buckle and snap in two.">
-    <g transform="translate(80 0) scale(1.5)">${drawCairn('undoubted-cairn')}</g>
+    aria-label="Three dry ink sticks offer firm footing. Hover, tap, or press Enter to raise an unanswered doubt. The front stick melts back into ink while the other two stay dry.">
+    <image href="${dryInk}" x="83" y="128" width="151" height="75"/>
+    <image href="${dryInk}" x="351" y="109" width="146" height="72"/>
+    <image class="local-ink-wet" href="${wetInk}" x="169" y="251" width="242" height="84"/>
+    <image class="local-ink-dry" href="${dryInk}" x="182" y="219" width="216" height="107"/>
+    ${inkQuestion(294, 178, 'local-ink-question')}
   </svg>`);
-  const art = host.querySelector<SVGSVGElement>('.inquiry-cairn')!;
-  const front = art.querySelector('[data-foundation-corner="lower-right"]')!;
-  const mist = front.querySelector<SVGPathElement>('.cairn-full-mist')!;
-  // The two closed ribbons share the same edge until the instant of rupture.
-  const ribbons = [
-    {
-      intact: 'M182 145 C161 120 136 108 149 68 C127 103 144 127 164 148Z',
-      bent:   'M208 148 C186 136 126 122 149 68 C116 121 170 142 196 153Z',
-      torn:   'M185 120 C202 140 120 129 149 68 C112 127 197 151 185 120Z',
-    },
-    {
-      intact: 'M173 210 C168 187 203 170 182 145 L164 148 C184 169 163 191 167 210Z',
-      bent:   'M173 210 C171 185 215 159 208 148 L196 153 C206 157 163 188 167 210Z',
-      torn:   'M173 210 C171 186 226 185 208 158 L202 165 C211 181 157 186 167 210Z',
-    },
-  ];
-  mist.insertAdjacentHTML('beforebegin', ribbons.map(({ intact }) =>
-    `<path class="inquiry-ribbon" fill="url(#undoubted-cairn-mist)" d="${intact}"/>`).join(''));
-  mist.remove();
-  const ribbonPaths = Array.from(front.querySelectorAll<SVGPathElement>('.inquiry-ribbon'));
-
-  const seam = 'M-13 -46 L-6 -30 -10 -23 2 -18 -2 -11 10 -4 8 6';
-  const stone = front.querySelector('use.cairn-active')!;
-  stone.insertAdjacentHTML('beforebegin', `
-    <defs>
-      <clipPath id="fracture-left"><path d="${seam}H-36V-46Z"/></clipPath>
-      <clipPath id="fracture-right"><path d="${seam}H36V-46Z"/></clipPath>
-    </defs>
-    <use href="#undoubted-cairn-stone" clip-path="url(#fracture-left)"/>
-    <g class="fracture-shard"><use href="#undoubted-cairn-stone" clip-path="url(#fracture-right)"/></g>
-    <path class="fracture-branch" d="M-10 -23l-8 3-4 6" fill="none" stroke="#403a35" stroke-width="1.4" pathLength="1"/>`);
-  stone.remove();
-  const shard = front.querySelector('.fracture-shard')!;
-  const branch = front.querySelector('.fracture-branch')!;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const art = host.querySelector<SVGSVGElement>('.local-ink')!;
 
   function replay() {
-    const duration = reducedMotion.matches ? 0 : 1250;
-    for (const animation of art.getAnimations({ subtree: true })) animation.cancel();
-    ribbons.forEach(({ intact, bent, torn }, i) => {
-      ribbonPaths[i].animate([
-        { d: `path("${intact}")`, easing: 'ease-in-out' },
-        { d: `path("${bent}")`, offset: .6, easing: 'cubic-bezier(.13,.85,.25,1)' },
-        { d: `path("${torn}")` },
-      ], { duration, fill: 'both' });
-    });
-    branch.animate([{ strokeDashoffset: '1' }, { strokeDashoffset: '0' }], {
-      delay: duration * .32, duration: duration * .28, fill: 'both',
-    });
-    shard.animate([{ transform: 'none' }, { transform: 'translate(8px, 1px) rotate(8deg)' }], {
-      delay: duration * .52, duration: duration * .48, easing: 'ease-out', fill: 'both',
-    });
+    art.classList.remove('is-questioned');
+    void art.getBoundingClientRect();
+    art.classList.add('is-questioned');
   }
 
   art.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') replay(); });
+  art.addEventListener('pointerdown', event => { if (event.pointerType === 'touch') replay(); });
   art.addEventListener('focus', () => { if (art.matches(':focus-visible')) replay(); });
   art.addEventListener('click', replay);
   art.addEventListener('keydown', event => {
