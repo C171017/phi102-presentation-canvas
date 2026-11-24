@@ -1,6 +1,6 @@
 import './gavel-scene.css';
 
-const artwork = '/generated/props/ink-ocean/gavel.webp';
+export const gavelArtwork = '/generated/props/ink-ocean/gavel.webp';
 
 export const gavelScene = {
   w: 560,
@@ -23,14 +23,14 @@ export const gavelScene = {
             <use href="#gavel-block-cut" fill="black"/>
           </mask>
         </defs>
-        <image class="gavel-rest" href="${artwork}" width="960" height="540"/>
+        <image class="gavel-rest" href="${gavelArtwork}" width="960" height="540"/>
         <g class="gavel-action">
           <!-- Complete the portion of the block's top normally covered by the head. -->
           <ellipse cx="220" cy="399" rx="162" ry="33" fill="#bd7240" stroke="#261712" stroke-width="5"/>
           <ellipse cx="220" cy="398" rx="151" ry="24" fill="#693e2a"/>
-          <image href="${artwork}" width="960" height="540" clip-path="url(#gavel-block-clip)"/>
+          <image href="${gavelArtwork}" width="960" height="540" clip-path="url(#gavel-block-clip)"/>
           <g class="gavel-moving">
-            <image href="${artwork}" width="960" height="540" mask="url(#gavel-moving-mask)"/>
+            <image href="${gavelArtwork}" width="960" height="540" mask="url(#gavel-moving-mask)"/>
           </g>
         </g>
       </svg>

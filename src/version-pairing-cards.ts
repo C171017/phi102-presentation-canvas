@@ -1,12 +1,32 @@
-import simone from './assets/version-portraits/simone.webp';
-import cole from './assets/version-portraits/cole.webp';
-import rae from './assets/version-portraits/rae.webp';
-import echo from './assets/version-portraits/echo.webp';
+import simone from './assets/full-body-cast/simone.webp';
+import cole from './assets/full-body-cast/cole.webp';
+import rae from './assets/full-body-cast/rae.webp';
+import echo from './assets/full-body-cast/echo.webp';
+import dryInk from './assets/foundations/undoubted-dry.webp';
+import { gavelArtwork } from './gavel-scene';
+import { hingeArtwork } from './hinge-door';
+import { knowledgeLetterArtwork } from './knowledge-pipeline';
 import './version-pairings.css';
 
 import { cast, pairingView, versionPairings } from './version-pairings';
 
-const portraits = { simone, cole, rae, echo };
+const figures = { simone, cole, rae, echo };
+const routeArtwork = {
+  'Social norms': gavelArtwork,
+  Hinges: hingeArtwork,
+  'Knowledge at the base': null,
+  'Belief at the base': dryInk,
+};
+
+function illustration(src: string, className: string) {
+  const img = new Image();
+  img.className = className;
+  img.src = src;
+  img.alt = '';
+  img.decoding = 'async';
+  img.draggable = false;
+  return img;
+}
 
 export function initializeVersionPairings(world: HTMLElement) {
   const heading = document.createElement('div');
@@ -14,58 +34,36 @@ export function initializeVersionPairings(world: HTMLElement) {
   heading.className = 'canvas-label pairing-heading';
   heading.dataset.label = 'Routes × versions';
   heading.style.top = '-3390px';
-  heading.innerHTML = '<h2>Routes × versions</h2><p>Wider cards indicate more discussion in Greco. Shared passages are divided between the relevant pairings.</p>';
+  heading.innerHTML = '<h2>Routes × versions</h2>';
   world.append(heading);
 
-  const largest = Math.max(...versionPairings.map(pairing => pairing.words));
   const start = -120;
   let left = start;
   let previousRoute = '';
   for (const pairing of versionPairings) {
     if (previousRoute && previousRoute !== pairing.route && pairing.id !== 'pairing-belief') left += 42;
     previousRoute = pairing.route;
-    const width = 365 + Math.round(pairing.words * 0.76);
+    // Keep the original center positions for canvases without saved placements.
+    const slotWidth = 365 + Math.round(pairing.words * 0.76);
     const card = document.createElement('article');
     card.id = pairing.id;
-    card.className = 'canvas-label pairing-card';
+    card.className = 'canvas-label canvas-media pairing-card';
     card.dataset.label = `${pairing.route} × ${pairingView(pairing)}`;
-    card.style.width = `${width}px`;
-    card.style.left = `${left + width / 2}px`;
+    card.style.left = `${left + slotWidth / 2}px`;
     card.style.top = '-3060px';
-    left += width + 22;
+    left += slotWidth + 22;
 
     const character = pairing.character ? cast[pairing.character] : undefined;
-    card.style.setProperty('--pairing-ink', character?.color ?? '#775c3a');
-    card.style.setProperty('--coverage', `${pairing.words / largest * 100}%`);
-    const label = document.createElement('header');
+    card.setAttribute('aria-label', character ? `${card.dataset.label}, ${character.name}` : card.dataset.label);
+    card.title = card.dataset.label;
+    const route = routeArtwork[pairing.route];
+    if (route) card.append(illustration(route, 'pairing-route-art'));
+    else card.insertAdjacentHTML('beforeend', `
+      <svg class="pairing-route-art" viewBox="328 145 307 184" aria-hidden="true">${knowledgeLetterArtwork}</svg>`);
     if (pairing.character) {
-      const portrait = new Image(98, 98);
-      portrait.src = portraits[pairing.character];
-      portrait.alt = '';
-      portrait.decoding = 'async';
-      portrait.draggable = false;
-      label.append(portrait);
+      card.dataset.character = pairing.character;
+      card.append(illustration(figures[pairing.character], 'pairing-figure'));
     }
-    const identity = document.createElement('div');
-    const route = document.createElement('p');
-    route.className = 'pairing-route';
-    route.textContent = pairing.route;
-    const title = document.createElement('h3');
-    title.textContent = pairingView(pairing);
-    identity.append(route, title);
-    if (character) {
-      const name = document.createElement('p');
-      name.className = 'pairing-name';
-      name.textContent = character.name;
-      identity.append(name);
-    }
-    label.append(identity);
-    const summary = document.createElement('p');
-    summary.className = 'pairing-summary';
-    summary.textContent = pairing.summary;
-    const coverage = document.createElement('footer');
-    coverage.textContent = `≈${pairing.words} words · ${pairing.pages.length === 3 ? 'p.' : 'pp.'} ${pairing.pages}`;
-    card.append(label, summary, coverage);
     world.append(card);
   }
   heading.style.left = `${(start + left - 22) / 2}px`;

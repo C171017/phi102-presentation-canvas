@@ -15,17 +15,20 @@ const strokes = [
   ['M539 236Q559 247 581 266', 6.4],
 ] as const;
 
+export const knowledgeLetterArtwork = `
+  <rect x="339" y="157" width="290" height="166" rx="3" fill="#816d52" opacity=".16"/>
+  <rect x="334" y="151" width="290" height="166" rx="3" fill="#fff5de" stroke="#ac8f69" stroke-width="2"/>
+  <path d="M349 165h260v138H349Z" fill="none" stroke="#e1cda4"/>
+  <g class="evan-equation">
+    ${strokes.map(([path, width]) => `<path d="${path}" stroke-width="${width}" pathLength="1"/>`).join('')}
+  </g>`;
+
 function mount(host: HTMLElement) {
   host.insertAdjacentHTML('afterbegin', `
     <svg class="scene-art evan-letter-scene" viewBox="0 0 900 450" width="900" height="450"
       tabindex="0" role="button" aria-label="${label} Hover, tap, or press Enter to replay.">
       <g id="route-knowledge-evidence" data-link-origin="bottom-center">
-        <rect x="339" y="157" width="290" height="166" rx="3" fill="#816d52" opacity=".16"/>
-        <rect x="334" y="151" width="290" height="166" rx="3" fill="#fff5de" stroke="#ac8f69" stroke-width="2"/>
-        <path d="M349 165h260v138H349Z" fill="none" stroke="#e1cda4"/>
-        <g class="evan-equation">
-          ${strokes.map(([path, width]) => `<path d="${path}" stroke-width="${width}" pathLength="1"/>`).join('')}
-        </g>
+        ${knowledgeLetterArtwork}
       </g>
       <path class="evan-wet-ink" d="M681 288c-14-9 14-20 48-23 23-2 44 4 63 5 30 1 44 8 31 15-13 9-39 5-55 11-27 9-72 5-87-8Z" fill="#25243d"/>
       <g class="evan-solid-ink">

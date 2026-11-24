@@ -1,5 +1,7 @@
 import './hinge-door.css';
 
+export const hingeArtwork = '/generated/props/ink-ocean/hinge.webp';
+
 export const hingeScene = {
   w: 540,
   h: 450,
@@ -8,7 +10,7 @@ export const hingeScene = {
     const art = document.createElement('div');
     art.className = 'scene-art hinge-illustration';
     const image = document.createElement('img');
-    image.src = '/generated/props/ink-ocean/hinge.webp';
+    image.src = hingeArtwork;
     image.alt = hingeScene.label;
     image.draggable = false;
     image.width = 900;

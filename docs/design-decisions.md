@@ -1180,3 +1180,11 @@ Implementation choices made under this delegated scope, all tagged [AI DRAFT] in
 - The wedding ends when the aisle splits into two dry floors. The old judge from P1 officiates.
 - The demon reveals Cole's silence at R6 as its attack on Simone's grounds. Cole never lied: "Never. I just never said."
 - Ending A adds Simone and Cole introducing themselves; ending B returns to the white of the wedding.
+
+## 2026-11-23T23:00:44-08:00 · Illustrate the route and version pairings
+
+Recorded time in Pacific time. Howie requested visual pairings in place of the text cards:
+
+> replcae these versions box to like the character (but a bit smaller) and the one of the routes visual they have so thnk of those are being repalced by jus tehtvisual of those in proper size
+
+Use the existing Gavel, hinge and E = K letter beside smaller versions of the matching full-body characters. The belief pairing uses a dry ink stick. Preserve the pairing positions, connectors and paper references.
