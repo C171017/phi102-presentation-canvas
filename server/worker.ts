@@ -1,4 +1,6 @@
 import { DurableObject } from 'cloudflare:workers';
+import { serveVideo } from './video-assets';
+import openingMedia from '../src/opening-media.json';
 import { slides } from '../src/slide-content';
 import { newOpeningQuiz, openingQuizWindowMs, recordOpeningVote, type OpeningQuizRound } from '../src/opening-quiz';
 import { countSchools, isSchoolVote, type SchoolVote } from '../src/school-vote';
@@ -30,6 +32,7 @@ export default {
       return env.ROOMS.getByName('phi102').fetch(request);
     }
     if (url.pathname.startsWith('/api/')) return error('Not found', 404);
+    if (url.pathname === openingMedia.path) return serveVideo(request, env.ASSETS, openingMedia.bytes);
     return env.ASSETS.fetch(request);
   },
 } satisfies ExportedHandler<Env>;

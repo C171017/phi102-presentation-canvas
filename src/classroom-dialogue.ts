@@ -32,7 +32,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   character.className = 'classroom-character';
   character.setAttribute('aria-label', 'Continue by clicking Professor Lin');
   const image = new Image();
-  image.src = portrait;
+  image.decoding = 'async';
   image.alt = 'Illustrated Professor Lin';
   image.draggable = false;
   character.dataset.speaker = 'Professor Lin';
@@ -381,6 +381,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
 
   function showScene(id?: string) {
     theory.showScene(id);
+    if (id === 'contemporary-heading' && !image.hasAttribute('src')) image.src = portrait;
     const legend = id && legendById.has(id);
     controls.hidden = id === 'P1' || (!legend && id !== 'contemporary-heading' && !introScenes.includes(id ?? ''));
     introIndex = introScenes.findIndex(scene => scene === id);

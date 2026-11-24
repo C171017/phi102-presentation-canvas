@@ -1,16 +1,18 @@
 import './opening-video.css';
 
 export function createOpeningVideo(shell: HTMLElement, source: string, continueToStory: () => void,
-  { showSkip, reportPlayback }: { showSkip: boolean; reportPlayback?: (playing: boolean) => void }) {
+  { viewerControls, showSkip, reportPlayback }: {
+    viewerControls: boolean; showSkip: boolean; reportPlayback?: (playing: boolean) => void;
+  }) {
   const dialog = document.createElement('dialog');
   dialog.className = 'opening-video';
-  dialog.setAttribute('aria-label', 'Dead Ink opening');
+  dialog.setAttribute('aria-label', 'Flexible Foundationalism opening');
   dialog.innerHTML = `
     <div class="opening-screen">
-      <video aria-label="Dead Ink opening video" playsinline preload="auto"></video>
+      <video aria-label="Flexible Foundationalism opening video" playsinline preload="metadata" ${viewerControls ? 'controls' : ''}></video>
       ${showSkip ? `
         <button type="button" class="opening-skip" data-skip aria-keyshortcuts="PageDown">
-          <kbd aria-hidden="true">PgDn</kbd> Skip intro
+          ${viewerControls ? '' : '<kbd aria-hidden="true">PgDn</kbd>'} Skip opening
         </button>` : ''}
       <footer hidden>
         <p role="status"></p>
@@ -46,6 +48,8 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     recovery.hidden = false;
   }
   function startPlayback() {
+    preload();
+    showRecovery('Loading opening…', false);
     void video.play().catch(() => {
       if (dialog.open && !finishing && !video.error && video.paused) {
         showRecovery('Press Play to start the opening.', true);
@@ -65,7 +69,9 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
   });
   video.addEventListener('ended', finish);
   video.addEventListener('playing', () => { recovery.hidden = true; });
-  video.addEventListener('error', () => { showRecovery('The opening video could not load.', false); });
+  video.addEventListener('error', () => {
+    if (dialog.open) showRecovery('The opening video could not load. Try playing it again.', true);
+  });
 
   function preload() {
     if (!video.hasAttribute('src') || video.error) video.src = source;
@@ -81,7 +87,7 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     dialog.showModal();
     reportPlayback?.(true);
     startPlayback();
-    if (!document.fullscreenElement) void screen.requestFullscreen?.().catch(() => {});
+    if (!viewerControls && !document.fullscreenElement) void screen.requestFullscreen?.().catch(() => {});
   }
 
   return { preload, play, close, isOpen: () => dialog.open };

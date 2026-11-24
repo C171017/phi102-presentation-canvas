@@ -13,6 +13,7 @@ import { legendById, slides } from './slide-content';
 import { addLegendAnchors } from './ink-ocean-entries';
 import { createClassroomDialogue } from './classroom-dialogue';
 import { createOpeningVideo } from './opening-video';
+import openingMedia from './opening-media.json';
 import type { PresentationCues } from './live-protocol';
 import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
@@ -20,8 +21,6 @@ import { connectPresentation, liveMode } from './live-presentation';
 import type { ThreeLayer } from './three-layer';
 import './style.css';
 import './layout.css';
-
-declare const __LOCAL_OPENING_VIDEO__: string;
 
 type View = { x: number; y: number; zoom: number };
 type Stop = View & { duration?: number };
@@ -57,13 +56,22 @@ const quizEnabled = role !== 'presenter';
 const openScene = (id: string) => {
   slideNavigation.open(slides.findIndex(slide => slide.members[0] === id));
 };
-const openingVideo = localDev && (role === 'editor' || role === 'presenter') && __LOCAL_OPENING_VIDEO__
-  ? createOpeningVideo(backdrop, __LOCAL_OPENING_VIDEO__, () => openScene('L0'), {
-    showSkip: role === 'editor',
-    reportPlayback: role === 'presenter'
+const openingVideo = liveMode || localLivePreview || (localDev && (role === 'editor' || role === 'presenter'))
+  ? createOpeningVideo(backdrop, openingMedia.path, () => openScene('L0'), {
+    viewerControls: publicPreview || role === 'audience',
+    showSkip: role === 'editor' || publicPreview || role === 'audience',
+    reportPlayback: localDev && role === 'presenter'
       ? playing => import.meta.hot!.send('phi102:preview:opening', playing) : undefined,
   })
   : undefined;
+if (openingVideo && (publicPreview || liveMode)) {
+  const launch = document.createElement('button');
+  launch.type = 'button';
+  launch.className = 'opening-launch';
+  launch.textContent = 'Play opening';
+  launch.addEventListener('click', openingVideo.play);
+  viewport.append(launch);
+}
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
   readOnly && !publicPreview, role === 'presenter', openingVideo?.play);

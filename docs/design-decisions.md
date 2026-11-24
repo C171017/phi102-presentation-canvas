@@ -1293,3 +1293,13 @@ Recorded time in Pacific time. Howie pointed to the canvas overview and asked:
 > so the canvas stays pretty much the same but liek try to refine teh link so you know thing look more clean where there's less or like no unecessary turn ant he layout the compositon looks better so basically refine teh position and link lines you can visually check things
 
 Align the existing map branches with their destinations, center the Gavel beneath its heading, and use direct lines where the regress and foundations branches have open space. Align the cast figures along their lower edge. Retain the map's groups, slide order, and connector destinations.
+
+## 2026-11-24T00:08:30-08:00 · Optimize the public artwork and opening
+
+Recorded time in Pacific time. Howie requested browser-friendly assets for the live website:
+
+> find the good, like, balance, like a good sweet spot, and then get at commit push and make sure the live version does use those
+
+> And also you might have to compress the video, have like a web browser streaming friendly video, like compress the video as well. And also make sure the video play will work on the live version as well.
+
+Use high-quality WebP at the existing dimensions for slide and canvas art where it yields meaningful savings, and keep the paper pages lossless. The public arrival slide offers **Play opening** for the new 1080p Flexible Foundationalism cut. Keep its original audio track and serve the web MP4 with byte ranges for fast startup and seeking.

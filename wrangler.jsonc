@@ -15,7 +15,8 @@
     "directory": "./dist-live",
     "binding": "ASSETS",
     "run_worker_first": [
-      "/api/*"
+      "/api/*",
+      "/media/*"
     ]
   },
   "durable_objects": {

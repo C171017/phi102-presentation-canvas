@@ -1,8 +1,6 @@
-import { defineConfig, normalizePath, searchForWorkspaceRoot, type Plugin, type WebSocketClient } from 'vite';
-import { existsSync } from 'node:fs';
-import { readFile, writeFile, rename, copyFile } from 'node:fs/promises';
+import { defineConfig, searchForWorkspaceRoot, type Plugin, type WebSocketClient } from 'vite';
+import { readFile, writeFile, rename, copyFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { basename } from 'node:path';
 import { parseLayout } from './src/layout';
 import { firstPresentationCue, isCue, isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
 import { storyTextStorage } from './scripts/story-text-storage';
@@ -10,10 +8,9 @@ import { applyTheoryAction, ballotSlide, resolveBallot, voteView, type TheoryBal
 import { localQuizVotes } from './scripts/local-quiz-votes';
 import { countSchools, isSchoolVote, type SchoolVote } from './src/school-vote';
 import { storyTextEndpoint } from './src/story-text';
+import openingMedia from './src/opening-media.json';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
-const openingFile = fileURLToPath(new URL('../op/drafts/dead-ink-op-codex-v2.mp4', import.meta.url));
-const openingFilename = basename(openingFile).toLowerCase();
 
 function isLoopback(address?: string) {
   return address === '127.0.0.1' || address === '::1' || address === '::ffff:127.0.0.1';
@@ -30,7 +27,7 @@ function localOnlyEditor(): Plugin {
         catch { res.writeHead(400).end(); return; }
         const writesLocalFiles = req.method !== 'GET' && req.method !== 'HEAD' &&
           (pathname === '/__canvas/layout' || pathname === storyTextEndpoint);
-        if (writesLocalFiles || pathname.toLowerCase().includes(openingFilename)) {
+        if (writesLocalFiles) {
           res.writeHead(403).end();
           return;
         }
@@ -228,13 +225,16 @@ function localPresentation(): Plugin {
   };
 }
 
-export default defineConfig(({ command }) => ({
-  define: {
-    __LOCAL_OPENING_VIDEO__: JSON.stringify(command === 'serve' && existsSync(openingFile)
-      ? `/@fs/${encodeURI(normalizePath(openingFile))}`
-      : ''),
-  },
+export default defineConfig({
   plugins: [
+    {
+      name: 'canvas-check-opening-size',
+      apply: 'build',
+      async buildStart() {
+        const file = await stat(new URL(`./public${openingMedia.path}`, import.meta.url));
+        if (file.size !== openingMedia.bytes) this.error('Update the opening video byte count in src/opening-media.json.');
+      },
+    },
     localOnlyEditor(),
     layoutStorage(),
     localPresentation(),
@@ -244,7 +244,7 @@ export default defineConfig(({ command }) => ({
   server: {
     host: '127.0.0.1',
     fs: {
-      allow: [searchForWorkspaceRoot(process.cwd()), openingFile],
+      allow: [searchForWorkspaceRoot(process.cwd())],
       deny: [
         '.env', '.env.*', '*.{crt,pem}', '**/.git/**',
         '.dev.vars*', '**/.wrangler/**', '**/.claude/**', '**/docs/chat-history/**',
@@ -253,4 +253,4 @@ export default defineConfig(({ command }) => ({
     watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp'] },
   },
   preview: { host: '127.0.0.1' },
-}));
+});

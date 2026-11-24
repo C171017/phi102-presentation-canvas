@@ -154,6 +154,7 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
   }
 
   opener.addEventListener('click', async () => {
+    showScene(false);
     reader.showModal();
     if (!import.meta.env.DEV) return;
     const sequence = ++loadSequence;
@@ -283,5 +284,4 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
     step(wheelDistance > 0 ? 1 : -1);
   }, { passive: false });
 
-  showScene(false);
 }

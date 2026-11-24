@@ -32,11 +32,11 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url('/generated/backgrounds/dead-ink/01-giedt-classroom.webp');
   filter: brightness(.78);
   opacity: 0;
 }
 #viewport:has(:is(#before-lecture, #contemporary-heading).page-foreground)::before {
+  background-image: url('/generated/backgrounds/dead-ink/01-giedt-classroom.webp');
   opacity: 1;
 }
 #viewport[data-regress-flashback]::before {
@@ -76,13 +76,13 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   display: grid;
   align-items: end;
   padding: clamp(24px, 5vmin, 68px) clamp(48px, 5vw, 80px);
-  background-image: url('/generated/backgrounds/dead-ink/00-unitrans-arrival.webp');
   color: #fff2d8;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
 }
 #viewport:has(#unitrans-arrival.page-foreground) .arrival-scene {
+  background-image: url('/generated/backgrounds/dead-ink/00-unitrans-arrival.webp');
   visibility: visible;
   opacity: 1;
 }
