@@ -1429,3 +1429,11 @@ Recorded time in Pacific time. Howie requested that the [public canvas](https://
 > also make sure all the new things are updated to the live including like new efefcts, visual, pic backgroudn the latest video etc
 
 Use the revised V5 cut with Harue's rear-facing shot and the masked Three Sacred Treasures panels. The classroom introduction still leads into the opening. Encode the existing cut as a fast-start 1080p MP4 with its existing audio track and give it a versioned public path.
+
+## 2026-11-24T01:15:19-08:00 · Keep the opening visible in video fullscreen
+
+Recorded time in Pacific time. Howie reported the issue in the [canvas chat](codex://threads/01a20cc8-d566-72b0-82f0-fe801a52a301):
+
+> You show the OP, then there's a full screen option and click the full screen, but it does go full screen, but then doesn't show anything at all. Just shows black screen.
+
+The native video control keeps the same player open when viewers enter or exit fullscreen. Close the player when it leaves its own presenter fullscreen mode, or when playback finishes and the story begins.

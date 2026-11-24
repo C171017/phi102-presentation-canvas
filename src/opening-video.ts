@@ -31,8 +31,9 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
   function close() {
     if (!dialog.open) return;
     video.pause();
+    const fullscreen = document.fullscreenElement;
+    if (fullscreen === screen || fullscreen === video) void document.exitFullscreen().catch(() => {});
     dialog.close();
-    if (document.fullscreenElement === screen) void document.exitFullscreen().catch(() => {});
     reportPlayback?.(false);
   }
   function finish() {
@@ -64,8 +65,9 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     event.preventDefault();
     finish();
   });
-  screen.addEventListener('fullscreenchange', () => {
-    if (document.fullscreenElement !== screen && !finishing) close();
+  screen.addEventListener('fullscreenchange', event => {
+    // The native video control bubbles its own fullscreen changes through the player.
+    if (event.target === screen && document.fullscreenElement !== screen && !finishing) close();
   });
   video.addEventListener('ended', finish);
   video.addEventListener('playing', () => { recovery.hidden = true; });
