@@ -1101,3 +1101,82 @@ Recorded time in Pacific time. Howie pointed to the Show both schools button in 
 > for this part no this show both schools thing and now we still show them in order first careisian foundalim and then moderate foundalims
 
 After Descartes and the Fourth Answer, advance directly to Cartesian foundationalism, then Moderate foundationalism, then The Stranger. Each school has its own existing illustration and dialogue. This supersedes the earlier choice and split-screen presentation.
+
+## 2026-11-23T22:49:46-08:00 · Keep the canvas in view while panning
+
+Recorded time in Pacific time. Howie described the desired boundary:
+
+> You still going to be outlist see like maybe 30 percent of the entire canvas. Or maybe 10 percent as like the boundary.
+
+The panning limit uses the rectangle occupied by the current canvas items. It keeps 30% of the smaller span on each axis in view, about 9% of the usable area at a diagonal corner. If that part of the rectangle is empty, the outer limit keeps the nearest canvas item partly visible. The limit follows object moves, resizes, viewport changes, and zoom. Slides keep their own framing.
+
+## 2026-11-23T22:55:03-08:00 · Sync the Trial’s five beats into Story
+
+Recorded time in Pacific time. Howie supplied the revised P1 screenshot in the [canvas chat](codex://threads/01a20b50-5b47-72e2-a290-250abf2d218c).
+
+> udpate the story section for this part base on this
+
+Keep The Trial as one Story page with the five headings from the screenshot. Use the testimony from the witness stand, the zodiac wheel and opening ruling, the reversed acquittal, the prosecutor’s dream and his mother’s objection, and the final verdict after the prosecutor withdraws. This supersedes the earlier warmth, wig and melting-lake demonstrations. The presentation uses the same script and skips the beat headings during cue navigation. Its notes describe the objections that undo rulings in this version.
+
+## 2026-11-23T22:58:38-08:00 · Save Simone and Cole's personal lines for the wedding
+
+Recorded time in Pacific time. Howie asked to remove the exchange after the door chant in P2:
+
+> remove all of those … Simon at this point still don't know who Carl is
+
+> update the md (story etc
+
+In the Door world (P2) the flood makes everything urgent: Simone and Cole close the door and don't talk about themselves. Nothing after Page 3 hints at who Cole is to her. P2 Page 7 now runs from the chant straight to the white flash, without "When it goes, don't hold on to me," "Will I see you again?" and "You always do. You just never remember." Their real meeting and the love lines belong to the wedding (P3), where Simone still doesn't know who he is. P3 no longer ends with "Don't hold on to—" / "I know." "You remembered" in P3 refers only to the line from the P2 flashback. Applied to both story docs and to the Story page.
+
+## 2026-11-23T20:19:00-08:00 · The prophecy: the demon returns once everything has melted
+
+Message time in Pacific time, recorded on 2026-11-23 at about 23:00. Howie described the causation behind the L3 prophecy:
+
+> it is we have the Cartesian demon that makes them dream. And the prophecy is about when the white apocalypse comes, when they melt it, the Cartesian demon is going to come back to let people to go into that dream world, like bring the fake world kind of thing.
+
+The Cartesian demon is the cause of the dream worlds. The prophecy in L3 says that once the stones have melted, the demon returns and offers the melted people worlds of solid ground, and none of them know they are dreaming. The idea is Howie's; the five-cue wording was proposed by the AI and is the version recorded in the 20:23:46 entry above. R2 in [Ink Ocean](story-v5-ink-ocean.md) lists the prophecy among its plants.
+
+## 2026-11-23T21:26:00-08:00 · Three nested dreams replace the relay
+
+Message time in Pacific time, recorded on 2026-11-23 at about 23:00. Howie restructured Part 2:
+
+> So we cancel the rebellion thing, but we directly go to the second dream.
+
+> the second part, which is going to be a wedding, and this is like a dream world of dream world.
+
+> because we roll out the evidence thing, and so we only have social and the hinges
+
+> relativists... which are Ray and Eckel, expressivist, they're not barely being used, so maybe we can just leave them for now
+
+Part 2 is three parallel worlds, each nested in the last: P1 the courtroom (social × sensitive invariantism, the Gavel), P2 the door world (hinges × sensitive invariantism, the Hinge as the second Sacred Treasure) and P3 a wedding (contextualism, the speaker, the disagreement problem). This supersedes the relay rescue, the interlude with the rebellion, the Ferry and the town of Here, the knowledge route with Evan as the third treasure, the Anchor as the second treasure, and the earlier requirement to skip hinges × sensitive invariantism. Rae's relativism and Echo's expressivism are left out of the main line for now. Echo stays as Simone's pet hermit crab, who only reacts.
+
+## 2026-11-23T21:38:00-08:00 · A love story between Simone and Cole, hidden inside
+
+Message times 21:38 to 21:40 Pacific time, recorded on 2026-11-23 at about 23:00. Howie set the focus of the story:
+
+> now we're going to mostly focus on Simon and Cole. It's going to be like actually a love story that is like hide it inside it.
+
+> obviously Simon does not know who Cole is, but Cole has been awakened for a really long time.
+
+> Simon says, 'I don't love you,' but Cole says, 'I love you.' They can both be right. They're not necessarily disagreeing with each other because Simon does not... have the memory at all
+
+> later on the Cartesian demon confrontation where Because Carl actually he knows everything, but he does not want to break everything, 'cause in that world, the dream world, he's having, like, a happy, like, fulfilling life with Simon. So even he knows all of those are fake, he does not want to break it.
+
+Simone never remembers Cole. Cole has been awake for a very long time, knows every dream is fake and keeps silent, because his happy life with her is inside. The love lines are used in P3, and Cole's secret comes out in the confrontation with the demon (R6 and R11). The finale cast is Simone, Cole and Echo.
+
+Not yet confirmed, and tagged [AI DRAFT] in the story document: a second exchange in P3 ("What we have is solid ground. I'm building on it." / "It's built on nothing.") to carry Greco's disagreement problem, since "I love you" / "I don't love you" matches his hunger case, where both speakers can be right.
+
+## 2026-11-23T22:26:00-08:00 · Bring the story documents in line with the restructure
+
+Message time in Pacific time. Howie asked for the story documents to be updated:
+
+> also have another agent update all teh story part that we have (to mds etc
+
+Applied to [Ink Ocean](story-v5-ink-ocean.md) under this delegated scope, outside the P2 door section: the overview tables, quick reference, story at a glance, L7 notes, §5 requirements, time budget and at-a-glance table, a new P3 · The Wedding, Part 3 (R1–R12) recast for Simone, Cole and Echo with Cole as Peter in the §4 Access sequence, the quizzes, the open questions and §9.2–9.4. Copies of the documents as they stood before are in `docs/archive/` with the suffix `2026-11-23-pre-restructure`.
+
+Implementation choices made under this delegated scope, all tagged [AI DRAFT] in the document and awaiting Howie's decision:
+
+- L7 keeps three Sacred Treasures. The third is proposed as the Ring, standing for the speaker's commitment in P3 and first worn in R9. The alternative is two treasures, with a new L7 title card and illustration.
+- The wedding ends when the aisle splits into two dry floors. The old judge from P1 officiates.
+- The demon reveals Cole's silence at R6 as its attack on Simone's grounds. Cole never lied: "Never. I just never said."
+- Ending A adds Simone and Cole introducing themselves; ending B returns to the white of the wedding.

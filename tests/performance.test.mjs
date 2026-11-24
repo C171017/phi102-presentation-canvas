@@ -85,23 +85,52 @@ test('group movement batches position reads and schedules one save and connectio
 });
 
 test('camera-only frames reuse connections; explicit invalidation refreshes once', () => {
-  let connections = 0, renders = 0;
+  let connections = 0, renders = 0, measurements = 0;
   const view = { x: 0, y: 0, zoom: 1 };
-  const ctx = runFunctions(['render', 'invalidateConnections', 'wake'], {
+  const ctx = runFunctions(['render', 'positionWorld', 'invalidateConnections', 'wake'], {
     view, target: view, tween: undefined, drag: undefined, connectionsDirty: true, frame: undefined,
-    canvasBounds: { left: 320, top: 30 },
+    canvasBounds: { left: 320, top: 30 }, canvasContent: undefined,
     renderGrid() {}, world: { style: {} }, threeLayer: undefined,
     updateConnections: () => connections++,
-    slideNavigation: { measure() {}, refit() {}, update() {} },
+    measureCanvasContent: () => measurements++,
+    constrainCanvasView() {}, pageExit: { active: () => false },
+    slideNavigation: { measure() {}, refit() {}, update() {}, isOnCanvas: () => true },
     requestAnimationFrame: () => 1, tick() {},
   });
   ctx.render();
   for (let i = 0; i < 120; i++) { view.x += 10; view.zoom += 0.01; ctx.render(); }
   assert.equal(connections, 1);
+  assert.equal(measurements, 1);
   ctx.threeLayer = { render: () => renders++ };
   ctx.invalidateConnections(); ctx.invalidateConnections(); ctx.render();
   assert.equal(renders, 1, 'an enabled Three.js scene still renders');
   assert.equal(connections, 2);
+  assert.equal(measurements, 2);
+});
+
+test('canvas bounds retain about 30% of each usable axis at edges and corners', () => {
+  const code = readFileSync(new URL('../src/canvas-pan.ts', import.meta.url), 'utf8')
+    .replace(/^import .+;\n/gm, '').replace(/export function/g, 'function');
+  const ctx = vm.createContext({});
+  vm.runInContext(ts.transpile(code, { target: ts.ScriptTarget.ES2022 }), ctx);
+  const viewport = { width: 1000, height: 600 };
+  const bounds = { left: -800, right: 1200, top: -200, bottom: 1300 };
+  const pan = (x, y, zoom, items = [bounds]) => {
+    const view = { x, y, zoom };
+    ctx.constrainCanvasView(view, viewport, { bounds, items });
+    return [view.x, view.y];
+  };
+  assert.deepEqual(pan(-5000, -5000, 1), [-1000, -320]);
+  assert.deepEqual(pan(5000, 5000, 2), [1300, 1360]);
+  assert.deepEqual(pan(5000, -5000, 0.25), [2600, -950]);
+  assert.deepEqual(pan(30, 70, 1), [30, 70]);
+  const sparse = [
+    { left: -800, right: -600, top: 1100, bottom: 1300 },
+    { left: 1000, right: 1200, top: -200, bottom: 0 },
+  ];
+  assert.deepEqual(pan(5000, 5000, 1, sparse), [1400, 240]);
+  assert.deepEqual(pan(5000, -5000, 1, sparse), [1400, -320], 'an occupied corner keeps its limit');
+  assert.deepEqual(pan(30, 70, 1, sparse), [30, 70], 'panning between items stays possible');
 });
 
 test('grid tiles stay aligned across camera pans and density changes', () => {

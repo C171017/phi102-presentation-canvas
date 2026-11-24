@@ -145,10 +145,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const legend = line && legendById.get(line.scene);
     const courtLine = line?.scene === 'P1' ? line.text : '';
     const banner = /^\[Banner: (.+)\]$/.exec(courtLine)?.[1];
-    const shout = /\b(?:OBJECTION!|TAKE THAT!|HOLD IT!|NOT REAL\b)/.exec(courtLine)?.[0];
-    interjection.textContent = banner ?? shout ?? '';
+    const callout = /\b(?:OBJECTION!|TAKE THAT!|HOLD IT!|NOT (?:GUILTY|REAL)\b)/.exec(courtLine)?.[0];
+    interjection.textContent = banner ?? callout ?? '';
     interjection.hidden = !interjection.textContent;
-    interjection.dataset.style = banner ? 'banner' : shout === 'NOT REAL' ? 'verdict' : 'shout';
+    interjection.dataset.style = banner ? 'banner' : callout?.startsWith('NOT ') ? 'verdict' : 'shout';
     if (legend) notes.show(legend.id, legend.title);
     if (line?.scene === 'contemporary-heading') {
       const revealed = line.phase === 'reveal';

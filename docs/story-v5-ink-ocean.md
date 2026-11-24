@@ -52,7 +52,7 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 | Part 1a | The regress problem: every reason needs a reason | L0–L3: the Law of Ink, the guardian, the brain-in-a-vat chain, the Whypocalypse |
 | Part 1b | Agrippa's trilemma: skepticism, infinitism, coherentism, foundationalism | L4–L5: Operation Because, Descartes |
 | Part 1c | The foundationalist's dilemma; flexible foundationalism: undoubted, not undoubtable | L6–L7: one ink pebble vs jelly; the stranger and the three treasures |
-| P1 | The social route (Annis): an objector group; read as sensitive invariantism; the astrology objection | The trial |
+| P1 | The social route (Annis): a claim holds while nobody in the community objects; read as sensitive invariantism; the astrology objection | The trial |
 | P2 | Wittgenstein's hinges: some things must stay put for any question to be asked; read as sensitive invariantism (it depends on the subject's inquiry) | The door |
 | P3 | Contextualism: the speaker fixes the claim; "Oh, come on"; the commitment view; the hunger case and the disagreement problem | The wedding |
 | Part 3 | Access internalism: the leak-down worry, the supervenience base, the cognitive home, the mobile home | R1–R10 |
@@ -451,28 +451,26 @@ Keep labels to those few words. The narration does the explaining; the image is 
 
 ---
 
-## 5 · Part 2 · The relay (*Which version?*) [FIXED structure · AI DRAFT scenes]
+## 5 · Part 2 · Three dreams (*Which version?*) [FIXED structure · scenes tagged one by one]
 
 ### 5.1 Notes for the dream era [FIXED: the author's requirements]
 
 These are the requirements every draft of Parts 2 and 3 must meet.
 
 1. **Parts 2 and 3 are the core of the presentation.** Everything before them is introduction. Once the audience understands the mechanism, the time goes to (a) flexible foundationalism under the different versions and (b) the application to access internalism.
-2. **Part 2 is a relay rescue, like *The Matrix*.** Whoever wakes up goes back in for the next person.
-3. **The order, timeline and disagreement follow the paper wherever it matters.** The disagreement problem happens inside the story, as it does in Greco's §3.
-4. **A huge time gap.** After Simone wakes, years pass before she reaches the next person. She builds a rebellion and a small new civilization while searching for the remaining sacred weapon. Time runs differently inside the dreams, so the dream worlds come from different eras (Simone's is the 1890s; Cole's is modern, with streaming).
-5. **The third route is different.** In §2.3 Greco says you can become a flexible foundationalist "without trying." Knowledge itself is dried ink: what Evan writes down from what he has seen dries by itself.
-6. **The finale applies the Access section,** then turns into a moral confrontation with the demon, and the audience votes on the ending.
-7. **[FIXED] Visual-novel format.** The dream-world scenes (the parallel universes) use the same visual-novel style as the courtroom-game parody in P1: a dialogue box, character portraits, shouted speech bubbles, banners.
-8. **[FIXED] Skip hinges × sensitive invariantism.** The first world shows only the first treasure (social norms × sensitive invariantism). The Anchor (hinges) is found offscreen in the interlude and used in Part 3.
+2. **Part 2 is three parallel worlds, nested: a dream within a dream.** The courtroom breaks straight into the second dream, and the second into the third, "a dream world of dream world."
+3. **Two routes, three worlds.** The routes on stage are social norms and hinges. P1 is social × sensitive invariantism (the Gavel). P2 is hinges × sensitive invariantism (the Hinge, the second Sacred Treasure). P3, a wedding, is contextualism: the speaker.
+4. **A love story is hidden inside.** The focus is Simone and Cole. Simone doesn't know who Cole is. Cole has been awake for a really long time. She says "I don't love you," he says "I love you," and they can both be right.
+5. **Cole knows everything and doesn't want to break it.** In the dream world he has a happy, fulfilling life with Simone, so even though he knows all of it is fake, he keeps it going. This comes out in the confrontation with the demon.
+6. **The disagreement problem happens inside the story,** between the two of them, as it does in Greco's §3.
+7. **The finale applies the Access section,** then turns into a moral confrontation with the demon, and the audience votes on the ending.
+8. **[FIXED] Visual-novel format.** The dream-world scenes (the parallel universes) use the same visual-novel style as the courtroom-game parody in P1: a dialogue box, character portraits, shouted speech bubbles, banners.
 9. **Be selective.** Reference the paper's important points; leave out trivial details (the professor has said we don't need every detail). Take liberties where they make the story or the philosophical question better.
 10. **The legend is Simone's testimony inside the first dream** (P1): she's laughed at, then proves it, and she's the first hero.
 
 **The author's proposals now in the drafts [YOUR IDEA · AI VERSION]** (direction from the author, details not yet confirmed; reasoning in §9):
 
-- **Echo is Simone's pet, not a hero.** The legend never mentions him, but the expressivist still exists, and the creature nobody counted turns out to matter (§9.3).
-- **Evan is himself the third weapon:** a strange living pen. Others write their beliefs with him, and what dries can't be argued away by outsiders, but it can go wet again when the writer doubts it. Checked against §2.3 and adjusted where the paper differs (§9.4).
-- **The horcrux nod:** the third weapon may be a piece of the stranger who left the weapons. Used only for Evan, and only as a hint (§9.2).
+- **Echo is Simone's pet, not a hero.** The legend never mentions him. He rides along in every world and only reacts (§9.3).
 
 ### 5.2 Time budget and what to leave out [AI DRAFT]
 
@@ -480,101 +478,110 @@ These are the requirements every draft of Parts 2 and 3 must meet.
 | --- | --- |
 | Part 0 · Frame and OP | ~2.5 |
 | Part 1 · Legend (L0–L7) | ~6 |
-| **Part 2 · The relay** | **~10.5** |
-| **Part 3 · Access and the finale** | **~6.5** |
+| **P1 · The Trial** | **~3** |
+| **P2 · The Door** | **~5** |
+| **P3 · The Wedding** | **~3.5** |
+| **Part 3 · Access and the confrontation (R1–R11)** | **~4.5** |
 | Vote, ending, coda | ~1.5 |
 | Q&A and housekeeping | ~4 |
-| **Total** | **~31: about 3 minutes over** |
+| **Total** | **~30: about 2 minutes over** |
 
-Part 1 is now about 6 minutes after the cuts. The remaining 3 minutes have to come out of Parts 2 and 3 (open question 22). Each part's minutes include its concept slides as well as its scenes (see "Presentation format"), so scene lines will need to shrink to make room.
+Each row includes its concept slide as well as its scene (see "Presentation format"). The 2 minutes come out of P2 first, by its own cut list, then R7 and R9 in the Access sequence (open question 12).
 
-**Keep from the paper:** sensitive invariantism via Annis (social norms); the astrology objection; contextualism (the speaker's community fixes the claim; the technical-term worry; "Oh, come on"; the commitment view; the disagreement problem); relativism and expressivism as two answers, left open; E = K, "without trying," footnote 16; Access, the leak-down worry, the supervenience base and the forecast, the global cognitive home, the mobile home, Peter and Justine, split confidence.
+**Keep from the paper:** sensitive invariantism via Annis (social norms); the astrology objection; Wittgenstein's hinges (*On Certainty* §341, §345) and the point that no claim has to be a hinge for every inquiry; contextualism (the speaker fixes the claim; "Oh, come on"; the commitment view; the hunger case; the disagreement problem); Access, the leak-down worry, the supervenience base, the global cognitive home, the mobile home, Peter and Justine, split confidence.
 
-**Leave out:** Wright's "entitlement"; the quantifier and Rorty footnotes; secondary authors' names; hinges × contextualism; hinges × sensitive invariantism; knowledge × sensitive invariantism; belief at the base (Harman, at most a one-line gag); Conee & Feldman, anti-luminosity, the restricted version of Access.
+**Leave out:** Wright's "entitlement"; the quantifier and Rorty footnotes; secondary authors' names; the technical-term worry; hinges × contextualism; the knowledge route (E = K, footnotes 15–16); relativism and expressivism, beyond one line on the P3 concept slide; belief at the base (Harman); Conee & Feldman, anti-luminosity, the restricted version of Access.
 
-### 5.3 The relay at a glance [FIXED structure · AI DRAFT details]
+### 5.3 The three dreams at a glance [FIXED structure · AI DRAFT details]
 
-Greco's §3 is already a relay: each version runs into a problem, and the next version is brought in to fix it. So each person who wakes carries their world's problem into the next world.
+Greco's §3 moves in steps: each version runs into a problem, and the next is brought in. The dreams nest the same way: each one breaks open into the next.
 
-| Step | Who | World (version × routes) | The crack (Greco's objection) | Carried forward |
-| --- | --- | --- | --- | --- |
-| P1 | Simone, alone | Social × sensitive invariantism; an 1890s courtroom | A whole community can agree and still be wrong (astrology) | "My world's rule can't call a community wrong" |
-| I1–I3 | Simone, then the Ferry | The real ocean, twelve years | — | A town, an audience, and the third weapon |
-| P2 | Simone enters Cole's dream | Contextualism × social; modern streaming | The commitment view fixes the astrology problem, but creates the **disagreement problem**, played between Simone and Cole | "We both feel right, and we can't both just be reporting ourselves" |
-| P3 | Simone, Cole, Evan and Echo enter Rae's dream | Knowledge × relativism (Rae), with expressivism beside it (Echo) | Two answers to the disagreement, side by side; Greco declines to choose | — |
-| Part 3 | The three heroes, Evan and Echo, with the town behind them | The real ocean | — | The finale |
+| Step | Where | Version × route | Treasure | The crack, or what it plants | How it ends |
+| --- | --- | --- | --- | --- | --- |
+| P1 | An 1890s courtroom | Sensitive invariantism × social | The Gavel | A whole community can agree and still be wrong (astrology) | "This world is fake." The courtroom breaks into the next dream |
+| P2 | A coast road and a flooded ruin | Sensitive invariantism × hinges | The Hinge | A hinge is held, never proven. Planted: Cole's half-beat flicker at "you're not lying to me" | The door bursts. White |
+| P3 | A white chapel by the sea | Contextualism: the speaker | The Ring **[AI DRAFT proposal]** | The **disagreement problem**, played between Simone and Cole: both speak truly, and it's still a fight | The aisle splits. Simone wakes |
+| Part 3 | The real ocean | Access (§4) | All of them | — | Cole's confession, the moral question, the vote |
 
-**How rescues work [AI DRAFT]:**
-- Every sleeper lies inside a dome of ink. Whoever is awake touches a dome and falls in.
-- Nobody can simply be told. The rescuer has to help the dreamer find the crack themselves, and that's the quiz: the audience coaches the rescuer.
-- Dream walls are thin. Voices can leak through from a neighboring dome.
+**Echo [YOUR IDEA · AI VERSION]:** Simone's hermit crab is with her in every world: on her shoulder in the courtroom, in the bicycle basket on the coast road, in a ribboned carrier at the wedding, on her knee in the real ocean. He only reacts.
 
-**Echo [YOUR IDEA · AI VERSION]:** Simone's hermit crab was never asleep, because nothing in him was ever a belief. He is with her in every world: on her shoulder in the courtroom (P1), alone with her in the real ocean, on her shoulder in Cole's and Rae's dreams.
-
-**Time and eras [YOUR IDEA: the gap and the eras · AI DRAFT: the time rule]:** time runs fast inside the dreams and slow outside. While twelve years pass in the real ocean, centuries pass inside Cole's dome, which is why his world has livestreams and Simone's has gaslight. The longer someone dreams, the more it feels like home, so later rescues are harder.
-
-**Simone's age [AI DRAFT rule]:** people are made of beliefs, so they change only when their beliefs do. Her core beliefs stayed dry, so she barely aged, and her character design stays fixed.
+**Cole [YOUR IDEA · AI VERSION]:** awake for a very long time. He walks back into the dreams by choice, because that's where his life with Simone is. In every dream she meets him as a stranger.
 
 **Visual tells [AI DRAFT]:** a faint dome of ink overhead and one dark thread in a corner of every dream frame.
 
-### P1 · The Trial · Simone · social × sensitive invariantism · the Gavel [FIXED] · ~2 min
+### P1 · The Trial · Simone · social × sensitive invariantism · the Gavel [FIXED concept · YOUR IDEA · AI VERSION text] · ~2 min
 
-**[FIXED: the author's requirements]** The legend was Simone's testimony all along: she was the narrator, and her first lines continue the legend. A dream-world courtroom, 1890s, in the style of the classic courtroom-battle games. One question only: **is this world real?** Simone knows the judge's gavel is the first sacred treasure and says so; everyone laughs. The judge, the calm, thoughtful one, hands it over to test it. Three demonstrations, then the final ruling: "This world is fake." The dream collapses.
+**[FIXED: the author's requirements]** The legend was Simone's testimony all along: she was the narrator, and her first lines continue the legend. A dream-world courtroom, 1890s, in the style of the classic courtroom-battle games. One question only: **is this world real?** Simone knows the judge's gavel is the first sacred treasure and says so; everyone laughs. The judge, the calm, thoughtful one, hands it over to test it. Five short scenes.
 
-**Paper:** Annis's social view, read as sensitive invariantism: a belief is foundational when it meets no objections from the objector group that the community's standards pick out (§2.1, §3). Undoubted, not undoubtable. The astrology objection: agreement settles a claim, it doesn't make it true (§3).
+**The Gavel's rule [FIXED: the author's design]:** say a claim, ask "Any objections?" If nobody in the room objects, BANG: it takes effect. The moment anyone objects, the effect reverts. If the objection is answered and withdrawn, the claim holds again. This is the world's own rule: dry ink goes wet again when it's questioned and nobody can answer.
 
-> *(The legend's last painting pulls back. The narrator's voice was coming from the dock.)*
+**Paper:** Annis's social view, read as sensitive invariantism: you're justified in accepting a claim with no further reasons when your community raises no objection to it (§2.1, §3). Undoubted, not undoubtable. The astrology objection (§3): a whole community can treat something wrong as unobjectionable, and that doesn't make it right. **[FIXED]** The scene only shows this, it never says it; the presenter explains it if needed.
+
+**P1.1 · The Testimony**
+
+> *(The legend's last painting pulls back. The narrator's voice was coming from the witness stand.)*
 > **Simone:** …and the treasures were never found. Until now. That's the legend, and this world is part of it. It's fake. *(She points at the bench.)* And that gavel, Your Honor, is one of the treasures.
 > *(The gallery roars with laughter. Only the judge doesn't laugh. He glances at the gavel in his hand.)*
+
+**P1.2 · Court Is Now in Session**
+
+> *(Above the bench hangs a great brass zodiac wheel. Nobody looks at it twice.)*
 > *[Banner:]* **COURT IS NOW IN SESSION**
-> **Judge:** The defendant stands accused of spreading the rumor that this world is fake.
+> **Judge:** The stars favor this session. *(The jurors nod.)* The defendant stands accused of spreading the rumor that this world is fake.
 > **Prosecutor** *(smirking)***:** The world is real, My Lord. Nobody here doubts it.
-> **Judge:** Does the jury object? *(Six jurors, silent.)* *(BANG.)* So ordered. The world is real.
-> *(The courtroom floor gleams, solid.)*
+> **Judge:** Does anyone object? *(Silence. BANG.)* So ordered. The world is real.
+> *(The floor gleams, solid.)*
 > **Simone:** My Lord, may I borrow your gavel?
-> *(The gallery howls. Even the jurors laugh.)*
-> **Prosecutor:** **OBJECTION!** The defendant is mocking this court!
-> *(The judge says nothing. He looks at the gavel. Then at Simone. A long pause.)*
-> **Judge:** …Overruled. *(He holds it out to her.)* Show me.
->
-> **Simone:** It's warm in here. Any objections?
-> *(Silence.)* *(BANG. Sunlight pours through the windows. The jurors loosen their collars.)*
+> *(The gallery howls. The judge looks at the gavel, then at her. A long pause.)*
+> **Judge:** …Show me.
+
+**P1.3 · Not Guilty**
+
+> **Simone:** The defendant is innocent. Any objections?
+> *(Silence. BANG. "NOT GUILTY" confetti rains down. Her shackles fall off.)*
 > *(The laughter stops.)*
->
-> **Simone:** The judge's wig is on backwards. Any objections?
-> *(Silence.)* *(BANG. The judge's wig spins around.)*
-> **Judge** *(calmly straightening it)***:** …Hm.
->
-> **Simone:** The lake outside is melting. Any objections?
-> **Juror No. 4:** **OBJECTION!** It's the middle of winter!
-> *(BANG. Nothing happens. The lake stays frozen.)*
-> **Simone:** You just agreed it's warm in here.
-> **Juror No. 4** *(sweating)***:** …I withdraw the objection.
-> *(BANG. Outside, the ice cracks and the lake turns to water.)*
-> **Simone** *(thinking)***:** *(Whatever this jury lets pass becomes real. Not true. Just settled.)*
->
+> **Prosecutor:** **OBJECTION!**
+> *(The confetti flies back up into the ceiling. The shackles snap back onto her wrists.)*
+> **Simone** *(looking at the gavel)***:** …So that's how it works.
+
+**P1.4 · The Dream**
+
+> **Simone:** The prosecutor is dreaming. Any objections?
+> *(Silence. BANG. He slumps over the desk, snoring, a nightcap on his head.)*
+> *(The whole room is silent. Then, from the very back of the gallery, a small old woman stands up.)*
+> **Old woman:** **OBJECTION!** My son never sleeps on the job!
+> *(POP. He jolts awake, nightcap gone.)*
+> **Prosecutor:** …Mother?
+> **Judge** *(calmly)***:** …Hm.
+
+**P1.5 · The Verdict**
+
 > **Judge** *(quietly)***:** Go on.
 > **Simone:** This world is fake. Any objections?
-> *(The jurors look at the sunlight, the wig, the melting lake. Silence. Not one objects.)*
-> *(BANG.)*
-> *(Cracks race across the walls, the windows, the sky. The dream breaks.)*
+> **Prosecutor:** **OBJECTION!** Worlds don't just turn out to be fake!
+> **Simone:** **TAKE THAT!** *(She raises the gavel.)* And gavels don't rain confetti from nowhere, or put a man to sleep mid-sentence. You all saw it. Which real world works like this?
+> *(The prosecutor sweats. His mother slowly sits down. The jurors look up at the ceiling where the confetti went.)*
+> **Prosecutor:** …I withdraw the objection.
+> *(Silence. BANG. Cracks race across the walls, the windows, the sky. The dream breaks.)*
 
 **What each beat teaches (the concept slide has already explained the theory):**
 
 | Beat | Paper point |
 | --- | --- |
-| The judge's first ruling: no jury objection, BANG, the floor is solid | The social route: no objection from the objector group makes a claim foundational |
-| Rounds 1 and 2 | The rule, shown working twice |
-| Round 3: a juror's objection blocks it; answered and withdrawn, it goes through | Justified means it can meet the group's objections: undoubted, not undoubtable. Only the jury's objection matters, not the prosecutor's or the gallery's (the objector group is a subset of the community) |
-| "Not true. Just settled." | The astrology objection: agreement settles, it doesn't make true |
-| "This world is fake." | The rule the audience just learned, turned on the world itself |
+| P1.3 · nobody objects, the confetti falls | The social route: no objection, so the claim is justified and takes effect |
+| P1.3 · one objection, the confetti flies back | The justification lasts only while nobody objects |
+| P1.4 · everyone silent but one old woman in the back | Not a majority vote: anyone in the community objecting is enough |
+| P1.4 · the dreaming prosecutor | A quiet hint: everyone in the room is dreaming too |
+| P1.5 · TAKE THAT, then the objection withdrawn | Undoubted, not undoubtable: an objection that has been answered no longer blocks the claim |
+| P1.2 · "The world is real" holds; the zodiac wheel; the jurors nod at "the stars favor this session" | The astrology objection, shown and never stated: a whole community can accept something wrong, and the rule still counts it as justified. The audience already knows this world is fake |
 
 **Notes [AI DRAFT]:**
-- **The judge** is the calm, thoughtful one: he never laughs, overrules the prosecutor, hands over the gavel, stays unruffled when his own wig spins, and says "Go on." He's the lighthouse keeper, the one person in the dream who half-suspects the truth.
-- **Rule of three:** the first demonstration surprises, the second confirms, the third (with the blocked objection) convinces, so the final collapse feels earned.
-- **Courtroom-game format:** the session banner, "My Lord," the shouted "OBJECTION!", the prosecutor overruled, sweating jurors.
+- **The judge** is the calm, thoughtful one: he never laughs, hands over the gavel, and says only "…Hm." and "Go on." He's the lighthouse keeper, the one person in the dream who half-suspects the truth.
+- **Why the prosecutor can't object in P1.4:** he's asleep. If he could object, he'd undo it himself, and his mother's objection is the point.
+- **Courtroom-game format:** the session banner, "My Lord," the shouted "OBJECTION!", "TAKE THAT!" when Simone presents her evidence, the sweating prosecutor.
+- **Scope:** "anyone in the room" is simpler than Annis's exact objector group (the people whose objections count by the community's standards). Mention it in Q&A if asked.
 
-**Visual:** a courtroom in the style of classic courtroom-battle games: warm wood panels, judge's bench high in the center, jury box of six, gallery behind, jagged shout bubbles, screen shake on each BANG. Simone at the defense bench, Echo peeking from her carrier. Through the tall windows, a frozen ink lake. A homage to the genre only: don't copy any existing character, logo or sprite.
+**Visual:** a courtroom in the style of classic courtroom-battle games: warm wood panels, the judge's bench high in the center with a large brass zodiac wheel above it, a jury box of six, the gallery behind, jagged shout bubbles, screen shake on each BANG. Simone at the stand, Echo peeking from her carrier. Snow and a frozen lake through the tall windows. New art: P1.3 (confetti and shackles) and P1.4 (the prosecutor asleep in a nightcap; his small old mother standing at the back of the gallery). P1.1, P1.2 and P1.5 reuse the courtroom image with the zodiac wheel added. A homage to the genre only: don't copy any existing character, logo or sprite.
 
 ### P2 · The Door · Simone and Cole · hinges × sensitive invariantism · the Hinge [YOUR IDEA · AI VERSION · chant and filler lines AI DRAFT] · ~4–4.5 min
 
@@ -662,9 +669,6 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 **Page 7 · White [YOUR IDEA: everything bursts out and the screen goes white · AI VERSION lines]**
 
 > *(One gap left. The door shudders on its hinge. Lines of words glow all over the brass.)*
-> **Cole:** When it goes, don't hold on to me.
-> **Simone:** Will I see you again?
-> **Cole** *(smiling)***:** You always do. You just never remember.
 > **Cole:** For this door, and this door alone—
 > **Simone:** —we take you as given, without further reasons!
 > **Both:** These questions we return to you: CLOS—
@@ -689,152 +693,97 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 **Notes [AI DRAFT]:**
 - **Cole** has been awake for a long time and knows Simone. She doesn't remember him. Whether this Cole is real or part of the dream stays unanswered. His flicker at "you're not lying to me" is the hook.
 - **Echo** only reacts: his shell rattles at the omen, and he rides in the bicycle basket.
-- **Time:** the scene runs ~4–4.5 minutes, longer than P1. If it has to shrink, cut in this order: the Gavel beat on Page 5; merge Pages 3 and 4; "The ground holds!" and "The door is here!". Keep "Never mind," the eyes faltering, "you're not lying to me," and "You just never remember."
+- **[FIXED] No personal talk at the door.** Once the flood starts, everything is urgent: they're busy closing the door, not talking. Nothing after Page 3 hints at who Cole is to her. Their real meeting, and the love lines, are saved for the wedding (P3).
+- **Time:** the scene runs ~4–4.5 minutes, longer than P1. If it has to shrink, cut in this order: the Gavel beat on Page 5; merge Pages 3 and 4; "The ground holds!" and "The door is here!". Keep "Never mind," the eyes faltering, and "you're not lying to me."
 
 **Visual:** a luminous, painterly animated-film look: towering cumulus skies, sparkling sea light, lens glow, overgrown ruins and flooded floors with reflections. Everything except the hinge is ink: the column is made of tiny black question marks, the door planks are dried black ink, and the brass hinge carries glowing engraved lines. A homage to the genre only: don't copy any existing character, logo or film frame. Shot list: [p2-door-world-shot-list.md](story-illustrations/p2-door-world-shot-list.md).
 
-### I1–I3 · Interlude: alone, the Ferry, Here, and the third weapon [FIXED concept · AI DRAFT montage] · ~1.5 min, no quiz
+### P3 · The Wedding · Simone and Cole · contextualism · the disagreement problem [YOUR IDEA · AI VERSION · lines AI DRAFT] · ~2.5 min
 
-**I1 · Alone**
+**[YOUR IDEA · AI VERSION]** The third dream, a dream inside a dream: the white flash from the door becomes a wedding, in the chapel Simone glimpsed through the door in P2. Cole is the groom. She doesn't remember him. The love story sits inside the philosophy: he says "I love you," she says "I don't love you," and both can be right. Then they clash over something they can't both be right about so easily, and the dream splits down the aisle.
 
-> *(A drop of ink that has hung in mid-air for ages finally falls. Plink.)*
-> **Narrator:** Nobody knows how long she slept. Long enough that the ink had forgotten what it said.
-> *(Simone on one dry plank in an endless grey ocean. Domes of ink in every direction, a sleeper curled inside each.)*
-> *(On her knee: Echo, exactly as before. Everything she had known had been a dream. Except, somehow, the crab.)*
-> **Narrator:** He had never been asleep. Nothing about him had ever needed to be true.
-> *(She bangs the gavel. Nothing.)*
-> **Narrator:** A gavel needs a room. No one to object. Also no one to agree.
-> *[Caption: Year 1.]* *(Simone looks at the gavel. One treasure. Somewhere, two more.)*
-> *[Caption: Year 3.]*
-> **Narrator:** She told Echo everything. Echo raised his claw at the parts he liked.
+**Paper:** §3, the contextualist version (pp. 430–431). "Oh, come on" as ordinary talk that treats a belief as a starting point. The commitment view: in calling a belief foundationally justified, I state that I'm committed to treating it as such, not asking for further reasons and accepting it as a reason for more. The hunger case: "I'm hungry" and "I'm not hungry" don't disagree; both can be right. The disagreement problem: on the commitment view, two people who call the same thing foundational and not foundational are each stating their own commitment, so both speak truly, yet it's plausible that they really disagree.
 
-**I2 · The Ferry and Here**
+**Rule of this world [AI DRAFT]:** ink dries on words. A sentence dries the moment its speaker stands behind it, and it dries under the speaker.
 
-> *[Caption: Year 4.]* *(One dome looks like home: gaslight, a courthouse, a frozen lake. She knows its rules. She goes in. A while later a juror stumbles out, blinking.)*
-> **Narrator:** Some sleepers dreamed by her own rules. Those, she could wake.
-> *(Two, then five, then twelve. She bangs the gavel. This time the silence comes from people: nobody objects. Ground spreads under all of them.)*
-> **Narrator:** With a room to listen, the gavel finally worked.
-> *[Caption: Year 6.]* *(In a drowned harbor, the Ferry hauls up an old anchor: the second treasure.)*
-> **Narrator:** They called the town Here, after the stranger's last words. They called themselves the Ferry, because they carried sleepers across.
-> **Narrator:** The first law of Here: no asking "Are you sure?" after dark.
-> **Narrator:** The first school taught one subject: when to ask, and when not to.
-> *(A dome that won't open. Inside, a young man talks to a glowing rectangle. Simone presses her hand to it. Nothing.)*
-> **Narrator:** Some domes wouldn't open for a stranger. They opened only for someone with an audience of her own.
-> *(One more dome, glassy navy. Nothing works on it.)*
-> **Narrator:** And one would open only for someone who *knew*.
-> *(Inside, a young woman in a navy cap punches tickets nobody hands her. Echo presses his claw to the glass. One stick near Simone's heart reads ECHO IS SAFE WITH ME.)*
-> *[Caption: Year 12.]*
+**Beat 1 · The aisle [YOUR IDEA: the white becomes a wedding; Cole is the groom; she doesn't know him · AI DRAFT lines]**
 
-**I3 · The third weapon**
+> *(Organ music. The white becomes a chapel by the sea. Petals. Simone is in a wedding dress, the Gavel and the Hinge tucked into her bouquet, Echo in a ribboned carrier. Guests made of ink cubes turn to look.)*
+> *(At the end of the aisle: the man from the coast road, in a suit. Between them stands the old judge, a book open in his hands.)*
+> **Cole** *(quietly)***:** You came.
+> **Simone:** I don't know who you are.
+> **Cole:** I know.
 
-> **Narrator:** For twelve years, the Ferry searched every sea for the third weapon.
-> *(Town hall. A small, courteous fountain pen with two eyes on its clip lies beside the minutes book. Simone picks it up to take the minutes and writes: "Rain at dawn." The ink dries the instant it touches the page. No question mark. No answers needed.)*
-> *(A villager leans over and shouts at the page.)*
-> **Villager:** WHY?
-> *(Nothing happens.)*
-> *(Simone writes, as a test: "Echo can talk." The ink stays wet, and stays wet for the rest of the scene.)*
-> **Evan** *(politely)***:** I'm afraid that one isn't so.
-> **Simone:** You only dry what's so.
-> **Evan:** What the writer knows. Anything else would be impolite.
-> **Simone:** You're the third sacred weapon.
-> **Evan:** I'm a pen. I write down what's so. I'm not one of *those*.
-> **Narrator:** The third weapon had been found. It disagreed.
-> **Narrator:** He had never meant to found anything.
-> *(Echo raises his claw over the dry line, and only over that one.)*
+**Beat 2 · "Oh, come on" [AI DRAFT]**
 
-**How the third weapon works [YOUR IDEA · AI VERSION, checked against the paper; full check in §9.4]:**
-- **Anyone can write with Evan, and only what the writer knows dries.** A lie never dries. Neither does a lucky guess. What you actually saw dries at once, by itself. (Factivity: you can only know what's true. This is standard background to Williamson's view rather than something Greco spells out.)
-- **"Why?" bounces off.** What you know needs no further reason behind it: knowledge is evidence, and it stops the regress by itself (Williamson's E = K, which he calls "a very modest kind of foundationalism"). This is the author's "others can't question it," made exact: others *can* ask, but the ink doesn't need to answer.
-- **The same pen gives different results in different hands,** because this route pairs with any flexible view of knowledge (§2.3). For Simone it dries when little is at stake; for Cole it dries unless someone in his audience raises a doubt he can't answer; for Rae it's dry now and wet again when someone who knows more reads it later. Echo raises his claw over Evan's ink and nothing else: expressivism reaches foundations only through knowledge (§3).
-- **The catch (the author's idea, widened to match the paper):** the ink softens when a doubt is taken seriously and nobody can dispel it (footnote 16). The most dangerous doubter is the writer, because doubting whether you know leaks down into doubting the thing itself (§4.1). Hinted in P3, revealed in R6.
-- **It isn't "my own experience."** Evan dries what you know about the world ("the boat is leaking"), not how things seem inside you. Retreating to "it seems to me" is Descartes's grain again: the cognitive home Greco argues against (§9.4).
-- **[AI DRAFT] "Without trying," twice over.** Greco's phrase means you can end up a flexible foundationalist without aiming to (§2.3). Evan never meant to be a weapon, and Williamson himself rejects the flexible views (footnote 15), so Evan denies he's one.
-
-**Why the gap is so long [AI DRAFT]:** the paper supplies the reason. Simone can't open Cole's dome until she has an audience to speak to, because in his world the speaker's community fixes what a sentence claims. So Here has to exist first. And the knowledge domes need someone who knows, so the Ferry needs Evan.
-
-**Visual:** the grey ocean and the domes; Simone alone on one plank; then the town of Here growing across three panels, on sticks of many colors; the town hall; Evan's ink drying on the page with a faint glow.
-
-### P2 · The Broadcast · Cole · contextualism × social [AI DRAFT · Echo's beats YOUR IDEA · AI VERSION] · ~3.5 min
-
-**Paper:** §3: the contextualist version; the technical-term worry; "It must be cold" and "Oh, come on"; the speaker-commitment view; the problem of disagreement (pp. 430–431).
-
-**Rule of this world:** ink doesn't dry under feet. It dries on *words*. Each sentence floats out as a ribbon, and whether it dries depends on **the community the speaker is talking to**.
-
-> *(Centuries of dream time have passed in here. A neon night sea. Cole on a raft in his ring light, mid-stream.)*
-> **Cole:** Chat. Chat. Look at this reef. That reef is *solid*.
-> *(For his chill chat, the ribbon dries rust-red. He flips to the pedant stream, @tidetablepurists.)*
-> **Cole** *(snapping upright, anchor voice)***:** For the record: that reef is solid.
-> *(Same sentence. The ribbon stays wet.)*
-> **Narrator:** Same sentence. Same reef. Two different claims.
-> *(Simone climbs onto his raft, dripping, an old gavel in her hand and a hermit crab on her shoulder.)*
-> **Chat:** who is this · is she a judge · gavel lady lol · is that a CRAB
-> **Simone:** You're asleep. This is a dream.
-> **Chat:** ratio
-> **Narrator:** Nobody can be told. You have to see it for yourself.
-> **Cole:** Okay, gavel lady. "Your belief is foundationally justified." Happy?
-> **Chat:** bro what does that even mean
-> **Narrator:** Nobody talks like that. Not even philosophers, at parties.
-> **Simone:** Then listen to how people do talk.
-> **Cole:** …"It must be stormy out there."
-> *(The ribbon dries, with a thread tied to the clouds: he inferred it.)*
-> *(Echo climbs down Simone's arm and pinches Cole's ankle.)*
-> **Cole:** Ow! That hurts!
+> **Cole:** I love you.
+> *(The words float out as a ribbon of ink and dry at once.)*
 > **Simone:** What makes you think that?
 > **Cole:** Oh, come *on*.
-> *(That ribbon dries instantly. No thread at all.)*
-> **Narrator:** Some beliefs, Cole discovered, he simply refused to defend. Philosophers call this foundational. Cole called it obvious.
-> **Simone:** Where I come from, a whole town agreed their world was real. By our rules, they were justified. They were dreaming.
-> **Cole** *(to camera)***:** Chat, that town was wrong.
-> *(The ribbon dries.)*
-> **Narrator:** In this world, Cole wasn't describing the town. He was stating his own commitment. Which meant that, for once, someone could call a whole community wrong.
-> *(Simone breathes out. Then she frowns.)*
-> **Simone:** By my world's rules, they were justified.
-> **Cole:** Not by mine.
-> *(Both ribbons dry. Neither wobbles.)*
-> *(Echo looks from one to the other, then raises his big claw toward Simone and his small one toward Cole. Both at once.)*
-> **Cole:** …I'm starving.
-> **Simone:** I'm not.
-> **Narrator:** Those two didn't contradict each other. Then why did the first two feel like a fight?
-> **Narrator:** Echo didn't think either of them had a fact wrong. He thought they were *for* different things. Nobody asked Echo.
+> *(No reason behind it. It holds anyway.)*
+> **Narrator:** Some things Cole simply refused to defend. Philosophers call that foundational. Cole called it obvious.
 
-**The crack:** if each of them is only stating their own commitments, both can be right, and yet it feels like a real disagreement. **Quiz Q3.** The dome splits, and they both fall out into Here.
+**Beat 3 · Both right [YOUR IDEA · AI VERSION lines]**
 
-**Visual:** a neon night sea, Cole on a small raft in his ring light, rust ribbons of ink drifting from his mouth, glowing paper slips of chat around him; Simone, in 1890s clothes and dripping, in the middle of it; Echo on her shoulder with both claws raised.
+> **Simone:** I don't love you.
+> *(Her ribbon dries too. The guests gasp. Neither ribbon wobbles.)*
+> **Narrator:** Nobody had said anything false. He was telling her about Cole. She was telling him about Simone.
 
-### P3 · Glass and Tide · Rae · knowledge × relativism, with Echo's expressivism beside it [AI DRAFT · recast for the author's Echo idea] · ~2 min
+**Beat 4 · The fight [AI DRAFT · a proposal, not confirmed]**
 
-**Paper:** §2.3 (E = K plus a flexible view of knowledge) and the close of §3: some philosophers move to relativism or expressivism to handle disagreement; on some views, relativism and expressivism about knowledge just are relativism and expressivism about foundations (pp. 429, 431). Greco declines to choose. Because he spends so little space here, this is one short scene.
+> **Judge:** The ring.
+> *(Cole takes her hand. Under their feet the aisle is dry and white.)*
+> **Cole:** What we have is solid ground. I'm building on it.
+> **Simone:** It's built on nothing.
+> *(Both sentences dry. His under him. Hers under her.)*
+> **Narrator:** Each of them was only saying what they would stand on. So both spoke truly, again. Then why did this one feel like a fight?
+> *(A crack runs down the aisle between them. Echo's shell rattles.)*
 
-**Rules:** in Rae's **Glass Sea**, whether a patch counts as dry depends on *who is assessing it*, and no assessor is privileged. Beside it, **Echo**, awake from the real ocean, shows the other answer: calling footing solid is something you *do*. You raise a claw.
+**Quiz Q4.**
 
-> *(Simone, Cole, Evan and Echo stand before the glassy navy dome. Simone writes with Evan on the glass: "There is someone inside. I can see her." The ink dries. The wall softens and lets them in.)*
-> **Narrator:** Only someone who knew could open it.
-> *(A mirror-flat navy sea. Rae, cap low, ticket punch in hand.)*
-> *(Cole takes Evan and writes: "Simone is standing on solid ink. I can see it." From Cole's side, the words dry blue.)*
-> **Cole:** See? She knows it. It's her evidence.
-> **Rae** *(looking at the same patch)***:** A glass sea shows reflections. *(click)* Not valid.
-> *(Under Rae's gaze, the same line sags a little and goes damp. Nobody can say how they know it isn't a reflection.)*
-> **Narrator:** This time they were judging the same claim. Each verdict was right from where its judge stood.
-> **Narrator:** And Evan's ink, it turned out, could get wet. Nobody wanted to think about that yet.
-> *(Echo walks out onto the disputed patch. There's nothing to check. He regards Simone. Then the claw goes up. Clack.)*
-> **Narrator:** Echo didn't describe the patch. He committed to it.
-> **Narrator:** Two answers to the same disagreement, side by side. Neither won.
+**Beat 5 · The aisle splits [AI DRAFT]**
 
-**The crack:** two equally live answers, and the paper leaves the choice open. The lie that there's one rule for the whole ocean can't survive that. **Quiz Q4.** The dome shatters.
+> *(The judge holds out one ring. Cole's hand is steady. He has done this before.)*
+> **Cole:** Stay. It's a good life. I promise you it's a good life.
+> **Simone:** How would you know?
+> *(Half a beat. The same flicker as at the door.)*
+> *(Simone takes the ring. She doesn't put it on. In her other hand, the hinge.)*
+> **Simone:** You told me the prettiest worlds are the hardest to leave.
+> **Cole** *(very quietly)***:** …You remembered.
+> *(The crack reaches the altar. The chapel splits along the aisle into two dry floors, drifting apart. White pours in between them.)*
 
-**The hint [AI DRAFT]:** Rae's doubt is one nobody can dispel, so in her assessment Evan's line stops counting as knowledge (footnote 16). That plants the catch revealed in R6.
+**The third treasure [AI DRAFT proposal]:** **the Ring.** Whoever wears it stands behind their word: what they vow dries under them, and only under them. It is the speaker's commitment made into an object (§3). Simone leaves the chapel with it unworn and first puts it on in R9. P3 also plays without it: the lines dry on being spoken, and the judge's "The ring" is only a wedding cue.
 
-**Visual:** a split frame along one seam through the disputed patch. Left: navy mirror sea, sharp reflections, Rae with her punch, the blue line going damp. Right: Echo standing on the same patch, claw raised, soft violet and coral light around him. Evan in Cole's hand at the seam.
+**What each beat teaches (the concept slide has already explained the theory):**
+
+| Beat | Paper point |
+| --- | --- |
+| 2 · "What makes you think that?" "Oh, come on." | Ordinary talk already treats some beliefs as starting points: refusing to give a reason is how people mark a foundation (§3) |
+| 3 · "I love you." / "I don't love you." | The hunger case: each speaker is talking about themselves, so there's no disagreement and both can be right |
+| 4 · "Solid ground." / "Built on nothing." | The commitment view: each states what they're committed to treating as a foundation, so both speak truly |
+| 4 · "Then why did this one feel like a fight?" | The disagreement problem: the view makes it look like the hunger case, but it's plausible they really disagree (§3) |
+| 5 · The aisle splits | The contextualist version, as it stands, can't say who's right. Greco leaves this open |
+
+**Notes [AI DRAFT]:**
+- **Why two exchanges.** "I love you" and "I don't love you" are about two different people, so they can't carry the disagreement problem by themselves. The problem needs one thing both of them are judging: whether their life together is a foundation.
+- **Cole knows this life is fake and wants it anyway.** His flicker at "How would you know?" is the same one as at the door. Both are paid off in R6 and R11.
+- **"You remembered"** refers to the line from the P2 flashback, the one fragment she has. She still doesn't know who he is.
+- **The old judge officiates:** the same calm figure as in P1, who half-suspects the truth.
+- **Echo** only reacts: his shell rattles when the aisle cracks.
+- **If it has to shrink:** fold Beat 2 into Beat 3 (keep "Oh, come on"), and cut "It's a good life. I promise you it's a good life."
+
+**Visual:** a small white chapel by the sea, the one seen through the door in P2: soft bloom, drifting petals, pale wood. Spoken lines float out as ribbons of ink and dry in the air. The crack is a thin black line down a white aisle. Cole in a suit, without his phone or ring light.
 
 ---
 
 ## 6 · Part 3 · The real ocean (*What does this explain?*) [FIXED concept · AI DRAFT scenes]
 
-### R1 · Three heroes, a crab, a pen, and a town behind them [AI DRAFT]
+### R1 · Awake [AI DRAFT]
 
-> *(Simone, Cole and Rae stand at the edge of Here, Echo on Simone's shoulder. Behind them, hundreds of people on dry sticks of every color. Evan bows to each newcomer in turn.)*
-> **Cole:** Okay. Chat? …Chat's asleep. *(He looks at the crowd.)* New chat.
-> **Rae:** *(looks at each of them, says nothing)*
+> *(The white drains away. A grey ocean to the horizon. Domes of ink in every direction, a sleeper curled inside each. Simone sits on one dry plank, Echo on her knee. In her lap: the Gavel, the Hinge, the Ring.)*
+> *(Beside her, already standing: Cole. No suit. He looks as if he has stood here many times.)*
+> **Simone:** Is this one real?
+> **Cole:** This is the one you wake up in.
 > **Echo:** *(clack)*
 
 ### R2 · The demon [FIXED villain and twists · AI DRAFT text]
@@ -848,7 +797,7 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 > **Simone** *(looking at the five bubbles, then up the strings)***:** It was never the creature.
 > **SOWHAT:** The creature is just how I look when I touch ink.
 
-Planted earlier: Descartes's hypothetical demon (L5); the dark sleeve at the guardian question mark (L1).
+Planted earlier: the prophecy (L3); Descartes's hypothetical demon (L5); the dark sleeve at the guardian question mark (L1).
 
 ### R3 · The goal [FIXED: save the dreamers · AI DRAFT details]
 
@@ -856,24 +805,27 @@ Planted earlier: Descartes's hypothetical demon (L5); the dark sleeve at the gua
 > **Y:** Why believe you're justified?
 > **Narrator:** The doubt leaks down. Nothing under them can dry. They never wake.
 > **Simone:** Then we wake them.
-> **Cole:** How?
-> **Simone** *(remembering the keeper)***:** Follow the light.
-
-On the horizon stands a lighthouse, the one place the demon's storm hasn't reached. It's dark.
+> *(On the horizon stands a lighthouse, the one place the demon's storm hasn't reached. It's dark.)*
+> **Simone:** Which way is it?
+> **Cole** *(a beat too long)***:** …North. I've walked it.
 
 ### R4–R10 · The Access sequence, following §4 of the paper [FIXED concept · AI DRAFT beats]
 
+Cole plays Peter and Simone plays Justine: what he told her fixes what she should believe, until his honesty comes into doubt.
+
 | ID | Story | Paper (§4) |
 | --- | --- | --- |
-| R4 · Grounds | The lighthouse gives one last flash before going dark: *north*. Taking for granted that it's honest and she read it clearly, the flash fixes which way Simone should go. A teal stick dries under her: NORTH. | Given Peter's honesty and Justine's hearing, what he said fixes what she should believe. |
-| R5 · The attack | **Y:** Why believe it said north? **SOWHAT:** So what? Can you even tell whether you're justified? The stick softens; Simone sinks to her ankles. **Cole:** Uh. Simone. You're sinking. | The leak-down worry: doubt about your grounds carries over to the belief. That's why Greco wants Access. |
-| R6 · Why it works | The distant light flickers: three flashes, two, none. **SOWHAT:** Maybe the keeper jokes. Maybe you miscounted. The demon can't wet Evan's ink by shouting at it, so it asks Evan himself: *"Was it really the lighthouse you saw?"* Evan can't answer, and his own minutes soften. **Demon:** I never touched it. You did. **Narrator:** If her grounds were whatever the light *really* flashed, the demon could hide it, and she'd have no way to tell what she should believe. | The supervenience base: if justification depended on hidden facts, a misleading forecast could mislead you about your own grounds. Peter jokes or mumbles. For Evan: footnote 16, and higher-order doubt leaking down (§4.1). |
+| R4 · Grounds | Cole has told her the way: *north*. Taking for granted that he's honest and she heard him right, what he said fixes which way she should go. A teal stick dries under her: NORTH. | Given Peter's honesty and Justine's hearing, what he said fixes what she should believe. |
+| R5 · The attack | **Y:** Why believe he said north? **SOWHAT:** So what? Can you even tell whether you're justified? The stick softens; Simone sinks to her ankles. | The leak-down worry: doubt about your grounds carries over to the belief. That's why Greco wants Access. |
+| R6 · He knew **[YOUR IDEA · AI VERSION]** | **Demon:** Ask him how long he's been awake. *(Cole says nothing.)* **Demon:** The courtroom. The door. The wedding. He knew every one of them was mine. *(In Simone's hand, one line on the Hinge goes dim: YOU'RE NOT LYING TO ME.)* **Simone:** Were you messing with me? **Cole:** Never. I just never said. **Narrator:** If her grounds were whatever Cole *really* meant, the demon could hide that from her, and she'd have no way to tell what she should believe. | The supervenience base: if justification depended on facts she can't get at, she could be misled about her own grounds. Peter turns out to be a prankster, or he mumbled. |
 | R7 · The tempting retreat | **SOWHAT:** Then retreat into your own mind, like Descartes. The grain-sized *I think* stick, the only belief that never got wet, drifts up beside her. **Simone:** That's very small. **Narrator:** It was. It always had been. | A global cognitive home, always-knowable facts big enough to fix all justification, is too much to ask. |
-| R8 · The mobile home | Echo climbs out of his shell and into an empty one drifting past. *Clack.* **Simone:** Then I'll move too. She stops asking "What did the light really flash?" and asks "Given what I can know here, which way?" **Cole:** I recorded the flashes. Habit. The **Anchor** drops: hold fixed that the recording isn't edited. She bangs the **Gavel**, and Here answers with silence: nobody objects. Evan writes what the recording shows, and it dries. **Quiz Q5.** | The mobile home: in each context, the facts that fix justification must be ones the subject is in a position to know. Justine falls back on Peter's email. |
-| R9 · Split confidence | The recording is blurry. **Simone:** Probably north. Maybe north-east. A stick dries for *that*, pressed with both words. **Narrator:** She didn't know where the lighthouse was. She knew exactly how sure to be. | Footnote 36: she may only be justified in spreading her confidence, and Access holds if she can know how to spread it. |
-| R10 · Access, and arrival | **Rae:** What makes you think that? Simone tells her: the recording, the keeper, Evan's minutes, her best guess. Rae looks for a long beat. *Click.* **Rae:** Valid. Simone steps forward; a stick dries ahead of her and the one behind melts. Step by step through the storm, she reaches the lighthouse and puts her hand on the lamp. **Narrator:** Her ground didn't stay put. It came with her. Like Echo's. | Access holds context by context. A new doubt can move the home again. |
+| R8 · The mobile home | Echo climbs out of his shell and into an empty one drifting past. *Clack.* **Simone:** Then I'll move too. She stops asking "Was he honest?" and asks "Given what I can know here, which way?" Far off, the dark lamp catches the light once. She saw that herself. The **Hinge**: for this walk, she holds fixed that her eyes work. *Different door, different hinge.* The **Gavel**: "North. Any objections?" Cole, the only one there who could object, stays silent. BANG. It dries. **Quiz Q5.** | The mobile home: in each context, the facts that fix justification must be ones the subject is in a position to know. Justine falls back on Peter's email. |
+| R9 · Split confidence | The glint was faint. She puts on the **Ring [AI DRAFT]** and says only what she'll stand behind. **Simone:** Probably north. Maybe north-east. A stick dries for *that*, pressed with both words. **Narrator:** She didn't know where the lighthouse was. She knew exactly how sure to be. | Footnote 36: she may only be justified in spreading her confidence, and Access holds if she can know how to spread it. |
+| R10 · Access, and arrival | **Cole:** What makes you think that? No "Oh, come on" this time. Simone tells him: the glint she saw, what she's holding fixed, her best guess. Cole looks at her for a long beat, and steps aside. She steps forward; a stick dries ahead of her and the one behind melts. Step by step through the storm, she reaches the lighthouse and puts her hand on the lamp. **Narrator:** Her ground didn't stay put. It came with her. Like Echo's. | Access holds context by context. A new doubt can move the home again. |
 
-### R11 · The moral question [FIXED concept · AI DRAFT text]
+**If it has to shrink [AI DRAFT]:** cut R7, then R9.
+
+### R11 · The moral question [FIXED concept · AI DRAFT text · Cole's confession YOUR IDEA · AI VERSION]
 
 > *(Simone at the lamp. The strings tighten across the sky.)*
 > **Demon:** There is no ground. There never was. Your old world dried on "because my mother said so." I didn't drown it. I showed you it was water.
@@ -881,22 +833,24 @@ On the horizon stands a lighthouse, the one place the demon's storm hasn't reach
 > *(beat)*
 > **Simone:** There's ground under me.
 > **Demon:** Then decide for everyone else. Wake them, to what? An ocean with no floor. The moment they start asking properly, half of each of them melts. In my dreams, each of them is whole: one world, one rule, home. Who are you to take that?
+> **Demon:** Ask the one who has been awake the longest.
+> *(Simone turns. Cole hasn't followed her to the lamp.)*
+> **Cole:** I knew. Every time. Out here there's a plank and a grey sea. In there, I had a life with you.
+> **Simone:** It was fake.
+> **Cole:** I know. I was happy. So were you.
+> **Simone:** I don't remember.
+> **Cole:** I do.
 > **Demon:** And you. What are *you* made of?
 > *(Simone looks down at the sticks of her own body. Near her heart: ECHO IS SAFE WITH ME. It dried long ago, on no reason at all.)*
-> **Cole:** Chat… are we the bad guys?
-> **Rae:** *(says nothing; the punch half-raised)*
-> **Evan:** *(uncaps, and doesn't write. There is nothing here to know.)*
-> *(Everyone's footing wobbles. Except Echo's. He has never stood on a fact in his life.)*
 > *(Echo climbs onto the lamp, turns to face the audience, and raises his claw. Waiting.)*
-> **Narrator:** The legend never mentioned a crab. Legends never count the pet.
-> **Narrator:** This question has no fact under it to dry. It only has what we're *for*. So we're asking you.
+> **Narrator:** Nobody in the story can answer this one. So we're asking you.
 
 **Notes [AI DRAFT]:**
 - **The epistemic question is settled before the moral one opens.** Simone has already answered the skeptic: there's no ground under the ocean, but there is ground under her. What's left open is what to do about everyone else.
+- **Cole is the demon's best case.** He is awake, he knows the dream is fake, and he chose it anyway. He never lied to her: her hinge was true. He just never said.
 - **This stays within the paper:** Greco's §3 runs on moral analogies (a community approving of something wrong; speaker relativism in ethics).
 - **The demon remains the antagonist** (it trapped everyone in dreams), but it gets the skeptic's best argument (§1.1c).
-- **[YOUR IDEA · AI VERSION] Echo's payoff:** the moral question is home ground for expressivism, which began in ethics (Ayer, then Gibbard) before it was applied to knowledge. The vote is a room-sized raise of claws (§9.3).
-- **[AI DRAFT] Optional demon line about Echo:** "He's safe because he never claimed anything. Would you like to live like that?"
+- **Echo** only reacts: his raised claw is the cue for the vote.
 
 ### R12 · The vote, and three endings [FIXED concept · AI DRAFT endings]
 
@@ -904,18 +858,18 @@ Every audience screen shows three choices for 15 seconds. The majority ending pl
 
 | Ending | What happens |
 | --- | --- |
-| **A · Light it** | The beam sweeps across the ocean and into every dome. Dreamers wake, melt a little, then find a stick that holds, then another. **Narrator:** "It hurt. Then they stood." **Simone:** "You can take my truth. You can't take my footing." The strings go slack. SOWHAT drops free and lands on Simone's other shoulder, next to Echo. |
-| **B · Let them sleep** | Simone takes her hand off the lamp. The domes glow on, each one home to someone. **Narrator:** "Everyone was happy. Nobody was right." The strings stay taut. |
+| **A · Light it** | The beam sweeps across the ocean and into every dome. Dreamers wake, melt a little, then find a stick that holds, then another. **Narrator:** "It hurt. Then they stood." **Simone:** "You can take my truth. You can't take my footing." The strings go slack. SOWHAT drops free and lands on Simone's other shoulder, next to Echo. Cole holds out his hand. **Cole:** "Hi. I'm Cole." **Simone:** "…Simone." |
+| **B · Let them sleep** | Simone takes her hand off the lamp. Cole holds out his hand. Organ music; the white comes back. The domes glow on, each one home to someone. **Narrator:** "Everyone was happy. Nobody was right." The strings stay taut. |
 | **C · Teach the question** | Simone pulls SOWHAT off its strings and sets it beside the first dome. In its own small voice, it asks the dreamer one question, and waits for an answer that matters. **Narrator:** "It wasn't the end of questions. It was the end of questions that never end." |
 
 After every ending: the title card in the same mock-anime style as L7's title card, **THE END.** *(beat)* **(Probably.)**
 
 **What each ending means [AI DRAFT]:**
-- **A:** truth over comfort; Access lets people stand without bedrock.
-- **B:** the astrology objection on a world scale: comfort a community accepts isn't justification.
+- **A:** truth over comfort; Access lets people stand without bedrock. Simone and Cole start again, awake.
+- **B:** the astrology objection on a world scale: comfort a community accepts isn't justification. Cole gets his life back.
 - **C:** flexible foundationalism as a practice: neither the lazy guardian nor the endless demon, but questions that come when they matter.
 
-**Staying honest [AI DRAFT]:** in no ending is the demon destroyed or the ocean proved real. Unit 2.2 already raised the worry that contextualism gives no reply to the skeptic. What changes is whether people can tell what they're justified in believing. Greco's paper never mentions the demon; present it as the class's skeptic from Units 2.1–2.2 meeting Greco's tool. The bridge to the paper is §4's misleading forecast.
+**Staying honest [AI DRAFT]:** in no ending is the demon destroyed or the ocean proved real. Unit 2.2 already raised the worry that contextualism gives no reply to the skeptic. What changes is whether people can tell what they're justified in believing. Greco's paper never mentions the demon; present it as the class's skeptic from Units 2.1–2.2 meeting Greco's tool. The bridge to the paper is §4's Peter and Justine.
 
 ### R13 · Coda: Giedt Hall [FIXED concept · AI DRAFT staging]
 
@@ -948,14 +902,14 @@ This is the professor twist (§6b): a hint, never confirmed. "Any questions?" is
 
 ## 7 · Quizzes [FIXED concept · AI DRAFT questions]
 
-The classroom vote (B or 13) opens the presentation in S0.3. In Part 2, each quiz is the audience helping the rescuer find the crack.
+The classroom vote (B or 13) opens the presentation in S0.3. In Parts 2 and 3, each quiz asks the audience to spot the point of the scene before the narrator says it.
 
 | # | Scene | Question (correct answer in italics) | Ingredients revealed |
 | --- | --- | --- | --- |
 | Q2 | P1 | The whole court agrees the world is solid, and the floor dries. What should Simone point out? (a) The court would object. (b) *A whole community can agree and still be wrong.* (c) The gavel decides what's true. | The Gavel + Simone's community (social × sensitive invariantism) |
-| Q3 | P2 | "They were justified." / "Not by mine." If each of them is only stating their own commitments, what's the problem? (a) One of them is lying. (b) *They wouldn't really disagree, yet it feels like they do.* (c) Cole's chat decides who's right. | The Conch + the speaker's audience (contextualism × social) |
-| Q4 | P3 | Rae punches; Echo raises his claw. Which describes the two answers? (a) *Relativism: truth depends on the assessor. Expressivism: calling it foundational is a commitment.* (b) Both say the claim is false. (c) Both say Cole is right. | Evan + the assessor / Evan + a commitment |
-| Q5 | R8 | The light is unreadable. What should fix Simone's grounds now? *Facts she can know here: the recording, the keeper, Evan's minutes, or her best guess.* | — |
+| Q3 | P2 | Simone falters at "my eyes must work": a minute ago she doubted them. Why can she hold it now? (a) She has proved her eyes work. (b) *Closing this door is a different inquiry, and this inquiry needs that hinge.* (c) Cole told her to. | The Hinge + Simone's inquiry (hinges × sensitive invariantism) |
+| Q4 | P3 | "It's solid ground." / "It's built on nothing." If each of them is only stating their own commitment, what's the problem? (a) One of them is lying. (b) *Both would be right, like "I'm hungry" / "I'm not," yet it feels like a real disagreement.* (c) The guests decide who's right. | The speaker's commitment (contextualism) |
+| Q5 | R8 | Cole's honesty is in doubt. What should fix Simone's grounds now? *Facts she can know here: the glint she saw, what she holds fixed for this walk, her best guess.* | — |
 
 ---
 
@@ -963,23 +917,20 @@ The classroom vote (B or 13) opens the presentation in S0.3. In Part 2, each qui
 
 | # | Question | AI default |
 | --- | --- | --- |
-| 1 | Timing: P1 ~2.5, interlude ~1.5, P2 ~3.5, P3 ~2, Part 3 ~6.5, vote and coda ~1.5 minutes. Does it fit? | Untested |
-| 2 | Simone's years alone: comic, quiet, or both? | Both: Echo for company (a *Cast Away* nod, except he's real), then one silent image of her alone on a single plank |
-| 3 | Names of the rebellion and the town | The Ferry (摆渡会) and Here (此地) |
-| 4 | Length of the gap | Twelve years outside; centuries inside Cole's dome |
-| 5 | Simone's age | Barely aged: people change only when their beliefs do |
-| 6 | P3: how to show relativism and expressivism together | One dome (Rae's), with Echo's answer beside it; Greco gives these views one paragraph |
+| 1 | Is there a third treasure? | Yes, so L7's "three treasures" and its artwork stay as they are. Proposal: the Ring, the speaker's commitment, found in P3 and first worn in R9. The alternative is two treasures, with a new L7 title card and illustration |
+| 2 | The real clash in P3 (Beat 4): "solid ground" / "built on nothing" | Use it. "I love you" / "I don't love you" is Greco's hunger case; the disagreement problem needs one thing they both judge |
+| 3 | How the wedding ends | The aisle splits into two dry floors. Simone leaves with the ring unworn |
+| 4 | Where Cole's secret comes out | The demon reveals it at R6, as the attack on Simone's grounds. Cole explains himself at R11 |
+| 5 | Did Cole lie? | No. "Never. I just never said." Her hinge was true |
+| 6 | Rae (relativism) and Echo's expressivism: bring them back? | Not in the main line. One line on the P3 concept slide: the disagreement problem is what moves some philosophers to relativism or expressivism |
 | 7 | Endings: A, B and C, or only A and C? | All three |
 | 8 | Number of quizzes in Parts 2–3 | Four (Q2–Q5) |
-| 9 | Belief at the base (Harman) | Drop it, or one line in the interlude |
-| 10 | Who pinches Cole? | Echo, riding into Cole's dream on Simone's shoulder |
-| 11 | Professor coda | Keep |
-| 12 | The demon: villain, or a misunderstood truth-teller? | Villain, with the skeptic's best argument at R11 |
-| 16 | Evan's form: a courteous fountain pen, or a living ink brush (matches the handscroll)? | Fountain pen |
-| 17 | Horcrux nod: Evan as a piece of the stranger who left the weapons, left behind by accident? | A hint only, never explained |
-| 18 | Where Evan's ink first sags: P2 (Cole's audience raises the doubt) or P3 (Rae)? | P3 |
-| 19 | Does Echo ever speak? | Never. Only claws |
-| 22 | How many of the 28 minutes go to Q&A and other housekeeping? The §5.2 table currently uses all 28 for the story | Reserve ~4 minutes, so the story runs ~24; cuts needed |
+| 9 | Professor coda | Keep |
+| 10 | The demon: villain, or a misunderstood truth-teller? | Villain, with the skeptic's best argument at R11 |
+| 11 | Does Echo ever speak? | Never. Only claws |
+| 12 | Timing: the §5.2 table runs about 2 minutes over the 28 | Shrink P2 by its own cut list; cut R7, then R9 |
+| 13 | Who officiates at the wedding? | The old judge from P1 |
+| 14 | The opening film introduces Simone, Cole, Rae and Echo (S0.5). Keep it as it is? | Keep |
 
 ---
 
@@ -1006,72 +957,54 @@ This section keeps the reasoning behind recent decisions in one place: what the 
 
 **Why the town's verdict is wrong:** their consensus really does make the floor solid, which shows the social route working, and they're still wrong, because they're dreaming. That one scene also plants the astrology objection: a whole community can agree and still be wrong.
 
-### 9.2 Weapons and heroes: does each route have one perfect match?
+### 9.2 Treasures and worlds: does each route have one perfect match?
 
-**The author's question:** should the three heroes be parts of the one who left the weapons, like horcruxes in *Harry Potter*, or should only the right person be able to use each weapon? That depends on whether the paper matches each route to exactly one version.
+**The author's question:** should only the right person be able to use each treasure? That depends on whether the paper matches each route to exactly one version.
 
 **Paper check:** it doesn't. In Greco, routes and versions aren't one-to-one:
 - **Social norms** pair with both sensitive invariantism and contextualism (§3).
 - **Hinges** also pair with both.
-- **Knowledge at the base** works with any flexible view of knowledge: contextualism, sensitive invariantism, relativism, "or others" (§2.3). Through it, relativism and expressivism too (§3, one sentence).
 
-**Decision:** "only the chosen one can wield it" would misstate the paper. Instead, each weapon answers to anyone, but differently in each hand: the weapon is the route, and the hand holding it is the version. It still parodies the chosen-one cliché, and it's what the relay already does: the Gavel dries footing by Simone's courtroom in her world and by Cole's audience in his.
+**Decision:** "only the chosen one can wield it" would misstate the paper. Each treasure is a route, and it answers to anyone who meets its condition. The Gavel needs a jury: in the flooded ruin Simone bangs it and gets only her own echo. The Hinge needs an inquiry: "For this door, and this door alone."
 
-**The horcrux idea:** kept only for Evan, as an unexplained hint. Like Harry, he'd be a piece left behind without anyone meaning it to happen, which echoes "without trying." Not used for the heroes: splitting him into three pieces would crowd a 20-second hook.
+**The third treasure [AI DRAFT proposal]:** the routes on stage are two, and the third world is a version, contextualism. So the proposed Ring stands for the speaker's commitment rather than for a third route. A wedding ring is the plainest picture of the commitment view: saying the words is taking on the commitment.
 
-### 9.3 Echo: from hero to the one nobody counted
+| | **Gavel** (social) | **Hinge** (hinges) | **Ring** (the speaker's commitment) **[AI DRAFT]** |
+| --- | --- | --- | --- |
+| What dries | What nobody present objects to | What you must hold fixed to carry out the inquiry in front of you | What the speaker stands behind |
+| Where it comes from | Other people | The inquiry | The speaker |
+| Can it be false? | Yes: a whole court can agree on something wrong | Yes: a hinge is held, not proven | Yes |
+| What breaks it | Any objection nobody can answer | The inquiry changes | Nothing breaks it, and that's the problem: two speakers can both stand firm and still be fighting |
 
-**The author's idea:** the legend never mentions Echo, but the expressivist still exists. Echo can be Simone's pet: a twist, a third figure who isn't a hero but actually matters.
+### 9.3 Echo: the one who only reacts
 
-**Why it fits the paper:**
-1. **Weight.** Greco gives sensitive invariantism and contextualism most of §3. Relativism and expressivism are left open, and expressivism connects to flexible foundations only through the knowledge route. A non-hero companion matches how the paper treats it: mentioned, undeveloped, but there.
-2. **The disagreement problem** is what moves some philosophers from contextualism to relativism or expressivism (§3). So Echo's first real beat belongs at the P2 disagreement, as a hint of the paper's next step.
-3. **Ethics.** Expressivism began as a view in ethics (Ayer, then Gibbard) before it was applied to knowledge. So the moral confrontation in R11 is Echo's home ground. That's the twist payoff.
-4. **The legend never mentions him.** *"Legends never count the pet."*
+**The author's idea:** the legend never mentions Echo. He is Simone's pet, not a hero.
 
-**Design:** Echo stays the Version C hermit crab, which is a fixed design. (In conversation the AI floated a color-changing cuttlefish; that's dropped, because the crab already does the job.) Raising the claw is a commitment, not a description. And swapping shells is the mobile home in R8.
+**Design:** Echo stays the Version C hermit crab, which is a fixed design. He never speaks. He reacts: a rattle of the shell, a raised claw. The model is Gromit in *Wallace & Gromit*: silent, expresses everything.
 
-**Rules [AI DRAFT]:** nothing dries under Echo, because a commitment isn't a belief, so he can't hold anyone up. SOWATT can't melt him either: "why believe that?" has nothing to grab when he never believed anything. **Honest note:** the second rule is a story liberty. In the paper, expressivism is a theory of what "knows" means, not a shield against skepticism. The cost (he can't help anyone stand) keeps it honest, and the demon can say so in R11.
+**Echo's beats:** P1 (the only one in the courtroom who doesn't laugh), P2 (in the bicycle basket; his shell rattles at the omen), P3 (in a ribboned carrier; his shell rattles when the aisle cracks), R8 (the shell swap, which is the mobile home in one image), R11 (faces the audience and raises his claw: the cue for the vote).
 
-**Echo's beats:** P1 (the only one in the courtroom who doesn't laugh), I1 (company in the empty ocean, a *Cast Away* nod, except Echo is real), P2 (pinches Cole into "Oh, come on"; raises both claws at the disagreement), P3 (the expressivist answer beside Rae's relativism), R8 (the shell swap), R11–R12 (faces the audience; the vote).
+**Avoided:** the pet-who-betrays twist (Scabbers in *Harry Potter*, Kyubey in *Madoka Magica*). The demon and Cole already carry the moral ambiguity.
 
-**Avoided:** the pet-who-betrays twist (Scabbers in *Harry Potter*, Kyubey in *Madoka Magica*). The demon already carries the moral ambiguity; a second dark twist would muddy it. The model is closer to Gromit in *Wallace & Gromit*: silent, expresses everything, secretly the smart one.
+### 9.4 The love story, checked against §3 and §4
 
-### 9.4 Evan: the third weapon, checked against §2.3
-
-**The author's proposal:** Evan, a strange creature, is himself the third weapon. Someone uses Evan to write their own belief, and what comes out can't be questioned by others, because evidence is a person's own experience or knowledge and no outside force can break it. The catch: if the person questions it themselves, it can break or go wet, and the story can reveal that later. The author asked whether this matches what Greco says about E = K.
+**The author's idea:** the story is mostly about Simone and Cole, a love story hidden inside the philosophy. Simone doesn't know who Cole is; Cole has been awake for a really long time. She says "I don't love you," he says "I love you," and they can both be right, because she has no memory of him at all. In the confrontation with the demon it comes out that Cole knows everything but doesn't want to break it, because in the dream world he has a happy, fulfilling life with her.
 
 **What Greco says:**
-- Williamson holds that knowledge is evidence (E = K). Items of knowledge can support further beliefs without needing support themselves, so knowledge plays a regress-stopping role: Williamson calls it "a very modest kind of foundationalism" (§2.3).
-- **"Without trying"** means a theorist can end up a flexible foundationalist by accident: accept E = K, add any flexible view of knowledge, and you're there (§2.3). It doesn't mean knowledge is effortless.
-- **Footnote 15:** Williamson himself rejects the flexible views of knowledge; others combine them with E = K.
-- **Footnote 16:** in any context where an attributor takes seriously a doubt the subject can't dispel, "S knows that P" is false as that attributor says it, so the belief can't stop regresses by that attributor's standards.
-- **§4.1:** doubting whether you know or are justified in believing P naturally, and reasonably, leads to doubting P. A doubted claim can't be foundational in the context where it's doubted.
+- **The commitment view (§3):** in calling a belief "foundationally justified," I state that I am committed to treating it as such: not asking for further reasons when people express it, and accepting it as a reason for further beliefs.
+- **The hunger case (§3):** if I say "I'm hungry" and you say "I'm not hungry," we aren't disagreeing; we can both be right.
+- **The disagreement problem (§3):** the commitment view makes "that's foundationally justified" / "no, it isn't" look like the hunger case. But when one person calls an action right and another calls it wrong, it's plausible that they really disagree.
+- **Peter and Justine (§4):** what Peter said fixes what Justine should believe, as long as we take him to be honest and her to have heard him. If he might be a prankster, or might have mumbled, we look for another base that she is in a position to know.
 
 **Check:**
 
-| The author's claim | What the paper supports | Verdict |
+| The author's line | What the paper supports | Verdict |
 | --- | --- | --- |
-| What you write with Evan becomes a foundation | Knowledge stops the regress (§2.3) | ✅ Exact |
-| Others can't question it | Others can ask; knowledge just doesn't need an answer to stand | ⚠️ Reworded: "why?" bounces off |
-| It's based on your own experience | No. E = K is about what you know of the world. An untouchable base of "my own experience" is the Cartesian cognitive home that Greco's §4 argues against | ❌ Changed |
-| It breaks only if you question it yourself | Self-doubt does break it (§4.1). But under footnote 16, a doubt taken seriously by whoever is judging can break it too | ⚠️ Widened |
+| "I love you" / "I don't love you": both can be right | This is the hunger case: each speaker reports on themselves | ✅ Exact, as the setup |
+| They're not really disagreeing | True of the love lines. The disagreement problem needs a pair that *feels* like a real disagreement | ⚠️ Added: "solid ground" / "built on nothing" **[AI DRAFT]** |
+| Cole knows everything and doesn't want to break it | Cole is Peter: the one whose word fixes what Simone should believe, until his honesty is in doubt (§4) | ✅ Fits R4–R8 |
 
-**A better story from the correction:** in Part 3 the demon can tempt Evan to write only "it seems to me…", which feels safe because nobody can doubt it. But that's Descartes's grain again: safe, and too small to stand on. Greco's answer is the mobile home: don't retreat inward; move to what you can know in this context.
-
-**How the three weapons differ:**
-
-| | **Gavel** (social) | **Anchor** (hinges) | **Evan** (knowledge) |
-| --- | --- | --- | --- |
-| What dries | What nobody around you objects to | What you must hold fixed to do the task in front of you | What you actually know |
-| Where it comes from | Other people | The task | Your contact with the world |
-| Can it be false? | Yes: a whole village can agree on something wrong | Yes | No: a false sentence never dries |
-| Response to "why?" | Needs the crowd to stay quiet | Needs the task to still be on | Bounces off |
-| What breaks it | An objector the group takes seriously | The task changes | A serious doubt nobody can dispel, especially your own |
-
-The "can it be false?" row is standard background about knowledge (Williamson's view), not something Greco states. It's the clearest way for the audience to tell the routes apart.
-
-**Kept from the earlier draft:** Evan's name, his courtesy, "One sees," and the reveal in R6. **Changed:** he's a pen anyone can write with, not a pen that writes its own minutes.
+**What the love story does for the paper:** the same two people carry the hinge ("you're not lying to me," P2), the disagreement problem (P3) and the Access case (Part 3), so the audience follows one relationship instead of three setups.
 
 ### 9.5 The core mechanism, stated at the start (L0)
 

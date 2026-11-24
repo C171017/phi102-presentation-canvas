@@ -1,6 +1,6 @@
 import { inkOceanStory } from './ink-ocean-story';
 import { inkOceanStoryTextId, savedStoryText } from './saved-story-text';
-import type { StoryScene } from './story-text';
+import { isStoryBeatHeading, type StoryScene } from './story-text';
 
 type StorySceneId = keyof typeof inkOceanStory;
 
@@ -46,7 +46,8 @@ function storySlide(id: StorySceneId): InkOceanScene {
     imageOnly: illustration?.imageOnly,
     // A title card occupies its own navigation step without a transcript.
     cues: illustration?.imageOnly ? [{ speaker: '', text: '' }]
-      : paragraphs.flatMap(paragraph => paragraph.split('\n').map(line => line.trim()).filter(Boolean).map(cueFromParagraph)),
+      : paragraphs.flatMap(paragraph => paragraph.split('\n').map(line => line.trim())
+        .filter(line => line && !isStoryBeatHeading(line)).map(cueFromParagraph)),
   };
 }
 

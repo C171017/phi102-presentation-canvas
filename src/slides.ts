@@ -189,6 +189,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
 
   return {
     measure, refit, update, open, step, entryFor, cancelOpening, isFocused: () => visible >= 0,
+    isOnCanvas: () => visible < 0 && entering === undefined,
     previewExit(active: boolean) { previewingExit = active; },
     leavePage() {
       cancelOpening();

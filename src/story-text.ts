@@ -11,6 +11,10 @@ export type StoryScene = StoryText & {
 export type SavedStoryText = StoryText & { revision: string };
 export type StoryEdits = Partial<Record<string, SavedStoryText>>;
 
+export function isStoryBeatHeading(line: string) {
+  return /^P\d+\.\d+ · /.test(line.trimStart());
+}
+
 export function isStoryText(value: unknown): value is StoryText {
   if (!value || typeof value !== 'object' || !('title' in value) || !('paragraphs' in value)) return false;
   const { title, paragraphs } = value;

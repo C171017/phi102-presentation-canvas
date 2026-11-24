@@ -120,8 +120,8 @@ export const openingNotes: Record<string, SlideNotes> = {
   P1: {
     claim: 'A community can take a claim for granted and still be wrong.',
     points: [
-      'The jury’s silence lets the gavel change the room. A juror’s objection keeps the lake frozen.',
-      'The gavel settles what the jury accepts. Agreement alone cannot make a claim true.',
+      'The gavel’s rulings hold while the room is silent. The prosecutor and his mother each undo a ruling by objecting.',
+      'The gavel settles what the courtroom accepts. Agreement alone cannot make a claim true.',
     ],
     source: 'Greco · §§2.1, 3, pp. 427, 429–430',
   },

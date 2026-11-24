@@ -1,13 +1,13 @@
 import { storyVersions } from './story-scenes';
 import { savedStoryText } from './saved-story-text';
-import { isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
+import { isStoryBeatHeading, isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
 import './story-reader.css';
 
 const { scenes: storyScenes } = storyVersions[0];
 
 function storyLineType(line: string) {
   const text = line.trimStart();
-  if (/^(?:[IVXLCDM]+|\d+)\.\s/.test(text)) return 'section';
+  if (isStoryBeatHeading(text) || /^(?:[IVXLCDM]+|\d+)\.\s/.test(text)) return 'section';
   if (/^Narrator:\s/i.test(text)) return 'narration';
   if (/^\p{Lu}[\p{L}\p{M}\p{N} ,.'’\-]{0,48}:\s/u.test(text)) return 'dialogue';
   return 'description';

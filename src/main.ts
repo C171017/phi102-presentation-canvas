@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 import { createCanvasGrid } from './canvas-grid';
+import { constrainCanvasView, measureCanvasContent } from './canvas-pan';
 import { createLayoutController } from './layout';
 import initialLayout from './initial-layout';
 import { initializeIllustrations } from './illustrations';
@@ -28,6 +29,7 @@ const viewport = document.querySelector<HTMLElement>('#viewport')!;
 const backdrop = document.querySelector<HTMLElement>('#presentation-shell')!;
 const renderGrid = createCanvasGrid(backdrop);
 let canvasBounds = viewport.getBoundingClientRect();
+let canvasContent: ReturnType<typeof measureCanvasContent>;
 const world = document.querySelector<HTMLElement>('#world')!;
 initializeIllustrations();
 initializePaperSlides(world);
@@ -124,10 +126,11 @@ const pageExit = createPageExit(backdrop, viewport, view, slideNavigation.previe
   render();
   layout.schedule();
 });
-function animateTo(next: Partial<View>, duration: number) {
+function animateTo(next: Partial<View>, duration: number, onCanvas = false) {
   const to = { ...target, ...next };
   if (![to.x, to.y, to.zoom, duration].every(Number.isFinite)) return false;
   to.zoom = clampZoom(to.zoom);
+  if (onCanvas) constrainCanvasView(to, canvasBounds, canvasContent);
   Object.assign(target, to);
   tween = { from: { ...view }, to, start: performance.now(), duration: reducedMotion.matches ? 0 : Math.max(0, duration) };
   wake();
@@ -135,7 +138,7 @@ function animateTo(next: Partial<View>, duration: number) {
 }
 function goTo(next: Partial<View>, duration = 550) {
   pageExit.reset();
-  if (!animateTo(next, duration)) return;
+  if (!animateTo(next, duration, true)) return;
   slideNavigation.leavePage();
   layout.schedule();
 }
@@ -171,18 +174,27 @@ function step(direction: number) {
   stopIndex = Math.max(0, Math.min(stops.length - 1, stopIndex + direction));
   goTo(stops[stopIndex], stops[stopIndex].duration);
 }
+function positionWorld() {
+  world.style.transform = `scale(${view.zoom}) translate(${-view.x}px, ${-view.y}px)`;
+}
 function render() {
   const settled = !tween && !drag;
-  world.style.transform = `scale(${view.zoom}) translate(${-view.x}px, ${-view.y}px)`;
   // Connections live inside the same transformed world: pan/zoom cannot
   // change their world-space geometry. Only content/layout edits invalidate it.
-  if (connectionsDirty) slideNavigation.measure(view.zoom);
+  if (connectionsDirty) {
+    positionWorld();
+    canvasContent = measureCanvasContent(world, view.zoom);
+    slideNavigation.measure(view.zoom);
+  }
+  const onCanvas = slideNavigation.isOnCanvas();
+  if (onCanvas || pageExit.active()) constrainCanvasView(view, canvasBounds, canvasContent);
+  if (onCanvas) constrainCanvasView(target, canvasBounds, canvasContent);
   const fitted = settled && slideNavigation.refit(view);
   if (fitted) {
     Object.assign(view, fitted);
     Object.assign(target, fitted);
-    world.style.transform = `scale(${view.zoom}) translate(${-view.x}px, ${-view.y}px)`;
   }
+  positionWorld();
   if (connectionsDirty) {
     connectionsDirty = false;
     updateConnections(view.zoom);
@@ -455,6 +467,7 @@ backdrop.addEventListener('wheel', (event) => {
   } else {
     view.x += event.deltaX * unit / view.zoom; view.y += event.deltaY * unit / view.zoom;
   }
+  constrainCanvasView(view, canvasBounds, canvasContent);
   Object.assign(target, view); wake();
   layout.schedule();
 }, { passive: false });
