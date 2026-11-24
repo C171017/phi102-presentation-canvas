@@ -52,12 +52,14 @@ const publicPreview = localLivePreview || (liveMode && !hostedRoom);
 const readOnly = liveMode || localLivePreview || previewRole !== null;
 const role = hostedPresenter ? 'presenter' : hostedRoom ? 'audience'
   : localLivePreview ? 'live-preview' : previewRole ?? 'editor';
+declare const __LOCAL_OPENING_VIDEO__: string;
+const localOpening = localDev && (role === 'editor' || role === 'presenter');
 const quizEnabled = role !== 'presenter';
 const openScene = (id: string) => {
   slideNavigation.open(slides.findIndex(slide => slide.members[0] === id));
 };
-const openingVideo = liveMode || localLivePreview || (localDev && (role === 'editor' || role === 'presenter'))
-  ? createOpeningVideo(backdrop, openingMedia.path, () => openScene('L0'), {
+const openingVideo = liveMode || localLivePreview || localOpening
+  ? createOpeningVideo(backdrop, (localOpening && __LOCAL_OPENING_VIDEO__) || openingMedia.path, () => openScene('L0'), {
     viewerControls: publicPreview || role === 'audience',
     showSkip: role === 'editor' || publicPreview || role === 'audience',
     reportPlayback: localDev && role === 'presenter'

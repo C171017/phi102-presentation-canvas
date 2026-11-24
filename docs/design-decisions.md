@@ -1294,6 +1294,14 @@ Recorded time in Pacific time. Howie pointed to the canvas overview and asked:
 
 Align the existing map branches with their destinations, center the Gavel beneath its heading, and use direct lines where the regress and foundations branches have open space. Align the cast figures along their lower edge. Retain the map's groups, slide order, and connector destinations.
 
+## 2026-11-24T00:03:56-08:00 · Restore the theory ballot countdown ring
+
+Recorded time in Pacific time. Howie pointed to the Operation Because choices in the [canvas chat](codex://threads/01a20c94-2be4-7c90-89b1-e9037e39a9eb):
+
+> for the choices of the ism here remember we have the countdown mechainism that like the ring will gradually diappear thing, we should like get that mechainism back so people know time is lapsing i don't know wher curenlty it is not here fix it
+
+Show a shrinking ring on each record during the ten-second timed rounds. Use the current round deadline in Live Preview and the shared classroom. The final Foundationalism choice waits for a vote without a countdown.
+
 ## 2026-11-24T00:08:30-08:00 · Optimize the public artwork and opening
 
 Recorded time in Pacific time. Howie requested browser-friendly assets for the live website:

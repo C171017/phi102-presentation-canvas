@@ -1,4 +1,5 @@
-import { defineConfig, searchForWorkspaceRoot, type Plugin, type WebSocketClient } from 'vite';
+import { defineConfig, normalizePath, searchForWorkspaceRoot, type Plugin, type WebSocketClient } from 'vite';
+import { existsSync } from 'node:fs';
 import { readFile, writeFile, rename, copyFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parseLayout } from './src/layout';
@@ -11,6 +12,14 @@ import { storyTextEndpoint } from './src/story-text';
 import openingMedia from './src/opening-media.json';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
+const openingDrafts = [
+  'flexible-foundationalism-op-v4.mp4',
+  'flexible-foundationalism-op-v3.mp4',
+  'dead-ink-op-codex-v2.mp4',
+];
+const openingFile = openingDrafts
+  .map(name => fileURLToPath(new URL(`../op/drafts/${name}`, import.meta.url)))
+  .find(path => existsSync(path));
 
 function isLoopback(address?: string) {
   return address === '127.0.0.1' || address === '::1' || address === '::ffff:127.0.0.1';
@@ -27,7 +36,7 @@ function localOnlyEditor(): Plugin {
         catch { res.writeHead(400).end(); return; }
         const writesLocalFiles = req.method !== 'GET' && req.method !== 'HEAD' &&
           (pathname === '/__canvas/layout' || pathname === storyTextEndpoint);
-        if (writesLocalFiles) {
+        if (writesLocalFiles || openingDrafts.some(name => pathname.toLowerCase().includes(name))) {
           res.writeHead(403).end();
           return;
         }
@@ -225,7 +234,12 @@ function localPresentation(): Plugin {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  define: {
+    __LOCAL_OPENING_VIDEO__: JSON.stringify(command === 'serve' && openingFile
+      ? `/@fs/${encodeURI(normalizePath(openingFile))}`
+      : ''),
+  },
   plugins: [
     {
       name: 'canvas-check-opening-size',
@@ -244,7 +258,7 @@ export default defineConfig({
   server: {
     host: '127.0.0.1',
     fs: {
-      allow: [searchForWorkspaceRoot(process.cwd())],
+      allow: [searchForWorkspaceRoot(process.cwd()), ...(openingFile ? [openingFile] : [])],
       deny: [
         '.env', '.env.*', '*.{crt,pem}', '**/.git/**',
         '.dev.vars*', '**/.wrangler/**', '**/.claude/**', '**/docs/chat-history/**',
@@ -253,4 +267,4 @@ export default defineConfig({
     watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp'] },
   },
   preview: { host: '127.0.0.1' },
-});
+}));
