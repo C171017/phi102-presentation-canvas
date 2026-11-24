@@ -14,7 +14,7 @@ Reuse the shared `background-size: contain` rule in [style.css](../src/style.css
 
 ### Dialogue-led presentation slides
 
-Use one broad, dark dialogue box in the lower part of the slide. A shaded bottom edge, a narrower right edge, and a soft cast shadow give the box shallow depth. Keep the rim plain. Frame the room, portraits, and interactive examples above the box.
+Use one broad, dark dialogue box in the lower part of the slide. The [JumpFromPaper Classic 2D Series](https://jumpfrompaper.com/collections/classic-2d-series/) is the reference for bold ink outlines and offset blocks of flat color. Give the Ink Ocean box an indigo face, a gold inner rim, and a violet backing. Frame the room, portraits, and interactive examples above the box.
 
 | Left half · what stays on the slide | Right half · what people say |
 | --- | --- |

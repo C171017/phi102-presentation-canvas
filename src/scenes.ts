@@ -3,7 +3,7 @@ import { mountApplicationBase, mountApplicationHome, mountOrder } from './applic
 import { P, line, poly, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, star, plate, st, ring } from './sketch';
 import './scenes.css';
 import { mountDilemma, mountUndoubtedCairn } from './foundation-scenes';
-import { mountReadingCircle } from './reading-circle';
+import { gavelScene } from './gavel-scene';
 import { castScenes } from './party-train';
 import { HINGE_DOOR_LABEL, mountHingeDoor } from './hinge-door';
 
@@ -51,17 +51,7 @@ export const scenes: Record<string, Scene> = {
     mount: mountUndoubtedCairn,
   },
 
-  'route-social-scene': {
-    w: 560, h: 450,
-    label: 'Five readers gather around a book. When everyone has participated, a gold seal marks the claim as justified in this community.',
-    mount: mountReadingCircle,
-  },
-
-  'route-social-consensus': {
-    w: 560, h: 450,
-    label: 'Five readers take one plus one equals three for granted. Everyone accepts the claim, although the sum is two.',
-    mount: host => mountReadingCircle(host, 'mistaken'),
-  },
+  'route-social-scene': gavelScene,
 
   'route-hinges-door': {
     w: 540, h: 450,

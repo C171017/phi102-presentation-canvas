@@ -195,10 +195,6 @@ function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraV
         : a ?? b;
     }
     // Older layouts contain only the first circle. Place its new companion beside it.
-    if (!item && element.id === 'route-social-consensus') {
-      const first = layout.items['route-social-scene'];
-      if (first) item = { ...first, x: first.x + 600 * first.scale };
-    }
     if (!item) continue;
     element.style.left = `${item.x}px`;
     element.style.top = `${item.y}px`;

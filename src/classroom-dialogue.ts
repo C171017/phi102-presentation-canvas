@@ -103,7 +103,11 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     button.addEventListener('click', () => move(direction));
     controls.append(button);
   }
-  stage.append(controls);
+  const interjection = document.createElement('div');
+  interjection.className = 'court-interjection';
+  interjection.hidden = true;
+  interjection.setAttribute('aria-hidden', 'true');
+  stage.append(controls, interjection);
   let onCueChange: (() => void) | undefined;
   shell.append(stage);
 
@@ -139,6 +143,12 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const line = script[index];
     characters.forEach(actor => actor.classList.toggle('is-speaking', actor.dataset.speaker === line?.speaker));
     const legend = line && legendById.get(line.scene);
+    const courtLine = line?.scene === 'P1' ? line.text : '';
+    const banner = /^\[Banner: (.+)\]$/.exec(courtLine)?.[1];
+    const shout = /\b(?:OBJECTION!|TAKE THAT!|HOLD IT!|NOT REAL\b)/.exec(courtLine)?.[0];
+    interjection.textContent = banner ?? shout ?? '';
+    interjection.hidden = !interjection.textContent;
+    interjection.dataset.style = banner ? 'banner' : shout === 'NOT REAL' ? 'verdict' : 'shout';
     if (legend) notes.show(legend.id, legend.title);
     if (line?.scene === 'contemporary-heading') {
       const revealed = line.phase === 'reveal';

@@ -37,6 +37,30 @@
 .paper-resizer:focus-visible { outline: 2px solid #3d5952; outline-offset: -2px; }
 #paper-pane.is-resizing { user-select: none; }
 
+.paper-collapse {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 10px);
+  transform: translateY(-50%);
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 44px;
+  padding: 0 0 3px;
+  border: 1px solid #bcad91;
+  border-radius: 10px;
+  background: #fff9eb;
+  color: #493a27;
+  box-shadow: 0 2px 8px #322a2033;
+  font: 600 29px/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+.paper-collapse.is-inset { right: auto; left: 8px; }
+.paper-collapse[hidden] { display: none; }
+.paper-collapse:hover { background: #f4e7cb; }
+.paper-collapse:focus-visible { outline: 2px solid #3d5952; outline-offset: 2px; }
+
 #paper-pane.is-collapsed {
   --paper-tab-height: 48px;
   --paper-tab-start: 14px;

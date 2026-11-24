@@ -1,0 +1,25 @@
+.gavel-illustration.scene-art {
+  display: grid;
+  place-items: center;
+  width: 560px;
+  height: 450px;
+}
+
+.canvas-media .gavel-illustration img {
+  width: 410px;
+  max-width: none;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gavel-illustration.is-striking img {
+    animation: gavel-impact 420ms ease-in-out;
+    transform-origin: 23% 82%;
+  }
+}
+
+@keyframes gavel-impact {
+  0%, 100% { transform: none; }
+  33% { transform: translateY(-12px) rotate(-3deg); }
+  53% { transform: translateY(3px) scaleY(.98); }
+}

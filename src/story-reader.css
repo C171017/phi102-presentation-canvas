@@ -225,6 +225,14 @@
   clip-path: inset(50%);
 }
 
+@media (min-width: 761px) {
+  .story-reader__scene[data-scene-id="ink-ocean-P1"] .story-reader__art {
+    position: sticky;
+    inset-block-start: 12px;
+    align-self: start;
+  }
+}
+
 @media (max-width: 760px) {
   .story-reader__scene {
     grid-template-columns: minmax(0, 1fr);

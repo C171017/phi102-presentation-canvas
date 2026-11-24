@@ -4,6 +4,9 @@
 
 ## Ink Ocean character design
 
+**Canvas lineup, November 23, 2026.** Use the [canonical lineup](character-references/ink-ocean-redesign/cast-lineup-canonical.png) for the four full-body canvas figures and future references based on those looks. Simone has empty hands and a relaxed half-smile. Cole wears headphones around his neck and holds a smartphone with a ring light. His squint and crooked grin make his teasing feel playful. Rae holds a brass lens with her other hand empty. Echo stays half-lidded with one claw raised. The Version C sheets below document the original train-scene designs.
+
+
 Only NPCs have bodies visibly built from solid ink cubes. Give these villagers slightly irregular cuboid heads packed with small cubes and ease the change in density through the shoulders and limbs. This includes the unnamed man with the raven and the woman at the Inkwell.
 
 Draw all other people as individual human anime characters, with continuous faces, hands, hair and clothing. This applies to the protagonists and to all three masters in *Operation Because*: Pyrrho, Charles Sanders Peirce and Otto Neurath. Use the selected portraits for the masters’ facial features and the scene palette for continuity with the villagers.

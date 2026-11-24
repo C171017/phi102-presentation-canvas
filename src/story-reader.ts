@@ -126,6 +126,7 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
 
   function showScene(announce: boolean) {
     const entry = storyScenes[index];
+    scene.dataset.sceneId = entry.id;
     const { illustration } = entry;
     const { title, paragraphs: text } = edits[entry.id] ?? entry;
     const imageOnly = illustration?.imageOnly === true;

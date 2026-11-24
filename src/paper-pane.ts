@@ -118,6 +118,16 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   resizer.tabIndex = 0;
   resizer.setAttribute('aria-controls', 'paper-pages');
 
+  const collapse = element('button', 'paper-collapse', '›');
+  collapse.type = 'button';
+  collapse.setAttribute('aria-label', 'Collapse the original paper');
+  collapse.setAttribute('aria-controls', 'paper-pages');
+  collapse.title = 'Collapse the original paper (P)';
+  collapse.addEventListener('click', () => {
+    setOpen(false);
+    savePrefs(prefs);
+  });
+
   const outline = element('nav', 'paper-outline');
   outline.setAttribute('aria-label', 'Paper sections');
   outline.hidden = true;
@@ -139,7 +149,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   const passageArrow = element('span', undefined, '↑');
   passageArrow.setAttribute('aria-hidden', 'true');
   passageCue.append(passageArrow);
-  pane.append(resizer, outline, scroll, scrollIndicator, passageCue);
+  pane.append(resizer, collapse, outline, scroll, scrollIndicator, passageCue);
   shell.append(pane);
   const highlights = createHighlights?.(pane, scroll);
   const notes = createPaperNotes(pane, scroll, shell);
@@ -159,6 +169,9 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     resizer.setAttribute('aria-valuemin', String(minWidth()));
     resizer.setAttribute('aria-valuemax', String(Math.round(maxWidth())));
     const paneBounds = pane.getBoundingClientRect();
+    const leftRoom = paneBounds.left - shell.getBoundingClientRect().left;
+    // Keep the entire button on screen when the paper nearly fills the window.
+    collapse.classList.toggle('is-inset', leftRoom < collapse.offsetWidth + 18);
     resizer.setAttribute('aria-valuenow', String(Math.round(paneBounds.width)));
     if (!rolePicker) return;
     const pickerBounds = rolePicker.getBoundingClientRect();
@@ -179,6 +192,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   function renderOpenState() {
     const { open } = prefs;
     pane.classList.toggle('is-collapsed', !open);
+    collapse.hidden = !open;
     resizer.setAttribute('role', open ? 'separator' : 'button');
     resizer.setAttribute('aria-label', open ? 'Resize the paper pane' : 'Show the original paper');
     resizer.title = open ? 'Drag to resize. Drag past the minimum to collapse.' : 'Drag left or click to open the original paper (P)';

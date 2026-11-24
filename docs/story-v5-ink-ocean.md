@@ -1,6 +1,6 @@
 # PHI 102 canvas · Story draft 5
 
-**Living design document, updated November 22, 2026.** It's written scene by scene so that it can be read straight through, visualized, reviewed and revised.
+**Living design document, updated November 23, 2026.** It's written scene by scene so that it can be read straight through, visualized, reviewed and revised.
 
 **Title status.** The story has no title yet. Leave the story title blank until the author chooses one.
 
@@ -33,12 +33,38 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 - Part 1 is ~7 minutes. L0 (~30 sec) was offset by shortening L1.
 - AI-drafted extras (side jokes, secondary names, optional lines) are the first things to cut.
 
+## Presentation format: concept first, then story [FIXED]
+
+**Every small section runs in two beats, with time split roughly evenly between them:**
+
+1. **Concept (the slide side).** A traditional slide introduces the philosophical idea: the definition, the argument, the objection. Plain academic explanation.
+2. **Transition line:** *"Let's see how it plays out in the story."*
+3. **Story (the visual-novel side).** The voice-acted scene applies the idea: the audience watches the concept work, or fail, in the story.
+
+**Why:** story alone loses the academic rigor; slides alone waste the visual novel and lose the audience. Alternating gives both entertainment and rigor, and keeps time balanced.
+
+**Consequence for the script:** every scene must be **shorter**. The concept slide does the explaining, so a scene only needs the lines that *show* the idea. Cut any line that explains what the slide already said.
+
+**[AI DRAFT] Section-by-section pairing:**
+
+| Section | Concept slide | Story scene |
+| --- | --- | --- |
+| Part 1a | The regress problem: every reason needs a reason | L0–L3: the Law of Ink, the guardian, the brain-in-a-vat chain, the Whypocalypse |
+| Part 1b | Agrippa's trilemma: skepticism, infinitism, coherentism, foundationalism | L4–L5: Operation Because, Descartes |
+| Part 1c | The foundationalist's dilemma; flexible foundationalism: undoubted, not undoubtable | L6–L7: one brick vs jelly; the stranger and the three treasures |
+| P1 | The social route (Annis): an objector group; read as sensitive invariantism; the astrology objection | The trial |
+| I1–I3 | The three routes in one slide; E = K and "without trying" | The interlude: alone, the Ferry, Evan |
+| P2 | Contextualism: the speaker fixes the claim; "Oh, come on"; the disagreement problem (the left/right cup example) | The broadcast |
+| P3 | Relativism (one claim, judged by each assessor's standards) and expressivism; footnote 16 | Glass and Tide |
+| Part 3 | Access internalism: the leak-down worry, the supervenience base, the cognitive home, the mobile home | R1–R10 |
+| Finale | The moral question | R11–R13: the vote and the coda |
+
 ## For the visualization agent
 
 1. **Job:** draw each scene below for review. Label every image with its scene ID (for example `L6`) and its status. Mark images of **[AI DRAFT]** material as drafts.
 2. **House style:** follow [slide-visual-style.md](slide-visual-style.md): cut-paper planes, one shadow plane per surface, fine paper grain, ink navy with pools of amber. Leave the lower part of the frame quiet for the dialogue box.
-3. **Identity:** use the [Version C model sheets](character-references/version-c/) for faces, hair, costume and props only. Take expressions and body language from the [character bible](character-bible.md): *Cole performs, Simone notices, Rae assesses, Echo abides.*
-4. **Recurring identifiers:** Simone: black loop ponytail, green jacket. Cole: rust jacket, phone, ring light, earbud wire. Rae: navy cap, ticket punch. Echo: one palm-sized hermit crab with a tall faceted violet shell and one oversized coral claw. YYYY SOWATT: five ink bubbles, each with exactly one pointed speech-bubble tail; the smallest has a red dot ([reference](character-references/quibble-a3-single-tail.png)).
+3. **Identity [FIXED: personality matches philosophical role]:** *Simone is the main character (subject), Cole never stops talking (speaker), Rae judges everything (assessor), Echo only reacts (endorsement).* Take faces and costumes from the current full-body cast art (`src/assets/full-body-cast/`).
+4. **Recurring identifiers:** Simone: black loop ponytail, teal-green cropped jacket, a red "YOU ARE HERE" map-pin badge on her lapel, and a vented pet carrier on her shoulder for Echo; no watch, no letter, no other prop. Cole: rust jacket, phone on a ring light, earbud wire. Rae: navy waistcoat and wide trousers, a brass magnifying lens always in hand. Echo: one palm-sized hermit crab with a tall faceted violet shell and one oversized coral claw. YYYY SOWATT: five ink bubbles, each with exactly one pointed speech-bubble tail; the smallest has a red dot ([reference](character-references/quibble-a3-single-tail.png)).
 5. **Context colors:** teal for Simone, rust for Cole, blue for Rae, violet and coral for Echo.
 6. **Don't** put the names of films, games, studios, artists or specific artworks into image prompts. Describe painting traditions and visual qualities instead. Don't reproduce any existing character, logo or painting. Descartes appears as a generic seventeenth-century scholar in scroll style, not a copy of a known portrait.
 7. **Avoid baked-in text** except where a scene asks for a short label (a title card, words pressed into an ink stick).
@@ -48,20 +74,21 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 12. **The regress dialogue in `src/slide-content.ts` is out of date.** Use L1–L5 of this document.
 13. **Everything from Part 2 on is unconfirmed** (either [YOUR IDEA · AI VERSION] or [AI DRAFT]). Label those images as drafts.
 14. **Evan has no model sheet yet.** Draw him as a small, courteous, living fountain pen with two small eyes on the clip **[AI DRAFT; a living ink brush is the alternative, §8]**.
-15. **L8 is a pull-back reveal:** the legend's handscroll turns out to be a real scroll in an old keeper's lap on a beach at night. The art style changes there, from the scroll's painting styles to P1's cut-paper island.
+15. **P1 opens with a pull-back reveal:** the legend's last painting pulls back to a courtroom, and the narrator turns out to be Simone, testifying. The art style changes there, from the scroll's painting styles to P1's gaslit 1890s courtroom.
 
 ## Quick reference
 
 | | |
 | --- | --- |
-| **Heroes** | Simone (subject · sensitive invariantism), Cole (speaker · contextualism), Rae (assessor · relativism). |
-| **The one nobody counted** | Echo, Simone's hermit crab (expressivism). Not a hero and never in the legend, but the one who matters at the end **[YOUR IDEA · AI VERSION]** |
+| **Heroes** | Simone (subject · sensitive invariantism): main-character energy, everything is about her situation. Cole (speaker · contextualism): talkative and sassy, never stops performing. Rae (assessor · relativism): calm, cool, always judging. |
+| **Simone's arc [AI DRAFT]** | The self-centered subject is pulled outward by the relay: in P1 she can only win by needing everyone else's silence; in P2 Cole's audience decides; in P3 Rae's standards judge her; in Part 3 she wakes everyone. Subject, then speaker, then assessor: her growth follows the paper's order. |
+| **The one nobody counted** | Echo, Simone's hermit crab (expressivism), who rides in her pet carrier and only ever reacts. Not a hero and never in the legend, but the one who matters at the end **[YOUR IDEA · AI VERSION]** |
 | **Villain** | The Cartesian demon (no body: a dark ink sky with strings) |
 | **The demon's creation** | YYYY SOWATT (four Y voices + SOWHAT), its manifestation in the world |
-| **Allies** | Evan, a living pen anyone can write with: the third sacred weapon, who denies being one **[YOUR IDEA · AI VERSION]**; the Ferry and its town, Here; the old lighthouse keeper, who tells the legend (L8) |
-| **Legend figures** | The guardian question mark; the three Answerers (Pyrrho, Peirce, Neurath); Descartes, the fourth; the Cartesians; the moderates; the unnamed stranger who found a better way (L7) |
+| **Allies** | Evan, a living pen anyone can write with: the third sacred weapon, who denies being one **[YOUR IDEA · AI VERSION]**; the Ferry and its town, Here; the old judge, who is also the lighthouse keeper (P1) |
+| **Legend figures** | The guardian question mark; the three Answerers (Pyrrho, Peirce, Neurath); Descartes, the fourth; the Cartesians; the moderates; the unnamed stranger who found a way out and left the Three Sacred Treasures of Good Enough (L7) |
 | **Objects** | Ink sticks (foundations); the *I think* stick (grain-sized); the three sacred treasures (the Gavel, the Anchor, and Evan) |
-| **Places** | The Great Inkwell; the ink ocean; the dream domes; Here, the first town after the fall; the lighthouse |
+| **Places** | The Great Inkwell; the ink ocean; the dream domes; the 1890s courtroom (Simone's dream, P1); Here, the first town after the fall; the lighthouse |
 
 ---
 
@@ -128,7 +155,7 @@ A chorus of five ink bubbles born when a question mark spilled into the world's 
 
 1. **[FIXED]** **Frame.** A student steps off the red Unitrans double-decker and takes a seat in Giedt Hall. Professor Lin opens with the B/13 quiz on contemporary contextualism, then introduces flexible foundationalism. The OP plays. As soon as it ends, the legend begins.
 2. **[FIXED]** **Legend:** YYYY SOWATT is born and starts to wet the world like a virus, getting visibly worse with every chapter (§2b). People fight back: humanity elects three great masters, the Answerers, who appear in an order the audience chooses and are all useless; then Descartes, the fourth master nobody elected, right after. Descartes's *I think* is the first belief that stays dry while being asked about, but one dry grain can't hold back an ocean, and people have to hurry. Two schools try to dry the world again and fail. Then someone finds a better way, flexible foundationalism, and leaves three weapons to the world. Whether the Whypocalypse ever ended is left open.
-3. **[FIXED structure · AI DRAFT content]** **The relay:** as in *The Matrix*, whoever wakes goes back in for the others. **[FIXED requirement]** The legend's last lines turn out to be told inside the first dream, where Simone, laughed at, says someone should find the weapons (L8). Simone breaks out of her dream first, spends years alone with only Echo, then builds a rebellion, the Ferry, and a small new town, Here, while searching for the third weapon. She enters Cole's dream; then the two of them, with Evan and Echo, enter Rae's. The order follows the argument of Greco's §3, and the disagreement problem happens between the protagonists.
+3. **[FIXED structure · AI DRAFT content]** **The relay:** as in *The Matrix*, whoever wakes goes back in for the others. **[FIXED requirement]** The legend turns out to be Simone's testimony in a dream-world courtroom, where she's laughed at, then proves it with the Gavel (P1). Simone breaks out of her dream first, spends years alone with only Echo, then builds a rebellion, the Ferry, and a small new town, Here, while searching for the third weapon. She enters Cole's dream; then the two of them, with Evan and Echo, enter Rae's. The order follows the argument of Greco's §3, and the disagreement problem happens between the protagonists.
 4. **[FIXED concept · AI DRAFT content]** **The real ocean:** the three heroes, Evan and Echo, with the town behind them, confront the demon. Following §4 of the paper, they learn to stand without bedrock. Then the demon poses a moral question, and the audience votes on the ending.
 
 ---
@@ -154,7 +181,7 @@ A chorus of five ink bubbles born when a question mark spilled into the world's 
 | L5 · Descartes | Day 40 | **41%, holds** | For one day the number stops falling, while everyone stares at the grain |
 | L6 · The two schools | Days 41–90 | 41% → 46% → 28% | The moderates' jelly towns push it up; each "Are you sure?" knocks it down further |
 | L7 · The hook | — | 28% → **??** | The number blinks and nobody says why: did the Whypocalypse end? |
-| L8 · The beach | — | **100%** | Suspiciously perfect: the first clue that this world is a dream |
+| P1 · The courtroom | — | **100%** | Suspiciously perfect: the first clue that this world is a dream |
 
 **Payoff in Part 2 [AI DRAFT].** Inside every dream dome, the meter reads **DRY WORLD REMAINING: 100%**. Too perfect: a clue that the world is fake. When a dome cracks, it glitches to **??**.
 
@@ -298,7 +325,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 - **The same belief as L1, now asked properly.** The guardian let "all ravens are black" dry on a joke answer; SOWATT asks the real philosophical questions about the raven inference, and the dried belief goes wet again.
 - **The four Ys and SOWHAT, one classic problem each:** Y₂ is Hume's problem of induction (why should the unseen resemble the seen?); Y₃ is Hempel's raven paradox (if "all ravens are black" means "everything non-black is a non-raven," a white shoe confirms it); Y₄ is Goodman's "grue" puzzle; SOWHAT is Popper's asymmetry (no number of confirmations proves a universal claim; one counterexample refutes it).
 - **First cut if time is short:** Y₄. Grue is the least familiar to this audience.
-- **[FIXED: the author's choice of wording] The prophecy plants the dream worlds** before the L8 twist, so the beach doesn't come out of nowhere. The logic follows from L2: if you can't rule out being a brain in a vat, you can't tell a dream from the real thing; and once your beliefs have melted completely, nothing is left to tell them apart. **[FIXED: the author's requirement] The Cartesian demon is named here, deliberately.** A deceiver who feeds you a convincing false world is exactly what Descartes's demon is. Naming it in the prophecy makes L5 dramatic irony: when Descartes says the demon is "only a hypothetical," the audience has already been warned it's coming. R2 confirms it.
+- **[FIXED: the author's choice of wording] The prophecy plants the dream worlds** before the P1 twist, so the courtroom reveal doesn't come out of nowhere. The logic follows from L2: if you can't rule out being a brain in a vat, you can't tell a dream from the real thing; and once your beliefs have melted completely, nothing is left to tell them apart. **[FIXED: the author's requirement] The Cartesian demon is named here, deliberately.** A deceiver who feeds you a convincing false world is exactly what Descartes's demon is. Naming it in the prophecy makes L5 dramatic irony: when Descartes says the demon is "only a hypothetical," the audience has already been warned it's coming. R2 confirms it.
 
 **Visual:** Bubbles divide like cells. The Great Inkwell overflows, and puddles across the map sprout their own five bubbles. Ink-stick people slump as towns tilt into the sea. On the prophecy page, exaggerated brush lettering stretches across the sky above the demon’s claw and the curved ink world.
 
@@ -465,11 +492,13 @@ These are the requirements every draft of Parts 2 and 3 must meet.
 1. **Parts 2 and 3 are the core of the presentation.** Everything before them is introduction. Once the audience understands the mechanism, the time goes to (a) flexible foundationalism under the different versions and (b) the application to access internalism.
 2. **Part 2 is a relay rescue, like *The Matrix*.** Whoever wakes up goes back in for the next person.
 3. **The order, timeline and disagreement follow the paper wherever it matters.** The disagreement problem happens inside the story, as it does in Greco's §3.
-4. **A huge time gap.** After Simone wakes, years pass before she reaches the next person. She builds a rebellion and a small new civilization while searching for the remaining sacred weapon. Time runs differently inside the dreams, so the dream worlds come from different eras (Simone's is ancient; Cole's is modern, with streaming).
+4. **A huge time gap.** After Simone wakes, years pass before she reaches the next person. She builds a rebellion and a small new civilization while searching for the remaining sacred weapon. Time runs differently inside the dreams, so the dream worlds come from different eras (Simone's is the 1890s; Cole's is modern, with streaming).
 5. **The third route is different.** In §2.3 Greco says you can become a flexible foundationalist "without trying." Knowledge itself is dried ink: what Evan writes down from what he has seen dries by itself.
 6. **The finale applies the Access section,** then turns into a moral confrontation with the demon, and the audience votes on the ending.
-7. **Be selective.** Reference the paper's important points; leave out trivial details (the professor has said we don't need every detail). Take liberties where they make the story or the philosophical question better.
-8. **The legend's last scene is told inside the first dream** (L8), and the person laughed at for saying they'll find the weapons is the first hero.
+7. **[FIXED] Visual-novel format.** The dream-world scenes (the parallel universes) use the same visual-novel style as the courtroom-game parody in P1: a dialogue box, character portraits, shouted speech bubbles, banners.
+8. **[FIXED] Skip hinges × sensitive invariantism.** The first world shows only the first treasure (social norms × sensitive invariantism). The Anchor (hinges) is found offscreen in the interlude and used in Part 3.
+9. **Be selective.** Reference the paper's important points; leave out trivial details (the professor has said we don't need every detail). Take liberties where they make the story or the philosophical question better.
+10. **The legend is Simone's testimony inside the first dream** (P1): she's laughed at, then proves it, and she's the first hero.
 
 **The author's proposals now in the drafts [YOUR IDEA · AI VERSION]** (direction from the author, details not yet confirmed; reasoning in §9):
 
@@ -482,14 +511,18 @@ These are the requirements every draft of Parts 2 and 3 must meet.
 | Part | Minutes |
 | --- | --- |
 | Part 0 · Frame and OP | ~2.5 |
-| Part 1 · Legend | ~7 |
+| Part 1 · Legend (L0–L7) | ~6 |
 | **Part 2 · The relay** | **~10.5** |
 | **Part 3 · Access and the finale** | **~6.5** |
 | Vote, ending, coda | ~1.5 |
+| Q&A and housekeeping | ~4 |
+| **Total** | **~31: about 3 minutes over** |
 
-**Keep from the paper:** sensitive invariantism via Annis and via hinges; the astrology objection; contextualism (the speaker's community fixes the claim; the technical-term worry; "Oh, come on"; the commitment view; the disagreement problem); relativism and expressivism as two answers, left open; E = K, "without trying," footnote 16; Access, the leak-down worry, the supervenience base and the forecast, the global cognitive home, the mobile home, Peter and Justine, split confidence.
+Part 1 is now about 6 minutes after the cuts. The remaining 3 minutes have to come out of Parts 2 and 3 (open question 22). Each part's minutes include its concept slides as well as its scenes (see "Presentation format"), so scene lines will need to shrink to make room.
 
-**Leave out:** Wright's "entitlement"; the quantifier and Rorty footnotes; secondary authors' names; hinges × contextualism (one line at most); knowledge × sensitive invariantism; belief at the base (Harman, at most a one-line gag); Conee & Feldman, anti-luminosity, the restricted version of Access.
+**Keep from the paper:** sensitive invariantism via Annis (social norms); the astrology objection; contextualism (the speaker's community fixes the claim; the technical-term worry; "Oh, come on"; the commitment view; the disagreement problem); relativism and expressivism as two answers, left open; E = K, "without trying," footnote 16; Access, the leak-down worry, the supervenience base and the forecast, the global cognitive home, the mobile home, Peter and Justine, split confidence.
+
+**Leave out:** Wright's "entitlement"; the quantifier and Rorty footnotes; secondary authors' names; hinges × contextualism; hinges × sensitive invariantism; knowledge × sensitive invariantism; belief at the base (Harman, at most a one-line gag); Conee & Feldman, anti-luminosity, the restricted version of Access.
 
 ### 5.3 The relay at a glance [FIXED structure · AI DRAFT details]
 
@@ -498,7 +531,7 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 | Step | Who | World (version × routes) | The crack (Greco's objection) | Carried forward |
 | --- | --- | --- | --- | --- |
 | P1 | Simone, alone | Social × sensitive invariantism; an 1890s courtroom | A whole community can agree and still be wrong (astrology) | "My world's rule can't call a community wrong" |
-| I1–I3 | Simone, then the Ferry | The real ocean, twelve years; hinges × sensitive invariantism (the Anchor, alone) | — | A town, an audience, and the third weapon |
+| I1–I3 | Simone, then the Ferry | The real ocean, twelve years | — | A town, an audience, and the third weapon |
 | P2 | Simone enters Cole's dream | Contextualism × social; modern streaming | The commitment view fixes the astrology problem, but creates the **disagreement problem**, played between Simone and Cole | "We both feel right, and we can't both just be reporting ourselves" |
 | P3 | Simone, Cole, Evan and Echo enter Rae's dream | Knowledge × relativism (Rae), with expressivism beside it (Echo) | Two answers to the disagreement, side by side; Greco declines to choose | — |
 | Part 3 | The three heroes, Evan and Echo, with the town behind them | The real ocean | — | The finale |
@@ -508,58 +541,72 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 - Nobody can simply be told. The rescuer has to help the dreamer find the crack themselves, and that's the quiz: the audience coaches the rescuer.
 - Dream walls are thin. Voices can leak through from a neighboring dome.
 
-**Echo [YOUR IDEA · AI VERSION]:** Simone's hermit crab was never asleep, because nothing in him was ever a belief. He is with her in every world: beside her on the beach in L8, alone with her in the real ocean, on her shoulder in Cole's and Rae's dreams.
+**Echo [YOUR IDEA · AI VERSION]:** Simone's hermit crab was never asleep, because nothing in him was ever a belief. He is with her in every world: on her shoulder in the courtroom (P1), alone with her in the real ocean, on her shoulder in Cole's and Rae's dreams.
 
-**Time and eras [YOUR IDEA: the gap and the eras · AI DRAFT: the time rule]:** time runs fast inside the dreams and slow outside. While twelve years pass in the real ocean, centuries pass inside Cole's dome, which is why his world has livestreams and Simone's has lanterns. The longer someone dreams, the more it feels like home, so later rescues are harder.
+**Time and eras [YOUR IDEA: the gap and the eras · AI DRAFT: the time rule]:** time runs fast inside the dreams and slow outside. While twelve years pass in the real ocean, centuries pass inside Cole's dome, which is why his world has livestreams and Simone's has gaslight. The longer someone dreams, the more it feels like home, so later rescues are harder.
 
 **Simone's age [AI DRAFT rule]:** people are made of beliefs, so they change only when their beliefs do. Her core beliefs stayed dry, so she barely aged, and her character design stays fixed.
 
 **Visual tells [AI DRAFT]:** a faint dome of ink overhead and one dark thread in a corner of every dream frame; inside every dream, the meter reads a suspiciously perfect 100%.
 
-### P1 · The Trial · Simone · social × sensitive invariantism · the Gavel [YOUR IDEA · AI VERSION] · ~2.5 min
+### P1 · The Trial · Simone · social × sensitive invariantism · the Gavel [FIXED] · ~2 min
 
-**[FIXED: the author's requirements]** The legend was Simone's testimony all along: she was the narrator. A courtroom in an 1890s dream world. Simone is on trial for spreading rumors (the legend), and the court lets her prove it in real time, with a jar of ink as Exhibit A. Only Simone knows the judge's gavel is the first sacred treasure; she got herself arrested to stand near it. Parody the courtroom "OBJECTION!" moment, and pay tribute to *The Matrix*.
+**[FIXED: the author's requirements]** The legend was Simone's testimony all along: she was the narrator, and her first lines continue the legend. A dream-world courtroom, 1890s, in the style of the classic courtroom-battle games. One question only: **is this world real?** Simone knows the judge's gavel is the first sacred treasure and says so; everyone laughs. The judge, the calm, thoughtful one, hands it over to test it. Three demonstrations, then the final ruling: "This world is fake." The dream collapses.
 
-**Paper:** Annis's social view, read as sensitive invariantism: whether a belief is foundationally justified depends on the norms accepted by the subject's community (§3, p. 429). The crack is the astrology objection: a community's acceptance can make a false belief "justified" (§3).
+**Paper:** Annis's social view, read as sensitive invariantism: a belief is foundational when it meets no objections from the objector group that the community's standards pick out (§2.1, §3). Undoubted, not undoubtable. The astrology objection: agreement settles a claim, it doesn't make it true (§3).
 
-**Rule of this world:** a claim dries when nobody in the room objects. An objection the room takes seriously wets it again.
-
-> *(The legend's last painting pulls back. The narrator's voice was coming from the dock. A courtroom in the 1890s: gas lamps, frost on the windows, a frozen ink lake outside. Simone stands in the dock, a small hermit crab on her shoulder.)*
-> **Simone:** …and the treasures were never found. That's the legend, Your Honor. And it's true.
-> *(The whole courtroom laughs. Only the crab doesn't.)*
-> **Prosecutor:** The accused claims the world is made of ink. That a Whypocalypse once happened. That we are all dreaming. Spreading rumors, Your Honor.
-> **Judge** *(an old man; the town's lighthouse keeper)***:** Miss Simone, can you prove any of it?
-> **Simone:** May I borrow your gavel?
-> *(More laughter. The judge, amused, hands it over.)*
-> **Narrator:** She had spent years looking for the first of the Three Sacred Treasures. She had committed a crime just to stand ten feet from it.
+> *(The legend's last painting pulls back. The narrator's voice was coming from the dock.)*
+> **Simone:** …and the treasures were never found. Until now. That's the legend, and this world is part of it. It's fake. *(She points at the bench.)* And that gavel, Your Honor, is one of the treasures.
+> *(The gallery roars with laughter. Only the judge doesn't laugh. He glances at the gavel in his hand.)*
+> *[Banner:]* **COURT IS NOW IN SESSION**
+> **Judge:** The defendant stands accused of spreading the rumor that this world is fake.
+> **Prosecutor** *(smirking)***:** The world is real, My Lord. Nobody here doubts it.
+> **Judge:** Does the jury object? *(Six jurors, silent.)* *(BANG.)* So ordered. The world is real.
+> *(The courtroom floor gleams, solid.)*
+> **Simone:** My Lord, may I borrow your gavel?
+> *(The gallery howls. Even the jurors laugh.)*
+> **Prosecutor:** **OBJECTION!** The defendant is mocking this court!
+> *(The judge says nothing. He looks at the gavel. Then at Simone. A long pause.)*
+> **Judge:** …Overruled. *(He holds it out to her.)* Show me.
 >
-> *(Simone steps to the evidence table. Exhibit A: a jar of ink.)*
-> **Simone:** This ink is black. Any objections?
-> *(Silence. Nobody would object to that.)*
-> *(Bang. The ink in the jar hardens into a solid stick. The room gasps.)*
-> **Simone:** That's what your silence does.
-> **Simone:** And the floor you're standing on is made of the same ink.
-> **Prosecutor** *(pointing)***:** OBJECTION!
-> *(The floor under the whole room goes soft. Feet sink. Screams.)*
-> **Simone:** Objection noted. *(beat)* Anyone else?
-> *(Terrified silence. Bang. The floor sets again.)*
-> **Narrator:** Not undoubtable. Just undoubted, by everyone in the room. For now.
+> **Simone:** It's warm in here. Any objections?
+> *(Silence.)* *(BANG. Sunlight pours through the windows. The jurors loosen their collars.)*
+> *(The laughter stops.)*
 >
-> *(A black cat walks across the courtroom. A moment later, the same black cat walks across the courtroom again.)*
-> **Simone:** Your silence can make ink solid. It can't make it true. You all agreed this world is real.
-> *(Cracks race across the walls, the windows, the frozen lake.)*
-> **Judge** *(quietly, as the room breaks)***:** If you ever wake up, follow the light.
-> **Simone:** Wake up.
+> **Simone:** The judge's wig is on backwards. Any objections?
+> *(Silence.)* *(BANG. The judge's wig spins around.)*
+> **Judge** *(calmly straightening it)***:** …Hm.
+>
+> **Simone:** The lake outside is melting. Any objections?
+> **Juror No. 4:** **OBJECTION!** It's the middle of winter!
+> *(BANG. Nothing happens. The lake stays frozen.)*
+> **Simone:** You just agreed it's warm in here.
+> **Juror No. 4** *(sweating)***:** …I withdraw the objection.
+> *(BANG. Outside, the ice cracks and the lake turns to water.)*
+> **Simone** *(thinking)***:** *(Whatever this jury lets pass becomes real. Not true. Just settled.)*
+>
+> **Judge** *(quietly)***:** Go on.
+> **Simone:** This world is fake. Any objections?
+> *(The jurors look at the sunlight, the wig, the melting lake. Silence. Not one objects.)*
+> *(BANG.)*
+> *(Cracks race across the walls, the windows, the sky. The dream breaks.)*
 
-**What the audience learns, in order:** silence dries ink (the social route, shown with the jar); an objection the room takes seriously wets it (the floor); the result is undoubted, not undoubtable, and only for now; and a whole community can agree and still be wrong (the crack). **Quiz Q2.**
+**What each beat teaches (the concept slide has already explained the theory):**
+
+| Beat | Paper point |
+| --- | --- |
+| The judge's first ruling: no jury objection, BANG, the floor is solid | The social route: no objection from the objector group makes a claim foundational |
+| Rounds 1 and 2 | The rule, shown working twice |
+| Round 3: a juror's objection blocks it; answered and withdrawn, it goes through | Justified means it can meet the group's objections: undoubted, not undoubtable. Only the jury's objection matters, not the prosecutor's or the gallery's (the objector group is a subset of the community) |
+| "Not true. Just settled." | The astrology objection: agreement settles, it doesn't make true |
+| "This world is fake." | The rule the audience just learned, turned on the world itself |
 
 **Notes [AI DRAFT]:**
-- **The legend becomes testimony,** so "the legend is told inside the first dream" still holds, and the narrator's dry wit turns out to be Simone's.
-- **The Matrix tribute:** the black cat crossing twice is the famous déjà-vu glitch; Simone is the one who knows the world is a simulation; "Wake up."
-- **The judge is the keeper,** so "follow the light" still sets up the lighthouse in Part 3.
-- **The Anchor is no longer in P1.** It's revealed in I1, when Simone is alone: the Gavel needs a room, the Anchor doesn't.
+- **The judge** is the calm, thoughtful one: he never laughs, overrules the prosecutor, hands over the gavel, stays unruffled when his own wig spins, and says "Go on." He's the lighthouse keeper, the one person in the dream who half-suspects the truth.
+- **Rule of three:** the first demonstration surprises, the second confirms, the third (with the blocked objection) convinces, so the final collapse feels earned.
+- **Courtroom-game format:** the session banner, "My Lord," the shouted "OBJECTION!", the prosecutor overruled, sweating jurors.
 
-**Visual:** a wood-paneled courtroom in warm gaslight, frost on tall windows, the frozen ink lake beyond; Simone in the dock in her green jacket, Echo on her shoulder; the gavel; Exhibit A in a glass jar on the evidence table; the floor rippling like wet ink; the black cat; cracks racing outward like broken ice.
+**Visual:** a courtroom in the style of classic courtroom-battle games: warm wood panels, judge's bench high in the center, jury box of six, gallery behind, jagged shout bubbles, screen shake on each BANG. Simone at the defense bench, Echo peeking from her carrier. Through the tall windows, a frozen ink lake. A homage to the genre only: don't copy any existing character, logo or sprite.
 
 ### I1–I3 · Interlude: alone, the Ferry, Here, and the third weapon [FIXED concept · AI DRAFT montage] · ~1.5 min, no quiz
 
@@ -572,19 +619,17 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 > **Narrator:** He had never been asleep. Nothing about him had ever needed to be true.
 > *(She bangs the gavel. Nothing.)*
 > **Narrator:** A gavel needs a room. No one to object. Also no one to agree.
-> *(An anchor drops out of the fog and bites. One plank dries under her: only the one her own question has to stand on.)*
-> **Narrator:** The second treasure. It didn't need a room. It only needed a question.
-> *[Caption: Year 1.]* *(Simone looks at the gavel, then the anchor. Two treasures. Somewhere, a third.)*
+> *[Caption: Year 1.]* *(Simone looks at the gavel. One treasure. Somewhere, two more.)*
 > *[Caption: Year 3.]*
 > **Narrator:** She told Echo everything. Echo raised his claw at the parts he liked.
 
 **I2 · The Ferry and Here**
 
-> *[Caption: Year 4.]* *(One dome looks like home: lanterns, a fog bank. She knows its rules. She goes in. A while later a fisherman stumbles out, blinking.)*
+> *[Caption: Year 4.]* *(One dome looks like home: gaslight, a courthouse, a frozen lake. She knows its rules. She goes in. A while later a juror stumbles out, blinking.)*
 > **Narrator:** Some sleepers dreamed by her own rules. Those, she could wake.
 > *(Two, then five, then twelve. She bangs the gavel. This time the silence comes from people: nobody objects. Ground spreads under all of them.)*
 > **Narrator:** With a room to listen, the gavel finally worked.
-> *[Caption: Year 6.]*
+> *[Caption: Year 6.]* *(In a drowned harbor, the Ferry hauls up an old anchor: the second treasure.)*
 > **Narrator:** They called the town Here, after the stranger's last words. They called themselves the Ferry, because they carried sleepers across.
 > **Narrator:** The first law of Here: no asking "Are you sure?" after dark.
 > **Narrator:** The first school taught one subject: when to ask, and when not to.
@@ -636,12 +681,12 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 > **Cole** *(snapping upright, anchor voice)***:** For the record: that reef is solid.
 > *(Same sentence. The ribbon stays wet.)*
 > **Narrator:** Same sentence. Same reef. Two different claims.
-> *(Simone climbs onto his raft, dripping, an old lantern in her hand and a hermit crab on her shoulder.)*
-> **Chat:** who is this · is she a mod · lantern lady lol · is that a CRAB
+> *(Simone climbs onto his raft, dripping, an old gavel in her hand and a hermit crab on her shoulder.)*
+> **Chat:** who is this · is she a judge · gavel lady lol · is that a CRAB
 > **Simone:** You're asleep. This is a dream.
 > **Chat:** ratio
 > **Narrator:** Nobody can be told. You have to see it for yourself.
-> **Cole:** Okay, lantern lady. "Your belief is foundationally justified." Happy?
+> **Cole:** Okay, gavel lady. "Your belief is foundationally justified." Happy?
 > **Chat:** bro what does that even mean
 > **Narrator:** Nobody talks like that. Not even philosophers, at parties.
 > **Simone:** Then listen to how people do talk.
@@ -653,10 +698,10 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 > **Cole:** Oh, come *on*.
 > *(That ribbon dries instantly. No thread at all.)*
 > **Narrator:** Some beliefs, Cole discovered, he simply refused to defend. Philosophers call this foundational. Cole called it obvious.
-> **Simone:** Where I come from, there was an island that trusted the stars over the tide. By our rules, they were justified. They drowned.
-> **Cole** *(to camera)***:** Chat, the star people are wrong.
+> **Simone:** Where I come from, a whole town agreed their world was real. By our rules, they were justified. They were dreaming.
+> **Cole** *(to camera)***:** Chat, that town was wrong.
 > *(The ribbon dries.)*
-> **Narrator:** In this world, Cole wasn't describing the islanders. He was stating his own commitment. Which meant that, for once, someone could call a whole community wrong.
+> **Narrator:** In this world, Cole wasn't describing the town. He was stating his own commitment. Which meant that, for once, someone could call a whole community wrong.
 > *(Simone breathes out. Then she frowns.)*
 > **Simone:** By my world's rules, they were justified.
 > **Cole:** Not by mine.
@@ -669,7 +714,7 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 
 **The crack:** if each of them is only stating their own commitments, both can be right, and yet it feels like a real disagreement. **Quiz Q3.** The dome splits, and they both fall out into Here. PEOPLE STANDING +1.
 
-**Visual:** a neon night sea, Cole on a small raft in his ring light, rust ribbons of ink drifting from his mouth, glowing paper slips of chat around him; Simone, ancient and dripping, in the middle of it; Echo on her shoulder with both claws raised.
+**Visual:** a neon night sea, Cole on a small raft in his ring light, rust ribbons of ink drifting from his mouth, glowing paper slips of chat around him; Simone, in 1890s clothes and dripping, in the middle of it; Echo on her shoulder with both claws raised.
 
 ### P3 · Glass and Tide · Rae · knowledge × relativism, with Echo's expressivism beside it [AI DRAFT · recast for the author's Echo idea] · ~2 min
 
@@ -778,7 +823,7 @@ Every audience screen shows three choices for 15 seconds. The majority ending pl
 | **B · Let them sleep** | Simone takes her hand off the lamp. The domes glow on, each one home to someone. **Narrator:** "Everyone was happy. Nobody was right." The strings stay taut. | PEOPLE STANDING: only Here |
 | **C · Teach the question** | Simone pulls SOWHAT off its strings and sets it beside the first dome. In its own small voice, it asks the dreamer one question, and waits for an answer that matters. **Narrator:** "It wasn't the end of questions. It was the end of questions that never end." | PEOPLE STANDING: climbing slowly… (Probably.) |
 
-After every ending: the title card in the same mock-anime style as L8's title card, **THE END.** *(beat)* **(Probably.)**
+After every ending: the title card in the same mock-anime style as L7's title card, **THE END.** *(beat)* **(Probably.)**
 
 **What each ending means [AI DRAFT]:**
 - **A:** truth over comfort; Access lets people stand without bedrock.
@@ -845,8 +890,6 @@ The classroom vote (B or 13) opens the presentation in S0.3. In Part 2, each qui
 | 10 | Who pinches Cole? | Echo, riding into Cole's dream on Simone's shoulder |
 | 11 | Professor coda | Keep |
 | 12 | The demon: villain, or a misunderstood truth-teller? | Villain, with the skeptic's best argument at R11 |
-| 14 | Who makes the "find them" claim in L8? (a) Simone, deadpan; (b) a loud kid boasts, while quiet Simone is the real hero (breaks the "laughed-at one is the hero" rule); (c) Simone, plus Cole's voice leaking from the sky ("Chat, I'm gonna find all three") | (a) |
-| 15 | After L8, does the keeper stay the narrator for the whole show (a *Princess Bride* frame)? | No: a separate dry narrator from P1 on; the keeper appears as a character |
 | 16 | Evan's form: a courteous fountain pen, or a living ink brush (matches the handscroll)? | Fountain pen |
 | 17 | Horcrux nod: Evan as a piece of the stranger who left the weapons, left behind by accident? | A hint only, never explained |
 | 18 | Where Evan's ink first sags: P2 (Cole's audience raises the doubt) or P3 (Rae)? | P3 |
@@ -859,7 +902,7 @@ The classroom vote (B or 13) opens the presentation in S0.3. In Part 2, each qui
 
 This section keeps the reasoning behind recent decisions in one place: what the author asked, what Greco's paper actually says, which references were used, and what was corrected. It records reasons, not old versions of scenes.
 
-### 9.1 The legend as anime parody, and the transition into the first dream (L8)
+### 9.1 The legend as anime parody, and the transition into the first dream (P1)
 
 **The author's request:** make everything before the dream era an exaggerated tribute to and parody of classic anime and films. Someone who found a better way leaves three sacred weapons to the world. The legend turns out to be told inside the first dream world, where the characters think it's just a legend. At the line about the weapons waiting for heroes, someone in the crowd says they'll be the hero, everyone laughs, and that person really is the first hero. The author asked for films, shows and anime that use this kind of transition, and a smart version based on them.
 
@@ -874,9 +917,9 @@ This section keeps the reasoning behind recent decisions in one place: what the 
 | *Hercules* (Disney) | A pompous narrator is interrupted by the Muses. | Heckling the storyteller |
 | *The Princess Bride* | A story framed by a grandfather reading to a grandson who interrupts. | The child's "Is it true?" |
 
-**Why "the scroll pulls back":** the legend is already painted as one long handscroll, so the reveal is almost free: the scroll is real, and it's in the keeper's lap. It creates dramatic irony (the villagers laugh off the story of their own sleep while the audience knows they are the sleepers), hides clues in plain sight (the 100% meter, the wet ink), and connects the keeper to his later line, "If you ever wake up, follow the light."
+**Why a courtroom (the author's idea):** a jury of peers *is* social justification made visible: a belief counts as settled when nobody in the relevant group objects (Annis). The gavel and "Any objections?" turn the route into one gesture, and the courtroom "OBJECTION!" is the parody target, because the social route is literally about objections. The legend becomes Simone's testimony, so the narrator's identity is the reveal.
 
-**Why Simone, deadpan (default):** a calm statement ("Then someone should go and find them") is funnier than a boast, fits her character (*Simone notices*), and keeps the author's rule that the one laughed at is the first hero.
+**Why the town's verdict is wrong:** their consensus really does make the floor solid, which shows the social route working, and they're still wrong, because they're dreaming. That one scene also plants the astrology objection: a whole community can agree and still be wrong.
 
 ### 9.2 Weapons and heroes: does each route have one perfect match?
 
@@ -905,7 +948,7 @@ This section keeps the reasoning behind recent decisions in one place: what the 
 
 **Rules [AI DRAFT]:** nothing dries under Echo, because a commitment isn't a belief, so he can't hold anyone up. SOWATT can't melt him either: "why believe that?" has nothing to grab when he never believed anything. **Honest note:** the second rule is a story liberty. In the paper, expressivism is a theory of what "knows" means, not a shield against skepticism. The cost (he can't help anyone stand) keeps it honest, and the demon can say so in R11.
 
-**Echo's beats:** L8 (the only one who doesn't laugh), I1 (company in the empty ocean, a *Cast Away* nod, except Echo is real), P2 (pinches Cole into "Oh, come on"; raises both claws at the disagreement), P3 (the expressivist answer beside Rae's relativism), R8 (the shell swap), R11–R12 (faces the audience; the vote).
+**Echo's beats:** P1 (the only one in the courtroom who doesn't laugh), I1 (company in the empty ocean, a *Cast Away* nod, except Echo is real), P2 (pinches Cole into "Oh, come on"; raises both claws at the disagreement), P3 (the expressivist answer beside Rae's relativism), R8 (the shell swap), R11–R12 (faces the audience; the vote).
 
 **Avoided:** the pet-who-betrays twist (Scabbers in *Harry Potter*, Kyubey in *Madoka Magica*). The demon already carries the moral ambiguity; a second dark twist would muddy it. The model is closer to Gromit in *Wallace & Gromit*: silent, expresses everything, secretly the smart one.
 

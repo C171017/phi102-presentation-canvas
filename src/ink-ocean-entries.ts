@@ -9,6 +9,7 @@ const anchorSlots: Record<string, number> = {
   'regress-problem-birth': 8,
   'L3-continued': 9,
   L7: 17,
+  P1: 20,
   'L6-A': 18,
   'L6-B': 19,
 };

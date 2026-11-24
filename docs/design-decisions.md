@@ -726,3 +726,112 @@ Recorded time in Pacific time. Howie showed the classroom slide with the paper o
 > the paper is saying lofating on evetything it should not affect the sieze/laout of other,
 
 Opening, closing, or resizing the original paper changes only the paper overlay and its notes. The slide, dialogue box, portrait, voting controls, and camera keep their full-viewport positions and sizes. Record this rule in [AGENTS.md](../AGENTS.md) and the [slide style guide](slide-visual-style.md#fit-the-artwork-to-the-page).
+
+## 2026-11-23T00:01:19-08:00 · Add a floating paper collapse control
+
+Recorded time in Pacific time. Howie requested a collapse control for the paper overlay:
+
+> add a cloppase floating contorl left to teh paper but it will dynamicly reposiotn it self so it doesn't collapse iwth the little notes
+
+Place the button along the paper’s left edge. As the paper scrolls or resizes, move the button into a clear gap around the visible notes and their leader lines. In a narrow view the button can sit just inside the paper’s left edge. Reopen the paper with the existing tab.
+
+## 2026-11-23T00:04:34-08:00 · Center the floating paper collapse control
+
+Recorded time in Pacific time. Howie clarified the collapse button’s position:
+
+> change that to alwasy vetical center and flaotin above the notes
+
+Anchor the collapse button at the paper’s vertical midpoint and layer it above the margin notes. On narrow screens it sits just inside the left edge at the same midpoint.
+
+## 2026-11-23T00:20:04-08:00 · P1 courtroom reveal after the legend
+
+Recorded time. Howie’s canvas chat specified the revised Trial ending and requested:
+
+> Update the next section after storyline to this. And also on Create a visual here, but you might want to find reference from objection, so we have the same visual as objection.
+
+P1 follows L7 in the shared Story and presentation sequence. The gaslit courtroom uses original Simone and Echo artwork with courtroom-game pointing, cue-specific interjections and a verdict stamp. The scene follows Draft 5 through “Wake up.”
+
+## 2026-11-23T13:07:28-08:00 · Give the dialogue box more depth
+
+Recorded time in Pacific time. Howie showed the dialogue box on The Law of Ink and asked:
+
+> try make the box more 3d ish like right now it is a bit like unpolsihde, you can visually check your work
+
+Keep the shared layout and plain rim. Light the matte front from above left, shade the right and bottom faces separately, and use a soft shadow under the box.
+
+The corner close-up exposed a seam between the two faces. The bevel now uses continuous shading through both right corners.
+
+## 2026-11-23T13:13:33-08:00 · Give the dialogue box a comic outline
+
+Recorded time in Pacific time. Howie pointed to the [JumpFromPaper bags](https://jumpfrompaper.com/collections/classic-2d-series/) as the reference:
+
+> wait actually for the text box try to find the reference of jump out of paper the bag, think of we need that kind of bold anime style diagloud box kind of thing
+
+Use two offset shapes with dark outlines. The indigo face carries a gold inner rim and sits above a flat violet backing. Apply the same treatment to the classroom, legend, and school dialogue boxes.
+
+## 2026-11-23T17:52:28-08:00 · Open Parallel Universes with the revised Trial
+
+Recorded time in Pacific time. Howie pointed to the revised P1 courtroom scene and requested this placement:
+
+> update this to the latest like the first page of the L2 (parralle unviser ) story seciton as teh first one put that there update the story section
+
+Howie clarified the destination:
+
+> i mean the cnavas
+
+P1, The Trial, is the first Parallel Universes story page after L7. Use the jury’s opening ruling, Simone’s three gavel demonstrations, and the collapse of the dream from the [November 23 story draft](story-v5-ink-ocean.md#p1--the-trial--simone--social--sensitive-invariantism--the-gavel-fixed--2-min). This script replaces the earlier courtroom testimony in Story and its shared presentation dialogue.
+
+Howie also asked to replace the old courtroom visual:
+
+> you may have to restart it first, also the viusal i soutdated
+
+Use the [new courtroom establishing shot](../public/generated/backgrounds/ink-ocean/P1-the-trial-jury.webp) in the Story reader and presentation. The judge has the gavel, Echo peeks out of his carrier, and six jurors sit together. The previous illustration remains available in the project.
+
+<details>
+<summary>ImageGen prompt for the courtroom establishing shot</summary>
+
+Illustration-story. Generate a new full-bleed wide 16:9 establishing shot for a project’s original story, P1 The Trial, the first parallel universe. Character reference is the first image: use only the leftmost woman and the crab at far right for identity, never the other two figures. The second image is a previous scene image, an environment and gaslight reference only. The third shows the surrounding story’s illustrated finish. Compose a new shot. Original cinematic angular cut-paper anime, crisp silhouettes, matte faceted cel shadows and subtle printed paper grain, richly finished. 1890s dream-world court with walnut paneling, tall frosted windows and gas lamps. A frozen blue-black ink lake is legible just beyond the tall windows. Simone, poised and attentive with level relaxed brows, a soft composed mouth and black high loop ponytail, wears her vintage pine-green double-breasted jacket with brass buttons, cream shirt and black neck ribbon from the first reference, charcoal trousers, small red map-pin lapel badge and a brown vented pet carrier near her shoulder. Echo, a tiny violet-striped angular hermit crab with half-lidded eyes and one big coral claw at rest, peeks from the carrier. No wristwatch and no letter. Simone is standing in her own dock at left, with one restrained open-hand gesture toward the judge. The unruffled magistrate sits on the raised bench in the center back, in a black robe and a white judicial wig, one hand beside the single dark hardwood gavel with a brass band and striking block. The judge still has the gavel. The six jurors are seated together in a distinct jury box to the right, three faces on each of two shallow tiers, six people exactly, all visible with varied silhouettes, in period formal wear. The distant gallery may be dark silhouettes so that the six jurors are easy to count and distinguish. There is no evidence jar, and the room and window ice are still intact. A restrained composition, with Simone, the judge, the gavel, and the jury visible above the bottom quarter, and dark space across the bottom for an app dialogue overlay. Cool slate-violet window light against warm low amber gaslight, a serious quietly funny moment, strong depth and clean shapes at thumbnail size. No letters, typography, logos, border, game UI, watermarks, or resemblance to an existing game character or screenshot. No panels. The single image is the asset.
+
+</details>
+
+## 2026-11-23T17:59:56-08:00 · Use the sacred Gavel on the social route
+
+Recorded time in Pacific time. Howie pointed to the two social-justification illustrations and requested:
+
+> also try generate the visual for the one of the three weapon/treatusre the gavel generate the visual (anime style too ) and then update that to replcate the curren toutdated one on canvas
+
+Use the [Gavel illustration](../public/generated/props/ink-ocean/gavel.webp) from ImageGen in both existing social-route positions. It matches the prop from The Trial. The first example shows a jury letting a claim stand, and the second retains the false equation the jury accepts.
+
+<details>
+<summary>ImageGen prompt for the sacred Gavel</summary>
+
+Create a prop illustration for an original anime visual novel. Transparent canvas, PNG alpha. Isolate one 1890s judge’s gavel with matching short round sounding block. The attached courtroom still is a reference for the shape of the gavel visible in front of the judge, its warm gaslight and the project’s cut-paper anime rendering. Enlarge that prop into a hero shot. The squat, slightly faceted dark walnut head has a single wide polished brass collar, bevels and warm amber highlights. Round striking faces. One long, tapered walnut handle angles down to the right in a distinctive and readable silhouette. It rests lightly against the short dark walnut sounding block below the head. Three-quarter angle from slightly above. Near-black ink shadows, strong but selective golden highlights, fine matte paper grain, angular clean cel-shaded planes, and a little reflected indigo in the wood. It should feel like the first of three sacred treasures, with age and weight visible in the carved wood and brass. Give it a strong thumbnail silhouette like an anime visual novel item reveal. Wide landscape framing, as large as possible with all edges visible and comfortable margins, object centered. True transparent background all the way around the complete prop and block. No glow bloom, light rays, floor, table, backdrop, cast shadow beyond the object, people, additional props, lettering, labels, icon frame, or watermarks.
+
+</details>
+
+## 2026-11-23T18:04:30-08:00 · Show one Gavel without labels or glow
+
+Recorded time in Pacific time. Howie requested:
+
+> we only need one instanc and remove the glowing and teh texts labls
+
+The social route keeps the first Gavel in its existing canvas position. The artwork appears by itself, with the strike animation and no colored effects. The duplicate, equation, and captions are removed.
+
+## 2026-11-23T18:04:41-08:00 · Adopt the angular cast lineup
+
+Recorded time in Pacific time. Howie chose the [canonical cast lineup](character-references/ink-ocean-redesign/cast-lineup-canonical.png) and directed the update in the [design chat](codex://threads/01a20a3e-4a0f-7623-bf02-14d8e2080e23).
+
+> use this version as canoical and update the the visaul on canvas then
+
+> wait actually refine cole' facial expressio a litte bit to more like this where he is like very i don't know in chinese we say 欠
+
+> so that way each character's personlaity and visual has good contrast
+
+Use the four figures from this lineup for the full-body cast on the canvas. Simone stands with empty hands, an easy half-smile and a hand on her hip. She wears the teal jacket and high ponytail. Cole pairs his rust jacket and neck headphones with a smartphone on a short grip and a circular ring light. His playful squint, crooked toothy grin and open palm read as teasing mid-speech. Rae holds one brass lens with her free hand empty and her gaze steady. Echo's half-lidded stare and raised coral claw carry his reaction. The four figures retain their existing canvas positions, sizes and labels.
+
+<details>
+<summary>ImageGen edit directions</summary>
+
+Use the approved four-character sheet as the base. Refine Cole's face only, using the supplied close-up for the playful squint and crooked, toothy grin. Keep the angular paper-cut anime rendering and the existing poses, clothes, colors and props. Use the built-in ImageGen tool to prepare a transparent version with the same four silhouettes for the canvas.
+
+</details>
