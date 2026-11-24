@@ -25,23 +25,76 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
   const recovery = dialog.querySelector('footer')!;
   const status = dialog.querySelector('p')!;
   const playButton = dialog.querySelector<HTMLButtonElement>('[data-play]')!;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let finishing = false;
+  let ink: HTMLElement | undefined;
   shell.append(dialog);
+
+  function clearInk() {
+    ink?.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+    ink?.remove();
+    ink = undefined;
+  }
 
   function close() {
     if (!dialog.open) return;
+    if (ink?.parentElement === screen) clearInk();
     video.pause();
     const fullscreen = document.fullscreenElement;
-    if (fullscreen === screen || fullscreen === video) void document.exitFullscreen().catch(() => {});
+    const exit = fullscreen === screen || fullscreen === video
+      ? document.exitFullscreen().catch(() => {}) : undefined;
     dialog.close();
     reportPlayback?.(false);
+    return exit;
   }
-  function finish() {
+
+  async function wipeToStory() {
+    const overlay = document.createElement('div');
+    overlay.className = 'opening-ink';
+    overlay.setAttribute('aria-hidden', 'true');
+    const sheet = document.createElement('div');
+    sheet.className = 'opening-ink-sheet';
+    overlay.append(sheet);
+    ink = overlay;
+    screen.append(overlay);
+
+    // Native video fullscreen hides sibling elements. Start with the ink
+    // already covering the page as the browser returns to the presentation.
+    if (document.fullscreenElement !== video) {
+      const cover = sheet.animate(
+        [{ transform: 'translateX(-100%)' }, { transform: 'none' }],
+        { duration: 370, easing: 'cubic-bezier(.5, 0, .26, 1)' },
+      );
+      await cover.finished.catch(() => {});
+      if (ink !== overlay) return;
+    }
+
+    shell.append(overlay);
+    const exit = close();
+    continueToStory();
+    await exit;
+    if (ink !== overlay) return;
+
+    const reveal = sheet.animate(
+      [{ transform: 'none' }, { transform: 'translateX(100%)' }],
+      { duration: 540, easing: 'cubic-bezier(.44, .04, .38, 1)', fill: 'forwards' },
+    );
+    await reveal.finished.catch(() => {});
+    if (ink === overlay) clearInk();
+  }
+
+  function finish(naturalEnd = false) {
     if (!dialog.open || finishing) return;
     finishing = true;
     video.pause();
     screen.classList.add('is-finishing');
-    continueToStory();
+    recovery.hidden = true;
+    if (naturalEnd && !reducedMotion.matches) {
+      void wipeToStory();
+    } else {
+      close();
+      continueToStory();
+    }
   }
   function showRecovery(message: string, canPlay: boolean) {
     status.textContent = message;
@@ -58,7 +111,7 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     });
   }
   playButton.addEventListener('click', startPlayback);
-  dialog.querySelectorAll('[data-skip]').forEach(button => button.addEventListener('click', finish));
+  dialog.querySelectorAll('[data-skip]').forEach(button => button.addEventListener('click', () => finish()));
   dialog.addEventListener('cancel', event => { event.preventDefault(); close(); });
   dialog.addEventListener('keydown', event => {
     if (event.key !== 'PageDown' || event.repeat) return;
@@ -69,7 +122,7 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
     // The native video control bubbles its own fullscreen changes through the player.
     if (event.target === screen && document.fullscreenElement !== screen && !finishing) close();
   });
-  video.addEventListener('ended', finish);
+  video.addEventListener('ended', () => finish(true));
   video.addEventListener('playing', () => { recovery.hidden = true; });
   video.addEventListener('error', () => {
     if (dialog.open) showRecovery('The opening video could not load. Try playing it again.', true);
@@ -81,6 +134,7 @@ export function createOpeningVideo(shell: HTMLElement, source: string, continueT
 
   function play() {
     if (dialog.open) return;
+    clearInk();
     finishing = false;
     screen.classList.remove('is-finishing');
     recovery.hidden = true;

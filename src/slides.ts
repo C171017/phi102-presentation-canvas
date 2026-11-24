@@ -202,7 +202,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     if (sceneTransition === overlay) clearSceneTransition();
   }
 
-  function open(index: number, fromCanvas = false) {
+  function open(index: number, fromCanvas = false, immediate = false) {
     if (!framingGroups[index]) return;
     if (sceneTransition && index === (requested?.index ?? visible)) return;
     clearSceneTransition();
@@ -220,11 +220,13 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     };
     const from = slides[visible]?.members[0];
     const to = slides[index].members[0];
-    if (!fromCanvas && from === 'P1' && to === 'P2-1' && !reducedMotion.matches) {
+    if (immediate || fromCanvas || reducedMotion.matches) {
+      showPage();
+    } else if (from === 'P1' && to === 'P2-1') {
       void shatterIntoDoorWorld(showPage);
-    } else if (!fromCanvas && from === 'L7' && to === 'P1' && !reducedMotion.matches) {
+    } else if (from === 'L7' && to === 'P1') {
       void fadeIntoTrial(showPage);
-    } else if (!fromCanvas && visible >= 0 && visible !== index && document.startViewTransition && !reducedMotion.matches) {
+    } else if (visible >= 0 && visible !== index && document.startViewTransition) {
       document.startViewTransition(showPage);
     } else {
       showPage();
@@ -244,7 +246,8 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   }
 
   return {
-    measure, refit, update, open, step, entryFor, cancelOpening, isFocused: () => visible >= 0,
+    measure, refit, update, open, step, entryFor, cancelOpening,
+    cutTo: (index: number) => open(index, false, true), isFocused: () => visible >= 0,
     isOnCanvas: () => visible < 0 && entering === undefined,
     previewExit(active: boolean) { previewingExit = active; },
     leavePage() {

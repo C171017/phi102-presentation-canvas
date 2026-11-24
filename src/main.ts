@@ -55,11 +55,13 @@ const role = hostedPresenter ? 'presenter' : hostedRoom ? 'audience'
 declare const __LOCAL_OPENING_VIDEO__: string;
 const localOpening = localDev && (role === 'editor' || role === 'presenter');
 const quizEnabled = role !== 'presenter';
-const openScene = (id: string) => {
-  slideNavigation.open(slides.findIndex(slide => slide.members[0] === id));
+const openScene = (id: string, immediate = false) => {
+  const index = slides.findIndex(slide => slide.members[0] === id);
+  if (immediate) slideNavigation.cutTo(index);
+  else slideNavigation.open(index);
 };
 const openingVideo = liveMode || localLivePreview || localOpening
-  ? createOpeningVideo(backdrop, (localOpening && __LOCAL_OPENING_VIDEO__) || openingMedia.path, () => openScene('L0'), {
+  ? createOpeningVideo(backdrop, (localOpening && __LOCAL_OPENING_VIDEO__) || openingMedia.path, () => openScene('L0', true), {
     viewerControls: publicPreview || role === 'audience',
     showSkip: role === 'editor' || publicPreview || role === 'audience',
     reportPlayback: localDev && role === 'presenter'

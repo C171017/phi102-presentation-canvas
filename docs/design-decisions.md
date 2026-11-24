@@ -1437,3 +1437,19 @@ Recorded time in Pacific time. Howie reported the issue in the [canvas chat](cod
 > You show the OP, then there's a full screen option and click the full screen, but it does go full screen, but then doesn't show anything at all. Just shows black screen.
 
 The native video control keeps the same player open when viewers enter or exit fullscreen. Close the player when it leaves its own presenter fullscreen mode, or when playback finishes and the story begins.
+
+## 2026-11-24T01:19:39-08:00 · An ink wipe from the opening video to The Law of Ink
+
+Recorded time in Pacific time. Howie asked for a transition after the opening video:
+
+> Add a fancy transition, but also good performance between the video. Like once the video ends and the first slides right after that, add a fancy proper transition between. And also good performance as well.
+
+At the natural end, sweep an indigo shape edged in gold over the title card and reveal The Law of Ink as the ink clears. Preload the first illustration and move one clipped CSS layer for just under a second. Skipping the video or choosing reduced motion opens the first slide directly.
+
+## 2026-11-24T01:21:54-08:00 · Clickable up and down dialogue arrows
+
+Recorded time in Pacific time. Howie asked for an on-screen alternative to the keyboard:
+
+> Also for the sake of if someone people they don't use keyboard at all, add a control. Whereas basically on the right side of the screen, think of like a vertical arrow key up and down where you can click that to go to the next and previous dialogue as another control. So there's like a click-driven control on top of the existing keyboard control.
+
+Use the existing cue buttons as a vertical pair on the right. Up goes to the previous cue and down advances. The buttons follow the same progression as the keyboard, including establishing shots and courtroom text.

@@ -285,18 +285,38 @@
   bottom: calc(var(--transcript-height) + var(--transcript-bottom) + .4rem);
 }
 .legend-paging {
-  left: var(--dialogue-margin);
-  bottom: calc(var(--transcript-height) + var(--transcript-bottom) + .4rem);
-  display: flex;
-  gap: .35rem;
-  padding: .12rem .25rem;
+  inset-inline-end: max(52px, calc(env(safe-area-inset-right) + 8px));
+  inset-block-start: max(54px, calc((100% - var(--transcript-height) - var(--transcript-bottom)) / 2));
+  translate: 0 -50%;
+  z-index: 1;
+  display: grid;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid #fff3d95c;
   pointer-events: auto;
 }
-.legend-paging[hidden] { display: none; }
-#presentation-shell:has(#viewport[data-establishing-shot]) .legend-paging { bottom: var(--transcript-bottom); }
+#presentation-shell:has(.theory-ballot:not([hidden])) .legend-paging { display: none; }
 .legend-paging button {
-  width: 2.4rem; min-height: 2rem; border: 0; border-radius: 5px;
-  background: transparent; color: inherit; font: 700 1.5rem/1 system-ui; cursor: pointer;
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
 }
+.legend-paging button::before {
+  content: '';
+  inline-size: 10px;
+  block-size: 10px;
+  border: solid currentColor;
+  border-width: 3px 3px 0 0;
+  rotate: -45deg;
+}
+.legend-paging button + button::before { rotate: 135deg; }
 .legend-paging button:hover, .legend-paging button:focus-visible { background: #465654; }
 #viewport:has(#contemporary-heading.page-foreground)::before { filter: none; }

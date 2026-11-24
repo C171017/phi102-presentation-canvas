@@ -101,8 +101,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   for (const direction of [-1, 1]) {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = direction < 0 ? '‹' : '›';
-    button.setAttribute('aria-label', direction < 0 ? 'Previous cue' : 'Next cue');
+    const label = direction < 0 ? 'Previous cue' : 'Next cue';
+    button.setAttribute('aria-label', label);
+    button.title = label;
+    button.setAttribute('aria-keyshortcuts', direction < 0 ? 'ArrowUp' : 'ArrowDown');
     button.addEventListener('click', () => move(direction));
     controls.append(button);
   }
@@ -393,11 +395,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   function showScene(id?: string) {
     theory.showScene(id);
     if (id === 'contemporary-heading' && !image.hasAttribute('src')) image.src = portrait;
-    const nextScene = id === 'L7' ? 'P1' : id === 'P1' ? 'P2-1' : undefined;
+    const nextScene = id === 'contemporary-heading' ? 'L0'
+      : id === 'L7' ? 'P1' : id === 'P1' ? 'P2-1' : undefined;
     const nextBackground = nextScene && legendById.get(nextScene)?.background;
     if (nextBackground) artwork.preload(nextBackground);
-    const legend = id && legendById.has(id);
-    controls.hidden = id === 'P1' || (!legend && id !== 'contemporary-heading' && !introScenes.includes(id ?? ''));
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
