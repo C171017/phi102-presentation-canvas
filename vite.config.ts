@@ -12,7 +12,12 @@ import { countSchools, isSchoolVote, type SchoolVote } from './src/school-vote';
 import { storyTextEndpoint } from './src/story-text';
 
 const layoutFile = fileURLToPath(new URL('./canvas-layout.json', import.meta.url));
-const openingFile = fileURLToPath(new URL('../op/drafts/dead-ink-op-codex-v2.mp4', import.meta.url));
+const openingDrafts = [
+  'flexible-foundationalism-op-v4.mp4',
+  'flexible-foundationalism-op-v3.mp4',
+  'dead-ink-op-codex-v2.mp4',
+].map(name => fileURLToPath(new URL(`../op/drafts/${name}`, import.meta.url)));
+const openingFile = openingDrafts.find(path => existsSync(path)) ?? openingDrafts[0];
 const openingFilename = basename(openingFile).toLowerCase();
 
 function isLoopback(address?: string) {

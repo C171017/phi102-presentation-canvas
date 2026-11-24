@@ -204,7 +204,7 @@
   stroke-width: 3;
   stroke-dasharray: 100 100;
 }
-.record-quiz:not([hidden], [data-mode="results"]) circle { animation: record-countdown var(--answer-window) linear forwards; }
+.record-quiz:not([hidden], [data-mode]) circle { animation: record-countdown var(--answer-window) linear forwards; }
 .record-quiz[data-mode="results"] circle { stroke-dashoffset: var(--vote-offset, 100); }
 .record-quiz[data-mode="results"] button { opacity: .8; cursor: default; }
 .record-quiz[data-mode="results"] .vote-leader { opacity: 1; box-shadow: 0 0 0 2px #f4c579, 2px 4px 0 #101b1dc9; }

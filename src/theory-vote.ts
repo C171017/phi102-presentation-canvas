@@ -17,7 +17,7 @@ export type TheoryAction = {
 };
 type Round = { id: string; remaining: Theory[]; eliminated?: Theory; winner: Theory | null };
 export type TheoryBallot = Round & { closesAt: number; ballots: Record<string, Theory> };
-export type TheoryView = Round & { counts: Record<Theory, number>; voters: number; mine?: Theory };
+export type TheoryView = Round & { closesAt: number; counts: Record<Theory, number>; voters: number; mine?: Theory };
 
 export function ballotSlide(ballot: Round) {
   return slides.findIndex(slide => slide.members[0] === (ballot.winner ? theoryScene(ballot.winner) : voteHub));
@@ -29,8 +29,8 @@ export function voteView(ballot: TheoryBallot, audience: string[], voter?: strin
     const choice = ballot.ballots[id];
     if (choice) counts[choice]++;
   }
-  const { id, remaining, eliminated, winner } = ballot;
-  return { id, remaining, eliminated, winner, counts, voters: audience.length, mine: voter ? ballot.ballots[voter] : undefined };
+  const { id, remaining, eliminated, winner, closesAt } = ballot;
+  return { id, remaining, eliminated, winner, closesAt, counts, voters: audience.length, mine: voter ? ballot.ballots[voter] : undefined };
 }
 
 export function resolveBallot(ballot: TheoryBallot, audience: string[], close = false) {
