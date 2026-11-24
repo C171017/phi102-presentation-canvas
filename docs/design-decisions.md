@@ -1421,3 +1421,11 @@ Remove the badge in the [P2-6 illustration](../public/generated/backgrounds/ink-
 ImageGen edit prompt:
 
 > Use case: precise-object-edit. Edit the supplied square crop of a cel-painted dark teal jacket. Remove the tiny bright red map-pin badge in the center, including its dark hole and any red fringe. Replace only the badge with matching plain jacket fabric. Keep the nearby dark triangular cloth fold, seam, shading, reflected light, water droplets, brown strap, and exact crop and geometry. Return the full square crop. Add nothing.
+
+## 2026-11-24T01:07:52-08:00 · Publish the revised V5 opening
+
+Recorded time in Pacific time. Howie requested that the [public canvas](https://phi102.c171017.com/) include the current visuals and opening:
+
+> also make sure all the new things are updated to the live including like new efefcts, visual, pic backgroudn the latest video etc
+
+Use the revised V5 cut with Harue's rear-facing shot and the masked Three Sacred Treasures panels. The classroom introduction still leads into the opening. Encode the existing cut as a fast-start 1080p MP4 with its existing audio track and give it a versioned public path.
