@@ -1,20 +1,29 @@
-.canvas-label.knowledge-pipeline { width: 900px; height: 450px; max-width: none; padding: 0; }
-.pipeline-art text { text-anchor: middle; font-family: Georgia, serif; fill: #463927; }
-.pipeline-art .letter-time { fill: #263f87; font: italic bold 32px Georgia, serif; }
-.pipeline-art .pipeline-rule { fill: #fff4df; font-size: 39px; font-weight: 600; }
-@media (prefers-reduced-motion: no-preference) {
-  .pipeline-running .pipeline-letter { animation: letter-through-gate 1.7s ease-in-out; }
-  .pipeline-running .pipeline-base { animation: foundation-emerges 1.7s ease-out; }
+.evan-letter-scene {
+  width: 900px;
+  height: 450px;
 }
-@keyframes letter-through-gate {
-  0%, 10% { transform: translateX(0); opacity: 1; }
-  51% { transform: translateX(255px); opacity: 1; }
-  52%, 83% { transform: translateX(255px); opacity: 0; }
-  84% { transform: translateX(0); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
+
+.evan-equation path {
+  fill: none;
+  stroke: #292f62;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
 }
-@keyframes foundation-emerges {
-  0%, 48% { transform: translateX(-188px); opacity: 0; }
-  56% { opacity: 1; }
-  85%, 100% { transform: translateX(0); opacity: 1; }
+
+.evan-writer {
+  transform-box: fill-box;
+  transform-origin: right bottom;
+}
+
+.evan-wet-ink,
+.evan-solid-ink {
+  opacity: 0;
+}
+
+.evan-solid-ink {
+  transform-box: fill-box;
+  transform-origin: center bottom;
 }

@@ -1,6 +1,12 @@
-.hinge-door-model {
-  display: block;
-  width: 480px;
+.hinge-illustration.scene-art {
+  display: grid;
+  place-items: center;
+  width: 540px;
   height: 450px;
-  margin-inline: 30px;
+}
+
+.canvas-media .hinge-illustration img {
+  width: 400px;
+  max-width: none;
+  height: auto;
 }

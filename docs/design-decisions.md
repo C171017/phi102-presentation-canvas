@@ -835,3 +835,58 @@ Use the four figures from this lineup for the full-body cast on the canvas. Simo
 Use the approved four-character sheet as the base. Refine Cole's face only, using the supplied close-up for the playful squint and crooked, toothy grin. Keep the angular paper-cut anime rendering and the existing poses, clothes, colors and props. Use the built-in ImageGen tool to prepare a transparent version with the same four silhouettes for the canvas.
 
 </details>
+
+## 2026-11-23T18:07:31-08:00 · Use a literal hinge on the Hinges route
+
+Recorded time in Pacific time. Howie asked for a literal hinge drawn in Evan’s style:
+
+> also genarte teh viaul for hinge, and it's just gonna be literally hinge (think of this issomehoe like a dark humour thing, and it shoudl have consistne style as evan )
+
+The [ImageGen illustration](../public/generated/props/ink-ocean/hinge.webp) is an ordinary loose door hinge with indigo metal leaves and a brass pin. It replaces the folding door demonstration in its existing canvas position. The joke comes from drawing ordinary hardware with the same care as Evan.
+
+<details>
+<summary>ImageGen prompt for the hinge</summary>
+
+Generate a single transparent-background prop illustration for an original anime canvas. The supplied Evan fountain pen is a style reference only: match the very angular cut-paper shapes, the clean dark contours, midnight-indigo planes, restrained violet facet highlights and warm brass accents. Draw one absolutely ordinary architectural butt hinge, the kind removed from a door. Two plain, squat rectangular metal leaves, a little worn but entirely serviceable, with three evenly spaced round countersunk screw holes per leaf. One central cylindrical brass knuckle assembly with interleaved segments, one pin, and neat seams. Both leaves are spread partly open at about 135 degrees, enough to show both broad faces. View from slightly above at three quarters, with the hinge pin nearly vertical and the whole prop cleanly legible at thumbnail size. The leaves are dark gunmetal with near-black indigo shadows and a small violet reflection, the pin and its short collar are softly aged brass. Render it as seriously and carefully as Evan, with graphic matte facets and very subtle grain. The deadpan joke comes from how mundane the hardware is. No face, eyes, limbs, door, door frame, stand, loose screws, labels, lettering, glow, background, vignette, or dramatic effects. One hinge only. Center the full object, with a slim clear margin around it and true alpha transparency through the screw holes and around the silhouette.
+
+</details>
+
+## 2026-11-23T18:08:29-08:00 · Let Evan write E = K
+
+Recorded time in Pacific time. Howie requested:
+
+> also change this to evan and there's a letter and eavn write on teh letter E = K and then on the right side there's like the soldified ink and the so the inteaction hover animation is gonna be evan wirtes on teh letter E = K and then the ink solidfy and for the static staet only show evan and the letter with E = K on it(it should be very readable
+
+The knowledge route combines Evan and the letter in its existing canvas scene so his nib can follow the strokes. At rest the letter shows a large, dark E = K. On replay, Evan writes the equation and a pool of ink hardens into an ink stick to the right before the scene returns to rest. The letter carries the route’s existing connections to the pairing cards.
+
+## 2026-11-23T18:11:27-08:00 · Match the Gavel to Evan and the hinge
+
+Recorded time in Pacific time. Howie asked to match the style, then clarified the palette in the [Gavel art chat](codex://threads/01a20b50-5b47-72e2-a290-250abf2d218c).
+
+> update the visual for this so it has the same style (anime) style as evan adn hinges so they together look more coherent
+
+> wait the gavel should have the color more like a gavel
+
+The [redrawn Gavel](../public/generated/props/ink-ocean/gavel.webp) uses the same angular cel shading and crisp outlines as Evan and the hinge, with warm walnut on the head, handle, and block and a muted brass collar. It uses the existing social-route position and strike animation.
+
+<details>
+<summary>ImageGen prompt for the Gavel redraw</summary>
+
+Style-transfer for the original Ink Ocean presentation canvas. Image 1 is the gavel edit target and the source of the color palette. Preserve its pose, proportions, left-to-right silhouette, round sounding block and genuinely brown wooden material. Images 2 and 3, the hinge and Evan the pen, are references ONLY for the drawing technique. Redraw the gavel as angular 2D cut-paper anime, with large sharply bounded matte cel shadows, restrained texture, and strong clean near-black contours. The head, handle, and block clearly read as traditional warm medium-dark walnut: muted chestnut and warm deep brown in the main planes, a few honey-brown bevels, and a very subtle cool undertone in the darkest shadows only. Use aged warm brass, with two or three clean flat gold values on the main collar and small fittings. Keep the brown wood distinct from the brass and avoid purple or blue main surfaces. Avoid glossy gold effects, luminous edges, photorealistic wood grain, and gradients. Match the existing slightly elevated 3/4 view and exact basic arrangement. Isolate the full prop on true alpha transparency, landscape 16:9, centered with slim margins. One gavel and one sounding block, no glow, external cast shadow, backdrop, other objects, or text.
+
+</details>
+
+## 2026-11-23T18:13:00-08:00 · Give the hinge its own palette
+
+Recorded time in Pacific time. Howie asked:
+
+> also for the hinge the it could have a differnt color than evan and gavel so the 3 together looks distintive
+
+Use weathered teal leaves and a brushed steel pin on the [hinge](../public/generated/props/ink-ocean/hinge.webp). The palette distinguishes the hinge from Evan’s indigo and gold and the Gavel’s walnut and brass.
+
+<details>
+<summary>ImageGen recoloring prompt for the hinge</summary>
+
+Recolor this one existing anime door-hinge sprite. Copy its geometry, slight perspective, faceted rendering, all six countersunk holes and mechanical simplicity. Replace the two navy-purple metal leaves with a weathered dark teal and sea-green finish (dominant matte petrol teal #38786f, cel shade #214741, selective pale sage-green facets #78a99a). Replace the entire gold pin and collars with cool neutral brushed silver steel (#bbc6c5 with cool gray shaded facets), with weathered seam details. This belongs alongside an indigo-and-gold fountain pen and a walnut-and-brass gavel, so make the teal/steel palette immediately clear. Keep the illustration angular, dry and matter-of-fact. Artwork isolated on true transparent alpha. Exactly one regular hardware-store butt hinge, no glow, floor, special effects, ornament or lettering. Keep empty transparent space through the holes and around the silhouette.
+
+</details>

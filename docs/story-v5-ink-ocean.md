@@ -68,13 +68,12 @@ Tags can combine. **[FIXED concept · AI DRAFT text]** means the idea is confirm
 5. **Context colors:** teal for Simone, rust for Cole, blue for Rae, violet and coral for Echo.
 6. **Don't** put the names of films, games, studios, artists or specific artworks into image prompts. Describe painting traditions and visual qualities instead. Don't reproduce any existing character, logo or painting. Descartes appears as a generic seventeenth-century scholar in scroll style, not a copy of a known portrait.
 7. **Avoid baked-in text** except where a scene asks for a short label (a title card, words pressed into an ink stick).
-8. **Show the Dry World meter** (§2b) in the corner of every legend, prison and real-ocean frame, at the value given for that scene.
-9. **[FIXED] Only NPCs are made of ink cubes.** Named characters (the three masters, Descartes, the keeper, the heroes) are drawn as ordinary people with expressive faces and drawn clothing. **NPCs (unnamed crowds and background people) are made of dried ink [new design from the author's design session, Nov 22]:** figures built entirely of small ink cubes, finest and densest at the head, growing gradually larger toward the feet, with no sudden jump in density, so the body reads as one coherent, seamless form. From across the room you see a person; up close you see the beliefs they're built from. When their beliefs go wet, they slump, drip and shrink. Simone, Cole, Rae and Echo keep their Version C designs.
-10. **The three Answerers and Descartes** are stylized characters, not portraits: invent faces; don't copy any known painting or photograph.
-12. **The regress dialogue in `src/slide-content.ts` is out of date.** Use L1–L5 of this document.
-13. **Everything from Part 2 on is unconfirmed** (either [YOUR IDEA · AI VERSION] or [AI DRAFT]). Label those images as drafts.
-14. **Evan has no model sheet yet.** Draw him as a small, courteous, living fountain pen with two small eyes on the clip **[AI DRAFT; a living ink brush is the alternative, §8]**.
-15. **P1 opens with a pull-back reveal:** the legend's last painting pulls back to a courtroom, and the narrator turns out to be Simone, testifying. The art style changes there, from the scroll's painting styles to P1's gaslit 1890s courtroom.
+8. **[FIXED] Only NPCs are made of ink cubes.** Named characters (the three masters, Descartes, the keeper, the heroes) are drawn as ordinary people with expressive faces and drawn clothing. **NPCs (unnamed crowds and background people) are made of dried ink [new design from the author's design session, Nov 22]:** figures built entirely of small ink cubes, finest and densest at the head, growing gradually larger toward the feet, with no sudden jump in density, so the body reads as one coherent, seamless form. From across the room you see a person; up close you see the beliefs they're built from. When their beliefs go wet, they slump, drip and shrink. Simone, Cole, Rae and Echo keep their Version C designs.
+9. **The three Answerers and Descartes** are stylized characters, not portraits: invent faces; don't copy any known painting or photograph.
+10. **The regress dialogue in `src/slide-content.ts` is out of date.** Use L1–L5 of this document.
+11. **Everything from Part 2 on is unconfirmed** (either [YOUR IDEA · AI VERSION] or [AI DRAFT]). Label those images as drafts.
+12. **Evan has no model sheet yet.** Draw him as a small, courteous, living fountain pen with two small eyes on the clip **[AI DRAFT; a living ink brush is the alternative, §8]**.
+13. **P1 opens with a pull-back reveal:** the legend's last painting pulls back to a courtroom, and the narrator turns out to be Simone, testifying. The art style changes there, from the scroll's painting styles to P1's gaslit 1890s courtroom.
 
 ## Quick reference
 
@@ -154,42 +153,11 @@ A chorus of five ink bubbles born when a question mark spilled into the world's 
 ## 2 · The story at a glance
 
 1. **[FIXED]** **Frame.** A student steps off the red Unitrans double-decker and takes a seat in Giedt Hall. Professor Lin opens with the B/13 quiz on contemporary contextualism, then introduces flexible foundationalism. The OP plays. As soon as it ends, the legend begins.
-2. **[FIXED]** **Legend:** YYYY SOWATT is born and starts to wet the world like a virus, getting visibly worse with every chapter (§2b). People fight back: humanity elects three great masters, the Answerers, who appear in an order the audience chooses and are all useless; then Descartes, the fourth master nobody elected, right after. Descartes's *I think* is the first belief that stays dry while being asked about, but one dry grain can't hold back an ocean, and people have to hurry. Two schools try to dry the world again and fail. Then someone finds a better way, flexible foundationalism, and leaves three weapons to the world. Whether the Whypocalypse ever ended is left open.
+2. **[FIXED]** **Legend:** YYYY SOWATT is born and starts to wet the world like a virus, getting visibly worse with every chapter. People fight back: humanity elects three great masters, the Answerers, who appear in an order the audience chooses and are all useless; then Descartes, the fourth master nobody elected, right after. Descartes's *I think* is the first belief that stays dry while being asked about, but one dry grain can't hold back an ocean, and people have to hurry. Two schools try to dry the world again and fail. Then someone finds a better way, flexible foundationalism, and leaves three weapons to the world. Whether the Whypocalypse ever ended is left open.
 3. **[FIXED structure · AI DRAFT content]** **The relay:** as in *The Matrix*, whoever wakes goes back in for the others. **[FIXED requirement]** The legend turns out to be Simone's testimony in a dream-world courtroom, where she's laughed at, then proves it with the Gavel (P1). Simone breaks out of her dream first, spends years alone with only Echo, then builds a rebellion, the Ferry, and a small new town, Here, while searching for the third weapon. She enters Cole's dream; then the two of them, with Evan and Echo, enter Rae's. The order follows the argument of Greco's §3, and the disagreement problem happens between the protagonists.
 4. **[FIXED concept · AI DRAFT content]** **The real ocean:** the three heroes, Evan and Echo, with the town behind them, confront the demon. Following §4 of the paper, they learn to stand without bedrock. Then the demon poses a moral question, and the audience votes on the ending.
 
 ---
-
-## 2b · The urgency device: the Dry World meter [FIXED concept · AI DRAFT design]
-
-**[FIXED]** From the moment YYYY SOWATT is born, the disaster keeps spreading and the audience must *see* it getting worse, chapter by chapter, until a cure is in sight. Right before the cure, everything freezes.
-
-**[AI DRAFT]** Five layers, all tied to the same number:
-
-1. **The meter.** A small inset map of the world in the corner of every legend slide, with a mock-anime HUD label: **DRY WORLD REMAINING: 100%**. Dark ink spreads across the inset as the number falls. The sarcastic narrator never mentions it.
-2. **Day captions.** Each chapter opens with a caption counting days since the first question: *Day 1*, *Day 3*, *Day 30*… The whole legend happens fast, like a myth told in one breath.
-3. **The scroll itself gets wetter.** Each chapter, the handscroll is a little more damaged: the edges buckle, colors bleed past their outlines, ink runs down from the top edge. By the demonstration, the painting is barely holding together.
-4. **The dialogue box drips.** The narrator's text picks up a faint run under each letter, a little longer each chapter. (On the canvas: an SVG turbulence and displacement filter whose strength rises with the chapter.)
-5. **Sound** (if the canvas plays audio): a slow drip at L2 that speeds up chapter by chapter, like a pulse. Silence when the meter turns to ?? (L7).
-
-| Scene | Day caption | Meter | What the audience feels |
-| --- | --- | --- | --- |
-| L1 · Origin | Before the fall | 100% | A clean map; everyone whole |
-| L2 · The hand | Day 1 | 99% | One dark spot at the Inkwell's edge |
-| L3 · The Whypocalypse | Days 2–30 | 99% → 58% | The number falls *while they watch*; the stain races outward from the Inkwell |
-| L4 · The three Answerers | Days 30–39 | 58% → 52% → 47% → 41% | One step down per master, in whatever order the audience picks them |
-| L5 · Descartes | Day 40 | **41%, holds** | For one day the number stops falling, while everyone stares at the grain |
-| L6 · The two schools | Days 41–90 | 41% → 46% → 28% | The moderates' jelly towns push it up; each "Are you sure?" knocks it down further |
-| L7 · The hook | — | 28% → **??** | The number blinks and nobody says why: did the Whypocalypse end? |
-| P1 · The courtroom | — | **100%** | Suspiciously perfect: the first clue that this world is a dream |
-
-**Payoff in Part 2 [AI DRAFT].** Inside every dream dome, the meter reads **DRY WORLD REMAINING: 100%**. Too perfect: a clue that the world is fake. When a dome cracks, it glitches to **??**.
-
-**Payoff in the real ocean [AI DRAFT].**
-- **I1:** **DRY WORLD REMAINING: 0%**, and it **stays at 0%** for the rest of the story: the ocean is real. A second line appears: **PEOPLE STANDING: 1**.
-- **I2:** as Here grows, PEOPLE STANDING climbs: 12 … 140 … 600.
-- **P2, P3:** one more for Cole, one more for Rae. (Echo was never asleep.)
-- **R12:** the final reading depends on the ending the audience votes for. You don't need a dry world; you need dry footing. Beside the final title card: **THE END. (Probably.)**
 
 ## 3 · Part 0 · Frame [FIXED]
 
@@ -331,7 +299,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 
 ### L4 · Operation Because: three great masters [FIXED]
 
-**[FIXED]** Humanity unites and elects three famous masters to stop the crisis, in the spirit of the Wallfacers in *The Three-Body Problem*: celebrated, given everything, and completely useless. Each represents one answer to the regress. **Show all four options in the L4 chooser:** Skepticism, Infinitism, Coherentism, and Foundationalism. While any of the first three remain, Foundationalism slips away from the cursor when the pointer approaches. The audience picks the three available Answerers in any order. Once they have all been visited, Foundationalism stays still and the audience selects it as the fourth and final choice, leading to Descartes. Each master's scene stands on its own, so any order works, and the meter drops one step per master.
+**[FIXED]** Humanity unites and elects three famous masters to stop the crisis, in the spirit of the Wallfacers in *The Three-Body Problem*: celebrated, given everything, and completely useless. Each represents one answer to the regress. **Show all four options in the L4 chooser:** Skepticism, Infinitism, Coherentism, and Foundationalism. While any of the first three remain, Foundationalism slips away from the cursor when the pointer approaches. The audience picks the three available Answerers in any order. Once they have all been visited, Foundationalism stays still and the audience selects it as the fourth and final choice, leading to Descartes. Each master's scene stands on its own, so any order works.
 
 > **Narrator:** For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited ink, unlimited time and absolute authority.
 > **Narrator:** Each was given one task: answer it.
@@ -477,7 +445,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 - **The narrator is revealed in P1:** the legend's narration was Simone's testimony in court all along. Whether the Whypocalypse ended is never stated, so the audience can start doubting the world they're in.
 - **The three weapons,** revealed in Part 2: the Gavel (social norms, Annis, §2.1), the Anchor (hinges, Wittgenstein, §2.2), and Evan (knowledge at the base, E = K, §2.3). Each answers to anyone, but differently in different hands (§9.2).
 
-**Visual:** blue-green landscape (青绿山水): calm mineral blues and greens. A lone woman seen only from behind, one stick dry under her foot. Then the gold title card, and an empty sea. The corner meter blinks **??**.
+**Visual:** blue-green landscape (青绿山水): calm mineral blues and greens. A lone woman seen only from behind, one stick dry under her foot. Then the gold title card, and an empty sea.
 
 **Canvas:** Story page 18 and the presentation show the Stranger’s first step from the waterline. Three artifact shapes under a cloth on the lower-left ledge foreshadow the reveal. [First-step illustration](../public/generated/backgrounds/ink-ocean/L7-stranger-covered-artifacts.webp)
 
@@ -547,7 +515,7 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 
 **Simone's age [AI DRAFT rule]:** people are made of beliefs, so they change only when their beliefs do. Her core beliefs stayed dry, so she barely aged, and her character design stays fixed.
 
-**Visual tells [AI DRAFT]:** a faint dome of ink overhead and one dark thread in a corner of every dream frame; inside every dream, the meter reads a suspiciously perfect 100%.
+**Visual tells [AI DRAFT]:** a faint dome of ink overhead and one dark thread in a corner of every dream frame.
 
 ### P1 · The Trial · Simone · social × sensitive invariantism · the Gavel [FIXED] · ~2 min
 
@@ -612,7 +580,7 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 
 **I1 · Alone**
 
-> *(A drop of ink that has hung in mid-air for ages finally falls. Plink. The meter: DRY WORLD REMAINING 0% · PEOPLE STANDING 1.)*
+> *(A drop of ink that has hung in mid-air for ages finally falls. Plink.)*
 > **Narrator:** Nobody knows how long she slept. Long enough that the ink had forgotten what it said.
 > *(Simone on one dry plank in an endless grey ocean. Domes of ink in every direction, a sleeper curled inside each.)*
 > *(On her knee: Echo, exactly as before. Everything she had known had been a dream. Except, somehow, the crab.)*
@@ -712,7 +680,7 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 > **Narrator:** Those two didn't contradict each other. Then why did the first two feel like a fight?
 > **Narrator:** Echo didn't think either of them had a fact wrong. He thought they were *for* different things. Nobody asked Echo.
 
-**The crack:** if each of them is only stating their own commitments, both can be right, and yet it feels like a real disagreement. **Quiz Q3.** The dome splits, and they both fall out into Here. PEOPLE STANDING +1.
+**The crack:** if each of them is only stating their own commitments, both can be right, and yet it feels like a real disagreement. **Quiz Q3.** The dome splits, and they both fall out into Here.
 
 **Visual:** a neon night sea, Cole on a small raft in his ring light, rust ribbons of ink drifting from his mouth, glowing paper slips of chat around him; Simone, in 1890s clothes and dripping, in the middle of it; Echo on her shoulder with both claws raised.
 
@@ -735,7 +703,7 @@ Greco's §3 is already a relay: each version runs into a problem, and the next v
 > **Narrator:** Echo didn't describe the patch. He committed to it.
 > **Narrator:** Two answers to the same disagreement, side by side. Neither won.
 
-**The crack:** two equally live answers, and the paper leaves the choice open. The lie that there's one rule for the whole ocean can't survive that. **Quiz Q4.** The dome shatters. PEOPLE STANDING +1.
+**The crack:** two equally live answers, and the paper leaves the choice open. The lie that there's one rule for the whole ocean can't survive that. **Quiz Q4.** The dome shatters.
 
 **The hint [AI DRAFT]:** Rae's doubt is one nobody can dispel, so in her assessment Evan's line stops counting as knowledge (footnote 16). That plants the catch revealed in R6.
 
@@ -817,11 +785,11 @@ On the horizon stands a lighthouse, the one place the demon's storm hasn't reach
 
 Every audience screen shows three choices for 15 seconds. The majority ending plays. Afterwards, the canvas can show the other two.
 
-| Ending | What happens | Final meter |
-| --- | --- | --- |
-| **A · Light it** | The beam sweeps across the ocean and into every dome. Dreamers wake, melt a little, then find a stick that holds, then another. **Narrator:** "It hurt. Then they stood." **Simone:** "You can take my truth. You can't take my footing." The strings go slack. SOWHAT drops free and lands on Simone's other shoulder, next to Echo. | DRY WORLD REMAINING 0% · PEOPLE STANDING 97% |
-| **B · Let them sleep** | Simone takes her hand off the lamp. The domes glow on, each one home to someone. **Narrator:** "Everyone was happy. Nobody was right." The strings stay taut. | PEOPLE STANDING: only Here |
-| **C · Teach the question** | Simone pulls SOWHAT off its strings and sets it beside the first dome. In its own small voice, it asks the dreamer one question, and waits for an answer that matters. **Narrator:** "It wasn't the end of questions. It was the end of questions that never end." | PEOPLE STANDING: climbing slowly… (Probably.) |
+| Ending | What happens |
+| --- | --- |
+| **A · Light it** | The beam sweeps across the ocean and into every dome. Dreamers wake, melt a little, then find a stick that holds, then another. **Narrator:** "It hurt. Then they stood." **Simone:** "You can take my truth. You can't take my footing." The strings go slack. SOWHAT drops free and lands on Simone's other shoulder, next to Echo. |
+| **B · Let them sleep** | Simone takes her hand off the lamp. The domes glow on, each one home to someone. **Narrator:** "Everyone was happy. Nobody was right." The strings stay taut. |
+| **C · Teach the question** | Simone pulls SOWHAT off its strings and sets it beside the first dome. In its own small voice, it asks the dreamer one question, and waits for an answer that matters. **Narrator:** "It wasn't the end of questions. It was the end of questions that never end." |
 
 After every ending: the title card in the same mock-anime style as L7's title card, **THE END.** *(beat)* **(Probably.)**
 

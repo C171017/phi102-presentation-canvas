@@ -68,14 +68,6 @@ export function initializePaperSlides(world: HTMLElement) {
       place(host, left + scene.w / 2, slide.top + ROW + scene.h / 2);
       mountScene(host);
       world.append(host);
-      if (id === 'route-knowledge-scene') {
-        const pen = document.createElement('div');
-        pen.id = pen.dataset.scene = 'route-knowledge-evan';
-        pen.setAttribute('aria-label', 'Evan, the evidence source');
-        mountScene(pen);
-        place(pen, left + scene.w / 2 - 391, slide.top + ROW + scene.h / 2 - 113);
-        world.append(pen);
-      }
       left += scene.w + GAP;
     }
   }

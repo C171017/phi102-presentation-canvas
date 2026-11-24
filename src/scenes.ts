@@ -1,11 +1,11 @@
-import { mountKnowledgePipeline } from './knowledge-pipeline';
+import { knowledgeScene } from './knowledge-pipeline';
 import { mountApplicationBase, mountApplicationHome, mountOrder } from './application-map';
 import { P, line, poly, ground, block, stone, txt, lines, tag, bubble, person, arrow, check, cross, star, plate, st, ring } from './sketch';
 import './scenes.css';
 import { mountDilemma, mountUndoubtedCairn } from './foundation-scenes';
 import { gavelScene } from './gavel-scene';
 import { castScenes } from './party-train';
-import { HINGE_DOOR_LABEL, mountHingeDoor } from './hinge-door';
+import { hingeScene } from './hinge-door';
 
 // Every drawing illustrates Daniel Greco, “Contextualism about Foundations” (2017).
 type Scene = { w: number; h: number; beat?: number; label: string } & (
@@ -53,17 +53,9 @@ export const scenes: Record<string, Scene> = {
 
   'route-social-scene': gavelScene,
 
-  'route-hinges-door': {
-    w: 540, h: 450,
-    label: HINGE_DOOR_LABEL,
-    mount: mountHingeDoor,
-  },
+  'route-hinges-door': hingeScene,
 
-  'route-knowledge-scene': {
-    w: 900, h: 450,
-    label: 'Evan’s invitation, with the unfinished time “8:”, passes through the E = K box.',
-    mount: mountKnowledgePipeline,
-  },
+  'route-knowledge-scene': knowledgeScene,
 
   ...castScenes,
 

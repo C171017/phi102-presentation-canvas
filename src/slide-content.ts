@@ -17,7 +17,7 @@ export const slides = [
   { title: 'Undoubted, Not Undoubtable', description: 'Keep Descartes’s insight about doubt, but apply it locally', members: ['undoubted-heading', 'undoubted-crystal'] },
   { title: 'Route 1: Justification as a Social Activity', description: 'We justify to an audience, and audiences differ', members: ['route-social-heading', 'route-social-scene'] },
   { title: 'Route 2: Hinges', description: 'Asking one question means holding others fixed', members: ['route-hinges-heading', 'route-hinges-door'] },
-  { title: 'Route 3: Knowledge or Belief at the Base', description: 'Two familiar views turn flexible “without trying”', members: ['route-knowledge-heading', 'route-knowledge-scene', 'route-knowledge-evan'] },
+  { title: 'Route 3: Knowledge or Belief at the Base', description: 'Two familiar views turn flexible “without trying”', members: ['route-knowledge-heading', 'route-knowledge-scene'] },
   { title: 'Routes and Versions', description: 'How the routes from §2 connect to four views of foundational justification', members: ['versions-map-heading', ...castIds] },
   { title: 'Routes × versions', description: 'Compare the pairings by the space Greco gives them', paperAnchor: 'versions-map-heading', members: ['pairings-heading'], frameMembers: ['pairings-heading', ...versionPairings.map(pairing => pairing.id)] },
   ...versionPairings.map(pairing => ({
