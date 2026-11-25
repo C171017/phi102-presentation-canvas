@@ -1453,3 +1453,27 @@ Recorded time in Pacific time. Howie asked for an on-screen alternative to the k
 > Also for the sake of if someone people they don't use keyboard at all, add a control. Whereas basically on the right side of the screen, think of like a vertical arrow key up and down where you can click that to go to the next and previous dialogue as another control. So there's like a click-driven control on top of the existing keyboard control.
 
 Use the existing cue buttons as a vertical pair on the right. Up goes to the previous cue and down advances. The buttons follow the same progression as the keyboard, including establishing shots and courtroom text.
+
+## 2026-11-24T22:31:07-08:00 · Opening credits, ink silhouettes and music cues
+
+Recorded time in Pacific time. Howie requested the following refinements.
+
+> when you are showing my picture, you're going to show only my name
+
+> the other cahracter masks hsould be checked a bit and fix if needed
+
+> especially the "YYYY, so what?" first, like the first "YYYY, so what?" part
+
+> also here the combinaiton of colors can be better like try avoid same color here
+
+The revised cut gives Howie and Harue individual credits, cleans the presenter silhouettes, and uses six distinct paper colors in the treasure panels. The five ink voices enter on successive musical accents. The four questions and the two words of the reply follow attacks measured in the original TV mix.
+
+## 2026-11-24T22:41:43-08:00 · Follow the original opening’s picture clock
+
+Recorded time in Pacific time. Howie requested a change to the preceding timing decision.
+
+> we just need to keep the same timing of transition as the original video, or reuse the key critical time point or timestamp kind of thing.
+
+> also notice the lttile variation of color box thing
+
+The cut follows the original picture timestamps. The first question sequence holds a single grid and then uses 12-, 7- and 9-frame inserts. Changes in the colored boxes, silhouette reveals and the line between shots adapt the visual phrasing to the project’s existing art.
