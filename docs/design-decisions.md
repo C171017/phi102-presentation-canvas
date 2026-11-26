@@ -1502,7 +1502,6 @@ Recorded time in Pacific time. Howie asked for controls in the inline dialogue e
 
 The dialogue column supports prepending a line, inserting one after another, and removing ordinary dialogue cues. A new line inherits the nearby speaker. Quiz, reveal, and artwork-transition cues retain their original triggers. Saving records the revised sequence in version history.
 
-
 ## 2026-11-25T21:56:15-08:00 · Keep the opening classroom panel through the quiz
 
 Recorded time in Pacific time. Howie asked to match the revised Google Slides copy in the [classroom update chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
@@ -1511,6 +1510,13 @@ Recorded time in Pacific time. Howie asked to match the revised Google Slides co
 
 Use the opening Contemporary Contextualism panel through the vote and its result, with the two bullets and the Greco citation shown in the first screenshot. Remove the “Look at the gold mark” cue and the separate “The same mark supports two readings” panel. The vote, transcript, and Flexible Foundationalism reveal still appear in sequence.
 
+## 2026-11-25T21:59:17-08:00 · Remove wording from interactive dialogue cues
+
+Recorded time in Pacific time. Howie pointed out that several classroom lines were missing the removal option:
+
+> why is that not all of them provide remove line option
+
+Show Remove line on every displayed line in the right-hand transcript. Removing quiz, result, reveal, or artwork-transition wording keeps the underlying presentation cue active. An empty transcript can receive a new first line. Version history can restore all removed wording.
 
 ## 2026-11-25T22:00:36-08:00 · Remove the Flexible Foundationalism classroom panel
 

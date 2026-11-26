@@ -3,7 +3,7 @@ import { isDialogueText, isSlideCopy, sharedSlideByKey, type AddedDialogueLine, 
 type PanelFields = {
   key: string; title: HTMLElement; claim: HTMLElement; points: HTMLUListElement; bridge: HTMLElement; source: HTMLElement;
 };
-type EditableLine = { key: string; element: HTMLElement; removable: boolean };
+type EditableLine = { key: string; element: HTMLElement };
 
 export type InlineDialogueTarget = {
   scene: string;
@@ -56,13 +56,8 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
   }
 
   function updateLineControls() {
-    const visibleCount = [...wrappers.values()].filter(row => !row.wrapper.hidden).length;
     for (const { buttons } of wrappers.values()) {
-      buttons[0].disabled = pending;
-      if (buttons[1]) {
-        buttons[1].disabled = pending || visibleCount <= 1;
-        buttons[1].title = visibleCount <= 1 ? 'Keep at least one dialogue line' : 'Remove this dialogue line';
-      }
+      buttons.forEach(button => { button.disabled = pending; });
     }
     first.disabled = pending;
   }
@@ -77,7 +72,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     inserted.set(key, { key, after: anchor?.key ?? null, text: '' });
     if (anchor) wrappers.get(anchor.key)!.wrapper.after(node);
     else first.after(node);
-    const line = { key, element: node, removable: true };
+    const line = { key, element: node };
     mountLine(line);
     updateLineControls();
     node.focus();
@@ -109,8 +104,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     wrapper.className = 'inline-dialogue-line';
     const controls = document.createElement('div');
     controls.className = 'inline-line-controls';
-    const buttons = [editButton('Add line after', () => insertLine(line))];
-    if (line.removable) buttons.push(editButton('Remove line', () => removeLine(line)));
+    const buttons = [editButton('Add line after', () => insertLine(line)), editButton('Remove line', () => removeLine(line))];
     controls.append(...buttons);
     line.element.before(wrapper);
     wrapper.append(line.element, controls);

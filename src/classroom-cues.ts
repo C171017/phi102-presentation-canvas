@@ -29,12 +29,11 @@ export const customCueKeyPattern = /^line-[0-9a-f]{32}$/;
 export const customCueNumber = (key: string) => customCueOffset + Number.parseInt(key.slice(5, 17), 16);
 export const maxAddedCues = 200;
 
-type ClassroomCue = typeof classroomScript[number] & { key: string; number: number; sourceNumber: number; original: boolean; removable: boolean };
+type ClassroomCue = typeof classroomScript[number] & { key: string; number: number; sourceNumber: number; original: boolean; silent?: true };
 const authoredByScene = new Map<string, ClassroomCue[]>();
 for (const [index, cue] of classroomScript.entries()) {
   const scene = authoredByScene.get(cue.scene) ?? [];
-  const removable = !cue.phase && !cue.background && !legendSlides.find(item => item.id === cue.scene)?.imageOnly;
-  scene.push({ ...cue, key: classroomCueKeys[index], number: scene.length, sourceNumber: scene.length, original: true, removable });
+  scene.push({ ...cue, key: classroomCueKeys[index], number: scene.length, sourceNumber: scene.length, original: true });
   authoredByScene.set(cue.scene, scene);
 }
 
@@ -66,7 +65,7 @@ export function buildClassroomScript(structure?: Record<string, DialogueStructur
         const child = children[i];
         const cue: ClassroomCue = { scene, key: child.key, text: child.text, speaker: from.speaker,
           speakerId: from.speakerId, kind: from.kind, background: from.background, number: customCueNumber(child.key),
-          sourceNumber: from.sourceNumber, original: false, removable: true };
+          sourceNumber: from.sourceNumber, original: false };
         if (!removed.has(cue.key)) result.push(cue);
         appendAdded(cue.key, cue);
       }
@@ -74,8 +73,10 @@ export function buildClassroomScript(structure?: Record<string, DialogueStructur
     appendAdded(null, base[0]);
     for (const cue of base) {
       if (!removed.has(cue.key)) result.push(cue);
+      // These cues also drive something other than transcript text.
+      else if (cue.phase || cue.background) result.push({ ...cue, silent: true });
       appendAdded(cue.key, cue);
     }
-    return result;
+    return result.length ? result : [{ ...base[0], silent: true }];
   });
 }

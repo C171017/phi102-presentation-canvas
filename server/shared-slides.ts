@@ -52,12 +52,12 @@ function storedResult(row: StoredVersion | undefined): SharedSnapshot {
 function dialogueStructure(scene: string, input: Record<string, unknown>, structures?: Record<string, DialogueStructure>) {
   const previous = structures?.[scene];
   const authored = authoredCues(scene);
-  const known = new Map(authored.map(cue => [cue.key, cue.removable]));
+  const known = new Set(authored.map(cue => cue.key));
   const added = [...(previous?.added ?? [])];
   const removed = new Set(previous?.removed);
   const wire = new Set(added.map(cue => customCueNumber(cue.key)));
   const otherKeys = new Set(Object.entries(structures ?? {}).flatMap(([id, edit]) => id === scene ? [] : edit.added.map(cue => cue.key)));
-  for (const cue of added) known.set(cue.key, true);
+  for (const cue of added) known.add(cue.key);
   const { added: inserts = [], removed: deletes = [] } = input;
   if (!Array.isArray(inserts) || !Array.isArray(deletes) || deletes.length > known.size ||
       added.length + inserts.length > maxAddedCues || ((inserts.length || deletes.length) && !editableCueSequence(scene))) return null;
@@ -65,15 +65,14 @@ function dialogueStructure(scene: string, input: Record<string, unknown>, struct
     if (!item || typeof item.key !== 'string' || !customCueKeyPattern.test(item.key) || known.has(item.key) || otherKeys.has(item.key) ||
         wire.has(customCueNumber(item.key)) || !isDialogueText(item.text) ||
         (item.after !== null && (typeof item.after !== 'string' || !known.has(item.after)))) return null;
-    known.set(item.key, true);
+    known.add(item.key);
     wire.add(customCueNumber(item.key));
     added.push({ key: item.key, after: item.after, text: item.text });
   }
   for (const key of deletes) {
-    if (typeof key !== 'string' || known.get(key) !== true) return null;
+    if (typeof key !== 'string' || !known.has(key)) return null;
     removed.add(key);
   }
-  if (known.size && ![...known.keys()].some(key => !removed.has(key))) return null;
   return { known, removed, added, changed: Boolean(inserts.length || deletes.length) };
 }
 
