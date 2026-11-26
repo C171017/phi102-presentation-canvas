@@ -1,5 +1,7 @@
 import { editInlineDialogue, type InlineDialogueTarget } from './inline-dialogue';
-import { isSlideCopy, sharedSlideByKey, sharedSlideEntries, type SharedSnapshot, type SlideCopy } from './shared-slide-data';
+import { isSlideCopy, sharedSlideByKey, sharedSlideEntries, type SharedSnapshot } from './shared-slide-data';
+import { editSlideSections } from './slide-section-editor';
+import { slideSections } from './slide-sections';
 import type { SharedSlideClient } from './shared-slides';
 import type { Layout } from './layout-data';
 
@@ -38,11 +40,7 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
   editor.innerHTML = `<form>
     <h2>Edit slide</h2>
     <label>Website section <select name="section"></select></label>
-    <label>Title <input name="title" maxlength="150" required></label>
-    <label>Main text <textarea name="claim" maxlength="500" rows="2" required></textarea></label>
-    <label>Bullet points, one per line <textarea name="points" maxlength="6100" rows="4"></textarea></label>
-    <label>Scene cue <textarea name="bridge" maxlength="500" rows="2"></textarea></label>
-    <label>Reference <input name="source" maxlength="180"></label>
+    <div class="paper-mini-slide shared-section-surface"></div>
     <p role="status"></p>
     <footer><button type="button" data-cancel>Cancel</button><button type="button" data-latest>Load latest</button>
       <button type="submit">Save slide</button></footer>
@@ -51,13 +49,12 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
   const form = editor.querySelector('form')!;
   const section = form.querySelector('select')!;
   const editorStatus = editor.querySelector<HTMLElement>('[role="status"]')!;
-  const fields = ['title', 'claim', 'points', 'bridge', 'source'] as const;
-  const inputs = Object.fromEntries(fields.map(name => [name, form.elements.namedItem(name)])) as
-    Record<typeof fields[number], HTMLInputElement | HTMLTextAreaElement>;
+  const sectionSurface = form.querySelector<HTMLElement>('.shared-section-surface')!;
+  let sectionsEditor: ReturnType<typeof editSlideSections>;
   for (const entry of sharedSlideEntries) section.add(new Option(entry.label, entry.key));
   function showCopy() {
     const copy = client.snapshot.document.copy[section.value] ?? sharedSlideByKey.get(section.value)!.initial;
-    for (const name of fields) inputs[name].value = name === 'points' ? copy.points.join('\n') : copy[name];
+    sectionsEditor = editSlideSections(sectionSurface, slideSections(copy));
     editorStatus.textContent = '';
   }
 
@@ -181,7 +178,7 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
     const session = inline;
     if (!session || busy) return;
     void run(status, async () => {
-      const change = session.changes(client.snapshot.document);
+      const change = session.changes();
       session.setBusy(true);
       try {
         if (change) await client.save(change);
@@ -256,17 +253,20 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
   editor.querySelector('[data-cancel]')!.addEventListener('click', () => editor.close());
   form.addEventListener('submit', event => {
     event.preventDefault();
-    const draft: SlideCopy = { title: inputs.title.value.trim(), claim: inputs.claim.value.trim(),
-      points: inputs.points.value.split('\n').map(value => value.trim()).filter(Boolean),
-      bridge: inputs.bridge.value.trim(), source: inputs.source.value.trim() };
+    const draft = sectionsEditor.read();
     if (!isSlideCopy(draft)) {
-      editorStatus.textContent = 'Enter a title and main text. Use at most 12 bullet points, each up to 500 characters.';
+      editorStatus.textContent = 'Use up to 150 characters for a title, 180 for a reference, and 500 per text section or bullet.';
       return;
     }
     const key = section.value;
     void run(editorStatus, async () => {
-      apply(await client.save({ type: 'copy', key, copy: draft }), false);
-      editor.close();
+      sectionsEditor.setBusy(true);
+      try {
+        apply(await client.save({ type: 'copy', key, copy: draft }), false);
+        editor.close();
+      } finally {
+        sectionsEditor.setBusy(false);
+      }
     });
   });
   editor.querySelector('[data-latest]')!.addEventListener('click', () => {

@@ -1,7 +1,9 @@
-import { isDialogueText, isSlideCopy, sharedSlideByKey, type AddedDialogueLine, type DialogueChange, type SharedSlides, type SlideCopy } from './shared-slide-data';
+import { isDialogueText, isSlideCopy, type AddedDialogueLine, type DialogueChange } from './shared-slide-data';
+import { editSlideSections } from './slide-section-editor';
+import type { SlideSection } from './slide-sections';
 
 type PanelFields = {
-  key: string; title: HTMLElement; claim: HTMLElement; points: HTMLUListElement; bridge: HTMLElement; source: HTMLElement;
+  key: string; element: HTMLElement; sections: SlideSection[];
 };
 type EditableLine = { key: string; element: HTMLElement };
 
@@ -16,16 +18,13 @@ export type InlineDialogueTarget = {
   stop: () => void;
 };
 
-const fieldNames = { title: 'Slide title', claim: 'Main text', bridge: 'Scene cue', source: 'Reference' };
-const textFields = ['title', 'claim', 'bridge', 'source'] as const;
 const text = (element: HTMLElement) => element.innerText.trim();
 
 export function editInlineDialogue(target: InlineDialogueTarget, selection: EventTarget | null) {
   const fields = new Map<HTMLElement, string>();
   const panel = target.panel;
-  const panelFields = panel && {
-    title: panel.title, claim: panel.claim, bridge: panel.bridge, source: panel.source,
-  };
+  const selectedField = selection instanceof HTMLElement ? selection.closest<HTMLElement>('[data-slide-field]') : null;
+  const selectedSection = selectedField?.closest<HTMLElement>('[data-slide-section]');
 
   function allowText(element: HTMLElement, label: string) {
     fields.set(element, text(element));
@@ -37,11 +36,8 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
   }
 
   target.start();
-  if (panel && panelFields) {
-    for (const name of textFields) allowText(panelFields[name], fieldNames[name]);
-    panel.bridge.hidden = panel.points.hidden = false;
-    for (const item of Array.from(panel.points.querySelectorAll('li'))) allowText(item, 'Bullet point');
-  }
+  const leftEditor = panel && editSlideSections(panel.element, panel.sections);
+  const initialCopy = leftEditor?.read();
   const inserted = new Map<string, AddedDialogueLine>();
   const removed = new Set<string>();
   const wrappers = new Map<string, { wrapper: HTMLElement; line: EditableLine; buttons: HTMLButtonElement[] }>();
@@ -207,25 +203,9 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     }
     updateLineControls();
   }
-  const initialPoints = panel ? Array.from(panel.points.children, item => text(item as HTMLElement)) : [];
-  const add = document.createElement('button');
-  if (panel) {
-    add.type = 'button';
-    add.className = 'inline-add-point';
-    add.textContent = 'Add bullet';
-    add.disabled = initialPoints.length >= 12;
-    panel.points.after(add);
-    add.addEventListener('click', () => {
-      const item = document.createElement('li');
-      allowText(item, 'Bullet point');
-      panel.points.append(item);
-      add.disabled = panel.points.children.length >= 12;
-      item.focus();
-    });
-  }
-
   const selected = selection instanceof HTMLElement ? selection.closest<HTMLElement>('[data-inline-label]') : null;
-  const focus = selected && fields.has(selected) ? selected : fields.keys().next().value;
+  const focus = leftEditor?.findField(selectedSection?.dataset.slideSection, selectedField?.dataset.slideField)
+    ?? (selected && fields.has(selected) ? selected : leftEditor?.firstEditable() ?? fields.keys().next().value);
   focus?.focus({ preventScroll: true });
   if (target.sequence) {
     const firstRow = wrappers.values().next().value?.wrapper;
@@ -235,7 +215,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     else currentRow.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
 
-  function changes(latest: SharedSlides): DialogueChange | null {
+  function changes(): DialogueChange | null {
     const lines: Record<string, string> = {};
     for (const { key, element } of target.lines) {
       if (removed.has(key)) continue;
@@ -250,18 +230,10 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
       return { ...item, text: value };
     });
     let copy: DialogueChange['copy'];
-    if (panel && panelFields) {
-      const edits: Partial<SlideCopy> = {};
-      for (const name of textFields) {
-        const next = text(panelFields[name]);
-        if (next !== fields.get(panelFields[name])) edits[name] = next;
-      }
-      const points = Array.from(panel.points.children, item => text(item as HTMLElement)).filter(Boolean);
-      if (points.length !== initialPoints.length || points.some((point, index) => point !== initialPoints[index])) edits.points = points;
-      if (Object.keys(edits).length) {
-        const base = latest.copy[panel.key] ?? sharedSlideByKey.get(panel.key)!.initial;
-        const next = { ...base, ...edits };
-        if (!isSlideCopy(next)) throw new Error('Keep a title and main text. Each bullet can contain up to 500 characters.');
+    if (panel && leftEditor) {
+      const next = leftEditor.read();
+      if (JSON.stringify(next) !== JSON.stringify(initialCopy)) {
+        if (!isSlideCopy(next)) throw new Error('Use up to 150 characters for a title, 180 for a reference, and 500 per text section or bullet.');
         copy = { key: panel.key, copy: next };
       }
     }
@@ -276,13 +248,13 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
       pending = busy;
       updateLineControls();
       for (const element of fields.keys()) element.contentEditable = busy ? 'false' : 'plaintext-only';
-      if (panel) add.disabled = busy || panel.points.children.length >= 12;
+      leftEditor?.setBusy(busy);
     },
     close() {
       for (const element of fields.keys()) {
         for (const attribute of ['contenteditable', 'role', 'aria-label', 'aria-multiline', 'data-inline-label']) element.removeAttribute(attribute);
       }
-      add.remove();
+      leftEditor?.close();
       firstSlot.remove();
       quizMarker.remove();
       for (const { wrapper, line } of wrappers.values()) {

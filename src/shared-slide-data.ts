@@ -2,11 +2,12 @@ import type { Layout } from './layout-data';
 import { openingNotes } from './legend-slide-notes';
 import { schoolNotes } from './school-slide-notes';
 import { slides } from './slide-content';
+import type { SlideCopy } from './slide-sections';
+export { cleanSlideCopy, isSlideCopy, type SlideCopy } from './slide-sections';
 
 export const sharedSlidesPath = '/api/shared-slides';
 export const editKeyPattern = /^[0-9a-f]{64}$/;
 
-export type SlideCopy = { title: string; claim: string; points: string[]; bridge: string; source: string };
 export type AddedDialogueLine = { key: string; after: string | null; text: string };
 export type DialogueStructure = { added: AddedDialogueLine[]; removed: string[]; quizAfter?: string | null };
 export type SharedSlides = { layout: Layout | null; copy: Record<string, SlideCopy>; dialogue?: Record<string, string>;
@@ -48,13 +49,4 @@ export const originalSharedSnapshot: SharedSnapshot = {
 
 export function isRevision(value: unknown): value is number {
   return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
-}
-
-export function isSlideCopy(value: unknown): value is SlideCopy {
-  if (!value || typeof value !== 'object') return false;
-  const { title, claim, points, bridge, source } = value as Partial<SlideCopy>;
-  return typeof title === 'string' && Boolean(title.trim()) && title.length <= 150 &&
-    typeof claim === 'string' && Boolean(claim.trim()) && claim.length <= 500 &&
-    Array.isArray(points) && points.length <= 12 && points.every(point => typeof point === 'string' && Boolean(point.trim()) && point.length <= 500) &&
-    typeof bridge === 'string' && bridge.length <= 500 && typeof source === 'string' && source.length <= 180;
 }

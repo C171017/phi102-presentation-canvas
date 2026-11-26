@@ -1,7 +1,7 @@
 import { DurableObject } from 'cloudflare:workers';
 import { parseLayout } from '../src/layout-data';
 import { authoredCues, customCueKeyPattern, customCueNumber, editableCueSequence, maxAddedCues, openingClassroomScene } from '../src/classroom-cues';
-import { editKeyPattern, isDialogueText, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
+import { cleanSlideCopy, editKeyPattern, isDialogueText, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
   type AddedDialogueLine, type DialogueCopy, type DialogueStructure, type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
 
 export interface SharedSlidesEnv {
@@ -93,8 +93,7 @@ function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides)
   if (!changes.length && copy === undefined && !structure.changed) return null;
   let document = previous;
   if (entry && panel?.copy) {
-    const { title, claim, points, bridge, source } = panel.copy;
-    document = { ...document, copy: { ...document.copy, [entry.key]: { title, claim, points, bridge, source } } };
+    document = { ...document, copy: { ...document.copy, [entry.key]: cleanSlideCopy(panel.copy) } };
   }
   if (changes.length) document = { ...document, dialogue: { ...document.dialogue, ...Object.fromEntries(changes) } };
   if (structure.changed) {
@@ -169,8 +168,7 @@ export class SharedSlideHistory extends DurableObject<SharedSlidesEnv> {
       } else if (body.type === 'copy' && typeof body.key === 'string' && isSlideCopy(body.copy)) {
         const entry = sharedSlideByKey.get(body.key);
         if (!entry) return reply({ error: 'Unknown slide.' }, 400);
-        const { title, claim, points, bridge, source } = body.copy;
-        const copy = { title, claim, points, bridge, source };
+        const copy = cleanSlideCopy(body.copy);
         document = { ...current.document, copy: { ...current.document.copy, [body.key]: copy } };
         summary = `Edited ${entry.label}`;
       } else if (body.type === 'dialogue') {

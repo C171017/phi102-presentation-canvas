@@ -35,7 +35,7 @@
   letter-spacing: -.025em;
   text-wrap: pretty;
 }
-.paper-mini-slide ul {
+.paper-mini-slide :is(ul, .mini-slide-text) {
   display: grid;
   gap: .28em;
   margin: clamp(6px, 2.7cqh, 12px) 0 0;
@@ -44,6 +44,7 @@
   line-height: 1.25;
   max-width: 61ch;
 }
+.paper-mini-slide .mini-slide-text { display: block; padding-left: 0; }
 .paper-mini-slide li::marker { color: #d5b574; font-size: .85em; }
 .mini-slide-bridge {
   max-width: 62ch;
@@ -60,7 +61,7 @@
   .paper-mini-slide { padding: 8px 13px; margin: 0; }
   .paper-mini-slide header { font-size: 12px; margin-bottom: 4px; }
   .paper-mini-slide h2 { font-size: 16px; max-width: none; }
-  .paper-mini-slide ul { font-size: 13px; gap: .15em; margin-top: 5px; }
+  .paper-mini-slide :is(ul, .mini-slide-text) { font-size: 13px; gap: .15em; margin-top: 5px; }
   .mini-slide-bridge { margin-top: 5px; }
 }
 .classroom-stage, .school-pane { container-type: inline-size; }
@@ -73,3 +74,13 @@
 .paper-mini-slide:focus-visible { outline: 2px solid #ffdc9e; outline-offset: -3px; }
 
 .paper-mini-slide :is(.mini-slide-section, cite, h2, li, .mini-slide-bridge) { white-space: pre-wrap; }
+
+.paper-mini-slide:not([data-section-editor]) header :is(.mini-slide-section, cite):empty {
+  display: none;
+}
+.paper-mini-slide > [data-slide-section] + header,
+.paper-mini-slide > :not(header) + h2[data-slide-section] {
+  margin-top: clamp(6px, 2.7cqh, 12px);
+}
+.paper-mini-slide .mini-slide-text { white-space: pre-wrap; }
+.paper-mini-slide [data-slide-field] { overflow-wrap: anywhere; }

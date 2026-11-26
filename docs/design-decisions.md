@@ -1535,3 +1535,11 @@ Recorded time in Pacific time. Howie asked to place the quiz directly in the tra
 > also the last line is not visible when in the earlier dialogu this should be fixed
 
 Draw a draggable Quiz line in the classroom dialogue editor. Moving it saves the quiz timing independently of the wording. Use the ordinary dimmed styling for the upcoming Flexible Foundationalism line. The Contemporary Contextualism panel stays on the left throughout the scene.
+
+## 2026-11-25T22:05:59-08:00 · Reorderable sections in the left slide panel
+
+Recorded time in Pacific time. Howie requested:
+
+> also the left slide part can also remove and add section and mvoe around (but alwasy in like aligned way not arbitrayr psotion
+
+Let editors add, remove, and reorder left-panel sections in a single aligned column. A slide can be saved with any combination of sections, including an empty panel.
