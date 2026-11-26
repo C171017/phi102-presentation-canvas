@@ -84,3 +84,21 @@ test('moving a quiz with removed wording produces a single silent event', () => 
   assert.equal(cues.at(-1).number, 1);
   assert.equal(cues.at(-1).silent, true);
 });
+
+
+test('every Y sentence starts with Why and each SOWHAT cue opens with So what?', () => {
+  const sentences = new Intl.Segmenter('en', { granularity: 'sentence' });
+  const lines = buildClassroomScript().filter(cue => !cue.kind && !cue.silent);
+  const yLines = lines.filter(cue => /^Y[₁₂₃₄1-4]?$/.test(cue.speaker));
+  const sowhatLines = lines.filter(cue => cue.speaker === 'SOWHAT');
+  assert.ok(yLines.length && sowhatLines.length);
+  for (const cue of yLines) {
+    const text = cue.text.replace(/\[[^\]]*\]/g, '').trim();
+    for (const { segment } of sentences.segment(text)) {
+      assert.match(segment.trimStart(), /^Why\b/, cue.key);
+    }
+  }
+  for (const cue of sowhatLines) {
+    assert.match(cue.text.replace(/\[[^\]]*\]/g, '').trimStart(), /^So what\?/, cue.key);
+  }
+});

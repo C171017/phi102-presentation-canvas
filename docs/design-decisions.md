@@ -1610,3 +1610,12 @@ Recorded time in Pacific time. Howie identified the gold vertical bar beneath th
 > remove all these sections for all the slides, like teh | section
 
 Remove the Scene cue section from all slide panels and the editor. Older slide versions still load, with their headings, references, bullets, and ordinary text displayed in order.
+
+
+## 2026-11-25T22:35:24-08:00 · Give the Y voices and SOWHAT consistent openers
+
+Recorded time in Pacific time. Howie clarified the dialogue rule in the [presentation chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
+
+> for all the YYYY, the four Y, every single sentence they start should start with Why sowhat shouid always start with sowhat , update the diagloue
+
+Every spoken sentence from the four Ys starts with the word “Why.” Every SOWHAT turn opens with “So what?” Stage directions count separately from spoken sentences. See the [character bible](character-bible.md#yyyy-sowatt--the-regress-problem).
