@@ -168,8 +168,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (legend) notes.show(legend.id, legend.title);
     if (line?.scene === 'contemporary-heading') {
       const revealed = index >= revealIndex;
-      const key = revealed ? 'contemporary-reveal'
-        : index > questionIndex ? 'contemporary-result' : 'contemporary-heading';
+      const key = revealed ? 'contemporary-reveal' : 'contemporary-heading';
       notes.show(key, revealed ? 'Flexible Foundationalism' : 'Contemporary Contextualism');
     }
     if (legend) {

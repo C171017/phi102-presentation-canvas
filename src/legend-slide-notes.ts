@@ -12,15 +12,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'A proposition is the claim a sentence expresses.',
       'Contemporary contextualism says the same sentence can express different propositions as the context changes.',
     ],
-    bridge: 'Look at the gold mark and the symbols around it.',
-    source: 'Greco · Introduction, p. 425',
-  },
-  'contemporary-result': {
-    claim: 'The same mark supports two readings.',
-    points: [
-      'The row makes it read as B. The column makes it read as 13.',
-      'The mark illustrates how a change in context can change what the same words express.',
-    ],
     source: 'Greco · Introduction, p. 425',
   },
   'contemporary-reveal': {

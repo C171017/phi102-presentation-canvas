@@ -26,7 +26,6 @@ export function isDialogueText(text: unknown): text is string {
 const notes = { ...openingNotes, ...schoolNotes };
 const classroom = [
   ['contemporary-heading', 'Contemporary Contextualism', 'Classroom · Opening explanation'],
-  ['contemporary-result', 'Contemporary Contextualism', 'Classroom · Quiz result'],
   ['contemporary-reveal', 'Flexible Foundationalism', 'Classroom · Closing reveal'],
 ] as const;
 
