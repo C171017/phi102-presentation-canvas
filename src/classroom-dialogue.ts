@@ -47,7 +47,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const lastCue = new Map<string, number>();
   let questionIndex = -1;
   let resultIndex = -1;
-  let revealIndex = -1;
   const lineText = (index: number) => sharedLine?.(script[index].key) ?? script[index].text;
   function renderRows() {
     firstCue.clear();
@@ -58,7 +57,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       lastCue.set(scene, index);
       if (phase === 'question') questionIndex = index;
       if (phase === 'result') resultIndex = index;
-      if (phase === 'reveal') revealIndex = index;
       const row = document.createElement('div');
       row.className = 'transcript-row';
       row.dataset.speaker = speakerId ?? speaker;
@@ -166,11 +164,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     characters.forEach(actor => actor.classList.toggle('is-speaking', actor.dataset.speaker === line?.speaker));
     const legend = line && legendById.get(line.scene);
     if (legend) notes.show(legend.id, legend.title);
-    if (line?.scene === 'contemporary-heading') {
-      const revealed = index >= revealIndex;
-      const key = revealed ? 'contemporary-reveal' : 'contemporary-heading';
-      notes.show(key, revealed ? 'Flexible Foundationalism' : 'Contemporary Contextualism');
-    }
+    if (line?.scene === 'contemporary-heading') notes.show('contemporary-heading', 'Contemporary Contextualism');
     if (legend) {
       const background = line.background ?? legend.background;
       if (background) artwork.show(background);

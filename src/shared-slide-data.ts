@@ -24,11 +24,6 @@ export function isDialogueText(text: unknown): text is string {
 }
 
 const notes = { ...openingNotes, ...schoolNotes };
-const classroom = [
-  ['contemporary-heading', 'Contemporary Contextualism', 'Classroom · Opening explanation'],
-  ['contemporary-reveal', 'Flexible Foundationalism', 'Classroom · Closing reveal'],
-] as const;
-
 function panelEntry(key: string, slideId: string, title: string, label: string) {
   const note = notes[key];
   return {
@@ -39,7 +34,7 @@ function panelEntry(key: string, slideId: string, title: string, label: string) 
 
 export const sharedSlideEntries = slides.flatMap(({ members: [id], title, description }, index) => {
   const label = `${index + 1}. ${title}`;
-  if (id === 'contemporary-heading') return classroom.map(([key, name, item]) => panelEntry(key, id, name, `${index + 1}. ${item}`));
+  if (id === 'contemporary-heading') return [panelEntry(id, id, title, `${index + 1}. Classroom · Opening explanation`)];
   // The Trial uses its own dialogue player and has no left panel.
   if (id !== 'P1' && Object.hasOwn(notes, id)) return [panelEntry(id, id, title, label)];
   return [{ key: id, slideId: id, label, panel: false, initial: { title, claim: description, points: [], bridge: '', source: '' } }];

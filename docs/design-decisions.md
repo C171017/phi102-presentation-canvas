@@ -1510,3 +1510,12 @@ Recorded time in Pacific time. Howie asked to match the revised Google Slides co
 > update the website base on this and for the intro class room part only keep this the second one should be deleted by which i'm referrign to the thing as the 2nd attachmenet screenshot
 
 Use the opening Contemporary Contextualism panel through the vote and its result, with the two bullets and the Greco citation shown in the first screenshot. Remove the “Look at the gold mark” cue and the separate “The same mark supports two readings” panel. The vote, transcript, and Flexible Foundationalism reveal still appear in sequence.
+
+
+## 2026-11-25T22:00:36-08:00 · Remove the Flexible Foundationalism classroom panel
+
+Recorded time in Pacific time. Howie identified the classroom panel with the heading “Which belief can be a foundation depends on context” in the [classroom update chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
+
+> i mean this part should be removed, tell me if it is or not
+
+Keep the opening Contemporary Contextualism panel throughout the classroom dialogue, including during the spoken reveal. Remove the separate Flexible Foundationalism panel and its entry in the slide editor.

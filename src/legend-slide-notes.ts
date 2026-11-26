@@ -14,15 +14,6 @@ export const openingNotes: Record<string, SlideNotes> = {
     ],
     source: 'Greco · Introduction, p. 425',
   },
-  'contemporary-reveal': {
-    claim: 'Which belief can be a foundation depends on context.',
-    points: [
-      'A basic belief can be justified without support from another belief.',
-      'It can support further beliefs here and face a challenge in a different inquiry.',
-    ],
-    bridge: 'The ink story asks what lets a reason hold.',
-    source: 'Greco · Introduction and §1, pp. 425–427',
-  },
   L0: {
     claim: 'In the Ink Ocean, a settled belief can bear weight.',
     points: [
