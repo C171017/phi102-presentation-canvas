@@ -2,6 +2,7 @@ import { trialPages } from './trial-script';
 import { inkOceanStory } from './ink-ocean-story';
 import { inkOceanStoryTextId, savedStoryText } from './saved-story-text';
 import { isStoryBeatHeading, type StoryScene } from './story-text';
+import { operationBecauseScene } from './regress-responses';
 
 type StorySceneId = keyof typeof inkOceanStory;
 
@@ -78,28 +79,30 @@ const trial: InkOceanScene = {
 };
 
 export const openingInkScene = 'L0';
-export const greatInkwellScene = 'regress-problem';
-const lawOfInk = storySlide(openingInkScene);
-const greatInkwell = storySlide(greatInkwellScene);
-const openingInk: InkOceanScene = {
-  ...lawOfInk,
-  cues: [...lawOfInk.cues, ...greatInkwell.cues.map((cue): InkOceanCue => ({
-    ...cue, sourceScene: greatInkwellScene, background: greatInkwell.background,
-  }))],
-};
+export const inkPassages = new Map<string, readonly StorySceneId[]>([
+  [openingInkScene, ['regress-problem', 'regress-problem-birth']],
+  ['L2', ['L3']],
+]);
+const joinedPassages = new Set([...inkPassages.values()].flat());
 
 export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
-  .filter(id => id !== greatInkwellScene && !trialFollowups.includes(id))
+  .filter(id => !joinedPassages.has(id) && !trialFollowups.includes(id))
   .map(id => {
-    if (id === openingInkScene) return openingInk;
     if (id === 'P1') return trial;
     if (id === 'L6-A' || id === 'L6-B') return schoolScenes[id];
-    return storySlide(id);
+    const scene = storySlide(id);
+    const passages = inkPassages.get(id);
+    if (!passages) return scene;
+    return { ...scene, cues: [...scene.cues, ...passages.flatMap(sourceScene => {
+      const passage = storySlide(sourceScene);
+      return passage.cues.map(cue => ({ ...cue, sourceScene, background: passage.background }));
+    })] };
   });
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
+  if (scene.id === operationBecauseScene) return false;
   if (index === 0) return Boolean(scene.background);
-  if (scene.id === openingInkScene || scene.id === 'P1' || scene.id === 'P2-1') return false; // Cut directly on the dialogue cue.
+  if (inkPassages.has(scene.id) || scene.id === 'P1' || scene.id === 'P2-1') return false; // Change artwork with the dialogue cue.
   const background = scene.cues[index]?.background;
   return Boolean(background && background !== scene.cues[index - 1]?.background);
 }

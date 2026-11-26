@@ -1,4 +1,3 @@
-import type { TheoryView } from './theory-vote';
 import type { SchoolCounts } from './school-vote';
 import type { OpeningQuizSnapshot } from './opening-quiz';
 import { legendById, slides } from './slide-content';
@@ -32,7 +31,6 @@ export type RoomSnapshot = {
   presenterCue?: number;
   presenterOnline: boolean;
   openingPlaying?: boolean;
-  theory?: TheoryView;
   schools?: SchoolCounts;
   openingQuiz?: OpeningQuizSnapshot;
   counts: number[];

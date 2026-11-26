@@ -21,7 +21,7 @@ export function createHostedLayout(world: HTMLElement, getView: () => CameraView
   return { ready, restore, capture: () => captureLayout(world, previous, getView()), save: async () => false, schedule() {} };
 }
 
-export function createLayoutController(world: HTMLElement, getView: () => CameraView, setView: (view: CameraView) => void, fallback: Layout, readOnly = false) {
+export function createLayoutController(world: HTMLElement, getView: () => CameraView, setView: (view: CameraView) => void, fallback: Layout, readOnly = false, isEditingSlide = () => false) {
   if (readOnly) {
     const ready = (async () => {
       const response = await fetch('/canvas-layout.json');
@@ -135,7 +135,7 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
   }
   function schedule() { changedBeforeReady = true; clearTimeout(pending); pending = setTimeout(() => save(), 250); }
   window.addEventListener('keydown', event => {
-    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's' && !event.altKey) {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's' && !event.altKey && !isEditingSlide()) {
       event.preventDefault(); save(true);
     }
   }, { capture: true });

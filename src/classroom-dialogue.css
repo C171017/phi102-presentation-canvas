@@ -221,9 +221,8 @@
   stroke-width: 3;
   stroke-dasharray: 100 100;
 }
-.record-quiz:not([hidden], [data-mode]) circle,
-.record-quiz[data-counting] circle {
-  animation: record-countdown var(--answer-window) var(--countdown-easing, linear) var(--answer-delay, 0ms) forwards;
+.record-quiz:not([hidden], [data-mode]) circle {
+  animation: record-countdown var(--answer-window) var(--countdown-easing, linear) forwards;
 }
 .record-quiz[data-mode="results"] circle { stroke-dashoffset: var(--vote-offset, 100); }
 .record-quiz[data-mode="results"] button { opacity: .8; cursor: default; }
@@ -313,7 +312,6 @@
 .transcript-panel:has(> .legend-paging) > .transcript-reader {
   padding-inline-end: calc(var(--cue-control-inset) + var(--cue-button-size) + 18px);
 }
-#presentation-shell:has(.theory-ballot:not([hidden])) .legend-paging { display: none; }
 .legend-paging button {
   display: grid;
   place-items: center;

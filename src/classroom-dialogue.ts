@@ -3,13 +3,14 @@ import { createPaperMiniSlide } from './paper-mini-slide';
 import { createTrialDialogue } from './trial-dialogue';
 import { createDialogueFrame } from './dialogue-frame';
 import { createSpeakerOutline } from './speaker-outline';
-import { createTheoryRecords } from './theory-records';
+import { createOperationBecause } from './operation-because';
+import { foundationalismScene, operationBecauseScene, regressSceneDestination } from './regress-responses';
 import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById } from './slide-content';
-import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, firstGreatInkwellCue, openingClassroomScene } from './classroom-cues';
-import { hasEstablishingShot, openingInkScene, type InkOceanCue } from './ink-ocean-scenes';
+import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, inkPassageStarts, openingClassroomScene } from './classroom-cues';
+import { hasEstablishingShot, inkPassages, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
 import type { DialogueStructure, SlideCopy } from './shared-slide-data';
 import type { InlineDialogueTarget } from './inline-dialogue';
@@ -18,7 +19,7 @@ import './classroom-dialogue.css';
 const introScenes = ['unitrans-arrival', 'before-lecture'];
 const answerWindowMs = openingQuizWindowMs;
 
-export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined, sharedLine?: (key: string) => string | undefined, dialogueStructure?: () => Record<string, DialogueStructure> | undefined) {
+export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined, sharedLine?: (key: string) => string | undefined, dialogueStructure?: () => Record<string, DialogueStructure> | undefined) {
   const stage = document.createElement('div');
   stage.className = 'classroom-stage';
   stage.hidden = true;
@@ -113,8 +114,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const speakerOutline = createSpeakerOutline();
   stage.append(speakerOutline.element, character, panel, announcement);
   if (quizEnabled || tally) stage.append(choices);
-  const theory = createTheoryRecords(shell, openScene, shared, presenter, () => {
-    if (script[active]?.scene === 'L4') select(lastCue.get('L4')!, false);
+  const operation = createOperationBecause(stage, scene => {
+    if (!editing) openScene(scene);
   });
   const controls = document.createElement('nav');
   controls.className = 'legend-paging';
@@ -161,19 +162,36 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     return row.offsetTop + row.offsetHeight / 2 - reader.clientHeight / 2;
   }
   const viewport = shell.querySelector<HTMLElement>('#viewport')!;
-  const openingArtwork = document.createElement('div');
-  openingArtwork.className = 'opening-ink-artwork';
-  openingArtwork.setAttribute('aria-hidden', 'true');
-  const lawImage = legendById.get(openingInkScene)?.background;
-  const inkwellImage = firstGreatInkwellCue.background;
-  if (lawImage && inkwellImage) {
-    openingArtwork.style.backgroundImage = `url("${lawImage}")`;
-    openingArtwork.style.setProperty('--inkwell-image', `url("${inkwellImage}")`);
-    viewport.prepend(openingArtwork);
+  const passageArtwork = document.createElement('div');
+  passageArtwork.className = 'ink-passage-artwork';
+  passageArtwork.setAttribute('aria-hidden', 'true');
+  const outgoingArtwork = document.createElement('div');
+  outgoingArtwork.className = 'ink-passage-outgoing';
+  passageArtwork.append(outgoingArtwork);
+  viewport.prepend(passageArtwork);
+  const passageImages = new Map([...inkPassages].map(([id, passages]) =>
+    [id, [legendById.get(id)?.background, ...passages.map(passage => inkPassageStarts.get(passage)?.background)]] as const));
+  let passageImage: string | undefined;
+  let passageFade: Animation | undefined;
+  function showPassageArtwork(url: string, fade = true) {
+    if (url === passageImage) return;
+    passageFade?.cancel();
+    const previous = passageImage;
+    passageImage = url;
+    passageArtwork.style.backgroundImage = `url("${url}")`;
+    if (fade && previous && !reduced.matches) {
+      outgoingArtwork.style.backgroundImage = `url("${previous}")`;
+      passageFade = outgoingArtwork.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 240, easing: 'ease' });
+    }
   }
   const artwork = createDialogueFrame(url => {
     viewport.style.setProperty('--regress-background', `url("${url}")`);
-    openingArtwork.classList.toggle('show-inkwell', script[active]?.scene === openingInkScene && url === inkwellImage);
+    const images = passageImages.get(script[active]?.scene);
+    if (images) {
+      showPassageArtwork(url);
+      const nextImage = images[images.indexOf(url) + 1];
+      if (nextImage) artwork.preload(nextImage);
+    }
     const line = script[highlighted];
     if (!line || line.silent || line.kind || line.scene === 'P1') return;
     speakerOutline.show(url, line.speakerId ?? line.speaker, yTurn(line));
@@ -182,7 +200,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const line = script[index];
     const scene = line && legendById.get(line.scene);
     if (!scene) return;
-    if (index === firstCue.get(scene.id)) return line.background ?? scene.background;
+    if (index === firstCue.get(scene.id)) {
+      return hasEstablishingShot(scene, 0) ? line.background ?? scene.background : undefined;
+    }
     if (line.original && line.number > 0 && hasEstablishingShot(scene, line.number)) return line.background ?? scene.background;
   }
   function highlight(index: number) {
@@ -305,6 +325,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     setVisibleRows(line.scene);
     highlight(index);
+    if (index === lastCue.get(line.scene)) operation.markViewed(line.scene);
     announcement.textContent = line.silent ? '' : (appearance(line)?.name ?? line.speaker) + '. ' + lineText(index);
     if (index === questionIndex && (quizEnabled || presenter)) {
       choices.hidden = false;
@@ -332,7 +353,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     return index;
   }
   function goToLine(index: number, leavingPhoto = false) {
-    if (active < 0 || theory.isOpen()) return;
+    if (active < 0) return;
     const scene = script[active].scene;
     index = skipSilentText(index, index < active ? -1 : 1);
     if (scene === openingClassroomScene && active < questionIndex && index > questionIndex) index = questionIndex;
@@ -341,8 +362,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       if (photo) { select(active, true, photo); return; }
     }
     if (script[index]?.scene !== scene) {
-      if (index < active && theory.selectedAnswererScene() === scene) return;
-      if (index > active && theory.advance(scene)) return;
+      const forward = index > active;
+      const destination = regressSceneDestination(scene, forward);
+      if (destination) {
+        // Rewinding from Foundationalism returns to the last overview line.
+        if (!forward && scene === foundationalismScene) pendingLine = lastCue.get(operationBecauseScene)!;
+        openScene(destination);
+        return;
+      }
     }
     if (!choices.hidden && active === questionIndex && index > active) {
       answerButtons[0].focus({ preventScroll: true });
@@ -442,19 +469,19 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }).observe(reader);
 
   function showScene(id?: string) {
-    const openingInk = id === openingInkScene && Boolean(lawImage && inkwellImage);
-    viewport.toggleAttribute('data-opening-ink', openingInk);
-    if (!openingInk) openingArtwork.classList.remove('show-inkwell');
-    theory.showScene(id);
+    const firstImage = id && passageImages.get(id)?.[0];
+    viewport.toggleAttribute('data-ink-passage', Boolean(firstImage));
+    if (firstImage && script[active]?.scene !== id) showPassageArtwork(firstImage, false);
+    operation.showScene(id);
     if (id === 'contemporary-heading' && !image.hasAttribute('src')) image.src = portrait;
     const nextScene = id === 'contemporary-heading' ? 'L0'
       : id === 'L7' ? 'P1' : id === 'P1' ? 'P2-1' : undefined;
-    const nextBackground = id === openingInkScene ? inkwellImage : nextScene && legendById.get(nextScene)?.background;
+    const nextBackground = nextScene && legendById.get(nextScene)?.background;
     if (nextBackground) artwork.preload(nextBackground);
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
-    const nextLine = theory.isOpen() ? lastCue.get('L4')! : script[pendingLine]?.scene === id ? pendingLine : index;
+    const nextLine = script[pendingLine]?.scene === id ? pendingLine : index;
     pendingLine = -1;
     if (index < 0) {
       trial.hide();
@@ -469,7 +496,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       announcement.textContent = '';
       return;
     }
-    if (script[active]?.scene !== id) select(nextLine, false, nextLine === index && !theory.isOpen() ? photoAt(index) : undefined);
+    if (script[active]?.scene !== id) select(nextLine, false, nextLine === index ? photoAt(index) : undefined);
   }
   function refreshSlideCopy(force = false) {
     if (editing) return;
@@ -505,7 +532,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }
 
   function inlineTarget(): InlineDialogueTarget | undefined {
-    if (stage.hidden || establishing || active < 0 || theory.isOpen()) return;
+    if (stage.hidden || establishing || active < 0) return;
     const scene = script[active].scene;
     const court = scene === 'P1';
     const root = court ? trial.inlineRoot : panel;
@@ -544,7 +571,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     };
   }
   return {
-    theory, showScene, handleArrow, stepDialogue, advance: () => move(1),
+    showScene, handleArrow, stepDialogue, advance: () => move(1),
     get slideCopyKey() { return panel.hidden || stage.hidden ? undefined : notes.key; },
     refreshSlideCopy, inlineTarget,
     get inlineEditing() { return editing; },
@@ -569,7 +596,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       return current.number + offset;
     },
     setCue(cue: number) {
-      if (active < 0 || theory.isOpen()) return;
+      if (active < 0) return;
       const scene = script[active].scene;
       const custom = cue >= customCueOffset * 2;
       const revealed = !custom && scene === 'P1' && cue >= revealedTrialCueOffset;

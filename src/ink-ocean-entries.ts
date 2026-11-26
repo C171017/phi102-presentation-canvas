@@ -1,4 +1,5 @@
 import { legendSlides } from './slide-content';
+import { inkPassages } from './ink-ocean-scenes';
 
 const anchorSlots: Record<string, number> = {
   L2: 1,
@@ -24,8 +25,9 @@ const anchorSlots: Record<string, number> = {
 
 // Story slides without a canvas illustration still need a camera target.
 export function addLegendAnchors(world: HTMLElement) {
-  const scenes = legendSlides.filter(scene => !document.getElementById(scene.id));
-  scenes.forEach(({ id }, index) => {
+  const sceneIds = legendSlides.flatMap(({ id }) => [id, ...(inkPassages.get(id) ?? [])]);
+  const anchors = sceneIds.filter(id => !document.getElementById(id));
+  anchors.forEach((id, index) => {
     const slot = anchorSlots[id] ?? index + 10;
     const anchor = document.createElement('div');
     anchor.id = id;

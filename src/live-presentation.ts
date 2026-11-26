@@ -1,6 +1,4 @@
 import { isCue, isSlide, presenterKeyPattern, slideCount, type PresentationCues, type RoomSnapshot } from './live-protocol';
-import type { TheoryRecords } from './theory-records';
-import type { TheoryAction } from './theory-vote';
 import type { SchoolRoomDisplay } from './legend-schools';
 import type { SchoolVote } from './school-vote';
 import type { OpeningQuizSnapshot } from './opening-quiz';
@@ -10,13 +8,13 @@ export const liveMode = import.meta.env.VITE_LIVE_PRESENTATION === '1';
 
 type SlideReport = { type: 'present' | 'view' | 'cue'; slide: number | null; cue?: number };
 
-export function connectPresentation(viewport: HTMLElement, openSlide: (index: number) => void, theory: TheoryRecords,
+export function connectPresentation(viewport: HTMLElement, openSlide: (index: number) => void,
   schools?: SchoolRoomDisplay, cues?: PresentationCues, onOpeningQuiz?: (view?: OpeningQuizSnapshot) => void) {
   const fragment = new URLSearchParams(location.hash.slice(1));
   const key = fragment.get('presenter');
   const presenter = key !== null;
   let socket: WebSocket | undefined;
-  const client = createPresentationClient(viewport, openSlide, presenter, theory, message => {
+  const client = createPresentationClient(viewport, openSlide, presenter, message => {
     if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify(message));
   }, schools, cues);
   let active = true;
@@ -83,12 +81,10 @@ export function createPresentationClient(
   viewport: HTMLElement,
   openSlide: (index: number) => void,
   presenter: boolean,
-  theory: TheoryRecords,
-  send: (message: SlideReport | TheoryAction | SchoolVote) => void,
+  send: (message: SlideReport | SchoolVote) => void,
   schools?: SchoolRoomDisplay,
   cues?: PresentationCues,
 ) {
-  theory.connect(send);
   const progress = viewport.querySelector<HTMLElement>('#slide-progress')!;
   const followButton = document.createElement('button');
   followButton.type = 'button';
@@ -150,7 +146,6 @@ export function createPresentationClient(
     const previous = snapshot;
     snapshot = state;
     schools?.updateSchoolCounts(state.schools);
-    theory.update(state.theory, true, state.presenterOnline);
     indicators.forEach(({ button, count, number, label }, index) => {
       const viewers = state.counts[index];
       const onAir = state.presenterOnline && index === state.presenterSlide;
@@ -159,9 +154,8 @@ export function createPresentationClient(
       button.classList.toggle('presenter-slide', onAir);
       button.setAttribute('aria-label', label + (onAir ? ', presenter here' : '') + ', ' + viewers + (viewers === 1 ? ' viewer' : ' viewers'));
     });
-    const ballotMoved = presenter && state.theory;
     if ((!previous && (presenter || following)) ||
-        (previous && previous.presenterSlide !== state.presenterSlide && ((!presenter && following) || ballotMoved))) {
+        (!presenter && following && previous && previous.presenterSlide !== state.presenterSlide)) {
       syncSlide(true);
     } else if (!presenter && following && previous && currentSlide === state.presenterSlide &&
         state.presenterCue !== previous.presenterCue) {
@@ -174,7 +168,6 @@ export function createPresentationClient(
   function clearState() {
     snapshot = undefined;
     schools?.disconnectSchoolVotes();
-    theory.disconnect();
     indicators.forEach(({ button, count, label }) => {
       count.hidden = true;
       button.classList.remove('presenter-slide');

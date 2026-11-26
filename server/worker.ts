@@ -7,11 +7,10 @@ import openingMedia from '../src/opening-media.json';
 import { slides } from '../src/slide-content';
 import { newOpeningQuiz, openingQuizWindowMs, recordOpeningVote, type OpeningQuizRound } from '../src/opening-quiz';
 import { countSchools, isSchoolVote, type SchoolVote } from '../src/school-vote';
-import { firstGreatInkwellCue, customCueOffset } from '../src/classroom-cues';
-import { greatInkwellScene, openingInkScene } from '../src/ink-ocean-scenes';
+import { inkPassageStarts, customCueOffset } from '../src/classroom-cues';
 import { establishingCueOffset, firstPresentationCue, isCue, isSlide, slideCount, presenterKeyPattern, type RoomSnapshot } from '../src/live-protocol';
 
-import { applyTheoryAction, ballotSlide, resolveBallot, theoryScene, theoryVoteWindowMs, voteView, type TheoryAction, type TheoryBallot } from '../src/theory-vote';
+import { foundationalismScene } from '../src/regress-responses';
 
 interface Env extends SharedSlidesEnv {
   ASSETS: Fetcher;
@@ -19,7 +18,7 @@ interface Env extends SharedSlidesEnv {
   PRESENTER_KEY?: string;
 }
 
-type Member = { id?: string; presenter: boolean; slide: number | null; schoolVote?: SchoolVote };
+type Member = { presenter: boolean; slide: number | null; schoolVote?: SchoolVote };
 const protocol = 'phi102';
 const connectionLimit = 500;
 const error = (message: string, status: number) => new Response(message, { status });
@@ -48,7 +47,6 @@ export default {
 export class PresentationRoom extends DurableObject<Env> {
   private slide = 0;
   private cue = 0;
-  private ballot: TheoryBallot | null = null;
   private openingQuiz = newOpeningQuiz();
 
   constructor(ctx: DurableObjectState, env: Env) {
@@ -57,15 +55,16 @@ export class PresentationRoom extends DurableObject<Env> {
       this.openingQuiz = await ctx.storage.get<OpeningQuizRound>('openingQuiz') ?? this.openingQuiz;
       const savedId = await ctx.storage.get<string>('slideId');
       if (savedId) {
-        const slideId = savedId === 'L4-quiz' ? theoryScene('foundationalism')
-          : savedId === 'L5b' ? 'L6' : savedId === greatInkwellScene ? openingInkScene : savedId;
+        const passage = inkPassageStarts.get(savedId);
+        const slideId = savedId === 'L4-quiz' ? foundationalismScene
+          : savedId === 'L5b' ? 'L6' : passage?.scene ?? savedId;
         const index = slides.findIndex(slide => slide.members[0] === slideId);
         if (isSlide(index)) this.slide = index;
         if (slideId !== savedId) {
-          if (savedId === greatInkwellScene) {
+          if (passage) {
             const cue = await ctx.storage.get<number>('presenterCue');
             this.cue = isCue(cue) && cue >= customCueOffset * 2 ? cue
-              : firstGreatInkwellCue.number + (isCue(cue) && cue < establishingCueOffset ? cue : 0);
+              : passage.number + (isCue(cue) && cue < establishingCueOffset ? cue : 0);
           } else {
             this.cue = firstPresentationCue(this.slide);
           }
@@ -74,7 +73,6 @@ export class PresentationRoom extends DurableObject<Env> {
           const cue = await ctx.storage.get<number>('presenterCue');
           if (isCue(cue)) this.cue = cue;
         }
-        this.ballot = await ctx.storage.get<TheoryBallot>('theoryBallot') ?? null;
       } else {
         // Older rooms stored a numeric position in the pre–Ink Ocean slide rail.
         const previous = await ctx.storage.get<number>('slide');
@@ -90,14 +88,10 @@ export class PresentationRoom extends DurableObject<Env> {
             'pairing-knowledge-echo', 'pairing-belief', 'access-heading', 'home-heading', 'mobile-heading',
           ];
           const id = previousIds[previous];
-          const index = slides.findIndex(slide => slide.members[0] === (id === greatInkwellScene ? openingInkScene : id));
+          const index = slides.findIndex(slide => slide.members[0] === (inkPassageStarts.get(id)?.scene ?? id));
           if (isSlide(index)) this.slide = index;
         }
-        await ctx.storage.put({ slideId: slides[this.slide].members[0], presenterCue: 0, theoryBallot: null });
-      }
-      if (this.ballot && !this.ballot.winner && !this.ballot.closesAt) {
-        this.ballot.closesAt = Date.now() + theoryVoteWindowMs;
-        await Promise.all([ctx.storage.put('theoryBallot', this.ballot), ctx.storage.setAlarm(this.ballot.closesAt)]);
+        await ctx.storage.put({ slideId: slides[this.slide].members[0], presenterCue: 0 });
       }
     });
     ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair('ping', 'pong'));
@@ -119,7 +113,7 @@ export class PresentationRoom extends DurableObject<Env> {
       server.send(JSON.stringify({ type: 'rejected', code: candidate ? 4003 : 4008 }));
       server.close(candidate ? 4003 : 4008);
     } else {
-      server.serializeAttachment({ id: crypto.randomUUID(), presenter, slide: this.slide } satisfies Member);
+      server.serializeAttachment({ presenter, slide: this.slide } satisfies Member);
       if (presenter) {
         // Keep one authoritative presenter when the private link is reopened.
         for (const previous of this.ctx.getWebSockets()) {
@@ -129,7 +123,7 @@ export class PresentationRoom extends DurableObject<Env> {
           }
         }
       }
-      await this.broadcast();
+      this.broadcast();
     }
     return new Response(null, { status: 101, webSocket: client, headers: { 'Sec-WebSocket-Protocol': protocol } });
   }
@@ -142,23 +136,7 @@ export class PresentationRoom extends DurableObject<Env> {
     if (isSchoolVote(message) && !member.presenter) {
       if (member.schoolVote?.voter === message.voter && member.schoolVote.school === message.school) return;
       socket.serializeAttachment({ ...member, schoolVote: message });
-      await this.broadcast();
-      return;
-    }
-    if (message?.type === 'theory') {
-      const members = this.connectedMembers();
-      const voters = members.filter(m => !m.presenter).map(m => m.id!);
-      const hasPresenter = members.some(m => m.presenter);
-      const slide = member.presenter ? this.slide : member.slide;
-      if (slide === null || (hasPresenter && slide !== this.slide)) return;
-      const action = message as TheoryAction;
-      const id = this.member(socket)!.id!;
-      const previousRound = this.ballot?.id;
-      this.ballot = applyTheoryAction(this.ballot, action, slide,
-        member.presenter || (!hasPresenter && action.action === 'open'), id, voters);
-      const alarm = this.ballot && this.ballot.id !== previousRound
-        ? this.ctx.storage.setAlarm(this.ballot.closesAt) : undefined;
-      await Promise.all([alarm, this.broadcast(true)]);
+      this.broadcast();
       return;
     }
     if (message?.type === 'view' && !member.presenter && (message.slide === null || isSlide(message.slide))) {
@@ -172,13 +150,12 @@ export class PresentationRoom extends DurableObject<Env> {
       if (this.slide === message.slide) return;
       this.slide = message.slide;
       this.cue = isCue(message.cue) ? message.cue : firstPresentationCue(this.slide);
-      this.ballot = null;
       await Promise.all([this.ctx.storage.put({ slide: this.slide, slideId: slides[this.slide].members[0],
-        presenterCue: this.cue, theoryBallot: null }), this.beginOpeningQuiz()]);
+        presenterCue: this.cue }), this.beginOpeningQuiz()]);
     } else {
       return;
     }
-    await this.broadcast();
+    this.broadcast();
   }
 
   private async openingQuizRequest(request: Request) {
@@ -199,7 +176,7 @@ export class PresentationRoom extends DurableObject<Env> {
       }
       if (recordOpeningVote(this.openingQuiz, voter, answer)) {
         await this.ctx.storage.put('openingQuiz', this.openingQuiz);
-        await this.broadcast();
+        this.broadcast();
       }
     } else if (request.method !== 'GET') return error('Method not allowed', 405);
     return Response.json(this.openingQuiz.counts, { headers: { 'Cache-Control': 'no-store' } });
@@ -215,14 +192,8 @@ export class PresentationRoom extends DurableObject<Env> {
     return this.ctx.storage.put('openingQuiz', this.openingQuiz);
   }
 
-  async alarm() {
-    if (!this.ballot || this.ballot.winner) return;
-    if (Date.now() < this.ballot.closesAt) {
-      await this.ctx.storage.setAlarm(this.ballot.closesAt);
-      return;
-    }
-    await this.broadcast();
-  }
+  // Consume any pending alarm from a room created before the regress poll was removed.
+  async alarm() {}
 
   webSocketClose(socket: WebSocket) { return this.remove(socket); }
   webSocketError(socket: WebSocket) { return this.remove(socket); }
@@ -233,59 +204,33 @@ export class PresentationRoom extends DurableObject<Env> {
     return this.broadcast();
   }
 
-  private member(socket: WebSocket) {
-    const member = socket.deserializeAttachment() as Member | null;
-    if (member && !member.id) {
-      member.id = crypto.randomUUID();
-      socket.serializeAttachment(member);
-    }
-    return member;
-  }
-
   private connectedMembers() {
     return this.ctx.getWebSockets().filter(s => s.readyState === WebSocket.OPEN)
-      .map(s => this.member(s)).filter((m): m is Member => m !== null);
+      .map(s => s.deserializeAttachment() as Member | null).filter((m): m is Member => m !== null);
   }
 
-  private async broadcast(saveBallot = false) {
+  private broadcast() {
     const sockets = this.ctx.getWebSockets().filter(socket => socket.readyState === WebSocket.OPEN);
     const counts = Array<number>(slideCount).fill(0);
     let presenterOnline = false;
     let browsing = 0;
-    const voters: string[] = [];
     for (const socket of sockets) {
-      const member = this.member(socket);
+      const member = socket.deserializeAttachment() as Member | null;
       if (!member) continue;
-      if (!member.presenter) voters.push(member.id!);
       if (member.presenter) presenterOnline = true;
       else if (isSlide(member.slide)) counts[member.slide]++;
       else browsing++;
     }
-    if (this.ballot) {
-      const previous = this.ballot.winner;
-      resolveBallot(this.ballot, voters);
-      const destination = ballotSlide(this.ballot);
-      if (destination !== this.slide) {
-        this.slide = destination;
-        this.cue = this.ballot.winner ? firstPresentationCue(destination) : 0;
-        saveBallot = true;
-      }
-      saveBallot ||= previous !== this.ballot.winner;
-    }
-    const theory = this.ballot ? voteView(this.ballot, voters) : undefined;
     const state: RoomSnapshot = { type: 'state', presenterSlide: this.slide, presenterCue: this.cue, presenterOnline, counts, browsing,
       schools: countSchools(this.connectedMembers()), openingQuiz: {
         counts: this.openingQuiz.counts, round: this.openingQuiz.round,
         closesAt: presenterOnline && this.isOpeningQuestion() ? this.openingQuiz.closesAt : 0,
       } };
-    const save = saveBallot ? this.ctx.storage.put({ slide: this.slide, slideId: slides[this.slide].members[0], presenterCue: this.cue, theoryBallot: this.ballot }) : undefined;
+    const message = JSON.stringify(state);
     for (const socket of sockets) {
-      const member = this.member(socket);
-      if (!member) continue;
-      const mine = this.ballot?.ballots[member.id!];
-      try { socket.send(JSON.stringify({ ...state, theory: theory && { ...theory, mine } })); }
+      if (!socket.deserializeAttachment()) continue;
+      try { socket.send(message); }
       catch { socket.close(1011, 'Reconnect'); }
     }
-    await save;
   }
 }

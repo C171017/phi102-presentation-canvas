@@ -15,16 +15,16 @@ async function editRequest<T>(path: string, key: string, init: RequestInit = {})
   return response.json() as Promise<T>;
 }
 
-export async function openSharedSlides() {
+export async function openSharedSlides(local = false) {
   const fragment = new URLSearchParams(location.hash.slice(1));
-  const candidate = fragment.get('edit') ?? '';
+  const candidate = local ? '' : fragment.get('edit') ?? '';
   const key = editKeyPattern.test(candidate) ? candidate : '';
   let snapshot: WebSnapshot = { ...originalSharedSnapshot, editable: false };
   let unavailable = false;
   try {
     snapshot = await editRequest<WebSnapshot>('', key, { signal: AbortSignal.timeout(2500) });
   } catch { unavailable = true; }
-  const denied = fragment.has('edit') && !snapshot.editable;
+  const denied = !local && fragment.has('edit') && !snapshot.editable;
   return {
     denied, unavailable,
     get snapshot() { return snapshot; },

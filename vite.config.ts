@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { parseLayout } from './src/layout';
 import { firstPresentationCue, isCue, isSlide, slideCount, type RoomSnapshot } from './src/live-protocol';
 import { storyTextStorage } from './scripts/story-text-storage';
-import { applyTheoryAction, ballotSlide, resolveBallot, voteView, type TheoryBallot } from './src/theory-vote';
 import { localQuizVotes } from './scripts/local-quiz-votes';
+import { localSharedSlides } from './scripts/local-shared-slides';
 import { countSchools, isSchoolVote, type SchoolVote } from './src/school-vote';
 import { storyTextEndpoint } from './src/story-text';
 import openingMedia from './src/opening-media.json';
@@ -115,7 +115,7 @@ function localPresentation(): Plugin {
     name: 'canvas-local-presentation',
     apply: 'serve',
     configureServer(server) {
-      const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null; id: string; schoolVote?: SchoolVote }>();
+      const members = new Map<WebSocketClient, { role: 'presenter' | 'audience'; slide: number | null; schoolVote?: SchoolVote }>();
       const localSockets = new WeakSet<WebSocketClient['socket']>();
       server.ws.on('connection', (socket, request) => {
         if (isLoopback(request.socket.remoteAddress)) localSockets.add(socket);
@@ -124,10 +124,6 @@ function localPresentation(): Plugin {
       let presenterSlide: number | undefined;
       let presenterCue = 0;
       let openingPlaying = false;
-      let ballot: TheoryBallot | null = null;
-      let ballotTimer: ReturnType<typeof setTimeout> | undefined;
-      server.httpServer?.once('close', () => clearTimeout(ballotTimer));
-      const audience = () => [...members.values()].filter(member => member.role === 'audience').map(member => member.id);
 
       function broadcast() {
         const counts = Array<number>(slideCount).fill(0);
@@ -137,25 +133,13 @@ function localPresentation(): Plugin {
           if (slide === null) browsing++;
           else counts[slide]++;
         }
-        const voters = audience();
-        if (ballot) {
-          resolveBallot(ballot, voters);
-          const destination = ballotSlide(ballot);
-          if (destination !== presenterSlide) {
-            presenterSlide = destination;
-            presenterCue = ballot.winner ? firstPresentationCue(destination) : 0;
-          }
-        }
-        const theory = ballot ? voteView(ballot, voters) : undefined;
         const state: RoomSnapshot = {
           type: 'state', presenterSlide: presenterSlide ?? 0, presenterCue,
           presenterOnline: Boolean(presenter), openingPlaying, counts, browsing,
           schools: countSchools(members.values()),
         };
-        for (const [client, member] of members) {
-          if (client.socket.readyState === 1) client.send('phi102:preview:state', {
-            ...state, theory: theory && { ...theory, mine: ballot?.ballots[member.id] },
-          });
+        for (const client of members.keys()) {
+          if (client.socket.readyState === 1) client.send('phi102:preview:state', state);
         }
       }
 
@@ -182,7 +166,7 @@ function localPresentation(): Plugin {
           openingPlaying = data.openingPlaying === true;
         }
         presenterSlide ??= isSlide(data.slide) ? data.slide : 0;
-        members.set(client, { role: data.role, slide: presenterSlide, id: crypto.randomUUID() });
+        members.set(client, { role: data.role, slide: presenterSlide });
         client.socket.once('close', () => leave(client));
         broadcast();
       });
@@ -200,30 +184,13 @@ function localPresentation(): Plugin {
           broadcast();
           return;
         }
-        if (member && data?.type === 'theory') {
-          const isPresenter = client === presenter;
-          const slide = isPresenter ? presenterSlide : member.slide;
-          if (slide == null || (presenter && slide !== presenterSlide)) return;
-          const previousRound = ballot?.id;
-          ballot = applyTheoryAction(ballot, data, slide, isPresenter || (!presenter && data.action === 'open'), member.id, audience());
-          if (ballot && ballot.id !== previousRound) {
-            clearTimeout(ballotTimer);
-            const round = ballot.id;
-            ballotTimer = setTimeout(() => {
-              if (ballot?.id === round && !ballot.winner) {
-                resolveBallot(ballot, audience(), true);
-                broadcast();
-              }
-            }, Math.max(0, ballot.closesAt - Date.now()));
-          }
-        } else if (member?.role === 'presenter' && data?.type === 'cue' && data.slide === presenterSlide && isCue(data.cue)) {
+        if (member?.role === 'presenter' && data?.type === 'cue' && data.slide === presenterSlide && isCue(data.cue)) {
           if (presenterCue === data.cue) return;
           presenterCue = data.cue;
         } else if (member?.role === 'presenter' && data?.type === 'present' && isSlide(data.slide)) {
           if (presenterSlide === data.slide) return;
           presenterSlide = data.slide;
           presenterCue = isCue(data.cue) ? data.cue : firstPresentationCue(presenterSlide);
-          ballot = null;
           openingPlaying = false;
         } else if (member?.role === 'audience' && data?.type === 'view' && (data.slide === null || isSlide(data.slide))) {
           if (member.slide === data.slide) return;
@@ -254,6 +221,7 @@ export default defineConfig(({ command }) => ({
     layoutStorage(),
     localPresentation(),
     localQuizVotes(),
+    localSharedSlides(isLoopback),
     storyTextStorage(fileURLToPath(new URL('./story-text.json', import.meta.url))),
   ],
   server: {
@@ -265,7 +233,7 @@ export default defineConfig(({ command }) => ({
         '.dev.vars*', '**/.wrangler/**', '**/.claude/**', '**/docs/chat-history/**',
       ],
     },
-    watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp'] },
+    watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp', '**/shared-slides.json', '**/shared-slides.json.*.tmp'] },
   },
   preview: { host: '127.0.0.1' },
 }));

@@ -1733,3 +1733,49 @@ Recorded time in Pacific time. Howie specified the scope in the [presentation ch
 > But the selection of those content should be based on what knowledge are being used in the background story, so we're going to present them there.
 
 Contemporary Contextualism is the opening exception. Each later dialogue panel explains the relevant idea in Greco with a topic heading, a key sentence, bullets, and a page reference. The right-hand transcript and navigation use the scene names. This supersedes the earlier allowance for narrative cues in slide copy.
+
+## 2026-11-26T11:25:40-08:00 · Make the three Operation Because dialogues optional
+
+Recorded time in Pacific time. Howie requested this change in the [presentation chat](codex://threads/01a216a1-bd7c-7e91-8b55-e9ee98bdc46b).
+
+> remove that real-time selection thing, but indicate those three characters are interactable, maybe like if hover over them, it will be highlighted and background be dimmed.
+
+> Presenter can do as well, but normally, if you don't choose any of them, you would just go to the next slides, which is foundationalism.
+
+> Then what they will see is that the choice they have chosen or the one they have already watched will be fade out to indicate that one has already been viewed.
+
+> for this page, the slide should be like an overview for coherentism, infinitism, and skepticism, and how all of them can solve the regress problem.
+
+Keep Pyrrho, Peirce, and Neurath clickable on the original artwork. Hover or keyboard focus dims the other panels. Audience members can explore each dialogue independently and return early or at its end. Reaching its final cue dims that character’s panel on return in the same tab. The presenter can open any of the three and can advance directly from the overview to Foundationalism. The overview’s left panel summarizes the three approaches. This supersedes the earlier Operation Because ballot and countdown decisions.
+
+## 2026-11-26T11:29:34-08:00 · Edit dialogue locally and publish it with Git
+
+Recorded time in Pacific time. Howie requested this in the [presentation chat](codex://threads/01a216a1-bd7c-7e91-8b55-e9ee98bdc46b).
+
+> Also just trying to make just like for the actual deployed website where we can click the dialog to add it for the local version, it should be able to do that as well。And when they pushed，um the live deploy website will get updated as well。
+
+Use the same inline dialogue and slide controls in the local Editor. Save the text to the Git-tracked `shared-slides.json`. The Cloudflare deployment applies changed entries and records them in hosted version history.
+
+## 2026-11-26T11:30:50-08:00 · Give the section buttons more space
+
+Recorded time in Pacific time. Howie requested a box-shaped button layout for the four section headings.
+
+> give more space between them and remove the arrow thing, and you can try to make them more like a box reathern than all linesso they can use multiple lines like 2 liens
+
+Use taller, narrower buttons with more space between them. Center the labels, allow longer text to wrap, and remove the chevrons.
+
+## 2026-11-26T11:47:00-08:00 · Add the birth of YYYY SOWATT to the opening slide
+
+Recorded time in Pacific time. Howie asked to join the birth scene to The Law of Ink and The Great Inkwell.
+
+> Okay，actually，you know what？Make this slide into the first two slide section together。So think of the left side of the slides is still just going to be that introduction，background setting kind of thing。And then the right side is just you're going to So think of we're going to reuse the mechanism we have for the first and second image in this grand section。And then you just add this picture to it。So consequently，when you move to the next slide，when you click "Next"。It's going to have like a only background，it's going to have like a fade in，fade out。But like the dialog box，the last side is still like remains the like background setting thing，and right side is going to change the dialog as well。So those three act as a whole。
+
+Use one opening slide with the saved Background (Setting) panel and the existing three passages in sequence. Crossfade only the artwork at the two passage boundaries. Keep saved wording, additions, and removals attached to their original cues.
+
+## 2026-11-26T11:52:42-08:00 · Join the hand and raven scenes on The Regress Problem slide
+
+Recorded time in Pacific time. Howie asked to combine the two scenes shown in the screenshots.
+
+> and these 2 should similarly be in same section where the slide part remain uncahnged(use the regress problem one ) while the background ., just fade in fade out and the dialogue will be concatenated or just added。
+
+Keep The Regress Problem’s left panel through the hand scene and the first Whypocalypse scene. Continue the saved dialogue in order and crossfade only the artwork at the boundary. The prophecy remains a separate slide.

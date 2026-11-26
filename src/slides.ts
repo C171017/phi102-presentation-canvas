@@ -3,7 +3,7 @@ import type { CameraView } from './layout';
 import { legendById, slides } from './slide-content';
 import { scatterTrialShards } from './trial-shatter';
 import { createSlideProgress } from './slide-progress';
-import { openingInkScene } from './ink-ocean-scenes';
+import { inkPassages } from './ink-ocean-scenes';
 
 type FramingMode = 'classroom' | 'dialogue';
 
@@ -15,7 +15,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   const framingGroups = slides.map((slide, index) => 'frameMembers' in slide && slide.frameMembers
     ? slide.frameMembers.map(id => document.getElementById(id)!)
     : groups[index]);
-  const foregroundGroups = slides.map(({ members }, index) => (members[0] === 'pairings-heading' || members[0] === openingInkScene)
+  const foregroundGroups = slides.map(({ members }, index) => (members[0] === 'pairings-heading' || inkPassages.has(members[0]))
     ? framingGroups[index]
     : groups[index]);
   let frame: CameraView | undefined;

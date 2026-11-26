@@ -19,7 +19,7 @@ import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createPaperMiniSlide } from './paper-mini-slide';
-import { sharedSlideByKey, type SharedSnapshot } from './shared-slide-data';
+import { sharedSlideByKey } from './shared-slide-data';
 import { openSharedSlides } from './shared-slides';
 import type { ThreeLayer } from './three-layer';
 import './style.css';
@@ -51,10 +51,8 @@ const previewRole = localDev && !onHostMac ? 'audience'
   : requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
 const hostedPresenter = liveMode && new URLSearchParams(location.hash.slice(1)).has('presenter');
 const shared = liveMode ? await openSharedSlides() : undefined;
-const localShared = localDev ? await import.meta.glob<SharedSnapshot>('../shared-slides.local.json', {
-  import: 'default',
-})['../shared-slides.local.json']?.() : undefined;
-const slideDocument = () => shared?.snapshot.document ?? localShared?.document;
+const localShared = localDev ? await openSharedSlides(true) : undefined;
+const slideDocument = () => (shared ?? localShared)?.snapshot.document;
 const sharedEditing = Boolean(shared?.snapshot.editable && !hostedPresenter);
 const hostedRoom = liveMode && !sharedEditing && (hostedPresenter || import.meta.env.VITE_PRESENTATION_DAY === '1');
 const localLivePreview = localDev && onHostMac && requestedRole === 'live-preview';
@@ -81,7 +79,7 @@ const openingVideo = liveMode || localLivePreview || localOpening
 const sharedCopy = (key: string) => slideDocument()?.copy[key];
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
-  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy, key => slideDocument()?.dialogue?.[key], () => slideDocument()?.dialogueStructure);
+  role === 'presenter', openingVideo?.play, sharedCopy, key => slideDocument()?.dialogue?.[key], () => slideDocument()?.dialogueStructure);
 let currentIndex = -1;
 let overviewView: View = { ...view };
 const sharedPageCopy = slideDocument() ? createPaperMiniSlide(sharedCopy) : undefined;
@@ -142,7 +140,8 @@ function restoreLayoutView(restored: View) {
   queueMicrotask(wake);
 }
 const hostedLayout = shared && createHostedLayout(world, getLayoutView, restoreLayoutView, initialLayout, shared.snapshot.document.layout);
-const layout = hostedLayout || createLayoutController(world, getLayoutView, restoreLayoutView, initialLayout, readOnly);
+const layout = hostedLayout || createLayoutController(world, getLayoutView, restoreLayoutView, initialLayout, readOnly,
+  () => openingDialogue.inlineEditing);
 function invalidateConnections() { connectionsDirty = true; wake(); }
 let threeLayer: ThreeLayer | undefined;
 let loadingThree: Promise<ThreeLayer> | undefined;
@@ -559,7 +558,7 @@ if (previewControl) {
 if (hostedRoom) {
   void layout.ready.then(() => {
     requestAnimationFrame(() => {
-      reportSlide = connectPresentation(viewport, slideNavigation.open, openingDialogue.theory, undefined, cues, openingDialogue.updateOpeningQuiz);
+      reportSlide = connectPresentation(viewport, slideNavigation.open, undefined, cues, openingDialogue.updateOpeningQuiz);
       invalidateConnections();
     });
   });
@@ -582,7 +581,7 @@ if (localDev) {
     if (!previewRole) return;
     void layout.ready.then(() => {
       requestAnimationFrame(() => {
-        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingDialogue.theory, openingVideo, undefined, cues);
+        reportSlide = connectDevPresentation(viewport, slideNavigation.open, previewRole, openingVideo, undefined, cues);
       });
     });
   });
@@ -592,20 +591,21 @@ if (localDev) {
     void import('./story-reader').then(({ addStoryReader }) => addStoryReader(backdrop));
   }
 }
-if (shared && hostedLayout && sharedEditing) {
-  void Promise.all([hostedLayout.ready, import('./shared-slide-editor')]).then(([, { addSharedSlideEditor }]) => {
-    addSharedSlideEditor(backdrop, shared, {
+const slideEditor = sharedEditing ? shared : !readOnly && localShared?.snapshot.editable ? localShared : undefined;
+if (slideEditor) {
+  void Promise.all([layout.ready, import('./shared-slide-editor')]).then(([, { addSharedSlideEditor }]) => {
+    addSharedSlideEditor(backdrop, slideEditor, {
       activeKey: () => openingDialogue.slideCopyKey ?? slides[currentIndex]?.members[0],
       inlineTarget: openingDialogue.inlineTarget,
-      captureLayout: hostedLayout.capture,
-      canSaveLayout: slideNavigation.isOnCanvas,
+      hostedLayout: hostedLayout && { capture: hostedLayout.capture, canSave: slideNavigation.isOnCanvas },
       apply(snapshot, resetLayout) {
-        if (resetLayout) {
+        if (resetLayout && hostedLayout) {
           slideNavigation.leavePage();
           tween = undefined;
           hostedLayout.restore(snapshot.document.layout);
         }
         openingDialogue.refreshSlideCopy();
+        sharedPageCopy?.refresh();
         showSharedPageCopy();
       },
     });

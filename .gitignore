@@ -7,6 +7,7 @@ dist/
 canvas-layout.json.previous
 canvas-layout.json.tmp
 shared-slides.local.json
+shared-slides.json.*.tmp
 
 .wrangler/
 .dev.vars*

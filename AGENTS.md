@@ -2,6 +2,13 @@
 
 These instructions apply only to this directory and its descendants.
 
+## Script and slide edits require an explicit request
+
+- Edit scripts or slides only when Howie explicitly asks you to make that edit. This applies to narration, dialogue, stage directions, slide text and notes, slide order, slide-specific artwork and layout, and content saved in the local or live editor.
+- Treat requests to read, review, discuss, or suggest wording as read-only. Show suggestions in chat and wait for Howie to ask you to apply them.
+- If it is unclear whether Howie wants you to make a script or slide edit, stop before making it. Explain what is unclear, describe the specific change you would make, and ask if that is what he wants. Wait for explicit confirmation.
+- Keep any authorized edit within the requested scope. Preserve Howie’s existing content during other work, including builds, syncs, merges, and publishing. If that work requires changing protected content, explain the specific change and wait for explicit authorization.
+
 ## Preserve the user's existing work
 
 - Treat the user's current canvas layout as intentional. They manually move and resize objects in the browser.

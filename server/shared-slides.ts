@@ -1,8 +1,8 @@
 import { DurableObject } from 'cloudflare:workers';
-import { parseLayout } from '../src/layout-data';
-import { authoredCues, customCueKeyPattern, customCueNumber, editableCueSequence, joinOpeningInkEdits, maxAddedCues, openingClassroomScene } from '../src/classroom-cues';
-import { cleanSlideCopy, editKeyPattern, isDialogueText, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
-  type AddedDialogueLine, type DialogueCopy, type DialogueStructure, type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
+import { editKeyPattern, isRevision, originalSharedSnapshot, sharedSlidesPath,
+  type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
+import { applySharedSlideChange, mergeSlideEdits } from '../src/shared-slide-changes';
+import committedSlides from '../shared-slides.json';
 
 export interface SharedSlidesEnv {
   SHARED_SLIDES: DurableObjectNamespace<SharedSlideHistory>;
@@ -49,78 +49,31 @@ function storedResult(row: StoredVersion | undefined): SharedSnapshot {
   return { ...row, document: JSON.parse(row.document) as SharedSlides };
 }
 
-function dialogueStructure(scene: string, input: Record<string, unknown>, structures?: Record<string, DialogueStructure>) {
-  const previous = structures?.[scene];
-  const authored = authoredCues(scene);
-  const known = new Set(authored.map(cue => cue.key));
-  const added = [...(previous?.added ?? [])];
-  const removed = new Set(previous?.removed);
-  const wire = new Set(added.map(cue => customCueNumber(cue.key)));
-  const otherKeys = new Set(Object.entries(structures ?? {}).flatMap(([id, edit]) => id === scene ? [] : edit.added.map(cue => cue.key)));
-  for (const cue of added) known.add(cue.key);
-  const { added: inserts = [], removed: deletes = [] } = input;
-  if (!Array.isArray(inserts) || !Array.isArray(deletes) || deletes.length > known.size ||
-      (inserts.length > 0 && added.length + inserts.length > maxAddedCues) || ((inserts.length || deletes.length) && !editableCueSequence(scene))) return null;
-  for (const item of inserts as Partial<AddedDialogueLine>[]) {
-    if (!item || typeof item.key !== 'string' || !customCueKeyPattern.test(item.key) || known.has(item.key) || otherKeys.has(item.key) ||
-        wire.has(customCueNumber(item.key)) || !isDialogueText(item.text) ||
-        (item.after !== null && (typeof item.after !== 'string' || !known.has(item.after)))) return null;
-    known.add(item.key);
-    wire.add(customCueNumber(item.key));
-    added.push({ key: item.key, after: item.after, text: item.text });
-  }
-  for (const key of deletes) {
-    if (typeof key !== 'string' || !known.has(key)) return null;
-    removed.add(key);
-  }
-  const quiz = input.quizAfter;
-  if (quiz !== undefined && (scene !== openingClassroomScene ||
-      (quiz !== null && (typeof quiz !== 'string' || !known.has(quiz) || removed.has(quiz))))) return null;
-  const quizAfter = quiz !== undefined ? quiz : previous?.quizAfter;
-  return { known, removed, added, quizAfter, changed: Boolean(inserts.length || deletes.length || quiz !== undefined) };
-}
-
-function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides) {
-  const { scene, lines, copy } = body;
-  if (typeof scene !== 'string' || !lines || typeof lines !== 'object' || Array.isArray(lines)) return null;
-  const structures = joinOpeningInkEdits(previous.dialogueStructure);
-  const structure = dialogueStructure(scene, body, structures);
-  if (!structure) return null;
-  const changes = Object.entries(lines);
-  if (changes.length > 200 || changes.some(([key, text]) => !structure.known.has(key) || structure.removed.has(key) || !isDialogueText(text))) return null;
-  const panel = copy as Partial<DialogueCopy> | undefined;
-  const entry = panel && typeof panel.key === 'string' ? sharedSlideByKey.get(panel.key) : undefined;
-  if (copy !== undefined && (!entry?.panel || entry.slideId !== scene || !isSlideCopy(panel?.copy))) return null;
-  if (!changes.length && copy === undefined && !structure.changed) return null;
-  let document = previous;
-  if (entry && panel?.copy) {
-    document = { ...document, copy: { ...document.copy, [entry.key]: cleanSlideCopy(panel.copy) } };
-  }
-  if (changes.length) document = { ...document, dialogue: { ...document.dialogue, ...Object.fromEntries(changes) } };
-  if (structure.changed) {
-    const { added, removed, quizAfter } = structure;
-    document = { ...document, dialogueStructure: { ...structures, [scene]: { added, removed: [...removed], quizAfter } } };
-  }
-  return document;
-}
-
-function proposedLayout(value: unknown) {
-  const layout = parseLayout(JSON.stringify(value) ?? null);
-  if (!layout) return null;
-  const entries = Object.entries(layout.items);
-  const input = (value as { items: object }).items;
-  if (entries.length !== Object.keys(input).length || entries.length > 300 ||
-      Math.abs(layout.view.x) > 1e6 || Math.abs(layout.view.y) > 1e6 ||
-      entries.some(([key, item]) => !/^[a-zA-Z0-9_-]{1,120}$/.test(key) || Math.abs(item.x) > 1e6 || Math.abs(item.y) > 1e6)) return null;
-  return { ...layout, savedAt: new Date().toISOString() };
-}
-
 export class SharedSlideHistory extends DurableObject<SharedSlidesEnv> {
   constructor(ctx: DurableObjectState, env: SharedSlidesEnv) {
     super(ctx, env);
     ctx.storage.sql.exec(`CREATE TABLE IF NOT EXISTS slide_versions (
       revision INTEGER PRIMARY KEY, savedAt TEXT NOT NULL, summary TEXT NOT NULL, document TEXT NOT NULL
     )`);
+    ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS slide_release (id INTEGER PRIMARY KEY, document TEXT NOT NULL)');
+    this.applyRelease();
+  }
+
+  private applyRelease() {
+    this.ctx.storage.transactionSync(() => {
+      const next = committedSlides.document as SharedSlides;
+      const encoded = JSON.stringify(next);
+      const applied = this.ctx.storage.sql.exec<{ document: string }>('SELECT document FROM slide_release WHERE id = 1').toArray()[0]?.document;
+      if (applied === encoded) return;
+      const previous = applied ? JSON.parse(applied) as SharedSlides : originalSharedSnapshot.document;
+      const current = this.latest();
+      const document = mergeSlideEdits(current.document, previous, next);
+      if (document !== current.document) {
+        this.ctx.storage.sql.exec('INSERT INTO slide_versions (revision, savedAt, summary, document) VALUES (?, ?, ?, ?)',
+          current.revision + 1, new Date().toISOString(), 'Published slide edits from Git', JSON.stringify(document));
+      }
+      this.ctx.storage.sql.exec('INSERT OR REPLACE INTO slide_release (id, document) VALUES (1, ?)', encoded);
+    });
   }
 
   private latest(): SharedSnapshot {
@@ -166,24 +119,11 @@ export class SharedSlideHistory extends DurableObject<SharedSlidesEnv> {
         if (!version) return reply({ error: 'Version not found.' }, 404);
         document = version.document;
         summary = body.target === 0 ? 'Restored the original website' : `Restored version ${body.target}`;
-      } else if (body.type === 'copy' && typeof body.key === 'string' && isSlideCopy(body.copy)) {
-        const entry = sharedSlideByKey.get(body.key);
-        if (!entry) return reply({ error: 'Unknown slide.' }, 400);
-        const copy = cleanSlideCopy(body.copy);
-        document = { ...current.document, copy: { ...current.document.copy, [body.key]: copy } };
-        summary = `Edited ${entry.label}`;
-      } else if (body.type === 'dialogue') {
-        const updated = proposedDialogue(body, current.document);
-        if (!updated) return reply({ error: 'Invalid dialogue edit.' }, 400);
-        document = updated;
-        const scene = [...sharedSlideByKey.values()].find(entry => entry.slideId === body.scene);
-        summary = `Edited dialogue · ${scene?.label ?? body.scene}`;
-      } else if (body.type === 'layout') {
-        const layout = proposedLayout(body.layout);
-        if (!layout) return reply({ error: 'The canvas layout is invalid.' }, 400);
-        document = { ...current.document, layout };
-        summary = 'Edited the canvas layout';
-      } else return reply({ error: 'Invalid slide content.' }, 400);
+      } else {
+        const proposed = applySharedSlideChange(body, current.document);
+        if (!proposed.document) return reply({ error: proposed.error }, 400);
+        ({ document, summary } = proposed);
+      }
 
       const revision = current.revision + 1;
       const savedAt = new Date().toISOString();

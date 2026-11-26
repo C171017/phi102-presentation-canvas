@@ -1,0 +1,98 @@
+.operation-because-choices {
+  /* Match the centered, contained 1672 × 941 artwork under the buttons. */
+  --art-ratio: 1672 / 941;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(100%, calc(100dvh * var(--art-ratio)));
+  height: min(100%, calc(100vw / (var(--art-ratio))));
+  pointer-events: none;
+}
+.operation-because-choices::before,
+.operation-because-choices > button {
+  position: absolute;
+  inset: 0;
+  background: rgb(8 13 24 / var(--shade, 0));
+  transition: background-color .18s ease;
+}
+.operation-because-choices::before {
+  content: '';
+  clip-path: polygon(0 0, 100% 0, 100% 22%, 0 22%);
+}
+.operation-because-choices > button {
+  clip-path: var(--panel);
+  border: 0;
+  padding: 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.operation-because-choices [data-scene='regress-skepticism'] {
+  --panel: polygon(0 22%, 38% 22%, 19% 100%, 0 100%);
+  --label-x: 15%;
+}
+.operation-because-choices [data-scene='regress-infinitism'] {
+  --panel: polygon(38% 22%, 81% 22%, 62% 100%, 19% 100%);
+  --label-x: 49%;
+}
+.operation-because-choices [data-scene='regress-coherentism'] {
+  --panel: polygon(81% 22%, 100% 22%, 100% 100%, 62% 100%);
+  --label-x: 85%;
+}
+.operation-because-choices > button[data-viewed] { --shade: .46; }
+.operation-because-choices:has(> button:focus-visible) > button:not(:focus-visible),
+.operation-because-choices:has(> button:focus-visible)::before { --shade: .64; }
+.operation-because-choices > button:focus-visible {
+  --shade: 0;
+  --label-background: #ffdc94;
+  --label-color: #1d2e32;
+  --label-opacity: 1;
+}
+@media (hover: hover) {
+  .operation-because-choices:has(> button:hover):not(:has(> button:focus-visible)) > button:not(:hover),
+  .operation-because-choices:has(> button:hover):not(:has(> button:focus-visible))::before { --shade: .64; }
+  .operation-because-choices:not(:has(> button:focus-visible)) > button:hover {
+    --shade: 0;
+    --label-background: #ffdc94;
+    --label-color: #1d2e32;
+    --label-opacity: 1;
+  }
+}
+
+.operation-because-choices > button > span,
+.operation-because-return {
+  padding: .35em .55em;
+  border: 1px solid #e2b66f;
+  border-radius: 6px;
+  color: var(--label-color, #fff4df);
+  background: var(--label-background, #1d2e32f5);
+  font: 650 clamp(10px, 1.75vmin, 16px)/1.2 system-ui, sans-serif;
+  white-space: nowrap;
+}
+.operation-because-choices > button > span {
+  position: absolute;
+  /* Keep the choices above the dialogue box on short landscape screens. */
+  top: clamp(28%, calc((100dvh + 100%) / 2 - var(--transcript-height) - var(--transcript-bottom) - 1.25rem), 57%);
+  left: var(--label-x);
+  transform: translate(-50%, -50%);
+  opacity: var(--label-opacity, 1);
+}
+.operation-because-choices > button > span::after {
+  content: '›';
+  margin-inline-start: .35em;
+}
+.operation-because-choices > button[data-viewed] > span { opacity: var(--label-opacity, .76); }
+.operation-because-return:is(:hover, :focus-visible) {
+  color: #1d2e32;
+  background: #ffdc94;
+}
+.operation-because-return {
+  position: absolute;
+  right: var(--dialogue-margin);
+  bottom: calc(var(--transcript-height) + var(--transcript-bottom) + 8px);
+  pointer-events: auto;
+  cursor: pointer;
+}
+.classroom-stage:has(> .transcript-panel[hidden]) .operation-because-return { bottom: var(--transcript-bottom); }
+@media (prefers-reduced-motion: reduce) {
+  .operation-because-choices::before, .operation-because-choices > button { transition: none; }
+}

@@ -61,11 +61,12 @@ export const openingNotes: Record<string, SlideNotes> = {
     source: 'Greco · §1, p. 426',
   },
   L4: {
-    title: 'Four responses to the regress',
-    claim: 'Greco distinguishes four views about the structure of justification.',
+    title: 'Three responses to the regress',
+    claim: 'What happens when every reason calls for a further reason?',
     points: [
-      'Skepticism denies that any belief is justified. Infinitism allows an endless chain of distinct reasons.',
-      'Coherentism appeals to mutual support among beliefs. Foundationalism ends the chain with basic beliefs.',
+      'Skepticism holds that the regress leaves no belief justified.',
+      'Infinitism accepts an endless chain of distinct reasons.',
+      'Coherentism finds justification in a system of mutually supporting beliefs.',
     ],
     source: 'Greco · §1, p. 426',
   },
@@ -95,6 +96,15 @@ export const openingNotes: Record<string, SlideNotes> = {
       'This raises a challenge for the coherentist. How can mutual support justify a belief if arguing in a circle is unconvincing?',
     ],
     source: 'Greco · §1, p. 426 and note 1',
+  },
+  'regress-foundationalism': {
+    title: 'Foundationalism',
+    claim: 'A chain of reasons can end at a justified basic belief.',
+    points: [
+      'A basic belief can support other beliefs without depending on a further belief for its own justification.',
+      'Descartes looked for foundations that could withstand every possible doubt.',
+    ],
+    source: 'Greco · §1, pp. 426–427',
   },
   L7: {
     title: 'Locally undoubted foundations',

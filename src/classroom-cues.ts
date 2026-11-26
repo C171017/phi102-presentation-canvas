@@ -1,5 +1,5 @@
 import { legendSlides } from './slide-content';
-import { greatInkwellScene, openingInkScene, type InkOceanCue } from './ink-ocean-scenes';
+import { inkPassages, type InkOceanCue } from './ink-ocean-scenes';
 import type { DialogueStructure } from './shared-slide-data';
 
 const classroomScript: (InkOceanCue & { scene: string; phase?: 'question' | 'result' | 'reveal' })[] = [
@@ -64,23 +64,30 @@ function placeQuiz(cues: ClassroomCue[], after: string | null) {
   cues.splice(position, 0, { ...question, key: 'classroom-quiz', text: '', silent: true });
 }
 
-export const firstGreatInkwellCue = authoredCues(openingInkScene).find(cue => cue.sourceScene === greatInkwellScene)!;
-const inkwellEntrance = `${greatInkwellScene}:start`;
+export const inkPassageStarts = new Map<string, ClassroomCue>(
+  [...inkPassages].flatMap(([scene, passages]) => passages.map(id =>
+    [id, authoredCues(scene).find(cue => cue.sourceScene === id)!] as const)),
+);
 
-export function joinOpeningInkEdits(structures?: Record<string, DialogueStructure>) {
-  const inkwell = structures?.[greatInkwellScene];
-  if (!structures || !inkwell) return structures;
-  const { [greatInkwellScene]: previous, ...joined } = structures;
-  const law = joined[openingInkScene];
-  joined[openingInkScene] = {
-    added: [...(law?.added ?? []), ...previous.added.map(cue => cue.after === null ? { ...cue, after: inkwellEntrance } : cue)],
-    removed: [...new Set([...(law?.removed ?? []), ...previous.removed])],
-  };
+export function joinInkPassageEdits(structures?: Record<string, DialogueStructure>) {
+  if (!structures || !Object.keys(structures).some(id => inkPassageStarts.has(id))) return structures;
+  const joined = { ...structures };
+  for (const [id, { scene }] of inkPassageStarts) {
+    const previous = joined[id];
+    if (!previous) continue;
+    delete joined[id];
+    const current = joined[scene];
+    joined[scene] = {
+      added: [...(current?.added ?? []), ...previous.added.map(cue =>
+        cue.after === null ? { ...cue, after: `${id}:start` } : cue)],
+      removed: [...new Set([...(current?.removed ?? []), ...previous.removed])],
+    };
+  }
   return joined;
 }
 
 export function buildClassroomScript(structure?: Record<string, DialogueStructure>): ClassroomCue[] {
-  const structures = joinOpeningInkEdits(structure);
+  const structures = joinInkPassageEdits(structure);
   if (!structures) return [...authoredByScene.values()].flat();
   return [...authoredByScene].flatMap(([scene, base]) => {
     const edits = structures[scene];
@@ -107,14 +114,15 @@ export function buildClassroomScript(structure?: Record<string, DialogueStructur
     }
     appendAdded(null, base[0]);
     for (const cue of base) {
-      if (cue === firstGreatInkwellCue) appendAdded(inkwellEntrance, cue);
+      const passageStart = cue.sourceScene && cue === inkPassageStarts.get(cue.sourceScene);
+      if (passageStart) appendAdded(`${cue.sourceScene}:start`, cue);
       if (!removed.has(cue.key)) result.push(cue);
       // These cues also drive something other than transcript text.
-      else if (cue.phase || (cue.background && (!cue.sourceScene || cue === firstGreatInkwellCue))) result.push({ ...cue, silent: true });
+      else if (cue.phase || (cue.background && (!cue.sourceScene || passageStart))) result.push({ ...cue, silent: true });
       appendAdded(cue.key, cue);
     }
-    // Even with all of its text cleared, the opening illustration still has an entry cue.
-    if (scene === openingInkScene && result[0]?.background) result.unshift({ ...base[0], silent: true });
+    // Keep the opening illustration available even when its dialogue is removed.
+    if (inkPassages.has(scene) && result[0]?.background) result.unshift({ ...base[0], silent: true });
     if (scene === openingClassroomScene && edits.quizAfter !== undefined) placeQuiz(result, edits.quizAfter);
     return result.length ? result : [{ ...base[0], silent: true }];
   });

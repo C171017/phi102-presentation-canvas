@@ -1,7 +1,6 @@
 import { createPresentationClient } from './live-presentation';
 import { isSlide, type PresentationCues, type RoomSnapshot } from './live-protocol';
 import { addStoryReader } from './story-reader';
-import type { TheoryRecords } from './theory-records';
 import type { SchoolRoomDisplay } from './legend-schools';
 import './dev-presentation.css';
 
@@ -44,7 +43,7 @@ export function addDevRolePicker(shell: HTMLElement, role: DevRole, canSwitchRol
   return picker;
 }
 
-export function connectDevPresentation(viewport: HTMLElement, openSlide: (index: number) => void, role: PreviewRole, theory: TheoryRecords,
+export function connectDevPresentation(viewport: HTMLElement, openSlide: (index: number) => void, role: PreviewRole,
   openingVideo?: { isOpen(): boolean; close(): void }, schools?: SchoolRoomDisplay, cues?: PresentationCues) {
   const hot = import.meta.hot!;
   const blackout = role === 'audience' ? document.createElement('dialog') : undefined;
@@ -55,7 +54,7 @@ export function connectDevPresentation(viewport: HTMLElement, openSlide: (index:
     blackout.addEventListener('keydown', event => event.stopPropagation());
     viewport.parentElement!.append(blackout);
   }
-  const client = createPresentationClient(viewport, openSlide, role === 'presenter', theory,
+  const client = createPresentationClient(viewport, openSlide, role === 'presenter',
     message => hot.send('phi102:preview:report', message), schools, cues);
   function join() {
     const buttons = Array.from(viewport.querySelectorAll('#slide-progress button[data-slide]'));

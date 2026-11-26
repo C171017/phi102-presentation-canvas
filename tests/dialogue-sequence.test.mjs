@@ -7,7 +7,7 @@ const bundle = buildSync({
   entryPoints: [fileURLToPath(new URL('../src/classroom-cues.ts', import.meta.url))],
   bundle: true, write: false, format: 'esm',
 });
-const { authoredCues, buildClassroomScript, customCueNumber, firstGreatInkwellCue, joinOpeningInkEdits } =
+const { authoredCues, buildClassroomScript, customCueNumber, inkPassageStarts, joinInkPassageEdits } =
   await import('data:text/javascript;base64,' + Buffer.from(bundle.outputFiles[0].contents).toString('base64'));
 
 const id = n => 'line-' + n.toString(16).padStart(12, '0') + '0'.repeat(20);
@@ -46,7 +46,7 @@ test('removing classroom text keeps the quiz, result and reveal as silent events
 });
 
 test('removing all ordinary lines leaves a silent cue on the slide', () => {
-  const id = 'L2';
+  const id = 'L3-continued';
   const original = authoredCues(id);
   const updated = buildClassroomScript({ [id]: { added: [], removed: original.map(cue => cue.key) } })
     .filter(cue => cue.scene === id);
@@ -104,36 +104,64 @@ test('every Y sentence starts with Why and each SOWHAT cue opens with So what?',
 });
 
 
-test('The Law of Ink has both backgrounds in order and keeps Great Inkwell edit keys', () => {
+const firstGreatInkwellCue = inkPassageStarts.get('regress-problem');
+const firstBirthCue = inkPassageStarts.get('regress-problem-birth');
+
+test('The opening uses three backgrounds in order and keeps the original edit keys', () => {
   const cues = authoredCues('L0');
   assert.equal(authoredCues('regress-problem').length, 0);
+  assert.equal(authoredCues('regress-problem-birth').length, 0);
   assert.equal(cues[0].background, undefined);
   assert.equal(firstGreatInkwellCue, cues[3]);
   assert.match(firstGreatInkwellCue.background, /L1-guardian-asks-why\.webp$/);
   assert.equal(cues[4].key, 'regress-problem:1:o0irx4');
-  assert.ok(cues.slice(3).every(line => line.background === firstGreatInkwellCue.background));
+  assert.ok(cues.slice(3, firstBirthCue.number).every(line => line.background === firstGreatInkwellCue.background));
+  assert.match(firstBirthCue.background, /L1-birth-wide-inkwell\.webp$/);
+  assert.equal(cues[firstBirthCue.number + 1].key, 'regress-problem-birth:1:23jdfg');
+  assert.ok(cues.slice(firstBirthCue.number).every(line => line.background === firstBirthCue.background));
   assert.deepEqual(cues.map(cue => cue.number), cues.map((_, index) => index));
 });
 
-test('historical additions and removals survive joining The Great Inkwell to The Law of Ink', () => {
+test('historical additions and removals survive joining both opening passages', () => {
   const cues = authoredCues('L0');
   const preface = { key: id(1), after: null, text: 'An older added Great Inkwell line.' };
+  const birthPreface = { key: id(2), after: null, text: 'An older added Birth line.' };
+  const removedBirthLine = cues[firstBirthCue.number + 1].key;
   const saved = {
     L0: { added: [], removed: [cues[1].key] },
     'regress-problem': { added: [preface], removed: [cues[3].key, cues[4].key] },
+    'regress-problem-birth': { added: [birthPreface], removed: [removedBirthLine] },
   };
   const result = buildClassroomScript(saved).filter(cue => cue.scene === 'L0');
   assert.deepEqual(result.slice(0, 5).map(cue => cue.key),
     [cues[0].key, cues[2].key, preface.key, cues[3].key, cues[5].key]);
   assert.equal(result[2].background, firstGreatInkwellCue.background);
   assert.equal(result[3].silent, true);
-  assert.equal(joinOpeningInkEdits(saved)['regress-problem'], undefined);
+  assert.equal(result.find(line => line.key === birthPreface.key).background, firstBirthCue.background);
+  assert.equal(result.some(line => line.key === removedBirthLine), false);
+  assert.deepEqual(Object.keys(joinInkPassageEdits(saved)), ['L0']);
 });
 
-test('clearing both passages still leaves the two artwork cues', () => {
+test('clearing the opening dialogue still leaves all three artwork cues', () => {
   const cues = authoredCues('L0');
   const result = buildClassroomScript({ L0: { added: [], removed: cues.map(cue => cue.key) } })
     .filter(cue => cue.scene === 'L0');
-  assert.deepEqual(result.map(cue => cue.key), [cues[0].key, firstGreatInkwellCue.key]);
+  assert.deepEqual(result.map(cue => cue.key), [cues[0].key, firstGreatInkwellCue.key, firstBirthCue.key]);
   assert.ok(result.every(cue => cue.silent));
+});
+
+test('the Regress Problem continues into the Whypocalypse with its saved cue identities', () => {
+  const cues = authoredCues('L2');
+  const first = inkPassageStarts.get('L3');
+  assert.equal(authoredCues('L3').length, 0);
+  assert.ok(authoredCues('L3-continued').length > 0);
+  assert.equal(first.scene, 'L2');
+  assert.match(first.background, /L3-the-question-splits\.webp$/);
+  assert.equal(cues[first.number + 2].key, 'L3:2:1yq4kak');
+  const added = { key: id(3), after: null, text: 'A saved opening line for the Whypocalypse.' };
+  const saved = { L3: { added: [added], removed: [first.key] } };
+  const result = buildClassroomScript(saved).filter(line => line.scene === 'L2');
+  assert.deepEqual(result.slice(first.number, first.number + 2).map(line => line.key), [added.key, first.key]);
+  assert.equal(result[first.number].background, first.background);
+  assert.equal(result[first.number + 1].silent, true);
 });

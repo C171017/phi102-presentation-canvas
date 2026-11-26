@@ -1,0 +1,78 @@
+{
+  "revision": 11,
+  "savedAt": "2026-11-26T19:50:50.123Z",
+  "summary": "Updated ink-state terminology in the dialogue",
+  "document": {
+    "layout": null,
+    "copy": {
+      "L0": {
+        "sections": [
+          {
+            "kind": "heading",
+            "text": "Background (Setting)"
+          },
+          {
+            "kind": "text",
+            "text": "Introduction of the background setting."
+          }
+        ]
+      },
+      "regress-problem-birth": {
+        "sections": [
+          {
+            "kind": "header",
+            "title": "",
+            "source": "Greco · §1, p. 426"
+          },
+          {
+            "kind": "heading",
+            "text": "The Regress Problem"
+          },
+          {
+            "kind": "text",
+            "text": "Giving a reason for a belief raises a question about the reason itself."
+          },
+          {
+            "kind": "bullets",
+            "items": [
+              "Suppose I believe a claim because a witness reported it.",
+              "If I have reason to doubt the witness, I still need grounds for accepting the report."
+            ]
+          }
+        ]
+      }
+    },
+    "dialogue": {
+      "L0:0:1u70wnw": "In this world, everything is made of belief. And belief is ink.",
+      "L0:1:1soi8tx": "Liquid ink is a belief still in doubt. Concrete ink is a settled belief you can build on.",
+      "L0:2:ptr57c": "Ink solidify when it holds up to questions. A question you can't answer can melt it again.",
+      "regress-problem:0:jz884s": "Every belief came from the Great Inkwell",
+      "regress-problem:1:o0irx4": "A question mark guarded it. State your belief, answer the question, and the belief solidfy.",
+      "L2:9:xz4e4x": "How could I tell?",
+      "regress-problem:6:1abkxkd": "[The ink solidifies. He slots the stick into his chest, satisfied. The raven nods.]",
+      "L2:11:rwza9p": "Her words never solidified. Then, slowly, neither did her hand.",
+      "L3:2:1yq4kak": "Every question that couldn't be settled split off another questioner. Nothing solidified, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.",
+      "L3:18:1oj3xnq": "And anyone who stood in liquid ink long enough began to soften. A man who had believed for forty years that he was tall woke up noticeably shorter. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.",
+      "regress-skepticism:3:dzmp3n": "[Beside him, his old teacher Anaxarchus is sinking into the liquid ink, waving.]",
+      "regress-infinitism:7:buc68m": "The objection — at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever solidifies.",
+      "regress-foundationalism:8:bamr6v": "[In his ladle, one grain of ink turns matte. SOWATT keeps asking. It stays solid.]",
+      "regress-foundationalism:9:1pu7qi2": "The first belief in history that stayed solid while being asked about.",
+      "L6-A:0:1wv9lhn": "For the first time since the Whypocalypse, people had a way to fight back. The goal: solidify the world again, the way it used to be.",
+      "L6-A:2:1qrfr3y": "The Cartesians would solidify only what could not be doubted. Ten thousand of them worked on it, day and night, for three hundred years.",
+      "L6-A:5:tod0kx": "[A few grains of concrete ink fuse into one irregular pebble. Polite applause.]",
+      "L6-A:6:yn8qg4": "It was a very good stone. Nothing anyone asked could melt it. They are still deciding what to build.",
+      "L6-B:0:fege8s": "The moderates didn't have three hundred years. They solidified whatever seemed true, and they solidified it fast.",
+      "L6-B:2:zmqpf5": "But their ink only ever solidified halfway. Everything they built was jelly.",
+      "L7:1:1cshpug": "[A lone figure, seen from behind, steps out onto bare ink. A stick solidifies under her foot.]",
+      "P2-6:7:we8ngd": "[MY NAME IS SIMONE burns into the brass. The first plank of concrete ink snaps onto the frame.]"
+    },
+    "dialogueStructure": {
+      "regress-problem-birth": {
+        "added": [],
+        "removed": [
+          "regress-problem-birth:1:23jdfg"
+        ]
+      }
+    }
+  }
+}

@@ -8,15 +8,14 @@ import type { Layout } from './layout-data';
 type EditorOptions = {
   activeKey: () => string | undefined;
   inlineTarget: () => InlineDialogueTarget | undefined;
-  captureLayout: () => Layout;
-  canSaveLayout: () => boolean;
+  hostedLayout?: { capture: () => Layout; canSave: () => boolean };
   apply: (snapshot: SharedSnapshot, resetLayout: boolean) => void;
 };
 
 export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClient, options: EditorOptions) {
   const toolbar = document.createElement('div');
   toolbar.className = 'shared-slide-toolbar';
-  toolbar.setAttribute('aria-label', 'Shared editor');
+  toolbar.setAttribute('aria-label', options.hostedLayout ? 'Shared editor' : 'Local slide editor');
   toolbar.innerHTML = `<div class="shared-slide-actions" data-regular-actions><button type="button" data-edit>Edit slide</button>
     <button type="button" data-layout>Save layout</button>
     <button type="button" data-history>Version history</button></div>
@@ -31,6 +30,8 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
   const inlineActions = toolbar.querySelector<HTMLElement>('[data-inline-actions]')!;
   const inlineLatest = toolbar.querySelector<HTMLButtonElement>('[data-inline-latest]')!;
   const editButton = toolbar.querySelector<HTMLButtonElement>('[data-edit]')!;
+  toolbar.querySelector<HTMLButtonElement>('[data-layout]')!.hidden = !options.hostedLayout;
+  toolbar.querySelector<HTMLButtonElement>('[data-history]')!.hidden = !options.hostedLayout;
   shell.classList.add('has-shared-editor');
   shell.append(toolbar);
 
@@ -142,7 +143,9 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
   }
 
   function saveLayout() {
-    if (!options.canSaveLayout()) {
+    const layout = options.hostedLayout;
+    if (!layout) return;
+    if (!layout.canSave()) {
       status.textContent = 'Return to the map to save its layout.';
       return;
     }
@@ -151,7 +154,7 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
       return;
     }
     void run(status, async () => {
-      const saved = await client.save({ type: 'layout', layout: options.captureLayout() });
+      const saved = await client.save({ type: 'layout', layout: layout.capture() });
       appliedLayout = saved.document.layout?.savedAt ?? '';
       apply(saved, false);
     });
@@ -246,6 +249,7 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
       return;
     }
     if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 's' || event.altKey || editor.open || versions.open) return;
+    if (!inline && !options.hostedLayout) return;
     event.preventDefault();
     if (inline) saveInline();
     else saveLayout();
