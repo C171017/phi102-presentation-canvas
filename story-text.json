@@ -40,7 +40,7 @@
       "INFINITISM. The chain of reasons never stops: B1 rests on B2, B2 on B3, and so on, forever. (Agrippa’s mode of infinite regress, Unit 1.1)",
       "Y: Why believe that?",
       "Peirce: Because of B2.",
-      "Y: And B2?",
+      "Y: Why believe B2?",
       "Peirce: B3. There is no first reason. Every thought rests on an earlier one.",
       "[The camera tilts down. He’s standing on a turtle, standing on a turtle, standing on a turtle, out of frame.]",
       "Narrator: Turtles all the way down. He was last seen still descending.",
@@ -56,7 +56,7 @@
       "Neurath: Because every plank holds.",
       "Y: Why believe every plank holds?",
       "Neurath: Because the ship is sound.",
-      "Y: That's a circle.",
+      "Y: Why trust a reason that goes in a circle?",
       "Neurath: It's a web. No belief stands alone; each is held up by all the others. The bigger the circle, the better.",
       "[SOWATT swims laps around the ship, looking for a loose end. There isn't one.]",
       "SOWHAT: So what? A fairy tale can fit together perfectly too.",
@@ -64,5 +64,14 @@
       "The objection — the isolation problem. A perfectly coherent system can be cut off from experience, so coherence alone isn’t enough (Unit 1.2)."
     ],
     "revision": "cf0dc2c2-acbb-44a6-968b-40f743bc07fc"
+  },
+  "ink-ocean-L0": {
+    "title": "The Law of Ink",
+    "paragraphs": [
+      "Narrator: In this world, everything is made of belief: every person, and the whole world each of them sees. And belief is ink.",
+      "Narrator: Wet ink is a belief still in doubt. Dry ink is a settled belief you can build on.",
+      "Narrator: Ink dries only if it withstands questioning: from the question mark at the Great Inkwell, and from anyone else who asks. If you can't answer, or the questions never stop, it stays wet. And if someone questions a dry belief and you have no answer, it goes wet again."
+    ],
+    "revision": "4ee2d084-def5-4204-8bd4-79c2f44101d0"
   }
 }

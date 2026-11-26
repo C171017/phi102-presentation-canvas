@@ -1,0 +1,102 @@
+#slide-progress {
+  --section-max-width: min(130px, 44vw);
+  --current-slide-text: #ffcf79;
+  position: absolute;
+  z-index: 6;
+  inset-block: 0;
+  margin-block: auto;
+  left: 10px;
+  width: max-content;
+  max-width: var(--section-max-width);
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+  font: 600 12px/1.25 system-ui, sans-serif;
+}
+.slide-progress-section {
+  flex: none;
+  min-width: 0;
+  pointer-events: auto;
+}
+#slide-progress button {
+  position: relative;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.slide-progress-heading {
+  display: grid;
+  grid-template-columns: 5px minmax(0, 1fr) 5px;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+  min-height: 26px;
+  padding: 2px 3px;
+  border: 1px solid #738983a6;
+  border-radius: 9px;
+  color: #f5fbf5;
+  background: #1d2e32f5;
+}
+.slide-progress-heading > .slide-progress-label {
+  grid-column: 2;
+  font-size: 11.5px;
+  text-align: center;
+}
+.slide-progress-heading::after {
+  content: '';
+  grid-column: 3;
+  grid-row: 1;
+  width: 5px;
+  height: 5px;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateX(-1px) rotate(-45deg);
+}
+.slide-progress-heading.is-current-section > .slide-progress-label,
+.slide-progress-page[aria-current] > .slide-progress-label {
+  color: var(--current-slide-text);
+}
+.slide-progress-flyout {
+  position: absolute;
+  inset-block: 0;
+  left: 100%;
+  width: min(155px, calc(100vw - var(--section-max-width) - 18px));
+  display: flex;
+  align-items: center;
+  /* The padding also keeps the pointer inside the section between columns. */
+  padding-left: 5px;
+}
+.slide-progress-flyout[hidden] { display: none; }
+.slide-progress-children {
+  position: relative;
+  width: 100%;
+  max-height: min(420px, 54dvh);
+  padding: 2px;
+  border: 1px solid #738983a6;
+  border-radius: 8px;
+  background: #1d2e32fa;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #718b85 transparent;
+  touch-action: pan-y;
+}
+.slide-progress-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 24px;
+  padding: 2px 3px;
+  border: 0;
+  border-radius: 5px;
+  color: #f5fbf5;
+  background: transparent;
+  overflow-wrap: anywhere;
+}
+.slide-progress-heading:is(:hover, [aria-expanded='true']),
+.slide-progress-page:hover { background: #294449; }
+#slide-progress button:focus-visible { outline: 2px solid #b2edda; outline-offset: -2px; }

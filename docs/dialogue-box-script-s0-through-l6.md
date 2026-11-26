@@ -114,7 +114,7 @@ English presenter script. The Ink Ocean legend uses the same text and artwork as
 - **Woman:** They've never fooled me.
 - **Y₃:** Why believe you're not dreaming?
 - **Woman:** Dreams are never this clear.
-- **Y₄:** Why believe you're not a brain in a vat? It would see this hand just as clearly.
+- **Y₄:** Why believe you're not a brain in a vat? Why would your hand look any different if you were?
 - **Woman:** Oh, come on.
 - **SOWHAT:** So what? If you can't rule out the vat, you don't know you have a hand.
 - **Narrator:** Her words never dried. Then, slowly, neither did her hand.
@@ -139,7 +139,7 @@ English presenter script. The Ink Ocean legend uses the same text and artwork as
 - **Y₂:** Why believe the ones you haven't seen are like the ones you have?
 - **Man:** Because… they always have been.
 - *[That answer doesn't settle it. Y₂ splits in two, like a cell.]*
-- **Y₃:** Then does a white shoe prove it too? Everything that isn't black isn't a raven.
+- **Y₃:** Why wouldn't a white shoe count as evidence too, if everything that isn't black isn't a raven?
 - **Man:** …What?
 - *[Two more bubbles split. Then four.]*
 - **Y₄:** Why "black"? Why not "black until tomorrow, then white"?
@@ -196,7 +196,7 @@ Full-color artwork occupies the slide.
 - INFINITISM. The chain of reasons never stops: B1 rests on B2, B2 on B3, and so on, forever. (Agrippa’s mode of infinite regress, Unit 1.1)
 - **Y:** Why believe that?
 - **Peirce:** Because of B2.
-- **Y:** And B2?
+- **Y:** Why believe B2?
 - **Peirce:** B3. There is no first reason. Every thought rests on an earlier one.
 - *[The camera tilts down. He’s standing on a turtle, standing on a turtle, standing on a turtle, out of frame.]*
 - **Narrator:** Turtles all the way down. He was last seen still descending.
@@ -273,7 +273,7 @@ Descartes’s scene leads to the school vote. The presenter opens both views sid
 - *[A whole town goes up in an afternoon.]*
 - **Narrator:** But their ink only ever dried halfway. Everything they built was jelly.
 - *[A man steps onto his new floor. It jiggles. His house sways like a pudding.]*
-- **Y:** Are you sure that's solid?
+- **Y:** Why believe that's solid?
 - *[The town slumps into a puddle.]*
 - **Narrator:** You can't build a city on jelly. They tried. Several times.
 

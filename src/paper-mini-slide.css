@@ -46,23 +46,12 @@
 }
 .paper-mini-slide .mini-slide-text { display: block; padding-left: 0; }
 .paper-mini-slide li::marker { color: #d5b574; font-size: .85em; }
-.mini-slide-bridge {
-  max-width: 62ch;
-  margin: clamp(7px, 3cqh, 15px) 0 0;
-  padding-inline-start: .75em;
-  border-inline-start: 2px solid #bc9b60;
-  color: #e5dcc8;
-  font-size: clamp(13px, min(1.3cqw, 6.3cqh), 22px);
-  line-height: 1.25;
-  text-wrap: pretty;
-}
 .paper-mini-slide [hidden] { display: none; }
 @container dialogue-box (max-width: 600px) {
   .paper-mini-slide { padding: 8px 13px; margin: 0; }
   .paper-mini-slide header { font-size: 12px; margin-bottom: 4px; }
   .paper-mini-slide h2 { font-size: 16px; max-width: none; }
   .paper-mini-slide :is(ul, .mini-slide-text) { font-size: 13px; gap: .15em; margin-top: 5px; }
-  .mini-slide-bridge { margin-top: 5px; }
 }
 .classroom-stage, .school-pane { container-type: inline-size; }
 @container (max-width: 625px) {
@@ -73,7 +62,7 @@
 }
 .paper-mini-slide:focus-visible { outline: 2px solid #ffdc9e; outline-offset: -3px; }
 
-.paper-mini-slide :is(.mini-slide-section, cite, h2, li, .mini-slide-bridge) { white-space: pre-wrap; }
+.paper-mini-slide :is(.mini-slide-section, cite, h2, li) { white-space: pre-wrap; }
 
 .paper-mini-slide:not([data-section-editor]) header :is(.mini-slide-section, cite):empty {
   display: none;

@@ -239,7 +239,7 @@ He is the Courteous Scribe: gracious, unhurried and a little ceremonious. He bow
 
 **Default pose.** Before a view is selected, the five voices hover in a loose huddle. The smallest, red-marked voice looks up and draws breath for one more question. [Default full-body sprite](character-references/quibble-a3-default.png)
 
-Every line spoken by one of the four Y voices starts with “Why.”
+Every spoken sentence from Y₁, Y₂, Y₃, and Y₄ starts with **“Why”**, even when one turn contains several sentences. SOWHAT opens every turn with **“So what?”**
 
 YYYY SOWATT’s selected A3 design is a chorus of five ink bubbles. Four are named Y. The smallest, marked with a red dot, is SOWHAT. In the ChatGPT Page transcript the four Y voices are labeled Y1, Y2, Y3, and Y4. On the canvas they are each named Y. Each bubble has exactly one pointed speech-bubble tail in every pose and every frame, including the tiny voices receding into the infinitist spiral. Keep each tail attached to its own body as it turns toward the next speaker. Leave a sliver of space at the tip so its direction stays legible. Several speakers can point to the same neighbor. In the foundationalist pose, the red-marked speaker’s tail touches the stone. [Four-pose character reference](character-references/quibble-a3-single-tail.png)
 

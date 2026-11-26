@@ -136,7 +136,7 @@ A sentence that nobody is asking about dries into an **ink stick**: a solid bar 
 
 ### 1.3 YYYY SOWATT [FIXED]
 
-A chorus of five ink bubbles born when a question mark spilled into the world's inkwell. Every line from the four Y voices starts with "Why." The Ys ask what supports a reason. SOWHAT, the smallest, with the red dot of a teacher's margin note, asks whether the reason supports the claim at all.
+A chorus of five ink bubbles born when a question mark spilled into the world's inkwell. Every spoken sentence from the four Y voices starts with “Why,” and SOWHAT opens every turn with “So what?” The Ys ask what supports a reason. SOWHAT, the smallest, with the red dot of a teacher's margin note, asks whether the reason supports the claim at all.
 
 ### 1.4 The Cartesian demon and YYYY SOWATT [FIXED]
 
@@ -240,7 +240,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > **Woman:** They've never fooled me.
 > **Y₃:** Why believe you're not dreaming?
 > **Woman:** Dreams are never this clear.
-> **Y₄:** Why believe you're not a brain in a vat? It would see this hand just as clearly.
+> **Y₄:** Why believe you're not a brain in a vat? Why would your hand look any different if you were?
 > **Woman:** Oh, come on.
 > **SOWHAT:** So what? If you can't rule out the vat, you don't know you have a hand.
 >
@@ -271,7 +271,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > **Y₂:** Why believe the ones you haven't seen are like the ones you have?
 > **Man:** Because… they always have been.
 > *(That answer doesn't settle it. Y₂ splits in two, like a cell.)*
-> **Y₃:** Then does a white shoe prove it too? Everything that isn't black isn't a raven.
+> **Y₃:** Why wouldn't a white shoe count as evidence too, if everything that isn't black isn't a raven?
 > **Man:** …What?
 > *(Two more bubbles split. Then four.)*
 > **Y₄:** Why "black"? Why not "black until tomorrow, then white"?
@@ -334,7 +334,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 
 > **Y:** Why believe that?
 > **Peirce:** Excellent question. The reason is B2.
-> **Y:** Why B2?
+> **Y:** Why believe B2?
 > **Peirce:** B3. And for B3, B4. And for B4—
 > *(His scroll unrolls past the edge of the frame.)*
 > **Narrator:** As far as anyone knows, he is still answering. He was last seen on the horizon, mid-sentence, scroll still wet.
@@ -349,7 +349,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > **Neurath:** Because every plank holds.
 > **Y:** Why believe every plank holds?
 > **Neurath:** Because the ship is sound.
-> **Y:** That's a circle.
+> **Y:** Why trust a reason that goes in a circle?
 > **Neurath:** It's a web. No belief stands alone; each is held up by all the others. The bigger the circle, the better.
 > *(SOWATT swims laps around the ship, looking for a loose end. There isn't one.)*
 > **SOWHAT:** So what? A fairy tale can fit together perfectly too.
@@ -415,7 +415,7 @@ Keep labels to those few words. The narration does the explaining; the image is 
 > *(A whole town goes up in an afternoon.)*
 > **Narrator:** But their ink only ever dried halfway. Everything they built was jelly.
 > *(A man steps onto his new floor. It jiggles. His house sways like a pudding.)*
-> **Y:** Are you sure that's solid?
+> **Y:** Why believe that's solid?
 > *(The town slumps into a puddle.)*
 > **Narrator:** You can't build a city on jelly. They tried. Several times.
 
@@ -795,19 +795,17 @@ Use separate graphics for the session banner, the courtroom callouts, the confet
 ### R2 · The demon [FIXED villain and twists · AI DRAFT text]
 
 > *(The sky darkens. Strings descend. YYYY SOWATT rises, hanging from them like a marionette.)*
-> **SOWHAT** *(in a voice that isn't its own)***:** Suppose there were a demon.
-> *(beat)*
-> **SOWHAT:** There was.
+> **SOWHAT** *(in a voice that isn't its own)***:** So what? Suppose there were a demon. *(Beat.)* There was.
 > **Narrator:** Descartes had been right. It is the most upsetting thing he ever got right.
-> **SOWHAT:** Every world you just left was mine. Who do you think knocked the question mark into the Inkwell?
+> **SOWHAT:** So what? Every world you just left was mine. Who do you think knocked the question mark into the Inkwell?
 > **Simone** *(looking at the five bubbles, then up the strings)***:** It was never the creature.
-> **SOWHAT:** The creature is just how I look when I touch ink.
+> **SOWHAT:** So what? The creature is just how I look when I touch ink.
 
 Planted earlier: the prophecy (L3); Descartes's hypothetical demon (L5); the dark sleeve at the guardian question mark (L1).
 
 ### R3 · The goal [FIXED: save the dreamers · AI DRAFT details]
 
-> **SOWHAT:** The rest of them are still dreaming. Every night, I ask them the same thing.
+> **SOWHAT:** So what? The rest of them are still dreaming. Every night, I ask them the same thing.
 > **Y:** Why believe you're justified?
 > **Narrator:** The doubt leaks down. Nothing under them can dry. They never wake.
 > **Simone:** Then we wake them.
@@ -824,7 +822,7 @@ Cole plays Peter and Simone plays Justine: what he told her fixes what she shoul
 | R4 · Grounds | Cole has told her the way: *north*. Taking for granted that he's honest and she heard him right, what he said fixes which way she should go. A teal stick dries under her: NORTH. | Given Peter's honesty and Justine's hearing, what he said fixes what she should believe. |
 | R5 · The attack | **Y:** Why believe he said north? **SOWHAT:** So what? Can you even tell whether you're justified? The stick softens; Simone sinks to her ankles. | The leak-down worry: doubt about your grounds carries over to the belief. That's why Greco wants Access. |
 | R6 · He knew **[YOUR IDEA · AI VERSION]** | **Demon:** Ask him how long he's been awake. *(Cole says nothing.)* **Demon:** The courtroom. The door. The wedding. He knew every one of them was mine. *(In Simone's hand, one line on the Hinge goes dim: YOU'RE NOT LYING TO ME.)* **Simone:** Were you messing with me? **Cole:** Never. I just never said. **Narrator:** If her grounds were whatever Cole *really* meant, the demon could hide that from her, and she'd have no way to tell what she should believe. | The supervenience base: if justification depended on facts she can't get at, she could be misled about her own grounds. Peter turns out to be a prankster, or he mumbled. |
-| R7 · The tempting retreat | **SOWHAT:** Then retreat into your own mind, like Descartes. The grain-sized *I think* stick, the only belief that never got wet, drifts up beside her. **Simone:** That's very small. **Narrator:** It was. It always had been. | A global cognitive home, always-knowable facts big enough to fix all justification, is too much to ask. |
+| R7 · The tempting retreat | **SOWHAT:** So what? Go ahead and retreat into your own mind, like Descartes. The grain-sized *I think* stick, the only belief that never got wet, drifts up beside her. **Simone:** That's very small. **Narrator:** It was. It always had been. | A global cognitive home, always-knowable facts big enough to fix all justification, is too much to ask. |
 | R8 · The mobile home | Echo climbs out of his shell and into an empty one drifting past. *Clack.* **Simone:** Then I'll move too. She stops asking "Was he honest?" and asks "Given what I can know here, which way?" Far off, the dark lamp catches the light once. She saw that herself. The **Hinge**: for this walk, she holds fixed that her eyes work. *Different door, different hinge.* The **Gavel**: "North. Any objections?" Cole, the only one there who could object, stays silent. BANG. It dries. **Quiz Q5.** | The mobile home: in each context, the facts that fix justification must be ones the subject is in a position to know. Justine falls back on Peter's email. |
 | R9 · Split confidence | The glint was faint. She puts on the **Ring [AI DRAFT]** and says only what she'll stand behind. **Simone:** Probably north. Maybe north-east. A stick dries for *that*, pressed with both words. **Narrator:** She didn't know where the lighthouse was. She knew exactly how sure to be. | Footnote 36: she may only be justified in spreading her confidence, and Access holds if she can know how to spread it. |
 | R10 · Access, and arrival | **Cole:** What makes you think that? No "Oh, come on" this time. Simone tells him: the glint she saw, what she's holding fixed, her best guess. Cole looks at her for a long beat, and steps aside. She steps forward; a stick dries ahead of her and the one behind melts. Step by step through the storm, she reaches the lighthouse and puts her hand on the lamp. **Narrator:** Her ground didn't stay put. It came with her. Like Echo's. | Access holds context by context. A new doubt can move the home again. |
