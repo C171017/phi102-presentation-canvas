@@ -7,7 +7,7 @@ import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById } from './slide-content';
-import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence } from './classroom-cues';
+import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, openingClassroomScene } from './classroom-cues';
 import { hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
 import type { DialogueStructure, SlideCopy } from './shared-slide-data';
@@ -61,7 +61,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       row.className = 'transcript-row';
       row.dataset.speaker = speakerId ?? speaker;
       if (kind) row.dataset.cueKind = kind;
-      if (phase === 'reveal') row.classList.add('flashback-reveal');
       row.textContent = lineText(index);
       reader.append(row);
       return row;
@@ -245,7 +244,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     });
   }
   function setVisibleRows(scene: string) {
-    rows.forEach((row, index) => { row.hidden = script[index].scene !== scene || Boolean(script[index].silent) || (!editing && active <= questionIndex && index > questionIndex); });
+    rows.forEach((row, index) => { row.hidden = script[index].scene !== scene || Boolean(script[index].silent); });
+  }
+  function quizResultsIndex() {
+    return resultIndex > questionIndex ? resultIndex : questionIndex + 1;
   }
   function select(index: number, local = false, photo?: string) {
     clearQuestion();
@@ -266,7 +268,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       if (local) onCueChange?.();
       return;
     }
-    // Keep the reading and the later conversation out of the transcript until the choice resolves.
     setVisibleRows(line.scene);
     highlight(index);
     announcement.textContent = line.silent ? '' : line.speaker + '. ' + lineText(index);
@@ -277,7 +278,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       announcement.textContent += ' Choose B or 13 within ten seconds.';
       quizTimer = window.setTimeout(finishQuestion, remaining);
     }
-    if (tally && (index === resultIndex || (presenter && index === questionIndex))) {
+    if (tally && line.scene === openingClassroomScene && (index === quizResultsIndex() || (presenter && index === questionIndex))) {
       choices.dataset.mode = 'results';
       choices.setAttribute('aria-label', 'Audience vote distribution');
       choices.hidden = false;
@@ -299,6 +300,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (active < 0 || theory.isOpen()) return;
     const scene = script[active].scene;
     index = skipSilentText(index, index < active ? -1 : 1);
+    if (scene === openingClassroomScene && active < questionIndex && index > questionIndex) index = questionIndex;
     if (!leavingPhoto && index < active) {
       const photo = photoAt(active);
       if (photo) { select(active, true, photo); return; }
@@ -394,11 +396,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   reader.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
     if (editing || stage.hidden || panel.hidden || active < 0 || script[active].silent) return;
-    const nearest = centeredLine();
-    if (script[active]?.scene === 'contemporary-heading' && active < questionIndex && nearest === questionIndex) {
-      select(nearest, true);
-      return;
-    }
     scrollTimer = window.setTimeout(() => {
       if (editing || stage.hidden || panel.hidden || active < 0 || script[active].silent) return;
       const nearest = centeredLine();
@@ -478,8 +475,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
         const cue = script[index];
         return cue.scene === scene && !cue.silent ? [{ key: cue.key, element }] : [];
       });
+    let quiz: { after: string | null } | undefined;
+    if (scene === openingClassroomScene) {
+      let previous = questionIndex - 1;
+      while (previous >= firstCue.get(scene)! && script[previous].silent) previous--;
+      quiz = { after: previous >= firstCue.get(scene)! ? script[previous].key : null };
+    }
     return {
-      scene, root, lines, panel: court ? undefined : notes.inlineFields,
+      scene, root, lines, quiz, panel: court ? undefined : notes.inlineFields,
       sequence: editableCueSequence(scene) ? reader : undefined,
       start() {
         clearTimeout(scrollTimer);

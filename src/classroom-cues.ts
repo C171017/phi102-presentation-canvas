@@ -24,6 +24,8 @@ const classroomCueKeys = classroomScript.map(cue => {
   return `${cue.scene}:${index}:${(hash >>> 0).toString(36)}`;
 });
 
+export const openingClassroomScene = 'contemporary-heading';
+const relocatedQuestionTextNumber = 999;
 export const customCueOffset = 3000;
 export const customCueKeyPattern = /^line-[0-9a-f]{32}$/;
 export const customCueNumber = (key: string) => customCueOffset + Number.parseInt(key.slice(5, 17), 16);
@@ -43,6 +45,22 @@ export function authoredCues(scene: string) {
 
 export function editableCueSequence(scene: string) {
   return scene !== 'P1' && authoredCues(scene).some(cue => cue.text);
+}
+
+function placeQuiz(cues: ClassroomCue[], after: string | null) {
+  const questionIndex = cues.findIndex(cue => cue.phase === 'question');
+  const anchorIndex = after === null ? -1 : cues.findIndex(cue => cue.key === after && !cue.silent);
+  if (questionIndex < 0 || (after !== null && anchorIndex < 0)) return;
+  let position = anchorIndex + 1;
+  if (position === questionIndex) return;
+  const question = cues[questionIndex];
+  if (question.silent) {
+    cues.splice(questionIndex, 1);
+    if (questionIndex < position) position--;
+  } else {
+    cues[questionIndex] = { ...question, phase: undefined, number: relocatedQuestionTextNumber };
+  }
+  cues.splice(position, 0, { ...question, key: 'classroom-quiz', text: '', silent: true });
 }
 
 export function buildClassroomScript(structure?: Record<string, DialogueStructure>): ClassroomCue[] {
@@ -77,6 +95,7 @@ export function buildClassroomScript(structure?: Record<string, DialogueStructur
       else if (cue.phase || cue.background) result.push({ ...cue, silent: true });
       appendAdded(cue.key, cue);
     }
+    if (scene === openingClassroomScene && edits.quizAfter !== undefined) placeQuiz(result, edits.quizAfter);
     return result.length ? result : [{ ...base[0], silent: true }];
   });
 }

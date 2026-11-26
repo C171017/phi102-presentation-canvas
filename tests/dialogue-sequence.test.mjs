@@ -64,3 +64,23 @@ test('removing wording from an artwork transition keeps its background', () => {
   assert.equal(updated.silent, true);
   assert.equal(updated.background, transition.background);
 });
+
+test('moving the quiz preserves its wire cue and leaves the original wording in place', () => {
+  const [first, question, result, bridge, reveal] = authoredCues(scene);
+  const cues = classroom({ added: [], removed: [], quizAfter: bridge.key });
+  assert.deepEqual(cues.map(cue => cue.key), [first.key, question.key, result.key, bridge.key, 'classroom-quiz', reveal.key]);
+  assert.equal(cues[1].text, question.text);
+  assert.equal(cues[1].phase, undefined);
+  assert.equal(cues[4].phase, 'question');
+  assert.equal(cues[4].number, 1);
+  assert.equal(cues[4].silent, true);
+});
+
+test('moving a quiz with removed wording produces a single silent event', () => {
+  const [, question, , , reveal] = authoredCues(scene);
+  const cues = classroom({ added: [], removed: [question.key], quizAfter: reveal.key });
+  assert.equal(cues.length, 5);
+  assert.equal(cues.filter(cue => cue.phase === 'question').length, 1);
+  assert.equal(cues.at(-1).number, 1);
+  assert.equal(cues.at(-1).silent, true);
+});

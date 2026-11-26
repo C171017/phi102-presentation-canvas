@@ -175,8 +175,6 @@
 .transcript-row[data-speaker="Cole"] { color: #f6a987; }
 .transcript-row:is([data-speaker="Head disciple"], [data-speaker="Heckler"]) { color: #ffb9a5; }
 .transcript-row[aria-current] { opacity: 1; }
-/* Keep the next line measurable for scrolling while its name is still a surprise. */
-.flashback-reveal:not([aria-current]) { visibility: hidden; }
 .record-quiz:not([hidden]) {
   position: absolute;
   z-index: 2;

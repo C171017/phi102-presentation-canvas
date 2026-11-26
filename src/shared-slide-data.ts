@@ -8,14 +8,14 @@ export const editKeyPattern = /^[0-9a-f]{64}$/;
 
 export type SlideCopy = { title: string; claim: string; points: string[]; bridge: string; source: string };
 export type AddedDialogueLine = { key: string; after: string | null; text: string };
-export type DialogueStructure = { added: AddedDialogueLine[]; removed: string[] };
+export type DialogueStructure = { added: AddedDialogueLine[]; removed: string[]; quizAfter?: string | null };
 export type SharedSlides = { layout: Layout | null; copy: Record<string, SlideCopy>; dialogue?: Record<string, string>;
   dialogueStructure?: Record<string, DialogueStructure> };
 export type SlideVersion = { revision: number; savedAt: string | null; summary: string };
 export type SharedSnapshot = SlideVersion & { document: SharedSlides };
 export type DialogueCopy = { key: string; copy: SlideCopy };
 export type DialogueChange = { type: 'dialogue'; scene: string; copy?: DialogueCopy; lines: Record<string, string>;
-  added?: AddedDialogueLine[]; removed?: string[] };
+  added?: AddedDialogueLine[]; removed?: string[]; quizAfter?: string | null };
 export type SharedChange = { type: 'copy'; key: string; copy: SlideCopy } | { type: 'layout'; layout: Layout } | DialogueChange;
 export const dialogueTextLimit = 3000;
 

@@ -1525,3 +1525,13 @@ Recorded time in Pacific time. Howie identified the classroom panel with the hea
 > i mean this part should be removed, tell me if it is or not
 
 Keep the opening Contemporary Contextualism panel throughout the classroom dialogue, including during the spoken reveal. Remove the separate Flexible Foundationalism panel and its entry in the slide editor.
+
+## 2026-11-25T22:02:14-08:00 · Place the classroom quiz and show the upcoming reveal
+
+Recorded time in Pacific time. Howie asked to place the quiz directly in the transcript and show the final line earlier:
+
+> you can have a indiaction line of where to put the like a striahgt line which will be where the quiz is (in edit mode and you can drag and place that line
+
+> also the last line is not visible when in the earlier dialogu this should be fixed
+
+Draw a draggable Quiz line in the classroom dialogue editor. Moving it saves the quiz timing independently of the wording. Use the ordinary dimmed styling for the upcoming Flexible Foundationalism line. The Contemporary Contextualism panel stays on the left throughout the scene.

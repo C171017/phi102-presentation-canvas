@@ -11,6 +11,7 @@ export type InlineDialogueTarget = {
   panel?: PanelFields;
   lines: EditableLine[];
   sequence?: HTMLElement;
+  quiz?: { after: string | null };
   start: () => void;
   stop: () => void;
 };
@@ -45,7 +46,24 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
   const removed = new Set<string>();
   const wrappers = new Map<string, { wrapper: HTMLElement; line: EditableLine; buttons: HTMLButtonElement[] }>();
   const first = document.createElement('button');
+  const firstSlot = document.createElement('div');
+  const quizMarker = document.createElement('button');
+  let quizAfter = target.quiz?.after;
   let pending = false;
+
+  function visibleLines() {
+    return Array.from(target.sequence?.children ?? []).flatMap(node => {
+      if (!(node instanceof HTMLElement) || node.hidden || !node.dataset.dialogueKey) return [];
+      const entry = wrappers.get(node.dataset.dialogueKey);
+      return entry ? [entry] : [];
+    });
+  }
+
+  function placeQuizMarker() {
+    if (quizAfter === undefined) return;
+    const after = quizAfter === null ? firstSlot : wrappers.get(quizAfter)?.wrapper;
+    (after ?? firstSlot).after(quizMarker);
+  }
 
   function editButton(label: string, action: () => void) {
     const button = document.createElement('button');
@@ -59,7 +77,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     for (const { buttons } of wrappers.values()) {
       buttons.forEach(button => { button.disabled = pending; });
     }
-    first.disabled = pending;
+    first.disabled = quizMarker.disabled = pending;
   }
 
   function insertLine(anchor: EditableLine | null) {
@@ -71,9 +89,13 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     const key = 'line-' + crypto.randomUUID().replaceAll('-', '');
     inserted.set(key, { key, after: anchor?.key ?? null, text: '' });
     if (anchor) wrappers.get(anchor.key)!.wrapper.after(node);
-    else first.after(node);
+    else firstSlot.after(node);
     const line = { key, element: node };
     mountLine(line);
+    if (quizAfter !== undefined && quizAfter === (anchor?.key ?? null)) {
+      quizAfter = key;
+      placeQuizMarker();
+    }
     updateLineControls();
     node.focus();
   }
@@ -81,8 +103,10 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
   function removeLine(line: EditableLine) {
     const entry = wrappers.get(line.key)!;
     const added = inserted.get(line.key);
-    const focusNext = entry.wrapper.nextElementSibling?.querySelector<HTMLElement>('[data-inline-label]');
-    const focusPrevious = entry.wrapper.previousElementSibling?.querySelector<HTMLElement>('[data-inline-label]');
+    const visible = visibleLines();
+    const index = visible.findIndex(item => item.line.key === line.key);
+    const previous = visible[index - 1]?.line;
+    const next = visible[index + 1]?.line;
     if (added) {
       for (const child of inserted.values()) if (child.after === line.key) child.after = added.after;
       inserted.delete(line.key);
@@ -93,8 +117,12 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
       removed.add(line.key);
       entry.wrapper.hidden = true;
     }
+    if (quizAfter === line.key) {
+      quizAfter = previous?.key ?? null;
+      placeQuizMarker();
+    }
     updateLineControls();
-    (focusNext?.closest('[hidden]') ? focusPrevious : focusNext ?? focusPrevious ?? first)?.focus();
+    (next?.element ?? previous?.element ?? first).focus();
   }
 
   function mountLine(line: EditableLine) {
@@ -102,6 +130,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     if (!target.sequence) return;
     const wrapper = document.createElement('div');
     wrapper.className = 'inline-dialogue-line';
+    wrapper.dataset.dialogueKey = line.key;
     const controls = document.createElement('div');
     controls.className = 'inline-line-controls';
     const buttons = [editButton('Add line after', () => insertLine(line)), editButton('Remove line', () => removeLine(line))];
@@ -117,7 +146,65 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     first.textContent = 'Add first line';
     first.className = 'inline-add-first-line';
     first.addEventListener('click', () => insertLine(null));
-    target.sequence.prepend(first);
+    firstSlot.append(first);
+    target.sequence.prepend(firstSlot);
+    if (target.quiz) {
+      quizMarker.type = 'button';
+      quizMarker.className = 'inline-quiz-marker';
+      quizMarker.textContent = 'Quiz';
+      quizMarker.setAttribute('aria-label', 'Move quiz');
+      quizMarker.title = 'Drag to move the quiz, or press the Up and Down arrow keys';
+      placeQuizMarker();
+
+      let drag: { pointer: number; startY: number; after: string | null; preview?: HTMLElement } | undefined;
+      quizMarker.addEventListener('pointerdown', event => {
+        if (pending || event.button !== 0 || !event.isPrimary) return;
+        drag = { pointer: event.pointerId, startY: event.clientY, after: quizAfter ?? null };
+        quizMarker.setPointerCapture(event.pointerId);
+        quizMarker.classList.add('is-dragging');
+      });
+      quizMarker.addEventListener('pointermove', event => {
+        if (drag?.pointer !== event.pointerId || (!drag.preview && Math.abs(event.clientY - drag.startY) < 4)) return;
+        let after: string | null = null;
+        let preview: HTMLElement = firstSlot;
+        for (const { wrapper, line } of visibleLines()) {
+          const rect = wrapper.getBoundingClientRect();
+          if (event.clientY < rect.top + rect.height / 2) break;
+          after = line.key;
+          preview = wrapper;
+        }
+        drag.preview?.classList.remove('quiz-drop-after');
+        drag.after = after;
+        drag.preview = preview;
+        preview.classList.add('quiz-drop-after');
+      });
+      function finishDrag(event: PointerEvent) {
+        if (drag?.pointer !== event.pointerId) return;
+        const draft = drag;
+        drag = undefined;
+        quizMarker.classList.remove('is-dragging');
+        draft.preview?.classList.remove('quiz-drop-after');
+        if (event.type === 'pointerup' && draft.preview) {
+          quizAfter = draft.after;
+          placeQuizMarker();
+          quizMarker.focus({ preventScroll: true });
+        }
+      }
+      quizMarker.addEventListener('pointerup', finishDrag);
+      quizMarker.addEventListener('pointercancel', finishDrag);
+      quizMarker.addEventListener('lostpointercapture', finishDrag);
+      quizMarker.addEventListener('keydown', event => {
+        if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+        event.preventDefault();
+        const slots = [null, ...visibleLines().map(({ line }) => line.key)];
+        const current = Math.max(0, slots.indexOf(quizAfter ?? null));
+        const next = Math.max(0, Math.min(slots.length - 1, current + (event.key === 'ArrowUp' ? -1 : 1)));
+        if (next === current) return;
+        quizAfter = slots[next];
+        placeQuizMarker();
+        quizMarker.focus();
+      });
+    }
     updateLineControls();
   }
   const initialPoints = panel ? Array.from(panel.points.children, item => text(item as HTMLElement)) : [];
@@ -178,8 +265,9 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
         copy = { key: panel.key, copy: next };
       }
     }
-    return copy || Object.keys(lines).length || added.length || removed.size
-      ? { type: 'dialogue', scene: target.scene, copy, lines, added, removed: [...removed] } : null;
+    const movedQuiz = quizAfter !== target.quiz?.after ? quizAfter : undefined;
+    return copy || Object.keys(lines).length || added.length || removed.size || movedQuiz !== undefined
+      ? { type: 'dialogue', scene: target.scene, copy, lines, added, removed: [...removed], quizAfter: movedQuiz } : null;
   }
 
   return {
@@ -195,7 +283,8 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
         for (const attribute of ['contenteditable', 'role', 'aria-label', 'aria-multiline', 'data-inline-label']) element.removeAttribute(attribute);
       }
       add.remove();
-      first.remove();
+      firstSlot.remove();
+      quizMarker.remove();
       for (const { wrapper, line } of wrappers.values()) {
         if (inserted.has(line.key)) wrapper.remove();
         else wrapper.replaceWith(line.element);

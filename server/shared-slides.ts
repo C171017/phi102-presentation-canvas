@@ -1,6 +1,6 @@
 import { DurableObject } from 'cloudflare:workers';
 import { parseLayout } from '../src/layout-data';
-import { authoredCues, customCueKeyPattern, customCueNumber, editableCueSequence, maxAddedCues } from '../src/classroom-cues';
+import { authoredCues, customCueKeyPattern, customCueNumber, editableCueSequence, maxAddedCues, openingClassroomScene } from '../src/classroom-cues';
 import { editKeyPattern, isDialogueText, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
   type AddedDialogueLine, type DialogueCopy, type DialogueStructure, type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
 
@@ -73,7 +73,11 @@ function dialogueStructure(scene: string, input: Record<string, unknown>, struct
     if (typeof key !== 'string' || !known.has(key)) return null;
     removed.add(key);
   }
-  return { known, removed, added, changed: Boolean(inserts.length || deletes.length) };
+  const quiz = input.quizAfter;
+  if (quiz !== undefined && (scene !== openingClassroomScene ||
+      (quiz !== null && (typeof quiz !== 'string' || !known.has(quiz) || removed.has(quiz))))) return null;
+  const quizAfter = quiz !== undefined ? quiz : previous?.quizAfter;
+  return { known, removed, added, quizAfter, changed: Boolean(inserts.length || deletes.length || quiz !== undefined) };
 }
 
 function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides) {
@@ -94,8 +98,8 @@ function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides)
   }
   if (changes.length) document = { ...document, dialogue: { ...document.dialogue, ...Object.fromEntries(changes) } };
   if (structure.changed) {
-    const { added, removed } = structure;
-    document = { ...document, dialogueStructure: { ...document.dialogueStructure, [scene]: { added, removed: [...removed] } } };
+    const { added, removed, quizAfter } = structure;
+    document = { ...document, dialogueStructure: { ...document.dialogueStructure, [scene]: { added, removed: [...removed], quizAfter } } };
   }
   return document;
 }
