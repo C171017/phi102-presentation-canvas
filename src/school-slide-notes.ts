@@ -2,26 +2,29 @@ import type { SlideNotes } from './legend-slide-notes';
 
 export const schoolNotes: Record<string, SlideNotes> = {
   'regress-foundationalism': {
-    claim: 'Some justified beliefs can end a chain of reasons.',
+    title: 'Foundationalism',
+    claim: 'A chain of reasons can end with a basic belief.',
     points: [
-      'A basic belief can support others without drawing its justification from another belief.',
-      'Descartes looks for a basic belief that withstands every attempt to doubt it.',
+      'A basic belief can justify other beliefs without borrowing its justification from another belief.',
+      'The foundationalist must explain what makes this a legitimate place to stop.',
     ],
     source: 'Greco · §1, p. 426',
   },
   'L6-A': {
-    claim: 'Cartesians look for beliefs that cannot be doubted.',
+    title: 'Cartesian foundationalism',
+    claim: 'Descartes looks for foundations that no possible doubt can undermine.',
     points: [
-      'A belief that withstands every doubt can stop the demand for reasons.',
-      'Very few beliefs meet this standard. Can they support what we ordinarily take ourselves to know?',
+      'An indubitable premise can settle a doubt because its own standing is secure.',
+      'Greco’s objection is that too few beliefs meet this standard to support ordinary knowledge.',
     ],
     source: 'Greco · §1, p. 426',
   },
   'L6-B': {
-    claim: 'Moderates let perception supply basic beliefs.',
+    title: 'Moderate foundationalism',
+    claim: 'Perception can supply basic beliefs even when error is possible.',
     points: [
-      'A perceptual belief can have basic justification even if someone could doubt it.',
-      'Greco asks what lets it settle a doubt once its own support is challenged.',
+      'Allowing fallible foundations gives ordinary perceptual beliefs a place to start.',
+      'Greco asks how a perceptual belief can resolve a doubt once that belief itself comes into question.',
     ],
     source: 'Greco · §1, p. 426',
   },

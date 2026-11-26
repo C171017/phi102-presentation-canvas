@@ -1,4 +1,5 @@
 export type SlideNotes = {
+  title: string;
   claim: string;
   points: readonly string[];
   source: string;
@@ -6,6 +7,7 @@ export type SlideNotes = {
 
 export const openingNotes: Record<string, SlideNotes> = {
   'contemporary-heading': {
+    title: 'Contemporary Contextualism',
     claim: 'What “I know” claims can depend on the conversation.',
     points: [
       'A proposition is the claim a sentence expresses.',
@@ -14,158 +16,182 @@ export const openingNotes: Record<string, SlideNotes> = {
     source: 'Greco · Introduction, p. 425',
   },
   L0: {
-    claim: 'In the Ink Ocean, a settled belief can bear weight.',
+    title: 'Flexible foundationalism',
+    claim: 'Which beliefs can serve as foundations depends on the context.',
     points: [
-      'Wet ink is a belief still being questioned. Dry ink can support another belief.',
-      'A fresh challenge can put a once-settled reason back in question.',
+      'A basic belief can give us a reason to believe something else.',
+      'A belief that serves as a starting point in one inquiry can itself come into question in another.',
     ],
-    source: 'Greco · §1, pp. 426–427',
+    source: 'Greco · Introduction, p. 425 and §1, p. 427',
   },
   'regress-problem-birth': {
-    claim: 'The Inkwell is about to change who gets to ask “why?”',
-    points: [],
+    title: 'Inferential justification',
+    claim: 'Giving a reason for a belief raises a question about the reason itself.',
+    points: [
+      'Suppose I believe a claim because a witness reported it.',
+      'If I have reason to doubt the witness, I still need grounds for accepting the report.',
+    ],
     source: 'Greco · §1, p. 426',
   },
   L2: {
-    claim: 'A reason can become the next question.',
+    title: 'The regress problem',
+    claim: 'If every belief needs support from another belief, where can justification begin?',
     points: [
-      'The woman cites her sight as evidence that she has a hand.',
-      'When Y asks why she trusts her eyes, the evidence itself needs a reason.',
+      'If a forecast gives me a reason to expect rain, what reason do I have to trust the forecast?',
+      'If each answer requires another justified belief, the original question leads to a regress.',
     ],
     source: 'Greco · §1, p. 426',
   },
   L3: {
-    claim: 'A disputed reason leaves the original doubt open.',
+    title: 'Doubt about a premise',
+    claim: 'A premise I doubt cannot settle my doubt about a conclusion.',
     points: [
-      'The man generalizes from the black ravens he has seen to all ravens.',
-      'The next “why?” asks what justifies that step.',
+      'I can grant that Q would be a good reason for P while still doubting Q.',
+      'If a prediction depends on past observations, doubting those observations leaves the prediction in doubt.',
     ],
     source: 'Greco · §1, p. 426',
   },
   'L3-continued': {
-    claim: 'A dream can feel like solid ground.',
+    title: 'Cartesian doubt',
+    claim: 'What could I still justifiably believe if my senses were deceiving me?',
     points: [
-      'The prophecy asks what we could rely on if familiar appearances came into question.',
+      'An experience might seem exactly the same whether it is accurate or misleading.',
+      'Descartes looks for a starting point that survives even this kind of doubt.',
     ],
     source: 'Greco · §1, p. 426',
   },
   L4: {
-    claim: 'What can happen to a chain of reasons?',
+    title: 'Four responses to the regress',
+    claim: 'Greco distinguishes four views about the structure of justification.',
     points: [
-      'Skepticism gives up justification. Infinitism keeps supplying further, distinct reasons.',
-      'Coherentism draws on mutual support. Foundationalism allows a justified stopping point.',
+      'Skepticism denies that any belief is justified. Infinitism allows an endless chain of distinct reasons.',
+      'Coherentism appeals to mutual support among beliefs. Foundationalism ends the chain with basic beliefs.',
     ],
     source: 'Greco · §1, p. 426',
   },
   'regress-skepticism': {
-    claim: 'Can any belief survive the demand for reasons?',
+    title: 'Skepticism about justification',
+    claim: 'The skeptic’s answer is that no belief is justified.',
     points: [
-      'On this answer to the regress, no belief can be justified.',
-      'Greco’s objection starts with ordinary life, where at least some beliefs seem justified.',
+      'If every proposed reason lacks justification, appealing to it leaves the original belief unsupported.',
+      'Greco objects that at least some of our ordinary beliefs seem justified.',
     ],
     source: 'Greco · §1, p. 426',
   },
   'regress-infinitism': {
-    claim: 'Infinitism keeps the chain going.',
+    title: 'Infinitism',
+    claim: 'Every reason has a further, distinct reason in its support.',
     points: [
-      'The chain continues forever without repeating any reason.',
-      'Greco flags the worry that an infinite regress is itself a defect in a justification.',
+      'The chain has no final premise, and no reason repeats.',
+      'Greco raises a practical objection. A person defending a belief has only a finite time to give reasons.',
     ],
-    source: 'Greco · §1, p. 426',
+    source: 'Greco · §§1, 2.1, pp. 426–427',
   },
   'regress-coherentism': {
-    claim: 'Coherentism looks for support across a system of beliefs.',
+    title: 'Coherentism',
+    claim: 'A belief draws support from its place in a system of beliefs.',
     points: [
-      'Greco’s simplified model lets a chain of reasons loop back on itself. Neurath pictures a wider web.',
-      'A system can fit together while losing contact with experience.',
+      'In Greco’s simplified model, following the reasons eventually brings us back to an earlier belief.',
+      'This raises a challenge for the coherentist. How can mutual support justify a belief if arguing in a circle is unconvincing?',
     ],
     source: 'Greco · §1, p. 426 and note 1',
   },
   L7: {
-    claim: 'A foundation needs to be free from doubt here and now.',
+    title: 'Locally undoubted foundations',
+    claim: 'A belief can settle a doubt when it is itself undoubted in that inquiry.',
     points: [
-      'An undoubted belief can help resolve a doubt if it gives good support to the claim in question.',
-      'A starting point here can be questioned in another inquiry.',
+      'A premise can support a conclusion even if we could question the premise on another occasion.',
+      'This gives the foundationalist a reason to stop without requiring absolute certainty.',
     ],
     source: 'Greco · §1, p. 427',
   },
   P1: {
-    claim: 'A community can take a claim for granted and still be wrong.',
+    title: 'Community standards and justification',
+    claim: 'On Annis’s account, an appropriate audience helps determine which beliefs are basic.',
     points: [
-      'The gavel’s rulings hold while the room is silent. The prosecutor and his mother each undo a ruling by objecting.',
-      'The gavel settles what the courtroom accepts. Agreement alone cannot make a claim true.',
+      'A belief can serve as a foundation if the relevant group would raise no objection to it.',
+      'Greco asks whether a whole community could be mistaken about what it is entitled to take for granted.',
     ],
-    source: 'Greco · §§2.1, 3, pp. 427, 429–430',
+    source: 'Greco · §2.1, pp. 427–428 and §3, p. 430',
   },
   'P2-1': {
-    claim: 'Every inquiry has starting points.',
+    title: 'Hinge propositions',
+    claim: 'To investigate an open question, we have to treat some other questions as settled.',
     points: [
-      'An inquiry starts with an open, answerable question.',
-      'A hinge is a claim you hold fixed so that inquiry can proceed.',
+      'Wittgenstein calls the propositions we hold fixed “hinges.”',
+      'A hinge supplies a starting point for answering the question at hand.',
     ],
-    source: 'Greco · §2.2, p. 428',
+    source: 'Greco · §2.2, p. 428 · On Certainty §341',
   },
   'P2-2a': {
-    claim: 'A simple question relies on several hinges.',
+    title: 'Testimony and its hinges',
+    claim: 'Asking what color someone sees already assumes several things.',
     points: [
-      'To learn a color from someone, you take their understanding and cooperation for granted.',
-      'You also rely on your memory of what the color words mean.',
+      'I rely on the other person to understand the question and answer sincerely.',
+      'I also rely on my own memory of what the color words mean.',
     ],
     source: 'Greco · §2.2, p. 428 · On Certainty §345',
   },
   'P2-2b': {
-    claim: 'A hinge can be in use before anyone says it aloud.',
+    title: 'Taking a proposition for granted',
+    claim: 'A hinge can guide an inquiry even when nobody states it.',
     points: [
-      'It supplies a starting point without first needing a reason of its own.',
-      'You can rely on it while asking for reasons about something else.',
+      'I can look up a date without first checking whether I remember how to read a calendar.',
+      'My ability to read it is one of the things I take for granted in using it as evidence.',
     ],
     source: 'Greco · §2.2, p. 428',
   },
   'P2-2c': {
-    claim: 'One experience can prompt several inquiries.',
+    title: 'Perception as evidence',
+    claim: 'What we can learn from an experience depends on the question we ask.',
     points: [
-      'You can ask what appears to you.',
-      'You can also ask how much to trust that appearance. That question needs its own starting points.',
+      'To identify a color by sight, I ordinarily take the viewing conditions for granted.',
+      'If I ask whether the lighting distorts the color, those conditions become part of what I need to check.',
     ],
     source: 'Greco · §2.2, p. 428',
   },
   'P2-3': {
-    claim: 'An inquiry can turn back on its own starting point.',
+    title: 'Memory as a hinge',
+    claim: 'The same memory can serve as evidence or become the object of inquiry.',
     points: [
-      'A claim you usually take for granted can become the thing you investigate.',
-      'The new inquiry needs its own starting points.',
+      'I might rely on my memory of a word to interpret what someone says.',
+      'If I start to doubt my recollection, I can check it against a dictionary whose accuracy I take for granted.',
     ],
     source: 'Greco · §2.2, p. 428',
   },
   'P2-4': {
-    claim: 'Even doubt relies on settled ground.',
+    title: 'What makes a doubt investigable?',
+    claim: 'To investigate a doubt, we need a test whose result we can use.',
     points: [
-      'To check a claim, you need some evidence or a test you can trust for now.',
-      'What you hold fixed helps determine which questions you can investigate.',
+      'To check an observation, I might repeat it or ask a second observer.',
+      'Either test relies on something I accept for now, such as my ability to compare the two reports.',
     ],
     source: 'Greco · §2.2, p. 428 · On Certainty §341',
   },
   'P2-5': {
-    claim: 'Questioning every starting point stalls the inquiry.',
+    title: 'The hinge argument for foundations',
+    claim: 'Inquiry requires at least some propositions to stand as foundations.',
     points: [
-      'When every proposed reason is in doubt, each reason becomes the next question.',
-      'A hinge gives you a fixed point from which to test a doubtful claim.',
+      'If every proposed test is itself in question, we have no accepted basis for interpreting its result.',
+      'Greco calls this a transcendental argument. It identifies a condition that makes inquiry possible.',
     ],
     source: 'Greco · §2.2, p. 428',
   },
   'P2-6': {
-    claim: 'The same claim can change roles across inquiries.',
+    title: 'Why hinges can vary',
+    claim: 'Different inquiries can require different starting points.',
     points: [
-      'You can take your eyesight for granted in one inquiry and examine it in another.',
-      'Words and memory can also provide fixed points when the inquiry depends on them.',
+      'A listener might take a speaker’s command of English for granted when asking about a color.',
+      'In a language exam, that very ability is what the examiner wants to establish.',
     ],
     source: 'Greco · §§2.2, 3, pp. 428, 430',
   },
   'P2-7': {
-    claim: 'Foundational justification can vary with the inquiry.',
+    title: 'Sensitive invariantism about foundations',
+    claim: 'A person’s inquiry can affect which beliefs are foundationally justified.',
     points: [
-      'What the subject must hold fixed matters to what she is justified in taking for granted.',
-      'Greco calls this a sensitive invariantist version of flexible foundationalism.',
+      'On Greco’s hinge version, a subject may be justified in taking a proposition for granted because their inquiry requires it.',
+      'So two people with the same experiences can have different foundations if their inquiries require different hinges.',
     ],
     source: 'Greco · §3, p. 430',
   },

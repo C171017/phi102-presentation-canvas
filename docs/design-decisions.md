@@ -1697,3 +1697,29 @@ Recorded time in Pacific time. Howie clarified the position of an expanded slide
 > The expanded view should not be center aligned，but they should like based on the position of the section they're from。
 
 Align the top of each list with the top of its section button. Long lists scroll within the available space below that point.
+
+## 2026-11-25T22:55:35-08:00 · Hold the opening dialogue answer until the quiz ends
+
+Recorded time in Pacific time. Howie pointed to the opening classroom quiz in the [presentation chat](codex://threads/01a216a1-bd7c-7e91-8b55-e9ee98bdc46b).
+
+> here answe shouldn't be revealed before the quiz is answered
+
+In presentation playback, show the opening dialogue through the quiz marker while the vote is open. Show the lines after the marker when playback advances past the quiz. The full transcript remains available in the dialogue editor.
+
+## 2026-11-25T22:55:35-08:00 · Center the slide navigation above the dialogue
+
+Recorded time in Pacific time. Howie revised the slide navigation alignment in the [presentation chat](codex://threads/01a216a1-bd7c-7e91-8b55-e9ee98bdc46b).
+
+> also make these four options a bit higher maybe the cneter in the avalible space (veritically, by available, I mean, you should disregard the dialog box section, thinking of those place are already claimed. And as for the expanded, expanded should be also vertically center aligned, but based on Think of the expanded section center is going to be matched with the option it is expanded from.
+
+When the dialogue box is visible, center the four section buttons between the top of the viewport and the top of the box. Center each flyout on its own button. Long lists scroll within the available height.
+
+## 2026-11-25T23:05:47-08:00 · Give each slide panel its own philosophical title and argument
+
+Recorded time in Pacific time. Howie specified the scope in the [presentation chat](codex://threads/01a216a5-2443-75d0-b4bb-88c8c13520a1).
+
+> Excluding this first slide, on all the slides from there, like the-- sorry, I mean the pages from there, the slide section should not have anything related to the story.
+
+> But the selection of those content should be based on what knowledge are being used in the background story, so we're going to present them there.
+
+Contemporary Contextualism is the opening exception. Each later dialogue panel explains the relevant idea in Greco with a topic heading, a key sentence, bullets, and a page reference. The right-hand transcript and navigation use the scene names. This supersedes the earlier allowance for narrative cues in slide copy.

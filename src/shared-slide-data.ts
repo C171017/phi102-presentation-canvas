@@ -25,20 +25,23 @@ export function isDialogueText(text: unknown): text is string {
 }
 
 const notes = { ...openingNotes, ...schoolNotes };
-function panelEntry(key: string, slideId: string, title: string, label: string) {
-  const note = notes[key];
-  return {
-    key, slideId, label, panel: true,
-    initial: { title, claim: note.claim, points: [...note.points], bridge: '', source: note.source },
-  };
-}
-
-export const sharedSlideEntries = slides.flatMap(({ members: [id], title, description }, index) => {
-  const label = `${index + 1}. ${title}`;
-  if (id === 'contemporary-heading') return [panelEntry(id, id, title, `${index + 1}. Classroom · Opening explanation`)];
+export const sharedSlideEntries = slides.map(({ members: [id], title, description }, index) => {
+  const note = notes[id];
+  const classroom = id === 'contemporary-heading';
+  const label = `${index + 1}. ${classroom ? 'Classroom · Opening explanation' : title}`;
+  let initial: SlideCopy;
+  if (note && !classroom) {
+    initial = { sections: [
+      { kind: 'header', title: '', source: note.source },
+      { kind: 'heading', text: note.title },
+      { kind: 'text', text: note.claim },
+      { kind: 'bullets', items: [...note.points] },
+    ] };
+  } else {
+    initial = { title, claim: note?.claim ?? description, points: [...(note?.points ?? [])], bridge: '', source: note?.source ?? '' };
+  }
   // The Trial uses its own dialogue player and has no left panel.
-  if (id !== 'P1' && Object.hasOwn(notes, id)) return [panelEntry(id, id, title, label)];
-  return [{ key: id, slideId: id, label, panel: false, initial: { title, claim: description, points: [], bridge: '', source: '' } }];
+  return { key: id, slideId: id, label, panel: Boolean(note) && id !== 'P1', initial };
 });
 
 export const sharedSlideByKey = new Map(sharedSlideEntries.map(entry => [entry.key as string, entry]));

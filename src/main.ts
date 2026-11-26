@@ -96,7 +96,7 @@ function showSharedPageCopy() {
   const id = slide?.members[0];
   const entry = id && sharedSlideByKey.get(id);
   sharedPageCopy.element.hidden = !entry || entry.panel || !sharedCopy(entry.key);
-  if (entry && !sharedPageCopy.element.hidden) sharedPageCopy.show(entry.key, slide.title);
+  if (entry && !sharedPageCopy.element.hidden) sharedPageCopy.show(entry.key);
 }
 const previewControl = publicPreview ? document.createElement('button') : undefined;
 let pendingCue: {slide: number; cue: number} | undefined;

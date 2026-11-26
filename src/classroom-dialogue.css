@@ -1,5 +1,9 @@
 #presentation-shell {
   --transcript-height: min(52.8vh, max(239.25px, 33vh));
+  --transcript-bottom: max(12px, 2vh, env(safe-area-inset-bottom));
+}
+#presentation-shell:has(> .classroom-stage:not([hidden]) > .transcript-panel:not([hidden])) {
+  --slide-progress-bottom: calc(var(--transcript-height) + var(--transcript-bottom));
 }
 .classroom-stage {
   position: absolute;
@@ -8,7 +12,6 @@
   display: block;
   pointer-events: none;
   overflow: clip;
-  --transcript-bottom: max(12px, 2vh, env(safe-area-inset-bottom));
   --dialogue-margin: clamp(14px, 3vw, 54px);
   --cue-button-size: 44px;
   --cue-control-inset: clamp(8px, 1.2vw, 22px);

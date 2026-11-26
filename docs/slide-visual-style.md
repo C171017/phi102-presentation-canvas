@@ -18,7 +18,7 @@ Use one broad, dark dialogue box in the lower part of the slide. The [JumpFromPa
 
 | Left half · what stays on the slide | Right half · what people say |
 | --- | --- |
-| Keep one left-aligned claim in view as the dialogue advances. Add one or two short points to explain the idea and a compact reference to Greco. A short narrative beat can carry just a claim. | Write the exchange one cue at a time. Use left-aligned serif text. Only this column advances through dialogue. The active cue sits at its vertical center at full opacity. All other visible cues use the same reduced opacity. |
+| After Contemporary Contextualism, give each panel a philosophical title, a key sentence, short bullets, and a reference to Greco. Choose the concept illustrated by the scene and explain it for someone reading the slide on its own. | Write the exchange one cue at a time. Use left-aligned serif text. Only this column advances through dialogue. The active cue sits at its vertical center at full opacity. All other visible cues use the same reduced opacity. |
 
 Start with equal column widths. Spacing, alignment, and type distinguish the columns without a center rule. In narrow panels, stack the mini-slide above the dialogue and reserve enough height to read the active turn. When navigation crosses a section boundary in either direction, update the statement and active turn together.
 

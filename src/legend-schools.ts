@@ -32,7 +32,7 @@ function makePanel(scene: InkOceanScene, selectCue: (cue: number) => void) {
   const panel = document.createElement('div');
   panel.className = 'school-dialogue transcript-panel';
   const notes = createPaperMiniSlide();
-  notes.show(scene.id, scene.title);
+  notes.show(scene.id);
   const reader = document.createElement('div');
   reader.className = 'transcript-reader';
   reader.setAttribute('aria-label', scene.title + ' dialogue');

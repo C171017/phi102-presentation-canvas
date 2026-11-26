@@ -193,8 +193,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const line = script[index];
     characters.forEach(actor => actor.classList.toggle('is-speaking', !line?.silent && actor.dataset.speaker === line?.speaker));
     const legend = line && legendById.get(line.scene);
-    if (legend) notes.show(legend.id, legend.title);
-    if (line?.scene === 'contemporary-heading') notes.show('contemporary-heading', 'Contemporary Contextualism');
+    if (line) notes.show(line.scene);
     if (legend) {
       const background = line.background ?? legend.background;
       if (background) artwork.show(background);
@@ -275,7 +274,11 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     });
   }
   function setVisibleRows(scene: string) {
-    rows.forEach((row, index) => { row.hidden = script[index].scene !== scene || Boolean(script[index].silent); });
+    const waitingForQuiz = scene === openingClassroomScene && !editing && active <= questionIndex;
+    rows.forEach((row, index) => {
+      row.hidden = script[index].scene !== scene || Boolean(script[index].silent) ||
+        (waitingForQuiz && index > questionIndex);
+    });
     groupDialogueLabels(rows);
   }
   function quizResultsIndex() {
@@ -320,7 +323,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       void refreshResults();
     }
     if (local) onCueChange?.();
-    // The question changes row heights and reveals the rest of the transcript.
+    // Entering or leaving the quiz can change which transcript rows are visible.
     // Snap to its new geometry before processing any further scroll gestures.
     if (!inCourt && !rows[index].hidden) reader.scrollTo({ top: center(index), behavior: 'instant' });
   }

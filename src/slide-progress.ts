@@ -9,7 +9,6 @@ const sectionStarts = [
 ] as const;
 
 export function createSlideProgress(rail: HTMLElement, open: (index: number) => void) {
-  const viewport = rail.parentElement!;
   const sections = sectionStarts.map(([, title], index) => {
     const group = document.createElement('div');
     group.className = 'slide-progress-section';
@@ -44,13 +43,14 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
 
   function fitFlyout() {
     if (!expanded) return;
-    const bottom = viewport.getBoundingClientRect().bottom;
-    const top = expanded.group.getBoundingClientRect().top;
-    expanded.flyout.style.setProperty('--slide-flyout-space', `${Math.max(0, bottom - top - 8)}px`);
+    const available = rail.getBoundingClientRect();
+    const heading = expanded.heading.getBoundingClientRect();
+    const center = heading.top + heading.height / 2;
+    const halfHeight = Math.min(center - available.top, available.bottom - center) - 8;
+    expanded.flyout.style.setProperty('--slide-flyout-space', `${Math.max(0, 2 * halfHeight)}px`);
   }
 
   const resizeObserver = new ResizeObserver(fitFlyout);
-  resizeObserver.observe(viewport);
   resizeObserver.observe(rail);
 
   function expand(next?: ProgressSection) {

@@ -1,9 +1,6 @@
-import { openingNotes, type SlideNotes } from './legend-slide-notes';
-import { schoolNotes } from './school-slide-notes';
+import { sharedSlideByKey } from './shared-slide-data';
 import { slideSections, type SlideCopy, type SlideSection } from './slide-sections';
 import './paper-mini-slide.css';
-
-const notes: Record<string, SlideNotes> = { ...openingNotes, ...schoolNotes };
 
 function field(tag: string, value: string, name: string, className?: string) {
   const node = document.createElement(tag);
@@ -51,21 +48,15 @@ export function createPaperMiniSlide(sharedCopy?: (key: string) => SlideCopy | u
     }
   });
   let activeKey: string | undefined;
-  let activeTitle = '';
-  let activeEdit: SlideCopy | undefined;
+  let activeCopy: SlideCopy | undefined;
   let sections: SlideSection[] = [];
 
-  function show(key: string, title: string, force = false) {
-    const edit = sharedCopy?.(key);
-    if (!force && activeKey === key && activeTitle === title && activeEdit === edit) return;
-    const original = notes[key];
-    if (!edit && !original) return;
+  function show(key: string, force = false) {
+    const copy = sharedCopy?.(key) ?? sharedSlideByKey.get(key)?.initial;
+    if (!copy || (!force && activeKey === key && activeCopy === copy)) return;
     activeKey = key;
-    activeTitle = title;
-    activeEdit = edit;
-    sections = slideSections(edit ?? {
-      title, claim: original.claim, points: [...original.points], bridge: '', source: original.source,
-    });
+    activeCopy = copy;
+    sections = slideSections(copy);
     element.replaceChildren(...sections.map(renderMiniSlideSection));
     element.scrollTop = 0;
   }
@@ -74,6 +65,6 @@ export function createPaperMiniSlide(sharedCopy?: (key: string) => SlideCopy | u
     element, show,
     get key() { return activeKey; },
     get inlineFields() { return activeKey ? { key: activeKey, element, sections } : undefined; },
-    refresh(force = false) { if (activeKey) show(activeKey, activeTitle, force); },
+    refresh(force = false) { if (activeKey) show(activeKey, force); },
   };
 }

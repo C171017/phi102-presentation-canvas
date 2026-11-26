@@ -3,14 +3,13 @@
   --current-slide-text: #ffcf79;
   position: absolute;
   z-index: 6;
-  inset-block: 0;
-  margin-block: auto;
+  inset-block: 0 var(--slide-progress-bottom, 0px);
   left: 10px;
   width: max-content;
   max-width: var(--section-max-width);
-  height: max-content;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 4px;
   pointer-events: none;
   font: 600 12px/1.25 system-ui, sans-serif;
@@ -61,7 +60,8 @@
 }
 .slide-progress-flyout {
   position: absolute;
-  inset-block-start: 0;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
   left: 100%;
   width: min(155px, calc(100vw - var(--section-max-width) - 18px));
   /* The padding also keeps the pointer inside the section between columns. */
