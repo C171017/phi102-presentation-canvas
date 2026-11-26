@@ -1,8 +1,8 @@
 import { DurableObject } from 'cloudflare:workers';
 import { parseLayout } from '../src/layout-data';
-import { classroomCueScenes } from '../src/classroom-cues';
+import { authoredCues, customCueKeyPattern, customCueNumber, editableCueSequence, maxAddedCues } from '../src/classroom-cues';
 import { editKeyPattern, isDialogueText, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
-  type DialogueCopy, type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
+  type AddedDialogueLine, type DialogueCopy, type DialogueStructure, type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
 
 export interface SharedSlidesEnv {
   SHARED_SLIDES: DurableObjectNamespace<SharedSlideHistory>;
@@ -49,21 +49,55 @@ function storedResult(row: StoredVersion | undefined): SharedSnapshot {
   return { ...row, document: JSON.parse(row.document) as SharedSlides };
 }
 
+function dialogueStructure(scene: string, input: Record<string, unknown>, structures?: Record<string, DialogueStructure>) {
+  const previous = structures?.[scene];
+  const authored = authoredCues(scene);
+  const known = new Map(authored.map(cue => [cue.key, cue.removable]));
+  const added = [...(previous?.added ?? [])];
+  const removed = new Set(previous?.removed);
+  const wire = new Set(added.map(cue => customCueNumber(cue.key)));
+  const otherKeys = new Set(Object.entries(structures ?? {}).flatMap(([id, edit]) => id === scene ? [] : edit.added.map(cue => cue.key)));
+  for (const cue of added) known.set(cue.key, true);
+  const { added: inserts = [], removed: deletes = [] } = input;
+  if (!Array.isArray(inserts) || !Array.isArray(deletes) || deletes.length > known.size ||
+      added.length + inserts.length > maxAddedCues || ((inserts.length || deletes.length) && !editableCueSequence(scene))) return null;
+  for (const item of inserts as Partial<AddedDialogueLine>[]) {
+    if (!item || typeof item.key !== 'string' || !customCueKeyPattern.test(item.key) || known.has(item.key) || otherKeys.has(item.key) ||
+        wire.has(customCueNumber(item.key)) || !isDialogueText(item.text) ||
+        (item.after !== null && (typeof item.after !== 'string' || !known.has(item.after)))) return null;
+    known.set(item.key, true);
+    wire.add(customCueNumber(item.key));
+    added.push({ key: item.key, after: item.after, text: item.text });
+  }
+  for (const key of deletes) {
+    if (typeof key !== 'string' || known.get(key) !== true) return null;
+    removed.add(key);
+  }
+  if (known.size && ![...known.keys()].some(key => !removed.has(key))) return null;
+  return { known, removed, added, changed: Boolean(inserts.length || deletes.length) };
+}
+
 function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides) {
   const { scene, lines, copy } = body;
   if (typeof scene !== 'string' || !lines || typeof lines !== 'object' || Array.isArray(lines)) return null;
+  const structure = dialogueStructure(scene, body, previous.dialogueStructure);
+  if (!structure) return null;
   const changes = Object.entries(lines);
-  if (changes.length > 200 || changes.some(([key, text]) => classroomCueScenes.get(key) !== scene || !isDialogueText(text))) return null;
+  if (changes.length > 200 || changes.some(([key, text]) => !structure.known.has(key) || structure.removed.has(key) || !isDialogueText(text))) return null;
   const panel = copy as Partial<DialogueCopy> | undefined;
   const entry = panel && typeof panel.key === 'string' ? sharedSlideByKey.get(panel.key) : undefined;
   if (copy !== undefined && (!entry?.panel || entry.slideId !== scene || !isSlideCopy(panel?.copy))) return null;
-  if (!changes.length && copy === undefined) return null;
+  if (!changes.length && copy === undefined && !structure.changed) return null;
   let document = previous;
   if (entry && panel?.copy) {
     const { title, claim, points, bridge, source } = panel.copy;
     document = { ...document, copy: { ...document.copy, [entry.key]: { title, claim, points, bridge, source } } };
   }
   if (changes.length) document = { ...document, dialogue: { ...document.dialogue, ...Object.fromEntries(changes) } };
+  if (structure.changed) {
+    const { added, removed } = structure;
+    document = { ...document, dialogueStructure: { ...document.dialogueStructure, [scene]: { added, removed: [...removed] } } };
+  }
   return document;
 }
 
@@ -151,7 +185,9 @@ export class SharedSlideHistory extends DurableObject<SharedSlidesEnv> {
 
       const revision = current.revision + 1;
       const savedAt = new Date().toISOString();
-      this.ctx.storage.sql.exec('INSERT INTO slide_versions (revision, savedAt, summary, document) VALUES (?, ?, ?, ?)', revision, savedAt, summary, JSON.stringify(document));
+      const encoded = JSON.stringify(document);
+      if (new TextEncoder().encode(encoded).byteLength > 1_500_000) return reply({ error: 'This presentation version is too large to save.' }, 413);
+      this.ctx.storage.sql.exec('INSERT INTO slide_versions (revision, savedAt, summary, document) VALUES (?, ?, ?, ?)', revision, savedAt, summary, encoded);
       return reply({ revision, savedAt, summary, document, editable });
     });
   }

@@ -77,7 +77,7 @@ const openingVideo = liveMode || localLivePreview || localOpening
 const sharedCopy = (key: string) => shared?.snapshot.document.copy[key];
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
-  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy, key => shared?.snapshot.document.dialogue?.[key]);
+  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy, key => shared?.snapshot.document.dialogue?.[key], () => shared?.snapshot.document.dialogueStructure);
 let currentIndex = -1;
 let overviewView: View = { ...view };
 const sharedPageCopy = shared ? createPaperMiniSlide(sharedCopy) : undefined;

@@ -7,18 +7,17 @@ import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById } from './slide-content';
-import { classroomCueKeys, classroomScript as script } from './classroom-cues';
+import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence } from './classroom-cues';
 import { hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
-import type { SlideCopy } from './shared-slide-data';
+import type { DialogueStructure, SlideCopy } from './shared-slide-data';
 import type { InlineDialogueTarget } from './inline-dialogue';
 import './classroom-dialogue.css';
 
 const introScenes = ['unitrans-arrival', 'before-lecture'];
-const questionIndex = script.findIndex(line => line.phase === 'question');
 const answerWindowMs = openingQuizWindowMs;
 
-export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined, sharedLine?: (key: string) => string | undefined) {
+export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined, sharedLine?: (key: string) => string | undefined, dialogueStructure?: () => Record<string, DialogueStructure> | undefined) {
   const stage = document.createElement('div');
   stage.className = 'classroom-stage';
   stage.hidden = true;
@@ -42,17 +41,35 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   reader.tabIndex = 0;
   reader.setAttribute('role', 'region');
   reader.setAttribute('aria-label', 'Transcript. Scroll or use the arrow keys to move between lines.');
-  const lineText = (index: number) => sharedLine?.(classroomCueKeys[index]) ?? script[index].text;
-  const rows = script.map(({ phase, speaker, speakerId, kind }, index) => {
-    const row = document.createElement('div');
-    row.className = 'transcript-row';
-    row.dataset.speaker = speakerId ?? speaker;
-    if (kind) row.dataset.cueKind = kind;
-    if (phase === 'reveal') row.classList.add('flashback-reveal');
-    row.textContent = lineText(index);
-    reader.append(row);
-    return row;
-  });
+  let structure = JSON.stringify(dialogueStructure?.() ?? {});
+  let script = buildClassroomScript(dialogueStructure?.());
+  const firstCue = new Map<string, number>();
+  const lastCue = new Map<string, number>();
+  let questionIndex = -1;
+  let resultIndex = -1;
+  let revealIndex = -1;
+  const lineText = (index: number) => sharedLine?.(script[index].key) ?? script[index].text;
+  function renderRows() {
+    firstCue.clear();
+    lastCue.clear();
+    reader.replaceChildren();
+    return script.map(({ phase, speaker, speakerId, kind, scene }, index) => {
+      if (!firstCue.has(scene)) firstCue.set(scene, index);
+      lastCue.set(scene, index);
+      if (phase === 'question') questionIndex = index;
+      if (phase === 'result') resultIndex = index;
+      if (phase === 'reveal') revealIndex = index;
+      const row = document.createElement('div');
+      row.className = 'transcript-row';
+      row.dataset.speaker = speakerId ?? speaker;
+      if (kind) row.dataset.cueKind = kind;
+      if (phase === 'reveal') row.classList.add('flashback-reveal');
+      row.textContent = lineText(index);
+      reader.append(row);
+      return row;
+    });
+  }
+  let rows = renderRows();
   const choices = document.createElement('div');
   choices.className = 'record-quiz';
   choices.style.setProperty('--answer-window', answerWindowMs + 'ms');
@@ -84,11 +101,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const speakerOutline = createSpeakerOutline();
   stage.append(speakerOutline.element, character, panel, announcement);
   if (quizEnabled || tally) stage.append(choices);
-  const firstCue = new Map<string, number>();
-  script.forEach((line, index) => { if (!firstCue.has(line.scene)) firstCue.set(line.scene, index); });
-  const finalAnswererCue = firstCue.get('L4')! + legendById.get('L4')!.cues.length - 1;
   const theory = createTheoryRecords(shell, openScene, shared, presenter, () => {
-    if (script[active]?.scene === 'L4') select(finalAnswererCue, false);
+    if (script[active]?.scene === 'L4') select(lastCue.get('L4')!, false);
   });
   const controls = document.createElement('nav');
   controls.className = 'legend-paging';
@@ -132,7 +146,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const line = script[highlighted];
     if (!line || line.kind || line.scene === 'P1') return;
     const turn = line.speaker === 'Y' && !line.speakerId
-      ? script.slice(firstCue.get(line.scene), highlighted).filter(cue => cue.speaker === 'Y').length
+      ? authoredCues(line.scene).slice(0, line.sourceNumber).filter(cue => cue.speaker === 'Y').length
       : 0;
     speakerOutline.show(url, line.speakerId ?? line.speaker, turn);
   });
@@ -140,8 +154,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const line = script[index];
     const scene = line && legendById.get(line.scene);
     if (!scene) return;
-    const cue = index - firstCue.get(scene.id)!;
-    if (hasEstablishingShot(scene, cue)) return line.background ?? scene.background;
+    if (index === firstCue.get(scene.id)) return scene.background;
+    if (line.original && line.number > 0 && hasEstablishingShot(scene, line.number)) return line.background ?? scene.background;
   }
   function highlight(index: number) {
     if (highlighted === index) return;
@@ -153,7 +167,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const legend = line && legendById.get(line.scene);
     if (legend) notes.show(legend.id, legend.title);
     if (line?.scene === 'contemporary-heading') {
-      const revealed = line.phase === 'reveal';
+      const revealed = index >= revealIndex;
       const key = revealed ? 'contemporary-reveal'
         : index > questionIndex ? 'contemporary-result' : 'contemporary-heading';
       notes.show(key, revealed ? 'Flexible Foundationalism' : 'Contemporary Contextualism');
@@ -247,7 +261,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     viewport.toggleAttribute('data-establishing-shot', establishing);
     const inCourt = line.scene === 'P1';
     panel.hidden = establishing || inCourt;
-    if (inCourt) trial.show(photo ? undefined : line, sharedLine?.(classroomCueKeys[index]));
+    if (inCourt) trial.show(photo ? undefined : line, sharedLine?.(script[index].key));
     else trial.hide();
     if (photo) {
       highlight(-1);
@@ -267,7 +281,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       announcement.textContent += ' Choose B or 13 within ten seconds.';
       quizTimer = window.setTimeout(finishQuestion, remaining);
     }
-    if (tally && (index === questionIndex + 1 || (presenter && index === questionIndex))) {
+    if (tally && (index === resultIndex || (presenter && index === questionIndex))) {
       choices.dataset.mode = 'results';
       choices.setAttribute('aria-label', 'Audience vote distribution');
       choices.hidden = false;
@@ -343,7 +357,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     return true;
   }
   function finishIntro() {
-    if (script[active]?.phase !== 'reveal') return false;
+    if (script[active]?.scene !== 'contemporary-heading' || active !== lastCue.get('contemporary-heading')) return false;
     if (playOpening) playOpening();
     else openScene('L0');
     return true;
@@ -404,7 +418,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
-    const nextLine = theory.isOpen() ? finalAnswererCue : script[pendingLine]?.scene === id ? pendingLine : index;
+    const nextLine = theory.isOpen() ? lastCue.get('L4')! : script[pendingLine]?.scene === id ? pendingLine : index;
     pendingLine = -1;
     if (index < 0) {
       trial.hide();
@@ -424,11 +438,29 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   function refreshSlideCopy(force = false) {
     if (editing) return;
     notes.refresh(force);
+    const nextStructure = dialogueStructure?.();
+    const serialized = JSON.stringify(nextStructure ?? {});
+    if (serialized !== structure) {
+      const previous = script[active];
+      const position = previous ? active - firstCue.get(previous.scene)! : 0;
+      const previousShot = establishing;
+      structure = serialized;
+      script = buildClassroomScript(nextStructure);
+      rows = renderRows();
+      highlighted = -1;
+      if (previous) {
+        const kept = script.findIndex(cue => cue.key === previous.key);
+        const first = firstCue.get(previous.scene)!;
+        const last = lastCue.get(previous.scene)!;
+        const index = kept >= 0 ? kept : Math.min(first + position, last);
+        select(index, false, previousShot ? photoAt(index) : undefined);
+      }
+    }
     rows.forEach((row, index) => {
       const next = lineText(index);
       if (row.textContent !== next) row.textContent = next;
     });
-    if (force && script[active]?.scene === 'P1' && !establishing) trial.updateText(script[active], sharedLine?.(classroomCueKeys[active]));
+    if (force && script[active]?.scene === 'P1' && !establishing) trial.updateText(script[active], sharedLine?.(script[active].key));
   }
 
   function inlineTarget(): InlineDialogueTarget | undefined {
@@ -436,10 +468,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const scene = script[active].scene;
     const court = scene === 'P1';
     const root = court ? trial.inlineRoot : panel;
-    const lines = court ? [{ key: classroomCueKeys[active], element: trial.inlineText }]
-      : rows.flatMap((element, index) => script[index].scene === scene ? [{ key: classroomCueKeys[index], element }] : []);
+    const lines = court ? [{ key: script[active].key, element: trial.inlineText, removable: false }]
+      : rows.flatMap((element, index) => {
+        const cue = script[index];
+        return cue.scene === scene ? [{ key: cue.key, element, removable: cue.removable }] : [];
+      });
     return {
       scene, root, lines, panel: court ? undefined : notes.inlineFields,
+      sequence: editableCueSequence(scene) ? reader : undefined,
       start() {
         clearTimeout(scrollTimer);
         clearTimeout(quizTimer);
@@ -479,23 +515,28 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     onCue(listener: () => void) { onCueChange = listener; },
     getCue() {
       if (active < 0) return 0;
+      const current = script[active];
+      if (!current.original) return current.number * 2 + Number(establishing);
       const offset = establishing ? establishingCueOffset : trialRevealed ? revealedTrialCueOffset : 0;
-      return active - firstCue.get(script[active].scene)! + offset;
+      return current.number + offset;
     },
     setCue(cue: number) {
       if (active < 0 || theory.isOpen()) return;
       const scene = script[active].scene;
-      if (scene === 'P1' && cue >= revealedTrialCueOffset) {
-        const index = firstCue.get(scene)! + cue - revealedTrialCueOffset;
-        if (script[index]?.scene !== scene) return;
+      const custom = cue >= customCueOffset * 2;
+      const revealed = !custom && scene === 'P1' && cue >= revealedTrialCueOffset;
+      const photoStep = custom ? cue % 2 === 1 : !revealed && cue >= establishingCueOffset;
+      const number = custom ? Math.floor(cue / 2) : cue - (revealed ? revealedTrialCueOffset : photoStep ? establishingCueOffset : 0);
+      let index = script.findIndex(line => line.scene === scene && line.number === number && line.original !== custom);
+      if (index < 0 && number === 0 && !custom) index = firstCue.get(scene)!;
+      if (index < 0) return;
+      if (revealed) {
         if (index !== active || establishing) select(index);
         trial.reveal();
         trialRevealed = true;
         return;
       }
-      const photoStep = cue >= establishingCueOffset;
-      const index = firstCue.get(scene)! + cue - (photoStep ? establishingCueOffset : 0);
-      if (script[index]?.scene !== scene || (index === active && photoStep === establishing && !trialRevealed)) return;
+      if (index === active && photoStep === establishing && !trialRevealed) return;
       const photo = photoStep ? photoAt(index) : undefined;
       if (legendById.get(scene)?.imageOnly && !photo) return;
       if (!photoStep || photo) select(index, false, photo);

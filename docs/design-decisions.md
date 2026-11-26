@@ -1493,3 +1493,11 @@ Recorded time in Pacific time. Howie asked for direct editing from the existing 
 > the edit should be like you can click the dialouge box clikc first go into edit mode and for any text you can like double click to select or whatever，just like usual text on editing mechanism where you can type to see the replacement or whatever in real time。
 
 Click the dialogue box to edit slide copy on the left or dialogue lines on the right. Show text changes as they are typed. Save both columns as one version, and keep history, restore, and draft recovery after conflicts.
+
+## 2026-11-25T21:55:27-08:00 · Add and remove dialogue lines
+
+Recorded time in Pacific time. Howie asked for controls in the inline dialogue editor:
+
+> add ways that i can add or remove lines (like create new lines
+
+The dialogue column supports prepending a line, inserting one after another, and removing ordinary dialogue cues. A new line inherits the nearby speaker. Quiz, reveal, and artwork-transition cues retain their original triggers. Saving records the revised sequence in version history.

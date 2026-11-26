@@ -131,3 +131,31 @@
   cursor: pointer;
 }
 [data-inline-editing] .inline-add-point:disabled { opacity: .5; cursor: default; }
+
+[data-inline-editing] .transcript-reader::before,
+[data-inline-editing] .transcript-reader::after { height: 8px; }
+.inline-dialogue-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 6px;
+  margin-block: 5px;
+}
+.inline-dialogue-line[hidden] { display: none; }
+.inline-dialogue-line .transcript-row { margin-inline: 0; }
+.inline-line-controls { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; padding-block: 3px; }
+.inline-line-controls button, .inline-add-first-line {
+  padding: 3px 6px;
+  border: 1px solid #e8bd7191;
+  border-radius: 4px;
+  background: #252b43;
+  color: #fff5df;
+  font: 500 11px/1.35 system-ui, sans-serif;
+  cursor: pointer;
+}
+.inline-line-controls button:disabled, .inline-add-first-line:disabled { opacity: .5; cursor: default; }
+.inline-add-first-line { margin-block: 6px; }
+@media (max-width: 660px) {
+  .inline-dialogue-line { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .inline-line-controls { justify-content: flex-start; }
+}
