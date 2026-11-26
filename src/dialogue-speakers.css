@@ -23,22 +23,11 @@
   max-width: 100%;
 }
 .dialogue-speaker-face {
-  position: relative;
   flex: 0 1 var(--dialogue-face-size, clamp(23px, 3.05vmin, 46px));
   width: var(--dialogue-face-size, clamp(23px, 3.05vmin, 46px));
   aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 50%;
-  background: #2b314b;
-  box-shadow: 0 0 0 1px currentColor;
-}
-.dialogue-speaker-face img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: auto;
-  max-width: none;
-  height: var(--dialogue-face-height);
-  transform: translate(var(--dialogue-face-x), var(--dialogue-face-y));
+  background: url('./assets/dialogue-speaker-profiles.webp') no-repeat;
+  background-size: 500% 400%;
 }
 .dialogue-words { min-width: 0; }
+.has-dialogue-speaker > .dialogue-words { grid-column: 2; }

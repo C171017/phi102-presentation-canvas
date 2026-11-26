@@ -1,4 +1,4 @@
-import { addDialogueSpeaker, dialogueSpeaker } from './dialogue-speakers';
+import { addDialogueSpeaker, dialogueSpeaker, groupDialogueLabels } from './dialogue-speakers';
 import { storyVersions } from './story-scenes';
 import { savedStoryText } from './saved-story-text';
 import { isStoryBeatHeading, isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
@@ -26,6 +26,7 @@ function renderStoryParagraph(text: string, scene: string, nextY: () => number) 
     const words = document.createElement('span');
     words.className = 'dialogue-words';
     if (speaker) addDialogueSpeaker(row, speaker);
+    else if (match) row.dataset.dialogueSpeaker = match[1];
     const content = speaker && match ? line.trimStart().slice(match[0].length) : line;
     for (const part of content.split(/(\[[^\[\]]+\])/g)) {
       if (!part) continue;
@@ -150,6 +151,7 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
     let yTurn = 0;
     const sceneId = entry.id.slice('ink-ocean-'.length);
     paragraphs.replaceChildren(...(imageOnly ? [] : text.map(paragraph => renderStoryParagraph(paragraph, sceneId, () => yTurn++))));
+    groupDialogueLabels(Array.from(paragraphs.querySelectorAll<HTMLElement>('[data-dialogue-speaker]')));
     position.textContent = `${index + 1} / ${storyScenes.length}`;
     updateControls();
     scene.scrollTop = 0;

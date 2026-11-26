@@ -1,4 +1,3 @@
-import { dialogueSpeaker, showDialogueSpeaker } from './dialogue-speakers';
 import type { InkOceanCue } from './ink-ocean-scenes';
 import { createTrialAudio } from './trial-audio';
 import './trial-dialogue.css';
@@ -11,7 +10,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     <div class="trial-confetti" aria-hidden="true"></div>
     <div class="trial-impact" aria-hidden="true"></div>
     <button type="button" class="trial-message" aria-label="Continue courtroom dialogue">
-      <span class="trial-name dialogue-speaker" hidden></span>
+      <span class="trial-name" aria-hidden="true"></span>
       <span class="trial-words" aria-hidden="true"><span></span><span class="trial-unspoken"></span></span>
       <span class="trial-next" aria-hidden="true"></span>
     </button>`;
@@ -104,14 +103,13 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     if (!line) {
       screen.dataset.photo = '';
       screen.dataset.ready = '';
-      showDialogueSpeaker(name);
-      spoken.textContent = unspoken.textContent = '';
+      name.textContent = spoken.textContent = unspoken.textContent = '';
       return;
     }
     const shout = /^(OBJECTION!|TAKE THAT!)/.exec(line.text)?.[0];
     const verdict = /“NOT GUILTY”/.test(line.text);
     const title = /^Banner: (.+)/.exec(line.text)?.[1];
-    showDialogueSpeaker(name, dialogueSpeaker(line, 'P1'));
+    name.textContent = line.kind ? '' : line.speaker;
     message.toggleAttribute('data-narration', Boolean(line.kind));
     fullText = displayText(line.text, edited);
     spoken.textContent = '';

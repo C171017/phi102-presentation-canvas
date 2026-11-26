@@ -1,3 +1,4 @@
+import { groupDialogueLabels } from './dialogue-speakers';
 import { isDialogueText, isSlideCopy, type AddedDialogueLine, type DialogueChange } from './shared-slide-data';
 import { editSlideSections } from './slide-section-editor';
 import type { SlideSection } from './slide-sections';
@@ -95,6 +96,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
       placeQuizMarker();
     }
     updateLineControls();
+    groupDialogueLabels(visibleLines().map(({ line }) => line.row ?? line.element));
     element.focus();
   }
 
@@ -120,6 +122,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
       placeQuizMarker();
     }
     updateLineControls();
+    groupDialogueLabels(visibleLines().map(({ line }) => line.row ?? line.element));
     (next?.element ?? previous?.element ?? first).focus();
   }
 

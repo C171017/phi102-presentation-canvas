@@ -1552,3 +1552,35 @@ Recorded time in Pacific time. Howie requested speaker names and face icons in t
 > Just the face, like a profile picture. And then you're going to label each dialogue on the left of it with the speaker's name and the visual label they have.
 
 Use face crops from the existing illustrations. Show Simone (Narrator) for the Legend narration and Simone for her own dialogue starting at The Trial. Keep later generic narration separate from Simone and keep stage directions without portraits. Show both portraits when Simone and Cole speak together.
+
+
+## 2026-11-25T22:17:20-08:00 · Label the first line of each speaker turn
+
+Recorded time in Pacific time. Howie refined the dialogue layout in the [presentation chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
+
+> If the same person has repeated line, then for the repeated one, they don't need to be labeled until the new speaker comes in, then you have the label.
+
+> And I don't need that circle thing. You can just have the graphic itself is good enough.
+
+> And if you want to, you can like getting the profile by not just like cropping pictures, but actually regenerate each one of them. So they are like facing the user, facing the audience.
+
+Show the profile and name on the first spoken line at a scene boundary or change of speaker. Align the following lines with the opening line. Use a [transparent sprite sheet](../src/assets/dialogue-speaker-profiles.webp) with front-facing art, keeping the Stranger’s features in shadow. The prophecy and question mark retain their graphic symbols.
+
+<details>
+<summary>Built-in ImageGen prompt</summary>
+
+Use case: illustration-story and background-extraction. Website asset: one transparent dialogue profile sprite sheet for the original Ink Ocean story. The attached local 5-column by 4-row contact sheet is an identity and cell-order reference. Produce exactly 20 completely separate, small, front-facing head portraits or emblems in the SAME 5 columns and 4 rows and SAME order. Each sprite is precisely centered in its own equal cell, with generous transparent space at all edges of the cell. A sprite must never leave its cell or overlap a neighbor. Aim for face, hair and at most a tiny bit of neck; omit shoulders whenever possible. Use original hand-drawn cel-animation colors and angular forms, recognizable even at 35 pixels. Courtroom row sprites retain sharply stepped pixel-art styling. Keep the illustration of the bespectacled professor recognizable. Angle the human and ink-drop faces toward the viewer. In row 1, column 2 the woman with black loop ponytail should have relaxed level brows, attentive clear eyes and a faint closed-mouth smile; no glare or pout. Row 1, column 3 the man with swept-back hair has a friendly lively grin, bright open eyes, never smug. Ink-cube villagers are made of stacked small ink cubes, keeping block heads with subtle individual shapes and original warm rim light. The four large ink-drop voices keep their four distinct eye and mouth shapes from the references, even facing front. The small SOWHAT is black with half-lidded ivory eyes and a clear bright red dot on top. The Stranger remains an unseen face framed by black windblown hair, shown facing forward with the face lost in shade; do not reveal facial features. The prophecy symbol is one amber flame curl, and the guardian is the glowing whole question mark including its dot.
+Ordering, no text should appear in the image: row 1 professor with glasses, composed heroine with loop ponytail, smiling young man, ink-cube man, glowing question mark. Row 2 ink-cube woman, first black drop with wide side-set eyes, second black drop with half-lidded eyes and oval mouth, third black drop with big rounded eyes and triangular grin, fourth black drop with sharply tilted eyebrows. Row 3 small red-dot black drop, an amber prophecy flame glyph, bald Greek with curly gray beard, brown-haired philosopher with long brown beard, balding older philosopher with pale side curls. Row 4 dark-haired mustached philosopher, shadow-faced Stranger, pixel-art judge with gray curled wig and white mustache, pixel-art brown-haired prosecutor in glasses, pixel-art older woman with blue-gray hair in a bonnet. Transparent alpha throughout all space outside the 20 sprites. Absolutely zero backdrop, tiles, colored fields, checkerboard, disks, borders, rings, shadows behind sprites, separators, all text, labels, numbers, UI and watermarks. No bodies, no hands, no props. Keep exact order, no omissions.
+
+</details>
+
+
+## 2026-11-25T22:18:02-08:00 · Preserve The Trial’s in-game dialogue
+
+Recorded time in Pacific time. Howie clarified the scope in the [presentation chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
+
+> The game part should remain intact，because we want to preserve the original game parody thing。
+
+> So the dialogue for the gameplay part of the dialogue，they should not have this label thing at all。
+
+Restore The Trial’s original in-game nameplates and dialogue box. Apply the new speaker turns and portraits only outside P1, including in the Story reader. The Trial’s original gameplay has its own dedicated presentation and requires an explicit Trial request for changes.

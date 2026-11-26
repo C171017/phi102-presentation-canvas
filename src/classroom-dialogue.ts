@@ -1,4 +1,4 @@
-import { addDialogueSpeaker, dialogueSpeaker } from './dialogue-speakers';
+import { addDialogueSpeaker, dialogueSpeaker, groupDialogueLabels } from './dialogue-speakers';
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createTrialDialogue } from './trial-dialogue';
 import { createDialogueFrame } from './dialogue-frame';
@@ -72,6 +72,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       if (kind) row.dataset.cueKind = kind;
       const speakerAppearance = appearance(script[index]);
       if (speakerAppearance) addDialogueSpeaker(row, speakerAppearance);
+      else if (!script[index].silent && !kind && speaker) row.dataset.dialogueSpeaker = speaker;
       const words = document.createElement('span');
       words.className = 'dialogue-words';
       words.textContent = lineText(index);
@@ -256,6 +257,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }
   function setVisibleRows(scene: string) {
     rows.forEach((row, index) => { row.hidden = script[index].scene !== scene || Boolean(script[index].silent); });
+    groupDialogueLabels(rows);
   }
   function quizResultsIndex() {
     return resultIndex > questionIndex ? resultIndex : questionIndex + 1;
@@ -270,7 +272,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     viewport.toggleAttribute('data-establishing-shot', establishing);
     const inCourt = line.scene === 'P1';
     panel.hidden = establishing || inCourt;
-    if (inCourt) trial.show(photo ? undefined : line, sharedLine?.(script[index].key));
+    if (inCourt) trial.show(photo ? undefined : line, sharedLine?.(line.key));
     else trial.hide();
     if (photo) {
       highlight(-1);

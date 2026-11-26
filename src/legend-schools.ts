@@ -1,4 +1,4 @@
-import { addDialogueSpeaker, dialogueSpeaker } from './dialogue-speakers';
+import { addDialogueSpeaker, dialogueSpeaker, groupDialogueLabels } from './dialogue-speakers';
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createDialogueFrame } from './dialogue-frame';
 import { hasEstablishingShot, schoolScenes, type InkOceanScene } from './ink-ocean-scenes';
@@ -54,6 +54,7 @@ function makePanel(scene: InkOceanScene, selectCue: (cue: number) => void) {
     reader.append(row);
     return row;
   });
+  groupDialogueLabels(rows);
   panel.append(notes.element, reader);
   section.append(panel);
   let selected = -1;

@@ -22,6 +22,7 @@ These instructions apply only to this directory and its descendants.
 
 - Follow [the slide artwork fitting rules](docs/slide-visual-style.md#fit-the-artwork-to-the-page) for every presentation page. Preserve native aspect ratios and keep the same framing between establishing shots and dialogue.
 - Follow [the dialogue-led slide rules](docs/slide-visual-style.md#dialogue-led-presentation-slides) when writing slide content or editing transcripts, speaker cues, or classroom framing. Keep the slide’s section text fixed on the left and its scrolling dialogue on the right. Put speaker names above portraits and use the highlighted line to determine which portrait stays bright.
+- The Trial (P1) is a standalone Ace Attorney parody. Preserve its original in-game dialogue box, nameplates, cues, and interactions. Apply general transcript styling, portraits, and speaker grouping only to the other scenes. Change gameplay only when Howie explicitly requests a Trial change.
 - Two-finger trackpad scrolling pans the canvas; dragging empty space draws a selection box.
 - Dragging a selected object moves the whole selection.
 - Canvas objects remain independently movable and resizable unless the user requests otherwise.
