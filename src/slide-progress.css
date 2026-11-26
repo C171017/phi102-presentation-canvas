@@ -16,6 +16,7 @@
   font: 600 12px/1.25 system-ui, sans-serif;
 }
 .slide-progress-section {
+  position: relative;
   flex: none;
   min-width: 0;
   pointer-events: auto;
@@ -60,11 +61,9 @@
 }
 .slide-progress-flyout {
   position: absolute;
-  inset-block: 0;
+  inset-block-start: 0;
   left: 100%;
   width: min(155px, calc(100vw - var(--section-max-width) - 18px));
-  display: flex;
-  align-items: center;
   /* The padding also keeps the pointer inside the section between columns. */
   padding-left: 5px;
 }
@@ -72,7 +71,7 @@
 .slide-progress-children {
   position: relative;
   width: 100%;
-  max-height: min(420px, 54dvh);
+  max-height: min(420px, 54dvh, var(--slide-flyout-space, 100dvh));
   padding: 2px;
   border: 1px solid #738983a6;
   border-radius: 8px;

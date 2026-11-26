@@ -1689,3 +1689,11 @@ Recorded time in Pacific time. Howie asked for the labels in the four section bu
 > make each in its horizotnal center aligned
 
 Center each label horizontally within its button and keep the chevrons aligned at the right edge.
+
+## 2026-11-25T22:51:27-08:00 · Align slide lists to their section headings
+
+Recorded time in Pacific time. Howie clarified the position of an expanded slide list.
+
+> The expanded view should not be center aligned，but they should like based on the position of the section they're from。
+
+Align the top of each list with the top of its section button. Long lists scroll within the available space below that point.

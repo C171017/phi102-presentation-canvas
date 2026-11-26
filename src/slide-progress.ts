@@ -9,6 +9,7 @@ const sectionStarts = [
 ] as const;
 
 export function createSlideProgress(rail: HTMLElement, open: (index: number) => void) {
+  const viewport = rail.parentElement!;
   const sections = sectionStarts.map(([, title], index) => {
     const group = document.createElement('div');
     group.className = 'slide-progress-section';
@@ -41,6 +42,17 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
   let expanded: ProgressSection | undefined;
   let hovered: ProgressSection | undefined;
 
+  function fitFlyout() {
+    if (!expanded) return;
+    const bottom = viewport.getBoundingClientRect().bottom;
+    const top = expanded.group.getBoundingClientRect().top;
+    expanded.flyout.style.setProperty('--slide-flyout-space', `${Math.max(0, bottom - top - 8)}px`);
+  }
+
+  const resizeObserver = new ResizeObserver(fitFlyout);
+  resizeObserver.observe(viewport);
+  resizeObserver.observe(rail);
+
   function expand(next?: ProgressSection) {
     if (next === expanded) return;
     if (expanded) {
@@ -52,6 +64,7 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
     if (next) {
       next.heading.setAttribute('aria-expanded', 'true');
       next.flyout.hidden = false;
+      fitFlyout();
       const current = next.list.querySelector<HTMLElement>('[aria-current]');
       if (current) next.list.scrollTop = current.offsetTop - (next.list.clientHeight - current.offsetHeight) / 2;
       else next.list.scrollTop = 0;
