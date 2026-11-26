@@ -150,6 +150,13 @@
   top: 0;
   background: #182137;
 }
+.slide-bullet-edit-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px;
+}
+.slide-bullet-edit-row [data-inline-label] { min-height: 1.25em; }
 .slide-section-add-bullet { margin-top: 6px; }
 [data-section-editor] :is(button, select) {
   width: auto;

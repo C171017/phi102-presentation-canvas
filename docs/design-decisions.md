@@ -1714,6 +1714,16 @@ Recorded time in Pacific time. Howie revised the slide navigation alignment in t
 
 When the dialogue box is visible, center the four section buttons between the top of the viewport and the top of the box. Center each flyout on its own button. Long lists scroll within the available height.
 
+## 2026-11-25T22:56:12-08:00 · Simplify dialogue arrows and make bullets removable
+
+Recorded time in Pacific time. Howie requested:
+
+> also bullet should be removable too
+
+> remove the box for this thin
+
+Show a Remove bullet button for every bullet in Edit mode. Remove the visible container around the dialogue arrows and keep the individual arrow targets and their focus states.
+
 ## 2026-11-25T23:05:47-08:00 · Give each slide panel its own philosophical title and argument
 
 Recorded time in Pacific time. Howie specified the scope in the [presentation chat](codex://threads/01a216a5-2443-75d0-b4bb-88c8c13520a1).

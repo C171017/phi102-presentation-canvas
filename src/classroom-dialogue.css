@@ -277,13 +277,13 @@
 }
 .legend-speaker, .legend-paging {
   position: absolute;
-  padding: .3rem .65rem;
-  border-radius: 8px;
-  background: #152427ea;
   color: #fff3d9;
   font: 600 clamp(12px, 1.5vmin, 18px)/1.3 system-ui, sans-serif;
 }
 .legend-speaker {
+  padding: .3rem .65rem;
+  border-radius: 8px;
+  background: #152427ea;
   left: calc(50% + .6rem);
   bottom: calc(var(--transcript-height) + var(--transcript-bottom) + .4rem);
 }
@@ -295,7 +295,7 @@
   display: grid;
   gap: 2px;
   padding: 3px;
-  border: 1px solid #fff3d95c;
+  border: 1px solid transparent;
   pointer-events: auto;
 }
 /* Anchor to the reader's grid cell so the arrows stay clear of stacked notes. */
@@ -309,8 +309,6 @@
   margin-block: auto;
   translate: none;
   grid-template-rows: repeat(2, minmax(0, 1fr));
-  background: #22314a;
-  border-color: #f5c36b66;
 }
 .transcript-panel:has(> .legend-paging) > .transcript-reader {
   padding-inline-end: calc(var(--cue-control-inset) + var(--cue-button-size) + 18px);
