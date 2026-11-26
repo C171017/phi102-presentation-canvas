@@ -201,7 +201,8 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
       status.textContent = 'Save or cancel to leave edit mode.';
       return;
     }
-    if (busy || editor.open || versions.open || !event.target.closest('.transcript-panel, .trial-message')) return;
+    if (busy || editor.open || versions.open || event.target.closest('.legend-paging') ||
+        !event.target.closest('.transcript-panel, .trial-message')) return;
     const target = options.inlineTarget();
     if (!target?.root.contains(event.target)) return;
     event.preventDefault();

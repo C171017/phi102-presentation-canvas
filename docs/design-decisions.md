@@ -1584,3 +1584,12 @@ Recorded time in Pacific time. Howie clarified the scope in the [presentation ch
 > So the dialogue for the gameplay part of the dialogue，they should not have this label thing at all。
 
 Restore The Trial’s original in-game nameplates and dialogue box. Apply the new speaker turns and portraits only outside P1, including in the Story reader. The Trial’s original gameplay has its own dedicated presentation and requires an explicit Trial request for changes.
+
+
+## 2026-11-25T22:22:12-08:00 · Place the cue arrows inside the dialogue box
+
+Recorded time in Pacific time. Howie pointed to the up and down cue arrows in the [presentation chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
+
+> move this control inside the diaglouge box , find a good place for it
+
+Center the arrow pair vertically at the right edge of the scrolling dialogue, using its own space beside the text. When a full-art cue has no dialogue box, the same arrows remain at the side so viewers can continue. The Trial’s placement follows its separate gameplay layout.

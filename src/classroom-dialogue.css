@@ -10,6 +10,8 @@
   overflow: clip;
   --transcript-bottom: max(12px, 2vh, env(safe-area-inset-bottom));
   --dialogue-margin: clamp(14px, 3vw, 54px);
+  --cue-button-size: 44px;
+  --cue-control-inset: clamp(8px, 1.2vw, 22px);
 }
 .classroom-stage[hidden], .classroom-character { display: none; }
 #presentation-shell:has(#contemporary-heading.page-foreground) .classroom-character { display: block; }
@@ -293,12 +295,29 @@
   border: 1px solid #fff3d95c;
   pointer-events: auto;
 }
+/* Anchor to the reader's grid cell so the arrows stay clear of stacked notes. */
+.transcript-panel > .legend-paging {
+  grid-area: -2 / -2 / -1 / -1;
+  inset-inline-end: var(--cue-control-inset);
+  inset-block: 0;
+  block-size: calc(var(--cue-button-size) * 2 + 10px);
+  max-block-size: calc(100% - 12px);
+  box-sizing: border-box;
+  margin-block: auto;
+  translate: none;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  background: #22314a;
+  border-color: #f5c36b66;
+}
+.transcript-panel:has(> .legend-paging) > .transcript-reader {
+  padding-inline-end: calc(var(--cue-control-inset) + var(--cue-button-size) + 18px);
+}
 #presentation-shell:has(.theory-ballot:not([hidden])) .legend-paging { display: none; }
 .legend-paging button {
   display: grid;
   place-items: center;
-  inline-size: 44px;
-  block-size: 44px;
+  inline-size: var(--cue-button-size);
+  block-size: var(--cue-button-size);
   padding: 0;
   border: 0;
   border-radius: 5px;
@@ -307,6 +326,7 @@
   cursor: pointer;
   touch-action: manipulation;
 }
+.transcript-panel > .legend-paging button { block-size: 100%; }
 .legend-paging button::before {
   content: '';
   inline-size: 10px;

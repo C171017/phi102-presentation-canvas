@@ -130,6 +130,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     controls.append(button);
   }
   stage.append(controls);
+  function showTranscript(visible: boolean) {
+    const parent = visible ? panel : stage;
+    const focused = document.activeElement;
+    panel.hidden = !visible;
+    if (controls.parentElement === parent) return;
+    parent.append(controls);
+    if (focused instanceof HTMLButtonElement && controls.contains(focused)) focused.focus({ preventScroll: true });
+  }
   const trial = createTrialDialogue(stage, () => move(1));
   let onCueChange: (() => void) | undefined;
   shell.append(stage);
@@ -271,7 +279,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     establishing = Boolean(photo);
     viewport.toggleAttribute('data-establishing-shot', establishing);
     const inCourt = line.scene === 'P1';
-    panel.hidden = establishing || inCourt;
+    showTranscript(!establishing && !inCourt);
     if (inCourt) trial.show(photo ? undefined : line, sharedLine?.(line.key));
     else trial.hide();
     if (photo) {
@@ -435,7 +443,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       trial.hide();
       establishing = false;
       viewport.removeAttribute('data-establishing-shot');
-      panel.hidden = true;
+      showTranscript(false);
       artwork.cancel();
       clearTimeout(scrollTimer);
       clearQuestion();
