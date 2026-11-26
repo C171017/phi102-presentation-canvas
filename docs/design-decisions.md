@@ -1697,3 +1697,13 @@ Recorded time in Pacific time. Howie clarified the position of an expanded slide
 > The expanded view should not be center aligned，but they should like based on the position of the section they're from。
 
 Align the top of each list with the top of its section button. Long lists scroll within the available space below that point.
+
+## 2026-11-25T22:56:12-08:00 · Simplify dialogue arrows and make bullets removable
+
+Recorded time in Pacific time. Howie requested:
+
+> also bullet should be removable too
+
+> remove the box for this thin
+
+Show a Remove bullet button for every bullet in Edit mode. Remove the visible container around the dialogue arrows and keep the individual arrow targets and their focus states.

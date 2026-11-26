@@ -37,7 +37,7 @@ function readSection(node: HTMLElement, kind: SlideSection['kind']): SlideSectio
       break;
     }
     case 'bullets': {
-      const items = Array.from(node.querySelectorAll('li'), read).filter(Boolean);
+      const items = Array.from(node.querySelectorAll<HTMLElement>('[data-slide-field]'), read).filter(Boolean);
       if (items.length) return { kind, items };
       break;
     }
@@ -85,7 +85,10 @@ export function editSlideSections(container: HTMLElement, initial: SlideSection[
       up.disabled = busy || row.previousElementSibling === addRow;
       down.disabled = busy || !row.nextElementSibling;
       remove.disabled = busy;
-      if (addBullet) addBullet.disabled = busy || node.children.length >= maxSectionBullets;
+      if (addBullet) {
+        addBullet.disabled = busy || node.children.length >= maxSectionBullets;
+        node.querySelectorAll<HTMLButtonElement>('[data-remove-bullet]').forEach(control => { control.disabled = busy; });
+      }
     }
     kinds.disabled = add.disabled = busy || rows.size >= maxSlideSections;
   }
@@ -119,22 +122,43 @@ export function editSlideSections(container: HTMLElement, initial: SlideSection[
     const content = document.createElement('div');
     content.className = 'slide-section-content';
     content.append(node);
-    const fields = node.matches('[data-slide-field]') ? [node] : Array.from(node.querySelectorAll<HTMLElement>('[data-slide-field]'));
-    for (const field of fields) {
-      const label = section.kind === 'bullets' ? 'Bullet point' : fieldNames[field.dataset.slideField!] ?? sectionNames[section.kind];
-      allowText(field, label);
-    }
     let addBullet: HTMLButtonElement | undefined;
     if (section.kind === 'bullets') {
+      let nextBulletId = node.children.length;
+      function editBullet(item: HTMLElement) {
+        const editorRow = document.createElement('div');
+        editorRow.className = 'slide-bullet-edit-row';
+        const field = document.createElement('div');
+        field.dataset.slideField = item.dataset.slideField;
+        delete item.dataset.slideField;
+        field.textContent = item.textContent;
+        allowText(field, 'Bullet point');
+        const removeBullet = button('Remove bullet', () => {
+          const neighbor = item.nextElementSibling ?? item.previousElementSibling;
+          item.remove();
+          updateControls();
+          (neighbor?.querySelector<HTMLButtonElement>('[data-remove-bullet]') ?? addBullet)?.focus();
+        });
+        removeBullet.dataset.removeBullet = '';
+        editorRow.append(field, removeBullet);
+        item.replaceChildren(editorRow);
+        return field;
+      }
+      for (const item of Array.from(node.querySelectorAll<HTMLElement>('li'))) editBullet(item);
       addBullet = button('Add bullet', () => {
-        const item = renderSectionBullet('', node.children.length);
-        allowText(item, 'Bullet point');
+        const item = renderSectionBullet('', nextBulletId++);
+        const field = editBullet(item);
         node.append(item);
         updateControls();
-        item.focus();
+        field.focus();
       });
       addBullet.className = 'slide-section-add-bullet';
       content.append(addBullet);
+    } else {
+      const fields = node.matches('[data-slide-field]') ? [node] : Array.from(node.querySelectorAll<HTMLElement>('[data-slide-field]'));
+      for (const field of fields) {
+        allowText(field, fieldNames[field.dataset.slideField!] ?? sectionNames[section.kind]);
+      }
     }
     row.append(content, controls);
     container.append(row);
