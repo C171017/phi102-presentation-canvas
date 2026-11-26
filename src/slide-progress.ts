@@ -4,7 +4,7 @@ import './slide-progress.css';
 const sectionStarts = [
   ['unitrans-arrival', 'Before OP'],
   ['L0', 'Introduction'],
-  ['P1', 'Parallel Universe'],
+  ['P1', 'Routes & Versions'],
   ['access-heading', 'Application'],
 ] as const;
 
@@ -16,8 +16,14 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
     heading.className = 'slide-progress-heading';
     heading.type = 'button';
     heading.id = `slide-progress-heading-${index}`;
-    heading.textContent = title;
+    const label = document.createElement('span');
+    label.className = 'slide-progress-label';
+    label.textContent = title;
+    heading.append(label);
 
+    const flyout = document.createElement('div');
+    flyout.className = 'slide-progress-flyout';
+    flyout.hidden = true;
     const list = document.createElement('div');
     list.className = 'slide-progress-children';
     list.id = `slide-progress-children-${index}`;
@@ -25,28 +31,27 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
     list.setAttribute('aria-labelledby', heading.id);
     heading.setAttribute('aria-controls', list.id);
     heading.setAttribute('aria-expanded', 'false');
-    list.hidden = true;
-    group.append(heading, list);
+    flyout.append(list);
+    group.append(heading, flyout);
     rail.append(group);
-    return { group, heading, list };
+    return { group, heading, flyout, list };
   });
 
   type ProgressSection = typeof sections[number];
   let expanded: ProgressSection | undefined;
   let hovered: ProgressSection | undefined;
-  let hoverHandoff: DOMRect | undefined;
 
   function expand(next?: ProgressSection) {
     if (next === expanded) return;
     if (expanded) {
       if (expanded.list.contains(document.activeElement)) expanded.heading.focus({ preventScroll: true });
       expanded.heading.setAttribute('aria-expanded', 'false');
-      expanded.list.hidden = true;
+      expanded.flyout.hidden = true;
     }
     expanded = next;
     if (next) {
       next.heading.setAttribute('aria-expanded', 'true');
-      next.list.hidden = false;
+      next.flyout.hidden = false;
       const current = next.list.querySelector<HTMLElement>('[aria-current]');
       if (current) next.list.scrollTop = current.offsetTop - (next.list.clientHeight - current.offsetHeight) / 2;
       else next.list.scrollTop = 0;
@@ -62,7 +67,10 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
     button.className = 'slide-progress-page';
     button.dataset.slide = members[0];
     button.setAttribute('aria-label', `Slide ${index + 1} of ${slides.length}: ${title}`);
-    button.textContent = title;
+    const label = document.createElement('span');
+    label.className = 'slide-progress-label';
+    label.textContent = title;
+    button.append(label);
     button.addEventListener('click', () => open(index));
     section.list.append(button);
     return { button, section };
@@ -70,6 +78,16 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
 
   for (const section of sections) {
     const { group, heading } = section;
+    group.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'mouse') return;
+      hovered = section;
+      expand(section);
+    });
+    group.addEventListener('pointerleave', event => {
+      if (event.pointerType !== 'mouse' || hovered !== section) return;
+      hovered = undefined;
+      if (expanded === section && !group.querySelector(':focus-visible')) expand();
+    });
     group.addEventListener('focusout', event => {
       if (expanded === section && hovered !== section && !group.contains(event.relatedTarget as Node | null)) expand();
     });
@@ -78,33 +96,6 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
       expand(expanded === section ? undefined : section);
     });
   }
-
-  function leaveHover() {
-    const previous = hovered;
-    hovered = undefined;
-    hoverHandoff = undefined;
-    if (previous && expanded === previous && !previous.group.querySelector(':focus-visible')) expand();
-  }
-
-  document.addEventListener('pointermove', event => {
-    if (event.pointerType !== 'mouse' || !(event.target instanceof Element)) return;
-    const group = event.target.closest('.slide-progress-section');
-    const section = group && sections.find(item => item.group === group);
-    if (section) {
-      if (hovered === section) return;
-      const before = section.heading.getBoundingClientRect();
-      hovered = section;
-      expand(section);
-      // A shorter list can move the destination up and out from under the pointer.
-      hoverHandoff = section.group.getBoundingClientRect().bottom < event.clientY ? before : undefined;
-    } else if (!hoverHandoff || event.clientX < hoverHandoff.left || event.clientX > hoverHandoff.right ||
-      event.clientY > hoverHandoff.bottom || event.clientY < rail.getBoundingClientRect().top) {
-      leaveHover();
-    }
-  }, { passive: true });
-  document.addEventListener('pointerleave', event => {
-    if (event.pointerType === 'mouse') leaveHover();
-  });
 
   rail.addEventListener('keydown', event => {
     if (event.key !== 'Escape' || !expanded) return;
@@ -119,16 +110,13 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
 
   function showCurrent(index: number) {
     const current = buttons[index];
-    const activeSection = sections.indexOf(current.section);
     for (const [position, { button }] of buttons.entries()) {
-      button.classList.toggle('is-past', position < index);
       if (position === index) button.setAttribute('aria-current', 'step');
       else button.removeAttribute('aria-current');
     }
-    for (const [position, section] of sections.entries()) {
-      const active = position === activeSection;
+    for (const section of sections) {
+      const active = section === current.section;
       section.heading.classList.toggle('is-current-section', active);
-      section.heading.classList.toggle('is-past', position < activeSection);
       if (active) section.heading.setAttribute('aria-description', current.button.getAttribute('aria-label') ?? '');
       else section.heading.removeAttribute('aria-description');
     }

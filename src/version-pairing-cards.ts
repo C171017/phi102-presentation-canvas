@@ -1,4 +1,5 @@
 import simone from './assets/full-body-cast/simone.webp';
+import simoneTrial from './assets/version-portraits/simone-trial.webp';
 import cole from './assets/full-body-cast/cole.webp';
 import rae from './assets/full-body-cast/rae.webp';
 import echo from './assets/full-body-cast/echo.webp';
@@ -56,13 +57,15 @@ export function initializeVersionPairings(world: HTMLElement) {
     const character = pairing.character ? cast[pairing.character] : undefined;
     card.setAttribute('aria-label', character ? `${card.dataset.label}, ${character.name}` : card.dataset.label);
     card.title = card.dataset.label;
-    const route = routeArtwork[pairing.route];
-    if (route) card.append(illustration(route, 'pairing-route-art'));
-    else card.insertAdjacentHTML('beforeend', `
-      <svg class="pairing-route-art" viewBox="328 145 307 184" aria-hidden="true">${knowledgeLetterArtwork}</svg>`);
-    if (pairing.character) {
-      card.dataset.character = pairing.character;
-      card.append(illustration(figures[pairing.character], 'pairing-figure'));
+    if (pairing.character) card.dataset.character = pairing.character;
+    if (pairing.id === 'pairing-social-simone') {
+      card.append(illustration(simoneTrial, 'pairing-trial-art'));
+    } else {
+      const route = routeArtwork[pairing.route];
+      if (route) card.append(illustration(route, 'pairing-route-art'));
+      else card.insertAdjacentHTML('beforeend', `
+        <svg class="pairing-route-art" viewBox="328 145 307 184" aria-hidden="true">${knowledgeLetterArtwork}</svg>`);
+      if (pairing.character) card.append(illustration(figures[pairing.character], 'pairing-figure'));
     }
     world.append(card);
   }

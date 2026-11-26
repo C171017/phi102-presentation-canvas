@@ -61,7 +61,7 @@ Open https://phi102.c171017.com/ to explore the map at your own pace. Select **P
 
 The 1080p opening plays after the classroom introduction. The web MP4 uses H.264 and the original AAC soundtrack, with its index at the start for streaming. When replacing it, use a versioned filename under `public/media/`, keep it under Cloudflare's 25 MiB asset limit, and update the path and exact byte count in `src/opening-media.json` so the Worker can serve correct byte ranges.
 
-For presentation day, deploy with `VITE_PRESENTATION_DAY=1 npm run deploy`. The public URL then joins the audience automatically. The progress rail shows connected viewers by slide, and the gold marker shows the presenter’s slide. Audience members can browse and select **Follow presenter** to return to the shared slide. Run `npm run deploy` with the flag unset to restore the self-guided preview.
+For presentation day, deploy with `VITE_PRESENTATION_DAY=1 npm run deploy`. The public URL then joins the audience automatically. The progress rail shows connected viewers by slide, and a gold underline marks the presenter’s slide. Audience members can browse and select **Follow presenter** to return to the shared slide. Run `npm run deploy` with the flag unset to restore the self-guided preview.
 
 To present, open the private URL saved in `~/.config/phi102-presentation/presenter-url.txt`. The URL fragment contains the presenter key, so share the root URL with the audience. The latest presenter connection takes over slide control. The server remembers the shared slide when the presenter disconnects.
 

@@ -21,7 +21,7 @@
   padding: 0;
 }
 
-.pairing-card > :is(.pairing-route-art, .pairing-figure) {
+.pairing-card > :is(.pairing-route-art, .pairing-figure, .pairing-trial-art) {
   display: block;
   flex: none;
   max-width: none;
@@ -36,6 +36,12 @@
 .pairing-card > .pairing-figure {
   width: 130px;
   height: 268px;
+}
+
+.pairing-card > .pairing-trial-art {
+  width: 268px;
+  height: 268px;
+  image-rendering: pixelated;
 }
 
 .pairing-card[data-character="echo"] > .pairing-figure { height: 126px; }

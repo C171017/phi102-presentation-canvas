@@ -1585,6 +1585,20 @@ Recorded time in Pacific time. Howie clarified the scope in the [presentation ch
 
 Restore The Trial’s original in-game nameplates and dialogue box. Apply the new speaker turns and portraits only outside P1, including in the Story reader. The Trial’s original gameplay has its own dedicated presentation and requires an explicit Trial request for changes.
 
+## 2026-11-25T21:44:00-08:00 · Use Trial pixel art for the Simone pairing
+
+Recorded time in Pacific time. Howie pointed to the Gavel and Simone on the Routes × versions canvas:
+
+> instead of this change thi to somehitng more resebl the mock ace atotneey we have plus simone so and in that smae visual style maybe like a pic but without background so they look better on teh cnavas
+
+The Social norms × Sensitive invariantism card shows [Simone at the witness stand with the Gavel](../src/assets/version-portraits/simone-trial.webp), drawn as one transparent pixel-art cutout. The card uses its saved canvas placement and dimensions.
+
+<details>
+<summary>Built-in ImageGen prompt</summary>
+
+Create one original transparent pixel-art cutout for the Ink Ocean PHI 102 presentation canvas. Show Simone at her compact terracotta courtroom witness stand, with the story's small brass gavel resting on its walnut sounding block just beside her hand. Match references 1 and 2 closely in pixel grid, palette, animation-era proportions, crisp stair-step silhouettes, dark one-pixel contours, and flat two- or three-tone shading. Ref 1 is the project's existing courtroom scene; use its rendering, witness rail, color and three-quarter framing. Ref 2 is the project's Simone sprite for identity. Ref 3 is Simone's model sheet for hair and costume identity only. Ref 4 is the original prop for gavel identity, translated into the same clean pixel art. Simone has a looping high black ponytail, pointed bangs, pine-green coat with restrained amber piping, cream collar, black tie ribbon and brown strap. She is calmly observant with relaxed level eyebrows, clear eyes and a faint closed-mouth smile, shoulders upright and at ease, looking three-quarter right. Show her from waist up behind a self-contained, visually shallow wooden stand, with the gavel recognizable at small size, in one balanced compact near-square silhouette. The entire silhouette and all sides of the object must fit inside the image with slim clear margins. Use genuine transparent alpha everywhere outside the character, stand and gavel, including gaps. No room, walls, windows, floor, external shadow, backdrop color, lettering, UI, speech bubbles, borders, outline sticker effect, other characters, or props. Render like hand-placed 256 x 192 game art, no smoothing, gradients, textures, or photorealism.
+
+</details>
 
 ## 2026-11-25T22:22:12-08:00 · Place the cue arrows inside the dialogue box
 
@@ -1602,7 +1616,6 @@ Recorded time in Pacific time. Howie requested:
 
 Show four section headings. Reveal a section’s slide titles in place on hover or on keyboard or touch activation. Highlight the section containing the current slide and its slide title when expanded. Start Introduction with The Law of Ink after the opening video, Parallel Universe with The Trial, and Application with Access internalism. Keep the existing slide sequence, including the overview slides at the end.
 
-
 ## 2026-11-25T22:31:34-08:00 · Remove the gold-bar scene cues
 
 Recorded time in Pacific time. Howie identified the gold vertical bar beneath the slide bullets in the [presentation chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
@@ -1611,6 +1624,13 @@ Recorded time in Pacific time. Howie identified the gold vertical bar beneath th
 
 Remove the Scene cue section from all slide panels and the editor. Older slide versions still load, with their headings, references, bullets, and ordinary text displayed in order.
 
+## 2026-11-25T22:34:20-08:00 · Shorten the wet-ink and dry-ink narration
+
+Recorded time in Pacific time. Howie pointed to the highlighted cue in The Law of Ink (L0):
+
+> For this part of the narrator dialogue, is it possible to make it much more concise than this?
+
+Simone explains the two forms in one short cue. “Wet ink is a belief still in doubt. Dry ink is a settled belief you can build on.” The saved story text supplies the cue to both the presentation and the Story reader.
 
 ## 2026-11-25T22:35:24-08:00 · Give the Y voices and SOWHAT consistent openers
 
@@ -1628,6 +1648,32 @@ Recorded time in Pacific time. Howie requested:
 
 Use the Law of Ink slide and its shared left panel for both passages. Swap to the Great Inkwell illustration on its first narration line and reverse the swap when stepping back. Keep both passages editable in one transcript with their existing saved line identities.
 
+## 2026-11-25T22:39:11-08:00 · Open slide sections to the right
+
+Recorded time in Pacific time. Howie pointed to the four section headings in the slide rail and requested the following.
+
+> For this, it is no longer that on the thing will pop up. When you hover over something, it's going to not make the other section change their position, but things going to show up on the right and place them vertically in the center and trying to bring down the The Horizontal length of each, so they don't occupy too much space.
+
+The four headings stay in place when a section opens. The narrower slide list opens to the right of its heading and centers beside it where the viewport allows. Long lists scroll inside the flyout. Keyboard and touch activation use the same flyout.
+
+## 2026-11-25T22:43:21-08:00 · Center and tighten the slide navigation
+
+Recorded time in Pacific time. Howie clarified the placement and section name.
+
+> They should be。Like Vertically centered. They, they should be, like, at the vertical center. And don't use parallel universe. Use something else, like a more formal name based on the paper.
+
+> Also you can try reduce or even remove all the padding，like all the padding if we can。So they，you know，like keep the minimum unnecessary padding，but like And they should look aligned，but here there's definitely space we can，like，make them，make them shorter for sure。
+
+Center the left rail and its right-hand slide lists at the vertical midpoint of the viewport. Align the four headings to a common width and reduce padding in both columns. Name the third section **Routes & Versions**, following Greco’s routes to flexible foundationalism in §2 and the versions this presentation draws from §3.
+
+## 2026-11-25T22:44:29-08:00 · Highlight current navigation labels
+
+Recorded time in Pacific time. Howie asked to simplify the slide rail.
+
+> remove the dot thing, use the highlthgt of the text themselvs as indicaiton of the curren tone
+
+Use gold text to identify the current section and slide. Remove the dots and use an underline on the slide that the presenter is showing in a live room.
+
 ## 2026-11-25T22:44:33-08:00 · Crossfade the opening Ink Ocean illustrations
 
 Recorded time in Pacific time. Howie requested:
@@ -1635,3 +1681,11 @@ Recorded time in Pacific time. Howie requested:
 > For the background image itself, it should still have the transition we have, like the fading fade out, so it looks better rather than just hard cut in, cut out.
 
 Crossfade between the Law of Ink and Great Inkwell illustrations over 240 ms in either direction. Fade only the artwork. Keep the left panel and the transcript steady. Follow the viewer’s reduced-motion setting.
+
+## 2026-11-25T22:45:48-08:00 · Center the section labels
+
+Recorded time in Pacific time. Howie asked for the labels in the four section buttons to be centered.
+
+> make each in its horizotnal center aligned
+
+Center each label horizontally within its button and keep the chevrons aligned at the right edge.

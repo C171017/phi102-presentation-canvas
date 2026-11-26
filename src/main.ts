@@ -19,7 +19,7 @@ import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createPaperMiniSlide } from './paper-mini-slide';
-import { sharedSlideByKey } from './shared-slide-data';
+import { sharedSlideByKey, type SharedSnapshot } from './shared-slide-data';
 import { openSharedSlides } from './shared-slides';
 import type { ThreeLayer } from './three-layer';
 import './style.css';
@@ -51,6 +51,10 @@ const previewRole = localDev && !onHostMac ? 'audience'
   : requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
 const hostedPresenter = liveMode && new URLSearchParams(location.hash.slice(1)).has('presenter');
 const shared = liveMode ? await openSharedSlides() : undefined;
+const localShared = localDev ? await import.meta.glob<SharedSnapshot>('../shared-slides.local.json', {
+  import: 'default',
+})['../shared-slides.local.json']?.() : undefined;
+const slideDocument = () => shared?.snapshot.document ?? localShared?.document;
 const sharedEditing = Boolean(shared?.snapshot.editable && !hostedPresenter);
 const hostedRoom = liveMode && !sharedEditing && (hostedPresenter || import.meta.env.VITE_PRESENTATION_DAY === '1');
 const localLivePreview = localDev && onHostMac && requestedRole === 'live-preview';
@@ -74,13 +78,13 @@ const openingVideo = liveMode || localLivePreview || localOpening
       ? playing => import.meta.hot!.send('phi102:preview:opening', playing) : undefined,
   })
   : undefined;
-const sharedCopy = (key: string) => shared?.snapshot.document.copy[key];
+const sharedCopy = (key: string) => slideDocument()?.copy[key];
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
-  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy, key => shared?.snapshot.document.dialogue?.[key], () => shared?.snapshot.document.dialogueStructure);
+  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy, key => slideDocument()?.dialogue?.[key], () => slideDocument()?.dialogueStructure);
 let currentIndex = -1;
 let overviewView: View = { ...view };
-const sharedPageCopy = shared ? createPaperMiniSlide(sharedCopy) : undefined;
+const sharedPageCopy = slideDocument() ? createPaperMiniSlide(sharedCopy) : undefined;
 if (sharedPageCopy) {
   sharedPageCopy.element.classList.add('shared-page-copy');
   sharedPageCopy.element.hidden = true;
