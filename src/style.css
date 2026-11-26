@@ -20,7 +20,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   position: fixed; inset: 0; overflow: clip; outline: none; touch-action: none;
 }
 /* Keep the entire illustration in its frame at the artwork's own aspect ratio. */
-#viewport::before, .arrival-scene, .school-picture {
+#viewport::before, .arrival-scene, .school-picture, .opening-ink-artwork, .opening-ink-artwork::after {
   background-color: var(--slide-matte);
   background-position: center;
   background-size: contain;
@@ -39,10 +39,28 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   background-image: url('/generated/backgrounds/dead-ink/01-giedt-classroom.webp');
   opacity: 1;
 }
-#viewport[data-regress-flashback]::before {
+#viewport[data-regress-flashback]:not([data-opening-ink])::before {
   background-image: var(--regress-background, none);
   filter: none;
   opacity: 1;
+}
+.opening-ink-artwork {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+#viewport[data-opening-ink] > .opening-ink-artwork { display: block; }
+.opening-ink-artwork::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--inkwell-image);
+  opacity: 0;
+}
+.opening-ink-artwork.show-inkwell::after { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .opening-ink-artwork::after { transition: opacity 240ms ease; }
 }
 #presentation-shell:not(.previewing-page-exit) #viewport[data-door-memory] {
   background-color: var(--slide-matte);
@@ -144,6 +162,7 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 }
 /* Move the screen-space artwork with the same camera as the canvas objects. */
 .previewing-page-exit #viewport::before,
+.previewing-page-exit .opening-ink-artwork,
 .previewing-page-exit .arrival-scene,
 .previewing-page-exit .classroom-stage {
   transform: var(--page-transform);
@@ -154,7 +173,8 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   opacity: var(--page-opacity);
 }
 .previewing-page-exit #viewport:has(:is(#before-lecture, #contemporary-heading).page-foreground)::before,
-.previewing-page-exit #viewport[data-regress-flashback]::before,
+.previewing-page-exit #viewport[data-regress-flashback]:not([data-opening-ink])::before,
+.previewing-page-exit .opening-ink-artwork,
 .previewing-page-exit #viewport:has(#unitrans-arrival.page-foreground) .arrival-scene {
   opacity: var(--page-opacity);
 }

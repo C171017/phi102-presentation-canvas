@@ -161,8 +161,19 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     return row.offsetTop + row.offsetHeight / 2 - reader.clientHeight / 2;
   }
   const viewport = shell.querySelector<HTMLElement>('#viewport')!;
+  const openingArtwork = document.createElement('div');
+  openingArtwork.className = 'opening-ink-artwork';
+  openingArtwork.setAttribute('aria-hidden', 'true');
+  const lawImage = legendById.get(openingInkScene)?.background;
+  const inkwellImage = firstGreatInkwellCue.background;
+  if (lawImage && inkwellImage) {
+    openingArtwork.style.backgroundImage = `url("${lawImage}")`;
+    openingArtwork.style.setProperty('--inkwell-image', `url("${inkwellImage}")`);
+    viewport.prepend(openingArtwork);
+  }
   const artwork = createDialogueFrame(url => {
     viewport.style.setProperty('--regress-background', `url("${url}")`);
+    openingArtwork.classList.toggle('show-inkwell', script[active]?.scene === openingInkScene && url === inkwellImage);
     const line = script[highlighted];
     if (!line || line.silent || line.kind || line.scene === 'P1') return;
     speakerOutline.show(url, line.speakerId ?? line.speaker, yTurn(line));
@@ -428,11 +439,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }).observe(reader);
 
   function showScene(id?: string) {
+    const openingInk = id === openingInkScene && Boolean(lawImage && inkwellImage);
+    viewport.toggleAttribute('data-opening-ink', openingInk);
+    if (!openingInk) openingArtwork.classList.remove('show-inkwell');
     theory.showScene(id);
     if (id === 'contemporary-heading' && !image.hasAttribute('src')) image.src = portrait;
     const nextScene = id === 'contemporary-heading' ? 'L0'
       : id === 'L7' ? 'P1' : id === 'P1' ? 'P2-1' : undefined;
-    const nextBackground = id === openingInkScene ? firstGreatInkwellCue.background : nextScene && legendById.get(nextScene)?.background;
+    const nextBackground = id === openingInkScene ? inkwellImage : nextScene && legendById.get(nextScene)?.background;
     if (nextBackground) artwork.preload(nextBackground);
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);

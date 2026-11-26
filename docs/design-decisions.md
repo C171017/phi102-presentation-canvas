@@ -1627,3 +1627,11 @@ Recorded time in Pacific time. Howie requested:
 > For these two part，they should be like one section by which I'm in。They still have the two different pictures，but they're not treated as two part，but think of once you pass some parts of the text in the dialogue，you will change the background image and that's it。 And the dialogue still change, but the last section remains the same. So we can have one slide part for those two parts, for both two parts.
 
 Use the Law of Ink slide and its shared left panel for both passages. Swap to the Great Inkwell illustration on its first narration line and reverse the swap when stepping back. Keep both passages editable in one transcript with their existing saved line identities.
+
+## 2026-11-25T22:44:33-08:00 · Crossfade the opening Ink Ocean illustrations
+
+Recorded time in Pacific time. Howie requested:
+
+> For the background image itself, it should still have the transition we have, like the fading fade out, so it looks better rather than just hard cut in, cut out.
+
+Crossfade between the Law of Ink and Great Inkwell illustrations over 240 ms in either direction. Fade only the artwork. Keep the left panel and the transcript steady. Follow the viewer’s reduced-motion setting.
