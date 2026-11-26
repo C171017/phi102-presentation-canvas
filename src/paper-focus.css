@@ -1,4 +1,4 @@
-.paper-focus-zones, .paper-focus-drawing {
+.paper-focus-zones, .paper-focus-drawing, .paper-citation-glow, .paper-citation-shade {
   position: absolute;
   inset: 0 auto 0 0;
   width: calc(100% / var(--paper-visible-width));
@@ -23,6 +23,28 @@
 }
 .paper-focus-zone[aria-pressed="true"] { fill: white; }
 .paper-focus-mark.is-current { filter: saturate(1.45) brightness(.94); }
+.paper-citation-glow, .paper-citation-shade {
+  animation: paper-citation-fade 5s ease-in-out both;
+}
+.paper-citation-glow {
+  fill: white;
+  filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 7px #fff9e3);
+}
+.paper-citation-shade {
+  z-index: 4;
+  fill: rgb(23 27 43 / 46%);
+}
+.paper-citation-shade.has-citation-cutout {
+  overflow: visible;
+  filter: blur(3px);
+}
+@keyframes paper-citation-fade {
+  0%, 9% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .paper-citation-glow, .paper-citation-shade { animation-timing-function: step-end; }
+}
 .is-paper-focused .paper-notes, .is-paper-focused .paper-section-mark { visibility: hidden; }
 .is-paper-focused .paper-note { visibility: hidden !important; }
 .paper-focus-panel {

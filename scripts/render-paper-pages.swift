@@ -201,15 +201,24 @@ struct TextPosition: Comparable {
   }
 }
 
-func occurrences(_ phrase: String) -> [TextPosition] {
+struct TextMatch {
+  let start: TextPosition
+  let end: TextPosition
+}
+
+let searchablePages = (0..<document.pageCount).map { document.page(at: $0)?.string ?? "" }
+
+func textMatches(_ phrase: String) -> [TextMatch] {
   let pattern = try! NSRegularExpression(pattern: glossaryPattern(phrase))
-  return (0..<document.pageCount).flatMap { index -> [TextPosition] in
-    guard let text = document.page(at: index)?.string else { return [] }
+  return searchablePages.enumerated().flatMap { index, text in
     return pattern.matches(in: text, range: NSRange(text.startIndex..., in: text)).map {
-      TextPosition(page: index, offset: $0.range.location)
+      TextMatch(start: TextPosition(page: index, offset: $0.range.location),
+                end: TextPosition(page: index, offset: NSMaxRange($0.range)))
     }
   }
 }
+
+func occurrences(_ phrase: String) -> [TextPosition] { textMatches(phrase).map(\.start) }
 
 struct SegmentRun: Encodable { let page: Int; let lines: [[Int]] }
 struct ReadingSegment: Encodable { let label: String; let runs: [SegmentRun] }
@@ -250,7 +259,9 @@ guard mapped.count == definitions.count + 1, mapped.last?.0 == "paper-notes" els
   fail("Each focus section must have a mapped start before the notes")
 }
 var readingSegments: [String: [ReadingSegment]] = [:]
+var sectionBounds: [String: Range<TextPosition>] = [:]
 for ((id, lower), (_, upper)) in zip(mapped, mapped.dropFirst()) {
+  sectionBounds[id] = lower..<upper
   let entries = definitions[id] ?? []
   let starts = entries.map { entry -> TextPosition in
     guard entry.count == 2 else { fail("Expected a sentence opening and a label in " + id) }
@@ -266,6 +277,32 @@ for ((id, lower), (_, upper)) in zip(mapped, mapped.dropFirst()) {
     guard !runs.isEmpty else { fail("Empty segment in " + id) }
     return ReadingSegment(label: entries[i][1], runs: runs)
   }
+}
+
+struct CitationSource: Decodable {
+  let section: String
+  let start: String
+  let through: String?
+}
+struct ReadingCitation: Encodable { let section: String; let runs: [SegmentRun] }
+
+let citationSource = anchorsURL.deletingLastPathComponent().appendingPathComponent("paper-citations.json")
+let citations = try JSONDecoder().decode([String: CitationSource].self, from: Data(contentsOf: citationSource))
+let readingCitations = citations.sorted { $0.key < $1.key }.reduce(into: [String: ReadingCitation]()) { result, entry in
+  let (id, citation) = entry
+  guard let bounds = sectionBounds[citation.section] else { fail("Unknown focus section for citation " + id) }
+  func uniqueMatch(_ phrase: String, within range: Range<TextPosition>) -> TextMatch {
+    let matches = textMatches(phrase).filter { range.contains($0.start) && $0.end <= range.upperBound }
+    guard matches.count == 1 else {
+      fail("Expected one match for citation \(id), found \(matches.count): \(phrase)")
+    }
+    return matches[0]
+  }
+  let start = uniqueMatch(citation.start, within: bounds)
+  let end = citation.through.map { uniqueMatch($0, within: start.end..<bounds.upperBound).end } ?? start.end
+  let runs = segmentRuns(from: start.start, to: end)
+  guard !runs.isEmpty else { fail("Empty citation: " + id) }
+  result[id] = ReadingCitation(section: citation.section, runs: runs)
 }
 
 for index in 0..<document.pageCount {
@@ -355,6 +392,7 @@ do {
   let segmentEncoder = JSONEncoder()
   segmentEncoder.outputFormatting = [.sortedKeys]
   try segmentEncoder.encode(readingSegments).write(to: stagingURL.appendingPathComponent("segments.json"))
+  try segmentEncoder.encode(readingCitations).write(to: stagingURL.appendingPathComponent("citations.json"))
   let json = try JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys])
   try json.write(to: stagingURL.appendingPathComponent("manifest.json"))
   let words = try JSONSerialization.data(withJSONObject: pageWords, options: [.sortedKeys])

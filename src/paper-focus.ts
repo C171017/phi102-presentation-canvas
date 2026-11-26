@@ -3,6 +3,9 @@ import './paper-focus.css';
 
 const NS = 'http://www.w3.org/2000/svg';
 const UNITS = 10000;
+const PAGE_PATH = `M0 0H${UNITS}V${UNITS}H0Z`;
+// Extend past the sheet so feathering the cutout leaves the page edges evenly shaded.
+const SHADE_PATH = `M-500 -500H${UNITS + 500}V${UNITS + 500}H-500Z`;
 type Box = [number, number, number, number];
 type Run = { page: number; lines: Box[] };
 type Segment = { label: string; runs: Run[] };
@@ -14,6 +17,7 @@ type MoveCard = {
   visibleRun?: Run;
 };
 export type SegmentIndex = Record<string, Segment[]>;
+export type CitationIndex = Record<string, { section: string; runs: Run[] }>;
 // Reading order within a passage. The first five match the selected preview.
 const MOVE_COLORS = ['#a9d8f4', '#f5d488', '#aedcba', '#cec0ee', '#f3b4a6', '#8dd8d6', '#e5bdcf', '#d3df99'];
 const moveColor = (index: number) => MOVE_COLORS[index % MOVE_COLORS.length];
@@ -51,6 +55,23 @@ function path(d: string) {
   return p;
 }
 
+function paddedLine([left, top, right, bottom]: Box): Box {
+  return [left - 10, top - 2, right + 10, bottom + 2];
+}
+
+function drawLines(layer: SVGElement, lines: Box[]) {
+  for (const line of lines) {
+    const [left, top, right, bottom] = paddedLine(line);
+    const rect = node('rect');
+    rect.setAttribute('x', String(left));
+    rect.setAttribute('y', String(top));
+    rect.setAttribute('width', String(right - left));
+    rect.setAttribute('height', String(bottom - top));
+    rect.setAttribute('rx', '8');
+    layer.append(rect);
+  }
+}
+
 export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
   let sections: PaperSection[] = [];
   let sheets: HTMLElement[] = [];
@@ -61,6 +82,7 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
   let cards: MoveCard[] = [];
   const zones: SVGPathElement[][] = [];
   const drawings: SVGElement[] = [];
+  const citationLayers = new Set<SVGSVGElement>();
   const panel = document.createElement('section');
   panel.className = 'paper-focus-panel';
   panel.hidden = true;
@@ -147,7 +169,7 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
       if (page < start.page || page > end.page) return; // Fully dimmed in CSS.
       const layer = overlay('paper-focus-drawing');
       layer.setAttribute('aria-hidden', 'true');
-      const veil = path('M0 0H10000V10000H0Z' + sectionPath(start, end, page));
+      const veil = path(PAGE_PATH + sectionPath(start, end, page));
       veil.setAttribute('class', 'paper-focus-veil');
       layer.append(veil);
       // Paint behind the raster so that the ink and glossary stay legible.
@@ -161,15 +183,7 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
         group.dataset.move = String(i);
         group.classList.add('paper-focus-mark');
         group.setAttribute('fill', moveColor(i));
-        for (const [left, top, right, bottom] of run.lines) {
-          const rect = node('rect');
-          rect.setAttribute('x', String(left - 10));
-          rect.setAttribute('y', String(top - 2));
-          rect.setAttribute('width', String(right - left + 20));
-          rect.setAttribute('height', String(bottom - top + 4));
-          rect.setAttribute('rx', '8');
-          group.append(rect);
-        }
+        drawLines(group, run.lines);
         colors.append(group);
       }
       sheet.querySelector('.paper-focus-zones')!.append(colors);
@@ -180,11 +194,58 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
     markCurrent(current);
   }
 
+  function clearCitationHighlight() {
+    for (const layer of citationLayers) layer.remove();
+    citationLayers.clear();
+  }
+
+  function highlightCitation(section: string, runs: Run[]) {
+    if (sections[active]?.note.id !== section) return;
+    clearCitationHighlight();
+    const linesByPage = new Map(runs.map(({ page, lines }) => [page, lines]));
+
+    function animate(layer: SVGSVGElement) {
+      layer.setAttribute('aria-hidden', 'true');
+      citationLayers.add(layer);
+      layer.addEventListener('animationend', () => {
+        citationLayers.delete(layer);
+        layer.remove();
+      }, { once: true });
+    }
+
+    sheets.forEach((sheet, page) => {
+      const lines = linesByPage.get(page) ?? [];
+      // Put the white light behind the text and the shade above the page.
+      // Use the same line boxes to cut holes in the shade.
+      const shade = overlay('paper-citation-shade');
+      shade.classList.toggle('has-citation-cutout', lines.length > 0);
+      const holes = lines.map(line => {
+        const [left, top, right, bottom] = paddedLine(line);
+        return `M${left} ${top}H${right}V${bottom}H${left}Z`;
+      });
+      shade.append(path(SHADE_PATH + holes.join('')));
+      animate(shade);
+      sheet.append(shade);
+
+      if (lines.length) {
+        const glow = overlay('paper-citation-glow');
+        drawLines(glow, lines);
+        animate(glow);
+        sheet.querySelector('img')!.before(glow);
+      }
+    });
+  }
+
   function choose(index: number, source?: Element) {
-    if (index === active || !segments[sections[index]?.note.id]) return;
+    if (!segments[sections[index]?.note.id]?.length) return;
+    trigger = source;
+    if (index === active) {
+      panel.focus({ preventScroll: true });
+      return;
+    }
+    clearCitationHighlight();
     active = index;
     current = -1;
-    trigger = source;
     const { note, hue, start, end } = sections[index];
     const moves = segments[note.id];
     pane.classList.add('is-paper-focused');
@@ -227,6 +288,7 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
   function clear(restore = false) {
     if (active < 0) return;
     const source = trigger;
+    clearCitationHighlight();
     active = current = -1;
     trigger = undefined;
     pane.classList.remove('is-paper-focused');
@@ -235,7 +297,7 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
     panel.hidden = true;
     draw();
     if (restore) {
-      if (source instanceof HTMLElement || source instanceof SVGElement) source.focus({ preventScroll: true });
+      if ((source instanceof HTMLElement || source instanceof SVGElement) && source.getClientRects().length) source.focus({ preventScroll: true });
       else scroll.focus({ preventScroll: true });
     }
   }
@@ -293,5 +355,5 @@ export function createPaperFocus(pane: HTMLElement, scroll: HTMLElement) {
     if (sideWidth > 0) pane.style.setProperty('--focus-note-width', sideWidth + 'px');
     layoutCards();
   }
-  return { build, choose, clear, layout };
+  return { build, choose, clear, layout, highlightCitation, clearCitationHighlight };
 }

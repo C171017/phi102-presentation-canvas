@@ -194,10 +194,20 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     schedule();
   }
 
+  function availableNoteWidth() {
+    const room = pane.getBoundingClientRect().left - shell.getBoundingClientRect().left - EDGE - LINK_ROOM;
+    return Math.floor(Math.min(NOTE_MAX_WIDTH, room));
+  }
+
+  function focusSection(id: string, source: HTMLButtonElement) {
+    const width = availableNoteWidth();
+    focus.layout(width >= NOTE_MIN_WIDTH ? width : 0);
+    focus.choose(sections.findIndex(({ note }) => note.id === id), source);
+  }
+
   function layout() {
     frame = 0;
-    const room = pane.getBoundingClientRect().left - shell.getBoundingClientRect().left - EDGE - LINK_ROOM;
-    const width = Math.floor(Math.min(NOTE_MAX_WIDTH, room));
+    const width = availableNoteWidth();
     const sideRoom = width >= NOTE_MIN_WIDTH;
     focus.layout(sideRoom ? width : 0);
     const show = visible && sections.length > 0 && !pane.classList.contains('is-collapsed') && width >= NOTE_MIN_WIDTH;
@@ -283,5 +293,8 @@ export function createPaperNotes(pane: HTMLElement, scroll: HTMLElement, shell: 
     schedule();
   });
 
-  return { build, clearFocus: focus.clear };
+  return {
+    build, focusSection, clearFocus: focus.clear,
+    highlightCitation: focus.highlightCitation, clearCitationHighlight: focus.clearCitationHighlight,
+  };
 }

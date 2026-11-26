@@ -19,6 +19,8 @@ import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createPaperMiniSlide } from './paper-mini-slide';
+import type { createPaperPane } from './paper-pane';
+import { OpenPaperReference, renderPaperSlideLinks } from './paper-slide-links';
 import { sharedSlideByKey } from './shared-slide-data';
 import { openSharedSlides } from './shared-slides';
 import type { ThreeLayer } from './three-layer';
@@ -43,7 +45,13 @@ const disposeRegressAnimations = initializeRegressAnimations();
 const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
 let reportSlide: ((index: number) => void) | undefined;
-let paperPane: { update: (index: number) => void } | undefined;
+let paperPane: ReturnType<typeof createPaperPane> | undefined;
+let pendingReference: OpenPaperReference | undefined;
+backdrop.addEventListener(OpenPaperReference.type, event => {
+  if (!(event instanceof OpenPaperReference)) return;
+  if (paperPane) void paperPane.openReference(event.reference, event.source);
+  else pendingReference = event;
+});
 const localDev = import.meta.env.DEV && Boolean(import.meta.hot) && !liveMode;
 const onHostMac = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
 const requestedRole = localDev ? new URLSearchParams(location.search).get('role') : null;
@@ -83,18 +91,27 @@ const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene
 let currentIndex = -1;
 let overviewView: View = { ...view };
 const sharedPageCopy = slideDocument() ? createPaperMiniSlide(sharedCopy) : undefined;
+let canvasPaperLinks: HTMLElement | undefined;
 if (sharedPageCopy) {
   sharedPageCopy.element.classList.add('shared-page-copy');
   sharedPageCopy.element.hidden = true;
   backdrop.append(sharedPageCopy.element);
 }
 function showSharedPageCopy() {
-  if (!sharedPageCopy) return;
   const slide = slides[currentIndex];
   const id = slide?.members[0];
   const entry = id && sharedSlideByKey.get(id);
-  sharedPageCopy.element.hidden = !entry || entry.panel || !sharedCopy(entry.key);
-  if (entry && !sharedPageCopy.element.hidden) sharedPageCopy.show(entry.key);
+  const showCopy = entry && !entry.panel && sharedCopy(entry.key);
+  if (sharedPageCopy) {
+    sharedPageCopy.element.hidden = !showCopy;
+    if (showCopy) sharedPageCopy.show(entry.key);
+  }
+  canvasPaperLinks?.remove();
+  canvasPaperLinks = entry && !entry.panel && !showCopy ? renderPaperSlideLinks(entry.key) : undefined;
+  if (canvasPaperLinks) {
+    canvasPaperLinks.classList.add('is-canvas-footer');
+    backdrop.append(canvasPaperLinks);
+  }
 }
 const previewControl = publicPreview ? document.createElement('button') : undefined;
 let pendingCue: {slide: number; cue: number} | undefined;
@@ -563,9 +580,15 @@ if (hostedRoom) {
     });
   });
 }
+function setPaperPane(pane: NonNullable<typeof paperPane>) {
+  paperPane = pane;
+  const pending = pendingReference;
+  pendingReference = undefined;
+  if (pending?.source.isConnected) void pane.openReference(pending.reference, pending.source);
+}
 function mountPaperPane(rolePicker?: HTMLElement) {
   void import('./paper-pane').then(({ createPaperPane }) => {
-    paperPane = createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker });
+    setPaperPane(createPaperPane(backdrop, { initiallyOpen: !readOnly, rolePicker }));
   });
 }
 if (localDev) {
@@ -573,7 +596,7 @@ if (localDev) {
     const rolePicker = addDevRolePicker(backdrop, role, onHostMac);
     if (role === 'editor') {
       void import('./dev-paper').then(({ createPaperPane }) => {
-        paperPane = createPaperPane(backdrop, rolePicker);
+        setPaperPane(createPaperPane(backdrop, rolePicker));
       });
       return;
     }

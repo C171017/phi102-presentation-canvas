@@ -1,7 +1,7 @@
 {
-  "revision": 11,
-  "savedAt": "2026-11-26T19:50:50.123Z",
-  "summary": "Updated ink-state terminology in the dialogue",
+  "revision": 21,
+  "savedAt": "2026-11-26T21:41:59.663Z",
+  "summary": "Edited dialogue · 3. Classroom · Opening explanation",
   "document": {
     "layout": null,
     "copy": {
@@ -40,6 +40,49 @@
             ]
           }
         ]
+      },
+      "L4": {
+        "sections": [
+          {
+            "kind": "header",
+            "title": "",
+            "source": "Greco · §1, p. 426"
+          },
+          {
+            "kind": "heading",
+            "text": "Skepticism, Infinitism, Coherentism"
+          },
+          {
+            "kind": "bullets",
+            "items": [
+              "Skepticism holds that the regress leaves no belief justified.",
+              "Infinitism accepts an endless chain of distinct reasons.",
+              "Coherentism finds justification in a system of mutually supporting beliefs."
+            ]
+          }
+        ]
+      },
+      "L3-continued": {
+        "sections": []
+      },
+      "contemporary-heading": {
+        "sections": [
+          {
+            "kind": "header",
+            "title": "Contemporary Contextualism",
+            "source": "Greco · Introduction, p. 425"
+          },
+          {
+            "kind": "heading",
+            "text": "What “I know” claims can depend on the conversation."
+          },
+          {
+            "kind": "bullets",
+            "items": [
+              "Contemporary contextualism says the same sentence can express different propositions as the context changes."
+            ]
+          }
+        ]
       }
     },
     "dialogue": {
@@ -52,7 +95,7 @@
       "regress-problem:6:1abkxkd": "[The ink solidifies. He slots the stick into his chest, satisfied. The raven nods.]",
       "L2:11:rwza9p": "Her words never solidified. Then, slowly, neither did her hand.",
       "L3:2:1yq4kak": "Every question that couldn't be settled split off another questioner. Nothing solidified, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.",
-      "L3:18:1oj3xnq": "And anyone who stood in liquid ink long enough began to soften. A man who had believed for forty years that he was tall woke up noticeably shorter. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.",
+      "L3:18:1oj3xnq": "And anything stayed in liquid ink long enough began to melt. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.",
       "regress-skepticism:3:dzmp3n": "[Beside him, his old teacher Anaxarchus is sinking into the liquid ink, waving.]",
       "regress-infinitism:7:buc68m": "The objection — at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever solidifies.",
       "regress-foundationalism:8:bamr6v": "[In his ladle, one grain of ink turns matte. SOWATT keeps asking. It stays solid.]",
@@ -64,13 +107,26 @@
       "L6-B:0:fege8s": "The moderates didn't have three hundred years. They solidified whatever seemed true, and they solidified it fast.",
       "L6-B:2:zmqpf5": "But their ink only ever solidified halfway. Everything they built was jelly.",
       "L7:1:1cshpug": "[A lone figure, seen from behind, steps out onto bare ink. A stick solidifies under her foot.]",
-      "P2-6:7:we8ngd": "[MY NAME IS SIMONE burns into the brass. The first plank of concrete ink snaps onto the frame.]"
+      "P2-6:7:we8ngd": "[MY NAME IS SIMONE burns into the brass. The first plank of concrete ink snaps onto the frame.]",
+      "L3:11:qzjkhs": "Why should tomorrow be like today?",
+      "L3:14:bskj5i": "Why couldn’t a white raven be on its way?",
+      "L3:15:1dhmpnd": "So what? One white raven blows your rule away.",
+      "L3-continued:3:1gbz8st": "To the melted, demon will offer worlds of dream. They will step inside, and none of them will know they are dreaming.",
+      "L4:0:63tgj9": "For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited time and absolute authority."
     },
     "dialogueStructure": {
-      "regress-problem-birth": {
+      "L0": {
         "added": [],
         "removed": [
           "regress-problem-birth:1:23jdfg"
+        ]
+      },
+      "L2": {
+        "added": [],
+        "removed": [
+          "L3:3:15p4oc3",
+          "L3:2:1yq4kak",
+          "L3:12:11s1s8c"
         ]
       }
     }

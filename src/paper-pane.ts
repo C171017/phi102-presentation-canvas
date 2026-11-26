@@ -3,7 +3,8 @@ import { attachCollapsiblePaneResizer } from './collapsible-pane-resizer';
 import type { createPaperHighlights } from './dev-paper-highlights';
 import { createPaperNotes, type PaperAnchor } from './paper-notes';
 import { createPaperGlossary } from './paper-glossary';
-import type { SegmentIndex } from './paper-focus';
+import type { CitationIndex, SegmentIndex } from './paper-focus';
+import type { PaperSlideLink } from './paper-slide-links';
 import './paper-pane.css';
 
 // The paper scrolls independently. The passage cue offers a manual jump to
@@ -106,7 +107,9 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   let current = -1;
   let slideAnchors: Anchor[] = [];
   let collapsedAnchor: Anchor | undefined;
-  let pagesRequested = false;
+  let loadedPages: Promise<void> | undefined;
+  let loadedCitations: Promise<CitationIndex | undefined> | undefined;
+  let referenceVisit: { anchor?: Anchor } | undefined;
   const sheets: HTMLElement[] = [];
   const images: HTMLImageElement[] = [];
 
@@ -211,6 +214,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     if (open === prefs.open) return;
     if (!open) {
       if (pane.contains(document.activeElement)) resizer.focus({ preventScroll: true });
+      referenceVisit = undefined;
       notes.clearFocus();
       glossary.close();
       highlights?.setActive(false);
@@ -220,7 +224,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     prefs.open = open;
     renderOpenState();
     if (open) {
-      requestPages();
+      void requestPages();
       if (collapsedAnchor) restoreAnchor(collapsedAnchor);
       collapsedAnchor = undefined;
     }
@@ -237,7 +241,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   }
 
   function updatePassageCue() {
-    const anchor = slideAnchors[current];
+    const anchor = referenceVisit?.anchor ?? slideAnchors[current];
     if (!prefs.open || !anchor || scroll.clientHeight === 0) {
       passageCue.hidden = true;
       return;
@@ -262,6 +266,11 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   }
 
   passageCue.addEventListener('click', () => {
+    if (referenceVisit?.anchor && !passageCue.hidden) {
+      restoreAnchor(referenceVisit.anchor);
+      scroll.focus({ preventScroll: true });
+      return;
+    }
     const anchor = slideAnchors[current];
     if (!anchor || passageCue.hidden) return;
     jumpTo(anchor);
@@ -349,9 +358,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   }
 
   function requestPages() {
-    if (pagesRequested) return;
-    pagesRequested = true;
-    void load();
+    return loadedPages ??= load();
   }
 
   async function load() {
@@ -370,7 +377,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
       if (!loaded) throw new Error('manifest.json is not in the expected format');
       buildPages(loaded, segments);
     } catch (error) {
-      pagesRequested = false;
+      loadedPages = undefined;
       if (createHighlights) showFailure(error instanceof Error ? error.message : String(error));
       else {
         console.warn('Could not load the original paper.', error);
@@ -379,8 +386,54 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     }
   }
 
+  function requestCitations() {
+    return loadedCitations ??= fetch(`${ASSETS}citations.json`, { cache: 'no-cache' }).then(response => {
+      if (!response.ok) throw new Error('No citation index');
+      return response.json() as Promise<CitationIndex>;
+    }).catch(error => {
+      loadedCitations = undefined;
+      console.warn('Exact citations are unavailable.', error);
+      return undefined;
+    });
+  }
+
+  async function openReference(reference: PaperSlideLink, source: HTMLButtonElement) {
+    const visit: NonNullable<typeof referenceVisit> = {};
+    referenceVisit = visit;
+    notes.clearCitationHighlight();
+    if (!prefs.open) {
+      setOpen(true);
+      savePrefs(prefs);
+    }
+    const [citations] = await Promise.all([requestCitations(), requestPages()]);
+    const citation = citations?.[reference.id];
+    if (referenceVisit !== visit || !citation) return;
+    const runs = citation.runs.filter(run => images[run.page]);
+    const first = runs[0];
+    if (!first) return;
+
+    if (highlights?.active) {
+      highlights.setActive(false);
+      glossary.setEnabled(true);
+    }
+    glossary.close();
+    notes.focusSection(citation.section, source);
+    visit.anchor = { page: first.page, y: first.lines[0][1] / 10000 };
+    restoreAnchor(visit.anchor);
+    updatePassageCue();
+    for (const run of runs) images[run.page].loading = 'eager';
+    await images[first.page].decode().catch(() => undefined);
+    if (referenceVisit === visit) notes.highlightCitation(citation.section, runs);
+  }
+
   function update(index: number) {
-    if (index < 0 || index === current) return;
+    if (index === current) return;
+    referenceVisit = undefined;
+    notes.clearCitationHighlight();
+    if (index < 0) {
+      updatePassageCue();
+      return;
+    }
     current = index;
     glossary.close();
     pane.style.setProperty('--paper-slide-progress', String(index / Math.max(1, slides.length - 1)));
@@ -492,6 +545,6 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
 
   renderOpenState();
   update(slideFromProgressBar());
-  if (prefs.open || highlights) requestPages();
-  return { update };
+  if (prefs.open || highlights) void requestPages();
+  return { update, openReference };
 }

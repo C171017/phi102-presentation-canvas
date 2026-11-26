@@ -197,6 +197,7 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
 
   shell.addEventListener('click', event => {
     if (!(event.target instanceof Element)) return;
+    if (event.target.closest('.slide-paper-links button')) return;
     if (inline) {
       if (!event.target.closest('#slide-progress, .preview-presentation, .legend-paging, .classroom-character, .record-quiz, .story-reader__launch')) return;
       event.preventDefault();

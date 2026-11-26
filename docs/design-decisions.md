@@ -1779,3 +1779,41 @@ Recorded time in Pacific time. Howie asked to combine the two scenes shown in th
 > and these 2 should similarly be in same section where the slide part remain uncahnged(use the regress problem one ) while the background ., just fade in fade out and the dialogue will be concatenated or just added。
 
 Keep The Regress Problem’s left panel through the hand scene and the first Whypocalypse scene. Continue the saved dialogue in order and crossfade only the artwork at the boundary. The prophecy remains a separate slide.
+
+## 2026-11-26T12:01:04-08:00 · Restore Y₃ for the raven exchange
+
+Recorded time in Pacific time. Howie clarified where the three lines should begin and approved the proposed wording.
+
+> y3
+
+> update this part to this then
+
+After the man says “Because… they always have been,” Y₃ asks “Why should tomorrow be like today?” Y₄ asks “Why couldn’t a white raven be on its way?” SOWHAT closes with “So what? One white raven blows your rule away.” The man gives no further spoken answer.
+
+## 2026-11-26T13:22:58-08:00 · Link slides to their passages in Greco
+
+Recorded time in Pacific time. Howie asked for source links in the presentation canvas.
+
+> In the slide section, if you click that, it will automatically open. It will open the paper and go to the relevant section and on. And highlight the relevant part for maybe one to three seconds, and then Like the highlight fade away.
+
+> And also, it will be automatically clicked to focus that entire section.
+
+> But like the game part remain intact. The game is just itself
+
+Place **In the paper** buttons at the foot of slides that explain Greco’s argument. Open the reader and activate its existing section focus, then show a 2.3-second fading highlight on the cited lines. Section focus persists after the highlight fades. The Trial continues to use its standalone dialogue and controls.
+
+## 2026-11-26T13:29:13-08:00 · Highlight the exact words behind each link
+
+Recorded time in Pacific time. Howie refined the slide links.
+
+> That will highlight exact sentences or words to the sentence level of the button that you are clicking. And it's going to show there for like maybe five seconds, and then that highlights will fade away.
+
+Draw a gold highlight over the words or sentences cited by the selected button. Hold it for five seconds, then fade it over half a second. Keep the focused section and its argument colors visible. For **Too few indubitable claims**, start at “indubitable” and end at “believing,” even when other text appears on those lines.
+
+## 2026-11-26T13:42:12-08:00 · Guide attention with a white glow
+
+Recorded time in Pacific time. Howie refined the citation highlight.
+
+> Like, first, when you click that, it's gonna be, like, white, but, like, also glowing a little bit. And all the other one will be dimmed.
+
+Give the exact words a soft white glow and briefly dim the rest of the paper. Over five seconds, restore the surrounding text to its normal reading colors as the glow fades. Keep the existing section focus active.
