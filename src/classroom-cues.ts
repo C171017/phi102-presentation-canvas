@@ -44,6 +44,12 @@ export function authoredCues(scene: string) {
   return authoredByScene.get(scene) ?? [];
 }
 
+export function unlabeledYTurn(cue: ClassroomCue) {
+  return cue.speaker === 'Y' && !cue.speakerId
+    ? authoredCues(cue.scene).slice(0, cue.sourceNumber).filter(line => line.speaker === 'Y').length
+    : 0;
+}
+
 export function editableCueSequence(scene: string) {
   return scene !== 'P1' && authoredCues(scene).some(cue => cue.text);
 }

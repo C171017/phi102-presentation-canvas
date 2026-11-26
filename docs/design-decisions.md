@@ -1817,3 +1817,60 @@ Recorded time in Pacific time. Howie refined the citation highlight.
 > Like, first, when you click that, it's gonna be, like, white, but, like, also glowing a little bit. And all the other one will be dimmed.
 
 Give the exact words a soft white glow and briefly dim the rest of the paper. Over five seconds, restore the surrounding text to its normal reading colors as the glow fades. Keep the existing section focus active.
+
+## 2026-11-26T14:31:01-08:00 · Give Simone timed dialogue with Blondie
+
+Recorded in Pacific time. Howie selected ElevenLabs’ Blondie - Conversational voice and specified the presentation and games.
+
+> use this for simone, and generate all teh lines for her ( including games) where when we reach those lines, the voice will be played with words by owrds highlight in teh dialogue box
+
+> Also you can add little intonation or any notation for the dialogue. Like those should not be showed in the website, but during the generation, if they allow those type of control, you may want to add them appropriately.
+
+Use Blondie for Simone’s dialogue, the Legend narration already attributed to Simone, and her side of the shared line with Cole. Start clips at the matching dialogue cue and highlight the current word from the generated timing. Keep the acting directions in the speech requests. The Trial uses its existing nameplates and dialogue box.
+
+## 2026-11-26T14:43:32-08:00 · Simone narrates the first belief to hold
+
+Recorded in Pacific time. Howie approved the proposed line in the chat.
+
+> Update that narrator line to this then,
+
+After the grain of ink stays solid under questioning in the Descartes scene, Simone says, “For the first time since the Whypocalypse began, a belief stayed solid even as the questions kept coming.”
+
+
+## 2026-11-26T14:51:05-08:00 · Give Simone a wider acting range in The Trial
+
+Recorded in Pacific time in the [Simone voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> like i want more variations , try that for the game part, much more expressive
+
+Direct the 11 Trial lines individually in the ElevenLabs API. Give the legend reveal a hushed opening, the gavel request a polite lift, the realization a whisper, and the existing “Take that!” cue a sharp shout. Use a stability value of 0.35 for these lines. Keep acting directions in the synthesis input and use the new timing for the existing word highlights.
+
+
+## 2026-11-26T14:52:54-08:00 · Restore the Trial interjection samples and clarify Simone’s realization
+
+Recorded in Pacific time in the [Simone voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> no need for objection and take that those sound use the original game sound
+
+> and also for so that's how it works is not very approiate where it is bascially like whisper where it should not be like taht
+
+Play the existing game samples on the “Objection!” and “Take that!” callouts. Standalone interjections are excluded from voice synthesis. For “So that’s how it works,” use a clear speaking voice with a lift of realization and regenerate the timed audio.
+
+## 2026-11-26T14:57:17-08:00 · Cast Northern Terry as YYYY SOWATT
+
+Recorded in Pacific time in the [YYYY SOWATT voice chat](codex://threads/01a21a0e-0f13-78d2-ac44-9002a031bd7c). Howie selected the Northern Terry library voice and directed the performance.
+
+> use this for the YYYY so what
+>
+> But like for the lines, use the same base on voice, but just like the intonation, we're like trying to have them like variation and in an incremental manner, where, for example, you can try to generate the line, you know, for "Why one?" is going to be very low and gradually become higher and higher for the character. But they use the same base voice. And for "So what?" you can make it as expressive or like as eccentric or just whatever control we have as expressive dynamic as possible. So we tried to generate all those for all the "Why why? So what?" lines and implement them.
+
+Use Northern Terry for all four Ys and SOWHAT in the presentation dialogue. Pitch and energy build across the four Ys. The red-dot voice varies its delivery by scene. The guardian’s earlier “Why?” uses the same voice as a quiet precursor. Acting directions go to ElevenLabs, and the presentation plays each clip with word highlighting driven by its returned timestamps.
+
+
+## 2026-11-26T15:00:01-08:00 · Cast Amuro as Simone in the Door World
+
+Recorded in Pacific time in the [Simone voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf). The attached Voice Library row identifies “Amuro - Cute & Mature.”
+
+> let's use this for all the simone's line in the suzume section, where I wanted to speak in English， But in Japanese accent。You can think of how can you do it。Maybe like try just pure like katakana or hiragana or like romaji generation。So just like the end goal is one of his big in a Japanese accent but English。
+
+In the Door World (P2), use Amuro and ElevenLabs Multilingual v2 with the original English text. The approach uses the source voice’s accent and supports timing each displayed English word. Apply it to all 19 saved Simone cues, including her voice in the shared closing chant.

@@ -1,6 +1,8 @@
 import { addDialogueSpeaker, dialogueSpeaker, groupDialogueLabels } from './dialogue-speakers';
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createTrialDialogue } from './trial-dialogue';
+import { createDialogueVoice } from './timed-dialogue';
+import { isDoorWorldScene, isSimoneCue } from './simone-voice-lines';
 import { createDialogueFrame } from './dialogue-frame';
 import { createSpeakerOutline } from './speaker-outline';
 import { createOperationBecause } from './operation-because';
@@ -9,7 +11,7 @@ import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById } from './slide-content';
-import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, inkPassageStarts, openingClassroomScene } from './classroom-cues';
+import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, inkPassageStarts, openingClassroomScene, unlabeledYTurn } from './classroom-cues';
 import { hasEstablishingShot, inkPassages, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
 import type { DialogueStructure, SlideCopy } from './shared-slide-data';
@@ -50,13 +52,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   let questionIndex = -1;
   let resultIndex = -1;
   const lineText = (index: number) => sharedLine?.(script[index].key) ?? script[index].text;
-  function yTurn(line: typeof script[number]) {
-    return line.speaker === 'Y' && !line.speakerId
-      ? authoredCues(line.scene).slice(0, line.sourceNumber).filter(cue => cue.speaker === 'Y').length
-      : 0;
-  }
   function appearance(line: typeof script[number]) {
-    return line.silent ? undefined : dialogueSpeaker(line, line.scene, yTurn(line));
+    return line.silent ? undefined : dialogueSpeaker(line, line.scene, unlabeledYTurn(line));
   }
   function renderRows() {
     firstCue.clear();
@@ -139,7 +136,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     parent.append(controls);
     if (focused instanceof HTMLButtonElement && controls.contains(focused)) focused.focus({ preventScroll: true });
   }
-  const trial = createTrialDialogue(stage, () => move(1));
+  const voice = createDialogueVoice();
+  const trial = createTrialDialogue(stage, () => move(1), voice);
   let onCueChange: (() => void) | undefined;
   shell.append(stage);
 
@@ -194,7 +192,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     const line = script[highlighted];
     if (!line || line.silent || line.kind || line.scene === 'P1') return;
-    speakerOutline.show(url, line.speakerId ?? line.speaker, yTurn(line));
+    speakerOutline.show(url, line.speakerId ?? line.speaker, unlabeledYTurn(line));
   });
   function photoAt(index: number) {
     const line = script[index];
@@ -305,6 +303,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     return resultIndex > questionIndex ? resultIndex : questionIndex + 1;
   }
   function select(index: number, local = false, photo?: string) {
+    voice.stop();
     clearQuestion();
     const line = script[index];
     clearTimeout(scrollTimer);
@@ -325,6 +324,13 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     setVisibleRows(line.scene);
     highlight(index);
+    if (!inCourt && !editing && !line.silent) {
+      const target = rows[index].querySelector<HTMLElement>('.dialogue-words')!;
+      if (isSimoneCue(line)) {
+        if (isDoorWorldScene(line.scene)) voice.playDoorSimone(target, lineText(index), line.key);
+        else voice.play(target, lineText(index));
+      } else voice.playSowatt(target, lineText(index), line.key);
+    }
     if (index === lastCue.get(line.scene)) operation.markViewed(line.scene);
     announcement.textContent = line.silent ? '' : (appearance(line)?.name ?? line.speaker) + '. ' + lineText(index);
     if (index === questionIndex && (quizEnabled || presenter)) {
@@ -484,6 +490,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const nextLine = script[pendingLine]?.scene === id ? pendingLine : index;
     pendingLine = -1;
     if (index < 0) {
+      voice.stop();
       trial.hide();
       establishing = false;
       viewport.removeAttribute('data-establishing-shot');
@@ -526,7 +533,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     rows.forEach((row, index) => {
       const next = lineText(index);
       const words = row.querySelector<HTMLElement>('.dialogue-words')!;
-      if (words.textContent !== next) words.textContent = next;
+      if (words.textContent !== next) {
+        if (index === active) voice.stop();
+        words.textContent = next;
+      }
     });
     if (force && script[active]?.scene === 'P1' && !establishing) trial.updateText(script[active], sharedLine?.(script[active].key));
   }
@@ -552,6 +562,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       scene, root, lines, quiz, panel: court ? undefined : notes.inlineFields,
       sequence: editableCueSequence(scene) ? reader : undefined,
       start() {
+        voice.stop();
         clearTimeout(scrollTimer);
         clearTimeout(quizTimer);
         editing = true;

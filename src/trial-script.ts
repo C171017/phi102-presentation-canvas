@@ -18,6 +18,17 @@ const speakerShots: Readonly<Record<string, string | undefined>> = {
   'Old woman': trialArt.motherObjects,
 };
 
+export function trialShout(raw: string) {
+  return /^(OBJECTION!|TAKE THAT!)/.exec(raw)?.[0];
+}
+
+export function trialDialogueText(raw: string, edited?: string) {
+  if (edited !== undefined) return edited;
+  const shout = trialShout(raw);
+  if (shout) return raw.slice(shout.length).trim() || (shout === 'OBJECTION!' ? 'Objection!' : 'Take that!');
+  return /^Banner: (.+)/.exec(raw)?.[1] ?? raw;
+}
+
 function dialoguePages(text: string): string[] {
   // Break at a sentence when possible. All viewers get the same page boundaries.
   const pages: string[] = [];

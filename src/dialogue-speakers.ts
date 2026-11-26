@@ -1,4 +1,5 @@
 import type { InkOceanCue } from './ink-ocean-scenes';
+import { simoneNarratesScene } from './simone-voice-lines';
 import './dialogue-speakers.css';
 
 type SpeakerAppearance = { id: string; name: string; faces: readonly number[] };
@@ -27,7 +28,7 @@ const cast: Readonly<Record<string, number>> = {
 export function dialogueSpeaker(cue: Pick<InkOceanCue, 'speaker' | 'speakerId' | 'kind'>, scene: string, yTurn = 0): SpeakerAppearance | undefined {
   if (cue.kind || !cue.speaker || /^P1(?:-|$)/.test(scene)) return;
   if (cue.speaker === 'Narrator') {
-    if (/^(?:L[0-7](?:-|$)|regress-)/.test(scene)) return { id: 'Simone', name: 'Simone (Narrator)', faces: [cast.Simone] };
+    if (simoneNarratesScene(scene)) return { id: 'Simone', name: 'Simone (Narrator)', faces: [cast.Simone] };
     return;
   }
   if (cue.speaker === 'Both') return { id: 'Both', name: 'Simone & Cole', faces: [cast.Simone, cast.Cole] };

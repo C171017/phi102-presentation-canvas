@@ -1,8 +1,10 @@
 import type { InkOceanCue } from './ink-ocean-scenes';
 import { createTrialAudio } from './trial-audio';
+import { trialDialogueText, trialShout } from './trial-script';
+import type { createDialogueVoice } from './timed-dialogue';
 import './trial-dialogue.css';
 
-export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
+export function createTrialDialogue(stage: HTMLElement, advance: () => void, simone: ReturnType<typeof createDialogueVoice>) {
   const screen = document.createElement('div');
   screen.className = 'trial-screen';
   screen.hidden = true;
@@ -56,6 +58,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     typing = false;
   }
   function finish() {
+    simone.stop();
     clearTimeout(timer);
     clearTimeout(strikeTimer);
     strike?.();
@@ -88,11 +91,13 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     }
     tick();
   }
-  function displayText(raw: string, edited?: string) {
-    if (edited !== undefined) return edited;
-    const shout = /^(OBJECTION!|TAKE THAT!)/.exec(raw)?.[0];
-    if (shout) return raw.slice(shout.length).trim() || (shout === 'OBJECTION!' ? 'Objection!' : 'Take that!');
-    return /^Banner: (.+)/.exec(raw)?.[1] ?? raw;
+  function speak(line: InkOceanCue, voiced: boolean) {
+    delete screen.dataset.interrupting;
+    impact.replaceChildren();
+    delete impact.dataset.effect;
+    if (voiced && simone.play(spoken, fullText, played => played ? finish() : type(line))) {
+      unspoken.textContent = '';
+    } else type(line);
   }
   function show(line?: InkOceanCue, edited?: string) {
     reset();
@@ -106,12 +111,14 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
       name.textContent = spoken.textContent = unspoken.textContent = '';
       return;
     }
-    const shout = /^(OBJECTION!|TAKE THAT!)/.exec(line.text)?.[0];
+    const shout = trialShout(line.text);
     const verdict = /“NOT GUILTY”/.test(line.text);
     const title = /^Banner: (.+)/.exec(line.text)?.[1];
     name.textContent = line.kind ? '' : line.speaker;
     message.toggleAttribute('data-narration', Boolean(line.kind));
-    fullText = displayText(line.text, edited);
+    fullText = trialDialogueText(line.text, edited);
+    const voiced = !line.kind && line.speaker === 'Simone' && !document.hidden &&
+      fullText.trim().toUpperCase() !== shout && Boolean(simone.find(fullText));
     spoken.textContent = '';
     unspoken.textContent = fullText;
     typing = true;
@@ -140,8 +147,8 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
       } else {
         impact.textContent = title ?? 'NOT GUILTY';
       }
-      timer = window.setTimeout(() => type(line), shout ? 950 : 1250);
-    } else type(line);
+      timer = window.setTimeout(() => speak(line, voiced), shout ? 950 : 1250);
+    } else speak(line, voiced);
   }
   return {
     show,
@@ -160,7 +167,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     },
     updateText(line: InkOceanCue, edited?: string) {
       strike = undefined;
-      fullText = displayText(line.text, edited);
+      fullText = trialDialogueText(line.text, edited);
       finish();
     },
     hide() { reset(); screen.hidden = true; },

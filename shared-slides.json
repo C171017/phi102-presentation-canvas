@@ -1,7 +1,7 @@
 {
-  "revision": 21,
-  "savedAt": "2026-11-26T21:41:59.663Z",
-  "summary": "Edited dialogue · 3. Classroom · Opening explanation",
+  "revision": 36,
+  "savedAt": "2026-11-26T22:45:08.054Z",
+  "summary": "Edited dialogue · 14. The Stranger",
   "document": {
     "layout": null,
     "copy": {
@@ -13,7 +13,7 @@
           },
           {
             "kind": "text",
-            "text": "Introduction of the background setting."
+            "text": "All ravens are black in normal conversation (low stake)"
           }
         ]
       },
@@ -83,6 +83,30 @@
             ]
           }
         ]
+      },
+      "L7": {
+        "sections": [
+          {
+            "kind": "header",
+            "title": "",
+            "source": "Greco · §1, p. 427"
+          },
+          {
+            "kind": "heading",
+            "text": "Locally undoubted foundations (Undoubted, not undoubtable)"
+          },
+          {
+            "kind": "text",
+            "text": "A belief can settle a doubt when it is itself undoubted in that inquiry."
+          },
+          {
+            "kind": "bullets",
+            "items": [
+              "A premise can support a conclusion even if we could question the premise on another occasion.",
+              "This gives the foundationalist a reason to stop without requiring absolute certainty."
+            ]
+          }
+        ]
       }
     },
     "dialogue": {
@@ -99,7 +123,7 @@
       "regress-skepticism:3:dzmp3n": "[Beside him, his old teacher Anaxarchus is sinking into the liquid ink, waving.]",
       "regress-infinitism:7:buc68m": "The objection — at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever solidifies.",
       "regress-foundationalism:8:bamr6v": "[In his ladle, one grain of ink turns matte. SOWATT keeps asking. It stays solid.]",
-      "regress-foundationalism:9:1pu7qi2": "The first belief in history that stayed solid while being asked about.",
+      "regress-foundationalism:9:1pu7qi2": "For the first time since the Whypocalypse began, a belief stayed solid even as the questions kept coming.",
       "L6-A:0:1wv9lhn": "For the first time since the Whypocalypse, people had a way to fight back. The goal: solidify the world again, the way it used to be.",
       "L6-A:2:1qrfr3y": "The Cartesians would solidify only what could not be doubted. Ten thousand of them worked on it, day and night, for three hundred years.",
       "L6-A:5:tod0kx": "[A few grains of concrete ink fuse into one irregular pebble. Polite applause.]",
@@ -112,7 +136,11 @@
       "L3:14:bskj5i": "Why couldn’t a white raven be on its way?",
       "L3:15:1dhmpnd": "So what? One white raven blows your rule away.",
       "L3-continued:3:1gbz8st": "To the melted, demon will offer worlds of dream. They will step inside, and none of them will know they are dreaming.",
-      "L4:0:63tgj9": "For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited time and absolute authority."
+      "L4:0:63tgj9": "For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited time and absolute authority.",
+      "L3-continued:2:2t6uie": "And when the stones have melted, the Cartesian demon shall return.",
+      "regress-foundationalism:10:11pbni": "But it was the size of a grain of rice.",
+      "regress-foundationalism:1:1cqsz7f": "[Nameplate: RENÉ DESCARTES]",
+      "L6-A:1:1dtnhzb": "Overtime, people split into two schools."
     },
     "dialogueStructure": {
       "L0": {
@@ -126,7 +154,33 @@
         "removed": [
           "L3:3:15p4oc3",
           "L3:2:1yq4kak",
-          "L3:12:11s1s8c"
+          "L3:12:11s1s8c",
+          "L3:1:wjpj89"
+        ]
+      },
+      "regress-foundationalism": {
+        "added": [],
+        "removed": [
+          "regress-foundationalism:11:1ftg53j",
+          "regress-foundationalism:10:11pbni"
+        ]
+      },
+      "L7": {
+        "added": [],
+        "removed": [
+          "L7:7:ws865z",
+          "L7:3:1byunuk"
+        ]
+      },
+      "contemporary-heading": {
+        "added": [],
+        "removed": [],
+        "quizAfter": "contemporary-heading:1:12d4qp1"
+      },
+      "L6-A": {
+        "added": [],
+        "removed": [
+          "L6-A:0:1wv9lhn"
         ]
       }
     }
