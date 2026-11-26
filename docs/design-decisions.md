@@ -1477,3 +1477,11 @@ Recorded time in Pacific time. Howie requested a change to the preceding timing 
 > also notice the lttile variation of color box thing
 
 The cut follows the original picture timestamps. The first question sequence holds a single grid and then uses 12-, 7- and 9-frame inserts. Changes in the colored boxes, silhouette reveals and the line between shots adapt the visual phrasing to the project’s existing art.
+
+## 2026-11-25T21:41:42-08:00 · Private shared editing
+
+Recorded time in Pacific time. Howie asked for shared editing and history on the live site:
+
+> Yeah let's do it. Add an Edit mode to the live website so anyone can edit the slides and save to the same shared version, with version history so we can undo changes. but only people who go there with the customed prviate link
+
+The private link unlocks editing the slide copy and saving the map layout. The left panel remains the slide copy in dialogue scenes. Every save creates a revision, and restoring an earlier one creates a new revision. Viewers of the ordinary link can read the saved presentation.

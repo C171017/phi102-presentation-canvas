@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 import { createCanvasGrid } from './canvas-grid';
 import { constrainCanvasView, measureCanvasContent } from './canvas-pan';
-import { createLayoutController } from './layout';
+import { createHostedLayout, createLayoutController } from './layout';
 import initialLayout from './initial-layout';
 import { initializeIllustrations } from './illustrations';
 import { initializePaperSlides } from './paper-slides';
@@ -18,9 +18,13 @@ import type { PresentationCues } from './live-protocol';
 import { createLocalQuizVotes } from './local-quiz-votes';
 import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
+import { createPaperMiniSlide } from './paper-mini-slide';
+import { sharedSlideByKey } from './shared-slide-data';
+import { openSharedSlides } from './shared-slides';
 import type { ThreeLayer } from './three-layer';
 import './style.css';
 import './layout.css';
+import './shared-slide-editor.css';
 
 type View = { x: number; y: number; zoom: number };
 type Stop = View & { duration?: number };
@@ -46,10 +50,12 @@ const requestedRole = localDev ? new URLSearchParams(location.search).get('role'
 const previewRole = localDev && !onHostMac ? 'audience'
   : requestedRole === 'audience' || requestedRole === 'presenter' ? requestedRole : null;
 const hostedPresenter = liveMode && new URLSearchParams(location.hash.slice(1)).has('presenter');
-const hostedRoom = liveMode && (hostedPresenter || import.meta.env.VITE_PRESENTATION_DAY === '1');
+const shared = liveMode ? await openSharedSlides() : undefined;
+const sharedEditing = Boolean(shared?.snapshot.editable && !hostedPresenter);
+const hostedRoom = liveMode && !sharedEditing && (hostedPresenter || import.meta.env.VITE_PRESENTATION_DAY === '1');
 const localLivePreview = localDev && onHostMac && requestedRole === 'live-preview';
 const publicPreview = localLivePreview || (liveMode && !hostedRoom);
-const readOnly = liveMode || localLivePreview || previewRole !== null;
+const readOnly = (liveMode && !sharedEditing) || localLivePreview || previewRole !== null;
 const role = hostedPresenter ? 'presenter' : hostedRoom ? 'audience'
   : localLivePreview ? 'live-preview' : previewRole ?? 'editor';
 declare const __LOCAL_OPENING_VIDEO__: string;
@@ -68,11 +74,26 @@ const openingVideo = liveMode || localLivePreview || localOpening
       ? playing => import.meta.hot!.send('phi102:preview:opening', playing) : undefined,
   })
   : undefined;
+const sharedCopy = (key: string) => shared?.snapshot.document.copy[key];
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
-  readOnly && !publicPreview, role === 'presenter', openingVideo?.play);
+  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy);
 let currentIndex = -1;
 let overviewView: View = { ...view };
+const sharedPageCopy = shared ? createPaperMiniSlide(sharedCopy) : undefined;
+if (sharedPageCopy) {
+  sharedPageCopy.element.classList.add('shared-page-copy');
+  sharedPageCopy.element.hidden = true;
+  backdrop.append(sharedPageCopy.element);
+}
+function showSharedPageCopy() {
+  if (!sharedPageCopy) return;
+  const slide = slides[currentIndex];
+  const id = slide?.members[0];
+  const entry = id && sharedSlideByKey.get(id);
+  sharedPageCopy.element.hidden = !entry || entry.panel || !sharedCopy(entry.key);
+  if (entry && !sharedPageCopy.element.hidden) sharedPageCopy.show(entry.key, slide.title);
+}
 const previewControl = publicPreview ? document.createElement('button') : undefined;
 let pendingCue: {slide: number; cue: number} | undefined;
 const cues: PresentationCues = {
@@ -93,6 +114,7 @@ const slideNavigation = createSlideNavigation(world, showSlideFrame, index => {
   viewport.toggleAttribute('data-door-memory', id === 'P2-2a' || id === 'P2-2b' || id === 'P2-2c');
   if (!legend || !legend.background) viewport.style.removeProperty('--regress-background');
   openingDialogue.showScene(id);
+  showSharedPageCopy();
   if (id === 'before-lecture' || id === 'contemporary-heading') openingVideo?.preload();
   openingVideo?.close();
   if (pendingCue?.slide === index) cues.apply(index, pendingCue.cue);
@@ -107,13 +129,16 @@ viewport.querySelector<HTMLButtonElement>('.before-lecture-scene')!.addEventList
   openingDialogue.advance();
 });
 let connectionsDirty = true;
-const layout = createLayoutController(world, () => ({ ...target }), restored => {
+const getLayoutView = () => ({ ...target });
+function restoreLayoutView(restored: View) {
   if (publicPreview) overviewView = { ...restored };
   Object.assign(view, restored);
   Object.assign(target, restored);
   connectionsDirty = true;
   queueMicrotask(wake);
-}, initialLayout, readOnly);
+}
+const hostedLayout = shared && createHostedLayout(world, getLayoutView, restoreLayoutView, initialLayout, shared.snapshot.document.layout);
+const layout = hostedLayout || createLayoutController(world, getLayoutView, restoreLayoutView, initialLayout, readOnly);
 function invalidateConnections() { connectionsDirty = true; wake(); }
 let threeLayer: ThreeLayer | undefined;
 let loadingThree: Promise<ThreeLayer> | undefined;
@@ -560,6 +585,30 @@ if (localDev) {
   if (liveMode) {
     void import('./story-reader').then(({ addStoryReader }) => addStoryReader(backdrop));
   }
+}
+if (shared && hostedLayout && sharedEditing) {
+  void Promise.all([hostedLayout.ready, import('./shared-slide-editor')]).then(([, { addSharedSlideEditor }]) => {
+    addSharedSlideEditor(backdrop, shared, {
+      activeKey: () => openingDialogue.slideCopyKey ?? slides[currentIndex]?.members[0],
+      captureLayout: hostedLayout.capture,
+      canSaveLayout: slideNavigation.isOnCanvas,
+      apply(snapshot, resetLayout) {
+        if (resetLayout) {
+          slideNavigation.leavePage();
+          tween = undefined;
+          hostedLayout.restore(snapshot.document.layout);
+        }
+        openingDialogue.refreshSlideCopy();
+        showSharedPageCopy();
+      },
+    });
+  });
+} else if (shared?.denied) {
+  const notice = document.createElement('p');
+  notice.className = 'shared-slide-notice';
+  notice.setAttribute('role', 'status');
+  notice.textContent = shared.unavailable ? 'The shared editor is unavailable. Refresh to try again.' : 'This private edit link is invalid or expired.';
+  backdrop.append(notice);
 }
 if (import.meta.hot) {
   import.meta.hot.dispose(disposeRegressAnimations);

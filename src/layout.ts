@@ -1,24 +1,24 @@
-export type CameraView = { x: number; y: number; zoom: number };
-export type ItemLayout = { x: number; y: number; scale: number };
-export type Layout = { version: 1; savedAt: string; view: CameraView; items: Record<string, ItemLayout> };
+import { parseLayout, type CameraView, type Layout } from './layout-data';
+export { parseLayout, type CameraView, type ItemLayout, type Layout } from './layout-data';
 export const LAYOUT_KEY = 'phi102-presentation-layout-v1';
 
-const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
-export function parseLayout(raw: string | null): Layout | null {
-  if (!raw) return null;
-  try {
-    const data = JSON.parse(raw);
-    if (data?.version !== 1 || !data.items || typeof data.items !== 'object' || Array.isArray(data.items)) return null;
-    if (!finite(data.view?.x) || !finite(data.view?.y) || !finite(data.view?.zoom) || data.view.zoom < 0.1 || data.view.zoom > 8) return null;
-    const items: Record<string, ItemLayout> = Object.create(null);
-    for (const [id, value] of Object.entries(data.items)) {
-      const item = value as ItemLayout;
-      if (item && finite(item.x) && finite(item.y) && finite(item.scale) && item.scale >= 0.25 && item.scale <= 4) {
-        items[id] = { x: item.x, y: item.y, scale: item.scale };
-      }
-    }
-    return { version: 1, savedAt: typeof data.savedAt === 'string' ? data.savedAt : '', view: { x: data.view.x, y: data.view.y, zoom: data.view.zoom }, items };
-  } catch { return null; }
+export function createHostedLayout(world: HTMLElement, getView: () => CameraView, setView: (view: CameraView) => void,
+    fallback: Layout, initial: Layout | null) {
+  const defaults = captureLayout(world, fallback, fallback.view);
+  let baseline = fallback;
+  let previous = fallback;
+  function restore(layout: Layout | null) {
+    previous = layout ?? baseline;
+    applyLayout(world, { ...previous, items: { ...defaults.items, ...baseline.items, ...previous.items } }, setView);
+  }
+  const ready = (async () => {
+    try {
+      const response = await fetch('/canvas-layout.json');
+      if (response.ok) baseline = parseLayout(await response.text()) ?? fallback;
+    } catch { /* The bundled layout remains available. */ }
+    restore(initial);
+  })();
+  return { ready, restore, capture: () => captureLayout(world, previous, getView()), save: async () => false, schedule() {} };
 }
 
 export function createLayoutController(world: HTMLElement, getView: () => CameraView, setView: (view: CameraView) => void, fallback: Layout, readOnly = false) {
@@ -76,17 +76,7 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
       noticeFade = undefined;
     };
   }
-  function capture(): Layout {
-    const items = { ...previous.items };
-    for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
-      const css = getComputedStyle(element);
-      items[element.id] = {
-        x: parseFloat(css.left), y: parseFloat(css.top),
-        scale: Number(element.style.getPropertyValue('--item-scale')) || 1,
-      };
-    }
-    return { version: 1, savedAt: new Date().toISOString(), view: getView(), items };
-  }
+  const capture = () => captureLayout(world, previous, getView());
   let initialized = false;
   let changedBeforeReady = false;
   const clientId = crypto.randomUUID();
@@ -175,7 +165,7 @@ export function createLayoutController(world: HTMLElement, getView: () => Camera
   return { save, schedule, capture, ready };
 }
 
-function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraView) => void) {
+export function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraView) => void) {
   for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id], .legend-anchor[id]'))) {
     let item = layout.items[element.id];
     const lineup = layout.items['versions-map-scene'];
@@ -197,4 +187,16 @@ function applyLayout(world: HTMLElement, layout: Layout, setView: (view: CameraV
     element.style.setProperty('--item-scale', String(item.scale));
   }
   setView(layout.view);
+}
+
+export function captureLayout(world: HTMLElement, previous: Layout, view: CameraView): Layout {
+  const items = { ...previous.items };
+  for (const element of Array.from(world.querySelectorAll<HTMLElement>('.canvas-label[id]'))) {
+    const css = getComputedStyle(element);
+    items[element.id] = {
+      x: parseFloat(css.left), y: parseFloat(css.top),
+      scale: Number(element.style.getPropertyValue('--item-scale')) || 1,
+    };
+  }
+  return { version: 1, savedAt: new Date().toISOString(), view, items };
 }

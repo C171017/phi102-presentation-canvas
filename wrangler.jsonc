@@ -24,6 +24,10 @@
       {
         "name": "ROOMS",
         "class_name": "PresentationRoom"
+      },
+      {
+        "name": "SHARED_SLIDES",
+        "class_name": "SharedSlideHistory"
       }
     ]
   },
@@ -33,6 +37,10 @@
       "new_sqlite_classes": [
         "PresentationRoom"
       ]
+    },
+    {
+      "tag": "v2",
+      "new_sqlite_classes": ["SharedSlideHistory"]
     }
   ]
 }

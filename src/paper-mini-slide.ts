@@ -1,10 +1,11 @@
 import { openingNotes, type SlideNotes } from './legend-slide-notes';
 import { schoolNotes } from './school-slide-notes';
+import type { SlideCopy } from './shared-slide-data';
 import './paper-mini-slide.css';
 
 const notes: Record<string, SlideNotes> = { ...openingNotes, ...schoolNotes };
 
-export function createPaperMiniSlide() {
+export function createPaperMiniSlide(sharedCopy?: (key: string) => SlideCopy | undefined) {
   const element = document.createElement('section');
   element.className = 'paper-mini-slide';
   element.setAttribute('aria-label', 'Presentation notes');
@@ -27,12 +28,18 @@ export function createPaperMiniSlide() {
   bridge.className = 'mini-slide-bridge';
   element.append(header, claim, points, bridge);
   let activeKey: string | undefined;
+  let activeTitle = '';
+  let activeEdit: SlideCopy | undefined;
 
   function show(key: string, title: string) {
-    if (activeKey === key) return;
+    const edit = sharedCopy?.(key);
+    if (activeKey === key && activeTitle === title && activeEdit === edit) return;
+    const slide = edit ?? notes[key];
+    if (!slide) return;
     activeKey = key;
-    const slide = notes[key];
-    section.textContent = title;
+    activeTitle = title;
+    activeEdit = edit;
+    section.textContent = edit?.title ?? title;
     source.textContent = slide.source;
     claim.textContent = slide.claim;
     points.hidden = slide.points.length === 0;
@@ -45,5 +52,5 @@ export function createPaperMiniSlide() {
     bridge.hidden = !slide.bridge;
     element.scrollTop = 0;
   }
-  return { element, show };
+  return { element, show, get key() { return activeKey; }, refresh() { if (activeKey) show(activeKey, activeTitle); } };
 }

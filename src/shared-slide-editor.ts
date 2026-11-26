@@ -1,0 +1,212 @@
+import { isSlideCopy, sharedSlideByKey, sharedSlideEntries, type SharedSnapshot, type SlideCopy } from './shared-slide-data';
+import type { SharedSlideClient } from './shared-slides';
+import type { Layout } from './layout-data';
+
+type EditorOptions = {
+  activeKey: () => string | undefined;
+  captureLayout: () => Layout;
+  canSaveLayout: () => boolean;
+  apply: (snapshot: SharedSnapshot, resetLayout: boolean) => void;
+};
+
+export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClient, options: EditorOptions) {
+  const toolbar = document.createElement('div');
+  toolbar.className = 'shared-slide-toolbar';
+  toolbar.setAttribute('aria-label', 'Shared editor');
+  toolbar.innerHTML = `<button type="button" data-edit>Edit slide</button>
+    <button type="button" data-layout>Save layout</button>
+    <button type="button" data-history>Version history</button>
+    <span role="status"></span>`;
+  const status = toolbar.querySelector<HTMLElement>('[role="status"]')!;
+  shell.append(toolbar);
+
+  const editor = document.createElement('dialog');
+  editor.className = 'shared-slide-dialog';
+  editor.setAttribute('aria-label', 'Edit slide');
+  editor.innerHTML = `<form>
+    <h2>Edit slide</h2>
+    <label>Website section <select name="section"></select></label>
+    <label>Title <input name="title" maxlength="150" required></label>
+    <label>Main text <textarea name="claim" maxlength="500" rows="2" required></textarea></label>
+    <label>Bullet points, one per line <textarea name="points" maxlength="6100" rows="4"></textarea></label>
+    <label>Scene cue <textarea name="bridge" maxlength="500" rows="2"></textarea></label>
+    <label>Reference <input name="source" maxlength="180"></label>
+    <p role="status"></p>
+    <footer><button type="button" data-cancel>Cancel</button><button type="button" data-latest>Load latest</button>
+      <button type="submit">Save slide</button></footer>
+  </form>`;
+  shell.append(editor);
+  const form = editor.querySelector('form')!;
+  const section = form.querySelector('select')!;
+  const editorStatus = editor.querySelector<HTMLElement>('[role="status"]')!;
+  const fields = ['title', 'claim', 'points', 'bridge', 'source'] as const;
+  const inputs = Object.fromEntries(fields.map(name => [name, form.elements.namedItem(name)])) as
+    Record<typeof fields[number], HTMLInputElement | HTMLTextAreaElement>;
+  for (const entry of sharedSlideEntries) section.add(new Option(entry.label, entry.key));
+  function showCopy() {
+    const copy = client.snapshot.document.copy[section.value] ?? sharedSlideByKey.get(section.value)!.initial;
+    for (const name of fields) inputs[name].value = name === 'points' ? copy.points.join('\n') : copy[name];
+    editorStatus.textContent = '';
+  }
+
+  const versions = document.createElement('dialog');
+  versions.className = 'shared-slide-dialog shared-slide-history';
+  versions.setAttribute('aria-label', 'Version history');
+  versions.innerHTML = `<h2>Version history</h2><p role="status"></p><ol aria-label="Saved versions"></ol>
+    <footer><button type="button" data-close>Close</button><button type="button" data-latest>Load latest</button>
+      <button type="button" data-older hidden>Earlier versions</button></footer>`;
+  shell.append(versions);
+  const historyStatus = versions.querySelector<HTMLElement>('[role="status"]')!;
+  const list = versions.querySelector('ol')!;
+  const older = versions.querySelector<HTMLButtonElement>('[data-older]')!;
+  let before: number | null = null;
+  let currentRevision = client.snapshot.revision;
+  let busy = false;
+  let appliedLayout = client.snapshot.document.layout?.savedAt ?? '';
+
+  function apply(snapshot: SharedSnapshot, resetLayout: boolean) {
+    if (resetLayout) appliedLayout = snapshot.document.layout?.savedAt ?? '';
+    options.apply(snapshot, resetLayout);
+    status.textContent = snapshot.revision ? `Version ${snapshot.revision}` : 'Original version';
+  }
+
+  async function run(message: HTMLElement, action: () => Promise<void>, pending = 'Saving…') {
+    if (busy) return;
+    busy = true;
+    message.textContent = pending;
+    const controls = Array.from(shell.querySelectorAll<HTMLButtonElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+      '.shared-slide-toolbar button, .shared-slide-dialog :is(button, input, select, textarea)'))
+      .filter(control => !control.disabled);
+    controls.forEach(control => { control.disabled = true; });
+    try { await action(); }
+    catch (error) { message.textContent = error instanceof Error ? error.message : 'The request failed. Try again.'; }
+    finally {
+      controls.forEach(control => { control.disabled = false; });
+      busy = false;
+    }
+  }
+
+  function addVersions(target: number | null) {
+    return client.history(target).then(page => {
+      if (target === null) {
+        list.replaceChildren();
+        currentRevision = page.versions[0]?.revision ?? 0;
+      }
+      for (const item of page.versions) {
+        const row = document.createElement('li');
+        const label = document.createElement('span');
+        const heading = item.revision ? `Version ${item.revision}` : 'Original';
+        label.textContent = `${heading} · ${item.summary}`;
+        if (item.savedAt) {
+          const date = document.createElement('time');
+          date.dateTime = item.savedAt;
+          date.textContent = new Date(item.savedAt).toLocaleString();
+          label.append(date);
+        }
+        row.append(label);
+        if (item.revision < currentRevision) {
+          const restore = document.createElement('button');
+          restore.type = 'button';
+          restore.textContent = 'Restore';
+          restore.setAttribute('aria-label', `Restore ${heading.toLowerCase()}`);
+          restore.addEventListener('click', () => {
+            if (busy || !window.confirm(`Restore ${heading.toLowerCase()} for everyone? Your current version stays in history.`)) return;
+            void run(historyStatus, async () => {
+              const saved = await client.restore(item.revision);
+              apply(saved, true);
+              await addVersions(null);
+              historyStatus.textContent = `Restored as version ${saved.revision}.`;
+            });
+          });
+          row.append(restore);
+        } else if (item.revision === currentRevision) {
+          const current = document.createElement('span');
+          current.textContent = 'Current';
+          row.append(current);
+        }
+        list.append(row);
+      }
+      before = page.next;
+      older.hidden = before === null;
+    });
+  }
+
+  function saveLayout() {
+    if (!options.canSaveLayout()) {
+      status.textContent = 'Return to the map to save its layout.';
+      return;
+    }
+    if (appliedLayout !== (client.snapshot.document.layout?.savedAt ?? '')) {
+      status.textContent = 'The shared layout changed. Load it in Version history before saving.';
+      return;
+    }
+    void run(status, async () => {
+      const saved = await client.save({ type: 'layout', layout: options.captureLayout() });
+      appliedLayout = saved.document.layout?.savedAt ?? '';
+      apply(saved, false);
+    });
+  }
+
+  toolbar.querySelector('[data-edit]')!.addEventListener('click', () => {
+    const key = options.activeKey();
+    if (key && sharedSlideByKey.has(key)) section.value = key;
+    showCopy();
+    editor.showModal();
+  });
+  toolbar.querySelector('[data-layout]')!.addEventListener('click', saveLayout);
+  toolbar.querySelector('[data-history]')!.addEventListener('click', () => {
+    versions.showModal();
+    void run(historyStatus, async () => {
+      await addVersions(null);
+      historyStatus.textContent = currentRevision === client.snapshot.revision ? '' : 'A newer version is available. Load it before restoring.';
+    }, 'Loading versions…');
+  });
+  document.addEventListener('keydown', event => {
+    if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 's' || event.altKey || editor.open || versions.open) return;
+    event.preventDefault();
+    saveLayout();
+  });
+  section.addEventListener('change', showCopy);
+  editor.querySelector('[data-cancel]')!.addEventListener('click', () => editor.close());
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const draft: SlideCopy = { title: inputs.title.value.trim(), claim: inputs.claim.value.trim(),
+      points: inputs.points.value.split('\n').map(value => value.trim()).filter(Boolean),
+      bridge: inputs.bridge.value.trim(), source: inputs.source.value.trim() };
+    if (!isSlideCopy(draft)) {
+      editorStatus.textContent = 'Enter a title and main text. Use at most 12 bullet points, each up to 500 characters.';
+      return;
+    }
+    const key = section.value;
+    void run(editorStatus, async () => {
+      apply(await client.save({ type: 'copy', key, copy: draft }), false);
+      editor.close();
+    });
+  });
+  editor.querySelector('[data-latest]')!.addEventListener('click', () => {
+    void run(editorStatus, async () => {
+      apply(await client.refresh(), false);
+      editorStatus.textContent = 'Latest version loaded. Your open draft is still here.';
+    }, 'Loading latest…');
+  });
+  older.addEventListener('click', () => {
+    void run(historyStatus, async () => { await addVersions(before); historyStatus.textContent = ''; }, 'Loading versions…');
+  });
+  versions.querySelector('[data-close]')!.addEventListener('click', () => versions.close());
+  versions.querySelector('[data-latest]')!.addEventListener('click', () => {
+    void run(historyStatus, async () => {
+      const latest = await client.refresh();
+      const changed = appliedLayout !== (latest.document.layout?.savedAt ?? '');
+      if (changed && !window.confirm('Load the latest shared layout? Unsaved moves in this tab will be discarded.')) {
+        apply(latest, false);
+        historyStatus.textContent = 'Latest text loaded. Your layout is still open in this tab.';
+        return;
+      }
+      apply(latest, changed);
+      await addVersions(null);
+      historyStatus.textContent = 'Latest version loaded.';
+    }, 'Loading latest…');
+  });
+  for (const dialog of [editor, versions]) dialog.addEventListener('cancel', event => { if (busy) event.preventDefault(); });
+  apply(client.snapshot, false);
+}

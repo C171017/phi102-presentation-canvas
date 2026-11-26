@@ -9,6 +9,7 @@ import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById, legendSlides } from './slide-content';
 import { hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
+import type { SlideCopy } from './shared-slide-data';
 import './classroom-dialogue.css';
 
 const introScenes = ['unitrans-arrival', 'before-lecture'];
@@ -24,7 +25,7 @@ const script: (InkOceanCue & { scene: string; phase?: 'question' | 'reveal' })[]
 const questionIndex = script.findIndex(line => line.phase === 'question');
 const answerWindowMs = openingQuizWindowMs;
 
-export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void) {
+export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined) {
   const stage = document.createElement('div');
   stage.className = 'classroom-stage';
   stage.hidden = true;
@@ -42,7 +43,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const panel = document.createElement('section');
   panel.className = 'transcript-panel';
   panel.setAttribute('aria-label', 'Opening dialogue');
-  const notes = createPaperMiniSlide();
+  const notes = createPaperMiniSlide(sharedCopy);
   const reader = document.createElement('div');
   reader.className = 'transcript-reader';
   reader.tabIndex = 0;
@@ -421,6 +422,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }
   return {
     theory, showScene, handleArrow, stepDialogue, advance: () => move(1),
+    get slideCopyKey() { return panel.hidden || stage.hidden ? undefined : notes.key; },
+    refreshSlideCopy: notes.refresh,
     updateOpeningQuiz(view?: OpeningQuizSnapshot) {
       const previousDeadline = roomQuiz?.closesAt;
       roomQuiz = view;

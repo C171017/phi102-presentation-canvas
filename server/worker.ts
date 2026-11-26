@@ -1,4 +1,7 @@
 import { DurableObject } from 'cloudflare:workers';
+import { sharedSlidesPath } from '../src/shared-slide-data';
+import type { SharedSlidesEnv } from './shared-slides';
+export { SharedSlideHistory } from './shared-slides';
 import { serveVideo } from './video-assets';
 import openingMedia from '../src/opening-media.json';
 import { slides } from '../src/slide-content';
@@ -8,7 +11,7 @@ import { firstPresentationCue, isCue, isSlide, slideCount, presenterKeyPattern, 
 
 import { applyTheoryAction, ballotSlide, resolveBallot, theoryScene, theoryVoteWindowMs, voteView, type TheoryAction, type TheoryBallot } from '../src/theory-vote';
 
-interface Env {
+interface Env extends SharedSlidesEnv {
   ASSETS: Fetcher;
   ROOMS: DurableObjectNamespace<PresentationRoom>;
   PRESENTER_KEY?: string;
@@ -22,6 +25,9 @@ const error = (message: string, status: number) => new Response(message, { statu
 export default {
   fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === sharedSlidesPath || url.pathname.startsWith(`${sharedSlidesPath}/`)) {
+      return env.SHARED_SLIDES.getByName('presentation').fetch(request);
+    }
     if (url.pathname === '/api/opening-quiz') {
       if (request.method !== 'GET' && request.headers.get('Origin') !== url.origin) return error('Origin not allowed', 403);
       return env.ROOMS.getByName('phi102').fetch(request);

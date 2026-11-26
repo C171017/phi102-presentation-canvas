@@ -70,3 +70,9 @@ On `npm run dev` at `http://127.0.0.1:5182/`, choose **Live Preview** to try the
 Run `npm run build:live` to build the public canvas. To test the actual classroom backend on localhost, set a separate random 64-character lowercase hexadecimal `PRESENTER_KEY` in `.dev.vars` and run `VITE_PRESENTATION_DAY=1 npm run dev:live`. Open `http://localhost:5192/` as a viewer or append `#presenter=<local-key>` to present.
 
 Cloudflare Workers Builds runs the live build and performance tests on pushes to `main`, then deploys to the public site if they pass. Check the commit’s Cloudflare status on GitHub or the Worker’s Deployments tab. For a manual deploy, run `npm run deploy` from an authorized Wrangler session. Deployments retain the existing Worker secret. The production key is stored as the Worker's `PRESENTER_KEY` secret. If the private URL is shared accidentally, replace that secret and update the private URL.
+
+### Shared editing
+
+Open the private edit link to edit slide text and save the map layout. Changes appear on the public site when it loads. **Version history** records each save and can restore an earlier snapshot as a new version. If another editor saves first, load the latest version before saving again. The edit form keeps open text while loading the latest version.
+
+The editor key is separate from the presenter key. Set `SLIDE_EDIT_KEY` as a Worker secret using a random 64-character lowercase hexadecimal value. Give collaborators the URL with `#edit=` followed by that value. The public URL has no edit controls. Rotating `SLIDE_EDIT_KEY` invalidates older private links while retaining the shared slides and history.
