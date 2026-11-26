@@ -37,7 +37,6 @@
 }
 .school-pane .transcript-reader { padding-inline: clamp(8px, 1.8cqw, 28px); }
 .school-pane .transcript-row {
-  display: block;
   width: 100%;
   background: none;
   border: 0;

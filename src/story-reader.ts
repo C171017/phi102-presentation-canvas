@@ -1,3 +1,4 @@
+import { addDialogueSpeaker, dialogueSpeaker } from './dialogue-speakers';
 import { storyVersions } from './story-scenes';
 import { savedStoryText } from './saved-story-text';
 import { isStoryBeatHeading, isStoryText, storyBodyLimit, storyTextEndpoint, storyTitleLimit, type StoryEdits } from './story-text';
@@ -13,23 +14,31 @@ function storyLineType(line: string) {
   return 'description';
 }
 
-function renderStoryParagraph(text: string) {
+function renderStoryParagraph(text: string, scene: string, nextY: () => number) {
   const paragraph = document.createElement('p');
   for (const [index, line] of text.split('\n').entries()) {
     if (index > 0) paragraph.append('\n');
     const row = document.createElement('span');
-    row.dataset.storyLine = storyLineType(line);
-    for (const part of line.split(/(\[[^\[\]]+\])/g)) {
+    const kind = storyLineType(line);
+    row.dataset.storyLine = kind;
+    const match = kind === 'dialogue' || kind === 'narration' ? /^([^:]+):\s*/.exec(line.trimStart()) : null;
+    const speaker = match && dialogueSpeaker({ speaker: match[1] }, scene, match[1] === 'Y' ? nextY() : 0);
+    const words = document.createElement('span');
+    words.className = 'dialogue-words';
+    if (speaker) addDialogueSpeaker(row, speaker);
+    const content = speaker && match ? line.trimStart().slice(match[0].length) : line;
+    for (const part of content.split(/(\[[^\[\]]+\])/g)) {
       if (!part) continue;
       if (part.startsWith('[') && part.endsWith(']')) {
         const direction = document.createElement('span');
         direction.dataset.storyLine = 'description';
         direction.textContent = part;
-        row.append(direction);
+        words.append(direction);
       } else {
-        row.append(part);
+        words.append(part);
       }
     }
+    row.append(words);
     paragraph.append(row);
   }
   return paragraph;
@@ -138,7 +147,9 @@ export function addStoryReader(shell: HTMLElement, picker?: HTMLElement, editabl
     if (illustration) image.src = illustration.src;
     else image.removeAttribute('src');
     heading.textContent = title;
-    paragraphs.replaceChildren(...(imageOnly ? [] : text.map(renderStoryParagraph)));
+    let yTurn = 0;
+    const sceneId = entry.id.slice('ink-ocean-'.length);
+    paragraphs.replaceChildren(...(imageOnly ? [] : text.map(paragraph => renderStoryParagraph(paragraph, sceneId, () => yTurn++))));
     position.textContent = `${index + 1} / ${storyScenes.length}`;
     updateControls();
     scene.scrollTop = 0;

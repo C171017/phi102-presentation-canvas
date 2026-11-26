@@ -1543,3 +1543,12 @@ Recorded time in Pacific time. Howie requested:
 > also the left slide part can also remove and add section and mvoe around (but alwasy in like aligned way not arbitrayr psotion
 
 Let editors add, remove, and reorder left-panel sections in a single aligned column. A slide can be saved with any combination of sections, including an empty panel.
+
+
+## 2026-11-25T22:11:41-08:00 · Identify each dialogue speaker
+
+Recorded time in Pacific time. Howie requested speaker names and face icons in the [presentation chat](codex://threads/01a2165e-0794-74e0-bbfc-3559b7c1b3bd):
+
+> Just the face, like a profile picture. And then you're going to label each dialogue on the left of it with the speaker's name and the visual label they have.
+
+Use face crops from the existing illustrations. Show Simone (Narrator) for the Legend narration and Simone for her own dialogue starting at The Trial. Keep later generic narration separate from Simone and keep stage directions without portraits. Show both portraits when Simone and Cole speak together.

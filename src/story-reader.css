@@ -145,7 +145,7 @@
 .story-reader__paragraphs { max-inline-size: 64ch; }
 .story-reader__paragraphs > p { margin: 0; }
 .story-reader__paragraphs > p + p { margin-block-start: .8em; }
-.story-reader__paragraphs > p > [data-story-line] { display: block; }
+.story-reader__paragraphs > p > [data-story-line]:not(.has-dialogue-speaker) { display: block; }
 .story-reader__paragraphs [data-story-line="description"] { color: #41516a; font-style: italic; }
 .story-reader__paragraphs > p > [data-story-line="description"]:not(:empty) {
   margin-block: .35em;

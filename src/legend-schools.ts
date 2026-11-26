@@ -1,3 +1,4 @@
+import { addDialogueSpeaker, dialogueSpeaker } from './dialogue-speakers';
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createDialogueFrame } from './dialogue-frame';
 import { hasEstablishingShot, schoolScenes, type InkOceanScene } from './ink-ocean-scenes';
@@ -42,8 +43,13 @@ function makePanel(scene: InkOceanScene, selectCue: (cue: number) => void) {
     row.className = 'transcript-row';
     row.dataset.speaker = cue.speakerId ?? cue.speaker;
     if (cue.kind) row.dataset.cueKind = cue.kind;
-    row.textContent = cue.text;
-    row.setAttribute('aria-label', cue.speaker + ': ' + cue.text);
+    const speaker = dialogueSpeaker(cue, scene.id);
+    if (speaker) addDialogueSpeaker(row, speaker);
+    const words = document.createElement('span');
+    words.className = 'dialogue-words';
+    words.textContent = cue.text;
+    row.append(words);
+    row.setAttribute('aria-label', (speaker?.name ?? cue.speaker) + ': ' + cue.text);
     row.addEventListener('click', () => selectCue(index));
     reader.append(row);
     return row;

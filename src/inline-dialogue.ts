@@ -5,7 +5,7 @@ import type { SlideSection } from './slide-sections';
 type PanelFields = {
   key: string; element: HTMLElement; sections: SlideSection[];
 };
-type EditableLine = { key: string; element: HTMLElement };
+type EditableLine = { key: string; element: HTMLElement; row?: HTMLElement };
 
 export type InlineDialogueTarget = {
   scene: string;
@@ -77,23 +77,25 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
   }
 
   function insertLine(anchor: EditableLine | null) {
-    const node = document.createElement('div');
-    node.className = 'transcript-row';
-    const example = anchor?.element ?? target.lines[0]?.element;
-    if (example?.dataset.speaker) node.dataset.speaker = example.dataset.speaker;
-    if (example?.dataset.cueKind) node.dataset.cueKind = example.dataset.cueKind;
+    const example = anchor?.row ?? target.lines[0]?.row;
+    const row = example ? example.cloneNode(true) as HTMLElement : document.createElement('div');
+    row.classList.add('transcript-row');
+    row.hidden = false;
+    row.removeAttribute('aria-current');
+    const element = row.querySelector<HTMLElement>('.dialogue-words') ?? row;
+    element.textContent = '';
     const key = 'line-' + crypto.randomUUID().replaceAll('-', '');
     inserted.set(key, { key, after: anchor?.key ?? null, text: '' });
-    if (anchor) wrappers.get(anchor.key)!.wrapper.after(node);
-    else firstSlot.after(node);
-    const line = { key, element: node };
+    if (anchor) wrappers.get(anchor.key)!.wrapper.after(row);
+    else firstSlot.after(row);
+    const line = { key, row, element };
     mountLine(line);
     if (quizAfter !== undefined && quizAfter === (anchor?.key ?? null)) {
       quizAfter = key;
       placeQuizMarker();
     }
     updateLineControls();
-    node.focus();
+    element.focus();
   }
 
   function removeLine(line: EditableLine) {
@@ -131,8 +133,9 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
     controls.className = 'inline-line-controls';
     const buttons = [editButton('Add line after', () => insertLine(line)), editButton('Remove line', () => removeLine(line))];
     controls.append(...buttons);
-    line.element.before(wrapper);
-    wrapper.append(line.element, controls);
+    const row = line.row ?? line.element;
+    row.before(wrapper);
+    wrapper.append(row, controls);
     wrappers.set(line.key, { wrapper, line, buttons });
   }
 
@@ -259,7 +262,7 @@ export function editInlineDialogue(target: InlineDialogueTarget, selection: Even
       quizMarker.remove();
       for (const { wrapper, line } of wrappers.values()) {
         if (inserted.has(line.key)) wrapper.remove();
-        else wrapper.replaceWith(line.element);
+        else wrapper.replaceWith(line.row ?? line.element);
       }
       target.stop();
     },

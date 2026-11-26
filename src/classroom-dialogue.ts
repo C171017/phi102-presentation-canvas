@@ -1,3 +1,4 @@
+import { addDialogueSpeaker, dialogueSpeaker } from './dialogue-speakers';
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createTrialDialogue } from './trial-dialogue';
 import { createDialogueFrame } from './dialogue-frame';
@@ -48,6 +49,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   let questionIndex = -1;
   let resultIndex = -1;
   const lineText = (index: number) => sharedLine?.(script[index].key) ?? script[index].text;
+  function yTurn(line: typeof script[number]) {
+    return line.speaker === 'Y' && !line.speakerId
+      ? authoredCues(line.scene).slice(0, line.sourceNumber).filter(cue => cue.speaker === 'Y').length
+      : 0;
+  }
+  function appearance(line: typeof script[number]) {
+    return line.silent ? undefined : dialogueSpeaker(line, line.scene, yTurn(line));
+  }
   function renderRows() {
     firstCue.clear();
     lastCue.clear();
@@ -61,7 +70,12 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       row.className = 'transcript-row';
       row.dataset.speaker = speakerId ?? speaker;
       if (kind) row.dataset.cueKind = kind;
-      row.textContent = lineText(index);
+      const speakerAppearance = appearance(script[index]);
+      if (speakerAppearance) addDialogueSpeaker(row, speakerAppearance);
+      const words = document.createElement('span');
+      words.className = 'dialogue-words';
+      words.textContent = lineText(index);
+      row.append(words);
       reader.append(row);
       return row;
     });
@@ -142,10 +156,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     viewport.style.setProperty('--regress-background', `url("${url}")`);
     const line = script[highlighted];
     if (!line || line.silent || line.kind || line.scene === 'P1') return;
-    const turn = line.speaker === 'Y' && !line.speakerId
-      ? authoredCues(line.scene).slice(0, line.sourceNumber).filter(cue => cue.speaker === 'Y').length
-      : 0;
-    speakerOutline.show(url, line.speakerId ?? line.speaker, turn);
+    speakerOutline.show(url, line.speakerId ?? line.speaker, yTurn(line));
   });
   function photoAt(index: number) {
     const line = script[index];
@@ -270,7 +281,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     setVisibleRows(line.scene);
     highlight(index);
-    announcement.textContent = line.silent ? '' : line.speaker + '. ' + lineText(index);
+    announcement.textContent = line.silent ? '' : (appearance(line)?.name ?? line.speaker) + '. ' + lineText(index);
     if (index === questionIndex && (quizEnabled || presenter)) {
       choices.hidden = false;
       const remaining = roomQuiz?.closesAt ? Math.max(0, roomQuiz.closesAt - Date.now()) : answerWindowMs;
@@ -460,7 +471,8 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     rows.forEach((row, index) => {
       const next = lineText(index);
-      if (row.textContent !== next) row.textContent = next;
+      const words = row.querySelector<HTMLElement>('.dialogue-words')!;
+      if (words.textContent !== next) words.textContent = next;
     });
     if (force && script[active]?.scene === 'P1' && !establishing) trial.updateText(script[active], sharedLine?.(script[active].key));
   }
@@ -471,9 +483,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const court = scene === 'P1';
     const root = court ? trial.inlineRoot : panel;
     const lines = court ? [{ key: script[active].key, element: trial.inlineText }]
-      : rows.flatMap((element, index) => {
+      : rows.flatMap((row, index) => {
         const cue = script[index];
-        return cue.scene === scene && !cue.silent ? [{ key: cue.key, element }] : [];
+        const element = row.querySelector<HTMLElement>('.dialogue-words')!;
+        return cue.scene === scene && !cue.silent ? [{ key: cue.key, row, element }] : [];
       });
     let quiz: { after: string | null } | undefined;
     if (scene === openingClassroomScene) {
