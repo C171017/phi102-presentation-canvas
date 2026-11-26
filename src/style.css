@@ -256,57 +256,6 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 #aim-versions { left: 600px; top: -190px; }
 #aim-applications { left: 600px; top: -10px; }
 #selection-box { position: absolute; pointer-events: none; z-index: 5; border: 1px solid #527eaa; background: #527eaa18; }
-#slide-progress {
-  --slide-marker-width: clamp(15px, 1.4vw, 20px);
-  position: absolute;
-  z-index: 6;
-  inset-block: clamp(12px, 3vh, 56px);
-  left: 10px;
-  width: clamp(52px, 6vw, 66px);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1px, 0.24vh, 2.5px);
-}
-/* Small breaks between the opening, the three aims, and each aim's lane. */
-#slide-progress button:is([data-slide="aim-motivations"], [data-slide="regress-problem"], [data-slide="versions-map-heading"], [data-slide="access-heading"]) { margin-top: clamp(2px, 1vh, 8px); }
-#slide-progress button {
-  position: relative;
-  flex: 1 1 0;
-  min-height: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 5px;
-  background: transparent;
-  cursor: pointer;
-}
-#slide-progress button::after {
-  --marker-fill: rgb(82 105 112 / .88);
-  --marker-highlight: rgb(229 245 251 / .44);
-  content: '';
-  position: absolute;
-  inset: 15% 0;
-  margin-inline: auto;
-  width: var(--slide-marker-width);
-  border-radius: 999px;
-  background: linear-gradient(165deg, var(--marker-highlight), transparent 65%), var(--marker-fill);
-  box-shadow: inset 0 0 0 1px rgb(237 255 255 / .28);
-  pointer-events: none;
-}
-#slide-progress button.is-past::after {
-  --marker-fill: rgb(52 122 106 / .92);
-  --marker-highlight: rgb(190 252 226 / .48);
-}
-#slide-progress button[aria-current]::after {
-  --marker-fill: #d8f5eb;
-  --marker-highlight: #fff;
-  width: calc(var(--slide-marker-width) + 6px);
-  box-shadow: 0 0 0 1px #203837;
-}
-#slide-progress button:is(:hover, :focus-visible)::after {
-  outline: 1px solid #faf9f2;
-  box-shadow: 0 0 0 2px #203837;
-}
-#slide-progress button:focus-visible { outline: 2px solid #427e6d; outline-offset: 1px; }
 #flexible-heading { top: -370px; }
 #foundation-left { left: -175px; top: -150px; }
 #foundation-right { left: 175px; top: -150px; }

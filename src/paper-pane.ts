@@ -156,7 +156,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   const glossary = createPaperGlossary(pane, scroll);
 
   function slideFromProgressBar() {
-    return Array.from(document.querySelectorAll('#slide-progress button')).findIndex(item => item.hasAttribute('aria-current'));
+    return Array.from(document.querySelectorAll('#slide-progress button[data-slide]')).findIndex(item => item.hasAttribute('aria-current'));
   }
 
   function minWidth() { return Math.max(0, Math.min(MIN_WIDTH, shell.clientWidth - 2 * EDGE)); }

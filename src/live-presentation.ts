@@ -97,7 +97,7 @@ export function createPresentationClient(
   followButton.hidden = true;
   viewport.append(followButton);
 
-  const indicators = Array.from(progress.querySelectorAll('button')).map(button => {
+  const indicators = Array.from(progress.querySelectorAll('button[data-slide]')).map(button => {
     const count = document.createElement('span');
     count.className = 'live-audience-count';
     count.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="4.5" r="2.4"/><path d="M3 14v-1a5 5 0 0 1 10 0v1"/></svg><span></span>';

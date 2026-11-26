@@ -57,7 +57,7 @@ Select the gold tab on the right of the canvas in Audience or Presenter mode to 
 
 ## Live presentation
 
-Open https://phi102.c171017.com/ to explore the map at your own pace. Select **Presentation** above the progress rail to start at the first slide, click a rail marker to jump to a slide, and select **Back to map** to return to the overview.
+Open https://phi102.c171017.com/ to explore the map at your own pace. Select **Presentation** above the progress rail to start at the first slide, hover over a section in the progress rail to reveal its slides and click a slide to jump to it, and select **Back to map** to return to the overview.
 
 The 1080p opening plays after the classroom introduction. The web MP4 uses H.264 and the original AAC soundtrack, with its index at the start for streaming. When replacing it, use a versioned filename under `public/media/`, keep it under Cloudflare's 25 MiB asset limit, and update the path and exact byte count in `src/opening-media.json` so the Worker can serve correct byte ranges.
 

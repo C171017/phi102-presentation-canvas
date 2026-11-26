@@ -58,7 +58,7 @@ export function connectDevPresentation(viewport: HTMLElement, openSlide: (index:
   const client = createPresentationClient(viewport, openSlide, role === 'presenter', theory,
     message => hot.send('phi102:preview:report', message), schools, cues);
   function join() {
-    const buttons = Array.from(viewport.querySelectorAll('#slide-progress button'));
+    const buttons = Array.from(viewport.querySelectorAll('#slide-progress button[data-slide]'));
     const slide = buttons.findIndex(button => button.hasAttribute('aria-current'));
     hot.send('phi102:preview:join', { role, slide: isSlide(slide) ? slide : 0, openingPlaying: openingVideo?.isOpen() });
   }

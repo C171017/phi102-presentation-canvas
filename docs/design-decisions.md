@@ -1593,3 +1593,11 @@ Recorded time in Pacific time. Howie pointed to the up and down cue arrows in th
 > move this control inside the diaglouge box , find a good place for it
 
 Center the arrow pair vertically at the right edge of the scrolling dialogue, using its own space beside the text. When a full-art cue has no dialogue box, the same arrows remain at the side so viewers can continue. The Trial’s placement follows its separate gameplay layout.
+
+## 2026-11-25T22:24:50-08:00 · Group the slide progress rail
+
+Recorded time in Pacific time. Howie requested:
+
+> For the left side progress bar, make them in a nested structure or nested design, where think of you have the intro. You first have the thing before OP, and then the introduction part, and then the parallel universe part, and then the application. And then if you hover over it, then you will show the actual page inside it. But if they are not hovered, then you're just going to show the four top layer section. And when you hover over them, they expand, show more slides, right? So the other one will be automatically moved to make room for it. So this would be the design for like Have the progress bar more concise. And also, still, the current one is gonna be highlighted.
+
+Show four section headings. Reveal a section’s slide titles in place on hover or on keyboard or touch activation. Highlight the section containing the current slide and its slide title when expanded. Start Introduction with The Law of Ink after the opening video, Parallel Universe with The Trial, and Application with Access internalism. Keep the existing slide sequence, including the overview slides at the end.

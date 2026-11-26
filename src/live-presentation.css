@@ -42,14 +42,12 @@
   cursor: pointer;
 }
 .live-audience-count {
-  position: absolute;
   display: flex;
+  grid-column: 3;
+  grid-row: 1;
   align-items: center;
   gap: 3px;
-  top: 50%;
-  left: 100%;
-  transform: translateY(-50%);
-  color: #334c4c;
+  color: #bad7d3;
   font: 600 12px/1 system-ui, sans-serif;
   pointer-events: none;
 }
@@ -59,9 +57,10 @@
   content: '';
   position: absolute;
   top: calc(50% - 3px);
-  left: 0;
+  left: 8px;
+  z-index: 1;
   width: 6px;
   height: 6px;
-  background: #a56622;
+  background: #f8c678;
   transform: rotate(45deg);
 }

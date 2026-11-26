@@ -2,6 +2,7 @@ import type { CameraView } from './layout';
 
 import { legendById, slides } from './slide-content';
 import { scatterTrialShards } from './trial-shatter';
+import { createSlideProgress } from './slide-progress';
 
 type FramingMode = 'classroom' | 'dialogue';
 
@@ -25,15 +26,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   let sceneTransition: HTMLElement | undefined;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-  const buttons = slides.map(({ title, members }, index) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.dataset.slide = members[0];
-    button.setAttribute('aria-label', `Slide ${index + 1} of ${slides.length}: ${title}`);
-    button.addEventListener('click', () => open(index));
-    progress.append(button);
-    return button;
-  });
+  const slideProgress = createSlideProgress(progress, index => open(index));
 
   groups.forEach((group, index) => {
     if (group[0].matches('#unitrans-arrival, #before-lecture, .legend-anchor')) return;
@@ -141,11 +134,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     viewport.classList.toggle('is-page-focused', next >= 0);
     if (next >= 0 && next !== lastVisited) {
       lastVisited = next;
-      buttons.forEach((button, index) => {
-        button.classList.toggle('is-past', index < lastVisited);
-        if (index === lastVisited) button.setAttribute('aria-current', 'step');
-        else button.removeAttribute('aria-current');
-      });
+      slideProgress.showCurrent(next);
     }
     onChange(next);
   }
