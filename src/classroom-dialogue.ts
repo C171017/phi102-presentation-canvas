@@ -8,8 +8,8 @@ import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById } from './slide-content';
-import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, openingClassroomScene } from './classroom-cues';
-import { hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
+import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, firstGreatInkwellCue, openingClassroomScene } from './classroom-cues';
+import { hasEstablishingShot, openingInkScene, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
 import type { DialogueStructure, SlideCopy } from './shared-slide-data';
 import type { InlineDialogueTarget } from './inline-dialogue';
@@ -432,7 +432,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (id === 'contemporary-heading' && !image.hasAttribute('src')) image.src = portrait;
     const nextScene = id === 'contemporary-heading' ? 'L0'
       : id === 'L7' ? 'P1' : id === 'P1' ? 'P2-1' : undefined;
-    const nextBackground = nextScene && legendById.get(nextScene)?.background;
+    const nextBackground = id === openingInkScene ? firstGreatInkwellCue.background : nextScene && legendById.get(nextScene)?.background;
     if (nextBackground) artwork.preload(nextBackground);
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);

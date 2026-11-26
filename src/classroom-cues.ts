@@ -1,5 +1,5 @@
 import { legendSlides } from './slide-content';
-import type { InkOceanCue } from './ink-ocean-scenes';
+import { greatInkwellScene, openingInkScene, type InkOceanCue } from './ink-ocean-scenes';
 import type { DialogueStructure } from './shared-slide-data';
 
 const classroomScript: (InkOceanCue & { scene: string; phase?: 'question' | 'result' | 'reveal' })[] = [
@@ -15,13 +15,14 @@ const classroomScript: (InkOceanCue & { scene: string; phase?: 'question' | 'res
 // different line after a source-script revision.
 const counts = new Map<string, number>();
 const classroomCueKeys = classroomScript.map(cue => {
-  const index = counts.get(cue.scene) ?? 0;
-  counts.set(cue.scene, index + 1);
+  const source = cue.sourceScene ?? cue.scene;
+  const index = counts.get(source) ?? 0;
+  counts.set(source, index + 1);
   let hash = 2166136261;
   for (const character of cue.speaker + '\0' + cue.text) {
     hash = Math.imul(hash ^ character.codePointAt(0)!, 16777619);
   }
-  return `${cue.scene}:${index}:${(hash >>> 0).toString(36)}`;
+  return `${source}:${index}:${(hash >>> 0).toString(36)}`;
 });
 
 export const openingClassroomScene = 'contemporary-heading';
@@ -63,10 +64,26 @@ function placeQuiz(cues: ClassroomCue[], after: string | null) {
   cues.splice(position, 0, { ...question, key: 'classroom-quiz', text: '', silent: true });
 }
 
+export const firstGreatInkwellCue = authoredCues(openingInkScene).find(cue => cue.sourceScene === greatInkwellScene)!;
+const inkwellEntrance = `${greatInkwellScene}:start`;
+
+export function joinOpeningInkEdits(structures?: Record<string, DialogueStructure>) {
+  const inkwell = structures?.[greatInkwellScene];
+  if (!structures || !inkwell) return structures;
+  const { [greatInkwellScene]: previous, ...joined } = structures;
+  const law = joined[openingInkScene];
+  joined[openingInkScene] = {
+    added: [...(law?.added ?? []), ...previous.added.map(cue => cue.after === null ? { ...cue, after: inkwellEntrance } : cue)],
+    removed: [...new Set([...(law?.removed ?? []), ...previous.removed])],
+  };
+  return joined;
+}
+
 export function buildClassroomScript(structure?: Record<string, DialogueStructure>): ClassroomCue[] {
-  if (!structure) return [...authoredByScene.values()].flat();
+  const structures = joinOpeningInkEdits(structure);
+  if (!structures) return [...authoredByScene.values()].flat();
   return [...authoredByScene].flatMap(([scene, base]) => {
-    const edits = structure[scene];
+    const edits = structures[scene];
     if (!edits) return base;
     const removed = new Set(edits.removed);
     const after = new Map<string | null, typeof edits.added>();
@@ -90,11 +107,14 @@ export function buildClassroomScript(structure?: Record<string, DialogueStructur
     }
     appendAdded(null, base[0]);
     for (const cue of base) {
+      if (cue === firstGreatInkwellCue) appendAdded(inkwellEntrance, cue);
       if (!removed.has(cue.key)) result.push(cue);
       // These cues also drive something other than transcript text.
-      else if (cue.phase || cue.background) result.push({ ...cue, silent: true });
+      else if (cue.phase || (cue.background && (!cue.sourceScene || cue === firstGreatInkwellCue))) result.push({ ...cue, silent: true });
       appendAdded(cue.key, cue);
     }
+    // Even with all of its text cleared, the opening illustration still has an entry cue.
+    if (scene === openingInkScene && result[0]?.background) result.unshift({ ...base[0], silent: true });
     if (scene === openingClassroomScene && edits.quizAfter !== undefined) placeQuiz(result, edits.quizAfter);
     return result.length ? result : [{ ...base[0], silent: true }];
   });

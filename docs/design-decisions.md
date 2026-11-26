@@ -1619,3 +1619,11 @@ Recorded time in Pacific time. Howie clarified the dialogue rule in the [present
 > for all the YYYY, the four Y, every single sentence they start should start with Why sowhat shouid always start with sowhat , update the diagloue
 
 Every spoken sentence from the four Ys starts with the word “Why.” Every SOWHAT turn opens with “So what?” Stage directions count separately from spoken sentences. See the [character bible](character-bible.md#yyyy-sowatt--the-regress-problem).
+
+## 2026-11-25T22:37:34-08:00 · Keep The Law of Ink and The Great Inkwell on one slide
+
+Recorded time in Pacific time. Howie requested:
+
+> For these two part，they should be like one section by which I'm in。They still have the two different pictures，but they're not treated as two part，but think of once you pass some parts of the text in the dialogue，you will change the background image and that's it。 And the dialogue still change, but the last section remains the same. So we can have one slide part for those two parts, for both two parts.
+
+Use the Law of Ink slide and its shared left panel for both passages. Swap to the Great Inkwell illustration on its first narration line and reverse the swap when stepping back. Keep both passages editable in one transcript with their existing saved line identities.

@@ -7,7 +7,9 @@ import openingMedia from '../src/opening-media.json';
 import { slides } from '../src/slide-content';
 import { newOpeningQuiz, openingQuizWindowMs, recordOpeningVote, type OpeningQuizRound } from '../src/opening-quiz';
 import { countSchools, isSchoolVote, type SchoolVote } from '../src/school-vote';
-import { firstPresentationCue, isCue, isSlide, slideCount, presenterKeyPattern, type RoomSnapshot } from '../src/live-protocol';
+import { firstGreatInkwellCue, customCueOffset } from '../src/classroom-cues';
+import { greatInkwellScene, openingInkScene } from '../src/ink-ocean-scenes';
+import { establishingCueOffset, firstPresentationCue, isCue, isSlide, slideCount, presenterKeyPattern, type RoomSnapshot } from '../src/live-protocol';
 
 import { applyTheoryAction, ballotSlide, resolveBallot, theoryScene, theoryVoteWindowMs, voteView, type TheoryAction, type TheoryBallot } from '../src/theory-vote';
 
@@ -56,11 +58,17 @@ export class PresentationRoom extends DurableObject<Env> {
       const savedId = await ctx.storage.get<string>('slideId');
       if (savedId) {
         const slideId = savedId === 'L4-quiz' ? theoryScene('foundationalism')
-          : savedId === 'L5b' ? 'L6' : savedId;
+          : savedId === 'L5b' ? 'L6' : savedId === greatInkwellScene ? openingInkScene : savedId;
         const index = slides.findIndex(slide => slide.members[0] === slideId);
         if (isSlide(index)) this.slide = index;
         if (slideId !== savedId) {
-          this.cue = firstPresentationCue(this.slide);
+          if (savedId === greatInkwellScene) {
+            const cue = await ctx.storage.get<number>('presenterCue');
+            this.cue = isCue(cue) && cue >= customCueOffset * 2 ? cue
+              : firstGreatInkwellCue.number + (isCue(cue) && cue < establishingCueOffset ? cue : 0);
+          } else {
+            this.cue = firstPresentationCue(this.slide);
+          }
           await ctx.storage.put({ slide: this.slide, slideId, presenterCue: this.cue });
         } else {
           const cue = await ctx.storage.get<number>('presenterCue');
@@ -81,7 +89,8 @@ export class PresentationRoom extends DurableObject<Env> {
             'pairing-knowledge-simone', 'pairing-knowledge-cole', 'pairing-knowledge-rae',
             'pairing-knowledge-echo', 'pairing-belief', 'access-heading', 'home-heading', 'mobile-heading',
           ];
-          const index = slides.findIndex(slide => slide.members[0] === previousIds[previous]);
+          const id = previousIds[previous];
+          const index = slides.findIndex(slide => slide.members[0] === (id === greatInkwellScene ? openingInkScene : id));
           if (isSlide(index)) this.slide = index;
         }
         await ctx.storage.put({ slideId: slides[this.slide].members[0], presenterCue: 0, theoryBallot: null });

@@ -21,14 +21,6 @@ export const openingNotes: Record<string, SlideNotes> = {
     ],
     source: 'Greco · §1, pp. 426–427',
   },
-  'regress-problem': {
-    claim: 'An answer gives us a reason to examine.',
-    points: [
-      '“They’re made of ink” is offered as support for “All ravens are black.”',
-      'To settle a doubt, a reason must support the claim and be something we can treat as settled.',
-    ],
-    source: 'Greco · §1, p. 426',
-  },
   'regress-problem-birth': {
     claim: 'The Inkwell is about to change who gets to ask “why?”',
     points: [],

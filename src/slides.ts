@@ -3,6 +3,7 @@ import type { CameraView } from './layout';
 import { legendById, slides } from './slide-content';
 import { scatterTrialShards } from './trial-shatter';
 import { createSlideProgress } from './slide-progress';
+import { openingInkScene } from './ink-ocean-scenes';
 
 type FramingMode = 'classroom' | 'dialogue';
 
@@ -14,7 +15,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   const framingGroups = slides.map((slide, index) => 'frameMembers' in slide && slide.frameMembers
     ? slide.frameMembers.map(id => document.getElementById(id)!)
     : groups[index]);
-  const foregroundGroups = slides.map(({ members }, index) => members[0] === 'pairings-heading'
+  const foregroundGroups = slides.map(({ members }, index) => (members[0] === 'pairings-heading' || members[0] === openingInkScene)
     ? framingGroups[index]
     : groups[index]);
   let frame: CameraView | undefined;
@@ -29,9 +30,9 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   const slideProgress = createSlideProgress(progress, index => open(index));
 
   groups.forEach((group, index) => {
-    if (group[0].matches('#unitrans-arrival, #before-lecture, .legend-anchor')) return;
-    const visuals = group.filter(item => item.matches('.canvas-media, .regress-hub, .regress-position, .pairing-card'));
-    for (const item of visuals.length ? visuals : group) {
+    const entries = group.filter(item => !item.matches('#unitrans-arrival, #before-lecture, .legend-anchor'));
+    const visuals = entries.filter(item => item.matches('.canvas-media, .regress-hub, .regress-position, .pairing-card'));
+    for (const item of visuals.length ? visuals : entries) {
       item.dataset.slideEntry = String(index);
       item.tabIndex = 0;
     }

@@ -13,6 +13,7 @@ export interface InkOceanCue {
   text: string;
   kind?: 'direction' | 'note';
   background?: string;
+  sourceScene?: InkOceanSceneId;
 }
 
 export interface InkOceanScene {
@@ -76,9 +77,21 @@ const trial: InkOceanScene = {
   cues: trialPages([testimony, ...trialFollowups.map(storySlide)]),
 };
 
+export const openingInkScene = 'L0';
+export const greatInkwellScene = 'regress-problem';
+const lawOfInk = storySlide(openingInkScene);
+const greatInkwell = storySlide(greatInkwellScene);
+const openingInk: InkOceanScene = {
+  ...lawOfInk,
+  cues: [...lawOfInk.cues, ...greatInkwell.cues.map((cue): InkOceanCue => ({
+    ...cue, sourceScene: greatInkwellScene, background: greatInkwell.background,
+  }))],
+};
+
 export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
-  .filter(id => !trialFollowups.includes(id))
+  .filter(id => id !== greatInkwellScene && !trialFollowups.includes(id))
   .map(id => {
+    if (id === openingInkScene) return openingInk;
     if (id === 'P1') return trial;
     if (id === 'L6-A' || id === 'L6-B') return schoolScenes[id];
     return storySlide(id);
@@ -86,7 +99,7 @@ export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
   if (index === 0) return Boolean(scene.background);
-  if (scene.id === 'P1' || scene.id === 'P2-1') return false; // Cut directly on the dialogue cue.
+  if (scene.id === openingInkScene || scene.id === 'P1' || scene.id === 'P2-1') return false; // Cut directly on the dialogue cue.
   const background = scene.cues[index]?.background;
   return Boolean(background && background !== scene.cues[index - 1]?.background);
 }

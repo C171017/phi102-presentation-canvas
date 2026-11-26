@@ -1,6 +1,6 @@
 import { DurableObject } from 'cloudflare:workers';
 import { parseLayout } from '../src/layout-data';
-import { authoredCues, customCueKeyPattern, customCueNumber, editableCueSequence, maxAddedCues, openingClassroomScene } from '../src/classroom-cues';
+import { authoredCues, customCueKeyPattern, customCueNumber, editableCueSequence, joinOpeningInkEdits, maxAddedCues, openingClassroomScene } from '../src/classroom-cues';
 import { cleanSlideCopy, editKeyPattern, isDialogueText, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
   type AddedDialogueLine, type DialogueCopy, type DialogueStructure, type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
 
@@ -60,7 +60,7 @@ function dialogueStructure(scene: string, input: Record<string, unknown>, struct
   for (const cue of added) known.add(cue.key);
   const { added: inserts = [], removed: deletes = [] } = input;
   if (!Array.isArray(inserts) || !Array.isArray(deletes) || deletes.length > known.size ||
-      added.length + inserts.length > maxAddedCues || ((inserts.length || deletes.length) && !editableCueSequence(scene))) return null;
+      (inserts.length > 0 && added.length + inserts.length > maxAddedCues) || ((inserts.length || deletes.length) && !editableCueSequence(scene))) return null;
   for (const item of inserts as Partial<AddedDialogueLine>[]) {
     if (!item || typeof item.key !== 'string' || !customCueKeyPattern.test(item.key) || known.has(item.key) || otherKeys.has(item.key) ||
         wire.has(customCueNumber(item.key)) || !isDialogueText(item.text) ||
@@ -83,7 +83,8 @@ function dialogueStructure(scene: string, input: Record<string, unknown>, struct
 function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides) {
   const { scene, lines, copy } = body;
   if (typeof scene !== 'string' || !lines || typeof lines !== 'object' || Array.isArray(lines)) return null;
-  const structure = dialogueStructure(scene, body, previous.dialogueStructure);
+  const structures = joinOpeningInkEdits(previous.dialogueStructure);
+  const structure = dialogueStructure(scene, body, structures);
   if (!structure) return null;
   const changes = Object.entries(lines);
   if (changes.length > 200 || changes.some(([key, text]) => !structure.known.has(key) || structure.removed.has(key) || !isDialogueText(text))) return null;
@@ -98,7 +99,7 @@ function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides)
   if (changes.length) document = { ...document, dialogue: { ...document.dialogue, ...Object.fromEntries(changes) } };
   if (structure.changed) {
     const { added, removed, quizAfter } = structure;
-    document = { ...document, dialogueStructure: { ...document.dialogueStructure, [scene]: { added, removed: [...removed], quizAfter } } };
+    document = { ...document, dialogueStructure: { ...structures, [scene]: { added, removed: [...removed], quizAfter } } };
   }
   return document;
 }

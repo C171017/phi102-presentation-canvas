@@ -1,7 +1,7 @@
 import { castIds } from './cast-ids';
 import { pairingView, versionPairings } from './version-pairings';
 
-import { legendSlides, type InkOceanScene } from './ink-ocean-scenes';
+import { greatInkwellScene, legendSlides, openingInkScene, type InkOceanScene } from './ink-ocean-scenes';
 
 export { legendSlides };
 export const legendById = new Map<string, InkOceanScene>(legendSlides.map(scene => [scene.id, scene]));
@@ -11,7 +11,10 @@ export const slides = [
   { title: 'Before lecture', description: 'You take your seat in Giedt Hall and open your notebook.', members: ['before-lecture'] },
   { title: 'Contemporary Contextualism', description: 'The same sentence can express different claims in different contexts.', members: ['contemporary-heading', 'state-red'] },
   ...legendSlides.map(({ id, title, takeaway }) => ({
-    title, description: takeaway, members: [id] as const,
+    title, description: takeaway,
+    ...(id === openingInkScene
+      ? { members: [id, greatInkwellScene] as const, frameMembers: [id] as const }
+      : { members: [id] as const }),
   })),
   { title: 'The Foundationalist’s Dilemma', description: 'What makes a belief fit to end a chain of reasons?', members: ['dilemma-heading', 'dilemma-cartesian', 'dilemma-moderate'] },
   { title: 'Undoubted, Not Undoubtable', description: 'Keep Descartes’s insight about doubt, but apply it locally', members: ['undoubted-heading', 'undoubted-crystal'] },
