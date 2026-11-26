@@ -130,25 +130,27 @@ html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
   opacity: 0;
   pointer-events: none;
 }
-.trial-shatter {
+.door-world-transition {
   position: absolute;
   inset: 0;
   z-index: 30;
   overflow: hidden;
   pointer-events: none;
-}
-.trial-shatter-frame {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: min(100%, calc(100vh * 4 / 3));
-  height: min(100%, 75vw);
-}
-.trial-shatter-frame > div {
-  position: absolute;
-  image-rendering: pixelated;
+  background-color: var(--slide-matte);
+  background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
 }
+.door-world-transition > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: auto;
+  opacity: 0;
+}
+.door-world-transition[data-playing] > video { opacity: 1; }
 /* Keep other canvas objects measurable while the classroom scene is focused. */
 #viewport:has(#contemporary-heading.page-foreground) #world > :not(.page-foreground) {
   visibility: hidden;

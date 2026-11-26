@@ -47,6 +47,7 @@ export async function generateVoiceClips({
 
     async function generate([id, {
       text = id, input, file, voiceSettings, scene, voice: lineVoice = voice, model: lineModel = model, languageCode = 'en',
+      alignWords,
     }]) {
       const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${lineVoice}/with-timestamps?output_format=mp3_44100_128`, {
         method: 'POST',
@@ -59,14 +60,15 @@ export async function generateVoiceClips({
         throw new Error(`ElevenLabs returned ${response.status} for ${scene} (${error.detail?.status ?? 'speech request'}).`);
       }
       const result = await response.json();
-      const words = wordTimes(text, result.alignment, spokenWords) ?? wordTimes(text, result.normalized_alignment, spokenWords);
-      if (!result.audio_base64 || !words) {
+      const getWords = alignWords ?? (alignment => wordTimes(text, alignment, spokenWords));
+      const words = getWords(result.alignment) ?? getWords(result.normalized_alignment);
+      if (!result.audio_base64 || words?.length !== spokenWords(text).length) {
         const directory = mkdtempSync(join(tmpdir(), 'phi102-voice-response-'));
         writeFileSync(join(directory, 'response.json'), JSON.stringify({ id, text, file, result }));
         throw new Error(`ElevenLabs did not return matching audio and word timing for ${scene}. Response saved in ${directory}.`);
       }
       writeFileSync(new URL(file, audioDirectory), Buffer.from(result.audio_base64, 'base64'));
-      return { id, clip: { file, words, ...(id !== text && { text }) } };
+      return { id, clip: { file, words, ...(id !== text && { text }), ...(alignWords && { phrases: true }) } };
     }
   } else if (Object.keys(manifest).length !== lines.size) saveManifest();
 }
@@ -87,8 +89,8 @@ function wordTimes(text, alignment, spokenWords) {
   const spokenOffset = aligned.lastIndexOf(text);
   const alignedWords = spokenOffset >= 0
     ? spokenWords(text).map(word => ({ ...word, offset: word.offset + spokenOffset }))
-    // Mask embedded acting tags without shifting the provider's character offsets.
-    : spokenWords(aligned.replace(/\[[^\]]*\]/g, tag => ' '.repeat(tag.length)));
+    // Mask performance instructions without shifting the provider’s character offsets.
+    : spokenWords(aligned.replace(/\[[^\]]*\]|<break time="[\d.]+s"\s*\/>/g, tag => ' '.repeat(tag.length)));
   const words = spokenWords(text);
   const matchable = word => word.normalize('NFKC').replace(/\p{P}/gu, '').toLowerCase();
   if (alignedWords.length !== words.length ||

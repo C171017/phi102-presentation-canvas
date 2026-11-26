@@ -3,11 +3,12 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { buildSync } from 'esbuild';
 import { generateVoiceClips } from './generate-voice-clips.mjs';
+import { doorWorldPerformance } from './door-world-performance.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const voice = 'exsUS4vynmxd379XN4yO'; // Blondie - Conversational
 const model = 'eleven_v4_turbo';
-const doorVoice = '9wuWjGIR6FYAWDzxx9um'; // Amuro - Cute & Mature
+const doorVoice = 'OSwaPSNdfituxkWcjlkR'; // Kano - Cute & Anime
 const doorModel = 'eleven_multilingual_v2';
 const manifestPath = new URL('../src/simone-voice-clips.json', import.meta.url);
 const audioDirectory = new URL('../public/voices/simone/', import.meta.url);
@@ -71,11 +72,11 @@ for (const cue of cues) {
   const id = isDoor ? cue.key : text;
   if (!text || lines.has(id) || (isTrial && text.toUpperCase() === trialShout(cue.text))) continue;
   if (isDoor) {
-    const voiceSettings = { stability: 0.45, similarity_boost: 0.8 };
-    const file = createHash('sha256').update([doorVoice, doorModel, text, JSON.stringify(voiceSettings)].join('\0'))
+    const { input, voiceSettings, timingKey, alignWords } = doorWorldPerformance(cue, text, spokenWords);
+    const file = createHash('sha256').update([doorVoice, doorModel, input, timingKey, JSON.stringify(voiceSettings)].join('\0'))
       .digest('hex').slice(0, 20) + '.mp3';
     lines.set(id, {
-      text, input: text, file, voiceSettings, scene: cue.scene, voice: doorVoice, model: doorModel, languageCode: null,
+      text, input, file, voiceSettings, alignWords, scene: cue.scene, voice: doorVoice, model: doorModel, languageCode: null,
     });
     continue;
   }

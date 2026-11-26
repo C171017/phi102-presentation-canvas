@@ -12,6 +12,7 @@ const anchorSlots: Record<string, number> = {
   P1: 20,
   'L6-A': 18,
   'L6-B': 19,
+  'P2-arrival': 21,
   'P2-1': 21,
   'P2-2a': 22,
   'P2-2b': 23,

@@ -1,6 +1,7 @@
 import type { InkOceanCue } from './ink-ocean-scenes';
 import { createTrialAudio } from './trial-audio';
 import { trialDialogueText, trialShout } from './trial-script';
+import { trialArt } from './trial-art';
 import type { createDialogueVoice } from './timed-dialogue';
 import './trial-dialogue.css';
 
@@ -103,6 +104,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void, sim
     reset();
     const entering = screen.hidden;
     screen.hidden = false;
+    screen.toggleAttribute('data-door-exit', line?.background === trialArt.doorTransitionStart);
     if (entering && document.activeElement?.closest('#slide-progress')) message.focus({ preventScroll: true });
     sounds.warm();
     if (!line) {
@@ -130,7 +132,6 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void, sim
         strike = undefined;
         sounds.play('gavel', .7);
         if (verdict) confetti.dataset.motion = 'fall';
-        if (/dream breaks/i.test(line.text)) sounds.play('shatter', .4);
         screen.dataset.strike = '';
       };
       strikeTimer = window.setTimeout(() => strike?.(), 330);

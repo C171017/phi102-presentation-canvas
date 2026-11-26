@@ -1,7 +1,7 @@
 {
-  "revision": 36,
-  "savedAt": "2026-11-26T22:45:08.054Z",
-  "summary": "Edited dialogue · 14. The Stranger",
+  "revision": 38,
+  "savedAt": "2026-11-26T23:21:15.196Z",
+  "summary": "Edited dialogue · 25. White",
   "document": {
     "layout": null,
     "copy": {
@@ -181,6 +181,19 @@
         "added": [],
         "removed": [
           "L6-A:0:1wv9lhn"
+        ]
+      },
+      "P2-1": {
+        "added": [],
+        "removed": [
+          "P2-1:0:k7raes"
+        ]
+      },
+      "P2-7": {
+        "added": [],
+        "removed": [
+          "P2-7:5:1lme97y",
+          "P2-7:6:1eb5h0f"
         ]
       }
     }

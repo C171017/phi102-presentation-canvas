@@ -1874,3 +1874,100 @@ Recorded in Pacific time in the [Simone voice chat](codex://threads/01a219bd-3c2
 > let's use this for all the simone's line in the suzume section, where I wanted to speak in English， But in Japanese accent。You can think of how can you do it。Maybe like try just pure like katakana or hiragana or like romaji generation。So just like the end goal is one of his big in a Japanese accent but English。
 
 In the Door World (P2), use Amuro and ElevenLabs Multilingual v2 with the original English text. The approach uses the source voice’s accent and supports timing each displayed English word. Apply it to all 19 saved Simone cues, including her voice in the shared closing chant.
+
+
+## 2026-11-26T15:03:27-08:00 · Cast Koichi Yashiro as Cole in the Door World
+
+Recorded in Pacific time in the [character voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf). The attached Voice Library row identifies “Koichi Yashiro – Deep Cinematic Voice.”
+
+> siimlary use this for cole in suzume seciton, jap accent english
+
+> use api
+
+Generate Cole’s saved English lines in P2 via the ElevenLabs API with Koichi Yashiro on Multilingual v2. Play the new clips with word highlighting. Mix Cole and Simone together for the closing chant and follow Simone’s word timings for that shared cue.
+
+
+## 2026-11-26T15:09:07-08:00 · Cast Kano and direct both performances through the Door World
+
+Recorded in Pacific time in the [character voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf). The attached Voice Library row identifies “Kano - Cute & Anime.”
+
+> use this for simone
+>
+> and make cole also liek both much more expresisive and coherent with teh scne, think of what contorls you can use and tune them well so they sound natural in their dialogue
+
+> use api
+
+Cast Kano as Simone in P2 and keep Koichi Yashiro as Cole. Generate the original English lines through the ElevenLabs API on Multilingual v2. Tune pace, stability, style, and brief pauses across the playful exchange, recognition, danger, and closing chant. Align both phrases of the shared chant to Simone’s timing so the last word lands together.
+
+
+## 2026-11-26T15:13:29-08:00 · Dub the Door World in Japanese with English dialogue on screen
+
+Recorded in Pacific time in the [character voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> This time, actually generate Japanese instead of English. But the dialogue remains English. So the Japanese just like the, you know, like whatever the English, the Japanese should have the same meaning as English, but for the dialogue, they should speak Japanese. So just like generate the same meaning，but like the voice should in Japanese。To say those lines，to generate again with Japanese only and swap the audio to Japanese and the meaning should-- you should first translate those English into Japanese and generate those Japanese clips。
+
+> And still, you know, like they should be expressive and coherent to the scene.
+
+Use the saved English dialogue as the translation source. Kano and Koichi Yashiro speak the Japanese translations through the ElevenLabs API. The dub varies pace, stability, and style through the opening exchange, recognition, and ritual. The on-screen English highlights the corresponding Japanese speech by phrase, and both voices are mixed for the ending chant.
+
+## 2026-11-26T15:16:29-08:00 · Give Simone a silent arrival in Door World
+
+Recorded in Pacific time in the [canvas chat](codex://threads/01a21682-5517-7242-a2c2-3fbc90c1f3d5).
+
+> And no need for any dialogue.
+
+> i want a different composisiton like for this frame it should be a bit more close up
+
+The courtroom shatters into a close shot of Simone on the coastal road, with Echo in the bike basket. She looks back over her shoulder, visibly disoriented. On the next advance, the original wide shot shows her looking the other way as Cole approaches. The new frame is image-only in the presentation and Story reader.
+
+<details>
+<summary>Built-in ImageGen prompt</summary>
+
+Use case: illustration-story. Make one full-bleed native 16:9 animation still for the silent arrival on the coastal road. Image 1 is the original story’s wide meeting shot and supplies exact location, illustration finish, same wardrobe, equipment and sun direction. Image 2 is the previous silent take, supplying the direction of the girl’s backward glance and who is in the scene. Images 3 and 4 are character identity only. Make a genuinely NEW, CLOSER cinematic composition, a medium three-quarter view from the road side, with a modest shift of camera position toward the front wheel. The girl fills the left half, her head near the upper-left third, larger and expressive, and we see her from head to waist or mid-thigh, seated on the same muted red city bicycle. Frame so at least the front wire basket, red frame segment, and handlebar are fully legible near lower center, with both hands still holding the bar; wheels may run below the frame. The girl is oriented right along the road, but turns her head and eyes back toward SCREEN LEFT, beyond the frame, over her shoulder away from where the man will enter in the next shot. She is trying to locate herself after arriving abruptly: faintly lifted inner brows, clear slightly wider searching eyes, barely parted lips, small held breath, quietly lost, composed upright silhouette. Her black high loop ponytail, sharp bangs, dark teal-green cropped jacket, cream shirt, charcoal trousers and tan vented carrier match the reference. Echo, one dignified half-lidded red hermit crab with tall faceted violet shell and one larger tucked claw, sits in the basket in the same spot. Strong facial readability, fine crisp hand-inked 2D lines, restrained cel shadows, summer sun with pale reflected highlights. Behind her, the same white-gray roadside guardrail, glittering cobalt sea, white cumulus, and distant green headland and harbor across the right half; preserve the expansiveness of the place with an open right side. One person and one crab, no man or traces of him, no other people, no visible magic effects, no text or UI. The next shot cuts wider as the girl turns right and sees the man.
+
+</details>
+
+## 2026-11-26T15:28:54-08:00 · Move between dreams with a four-second film
+
+Recorded in Pacific time in the [canvas chat](codex://threads/01a21682-5517-7242-a2c2-3fbc90c1f3d5). This supersedes the scattering courtroom fragments.
+
+> Actually, instead of having that cracked screen visual Remove that visual, but use Higgsfeld.
+
+> The video should be, let's say, four seconds. Okay, let it be four seconds. And make sure it's compressed or optimized well, so it's not very expensive to load that video.
+
+> don't use seedance, see if there's any other model support start and end frame refernce fro example minimax h3
+
+> and i wan tth transition to be much morefancy like you can try draw inspiration from classic films and TV shows like i want very fancy fast pace transiton
+
+On the advance from the verdict, begin the silent film on the uncracked witness shot. Center the original 4:3 pixel art in the 16:9 frame with black sides. End on the silent coastal close-up, then let the presenter advance to Cole. Fit the film and its two stills to the same viewport, and cut straight to the close-up for reduced motion. The MiniMax H3 job failed, so the installed clip uses Higgsfield Cinematic Studio 2.0. Trim the opening hold so the motion becomes apparent sooner and use the presentation stills at both ends.
+
+<details>
+<summary>Higgsfield Cinematic Studio 2.0 prompt</summary>
+
+Four-second spectacular 16:9 dream-world transition, with the supplied images used as strict first and last frames. Start on the perfectly still pixel-art courtroom, with the clean centered 4:3 image and black sides. In less than half a second, snap forward through its bright window in one smooth forward move. Warm window lines turn into fine gold ink streams, and the entire court sweeps past in layered violet silhouettes and gold-and-cobalt slit-scan light. The girl's looped ponytail and the hermit crab's violet shell stay readable for a beat as the camera speeds through two curved planes of dream space. Use rhythmic, graphic 2D lines, sharp hand-animated smears and real parallax, like an analog optical sequence from classic science-fiction film and hand-drawn television. Then a fast decisive whip-pan and match cut turn the same gold lines into sunlight racing over blue water. Slow into the exact final coastal close-up with the girl on the red bike, looking over her left shoulder, and the crab in the basket. Hold the last few frames steady. Bright color, finely controlled motion, emphatic texture change from pixel art to painted cel animation. One continuous clear direction of travel. No glass, cracking screen, strobe, text, dialogue, extra people, or title cards. The supplied images are exact anchors.
+
+</details>
+
+
+## 2026-11-26T15:32:52-08:00 · Play the Suzume instrumental across the door-closing pages
+
+Recorded in Pacific time in the [character voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf). The two screenshots identify “No time to explain” and “White.”
+
+> once the left image we are in this point then start playing the background
+>
+> and it keeps playing for these 2 pages (volume should not be too high since it's just backgroudn music) and once we pass the door image, it stop
+>
+> have properly made in fade out transiton ofr the music backgdound
+
+> and it only plyas once, if ends then ends
+
+Start the local UVR instrumental on the P2-6 establishing shot. Fade it in over 400 ms to 18% volume and let it continue under the voiceover through P2-7. Fade it out over 1.8 seconds when leaving the two pages. The full track plays at most once per presentation load.
+
+
+## 2026-11-26T15:35:20-08:00 · Use the original Suzume recording across the door-closing pages
+
+Recorded in Pacific time in the [character voice chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> use the orignal music(the one orignal one with voice
+
+Play the original RADWIMPS recording featuring Toaka during the two door-closing pages, with the existing 18% volume, fades, and single-play behavior.

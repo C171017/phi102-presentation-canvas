@@ -7,5 +7,5 @@ export const trialArt = {
   confetti: `${directory}/confetti.png`,
   asleep: `${directory}/asleep.png`,
   motherObjects: `${directory}/mother-objects.png`,
-  dreamBreaks: `${directory}/dream-breaks.png`,
+  doorTransitionStart: `${directory}/door-transition-start.png`,
 };

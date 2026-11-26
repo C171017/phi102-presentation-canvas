@@ -2,7 +2,7 @@
 const files = {
   low: 'blip-low.wav', high: 'blip-high.wav', gavel: 'gavel.wav',
   prosecutor: 'prosecutor.mp3', mother: 'mother.wav', takeThat: 'take-that.wav',
-  gallery: 'gallery.wav', pop: 'pop.wav', shatter: 'shatter.wav',
+  gallery: 'gallery.wav', pop: 'pop.wav',
 };
 type Sound = keyof typeof files;
 

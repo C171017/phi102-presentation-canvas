@@ -1,10 +1,15 @@
+import coleManifest from './cole-voice-clips.json';
 import simoneManifest from './simone-voice-clips.json';
 import sowattManifest from './sowatt-voice-clips.json';
 import { spokenText, spokenWords } from './timed-voice-words';
 import './timed-dialogue.css';
 
-type Clip = { file: string; words: readonly (readonly number[])[] };
+type Clip = { file: string; words: readonly (readonly number[])[]; phrases?: boolean };
 const simoneClips: Readonly<Record<string, Clip & { text?: string }>> = simoneManifest;
+const coleClips: Readonly<Record<string, Clip & {
+  text: string;
+  duet?: { file: string; simoneFile: string };
+}>> = coleManifest;
 const sowattClips: Readonly<Record<string, Clip & { text: string }>> = sowattManifest;
 
 export function createDialogueVoice() {
@@ -27,10 +32,20 @@ export function createDialogueVoice() {
     return playClip(target, text, find(text), 'simone', onFinish);
   }
 
-  function playDoorSimone(target: HTMLElement, text: string, cueKey: string) {
+  function playDoorSimone(target: HTMLElement, text: string, cueKey: string, withCole: boolean) {
     const clip = simoneClips[cueKey];
-    if (clip?.text === spokenText(text)) return playClip(target, text, clip, 'simone');
-    return false;
+    const spoken = spokenText(text);
+    if (clip?.text !== spoken) return false;
+    const cole = coleClips[cueKey];
+    if (withCole && cole?.text === spoken && cole.duet?.simoneFile === clip.file) {
+      return playClip(target, text, { ...clip, file: cole.duet.file }, 'cole');
+    }
+    return playClip(target, text, clip, 'simone');
+  }
+
+  function playDoorCole(target: HTMLElement, text: string, cueKey: string) {
+    const clip = coleClips[cueKey];
+    return clip?.text === spokenText(text) && playClip(target, text, clip, 'cole');
   }
 
   function playSowatt(target: HTMLElement, text: string, cueKey: string) {
@@ -76,13 +91,24 @@ export function createDialogueVoice() {
       stop();
       onFinish?.(played);
     }
+    function highlight(index: number, shown: boolean) {
+      if (index < 0) return;
+      const [start, end] = clip!.words[index];
+      spans[index].classList.toggle('is-spoken-word', shown);
+      if (!clip!.phrases) return;
+      // A Japanese phrase and its English translation share one timing interval.
+      for (let i = index + 1; i < spans.length; i++) {
+        if (clip!.words[i][0] !== start || clip!.words[i][1] !== end) break;
+        spans[i].classList.toggle('is-spoken-word', shown);
+      }
+    }
     function paint() {
       if (close !== clear) return;
       const position = audio.currentTime;
       const index = clip!.words.findIndex(([start, end]) => position >= start && position < end);
       if (index !== active) {
-        spans[active]?.classList.remove('is-spoken-word');
-        spans[index]?.classList.add('is-spoken-word');
+        highlight(active, false);
+        highlight(index, true);
         active = index;
       }
       frame = requestAnimationFrame(paint);
@@ -115,5 +141,5 @@ export function createDialogueVoice() {
     return true;
   }
 
-  return { find, play, playDoorSimone, playSowatt, stop };
+  return { find, play, playDoorSimone, playDoorCole, playSowatt, stop };
 }

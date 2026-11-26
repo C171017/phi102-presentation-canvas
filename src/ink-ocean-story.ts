@@ -325,8 +325,8 @@ export const inkOceanStory = {
     title: "P1.5 · The Verdict",
     summary: "After the prosecutor withdraws his objection, Simone’s verdict breaks the dream.",
     illustration: {
-      src: trialArt.dreamBreaks,
-      alt: 'Simone holds the Gavel beside Echo as pale cracks spread across the courtroom.',
+      src: trialArt.doorTransitionStart,
+      alt: 'Simone and Echo at the witness stand in the sunlit courtroom.',
     },
     paragraphs: [
       "Judge: [Quietly.] Go on.",
@@ -335,8 +335,18 @@ export const inkOceanStory = {
       "Simone: TAKE THAT! [She raises the gavel.] And gavels don’t rain confetti from nowhere, or put a man to sleep mid-sentence. You all saw it. Which real world works like this?",
       "[The prosecutor sweats. His mother slowly sits down. The jurors look up at the ceiling where the confetti went.]",
       "Prosecutor: …I withdraw the objection.",
-      "[Silence. BANG. Cracks race across the walls, the windows, the sky. The dream breaks.]",
+      "[Silence. BANG. The dream breaks.]",
     ],
+  },
+  "P2-arrival": {
+    title: "Arrival on the coastal road",
+    summary: "Simone arrives in the next dream with Echo.",
+    illustration: {
+      src: "/generated/backgrounds/ink-ocean/P2-arrival-coastal-road.webp",
+      alt: "A disoriented Simone looks back over her shoulder on a bicycle, with Echo in the basket and a sunlit harbor behind them.",
+      imageOnly: true,
+    },
+    paragraphs: [],
   },
   "P2-1": {
     title: "“Have you seen a door around here?”",

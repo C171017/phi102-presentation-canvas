@@ -2,6 +2,7 @@ import { addDialogueSpeaker, dialogueSpeaker, groupDialogueLabels } from './dial
 import { createPaperMiniSlide } from './paper-mini-slide';
 import { createTrialDialogue } from './trial-dialogue';
 import { createDialogueVoice } from './timed-dialogue';
+import { createDoorClosingMusic } from './door-closing-music';
 import { isDoorWorldScene, isSimoneCue } from './simone-voice-lines';
 import { createDialogueFrame } from './dialogue-frame';
 import { createSpeakerOutline } from './speaker-outline';
@@ -137,6 +138,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (focused instanceof HTMLButtonElement && controls.contains(focused)) focused.focus({ preventScroll: true });
   }
   const voice = createDialogueVoice();
+  const showMusicScene = createDoorClosingMusic(stage);
   const trial = createTrialDialogue(stage, () => move(1), voice);
   let onCueChange: (() => void) | undefined;
   shell.append(stage);
@@ -327,8 +329,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (!inCourt && !editing && !line.silent) {
       const target = rows[index].querySelector<HTMLElement>('.dialogue-words')!;
       if (isSimoneCue(line)) {
-        if (isDoorWorldScene(line.scene)) voice.playDoorSimone(target, lineText(index), line.key);
+        if (isDoorWorldScene(line.scene)) voice.playDoorSimone(target, lineText(index), line.key, line.speaker === 'Both');
         else voice.play(target, lineText(index));
+      } else if (line.speaker === 'Cole' && isDoorWorldScene(line.scene)) {
+        voice.playDoorCole(target, lineText(index), line.key);
       } else voice.playSowatt(target, lineText(index), line.key);
     }
     if (index === lastCue.get(line.scene)) operation.markViewed(line.scene);
@@ -400,7 +404,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     select(index, true);
   }
   function move(direction: number) {
-    if (editing) return;
+    if (editing || viewport.hasAttribute('data-door-transition')) return;
     if (direction > 0 && trial.reveal()) {
       trialRevealed = true;
       onCueChange?.();
@@ -475,13 +479,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }).observe(reader);
 
   function showScene(id?: string) {
+    showMusicScene(id);
     const firstImage = id && passageImages.get(id)?.[0];
     viewport.toggleAttribute('data-ink-passage', Boolean(firstImage));
     if (firstImage && script[active]?.scene !== id) showPassageArtwork(firstImage, false);
     operation.showScene(id);
     if (id === 'contemporary-heading' && !image.hasAttribute('src')) image.src = portrait;
     const nextScene = id === 'contemporary-heading' ? 'L0'
-      : id === 'L7' ? 'P1' : id === 'P1' ? 'P2-1' : undefined;
+      : id === 'L7' ? 'P1' : id === 'P1' ? 'P2-arrival' : id === 'P2-arrival' ? 'P2-1' : undefined;
     const nextBackground = nextScene && legendById.get(nextScene)?.background;
     if (nextBackground) artwork.preload(nextBackground);
     introIndex = introScenes.findIndex(scene => scene === id);

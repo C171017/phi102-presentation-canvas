@@ -8,7 +8,7 @@ const directionShots: readonly [RegExp, string][] = [
   [/slumps over the desk/i, trialArt.asleep],
   [/a small old woman stands/i, trialArt.motherObjects],
   [/jolts awake|prosecutor sweats/i, trialArt.prosecutor],
-  [/cracks race across/i, trialArt.dreamBreaks],
+  [/the dream breaks/i, trialArt.doorTransitionStart],
 ];
 
 const speakerShots: Readonly<Record<string, string | undefined>> = {

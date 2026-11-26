@@ -10,6 +10,11 @@
   pointer-events: none;
 }
 .trial-screen[hidden] { display: none; }
+/* The verdict's 4:3 picture is pillarboxed within the transition's 16:9 plate. */
+.trial-screen[data-door-exit] {
+  width: min(75%, 133.3333vh);
+  height: min(100%, 56.25vw);
+}
 #presentation-shell:has(.trial-screen:not([hidden])) #viewport[data-regress-flashback]::before {
   image-rendering: pixelated;
 }

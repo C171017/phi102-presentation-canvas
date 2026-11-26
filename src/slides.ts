@@ -1,7 +1,7 @@
 import type { CameraView } from './layout';
 
-import { legendById, slides } from './slide-content';
-import { scatterTrialShards } from './trial-shatter';
+import { slides } from './slide-content';
+import { trialArt } from './trial-art';
 import { createSlideProgress } from './slide-progress';
 import { inkPassages } from './ink-ocean-scenes';
 
@@ -25,7 +25,13 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   let entering: number | undefined;
   let requested: { index: number } | undefined;
   let sceneTransition: HTMLElement | undefined;
+  let stopDoorPlayback: (() => void) | undefined;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const doorVideo = document.createElement('video');
+  doorVideo.muted = true;
+  doorVideo.playsInline = true;
+  doorVideo.preload = 'auto';
+  const doorVideoSource = '/generated/backgrounds/ink-ocean/door-world-transition.mp4';
 
   const slideProgress = createSlideProgress(progress, index => open(index));
 
@@ -133,6 +139,9 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     foregroundGroups[next]?.forEach(item => item.classList.add('page-foreground'));
     visible = next;
     viewport.classList.toggle('is-page-focused', next >= 0);
+    if (slides[next]?.members[0] === 'P1' && !reducedMotion.matches && !doorVideo.hasAttribute('src')) {
+      doorVideo.src = doorVideoSource;
+    }
     if (next >= 0 && next !== lastVisited) {
       lastVisited = next;
       slideProgress.showCurrent(next);
@@ -150,6 +159,8 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   function clearSceneTransition() {
     const overlay = sceneTransition;
     sceneTransition = undefined;
+    stopDoorPlayback?.();
+    stopDoorPlayback = undefined;
     overlay?.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
     overlay?.remove();
   }
@@ -172,24 +183,34 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     }
   }
 
-  async function shatterIntoDoorWorld(showPage: () => void) {
-    const background = viewport.style.getPropertyValue('--regress-background');
-    const incoming = legendById.get('P2-1')?.background;
-    if (!background || !incoming) { showPage(); return; }
-
+  function playDoorTransition(showPage: () => void) {
     const overlay = document.createElement('div');
-    overlay.className = 'trial-shatter';
+    overlay.className = 'door-world-transition';
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.style.backgroundImage = `url("${trialArt.doorTransitionStart}")`;
+    overlay.append(doorVideo);
+    viewport.parentElement!.append(overlay);
+    viewport.setAttribute('data-door-transition', '');
     sceneTransition = overlay;
-    const road = new Image();
-    road.src = incoming;
-    const ready = await road.decode().then(() => true, () => false);
-    if (sceneTransition !== overlay) return;
 
-    if (ready) viewport.parentElement!.append(overlay);
-    const flights = ready ? scatterTrialShards(overlay, background) : [];
+    const playback = new AbortController();
+    const events = { signal: playback.signal };
+    const finish = () => { if (sceneTransition === overlay) clearSceneTransition(); };
+    const timeout = window.setTimeout(finish, 9000);
+    stopDoorPlayback = () => {
+      playback.abort();
+      clearTimeout(timeout);
+      doorVideo.pause();
+      viewport.removeAttribute('data-door-transition');
+    };
+    if (!doorVideo.hasAttribute('src') || doorVideo.error) doorVideo.src = doorVideoSource;
+    if (doorVideo.readyState > HTMLMediaElement.HAVE_NOTHING) doorVideo.currentTime = 0;
+    doorVideo.addEventListener('playing', () => overlay.setAttribute('data-playing', ''), events);
+    doorVideo.addEventListener('ended', finish, events);
+    doorVideo.addEventListener('error', finish, events);
+    // Paint and report the new slide under the clip so room followers start in sync.
     showPage();
-    await Promise.allSettled(flights.map(animation => animation.finished));
-    if (sceneTransition === overlay) clearSceneTransition();
+    void doorVideo.play().catch(finish);
   }
 
   function open(index: number, fromCanvas = false, immediate = false) {
@@ -212,8 +233,9 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
     const to = slides[index].members[0];
     if (immediate || fromCanvas || reducedMotion.matches) {
       showPage();
-    } else if (from === 'P1' && to === 'P2-1') {
-      void shatterIntoDoorWorld(showPage);
+    } else if (from === 'P1' && to === 'P2-arrival' &&
+        viewport.parentElement!.querySelector('.trial-screen[data-door-exit]:not([hidden])')) {
+      playDoorTransition(showPage);
     } else if (from === 'L7' && to === 'P1') {
       void fadeIntoTrial(showPage);
     } else if (visible >= 0 && visible !== index && document.startViewTransition) {

@@ -52,7 +52,7 @@ test('slide links cover the philosophical slides and point to exact paper citati
     bundle: true, write: false, format: 'esm', loader: { '.css': 'empty' },
   });
   const { slides, slidePaperLinks } = await import('data:text/javascript;base64,' + Buffer.from(outputFiles[0].contents).toString('base64'));
-  const excluded = new Set(['unitrans-arrival', 'before-lecture', 'L0', 'P1']);
+  const excluded = new Set(['unitrans-arrival', 'before-lecture', 'L0', 'P1', 'P2-arrival']);
   assert.deepEqual(Object.keys(slidePaperLinks).sort(), slides.map(({ members }) => members[0]).filter(id => !excluded.has(id)).sort());
   const used = new Set(Object.values(slidePaperLinks).flatMap(links => links.map(link => link.id)));
   assert.deepEqual(Object.keys(citations).sort(), [...used].sort());

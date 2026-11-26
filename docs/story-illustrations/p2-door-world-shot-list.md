@@ -2,7 +2,11 @@
 
 ## Installed artwork
 
-The nine Door World scenes use eleven built-in ImageGen illustrations. The supplied *Suzume* trailer stills guide coastal composition, lighting, and the animation finish. The Version C character sheets supply the cast identities. The Story reader shows the nine scene plates. The presentation also cuts to Cole on his question and Simone on her reaction.
+The ten Door World scenes use twelve built-in ImageGen illustrations. The supplied *Suzume* trailer stills guide coastal composition, lighting, and the animation finish. The Version C character sheets supply the cast identities. The Story reader shows the ten scene plates. The presentation also cuts to Cole on his question and Simone on her reaction.
+
+[The silent arrival](../../public/generated/backgrounds/ink-ocean/P2-arrival-coastal-road.webp)
+
+A silent four-second film carries Simone from the courtroom to the coastal road. She looks back over her shoulder, with Echo in the basket. The next shot widens as she sees Cole. [ImageGen prompt](../design-decisions.md#2026-11-26t151629-0800--give-simone-a-silent-arrival-in-door-world) · [Higgsfield prompt](../design-decisions.md#2026-11-26t152854-0800--move-between-dreams-with-a-four-second-film)
 
 [The road meeting](../../public/generated/backgrounds/ink-ocean/P2-1-road-meeting.webp)
 
