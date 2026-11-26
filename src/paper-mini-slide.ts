@@ -31,9 +31,9 @@ export function createPaperMiniSlide(sharedCopy?: (key: string) => SlideCopy | u
   let activeTitle = '';
   let activeEdit: SlideCopy | undefined;
 
-  function show(key: string, title: string) {
+  function show(key: string, title: string, force = false) {
     const edit = sharedCopy?.(key);
-    if (activeKey === key && activeTitle === title && activeEdit === edit) return;
+    if (!force && activeKey === key && activeTitle === title && activeEdit === edit) return;
     const slide = edit ?? notes[key];
     if (!slide) return;
     activeKey = key;
@@ -52,5 +52,10 @@ export function createPaperMiniSlide(sharedCopy?: (key: string) => SlideCopy | u
     bridge.hidden = !slide.bridge;
     element.scrollTop = 0;
   }
-  return { element, show, get key() { return activeKey; }, refresh() { if (activeKey) show(activeKey, activeTitle); } };
+  return {
+    element, show,
+    get key() { return activeKey; },
+    get inlineFields() { return activeKey ? { key: activeKey, title: section, claim, points, bridge, source } : undefined; },
+    refresh(force = false) { if (activeKey) show(activeKey, activeTitle, force); },
+  };
 }

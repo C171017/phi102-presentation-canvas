@@ -1485,3 +1485,11 @@ Recorded time in Pacific time. Howie asked for shared editing and history on the
 > Yeah let's do it. Add an Edit mode to the live website so anyone can edit the slides and save to the same shared version, with version history so we can undo changes. but only people who go there with the customed prviate link
 
 The private link unlocks editing the slide copy and saving the map layout. The left panel remains the slide copy in dialogue scenes. Every save creates a revision, and restoring an earlier one creates a new revision. Viewers of the ordinary link can read the saved presentation.
+
+## 2026-11-25T21:50:04-08:00 · Edit dialogue in place
+
+Recorded time in Pacific time. Howie asked for direct editing from the existing private link:
+
+> the edit should be like you can click the dialouge box clikc first go into edit mode and for any text you can like double click to select or whatever，just like usual text on editing mechanism where you can type to see the replacement or whatever in real time。
+
+Click the dialogue box to edit slide copy on the left or dialogue lines on the right. Show text changes as they are typed. Save both columns as one version, and keep history, restore, and draft recovery after conflicts.

@@ -18,7 +18,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
   const message = screen.querySelector<HTMLButtonElement>('.trial-message')!;
   const name = screen.querySelector<HTMLElement>('.trial-name')!;
   const words = screen.querySelector<HTMLElement>('.trial-words')!;
-  const spoken = words.firstElementChild!;
+  const spoken = words.querySelector<HTMLElement>('span')!;
   const unspoken = words.lastElementChild!;
   const impact = screen.querySelector<HTMLElement>('.trial-impact')!;
   const confetti = screen.querySelector<HTMLElement>('.trial-confetti')!;
@@ -88,7 +88,13 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     }
     tick();
   }
-  function show(line?: InkOceanCue) {
+  function displayText(raw: string, edited?: string) {
+    if (edited !== undefined) return edited;
+    const shout = /^(OBJECTION!|TAKE THAT!)/.exec(raw)?.[0];
+    if (shout) return raw.slice(shout.length).trim() || (shout === 'OBJECTION!' ? 'Objection!' : 'Take that!');
+    return /^Banner: (.+)/.exec(raw)?.[1] ?? raw;
+  }
+  function show(line?: InkOceanCue, edited?: string) {
     reset();
     const entering = screen.hidden;
     screen.hidden = false;
@@ -105,8 +111,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     const title = /^Banner: (.+)/.exec(line.text)?.[1];
     name.textContent = line.kind ? '' : line.speaker;
     message.toggleAttribute('data-narration', Boolean(line.kind));
-    fullText = title ?? line.text;
-    if (shout) fullText = line.text.slice(shout.length).trim() || (shout === 'OBJECTION!' ? 'Objection!' : 'Take that!');
+    fullText = displayText(line.text, edited);
     spoken.textContent = '';
     unspoken.textContent = fullText;
     typing = true;
@@ -140,6 +145,24 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
   }
   return {
     show,
+    inlineRoot: message,
+    inlineText: spoken,
+    startInline() {
+      strike = undefined;
+      sounds.stop();
+      finish();
+      words.removeAttribute('aria-hidden');
+      message.tabIndex = -1;
+    },
+    stopInline() {
+      words.setAttribute('aria-hidden', 'true');
+      message.removeAttribute('tabindex');
+    },
+    updateText(line: InkOceanCue, edited?: string) {
+      strike = undefined;
+      fullText = displayText(line.text, edited);
+      finish();
+    },
     hide() { reset(); screen.hidden = true; },
     reveal() {
       if (screen.hidden) return false;

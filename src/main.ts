@@ -77,7 +77,7 @@ const openingVideo = liveMode || localLivePreview || localOpening
 const sharedCopy = (key: string) => shared?.snapshot.document.copy[key];
 const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene,
   !publicPreview && (localDev || hostedRoom) ? createLocalQuizVotes(role === 'audience', hostedRoom) : undefined,
-  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy);
+  readOnly && !publicPreview, role === 'presenter', openingVideo?.play, sharedCopy, key => shared?.snapshot.document.dialogue?.[key]);
 let currentIndex = -1;
 let overviewView: View = { ...view };
 const sharedPageCopy = shared ? createPaperMiniSlide(sharedCopy) : undefined;
@@ -209,6 +209,7 @@ function panBy(x: number, y: number) {
   goTo({ x: target.x + x / target.zoom, y: target.y + y / target.zoom });
 }
 function step(direction: number) {
+  if (openingDialogue.inlineEditing) return;
   if (openingVideo?.isOpen()) return;
   if (!stops.length && openingDialogue.stepDialogue(direction)) return;
   if (!stops.length) { slideNavigation.step(direction); return; }
@@ -292,7 +293,7 @@ window.addEventListener('keydown', (event) => {
 }, { capture: true });
 
 window.addEventListener('keydown', (event) => {
-  if (openingVideo?.isOpen()) return;
+  if (openingVideo?.isOpen() || openingDialogue.inlineEditing) return;
   const element = event.target as HTMLElement;
   if (event.defaultPrevented || element.isContentEditable || element.closest('input, textarea, select, a') || event.metaKey || event.ctrlKey || event.altKey) return;
   const navigationTarget = element.closest('#slide-progress button, .classroom-stage button, .before-lecture-scene');
@@ -416,7 +417,7 @@ let drag: {
   label: HTMLElement | null; retained: HTMLElement[]; slideEntry?: number;
 } | undefined;
 viewport.addEventListener('pointerdown', (event) => {
-  if (readOnly) return;
+  if (readOnly || openingDialogue.inlineEditing) return;
   if (pageExit.active()) { pageExit.reset(); render(); }
   const element = event.target as HTMLElement;
   if (drag || event.button !== 0 || element.closest('#slide-progress, input, textarea, select, button, a, [contenteditable="true"]')) return;
@@ -483,6 +484,7 @@ viewport.addEventListener('pointerup', endDrag);
 viewport.addEventListener('pointercancel', endDrag);
 viewport.addEventListener('lostpointercapture', endDrag);
 backdrop.addEventListener('wheel', (event) => {
+  if (openingDialogue.inlineEditing) return;
   if (event.defaultPrevented || drag) return;
   const zooming = event.ctrlKey || event.metaKey;
   const focused = slideNavigation.isFocused();
@@ -590,6 +592,7 @@ if (shared && hostedLayout && sharedEditing) {
   void Promise.all([hostedLayout.ready, import('./shared-slide-editor')]).then(([, { addSharedSlideEditor }]) => {
     addSharedSlideEditor(backdrop, shared, {
       activeKey: () => openingDialogue.slideCopyKey ?? slides[currentIndex]?.members[0],
+      inlineTarget: openingDialogue.inlineTarget,
       captureLayout: hostedLayout.capture,
       canSaveLayout: slideNavigation.isOnCanvas,
       apply(snapshot, resetLayout) {

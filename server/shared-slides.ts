@@ -1,7 +1,8 @@
 import { DurableObject } from 'cloudflare:workers';
 import { parseLayout } from '../src/layout-data';
-import { editKeyPattern, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
-  type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
+import { classroomCueScenes } from '../src/classroom-cues';
+import { editKeyPattern, isDialogueText, isRevision, isSlideCopy, originalSharedSnapshot, sharedSlideByKey, sharedSlidesPath,
+  type DialogueCopy, type SharedSlides, type SharedSnapshot, type SlideVersion } from '../src/shared-slide-data';
 
 export interface SharedSlidesEnv {
   SHARED_SLIDES: DurableObjectNamespace<SharedSlideHistory>;
@@ -46,6 +47,24 @@ async function readChange(request: Request): Promise<Record<string, unknown> | n
 function storedResult(row: StoredVersion | undefined): SharedSnapshot {
   if (!row) return originalSharedSnapshot;
   return { ...row, document: JSON.parse(row.document) as SharedSlides };
+}
+
+function proposedDialogue(body: Record<string, unknown>, previous: SharedSlides) {
+  const { scene, lines, copy } = body;
+  if (typeof scene !== 'string' || !lines || typeof lines !== 'object' || Array.isArray(lines)) return null;
+  const changes = Object.entries(lines);
+  if (changes.length > 200 || changes.some(([key, text]) => classroomCueScenes.get(key) !== scene || !isDialogueText(text))) return null;
+  const panel = copy as Partial<DialogueCopy> | undefined;
+  const entry = panel && typeof panel.key === 'string' ? sharedSlideByKey.get(panel.key) : undefined;
+  if (copy !== undefined && (!entry?.panel || entry.slideId !== scene || !isSlideCopy(panel?.copy))) return null;
+  if (!changes.length && copy === undefined) return null;
+  let document = previous;
+  if (entry && panel?.copy) {
+    const { title, claim, points, bridge, source } = panel.copy;
+    document = { ...document, copy: { ...document.copy, [entry.key]: { title, claim, points, bridge, source } } };
+  }
+  if (changes.length) document = { ...document, dialogue: { ...document.dialogue, ...Object.fromEntries(changes) } };
+  return document;
 }
 
 function proposedLayout(value: unknown) {
@@ -117,6 +136,12 @@ export class SharedSlideHistory extends DurableObject<SharedSlidesEnv> {
         const copy = { title, claim, points, bridge, source };
         document = { ...current.document, copy: { ...current.document.copy, [body.key]: copy } };
         summary = `Edited ${entry.label}`;
+      } else if (body.type === 'dialogue') {
+        const updated = proposedDialogue(body, current.document);
+        if (!updated) return reply({ error: 'Invalid dialogue edit.' }, 400);
+        document = updated;
+        const scene = [...sharedSlideByKey.values()].find(entry => entry.slideId === body.scene);
+        summary = `Edited dialogue · ${scene?.label ?? body.scene}`;
       } else if (body.type === 'layout') {
         const layout = proposedLayout(body.layout);
         if (!layout) return reply({ error: 'The canvas layout is invalid.' }, 400);

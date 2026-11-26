@@ -71,3 +71,5 @@
   }
 }
 .paper-mini-slide:focus-visible { outline: 2px solid #ffdc9e; outline-offset: -3px; }
+
+.paper-mini-slide :is(.mini-slide-section, cite, h2, li, .mini-slide-bridge) { white-space: pre-wrap; }

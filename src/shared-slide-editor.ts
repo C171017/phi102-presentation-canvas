@@ -1,9 +1,11 @@
+import { editInlineDialogue, type InlineDialogueTarget } from './inline-dialogue';
 import { isSlideCopy, sharedSlideByKey, sharedSlideEntries, type SharedSnapshot, type SlideCopy } from './shared-slide-data';
 import type { SharedSlideClient } from './shared-slides';
 import type { Layout } from './layout-data';
 
 type EditorOptions = {
   activeKey: () => string | undefined;
+  inlineTarget: () => InlineDialogueTarget | undefined;
   captureLayout: () => Layout;
   canSaveLayout: () => boolean;
   apply: (snapshot: SharedSnapshot, resetLayout: boolean) => void;
@@ -13,11 +15,21 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
   const toolbar = document.createElement('div');
   toolbar.className = 'shared-slide-toolbar';
   toolbar.setAttribute('aria-label', 'Shared editor');
-  toolbar.innerHTML = `<button type="button" data-edit>Edit slide</button>
+  toolbar.innerHTML = `<div class="shared-slide-actions" data-regular-actions><button type="button" data-edit>Edit slide</button>
     <button type="button" data-layout>Save layout</button>
-    <button type="button" data-history>Version history</button>
+    <button type="button" data-history>Version history</button></div>
+    <div class="shared-slide-actions" data-inline-actions hidden>
+      <button type="button" data-inline-save>Save changes</button>
+      <button type="button" data-inline-cancel>Cancel</button>
+      <button type="button" data-inline-latest hidden>Load latest</button>
+    </div>
     <span role="status"></span>`;
   const status = toolbar.querySelector<HTMLElement>('[role="status"]')!;
+  const regularActions = toolbar.querySelector<HTMLElement>('[data-regular-actions]')!;
+  const inlineActions = toolbar.querySelector<HTMLElement>('[data-inline-actions]')!;
+  const inlineLatest = toolbar.querySelector<HTMLButtonElement>('[data-inline-latest]')!;
+  const editButton = toolbar.querySelector<HTMLButtonElement>('[data-edit]')!;
+  shell.classList.add('has-shared-editor');
   shell.append(toolbar);
 
   const editor = document.createElement('dialog');
@@ -62,6 +74,7 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
   let before: number | null = null;
   let currentRevision = client.snapshot.revision;
   let busy = false;
+  let inline: ReturnType<typeof editInlineDialogue> | undefined;
   let appliedLayout = client.snapshot.document.layout?.savedAt ?? '';
 
   function apply(snapshot: SharedSnapshot, resetLayout: boolean) {
@@ -147,11 +160,77 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
     });
   }
 
-  toolbar.querySelector('[data-edit]')!.addEventListener('click', () => {
+  function beginInline(target: InlineDialogueTarget, selection: EventTarget | null = null) {
+    inline = editInlineDialogue(target, selection);
+    regularActions.hidden = true;
+    inlineActions.hidden = false;
+    inlineLatest.hidden = true;
+    status.textContent = 'Editing dialogue';
+  }
+
+  function finishInline() {
+    inline?.close();
+    inline = undefined;
+    inlineActions.hidden = true;
+    regularActions.hidden = false;
+    apply(client.snapshot, false);
+    editButton.focus({ preventScroll: true });
+  }
+
+  function saveInline() {
+    const session = inline;
+    if (!session || busy) return;
+    void run(status, async () => {
+      const change = session.changes(client.snapshot.document);
+      session.setBusy(true);
+      try {
+        if (change) await client.save(change);
+        finishInline();
+      } catch (error) {
+        inlineLatest.hidden = false;
+        throw error;
+      } finally {
+        if (inline === session) session.setBusy(false);
+      }
+    });
+  }
+
+  shell.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) return;
+    if (inline) {
+      if (!event.target.closest('#slide-progress, .preview-presentation, .legend-paging, .classroom-character, .record-quiz, .story-reader__launch')) return;
+      event.preventDefault();
+      event.stopPropagation();
+      status.textContent = 'Save or cancel to leave edit mode.';
+      return;
+    }
+    if (busy || editor.open || versions.open || !event.target.closest('.transcript-panel, .trial-message')) return;
+    const target = options.inlineTarget();
+    if (!target?.root.contains(event.target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    beginInline(target, event.target);
+  }, { capture: true });
+
+  editButton.addEventListener('click', () => {
+    const target = options.inlineTarget();
+    if (target) {
+      beginInline(target);
+      return;
+    }
     const key = options.activeKey();
     if (key && sharedSlideByKey.has(key)) section.value = key;
     showCopy();
     editor.showModal();
+  });
+  toolbar.querySelector('[data-inline-save]')!.addEventListener('click', saveInline);
+  toolbar.querySelector('[data-inline-cancel]')!.addEventListener('click', finishInline);
+  inlineLatest.addEventListener('click', () => {
+    void run(status, async () => {
+      await client.refresh();
+      inlineLatest.hidden = true;
+      status.textContent = 'Latest version loaded. Your draft is still here.';
+    }, 'Loading latest…');
   });
   toolbar.querySelector('[data-layout]')!.addEventListener('click', saveLayout);
   toolbar.querySelector('[data-history]')!.addEventListener('click', () => {
@@ -162,9 +241,16 @@ export function addSharedSlideEditor(shell: HTMLElement, client: SharedSlideClie
     }, 'Loading versions…');
   });
   document.addEventListener('keydown', event => {
+    if (event.isComposing) return;
+    if (inline && !busy && event.key === 'Escape') {
+      event.preventDefault();
+      finishInline();
+      return;
+    }
     if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 's' || event.altKey || editor.open || versions.open) return;
     event.preventDefault();
-    saveLayout();
+    if (inline) saveInline();
+    else saveLayout();
   });
   section.addEventListener('change', showCopy);
   editor.querySelector('[data-cancel]')!.addEventListener('click', () => editor.close());

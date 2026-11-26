@@ -320,3 +320,5 @@
 .legend-paging button + button::before { rotate: 135deg; }
 .legend-paging button:hover, .legend-paging button:focus-visible { background: #465654; }
 #viewport:has(#contemporary-heading.page-foreground)::before { filter: none; }
+
+.transcript-row { white-space: pre-wrap; }

@@ -6,26 +6,19 @@ import { createTheoryRecords } from './theory-records';
 import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
-import { legendById, legendSlides } from './slide-content';
+import { legendById } from './slide-content';
+import { classroomCueKeys, classroomScript as script } from './classroom-cues';
 import { hasEstablishingShot, type InkOceanCue } from './ink-ocean-scenes';
 import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
 import type { SlideCopy } from './shared-slide-data';
+import type { InlineDialogueTarget } from './inline-dialogue';
 import './classroom-dialogue.css';
 
 const introScenes = ['unitrans-arrival', 'before-lecture'];
-const script: (InkOceanCue & { scene: string; phase?: 'question' | 'reveal' })[] = [
-  { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Contextualism is the idea that what we mean when we say “I know” can change depending on the conversation.' },
-  { scene: 'contemporary-heading', speaker: 'Professor Lin', phase: 'question', text: 'What do you see there?' },
-  { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Ten seconds, a room full of philosophers, and somehow you’re all wrong. Well, Contemporary Contextualism it is. Read the texts.' },
-  { scene: 'contemporary-heading', speaker: 'Professor Lin', text: 'Anyway, long, long ago, when the chalk in this very room was still young, it has a very different name:' },
-  { scene: 'contemporary-heading', speaker: 'Professor Lin', phase: 'reveal', text: 'Flexible foundationalism.' },
-  ...legendSlides.flatMap(({ id, cues }) => cues.map(line => ({ ...line, scene: id }))),
-];
-
 const questionIndex = script.findIndex(line => line.phase === 'question');
 const answerWindowMs = openingQuizWindowMs;
 
-export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined) {
+export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, shared = false, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined, sharedLine?: (key: string) => string | undefined) {
   const stage = document.createElement('div');
   stage.className = 'classroom-stage';
   stage.hidden = true;
@@ -49,13 +42,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   reader.tabIndex = 0;
   reader.setAttribute('role', 'region');
   reader.setAttribute('aria-label', 'Transcript. Scroll or use the arrow keys to move between lines.');
-  const rows = script.map(({ text, phase, speaker, speakerId, kind }) => {
+  const lineText = (index: number) => sharedLine?.(classroomCueKeys[index]) ?? script[index].text;
+  const rows = script.map(({ phase, speaker, speakerId, kind }, index) => {
     const row = document.createElement('div');
     row.className = 'transcript-row';
     row.dataset.speaker = speakerId ?? speaker;
     if (kind) row.dataset.cueKind = kind;
     if (phase === 'reveal') row.classList.add('flashback-reveal');
-    row.textContent = text;
+    row.textContent = lineText(index);
     reader.append(row);
     return row;
   });
@@ -119,6 +113,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   let active = -1;
   let establishing = false;
   let trialRevealed = false;
+  let editing = false;
   let pendingLine = -1;
   let highlighted = -1;
   let scrollTimer = 0;
@@ -179,7 +174,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       !row.hidden && Math.abs(center(index) - reader.scrollTop) < Math.abs(center(best) - reader.scrollTop) ? index : best, active);
   }
   function finishQuestion() {
-    if (active === questionIndex && !choices.hidden) select(questionIndex + 1, presenter);
+    if (!editing && active === questionIndex && !choices.hidden) select(questionIndex + 1, presenter);
   }
   async function submitAnswer(answer: QuizChoice) {
     if (!quizEnabled || active !== questionIndex) return;
@@ -239,6 +234,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       button.removeAttribute('aria-label');
     });
   }
+  function setVisibleRows(scene: string) {
+    rows.forEach((row, index) => { row.hidden = script[index].scene !== scene || (!editing && active <= questionIndex && index > questionIndex); });
+  }
   function select(index: number, local = false, photo?: string) {
     clearQuestion();
     const line = script[index];
@@ -249,7 +247,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     viewport.toggleAttribute('data-establishing-shot', establishing);
     const inCourt = line.scene === 'P1';
     panel.hidden = establishing || inCourt;
-    if (inCourt) trial.show(photo ? undefined : line);
+    if (inCourt) trial.show(photo ? undefined : line, sharedLine?.(classroomCueKeys[index]));
     else trial.hide();
     if (photo) {
       highlight(-1);
@@ -259,9 +257,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       return;
     }
     // Keep the reading and the later conversation out of the transcript until the choice resolves.
-    rows.forEach((row, i) => { row.hidden = script[i].scene !== line.scene || (index <= questionIndex && i > questionIndex); });
+    setVisibleRows(line.scene);
     highlight(index);
-    announcement.textContent = line.speaker + '. ' + line.text;
+    announcement.textContent = line.speaker + '. ' + lineText(index);
     if (index === questionIndex && (quizEnabled || presenter)) {
       choices.hidden = false;
       const remaining = roomQuiz?.closesAt ? Math.max(0, roomQuiz.closesAt - Date.now()) : answerWindowMs;
@@ -317,6 +315,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     select(index, true);
   }
   function move(direction: number) {
+    if (editing) return;
     if (direction > 0 && trial.reveal()) {
       trialRevealed = true;
       onCueChange?.();
@@ -365,11 +364,13 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     answerButtons[next].focus({ preventScroll: true });
   });
   reader.addEventListener('click', event => {
+    if (editing) return;
     const row = (event.target as HTMLElement).closest<HTMLDivElement>('.transcript-row');
     const index = row ? rows.indexOf(row) : -1;
     if (index >= 0) goToLine(index === active ? active + 1 : index);
   });
   reader.addEventListener('keydown', event => {
+    if (editing) return;
     if (event.altKey || event.ctrlKey || event.metaKey || choices.contains(event.target as Node)) return;
     if (event.key !== 'Enter' && event.key !== ' ') return;
     event.preventDefault();
@@ -377,20 +378,20 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   });
   reader.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
-    if (stage.hidden || panel.hidden || active < 0) return;
+    if (editing || stage.hidden || panel.hidden || active < 0) return;
     const nearest = centeredLine();
     if (active < questionIndex && nearest === questionIndex) {
       select(nearest, true);
       return;
     }
     scrollTimer = window.setTimeout(() => {
-      if (stage.hidden || panel.hidden || active < 0) return;
+      if (editing || stage.hidden || panel.hidden || active < 0) return;
       const nearest = centeredLine();
       if (nearest !== active) goToLine(nearest);
     }, 160);
   });
   new ResizeObserver(() => {
-    if (!stage.hidden && !panel.hidden && active >= 0) reader.scrollTop = center(active);
+    if (!editing && !stage.hidden && !panel.hidden && active >= 0) reader.scrollTop = center(active);
   }).observe(reader);
 
   function showScene(id?: string) {
@@ -420,10 +421,49 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     if (script[active]?.scene !== id) select(nextLine, false, nextLine === index && !theory.isOpen() ? photoAt(index) : undefined);
   }
+  function refreshSlideCopy(force = false) {
+    if (editing) return;
+    notes.refresh(force);
+    rows.forEach((row, index) => {
+      const next = lineText(index);
+      if (row.textContent !== next) row.textContent = next;
+    });
+    if (force && script[active]?.scene === 'P1' && !establishing) trial.updateText(script[active], sharedLine?.(classroomCueKeys[active]));
+  }
+
+  function inlineTarget(): InlineDialogueTarget | undefined {
+    if (stage.hidden || establishing || active < 0 || theory.isOpen()) return;
+    const scene = script[active].scene;
+    const court = scene === 'P1';
+    const root = court ? trial.inlineRoot : panel;
+    const lines = court ? [{ key: classroomCueKeys[active], element: trial.inlineText }]
+      : rows.flatMap((element, index) => script[index].scene === scene ? [{ key: classroomCueKeys[index], element }] : []);
+    return {
+      scene, root, lines, panel: court ? undefined : notes.inlineFields,
+      start() {
+        clearTimeout(scrollTimer);
+        clearTimeout(quizTimer);
+        editing = true;
+        root.toggleAttribute('data-inline-editing', true);
+        if (court) trial.startInline();
+        else setVisibleRows(scene);
+      },
+      stop() {
+        editing = false;
+        root.removeAttribute('data-inline-editing');
+        if (court) trial.stopInline();
+        else setVisibleRows(scene);
+        refreshSlideCopy(true);
+        if (!court) reader.scrollTo({ top: center(active), behavior: 'instant' });
+        if (active === questionIndex && !choices.hidden) quizTimer = window.setTimeout(finishQuestion, answerWindowMs);
+      },
+    };
+  }
   return {
     theory, showScene, handleArrow, stepDialogue, advance: () => move(1),
     get slideCopyKey() { return panel.hidden || stage.hidden ? undefined : notes.key; },
-    refreshSlideCopy: notes.refresh,
+    refreshSlideCopy, inlineTarget,
+    get inlineEditing() { return editing; },
     updateOpeningQuiz(view?: OpeningQuizSnapshot) {
       const previousDeadline = roomQuiz?.closesAt;
       roomQuiz = view;

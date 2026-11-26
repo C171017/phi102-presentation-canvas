@@ -7,10 +7,17 @@ export const sharedSlidesPath = '/api/shared-slides';
 export const editKeyPattern = /^[0-9a-f]{64}$/;
 
 export type SlideCopy = { title: string; claim: string; points: string[]; bridge: string; source: string };
-export type SharedSlides = { layout: Layout | null; copy: Record<string, SlideCopy> };
+export type SharedSlides = { layout: Layout | null; copy: Record<string, SlideCopy>; dialogue?: Record<string, string> };
 export type SlideVersion = { revision: number; savedAt: string | null; summary: string };
 export type SharedSnapshot = SlideVersion & { document: SharedSlides };
-export type SharedChange = { type: 'copy'; key: string; copy: SlideCopy } | { type: 'layout'; layout: Layout };
+export type DialogueCopy = { key: string; copy: SlideCopy };
+export type DialogueChange = { type: 'dialogue'; scene: string; copy?: DialogueCopy; lines: Record<string, string> };
+export type SharedChange = { type: 'copy'; key: string; copy: SlideCopy } | { type: 'layout'; layout: Layout } | DialogueChange;
+export const dialogueTextLimit = 3000;
+
+export function isDialogueText(text: unknown): text is string {
+  return typeof text === 'string' && Boolean(text.trim()) && text.length <= dialogueTextLimit;
+}
 
 const notes = { ...openingNotes, ...schoolNotes };
 const classroom = [
