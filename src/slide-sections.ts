@@ -2,8 +2,9 @@ export type LegacySlideCopy = { title: string; claim: string; points: string[]; 
 export type SlideSection =
   | { kind: 'header'; title: string; source: string }
   | { kind: 'bullets'; items: string[] }
-  | { kind: 'heading' | 'text' | 'cue'; text: string };
-export type SlideCopy = LegacySlideCopy | { sections: SlideSection[] };
+  | { kind: 'heading' | 'text'; text: string };
+type SavedSlideSection = SlideSection | { kind: 'cue'; text: string };
+export type SlideCopy = LegacySlideCopy | { sections: SavedSlideSection[] };
 
 export const maxSlideSections = 24;
 export const maxSectionBullets = 12;
@@ -12,7 +13,7 @@ const filled = (value: unknown, length: number): value is string => fits(value, 
 const bulletList = (value: unknown): value is string[] =>
   Array.isArray(value) && value.length <= maxSectionBullets && value.every(item => filled(item, 500));
 
-function isSlideSection(value: unknown): value is SlideSection {
+function isSavedSlideSection(value: unknown): value is SavedSlideSection {
   if (!value || typeof value !== 'object') return false;
   const section = value as Record<string, unknown>;
   switch (section.kind) {
@@ -25,25 +26,25 @@ function isSlideSection(value: unknown): value is SlideSection {
 
 export function isSlideCopy(value: unknown): value is SlideCopy {
   if (!value || typeof value !== 'object') return false;
-  if ('sections' in value) return Array.isArray(value.sections) && value.sections.length <= maxSlideSections && value.sections.every(isSlideSection);
+  if ('sections' in value) return Array.isArray(value.sections) && value.sections.length <= maxSlideSections && value.sections.every(isSavedSlideSection);
   const { title, claim, points, bridge, source } = value as Partial<LegacySlideCopy>;
   return filled(title, 150) && filled(claim, 500) && bulletList(points) && fits(bridge, 500) && fits(source, 180);
 }
 
 export function slideSections(copy: SlideCopy): SlideSection[] {
-  if ('sections' in copy) return copy.sections;
-  const { title, claim, points, bridge, source } = copy;
+  // Older snapshots can still contain the removed Scene cue section.
+  if ('sections' in copy) return copy.sections.filter(section => section.kind !== 'cue');
+  const { title, claim, points, source } = copy;
   const sections: SlideSection[] = [];
   if (title || source) sections.push({ kind: 'header', title, source });
   if (claim) sections.push({ kind: 'heading', text: claim });
   if (points.length) sections.push({ kind: 'bullets', items: points });
-  if (bridge) sections.push({ kind: 'cue', text: bridge });
   return sections;
 }
 
 export function cleanSlideCopy(copy: SlideCopy): SlideCopy {
   if ('sections' in copy) {
-    return { sections: copy.sections.map(section => {
+    return { sections: slideSections(copy).map(section => {
       switch (section.kind) {
         case 'header': return { kind: 'header', title: section.title, source: section.source };
         case 'bullets': return { kind: 'bullets', items: [...section.items] };
@@ -51,6 +52,6 @@ export function cleanSlideCopy(copy: SlideCopy): SlideCopy {
       }
     }) };
   }
-  const { title, claim, points, bridge, source } = copy;
-  return { title, claim, points, bridge, source };
+  const { title, claim, points, source } = copy;
+  return { title, claim, points, bridge: '', source };
 }

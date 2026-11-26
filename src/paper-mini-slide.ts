@@ -31,9 +31,6 @@ export function renderMiniSlideSection(section: SlideSection, index: number) {
     case 'heading':
       node = field('h2', section.text, 'text');
       break;
-    case 'cue':
-      node = field('p', section.text, 'text', 'mini-slide-bridge');
-      break;
     default:
       node = field('p', section.text, 'text', 'mini-slide-text');
   }
@@ -67,7 +64,7 @@ export function createPaperMiniSlide(sharedCopy?: (key: string) => SlideCopy | u
     activeTitle = title;
     activeEdit = edit;
     sections = slideSections(edit ?? {
-      title, claim: original.claim, points: [...original.points], bridge: original.bridge ?? '', source: original.source,
+      title, claim: original.claim, points: [...original.points], bridge: '', source: original.source,
     });
     element.replaceChildren(...sections.map(renderMiniSlideSection));
     element.scrollTop = 0;

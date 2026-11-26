@@ -29,7 +29,7 @@ function panelEntry(key: string, slideId: string, title: string, label: string) 
   const note = notes[key];
   return {
     key, slideId, label, panel: true,
-    initial: { title, claim: note.claim, points: [...note.points], bridge: note.bridge ?? '', source: note.source },
+    initial: { title, claim: note.claim, points: [...note.points], bridge: '', source: note.source },
   };
 }
 

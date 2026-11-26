@@ -6,7 +6,6 @@ const sectionNames = {
   heading: 'Heading',
   text: 'Text',
   bullets: 'Bullet list',
-  cue: 'Scene cue',
 };
 const fieldNames: Record<string, string> = { title: 'Slide title', source: 'Reference' };
 

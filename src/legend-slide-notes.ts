@@ -1,7 +1,6 @@
 export type SlideNotes = {
   claim: string;
   points: readonly string[];
-  bridge?: string;
   source: string;
 };
 
@@ -20,7 +19,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'Wet ink is a belief still being questioned. Dry ink can support another belief.',
       'A fresh challenge can put a once-settled reason back in question.',
     ],
-    bridge: 'Watch how the story turns giving reasons into building with ink.',
     source: 'Greco · §1, pp. 426–427',
   },
   'regress-problem': {
@@ -29,7 +27,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       '“They’re made of ink” is offered as support for “All ravens are black.”',
       'To settle a doubt, a reason must support the claim and be something we can treat as settled.',
     ],
-    bridge: 'Watch how little the guardian asks of the answer.',
     source: 'Greco · §1, p. 426',
   },
   'regress-problem-birth': {
@@ -43,7 +40,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'The woman cites her sight as evidence that she has a hand.',
       'When Y asks why she trusts her eyes, the evidence itself needs a reason.',
     ],
-    bridge: 'Follow the chain from her hand to her sight to her past experience.',
     source: 'Greco · §1, p. 426',
   },
   L3: {
@@ -52,7 +48,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'The man generalizes from the black ravens he has seen to all ravens.',
       'The next “why?” asks what justifies that step.',
     ],
-    bridge: 'The spreading ink makes the growing chain of doubts visible.',
     source: 'Greco · §1, p. 426',
   },
   'L3-continued': {
@@ -68,7 +63,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'Skepticism gives up justification. Infinitism keeps supplying further, distinct reasons.',
       'Coherentism draws on mutual support. Foundationalism allows a justified stopping point.',
     ],
-    bridge: 'Listen for what each answerer does with the next “why?”',
     source: 'Greco · §1, p. 426',
   },
   'regress-skepticism': {
@@ -77,7 +71,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'On this answer to the regress, no belief can be justified.',
       'Greco’s objection starts with ordinary life, where at least some beliefs seem justified.',
     ],
-    bridge: 'Pyrrho suspends judgment. The bog shows what that looks like in practice.',
     source: 'Greco · §1, p. 426',
   },
   'regress-infinitism': {
@@ -86,7 +79,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'The chain continues forever without repeating any reason.',
       'Greco flags the worry that an infinite regress is itself a defect in a justification.',
     ],
-    bridge: 'In this scene, every turtle has another beneath it.',
     source: 'Greco · §1, p. 426',
   },
   'regress-coherentism': {
@@ -95,7 +87,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'Greco’s simplified model lets a chain of reasons loop back on itself. Neurath pictures a wider web.',
       'A system can fit together while losing contact with experience.',
     ],
-    bridge: 'Watch what SOWHAT’s fairy tale tests about Neurath’s ship.',
     source: 'Greco · §1, p. 426 and note 1',
   },
   L7: {
@@ -104,7 +95,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'An undoubted belief can help resolve a doubt if it gives good support to the claim in question.',
       'A starting point here can be questioned in another inquiry.',
     ],
-    bridge: 'The Stranger finds ground firm enough for this step.',
     source: 'Greco · §1, p. 427',
   },
   P1: {
@@ -121,7 +111,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'An inquiry starts with an open, answerable question.',
       'A hinge is a claim you hold fixed so that inquiry can proceed.',
     ],
-    bridge: 'What does Cole’s question assume?',
     source: 'Greco · §2.2, p. 428',
   },
   'P2-2a': {
@@ -130,7 +119,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'To learn a color from someone, you take their understanding and cooperation for granted.',
       'You also rely on your memory of what the color words mean.',
     ],
-    bridge: 'As Simone answers Cole, notice what she takes for granted.',
     source: 'Greco · §2.2, p. 428 · On Certainty §345',
   },
   'P2-2b': {
@@ -139,7 +127,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'It supplies a starting point without first needing a reason of its own.',
       'You can rely on it while asking for reasons about something else.',
     ],
-    bridge: 'Cole points to what Simone already does when she hears her name.',
     source: 'Greco · §2.2, p. 428',
   },
   'P2-2c': {
@@ -148,7 +135,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'You can ask what appears to you.',
       'You can also ask how much to trust that appearance. That question needs its own starting points.',
     ],
-    bridge: 'What could Simone ask about what she sees through the doorway?',
     source: 'Greco · §2.2, p. 428',
   },
   'P2-3': {
@@ -157,7 +143,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'A claim you usually take for granted can become the thing you investigate.',
       'The new inquiry needs its own starting points.',
     ],
-    bridge: 'Listen for how Simone separates recognizing Cole from explaining the recognition.',
     source: 'Greco · §2.2, p. 428',
   },
   'P2-4': {
@@ -166,7 +151,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'To check a claim, you need some evidence or a test you can trust for now.',
       'What you hold fixed helps determine which questions you can investigate.',
     ],
-    bridge: 'The thread of question marks brings the regress back into view.',
     source: 'Greco · §2.2, p. 428 · On Certainty §341',
   },
   'P2-5': {
@@ -175,7 +159,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'When every proposed reason is in doubt, each reason becomes the next question.',
       'A hinge gives you a fixed point from which to test a doubtful claim.',
     ],
-    bridge: 'What happens when Simone tries the Gavel in the ruins?',
     source: 'Greco · §2.2, p. 428',
   },
   'P2-6': {
@@ -184,7 +167,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'You can take your eyesight for granted in one inquiry and examine it in another.',
       'Words and memory can also provide fixed points when the inquiry depends on them.',
     ],
-    bridge: 'Listen for which of Simone’s earlier doubts comes up in the chant.',
     source: 'Greco · §§2.2, 3, pp. 428, 430',
   },
   'P2-7': {
@@ -193,7 +175,6 @@ export const openingNotes: Record<string, SlideNotes> = {
       'What the subject must hold fixed matters to what she is justified in taking for granted.',
       'Greco calls this a sensitive invariantist version of flexible foundationalism.',
     ],
-    bridge: 'Listen for why Cole says “this door, and this door alone.”',
     source: 'Greco · §3, p. 430',
   },
 };
