@@ -67,6 +67,7 @@ export function trialPages(beats: InkOceanScene[]): InkOceanCue[] {
         return pages.map(text => ({
           ...cue, background, text,
           ...(direction ? { speaker: 'Stage direction', kind: 'direction' as const } : {}),
+          ...(beat.id === 'P1' && cue.speaker === 'Judge' && text === 'Order! Order!' ? { trialCallToOrder: true as const } : {}),
         }));
       });
     });

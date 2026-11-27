@@ -2230,3 +2230,13 @@ Recorded in Pacific time. Howie supplied a screenshot of The Law of Ink dialogue
 > Only if I move to the next page and come back to this page.
 
 Enter on the artwork. The first advance opens the transcript silently and the second selects its first cue. Track voice completion by cue for the current visit. Allow an interrupted clip to retry below 90% and keep completed lines silent during review. Clear completion when the slide changes so a return starts fresh. The shared presentation cue distinguishes the silent preview from its first spoken line. The Trial keeps its game controls and the Whypocalypse title card keeps its existing presentation.
+
+## 2026-11-26T19:49:49-08:00 · Let the judge call the courtroom to order
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> no need brief pause, the event is driven by clickgint eh arrow key etc just add that order order as anotther section put inthe right place
+
+> implement
+
+Put “Order! Order!” in the Judge’s dialogue immediately after the gallery laughter. Play the existing gavel impact on that cue. Advance to the court-in-session banner on the next navigation input.

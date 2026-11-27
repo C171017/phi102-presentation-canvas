@@ -267,6 +267,7 @@ export const inkOceanStory = {
       "[The legend’s last painting pulls back. The narrator’s voice was coming from the witness stand.]",
       "Simone: That’s the legend, and this world is part of it. It’s fake. And the legendary artifacts were never found. Until now. [She points at the bench.] And that gavel, Your Honor, is one of the legendary artifacts.",
       "[The gallery roars with laughter.]",
+      "Judge: Order! Order!",
     ],
   },
   "P1-2": {

@@ -128,14 +128,15 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     if (/confetti flies back up/i.test(line.text)) confetti.dataset.motion = 'rise';
     if (/gallery (roars|howls)/i.test(line.text)) sounds.play('gallery', .36);
     if (/^POP\./.test(line.text)) sounds.play('pop');
-    if (/\bBANG\./.test(line.text)) {
+    if (line.trialCallToOrder || /\bBANG\./.test(line.text)) {
       strike = () => {
         strike = undefined;
         sounds.play('gavel', .7);
         if (verdict) confetti.dataset.motion = 'fall';
         screen.dataset.strike = '';
       };
-      strikeTimer = window.setTimeout(() => strike?.(), 330);
+      if (line.trialCallToOrder) strike();
+      else strikeTimer = window.setTimeout(() => strike?.(), 330);
     }
     if (shout || verdict || title) {
       screen.dataset.interrupting = '';

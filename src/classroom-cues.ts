@@ -15,6 +15,7 @@ const classroomScript: (InkOceanCue & { scene: string; phase?: 'question' | 'res
 // different line after a source-script revision.
 const counts = new Map<string, number>();
 const classroomCueKeys = classroomScript.map(cue => {
+  if (cue.trialCallToOrder) return 'P1:call-to-order';
   const source = cue.sourceScene ?? cue.scene;
   const index = counts.get(source) ?? 0;
   counts.set(source, index + 1);
@@ -44,8 +45,14 @@ for (const [index, cue] of classroomScript.entries()) {
   scene.push({ ...cue, key: classroomCueKeys[index], number: scene.length, sourceNumber: scene.length, original: true });
   authoredByScene.set(cue.scene, scene);
 }
-// The transition stays in Story view. Retire the game page after assigning the wire cue numbers.
 const trialCues = authoredByScene.get('P1');
+const callToOrder = trialCues?.find(cue => cue.trialCallToOrder);
+if (trialCues && callToOrder) {
+  // Give the inserted page a fresh wire number and preserve the later pages' numbers.
+  for (const cue of trialCues.slice(callToOrder.number + 1)) cue.number--;
+  callToOrder.number = trialCues.length - 1;
+}
+// The transition stays in Story view. Retire the game page after assigning the wire cue numbers.
 if (trialCues?.[0]?.key === 'P1:0:13y293n') trialCues.shift();
 
 export function authoredCues(scene: string) {
