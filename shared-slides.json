@@ -1,7 +1,7 @@
 {
-  "revision": 59,
-  "savedAt": "2026-11-27T00:14:00.384Z",
-  "summary": "Edited dialogue · 14. The Stranger",
+  "revision": 60,
+  "savedAt": "2026-11-27T00:32:51.965Z",
+  "summary": "Edited dialogue · 18. Flashback · The sea wall",
   "document": {
     "layout": null,
     "copy": {
@@ -145,7 +145,8 @@
       "L2:8:h027is": "Why believe you're not a brain in a vat?",
       "L3:0:1v5k02q": "Then the five became ten. Answers still came. They just never passed.",
       "regress-foundationalism:0:pg0oj4": "And then there was a fourth. Nobody had elected him. He was shut alone in a stove-heated room, doubting everything.",
-      "L7:0:1xawf6j": "Until someone found a way out."
+      "L7:0:1xawf6j": "Until someone found a way out.",
+      "P2-2a:0:596tqo": "[Flash Back. Sunset. A sea wall. Cole is streaming, orange chat slips drifting around him.]"
     },
     "dialogueStructure": {
       "L0": {
