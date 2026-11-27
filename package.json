@@ -11,7 +11,7 @@
     "gifs:generate": "node scripts/generate-gifs.mjs",
     "art:door-world:check": "node scripts/generate-door-world-art.mjs --check",
     "art:door-world": "node scripts/generate-door-world-art.mjs",
-    "paper:pages": "swift scripts/render-paper-pages.swift public/readings/greco-2017.pdf scripts/paper-anchors.json public/readings/greco-2017",
+    "paper:pages": "swift scripts/render-paper-pages.swift public/readings/greco-2017.pdf scripts/paper-anchors.json public/readings/greco-2017 1500 server",
     "build:live": "tsc --noEmit -p server/tsconfig.json && VITE_LIVE_PRESENTATION=1 npm run build -- --outDir dist-live && rm -f dist-live/readings/greco-2017.pdf",
     "dev:live": "npm run build:live && wrangler dev --port 5192",
     "deploy": "npm run build:live && wrangler deploy"

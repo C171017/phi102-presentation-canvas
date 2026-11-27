@@ -1,0 +1,797 @@
+
+
+[Printed page 425]
+33
+CONTEXTUALISM ABOUT
+FOUNDATIONS
+Daniel Greco
+In contemporary philosophical parlance, “contextualism” has a relatively precise meaning. One
+counts as a contextualist about some sentence just in case one holds that the sentence expresses
+different propositions when uttered in different contexts. Within epistemology, contextualism
+about sentences involving “knowledge” and “knows” has been much discussed, as the other
+essays in this volume illustrate. Contemporary parlance, however, is somewhat recent, and
+before it came to be established there were other views labeled “contextualist” in epistemology.
+In the earlier sense I’ll focus on in this essay, contextualism was seen as a view about the structure
+of epistemic justification – a kind of middle way between traditional versions of foundation-
+alism on the one hand, and coherentism on the other; on this view, our justified beliefs do rest
+on a foundation, but which foundation they rest on depends, in some sense, on context. While
+the use of “contextualism” as a label for this view is due mainly to David Annis (1978) and
+Michael Williams (1991, 2001), the origins of the view itself are often traced to the works of
+C.S. Peirce, John Dewey, and Ludwig Wittgenstein. Given that contemporary terminology
+has been relatively securely established, to avoid confusion I won’t call this earlier position
+“contextualism,” but will instead refer to it as “flexible foundationalism.” I have several aims
+in this essay. First, I’ll present some initial motivations for holding that something like flexible
+foundationalism is attractive as a view about the structure of epistemic justification. Second,
+I’ll show how flexible foundationalism can be developed along different lines, some of which
+would be classified as contextualist in contemporary parlance, others of which would count
+as sensitive invariantist, relativist, or even expressivist. Lastly, I’ll suggest that flexible founda-
+tionalism has fruitful applications to recent epistemological debates, using the internalism/
+externalism debate as a case study.
+1 Regresses and foundations
+Paradox is an engine of progress, at least in philosophy. And while semantic paradoxes drive work
+in logic, skeptical paradoxes are what animate epistemologists. Flexible foundationalists are no
+different – in particular, flexible foundationalism can be seen as stemming from dissatisfaction
+with traditional answers to the regress problem.
+425
+
+[Printed page 426]
+Daniel Greco
+For present purposes, the regress problem can be thought of as a taxonomy for classifying
+positions on the structure of epistemic justification. The familiar taxonomy is as follows:
+Skepticism: Justification is impossible.
+Infinitism: A belief B must be justified by reason(s) R1, which must be justified by rea-
+son(s) R2, which must be justified by . . .
+The chain of reasons is infinite, and non-­repeating.
+Coherentism: A belief B must be justified by reason(s) R1, which must be justified by rea-
+son(s) R2, which must be justified by . . .
+The chain of reasons is infinite, but repeating – at some point we start going
+in a circle.
+Foundationalism: A belief B must be justified by reason(s) R1 which must be justified by rea-
+son(s) R2, which must be justified by . . . reason(s) Rn.
+The chain of reasons is finite.
+This taxonomy has seemed paradoxical because while it looks to be exhaustive,1 each of the four
+positions can seem unattractive. Very quickly, it’s plausible that we have some justified beliefs, so
+skepticism is unattractive. Circular reasoning and infinite regresses seem epistemically defective,
+so coherentism and infinitism face uphill battles. And foundationalism faces the worry that any
+stopping point in a chain of reasons will be arbitrary. Nevertheless, while each has its defend-
+ers, both historically and today most epistemologists have been sympathetic to some form of
+foundationalism.
+Once we’re foundationalists, it’s very natural to wonder where chains of justification come to
+an end. If there is some class of claims that can provide justification without themselves standing
+in need of justification, which claims are those, and what makes them so special?
+At the risk of oversimplifying centuries of work in epistemology, we can state that this ques-
+tion leads to something of a dilemma for the foundationalist. Traditional, obvious answers to the
+question have the result that it’s very hard for any claims to play a foundational role. Famously,
+Descartes’s project involved looking for indubitable foundations.2
+It’s not so hard to see why
+indubitable claims might be apt to stop regresses. Plausibly, what gives the regress problem its
+force is that, insofar as I doubt whether P, becoming convinced that P is supported by Q doesn’t
+seem to help resolve my uncertainty if I also doubt whether Q.3
+But if I don’t doubt that Q, then
+being shown that Q supports some other proposition P is a natural way to resolve any doubts I
+might have about whether P.
+It’s widely accepted that the Cartesian project leads to skepticism; indubitable claims are too
+few and far between to provide a foundation for the rest of what we ordinarily take ourselves
+to be justified in believing. Insofar as we want to avoid skepticism, coherentism, and infinitism,
+a natural response to this failure is to relax the criteria for foundationality. Popular moderate
+foundationalist views have held, e.g., that beliefs based on perception, or on certain sorts of
+intuitions, are apt to play a foundational role, even if they’re not certain, indubitable, incorrigi-
+ble, or anything like that.4 But while this response avoids skepticism, it lacks the internal logic
+of the Cartesian picture. In the previous paragraph we encountered the idea that any doubted
+claim won’t be apt to play a foundational, doubt-­resolving role. If that’s right, then insofar as the
+putative foundations endorsed by the moderate foundationalist are open to doubt, they won’t
+be apt to play that role. The dilemma facing the foundationalist, then, is that if she opts for a
+well-­motivated answer to the question of what makes for foundationality, her view collapses into
+skepticism. And if she avoids skepticism, she does so at the cost of having an arbitrary, ad hoc
+answer to the question of what it takes to legitimately stop a regress.
+426
+
+[Printed page 427]
+Contextualism about foundations
+One way of motivating some version of flexible foundationalism is to start by taking the
+Cartesian idea that freedom from doubt, in some sense, really is crucial for a claim to play a foun-
+dational role. Rather than entirely giving up on this idea, as moderate foundationalists do, the
+flexible foundationalist holds that foundational beliefs must be free from doubt in the local context
+in which they play a foundational role, even if they are not in principle indubitable. They needn’t be
+undoubtable, but they must be undoubted. To flesh this out, the flexible foundationalist will have
+to say something about what it means for claims to be free from doubt in particular contexts,
+even though they are not in principle indubitable. There are many ways of developing this idea,
+some of which I’ll consider in the following section.
+2 Routes to flexible foundationalism
+2.1 Social dimensions of justification
+One way to develop a version of flexible foundationalism is to start by thinking of justification,
+not as an abstract status a belief might have, but as a social activity that we can engage in, perhaps
+to convince others to adopt our beliefs, or at least to defend ourselves from criticism for holding
+them.5
+A focus on justification as an activity isn’t incompatible with belief in justification as a status.
+But focusing on the activity will influence one’s account of the status
+–
+e.g., it will be natural to
+think of a justified belief as one that is defensible, via the activity of justification.6
+Once we think of justification as an activity, some kind of foundationalism becomes very
+attractive. Infinitism looks unattractive because, given our limited lifespans, we can’t go on offer-
+ing reasons forever; we tend to think that the toddler who keeps asking “why” hasn’t fully
+grasped how the practice of justification works. And coherentism looks unattractive because, in
+real life, circular arguments are typically rejected as unconvincing. Rather, the real-­life activity
+of justification looks foundationalist – we offer some reasons, but at some point we stop, and at
+least if the reasons we offered were good ones, a sensible, adult audience will rest content that an
+adequate justification has been given. But some kind of flexibility is attractive, too. The activity
+of justification has an audience, and who that audience is – and more importantly, which claims
+they’ll let pass without objection
+–
+will vary from context to context. This is the basic idea
+behind the version of flexible foundationalism offered by David Annis (1978). On his view,
+“to determine whether S is justified in believing h we must consider the actual standards of
+justification of the community of people to which he belongs” (p. 215). Annis goes on to claim
+that community standards will determine, in each context, an appropriate “objector-­group.” In
+his theory, a justified belief is one that can be defended against the objections the group would
+raise, and a foundationally justified belief is one that would meet with no objections from the
+appropriate objector-­group.7
+Perhaps without saying more about how appropriate objector-­groups are determined, it’s
+impossible to evaluate Annis’s view. Nevertheless, it’s easy to worry that, however it’s fleshed out,
+it will be too subjectivist. On Annis’s view, if there is nobody in S’s community who would object
+to the claim that P in a certain context, then P will be foundational for S in that context.8 But
+couldn’t everybody in some community wrongly or inappropriately take some claim for granted? I
+don’t just mean to say that it’s possible for a whole community to take for granted a claim that’s
+false – that, I take it, is uncontroversial.9
+Rather, the claim is that an entire community could make
+a mistake or violate some genuine epistemic norm in taking some claim for granted – they could
+treat it as foundationally justified for them, even though it isn’t. One might think that Annis’s
+requirement that objector-­groups be “appropriate” would give him a way to avoid this objection,
+but it’s not clear that it does; however appropriate objector-­groups are determined, if they must
+427
+
+[Printed page 428]
+Daniel Greco
+be drawn from S’s community, and if nobody in S’s community would raise any objections to
+S’s belief that P in a certain context, then S’s belief that P will be foundational in that context.
+I’ll return to this worry in section 3. For the moment, however, I’ll set aside this objection to
+consider another route by which one might be led to a position similar to Annis’s.
+2.2 Hinges
+In the previous subsection, we saw that a focus on justification as an activity could provide ration-
+ales both for foundationalism in general, and more specifically for foundationalism’s taking a
+flexible form. On some interpretations, various of Wittgenstein’s remarks in On Certainty (1969)
+can play a similar role. Wittgenstein writes that
+the questions that we raise and our doubts depend on the fact that some propositions are
+exempt from doubt, are as it were like hinges on which those turn.
+(section 341, emphasis in original)
+The general idea seems to be that the practice of inquiry
+–
+treating questions as both open and
+amenable to investigation
+–
+requires treating some questions as closed. He gives the following
+example to illustrate the point:
+If I ask someone “what colour do you see at the moment?”, in order, that is, to learn
+what colour is there at the moment, I cannot at the same time question whether the
+person I ask understands English, whether he wants to take me in, whether my own
+memory is not leaving me in the lurch as to the names of colours, and so on.
+”
+(section 345)
+Here the claims that the interlocutor understands English, that he will cooperate, and that the
+inquirer’s memory is reliable as to color names are all serving as “hinges,” in the sense of the ear-
+lier remark. They are being taken for granted and not subject to inquiry, in order that a different
+inquiry
+–
+concerning which color is present
+–
+may be pursued.
+If the preceding thoughts are correct, they can be seen as providing a kind of transcendental
+argument for something like foundationalism
+–
+it’s a necessary precondition for inquiry to take
+place that some claims play a foundational role, providing the framework for justifying other
+claims without themselves standing in need of justification.10
+It’s also not so hard to see why the form of foundationalism this line of thinking supports will
+plausibly be flexible, rather than fixed. After all, even if it’s true that for any project of inquiry,
+there must exist some hinge propositions, it’s a much stronger claim that there are certain sorts
+of propositions that must serve as hinges for all inquiries.11 And in various places, Wittgenstein
+acknowledges that, over time or from individual to individual, which claims are treated as hinges
+may vary.12
+2.3 Knowledge, belief, and flexible foundationalism
+In the previous two subsections I discussed routes to flexible foundationalism that have been typ-
+ically seen as such by their proponents.13
+In this subsection, I’ll discuss a different sort of route;
+it’s possible to end up as a flexible foundationalist without trying, in a sense I hope to make clear.
+Timothy Williamson (2000) famously defends the view that knowledge is evidence; E
+=
+K.
+And he goes on to characterize this view as suggesting “a very modest kind of foundationalism,
+428
+
+[Printed page 429]
+Contextualism about foundations
+on which all one’s knowledge serves as the foundation for all one’s justified beliefs” (p. 186). And
+Williamson consistently rejects interpretations of his view on which items of knowledge, in order
+to qualify as such, need to derive support from other beliefs or evidence. Items of knowledge
+can justify our confidence in further beliefs – e.g., by serving as the data in an inference to the
+best explanation, as discussed in Williamson (2000, chapter 9)
+–
+without themselves standing in
+need of justification by other beliefs.14 This seems to amount to the claim that knowledge plays
+a foundational, regress-­stopping role.
+Suppose we accept E
+=
+K, and the characterization of it as a version of foundationalism.
+Suppose that in addition, we accept some “flexible” view about the nature of knowledge and/or
+knowledge attributions, such as contextualism (in the contemporary sense), sensitive invariant-
+ism, relativism, or others.15 We would then end up with a view that is naturally classified, I think,
+in the same broad family as views discussed in the previous two subsections.16
+Another, very similar route to such a view would go, not via E
+=
+K, but via the “general
+foundations” theory defended by Gilbert Harman (2001). On Harman’s view, all beliefs are
+foundational. On its own, while this may seem like an odd version of foundationalism, there
+isn’t obviously anything distinctively flexible about it, in the sense of the theories we’ve been
+discussing so far. But it can end up that way, when combined with independently motivated
+views about the nature of belief. Roger Clarke (2013, 2015), for instance, defends a “sensitivist”
+view about belief, on which whether a subject believes a proposition will in general depend,
+quite properly, on various features of her situation not traditionally considered by epistemolo-
+gists, such as the practical tasks she’s engaged in or the conversational context she occupies. I’ve
+independently argued that sensitive invariantists about knowledge are committed to similar views
+about the nature of belief, and have defended the views as plausible.17
+So whether one accepts
+a foundationalism with knowledge at the base, or with beliefs at the base – neither of which is
+typically thought of, on its own, as in the same family as the views discussed in the previous two
+subsections – one can easily end up a flexible foundationalist, if one endorses some further theses
+about knowledge and/or belief that, while controversial, are far from outlandish.
+In the next section, I’ll discuss the relationship between flexible foundationalism understood as
+a family of views about the structure of epistemic justification, and more recent debates between
+epistemic contextualists, sensitive invariantists, relativists, and expressivists.
+3 Relations to recent debates
+In this section, I’ll sketch how views in the flexible foundationalist family can be developed along
+contextualist, sensitive invariantist, relativist, and expressivist lines. The case of sensitive invariant-
+ism is the most straightforward. Familiar sensitive invariantist views about knowledge hold that
+whether a subject knows a proposition depends, not just on the sorts of “truth-­conducive” factors
+traditionally considered by epistemologists, but also on a wide range of “contextual” factors,
+including the practical stakes of the decisions she faces, the conversational context she occupies,
+and perhaps others.18
+It’s relatively straightforward to hold that this dependence on non-­traditional
+factors holds, not just for knowledge, but also for foundationally justified beliefs. Annis’s view, as
+discussed in section 2.1, is most naturally interpreted as a sensitive invariantist view about founda-
+tional justification, in which facts about the norms accepted by a subject’s community are among
+the non-­traditionally recognized factors nevertheless relevant to epistemic justification. That is,
+according to that view, whether a subject’s belief is foundationally justified depends not just on,
+e.g., her experiences, background beliefs, and so on, but also on the norms accepted by her com-
+munity. In this formulation, facts about community norms are playing the same role as facts about
+practical stakes in the familiar examples used to motivate sensitive invariantism.
+429
+
+[Printed page 430]
+Daniel Greco
+We can also develop a sensitive invariantist version of the Wittgensteinian version of flexible
+foundationalism. We can hold that whether a subject has foundational justification to believe a
+proposition depends on what inquiries she’s engaged in, and whether she must treat that prop-
+osition as a hinge
+–
+a theoretical fixed point
+–
+in order to carry out those inquiries. Since facts
+about which inquiries a subject is engaged in are, arguably, not among the factors traditionally
+considered relevant to justification, this would count as a version of sensitive invariantism about
+foundational justification.
+Developing a version of flexible foundationalism along contextualist lines
+–
+in the contempo-
+rary sense of “contextualist”
+–
+is more tricky. The most obvious strategy would be to hold that
+sentences containing the expression “foundationally justified” express different propositions in
+different contexts. A contextualist version of Annis’s view could hold that when a speaker utters
+a sentence containing the expression “foundationally justified,” which proposition she expresses
+depends on the norms of her epistemic community. A contextualist version of the Wittgenstein-
+ian view might hold, analogously, that which proposition a subject expresses when uttering a
+sentence containing “foundationally justified” depends on which inquiries the subject is engaged
+in. But this would, I think, be too quick. Unlike “knows,”
+“justified” and “foundational” are
+technical terms in philosophy, rarely used – at least in their epistemologically significant senses –
+by non-­philosophers. This both threatens to rob the position of its interest, and makes it hard for
+the contextualist to appeal to the sort of evidence that more familiar versions of epistemic con-
+textualism are (putatively) supported by; while it’s easy to see how one might appeal to empirical
+linguistic data to adjudicate debates about the semantics of “knows,”
+it’s harder to see how similar
+debates can even get off the ground concerning terms that do not occur in ordinary usage.
+However, even if “foundational justification” isn’t often directly attributed in natural language,
+the status it denotes might play an important role in explaining linguistic data. For instance,
+while we rarely say “that belief is foundationally justified,” we may manifest judgments about
+foundationality in other ways. If I assert “it must be cold outside,”
+it’s plausible that I am not
+only expressing my belief that it’s cold outside, but also conveying that I do not take this belief
+to be foundationally justified, but that I instead base it on some inference from other beliefs. If
+I say that I have a toothache, and you ask me “what makes you think that?” and I respond “Oh
+come on,” it’s natural to interpret me as conveying, inter alia, that I don’t take my belief that I
+have a toothache to stand in need of justification by further beliefs – that I take it to be founda-
+tionally justified (and perhaps obviously so). Taking examples like this as a jumping-­off point, a
+contextualist version of flexible foundationalism might be developed that focused, not on direct
+attributions of foundationality, but instead on other attributions whose felicity depends on which
+beliefs are foundationally justified.
+It’s also possible to develop expressivist and relativist versions of flexible foundationalism.
+To see why one might find such views attractive, especially in contrast with the sensitive invar-
+iantist and contextualist views considered so far, it may help to consider some analogous views
+in ethics. Consider the view that one is morally obligated to always act in ways approved of
+by one’s community. This view has obvious counterexamples in cases where one’s community
+is morally misguided.19
+However, we can see the sensitive invariantist version of Annis’s view
+as a kind of epistemic analog of this implausible ethical theory. Annis’s view implies, roughly,
+that one is justified in accepting a claim with no further supporting reasons if and only if one’s
+community would raise no objections to the claim. But what if one’s community is epistemi-
+cally misguided? Plausibly, even if my community treats belief in astrology as unobjectionable,
+that doesn’t make it so.
+In both the moral and epistemological cases, what these views seem to be missing is space for
+the idea that the norms of a community might be wrong.
+20 A contextualist, rather than sensitive
+430
+
+[Printed page 431]
+Contextualism about foundations
+invariantist, version of flexible foundationalism might seem better placed to make sense of this
+idea. To see why, let’s start by considering a very simple version of the metaethical view known
+as “speaker-­relativism.”21
+This is the view that in calling an action “wrong,” I am stating that
+I disapprove of it. As a speaker-­relativist, I can say: ⌜That community thinks that S should φ,
+but they’re wrong, S shouldn’t φ.
+⌝
+In doing so, I’ll be stating that I disapprove of S’s φ-
+­ing. We
+can define a contextualist version of flexible foundationalism that is, in a way, analogous to
+speaker-­relativism.22
+This view would have it that, in calling a belief “foundationally justified,” I am stating that I
+am committed to treating it as such – e.g., to not asking for further reasons when people express
+the belief, to being willing to accept its being offered as a reason in support of further beliefs,
+etc. Given such a view, I could in good conscience say something like the following: ⌜That com-
+munity thinks that S’s belief that P is foundationally justified, but they’re wrong
+–
+it’s not.⌝ The
+view under consideration would have it that saying something like that amounts to stating that I
+am committed to not treating S’s belief that P as foundationally justified.
+While this is a significant departure from Annis’s more communitarian approach to justifi-
+cation, and gives us some of what we want, it’s not clear whether it goes far enough. The views
+discussed in the last paragraph have the following, surprising feature. If someone else, whose
+norms I don’t share, sincerely says that some action(belief) is wrong(foundationally justified), then
+I may have to admit that what she said was true, even while also holding that the action(belief) is
+not wrong(foundationally justified). This is for essentially the same reason that if I am not hungry,
+and you are, then when you say, “I am hungry,” I should agree that what you said was true, even
+though I am not hungry. That is, “I am hungry,” when uttered by you is about your hunger,
+while when uttered by me, is about mine. So when you say, “I am hungry,” and I say, “I am not
+hungry,” we’re not disagreeing; we can both be right. The views in the previous paragraph have it
+that attributions of moral and epistemic statuses are relevantly like attributions of hunger. When
+you say ⌜φ-
+­ing is wrong⌝ or ⌜The belief that P is foundationally justified⌝ and I say what looks
+like a negation of what you say, we can nevertheless both be right, since you’re describing your
+norms
+–
+whether moral or epistemic
+–
+and I’m describing mine. But this can seem implausible
+–
+if you say an action is right, and I say it is wrong, then it’s plausible that we’re disagreeing, in a way
+that rules out the possibility that both of us are right.
+The challenge raised in the previous paragraph is sometimes referred to as the “problem of
+disagreement,” and the question of whether contextualist and subjectivist views can do justice
+to it is a live one.23
+Some writers take it to motivate a move from contextualist theories to either
+expressivist or relativist theories.24 While the focus in these epistemological debates has been
+knowledge rather than foundational justification, the issues are very similar. After all, as already
+mentioned, on some views, relativism and expressivism about knowledge just are versions of
+relativism and expressivism about foundational justification. So the question of whether, if we’re
+going to be some kind of flexible foundationalist, we should be contextualists, sensitive invarian-
+tists, relativists, or expressivists, looks very much like the analogous question about knowledge,
+which has been discussed at great length (including in this volume). For this reason, I won’t discuss
+it here. Rather, in the next section, I’ll offer a surprising application of flexible foundationalism.
+4 An application
+4.1 Access and foundationalism
+Part of the appeal of flexible foundationalism is the idea that it can accept what’s attractive about
+traditional forms of foundationalism without taking on their burdens.
+431
+
+[Printed page 432]
+Daniel Greco
+For example, the flexible foundationalist can agree with the Cartesian claim that doubted
+claims cannot serve as foundations, without taking on the whole Cartesian project. In this sec-
+tion, I want to discuss what will turn out to be a closely related idea; I’ll argue that the flexible
+foundationalist can accept a version of internalism in epistemology – one which might otherwise
+have looked indefensibly Cartesian.25
+Consider the following strong “access internalist” epistemological principle:’26
+(Access) If S has justification to believe that P, then S has justification to believe that
+S has justification to believe that P.
+There are various ways of providing some prima facie motivation for this principle, but I’ll
+offer just one.27 We saw earlier in the chapter that part of the appeal of the Cartesian version
+of foundationalism is the idea that there’s something unsatisfying about trying to stop a regress
+with a claim that is itself in doubt. The flexible foundationalist explains this idea by holding that
+doubted claims cannot be foundational in the contexts in which they are doubted, even if they can
+play a regress-­stopping role in other contexts. In what follows, I’ll try to argue that this idea that
+foundational claims cannot themselves be in doubt motivates something like (Access).
+Many writers have noted that doubts about “higher-­order” epistemological claims
+–
+e.g., the
+claim that one knows that P, or that one is justified in believing that P – very naturally give rise
+to doubts about “first-­order,” object-­level claims.28
+For instance, if I start to doubt that my evi-
+dence supports the claim that organic foods have significant health benefits, I will probably also
+start doubting the claim that organic foods have significant health benefits. Only somewhat more
+controversially, it’s plausible that this would be good reasoning
+–
+it would be a mistake to doubt
+whether one knows or has justification to believe that P, while having no doubts about whether
+P.29 This creates an awkward situation for foundationalists who deny (Access). They must admit
+that there are cases in which some claim is foundationally justified for a subject, but where she
+lacks justification to believe that she has justification to believe that claim.30 Why is this awkward?
+Because if the subject has all the attitudes she has justification to have, and makes no mistakes in
+reasoning, then she’ll treat some claim as a regress-­stopper
+–
+after all, it’s foundationally justified
+for her – while nevertheless having doubts about its truth (since she will doubt whether she has
+justification to believe it, which will lead to first-­order doubt). We can avoid this result if we hold
+that subjects always have justification to believe, of those claims that are foundationally justified
+for them, that they are foundationally justified. But that’s just a special case of (Access).
+However, whatever the prima facie motivation for (Access), there are powerful reasons to think
+that nothing of the sort could be true. The truth of (Access) would be puzzling at best; it would
+mean that there was a class of facts – facts about what we have justification to believe – such
+that we always have justification to believe the truth concerning facts in the distinguished class.
+This is highly unusual
+–
+in most if not all other domains, it’s always possible that our evidence
+is misleading. Facts about weather, for example, certainly do not have this feature; there can be
+facts about whether it will rain, snow, or shine, such that we lack justification to believe the truth
+concerning those facts – perhaps because a meteorologist was mistaken, or just because we have
+no relevant evidence at all.31
+So if facts about justification are unlike facts about weather, what
+could explain this difference?
+A natural, almost inescapable thought, is the following. (Access) could only be true if there
+were some distinctive realm of propositions that constituted the supervenience base for facts
+about what we have justification to believe, such that concerning claims in this distinctive realm,
+one’s evidence is never misleading
+–
+whatever one has justification to believe to be true, is true.32
+While this might not be enough to guarantee the truth of (Access), it seems at least required.
+432
+
+[Printed page 433]
+Contextualism about foundations
+After all, if the supervenience base for facts about justification lacks this feature, then there will
+be natural candidates for cases in which we lack justification to believe what is in fact the truth
+concerning what we have justification to believe. For instance, suppose
+–
+obviously falsely
+–
+that
+what we have justification to believe depends on the weather. Then cases in which we lack jus-
+tification to believe the truth about the weather will be natural candidates for cases in which we
+lack justification to believe the truth about what we have justification to believe.
+In light of such considerations, some defenders of (Access) do endorse strong claims about our
+epistemic access to the facts on which justification supervenes; Smithies (2012) defends a version
+of (Access), and holds that the truth of his version of (Access) is explained by the fact that facts
+about what we are justified in believing supervene on facts about a very special class of mental
+states. According to Smithies, “The determinants of justification are non-­epistemic facts about
+one’s mental states, which are introspectively accessible in the sense that one has introspective
+justification to believe that those mental facts obtain if and only if they obtain” (2012, p. 297).
+Smithies goes on to hold that since it is an a priori matter which beliefs are justified by which
+introspectively accessible mental states, one is always in a position to know what one has justifi-
+cation to believe, by a combination of introspection (to find out which introspectively accessible
+mental states one is in), and a priori reflection (to find out what beliefs those mental states justify).
+If this is the only sort of strategy available for explaining (Access), however, many philosophers
+will be inclined to deny the truth of (Access), rather than to accept an inference to the best expla-
+nation argument for the existence of a distinctive class of “non-­epistemic facts about one’s mental
+states,” with the feature that one “has introspective justification to believe that those mental facts
+obtain if and only if they obtain.” After all, to accept the existence of such a class of facts is to
+accept something very much like a traditional, Cartesian sort of foundationalism. It is to accept
+that we have what Williamson (2000) has called a “cognitive home.”
+A cognitive home is a realm
+in which nothing is hidden to us – a class of claims such that, if we pay close enough attention
+(for Smithies, and arguably for Descartes, this will involve doing careful enough introspection),
+we will always know which such claims are true, and which are false. Moreover, it is to hold that
+this cognitive home isn’t trivially or uninterestingly small
+–
+it doesn’t only include, e.g., claims to
+the effect that we exist – but instead it includes enough to form a supervenience base for all facts
+about what we have justification to believe.
+But there are both general theoretical reasons to doubt that we have any such cognitive home,
+as well as specific reasons to doubt that claims about our mental states in particular could consti-
+tute such a home.33
+Rather than try to rebut these claims, in the next subsection I’ll try to argue
+that explaining (Access) does not require positing the existence of a cognitive home, or at least not
+one of a traditional sort. Rather, if we adopt flexible foundationalism, we can explain (Access) by
+appeal to a contextually local cognitive home
+–
+in each context, we’ll regard some class of facts
+as constituting a subject’s cognitive home, but when doubts about the subject’s ability to know
+facts in the relevant class are raised and taken seriously, the context will shift, and so will the class
+of facts that we take to constitute the subject’s cognitive home; because S’s cognitive home is apt
+to shift its location, we might call it a mobile home.34
+4.2 Access and flexible foundationalism
+The basic strategy that the flexible foundationalist can use to defend (Access) – or rather, a con-
+textualized version of it – is to hold that contexts determine local supervenience bases for facts
+about justification, rather than global ones.35
+Moreover, she can hold that it is a constraint on B’s
+counting as a local supervenience base for facts about what a subject S is justified in believing,
+that in the context in which B counts as such a supervenience base, S counts as in a position to
+433
+
+[Printed page 434]
+Daniel Greco
+know the truth concerning B. To see what this amounts to, and how it can help the defender of
+(Access), it will help to consider an example.
+Suppose we’re in a context in which the following facts are all taken for granted: Peter is host-
+ing a party, and he has either said to Justine that the party starts at 7:00, or that it starts at 8:00.
+Whatever Peter said, Justine heard him.
+Now someone raises the question of what Justine has justification to believe concerning the
+time at which the party starts. A natural answer is that Justine should believe whatever Peter told
+her
+–
+if Peter said the party starts at 7:00, that’s what Justine has justification to believe. Mutatis
+mutandis if he said the party starts at 8:00. That is, the facts about what Justine has justification
+to believe locally supervene (given the background presuppositions of our context) on the facts
+about what Peter said. And because we take it that Justine heard Peter – she knows what Peter
+said
+–
+we’ll take it that Justine is in a position to know what she has justification to believe.
+To be sure, facts about what Peter said would not make a plausible global supervenience base
+for facts about what Justine has justification to believe concerning the start time of the party.
+There are certainly contexts in which we would not hold that what Peter said fixes what Justine
+has justification to believe concerning when the party starts. One obvious sort of situation in
+which we might cease regarding facts about what Peter said as such a supervenience base would
+be if we were to come to doubt that such facts provide good evidence concerning the start time
+of the party – if, e.g., Peter had a reputation as a prankster, we might not think that Justine would
+have justification to trust him. But another reason we might cease regarding facts about what
+Peter said as a supervenience base for Justine’s justification would be if we were to come to doubt
+that Justine was in a position to know what Peter said.
+Suppose, e.g., we come to think that Peter might’ve mumbled, or that Justine has trouble
+hearing. If we continued to hold that Justine has justification to believe whatever Peter said, then
+we would have to regard Justine as not being in a position to know what she has justification to
+believe. But a more likely response, I think, is that we will change our minds about which facts
+determine what Justine is justified in believing. Perhaps we’ll hold that what she ought to believe
+about when the party starts depends on when Peter’s parties have started in the past (which we
+take her to remember) or on what Peter’s email said (which again, we take her to remember), or
+just on her best guess as to what Peter said (and we’ll take her to be in a position to know what
+her best guess is), or on some combination of the above sorts of facts.36 Whatever the new local
+supervenience base is for facts about what Justine has justification to believe, as long as Justine
+counts as in a position to know the truth about facts in the new base, there needn’t be any obstacle
+to her being in a position to know what she has justification to believe.
+Here’s the more general picture into which the above example fits. Each context will deter-
+mine a local supervenience base for facts about what a subject is justified in believing – a set of
+propositions B such that, within the local set of worlds taken seriously in the context, there are
+no differences in what the subject is justified in believing without differences in which proposi-
+tions in B are true. Moreover, it is a constraint on such bases that if B is a supervenience base for
+S’s justification in context C, then S counts as in a position to know which are the truths in B,
+relative to context C. This way, we will never say that the facts that determine what a subject has
+justification to believe are facts that the subject is not in a position to know. We can think of B
+as a sort of cognitive home – a realm of propositions such that the subject is always in a position
+to know which are the truths in that realm.37
+But because we do not believe in cognitive homes of the traditional sort, we’ll admit that
+whatever B is, we will be able to raise reasonable doubts about S’s ability to know which are the
+truths in B. To the extent that we take such doubts seriously, the context will shift, and in our
+new context C′
+, B will not be the local supervenience base for facts about what S has justification
+434
+
+[Printed page 435]
+Contextualism about foundations
+to believe. Rather, there will be some new supervenience base B′, such that S does count as in a
+position to know which are the truths in B′
+. In each context, we’ll count S as having some cog-
+nitive home (i.e., there will be some supervenience base for facts about S’s justification, such that
+S is in a position to know which are the truths in the base), but which class of facts constitutes S’s
+home will vary from context to context.
+Of course, providing a full defense of this contextualized form of access internalism is well
+beyond the scope of this chapter. My aim here has been merely to whet the philosophical appetite
+by sketching an unfamiliar but potentially fruitful application of flexible foundationalism.
+5 Conclusion
+Flexible foundationalism is the idea that, while the foundationalist answer to the regress problem
+is correct, which beliefs are apt to play a foundational role in some sense depends on context. In
+this chapter, I’ve surveyed a variety of ways different philosophers have been led to this idea, as
+well as a variety of ways it can be fleshed out, especially in connection with more recent debates
+about knowledge. Lastly, I argued that it provides the materials necessary to articulate a version
+of access internalism shorn of Cartesian commitments.
+Notes
+1 As I’ve presented it, it’s not quite exhaustive; it presupposes that justification, if it exists, involves chains
+of reasons. I won’t consider views that reject that presupposition in this essay. On at least some inter-
+pretations, however, coherentists, while technically represented in the taxonomy, might object that it
+mischaracterizes their position.
+2 See Descartes (2004). For a contemporary analogue, see Chisholm (1966), who holds that foundations
+must be certain, and takes propositions about one’s experiences to fit the bill.
+3 This way of seeing the regress problem is especially natural if we take a broadly interactive approach
+to justification, of a sort inspired by the “argumentative” account of reasoning defended by Mercier
+and Sperber (2011), or the dialogical account of the normativity of logic defended by Dutilh Novaes
+(2015); I can’t convince somebody of P by convincing them that it’s supported by Q, unless they’re already
+convinced that Q.
+4 See, e.g., Pryor (2000), Huemer (2007).
+5 See Dogramaci (2012, 2015), Novaes (2015).
+6 That’s not to say that someone with a justified belief must be able to articulate its justification, just that it
+must be, in principle, available.
+7 Foundationally justified beliefs are trivially justified, since they can be defended against the (nonexistent)
+objections the group will raise. To be clear, he presents his view as a rejection of foundationalism, rather
+than a flexible or contextualist version of it, but I take it this amounts to a verbal difference; what I am
+calling foundationally justified beliefs, he calls “contextually basic” beliefs.
+8 This is because the appropriate objector-­group is always a subset of S’s community. See Annis (1978,
+p. 215).
+9 Perhaps not entirely uncontroversial. Richard Rorty famously claimed that “truth is what your contem-
+poraries will let you get away with.” On that view, perhaps it’s impossible for an entire community to
+take a false claim for granted. But Rorty’s contemporaries didn’t let him get away with his claim about
+truth, so it’s self-­defeating; if it’s true, then it’s false. We can safely set it aside.
+10 On this interpretation, see Wright (2004). Wright’s terminology is somewhat different, however; he
+says that we have “entitlements”
+–
+rather than “justification”
+–
+for believing the claims that play this
+inquiry-­enabling role.
+11 Formally, it’s the difference between a ∀∃ claim, and a ∃∀ claim.
+12 For example, remark 98: “Yet this is right: the same proposition may get treated at one time as something
+to test by experience, at another as a rule of testing.”
+13 That’s not to say that their proponents used the terminology “flexible foundationalism,” but just to say
+that their proponents saw themselves as offering non-­traditional answers to questions about the structure
+of justification.
+435
+
+[Printed page 436]
+Daniel Greco
+14 See especially the reply to Brueckner in Pritchard and Greenough (2009).
+15 Williamson himself denies such views. See Williamson (2005). But others have combined such views
+with E
+=
+K. See Ichikawa (2013).
+16 While the resulting view might seem to have much in common with moderate forms of foundation-
+alism of the sort I raised a worry for in section 1 – namely, that it allows for dubitable beliefs to play
+a regress-­stopping role
+–
+I suspect that when combined with “flexible” views about knowledge, this
+worry can be dealt with. For example, if we are contextualists, in the contemporary sense, we might
+hold that in any context in which an attributor A takes seriously certain doubts about whether P,
+which a subject S cannot dispel, then “S knows that P” will be false as uttered by A. Given this view, a
+belief that is subject to salient, unresolved doubts in the context of a given attributor will never count
+as knowledge by the standards of that attributor, and so will never be apt, by those standards, to stop
+regresses.
+17 See Greco (2015b).
+18 See Hawthorne (2004), Stanley (2005), Fantl and McGrath (2009).
+19 See Midgley (2003, ch. 5).
+20 That’s not to say that Annis isn’t aware of this difficulty
+–
+see Annis (1978, p. 216) for his attempt to
+meet it.
+21 See Dreier (1990) for a more sophisticated version of the view.
+22 The analogy between contextualism in epistemology and speaker-­relativism in metaethics is due to
+Chrisman (2007).
+23 See Plunkett and Sundell (2013) for some discussion, generally arguing that the challenge to contextualist
+and speaker-­relativist views has been overstated.
+24 See Chrisman (2007) for the former, MacFarlane (2011) for the latter.
+25 For some general discussion of the relationship between access internalism on the one hand, and foun-
+dationalism on the other, see Smithies (2014), who is sympathetic to both, and argues that they form a
+coherent package. Though his version of that package is far more Cartesian than the one sketched here.
+26 For a discussion of access internalism, and how it differs from other versions of internalism, see Conee
+and Feldman (2001). Recent work in the internalist tradition tends to shy away from defending anything
+like (Access). See, e.g., Schellenberg (2013) and Schoenfield (2015) both of whom defend views on
+which there’s something importantly right about internalism, but which specifically avoid commitment
+to anything like (Access).
+27 The locus classicus for a defense of access internalism is BonJour (2001).
+28 See, e.g., Bergmann (2005). I appeal to this idea to argue that many epistemological debates are not
+merely verbal in Greco (2015a).
+29 See Horowitz (2014) and Way and Whiting (2016) for related discussion.
+30 In principle, they might deny this, by endorsing a restricted version of (Access) that holds only for
+foundationally justified beliefs. But I won’t consider this position
+–
+well-­motivated, internally coherent
+views on which (Access) doesn’t hold in general also imply that it doesn’t hold in the restricted case of
+foundationally justified beliefs.
+31 See Greco (2014, §1.2) for closely related discussion.
+32 Srinivasan (2015) makes this assumption
+–
+in particular, she assumes that (Access) would require a kind
+of privileged, Cartesian knowledge of our own minds.
+33 Quine (1951/1953) is probably the most influential critic of the general picture on which all of our
+knowledge rests on beliefs about matters in a “cognitive home,”
+though in recent years the “anti-luminosity”
+argument offered by Williamson (2000, ch. 4) has received more discussion. For some
+reasons to doubt that facts about our phenomenology in particular constitute such a home, see Schwit-
+zgebel (2011).
+34 I use this terminology in my (Greco, 2016), which concerns the application of flexible foundationalism
+to some puzzles concerning epistemic defeat.
+35 The distinction between local and global supervenience bases should become clear as this subsection
+progresses. As an aside, it needn’t be an idiosyncratic feature of facts about justification that they only
+have local supervenience bases. See Rayo (2013) for a “localist” view of representation on which, quite
+generally, contexts only determine local supervenience bases for facts of most sorts. It is the sort of
+distinction between “local” and “global” supervenience bases that he is talking about that I mean to be
+tracking with my terminology; the fact that philosophers of mind use the words “local” and “global”
+to distinguish between different versions of supervenience is, from the standpoint of the present chapter,
+an unfortunate coincidence – I do not mean to be tracking the same distinction that they are.
+436
+
+[Printed page 437]
+Contextualism about foundations
+36 In any of these cases, we might take it that she oughtn’t have outright beliefs about the start time of
+the party, but should instead distribute her confidence over various possibilities. This is compatible
+with (Access), insofar as we take Justine to be in a position to know how she should distribute her
+confidence.
+37 The view sketched here is very much inspired by similar positions defended by Ram Neta (2002, 2003,
+2005). See also Salow (Draft) for a view closely related to one sketched in the text.
+Bibliography
+Annis, David B. 1978. “A Contextualist Theory of Epistemic Justification.”
+American Philosophical Quarterly
+15:213–219.
+Bergmann, Michael. 2005. “Defeaters and Higher-­Level Requirements.”
+Philosophical Quarterly 55:419–436.
+BonJour, Lawrence. 2001. “Externalist Theories of Empirical Knowledge.” In Kornblith, Hilary, editor,
+Epistemology: Internalism and Externalism, pages 10–35. Oxford: Wiley-­Blackwell.
+Chisholm, Roderick M. 1966. Theory of Knowledge. Englewood Cliffs, NJ: Prentice Hall.
+Chrisman, Matthew. 2007. “From Epistemic Contextualism to Epistemic Expressivism.” Philosophical Studies
+135:225–254.
+Clarke, Roger. 2013. “Belief Is Credence One (In Context).” Philosophers’ Imprint 13:1–18.
+———. 2015. “Preface Writers Are Consistent.” Pacific Philosophical Quarterly Early View.
+Conee, Earl, and Richard Feldman. 2001. “Internalism Defended.” In Kornblith, Hilary, editor,
+“Epistemol-
+ogy: Internalism and Externalism,” pages 231–260. Oxford: Blackwell.
+Descartes, Rene. 2004. Meditations on First Philosophy. Ann Arbor: Caravan Books.
+Dogramaci, Sinan. 2012. “Reverse Engineering Epistemic Evaluations.”
+Philosophy and Phenomenological
+Research 84:513–530.
+———. 2015. “Communist Conventions for Deductive Reasoning.”
+Noûs 49(4): 776–799.
+Dreier, James. 1990. “Internalism and Speaker Relativism.” Ethics 101:6–26.
+Fantl, Jeremy, and Matthew McGrath. 2009. Knowledge in an Uncertain World. Oxford: Oxford University Press.
+Greco, Daniel. 2014. “A Puzzle about Epistemic Akrasia.”
+Philosophical Studies 167:201–219.
+———. 2015a. “Verbal Debates in Epistemology.” American Philosophical Quarterly 51:41–55.
+———. 2015b. “How I Learned to Stop Worrying and Love Probability 1.” Philosophical Perspectives 29: 179-201
+———. 2016. “Cognitive Mobile Homes.”
+Mind.
+Harman, Gilbert. 2001. “General Foundations versus Rational Insight.” Philosophy and Phenomenological
+Research 63:657–663.
+Hawthorne, John. 2004. Knowledge and Lotteries. Oxford: Oxford University Press.
+Horowitz, Sophie. 2014. “Epistemic Akrasia.”
+Noûs 48:718–744.
+Huemer, Michael. 2007. “Compassionate Phenomenal Conservatism.” Philosophy and Phenomenological
+Research 74:30–55.
+Ichikawa, Jonathan Jenkins. 2013. “Basic Knowledge and Contextualist ‘E
+=
+K’.” Thought: A Journal of
+Philosophy 2:282–292.
+MacFarlane, John. 2011. “Relativism and Knowledge Attributions.” In Routledge Companion to Epistemology,
+pages 536–544. New York and London: Routledge.
+Mercier, Hugo, and Dan Sperber. 2011. “Why Do Humans Reason? Arguments for an Argumentative
+Theory.” Behavioral and Brain Sciences 34:57.
+Midgley, Mary. 2003. Heart and Mind: The Varieties of Moral Experience. London and New York: Routledge.
+Neta, Ram. 2002. “S Knows That P.” Noûs 36:663–681.
+———. 2003. “Contextualism and the Problem of the External World.”
+Philosophy and Phenomenological
+Research 66:1–8211.
+———. 2005. “A Contextualist Solution to the Problem of Easy Knowledge.” Grazer Philosophische Studien
+69:183–206.
+Novaes, Catarina Dutilh. 2015. “A Dialogical, MultiAgent Account of the Normativity of Logic.” Dialectica
+69:587–609.
+Plunkett, David, and Tim Sundell. 2013. “Disagreement and the Semantics of Normative and Evaluative
+Terms.” Philosophers’ Imprint 13(3):1–37.
+Pritchard, Duncan, and Patrick Greenough, editors. 2009. Williamson on Knowledge. Oxford: Oxford Uni-
+versity Press.
+Pryor, James. 2000. “The Skeptic and the Dogmatist.”
+Noûs 34:517–549.
+437
+
+[Printed page 438]
+Daniel Greco
+Quine, Willard Van Orman. 1951/1953. “Main Trends in Recent Philosophy: Two Dogmas of Empiricism.”
+The Philosophical Review 60:20–43. Reprinted, with alterations, in Quine 1953/1980.
+Rayo, Agustín. 2013. “A Plea for Semantic Localism.”
+Noûs 47(4):647–679.
+Salow, Bernhard. Ms. “Elusive Externalism.”
+Schellenberg, Susanna. 2013. “Experience and Evidence.” Mind 122:699–747.
+Schoenfield, Miriam. 2015. “Internalism without Luminosity.” Philosophical Issues 25:252–272.
+Schwitzgebel, Eric. 2011. Perplexities of Consciousness. Cambridge, MA: MIT Press.
+Smithies, Declan. 2012. “Moore’s Paradox and the Accessibility of Justification.”
+Philosophy and Phenome-
+nological Research 85:273–300.
+———. 2014. “Can Foundationalism Solve the Regress Problem?” In Neta, Ram, editor, Current Controver-
+sies in Epistemology, pages 73–94. London and New York: Routledge.
+Srinivasan, Amia. 2015. “Normativity without Cartesian Privilege.” Philosophical Issues 25(1):273–299.
+Stanley, Jason. 2005. Knowledge and Practical Interests. Oxford: Oxford University Press.
+Way, Jonathan, and Daniel Whiting. 2016. “If You Justifiably Believe That You Ought to Φ, You Ought to
+Φ.” Philosophical Studies 173(7):187–189.
+Williams, Michael. 1991. Unnatural Doubts: Epistemological Realism and the Basis of Scepticism. Princeton:
+Princeton University Press.
+———. 2001. Problems of Knowledge: A Critical Introduction to Epistemology. Oxford: Oxford University Press.
+Williamson, Timothy. 2000. Knowledge and Its Limits. Oxford: Oxford University Press.
+———. 2005. “Contextualism, Subject-­Sensitive Invariantism and Knowledge of Knowledge.” Philosophical
+Quarterly 55:213–235.
+Wittgenstein, Ludwig. 1969. On Certainty. Oxford: Basil Blackwell.
+Wright, Crispin. 2004. “Wittgensteinian Certainties.”
+In McManus, Denis, editor, Wittgenstein and Scepti-
+cism, pages 22–55. London and New York: Routledge.
+438

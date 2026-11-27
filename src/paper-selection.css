@@ -1,0 +1,14 @@
+.paper-selection-layer {
+  position: absolute;
+  z-index: 5;
+  inset: 0 auto 0 0;
+  width: calc(100% / var(--paper-visible-width));
+  height: 100%;
+  margin-left: calc(-100% * var(--paper-left-trim) / var(--paper-visible-width));
+  pointer-events: none;
+  fill: #ffda29;
+  fill-opacity: .56;
+  mix-blend-mode: multiply;
+}
+.paper-selection-preview { fill: #68a1de; fill-opacity: .58; }
+.is-highlighting .paper-selection-preview { fill: inherit; fill-opacity: inherit; }

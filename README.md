@@ -51,7 +51,8 @@ Select the gold tab on the right of the canvas in Audience or Presenter mode to 
 
 - The pane scrolls to the passage for each slide and supports independent scrolling. Drag its left edge to resize or collapse it, or focus the edge and use the arrow keys. Press **P** to toggle the pane.
 - Click a blue-underlined term or activate it with **Enter** or **Space** to open its definition. Click the term again, click outside the definition, or press **Escape** to close it. The entries and their search phrases live in `src/paper-glossary-data.json`.
-- Run `npm run paper:pages` on macOS with `cwebp` installed to regenerate the lossless WebP pages, manifest, and glossary coordinates in `public/readings/greco-2017/`. Production builds include these generated files.
+- Drag across the printed text and select **?** to stream a plain-English explanation. The card shows the selected passage and its printed page number. Press **Escape** or select **×** to close the card.
+- Run `npm run paper:pages` on macOS with `cwebp` installed to regenerate the page images, word and glossary coordinates, and matching backend chapter text and word index.
 - `scripts/paper-anchors.json` maps each slide by its first object ID to a phrase in the PDF. Edit the mapping and regenerate the pages to change where the pane scrolls. A slide with no entry uses the previous slide’s passage.
 - **Section notes.** Each section of the paper has one colour: a tint behind its pages, a bar down the page edge, and a small box floating just left of the pane, with an arrow into that bar, saying what the section is for. Objections are always red; other neighbouring sections never share a colour. Boxes stay beside their section while it is on screen; click one to jump to the section's start. `N` hides or shows them (remembered in `phi102-dev-paper-notes-v1`), and they hide themselves when there is no room left of the pane. The text lives in `src/paper-notes-data.ts`, keyed by anchor IDs from `scripts/paper-anchors.json`.
 
@@ -70,6 +71,10 @@ On `npm run dev` at `http://127.0.0.1:5182/`, choose **Live Preview** to try the
 Run `npm run build:live` to build the public canvas. To test the actual classroom backend on localhost, set a separate random 64-character lowercase hexadecimal `PRESENTER_KEY` in `.dev.vars` and run `VITE_PRESENTATION_DAY=1 npm run dev:live`. Open `http://localhost:5192/` as a viewer or append `#presenter=<local-key>` to present.
 
 Cloudflare Workers Builds runs the live build and performance tests on pushes to `main`, then deploys to the public site if they pass. Check the commit’s Cloudflare status on GitHub or the Worker’s Deployments tab. For a manual deploy, run `npm run deploy` from an authorized Wrangler session. Deployments retain the existing Worker secret. The production key is stored as the Worker's `PRESENTER_KEY` secret. If the private URL is shared accidentally, replace that secret and update the private URL.
+
+### Paper explainer setup
+
+Use an OpenAI project key restricted to **Write** on the Responses endpoint. Set `PAPER_OPENAI_API_KEY` in the ignored `.dev.vars` file for local use and as a Cloudflare Worker secret for the hosted reader. The server resolves each selection from the word index and sends the complete extracted chapter before the selected passage so OpenAI can reuse the prompt prefix. It requests GPT‑6.2 Sol in Fast mode. The hosted Worker allows up to 300 explanation requests per UTC day and rate-limits requests per IP.
 
 ### Shared editing
 

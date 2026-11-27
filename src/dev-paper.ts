@@ -1,4 +1,4 @@
-import { createPaperHighlights } from './dev-paper-highlights';
+import { devPaperMarks } from './dev-paper-highlights';
 import { createPaperPane as mountPaperPane } from './paper-pane';
 import './dev-paper.css';
 
@@ -7,6 +7,6 @@ export function createPaperPane(shell: HTMLElement, rolePicker: HTMLElement) {
     initiallyOpen: true,
     rolePicker,
     lastReadingPage: '435',
-    createHighlights: createPaperHighlights,
+    marks: devPaperMarks,
   });
 }

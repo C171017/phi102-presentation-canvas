@@ -2240,3 +2240,21 @@ Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21
 > implement
 
 Put “Order! Order!” in the Judge’s dialogue immediately after the gallery laughter. Play the existing gavel impact on that cue. Advance to the court-in-session banner on the next navigation input.
+
+## 2026-11-26T20:43:24-08:00 · Restore the original speed of courtroom interjections
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> You remember I had the request of speed on all the dialogue, speed up them, right? But that should not include the dialogue, like the objection take that part in the court game part. So those should be reverted back to their original normal speed.
+
+Play both “Objection!” recordings and “Take that!” at 1×. Use 1.3× for the timed narration and character dialogue.
+
+## 2026-11-26T21:10:02-08:00 · Explain highlighted passages in the paper reader
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21b64-be04-7f61-8f68-6ba2540fd103).
+
+> Once you finish highlight, there's going to be a little question mark with a circle background pop up. And if you click it, it's going to send request to the backend where the GPT-6.2 Sol is trying to process and to explain it.
+
+> And actually, let's not use ultra-fast, but just use fast for now.
+
+Use a temporary word-level selection on the paper and a circular question mark at its end. Stream a plain-English explanation beside the reader, anchored to the selected words and printed pages. Send the full chapter as a stable prefix and use GPT‑6.2 Sol in Fast mode.

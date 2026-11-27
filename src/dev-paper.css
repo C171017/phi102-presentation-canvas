@@ -1,17 +1,4 @@
 /* Highlighting controls for the local editor. */
-.paper-highlight-layer {
-  width: calc(100% / var(--paper-visible-width));
-  margin-left: calc(-100% * var(--paper-left-trim) / var(--paper-visible-width));
-}
-.paper-highlight-layer {
-  position: absolute;
-  inset: 0 auto auto 0;
-  height: 100%;
-  pointer-events: none;
-  fill: #ffda29;
-  mix-blend-mode: multiply;
-  opacity: .56;
-}
 .paper-highlight-status {
   position: absolute;
   right: 12px;

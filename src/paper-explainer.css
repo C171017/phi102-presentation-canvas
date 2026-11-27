@@ -1,0 +1,133 @@
+.paper-explain-trigger,
+.paper-explainer button {
+  appearance: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.paper-explain-trigger {
+  position: absolute;
+  z-index: 10;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid #203539;
+  border-radius: 50%;
+  background: #294247;
+  color: #fff9ec;
+  font: 700 17px/1 system-ui, sans-serif;
+  box-shadow: 0 3px 12px #232b3a55, 0 0 0 2px #fff9ec;
+  animation: paper-explainer-enter 160ms ease-out both;
+  transition: background-color 150ms;
+}
+.paper-explain-trigger:hover { background: #3e5f63; }
+.paper-explain-trigger:focus-visible,
+.paper-explainer button:focus-visible { outline: 2px solid #1d5e72; outline-offset: 3px; }
+.paper-explain-trigger[hidden], .paper-explainer[hidden] { display: none; }
+
+.paper-explainer {
+  position: absolute;
+  z-index: 9;
+  top: var(--explanation-y, 16px);
+  right: calc(100% + var(--explanation-gap, 14px));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: var(--explanation-width, 320px);
+  max-height: min(440px, calc(100% - 20px));
+  overflow: hidden;
+  border: 1px solid #b7c4bb;
+  border-radius: 14px;
+  outline: none;
+  background: #fffdf6;
+  color: #263637;
+  box-shadow: 0 14px 42px #2c2b2442, 0 3px 8px #2c2b2428;
+  animation: paper-explainer-enter 230ms cubic-bezier(.2,.75,.35,1) both;
+}
+.paper-explainer.is-inset {
+  inset: auto 7px 7px;
+  width: auto;
+  max-height: 48%;
+}
+.paper-explainer-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 9px 9px 15px;
+  border-bottom: 1px solid #dbe1d7;
+  background: #eff2e8;
+}
+.paper-explainer-header h2 { flex: 1; margin: 0; font: 700 14px/1.25 system-ui, sans-serif; }
+.paper-explainer-pages { color: #4c625f; font-weight: 600; font-variant-numeric: tabular-nums; }
+.paper-explainer button.paper-explainer-close {
+  display: grid;
+  flex: 0 0 29px;
+  height: 29px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 21px;
+  line-height: 1;
+}
+.paper-explainer-close:hover { background: #dce5d9; }
+.paper-explainer-content { overflow: auto; overscroll-behavior: contain; padding: 12px 15px 15px; scrollbar-width: thin; }
+.paper-explainer blockquote {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin: 1px 0 10px;
+  padding-left: 10px;
+  border-left: 2px solid #9ab8c7;
+  color: #4b5a56;
+  font: italic 14px/1.45 Georgia, serif;
+}
+.paper-explainer blockquote[hidden] { display: none; }
+.paper-explainer-status { margin: 1px 0 0; font-size: 13px; color: #4c625f; }
+[data-state='waiting'] .paper-explainer-status {
+  width: fit-content;
+  background: linear-gradient(105deg, #536663 36%, #14758b 48%, #536663 60%) 100% 0 / 240% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: paper-explainer-shimmer 1.5s ease-in-out infinite;
+}
+.paper-explainer:is([data-state='streaming'], [data-state='done']) .paper-explainer-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.paper-explainer-answer { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; line-height: 1.57; }
+.paper-explainer-answer:empty { display: none; }
+[data-state='streaming'] .paper-explainer-answer { animation: paper-explainer-appear 180ms ease-out both; }
+[data-state='streaming'] .paper-explainer-answer::after {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 4px;
+  border-radius: 50%;
+  background: #538381;
+  content: '';
+  animation: paper-explainer-pulse 750ms ease-in-out infinite alternate;
+}
+.paper-explainer-retry { margin-top: 9px; padding: 5px 10px; border: 1px solid #aac3b9; border-radius: 6px; background: #edf3eb; }
+.paper-explainer-retry:hover { background: #dfeadf; }
+
+@keyframes paper-explainer-enter { from { opacity: 0; transform: translateY(5px) scale(.98); } }
+@keyframes paper-explainer-appear { from { opacity: .45; } }
+@keyframes paper-explainer-shimmer { to { background-position: -75% 0; } }
+@keyframes paper-explainer-pulse { to { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) {
+  .paper-explain-trigger, .paper-explainer, .paper-explainer :is(.paper-explainer-status, .paper-explainer-answer),
+  .paper-explainer .paper-explainer-answer::after {
+    animation: none;
+    transition: none;
+  }
+  [data-state='waiting'] .paper-explainer-status { color: #4c625f; }
+}

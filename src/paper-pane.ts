@@ -1,6 +1,7 @@
 import { slides } from './slide-content';
 import { attachCollapsiblePaneResizer } from './collapsible-pane-resizer';
-import type { createPaperHighlights } from './dev-paper-highlights';
+import { createPaperSelection, type PaperMarks } from './paper-selection';
+import { createPaperExplainer } from './paper-explainer';
 import { createPaperNotes, type PaperAnchor } from './paper-notes';
 import { createPaperGlossary } from './paper-glossary';
 import type { CitationIndex, SegmentIndex } from './paper-focus';
@@ -49,7 +50,7 @@ type PaperPaneOptions = {
   initiallyOpen: boolean;
   rolePicker?: HTMLElement;
   lastReadingPage?: string;
-  createHighlights?: typeof createPaperHighlights;
+  marks?: PaperMarks;
 };
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null;
@@ -101,7 +102,7 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: stri
   return node;
 }
 
-export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker, lastReadingPage, createHighlights }: PaperPaneOptions) {
+export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker, lastReadingPage, marks }: PaperPaneOptions) {
   const prefs = loadPrefs(initiallyOpen);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let current = -1;
@@ -154,7 +155,8 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   passageCue.append(passageArrow);
   pane.append(resizer, collapse, outline, scroll, scrollIndicator, passageCue);
   shell.append(pane);
-  const highlights = createHighlights?.(pane, scroll);
+  const explainer = createPaperExplainer(pane, scroll, () => highlights.clear());
+  const highlights = createPaperSelection(pane, scroll, explainer.offer, explainer.dismissOffer, marks);
   const notes = createPaperNotes(pane, scroll, shell);
   const glossary = createPaperGlossary(pane, scroll);
 
@@ -217,7 +219,8 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
       referenceVisit = undefined;
       notes.clearFocus();
       glossary.close();
-      highlights?.setActive(false);
+      explainer.close();
+      highlights.setActive(false);
       glossary.setEnabled(true);
       collapsedAnchor = readingAnchor();
     }
@@ -258,6 +261,8 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
   function jumpTo(anchor: Anchor, behavior: ScrollBehavior = reducedMotion.matches ? 'auto' : 'smooth') {
     notes.clearFocus();
     glossary.close();
+    explainer.dismissOffer();
+    highlights.clear();
     for (let page = anchor.page - 1; page <= anchor.page + 1; page++) if (images[page]) images[page].loading = 'eager';
     scroll.scrollTo({
       top: Math.max(0, offsetOf(anchor) - scroll.clientHeight * READING_LINE),
@@ -331,7 +336,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     const sectionLinks = buildSectionLinks(PAPER_SECTION_LINKS, loaded.anchors);
     outline.replaceChildren(sectionLinks);
     outline.hidden = !sectionLinks.childElementCount;
-    void highlights?.load(`${ASSETS}words.json`, images, visiblePages.map(page => page.file));
+    void highlights.load(`${ASSETS}words.json`, images, visiblePages.map(page => page.file));
     void glossary.load(`${ASSETS}glossary.json`, visiblePages.map(({ file }, index) => ({ file, sheet: sheets[index] })));
     notes.build(loaded.anchors, sheets, segments);
     // A slide without its own anchor continues from the previous slide's passage.
@@ -378,7 +383,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
       buildPages(loaded, segments);
     } catch (error) {
       loadedPages = undefined;
-      if (createHighlights) showFailure(error instanceof Error ? error.message : String(error));
+      if (marks) showFailure(error instanceof Error ? error.message : String(error));
       else {
         console.warn('Could not load the original paper.', error);
         scroll.replaceChildren(element('p', 'paper-message', 'The paper could not be loaded. Close and reopen it to retry.'));
@@ -412,7 +417,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     const first = runs[0];
     if (!first) return;
 
-    if (highlights?.active) {
+    if (highlights.active) {
       highlights.setActive(false);
       glossary.setEnabled(true);
     }
@@ -507,7 +512,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
     if (event.defaultPrevented || event.isComposing || event.ctrlKey || event.altKey || event.shiftKey) return;
     if (event.target instanceof HTMLElement && (event.target.isContentEditable || event.target.closest('input, textarea, select'))) return;
     const key = event.key.toLowerCase();
-    if (event.metaKey && key === 'b' && highlights?.ready) {
+    if (event.metaKey && key === 'b' && marks && highlights.ready) {
       event.preventDefault();
       if (event.repeat || isResizing()) return;
       if (!prefs.open) {
@@ -520,7 +525,7 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
       if (highlights.active) scroll.focus({ preventScroll: true });
       return;
     }
-    if (event.metaKey && key === 'z' && highlights?.active) {
+    if (event.metaKey && key === 'z' && highlights.active) {
       event.preventDefault();
       if (!event.repeat) highlights.undo();
       return;
@@ -545,6 +550,6 @@ export function createPaperPane(shell: HTMLElement, { initiallyOpen, rolePicker,
 
   renderOpenState();
   update(slideFromProgressBar());
-  if (prefs.open || highlights) void requestPages();
+  if (prefs.open || marks) void requestPages();
   return { update, openReference };
 }

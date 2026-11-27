@@ -7,6 +7,7 @@ import { firstPresentationCue, isCue, isSlide, slideCount, type RoomSnapshot } f
 import { storyTextStorage } from './scripts/story-text-storage';
 import { localQuizVotes } from './scripts/local-quiz-votes';
 import { localSharedSlides } from './scripts/local-shared-slides';
+import { localPaperExplainer } from './scripts/local-paper-explainer';
 import { countSchools, isSchoolVote, type SchoolVote } from './src/school-vote';
 import { storyTextEndpoint } from './src/story-text';
 import openingMedia from './src/opening-media.json';
@@ -222,6 +223,7 @@ export default defineConfig(({ command }) => ({
     localPresentation(),
     localQuizVotes(),
     localSharedSlides(isLoopback),
+    localPaperExplainer(isLoopback),
     storyTextStorage(fileURLToPath(new URL('./story-text.json', import.meta.url))),
   ],
   server: {
@@ -230,7 +232,7 @@ export default defineConfig(({ command }) => ({
       allow: [searchForWorkspaceRoot(process.cwd()), ...(openingFile ? [openingFile] : [])],
       deny: [
         '.env', '.env.*', '*.{crt,pem}', '**/.git/**',
-        '.dev.vars*', '**/.wrangler/**', '**/.claude/**', '**/docs/chat-history/**',
+        '.dev.vars*', '**/server/**', '**/.wrangler/**', '**/.claude/**', '**/docs/chat-history/**',
       ],
     },
     watch: { ignored: ['**/canvas-layout.json', '**/canvas-layout.json.*', '**/story-text.json', '**/story-text.json.tmp', '**/shared-slides.json', '**/shared-slides.json.*.tmp'] },

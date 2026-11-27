@@ -19,6 +19,12 @@
       "/media/*"
     ]
   },
+  "rules": [
+    { "type": "Text", "globs": ["**/greco-2017.txt"], "fallthrough": true }
+  ],
+  "ratelimits": [
+    { "name": "PAPER_EXPLANATION_RATE", "namespace_id": "10201", "simple": { "limit": 24, "period": 60 } }
+  ],
   "durable_objects": {
     "bindings": [
       {
@@ -28,6 +34,10 @@
       {
         "name": "SHARED_SLIDES",
         "class_name": "SharedSlideHistory"
+      },
+      {
+        "name": "PAPER_EXPLANATION_QUOTA",
+        "class_name": "PaperExplanationQuota"
       }
     ]
   },
@@ -41,6 +51,10 @@
     {
       "tag": "v2",
       "new_sqlite_classes": ["SharedSlideHistory"]
+    },
+    {
+      "tag": "v3",
+      "new_sqlite_classes": ["PaperExplanationQuota"]
     }
   ]
 }

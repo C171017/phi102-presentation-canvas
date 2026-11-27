@@ -1,5 +1,3 @@
-import { dialoguePlaybackRate } from './dialogue-playback';
-
 // Short game samples from the Objection Engine asset pack. See public/trial/CREDITS.txt.
 const files = {
   low: 'blip-low.wav', high: 'blip-high.wav', gavel: 'gavel.wav',
@@ -30,7 +28,6 @@ export function createTrialAudio() {
     if (!context || context.state !== 'running' || !buffer || document.hidden) return;
     const source = context.createBufferSource();
     source.buffer = buffer;
-    if (key === 'prosecutor' || key === 'mother' || key === 'takeThat') source.playbackRate.value = dialoguePlaybackRate;
     const gain = context.createGain();
     gain.gain.value = volume;
     source.connect(gain).connect(context.destination);

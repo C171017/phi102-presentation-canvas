@@ -1,6 +1,6 @@
 // Renders the original paper to lossless WebP and records passage, highlight, and glossary coordinates.
 //
-//   swift scripts/render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width]
+//   swift scripts/render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width] [server-dir]
 //
 // Uses macOS PDFKit and cwebp. The generated files under public/readings/ are tracked so
 // production builds can copy them without running this script.
@@ -18,7 +18,7 @@ func fail(_ message: String) -> Never {
 
 let args = CommandLine.arguments
 guard args.count >= 4 else {
-  fail("usage: render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width]")
+  fail("usage: render-paper-pages.swift <paper.pdf> <anchors.json> <output-dir> [pixel-width] [server-dir]")
 }
 let pdfURL = URL(fileURLWithPath: args[1])
 let anchorsURL = URL(fileURLWithPath: args[2])
@@ -144,6 +144,13 @@ func writePage(_ image: CGImage, to url: URL) throws {
 
 var pages: [[String: Any]] = []
 var pageWords: [String: [[[Int]]]] = [:]
+var paperText = ""
+var paperTextIndex: [String: PaperTextPage] = [:]
+
+struct PaperTextPage: Encodable {
+  let printed: String
+  let words: [[Int]]
+}
 var pageGlossary: [String: [GlossaryOccurrence]] = [:]
 var beforeBibliography = true
 let wordPattern = try! NSRegularExpression(pattern: #"\S+"#)
@@ -156,11 +163,12 @@ func normalizedBounds(_ rect: CGRect, in box: CGRect) -> [Int] {
   ].map { Int(($0 * 10000).rounded()) }
 }
 
-func wordBounds(_ page: PDFPage, in box: CGRect) -> [[[Int]]] {
-  guard let text = page.string else { return [] }
+func indexedWords(_ page: PDFPage, in box: CGRect) -> (bounds: [[[Int]]], ranges: [[Int]]) {
+  guard let text = page.string else { return ([], []) }
   let string = text as NSString
   let matches = wordPattern.matches(in: text, range: NSRange(location: 0, length: string.length))
   var words: [[[Int]]] = []
+  var ranges: [[Int]] = []
   var previous: (range: NSRange, text: String, rect: CGRect)?
   for match in matches {
     guard let rect = page.selection(for: match.range)?.bounds(for: page), !rect.isEmpty else { continue }
@@ -178,12 +186,14 @@ func wordBounds(_ page: PDFPage, in box: CGRect) -> [[[Int]]] {
                                      length: match.range.location - NSMaxRange(previous.range)))
          .rangeOfCharacter(from: .newlines) != nil {
       words[words.count - 1].append(bounds)
+      ranges[ranges.count - 1][1] = NSMaxRange(match.range)
     } else {
       words.append([bounds])
+      ranges.append([match.range.location, NSMaxRange(match.range)])
     }
     previous = (match.range, token, rect)
   }
-  return words
+  return (words, ranges)
 }
 
 // Selections and the raster must use the same crop transform on facing pages.
@@ -328,7 +338,8 @@ for index in 0..<document.pageCount {
   page.draw(with: .cropBox, to: context)
 
   let file = String(format: "page-%02d.webp", index + 1)
-  pageWords[file] = wordBounds(page, in: box)
+  let words = indexedWords(page, in: box)
+  pageWords[file] = words.bounds
   let rasterBounds = rasterBox(page)
   let occurrences = glossaryOccurrences(page, in: rasterBounds, beforeBibliography: &beforeBibliography)
   if !occurrences.isEmpty { pageGlossary[file] = occurrences }
@@ -340,6 +351,12 @@ for index in 0..<document.pageCount {
   let lines = (page.string ?? "").split(whereSeparator: \.isNewline).map { $0.trimmingCharacters(in: .whitespaces) }
   let printed = lines.last(where: { $0.count == 3 && $0.allSatisfy(\.isNumber) }) ?? String(index + 1)
   pages.append(["file": file, "width": pixelWidth, "height": pixelHeight, "printed": printed])
+
+  // JS slice and PDFKit ranges both use UTF-16 offsets.
+  paperText += "\n\n[Printed page \(printed)]\n"
+  let offset = paperText.utf16.count
+  paperTextIndex[file] = PaperTextPage(printed: printed, words: words.ranges.map { $0.map { $0 + offset } })
+  paperText += page.string ?? ""
 }
 
 // A passage shares its first line when another sentence ends to its left.
@@ -397,6 +414,11 @@ do {
   try json.write(to: stagingURL.appendingPathComponent("manifest.json"))
   let words = try JSONSerialization.data(withJSONObject: pageWords, options: [.sortedKeys])
   try words.write(to: stagingURL.appendingPathComponent("words.json"))
+  if args.count > 5 {
+    let serverDir = URL(fileURLWithPath: args[5], isDirectory: true)
+    try paperText.write(to: serverDir.appendingPathComponent("greco-2017.txt"), atomically: true, encoding: .utf8)
+    try segmentEncoder.encode(paperTextIndex).write(to: serverDir.appendingPathComponent("greco-2017-index.json"), options: .atomic)
+  }
   let glossaryEncoder = JSONEncoder()
   glossaryEncoder.outputFormatting = [.sortedKeys]
   let glossaryIndex = try glossaryEncoder.encode(pageGlossary)

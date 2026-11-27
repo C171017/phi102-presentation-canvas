@@ -1,4 +1,9 @@
+/// <reference path="./paper-text.d.ts" />
 import { DurableObject } from 'cloudflare:workers';
+import { createPaperExplainer } from './paper-explainer';
+import paperText from './greco-2017.txt';
+import paperTextIndex from './greco-2017-index.json';
+import { paperExplanationPath } from '../src/paper-explainer-protocol';
 import { sharedSlidesPath } from '../src/shared-slide-data';
 import type { SharedSlidesEnv } from './shared-slides';
 export { SharedSlideHistory } from './shared-slides';
@@ -16,18 +21,32 @@ interface Env extends SharedSlidesEnv {
   ASSETS: Fetcher;
   ROOMS: DurableObjectNamespace<PresentationRoom>;
   PRESENTER_KEY?: string;
+  PAPER_OPENAI_API_KEY?: string;
+  PAPER_EXPLANATION_RATE: RateLimit;
+  PAPER_EXPLANATION_QUOTA: DurableObjectNamespace<PaperExplanationQuota>;
 }
 
 type Member = { presenter: boolean; slide: number | null; schoolVote?: SchoolVote };
 const protocol = 'phi102';
 const connectionLimit = 500;
 const error = (message: string, status: number) => new Response(message, { status });
+const explainPaper = createPaperExplainer(paperText, paperTextIndex);
 
 export default {
   fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === sharedSlidesPath || url.pathname.startsWith(`${sharedSlidesPath}/`)) {
       return env.SHARED_SLIDES.getByName('presentation').fetch(request);
+    }
+    if (url.pathname === paperExplanationPath) {
+      return explainPaper(request, {
+        apiKey: env.PAPER_OPENAI_API_KEY,
+        async allowRequest() {
+          const key = request.headers.get('CF-Connecting-IP') ?? 'local';
+          const rate = await env.PAPER_EXPLANATION_RATE.limit({ key });
+          return rate.success && await env.PAPER_EXPLANATION_QUOTA.getByName('paper').take();
+        },
+      });
     }
     if (url.pathname === '/api/opening-quiz') {
       if (request.method !== 'GET' && request.headers.get('Origin') !== url.origin) return error('Origin not allowed', 403);
@@ -43,6 +62,19 @@ export default {
     return env.ASSETS.fetch(request);
   },
 } satisfies ExportedHandler<Env>;
+
+export class PaperExplanationQuota extends DurableObject<Env> {
+  take() {
+    const day = new Date().toISOString().slice(0, 10);
+    return this.ctx.storage.transaction(async transaction => {
+      const current = await transaction.get<{ day: string; count: number }>('daily');
+      const count = current?.day === day ? current.count : 0;
+      if (count >= 300) return false;
+      await transaction.put('daily', { day, count: count + 1 });
+      return true;
+    });
+  }
+}
 
 export class PresentationRoom extends DurableObject<Env> {
   private slide = 0;
