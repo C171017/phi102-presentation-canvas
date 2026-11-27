@@ -2,10 +2,9 @@ import type { InkOceanCue } from './ink-ocean-scenes';
 import { createTrialAudio } from './trial-audio';
 import { trialDialogueText, trialShout } from './trial-script';
 import { trialArt } from './trial-art';
-import type { createDialogueVoice } from './timed-dialogue';
 import './trial-dialogue.css';
 
-export function createTrialDialogue(stage: HTMLElement, advance: () => void, simone: ReturnType<typeof createDialogueVoice>) {
+export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
   const screen = document.createElement('div');
   screen.className = 'trial-screen';
   screen.hidden = true;
@@ -59,7 +58,6 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void, sim
     typing = false;
   }
   function finish() {
-    simone.stop();
     clearTimeout(timer);
     clearTimeout(strikeTimer);
     strike?.();
@@ -92,14 +90,6 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void, sim
     }
     tick();
   }
-  function speak(line: InkOceanCue, voiced: boolean) {
-    delete screen.dataset.interrupting;
-    impact.replaceChildren();
-    delete impact.dataset.effect;
-    if (voiced && simone.play(spoken, fullText, played => played ? finish() : type(line))) {
-      unspoken.textContent = '';
-    } else type(line);
-  }
   function show(line?: InkOceanCue, edited?: string) {
     reset();
     const entering = screen.hidden;
@@ -119,8 +109,6 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void, sim
     name.textContent = line.kind ? '' : line.speaker;
     message.toggleAttribute('data-narration', Boolean(line.kind));
     fullText = trialDialogueText(line.text, edited);
-    const voiced = !line.kind && line.speaker === 'Simone' && !document.hidden &&
-      fullText.trim().toUpperCase() !== shout && Boolean(simone.find(fullText));
     spoken.textContent = '';
     unspoken.textContent = fullText;
     typing = true;
@@ -148,8 +136,8 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void, sim
       } else {
         impact.textContent = title ?? 'NOT GUILTY';
       }
-      timer = window.setTimeout(() => speak(line, voiced), shout ? 950 : 1250);
-    } else speak(line, voiced);
+      timer = window.setTimeout(() => type(line), shout ? 950 : 1250);
+    } else type(line);
   }
   return {
     show,

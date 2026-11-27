@@ -1971,3 +1971,50 @@ Recorded in Pacific time in the [character voice chat](codex://threads/01a219bd-
 > use the orignal music(the one orignal one with voice
 
 Play the original RADWIMPS recording featuring Toaka during the two door-closing pages, with the existing 18% volume, fades, and single-play behavior.
+
+
+## 2026-11-26T15:50:00-08:00 · Regenerate Cole on the coastal road
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a2196d-b0e5-7fd2-b2b6-71ba2bcd1707). Howie supplied the wide “He walks away” frame and a close-up of Cole.
+
+> This image has to be regenerated. Like, call is absolutely does not look right. I mean, just look close up. Yeah, you have to fix this.
+
+Repaint Cole using his Version C sheet and the earlier close-up on the coastal road. His stride takes him uphill on the asphalt, with the jacket, headphones, backpack, and lowered phone rig from the scene. Keep the wide camera and move his dialogue highlight to match his new position.
+
+
+## 2026-11-26T15:54:09-08:00 · Match Cole’s scale across the coastal road shots
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a2196d-b0e5-7fd2-b2b6-71ba2bcd1707).
+
+> also the size, the size should look consistente,
+>
+> you may regernate teh entire image so it just look cohernet
+
+Use the earlier wide road meeting as the scale and camera reference. In the new “He walks away” frame, Cole turns and takes one step uphill at the same apparent height. Align his dialogue highlight with his head and upper body in that frame.
+
+## 2026-11-26T16:08:13-08:00 · Show the Whypocalypse title card without the dialogue box
+
+Recorded in Pacific time. Howie supplied a screenshot of the prophecy artwork with an empty box.
+
+> remove the diaglou box for the the whypocalypose part
+
+Hide the box during presentation playback of the Whypocalypse title card. Keep its cue arrows available and show the editor when explicitly opened.
+
+
+## 2026-11-26T16:18:40-08:00 · Put Greco’s paper links beside the text they support
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21a0e-0f13-78d2-ac44-9002a031bd7c). Howie pointed to the Moderate foundationalism and Locally undoubted foundations slides.
+
+> Just the little button controls can be a little thing right beside the thing they are related to, like referred to, like after the title. And so each bullet point can have one, but the must-pass standard is that for every single title, they should have their own link to the paper, where for locally undoubted foundations, you should directly click, it's going to directly direct you to the section of the paper where it talks about the key phrase "undoubted," not "undoubtable." So it's very easy to trace what's happening or to track what's happening and understand do this for all，not just like these two。
+
+Use a small document button beside each presentation title that has a passage in Greco. Put supporting buttons beside the lines they cite and remove the separate citation row. For artwork without a heading in view, pair the document button with the slide title in a caption. On locally undoubted foundations, highlight the exact phrase “must be undoubted” on p. 427. Keep the paper’s existing focus and fade.
+
+## 2026-11-26T16:20:10-08:00 · Use the courtroom typewriter for Simone
+
+Recorded in Pacific time. Howie narrowed the request to Simone’s dialogue recordings.
+
+> only the simone's voice thing, like don't play them naympre
+
+> and we can igmore them for the dplyed version so they don't take up space since they are not ognna be played
+
+The Trial plays its game effects and types Simone’s lines. Keep the ten courtroom recordings in the local project archive outside the public assets. Generate and play Simone’s other presentation recordings through their existing cues.

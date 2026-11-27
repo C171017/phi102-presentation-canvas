@@ -7,7 +7,7 @@ export function isDoorWorldScene(scene: string) {
 }
 
 export function isSimoneCue(cue: { speaker: string; scene: string; kind?: string; silent?: boolean }) {
-  if (cue.kind || cue.silent) return false;
+  if (cue.scene === 'P1' || cue.kind || cue.silent) return false;
   return cue.speaker === 'Simone' || cue.speaker === 'Both' ||
     (cue.speaker === 'Narrator' && simoneNarratesScene(cue.scene));
 }

@@ -20,7 +20,7 @@ import { initializeRegressAnimations } from './regress-animations';
 import { connectPresentation, liveMode } from './live-presentation';
 import { createPaperMiniSlide } from './paper-mini-slide';
 import type { createPaperPane } from './paper-pane';
-import { OpenPaperReference, renderPaperSlideLinks } from './paper-slide-links';
+import { OpenPaperReference, renderPaperLink, slidePaperLinks } from './paper-slide-links';
 import { sharedSlideByKey } from './shared-slide-data';
 import { openSharedSlides } from './shared-slides';
 import type { ThreeLayer } from './three-layer';
@@ -90,27 +90,38 @@ const openingDialogue = createClassroomDialogue(backdrop, quizEnabled, openScene
   role === 'presenter', openingVideo?.play, sharedCopy, key => slideDocument()?.dialogue?.[key], () => slideDocument()?.dialogueStructure);
 let currentIndex = -1;
 let overviewView: View = { ...view };
-const sharedPageCopy = slideDocument() ? createPaperMiniSlide(sharedCopy) : undefined;
-let canvasPaperLinks: HTMLElement | undefined;
-if (sharedPageCopy) {
-  sharedPageCopy.element.classList.add('shared-page-copy');
-  sharedPageCopy.element.hidden = true;
-  backdrop.append(sharedPageCopy.element);
-}
+const sharedPageCopy = createPaperMiniSlide(key => {
+  if (key === 'L3-continued') return { sections: [{ kind: 'heading', text: 'The Whypocalypse' }] };
+  return sharedCopy(key);
+});
+sharedPageCopy.element.classList.add('shared-page-copy');
+sharedPageCopy.element.hidden = true;
+backdrop.append(sharedPageCopy.element);
+let canvasTitleLink: HTMLElement | undefined;
+
 function showSharedPageCopy() {
   const slide = slides[currentIndex];
   const id = slide?.members[0];
   const entry = id && sharedSlideByKey.get(id);
-  const showCopy = entry && !entry.panel && sharedCopy(entry.key);
-  if (sharedPageCopy) {
-    sharedPageCopy.element.hidden = !showCopy;
-    if (showCopy) sharedPageCopy.show(entry.key);
-  }
-  canvasPaperLinks?.remove();
-  canvasPaperLinks = entry && !entry.panel && !showCopy ? renderPaperSlideLinks(entry.key) : undefined;
-  if (canvasPaperLinks) {
-    canvasPaperLinks.classList.add('is-canvas-footer');
-    backdrop.append(canvasPaperLinks);
+  const links = id && slidePaperLinks[id];
+  const savedPage = entry && !entry.panel && sharedCopy(entry.key);
+  const titleInFrame = slide && (!('frameMembers' in slide) || slide.frameMembers?.some(member => member === id));
+  const canvasTitle = entry && !entry.panel && links && !savedPage && titleInFrame
+    ? document.getElementById(entry.key)?.querySelector(':scope > :is([role="heading"], h2)')
+    : undefined;
+  // Some artwork-led slides have no heading in the camera frame.
+  const caption = id === 'L3-continued' || (entry && links && !entry.panel && !savedPage && !canvasTitle);
+  sharedPageCopy.element.hidden = !(caption || savedPage);
+  sharedPageCopy.element.classList.toggle('is-artwork-caption', Boolean(caption));
+  if ((caption || savedPage) && entry) sharedPageCopy.show(entry.key);
+
+  canvasTitleLink?.remove();
+  canvasTitleLink = undefined;
+  if (canvasTitle && links) {
+    canvasTitleLink = document.createElement('span');
+    canvasTitleLink.className = 'slide-paper-title-anchor';
+    canvasTitleLink.append(renderPaperLink(links.title, true));
+    canvasTitle.append(canvasTitleLink);
   }
 }
 const previewControl = publicPreview ? document.createElement('button') : undefined;
@@ -628,7 +639,6 @@ if (slideEditor) {
           hostedLayout.restore(snapshot.document.layout);
         }
         openingDialogue.refreshSlideCopy();
-        sharedPageCopy?.refresh();
         showSharedPageCopy();
       },
     });

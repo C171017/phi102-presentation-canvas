@@ -28,8 +28,8 @@ export function createDialogueVoice() {
     return Object.hasOwn(simoneClips, key) ? simoneClips[key] : undefined;
   }
 
-  function play(target: HTMLElement, text: string, onFinish?: (played: boolean) => void) {
-    return playClip(target, text, find(text), 'simone', onFinish);
+  function play(target: HTMLElement, text: string) {
+    return playClip(target, text, find(text), 'simone');
   }
 
   function playDoorSimone(target: HTMLElement, text: string, cueKey: string, withCole: boolean) {
@@ -54,8 +54,7 @@ export function createDialogueVoice() {
     return false;
   }
 
-  function playClip(target: HTMLElement, text: string, clip: Clip | undefined, folder: string,
-      onFinish?: (played: boolean) => void) {
+  function playClip(target: HTMLElement, text: string, clip: Clip | undefined, folder: string) {
     stop();
     const words = spokenWords(text);
     if (document.hidden || !clip || clip.words.length !== words.length) return false;
@@ -86,10 +85,8 @@ export function createDialogueVoice() {
       if (target.textContent === text) target.textContent = text;
     }
     close = clear;
-    function finish(played: boolean) {
-      if (close !== clear) return;
-      stop();
-      onFinish?.(played);
+    function finish() {
+      if (close === clear) stop();
     }
     function highlight(index: number, shown: boolean) {
       if (index < 0) return;
@@ -119,7 +116,7 @@ export function createDialogueVoice() {
       void audio.play().catch(error => {
         if (close !== clear) return;
         if (error instanceof DOMException && error.name === 'NotAllowedError') waitingForGesture = true;
-        else finish(false);
+        else finish();
       });
     }
     function retry() {
@@ -128,18 +125,18 @@ export function createDialogueVoice() {
     document.addEventListener('pointerdown', retry, { ...options, capture: true });
     document.addEventListener('keydown', retry, { ...options, capture: true });
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) finish(true);
+      if (document.hidden) finish();
     }, options);
     audio.addEventListener('playing', () => {
       cancelAnimationFrame(frame);
       paint();
     }, options);
-    audio.addEventListener('ended', () => finish(true), options);
-    audio.addEventListener('error', () => finish(false), options);
+    audio.addEventListener('ended', finish, options);
+    audio.addEventListener('error', finish, options);
     audio.src = `/voices/${folder}/${clip.file}`;
     begin();
     return true;
   }
 
-  return { find, play, playDoorSimone, playDoorCole, playSowatt, stop };
+  return { play, playDoorSimone, playDoorCole, playSowatt, stop };
 }

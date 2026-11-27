@@ -139,7 +139,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }
   const voice = createDialogueVoice();
   const showMusicScene = createDoorClosingMusic(stage);
-  const trial = createTrialDialogue(stage, () => move(1), voice);
+  const trial = createTrialDialogue(stage, () => move(1));
   let onCueChange: (() => void) | undefined;
   shell.append(stage);
 

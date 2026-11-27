@@ -39,7 +39,7 @@ const artworkSpeakers: Record<string, Record<string, Bounds>> = {
   'P2-2b-flashback-old-door': { Cole: [59, 37, 39, 100] },
   'P2-2c-flashback-through-the-door': { Cole: [3, 4, 97, 113] },
   'P2-3-he-walks-away': {
-    Simone: [44, 38, 61, 94], Cole: [350, 76, 34, 69],
+    Simone: [44, 38, 61, 94], Cole: [300, 32, 59, 103],
   },
   'P2-4-the-omen': { Simone: [287, 52, 79, 98] },
   'P2-5-the-source': { Simone: [75, 32, 68, 104] },

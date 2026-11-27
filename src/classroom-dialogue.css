@@ -336,6 +336,26 @@
 }
 .legend-paging button + button::before { rotate: 135deg; }
 .legend-paging button:hover, .legend-paging button:focus-visible { background: #465654; }
+
+/* The Whypocalypse title card shows its artwork and cue controls during playback. */
+#presentation-shell:has(#L3-continued.page-foreground):not(:has(.transcript-panel[data-inline-editing])) {
+  --slide-progress-bottom: 0px;
+}
+#presentation-shell:has(#L3-continued.page-foreground) .transcript-panel:not([hidden], [data-inline-editing]) {
+  display: contents;
+}
+#presentation-shell:has(#L3-continued.page-foreground) .transcript-panel:not([data-inline-editing])::before,
+#presentation-shell:has(#L3-continued.page-foreground) .transcript-panel:not([data-inline-editing])::after,
+#presentation-shell:has(#L3-continued.page-foreground) .transcript-panel:not([data-inline-editing]) > :not(.legend-paging) {
+  display: none;
+}
+#presentation-shell:has(#L3-continued.page-foreground) .transcript-panel:not([data-inline-editing]) > .legend-paging {
+  inset-inline-end: max(52px, calc(env(safe-area-inset-right) + 8px));
+  inset-block: 50% auto;
+  margin-block: 0;
+  translate: 0 -50%;
+}
+
 #viewport:has(#contemporary-heading.page-foreground)::before { filter: none; }
 
 .transcript-row { white-space: pre-wrap; }

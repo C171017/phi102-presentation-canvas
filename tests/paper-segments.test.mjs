@@ -46,15 +46,31 @@ test('a shared printed line splits at the sentence, and a page break preserves t
 test('slide links cover the philosophical slides and point to exact paper citations', async () => {
   const { outputFiles } = buildSync({
     stdin: {
-      contents: 'export { slides } from "./slide-content"; export { slidePaperLinks } from "./paper-slide-links";',
+      contents: 'export { slides } from "./slide-content"; export { slidePaperLinks } from "./paper-slide-links"; export { sharedSlideEntries } from "./shared-slide-data"; export { slideSections } from "./slide-sections";',
       resolveDir: fileURLToPath(new URL('../src/', import.meta.url)),
     },
     bundle: true, write: false, format: 'esm', loader: { '.css': 'empty' },
   });
-  const { slides, slidePaperLinks } = await import('data:text/javascript;base64,' + Buffer.from(outputFiles[0].contents).toString('base64'));
-  const excluded = new Set(['unitrans-arrival', 'before-lecture', 'L0', 'P1', 'P2-arrival']);
+  const { slides, slidePaperLinks, sharedSlideEntries, slideSections } = await import('data:text/javascript;base64,' + Buffer.from(outputFiles[0].contents).toString('base64'));
+  const excluded = new Set(['unitrans-arrival', 'before-lecture', 'P1', 'P2-arrival']);
   assert.deepEqual(Object.keys(slidePaperLinks).sort(), slides.map(({ members }) => members[0]).filter(id => !excluded.has(id)).sort());
-  const used = new Set(Object.values(slidePaperLinks).flatMap(links => links.map(link => link.id)));
+  const used = new Set();
+  for (const [key, links] of Object.entries(slidePaperLinks)) {
+    assert.ok(citations[links.title.id], `${key} needs a title citation`);
+    used.add(links.title.id);
+    for (const { reference } of links.inline ?? []) used.add(reference.id);
+  }
+
+  const { document } = JSON.parse(read('../shared-slides.json'));
+  for (const { key, initial } of sharedSlideEntries) {
+    const fields = [initial, document.copy[key]].filter(Boolean).flatMap(copy => slideSections(copy).flatMap(section => {
+      if (section.kind === 'bullets') return section.items;
+      return section.kind === 'header' ? [section.title] : [section.text];
+    }));
+    for (const { after } of slidePaperLinks[key]?.inline ?? []) {
+      assert.ok(fields.some(text => text.toLowerCase().includes(after)), `${key} is missing the cited line “${after}”`);
+    }
+  }
   assert.deepEqual(Object.keys(citations).sort(), [...used].sort());
   assert.deepEqual(Object.keys(citations).sort(), Object.keys(citationSource).sort());
   for (const [id, { section, runs }] of Object.entries(citations)) {
@@ -68,7 +84,10 @@ test('slide links cover the philosophical slides and point to exact paper citati
       }
     }
   }
-  assert.ok(slidePaperLinks['L6-A'].some(link => link.id === 'too-few-indubitable-claims'));
+  assert.equal(slidePaperLinks['L6-B'].title.id, 'moderate-foundationalism');
+  assert.equal(slidePaperLinks.L7.title.id, 'must-be-undoubted');
+  assert.equal(slidePaperLinks['undoubted-heading'].title.id, 'must-be-undoubted');
+  assert.ok(slidePaperLinks['L6-A'].inline.some(({ reference }) => reference.id === 'too-few-indubitable-claims'));
 });
 
 test('the Cartesian objection highlight starts at the cited words on a shared line', () => {
@@ -79,4 +98,16 @@ test('the Cartesian objection highlight starts at the cited words on a shared li
   assert.equal(line[1], sentence[1]);
   assert.ok(line[0] > sentence[0], 'leave the preceding words on the same line unmarked');
   assert.equal(citations['indubitable-foundations'].runs[0].lines.length, 1);
+});
+
+test('the undoubted title illuminates only the operative words in Greco’s sentence', () => {
+  const id = 'must-be-undoubted';
+  assert.equal(citationSource[id].start, 'must be undoubted.');
+  assert.equal(citations[id].section, 'undoubted-heading');
+  const [run] = citations[id].runs;
+  assert.equal(run.page, 2);
+  assert.equal(run.lines.length, 1);
+  const [left, top, right] = run.lines[0];
+  const context = index['undoubted-heading'][1].runs[0].lines.find(line => line[1] === top);
+  assert.ok(context && left > context[0] && right <= context[2], 'exclude the neighboring “undoubtable”');
 });

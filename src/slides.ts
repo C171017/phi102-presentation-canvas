@@ -53,7 +53,7 @@ export function createSlideNavigation(world: HTMLElement, navigate: (view: Camer
   world.addEventListener('click', event => {
     if (event.defaultPrevented || event.button !== 0 || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
     const element = event.target as Element;
-    if (element.closest('.resize-handle, input, textarea, select, a, [contenteditable="true"]')) return;
+    if (element.closest('.resize-handle, .slide-paper-link, input, textarea, select, a, [contenteditable="true"]')) return;
     const index = entryFor(element);
     if (index === undefined) return;
     event.preventDefault();

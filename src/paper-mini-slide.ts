@@ -1,5 +1,5 @@
 import { sharedSlideByKey } from './shared-slide-data';
-import { renderPaperSlideLinks } from './paper-slide-links';
+import { renderPaperLink, slidePaperLinks } from './paper-slide-links';
 import { slideSections, type SlideCopy, type SlideSection } from './slide-sections';
 import './paper-mini-slide.css';
 
@@ -59,8 +59,17 @@ export function createPaperMiniSlide(sharedCopy?: (key: string) => SlideCopy | u
     activeCopy = copy;
     sections = slideSections(copy);
     element.replaceChildren(...sections.map(renderMiniSlideSection));
-    const links = sections.length ? renderPaperSlideLinks(key) : undefined;
-    if (links) element.append(links);
+    const links = slidePaperLinks[key];
+    if (links) {
+      const fields = Array.from(element.querySelectorAll<HTMLElement>('[data-slide-field]:not(cite)'));
+      const title = fields.find(field => field.matches('.mini-slide-section') && field.textContent?.trim())
+        ?? fields.find(field => field.matches('h2'));
+      title?.append(renderPaperLink(links.title, true));
+      for (const { after, reference } of links.inline ?? []) {
+        const field = fields.find(node => node.textContent?.toLowerCase().includes(after));
+        if (field) field.append(renderPaperLink(reference));
+      }
+    }
     element.scrollTop = 0;
   }
 

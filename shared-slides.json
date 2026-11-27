@@ -1,7 +1,7 @@
 {
-  "revision": 38,
-  "savedAt": "2026-11-26T23:21:15.196Z",
-  "summary": "Edited dialogue · 25. White",
+  "revision": 59,
+  "savedAt": "2026-11-27T00:14:00.384Z",
+  "summary": "Edited dialogue · 14. The Stranger",
   "document": {
     "layout": null,
     "copy": {
@@ -110,25 +110,25 @@
       }
     },
     "dialogue": {
-      "L0:0:1u70wnw": "In this world, everything is made of belief. And belief is ink.",
+      "L0:0:1u70wnw": "Everything is made of belief. And belief is ink.",
       "L0:1:1soi8tx": "Liquid ink is a belief still in doubt. Concrete ink is a settled belief you can build on.",
       "L0:2:ptr57c": "Ink solidify when it holds up to questions. A question you can't answer can melt it again.",
       "regress-problem:0:jz884s": "Every belief came from the Great Inkwell",
-      "regress-problem:1:o0irx4": "A question mark guarded it. State your belief, answer the question, and the belief solidfy.",
+      "regress-problem:1:o0irx4": "State your belief, answer the question, and the belief solidfy.",
       "L2:9:xz4e4x": "How could I tell?",
-      "regress-problem:6:1abkxkd": "[The ink solidifies. He slots the stick into his chest, satisfied. The raven nods.]",
+      "regress-problem:6:1abkxkd": "[The ink solidifies.]",
       "L2:11:rwza9p": "Her words never solidified. Then, slowly, neither did her hand.",
       "L3:2:1yq4kak": "Every question that couldn't be settled split off another questioner. Nothing solidified, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.",
-      "L3:18:1oj3xnq": "And anything stayed in liquid ink long enough began to melt. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.",
+      "L3:18:1oj3xnq": "And anything stayed in liquid long enough began to melt. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.",
       "regress-skepticism:3:dzmp3n": "[Beside him, his old teacher Anaxarchus is sinking into the liquid ink, waving.]",
       "regress-infinitism:7:buc68m": "The objection — at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever solidifies.",
       "regress-foundationalism:8:bamr6v": "[In his ladle, one grain of ink turns matte. SOWATT keeps asking. It stays solid.]",
       "regress-foundationalism:9:1pu7qi2": "For the first time since the Whypocalypse began, a belief stayed solid even as the questions kept coming.",
       "L6-A:0:1wv9lhn": "For the first time since the Whypocalypse, people had a way to fight back. The goal: solidify the world again, the way it used to be.",
-      "L6-A:2:1qrfr3y": "The Cartesians would solidify only what could not be doubted. Ten thousand of them worked on it, day and night, for three hundred years.",
+      "L6-A:2:1qrfr3y": "The Cartesians would solidify only what could not be doubted.",
       "L6-A:5:tod0kx": "[A few grains of concrete ink fuse into one irregular pebble. Polite applause.]",
       "L6-A:6:yn8qg4": "It was a very good stone. Nothing anyone asked could melt it. They are still deciding what to build.",
-      "L6-B:0:fege8s": "The moderates didn't have three hundred years. They solidified whatever seemed true, and they solidified it fast.",
+      "L6-B:0:fege8s": "The moderates built on perception and some intuitions, even without certainty.",
       "L6-B:2:zmqpf5": "But their ink only ever solidified halfway. Everything they built was jelly.",
       "L7:1:1cshpug": "[A lone figure, seen from behind, steps out onto bare ink. A stick solidifies under her foot.]",
       "P2-6:7:we8ngd": "[MY NAME IS SIMONE burns into the brass. The first plank of concrete ink snaps onto the frame.]",
@@ -140,13 +140,21 @@
       "L3-continued:2:2t6uie": "And when the stones have melted, the Cartesian demon shall return.",
       "regress-foundationalism:10:11pbni": "But it was the size of a grain of rice.",
       "regress-foundationalism:1:1cqsz7f": "[Nameplate: RENÉ DESCARTES]",
-      "L6-A:1:1dtnhzb": "Overtime, people split into two schools."
+      "L6-A:1:1dtnhzb": "Overtime, people split into two schools.",
+      "regress-problem-birth:0:hbzskl": "But one day, the guardian was gone. In its place were five: YYYY SOWATT.",
+      "L2:8:h027is": "Why believe you're not a brain in a vat?",
+      "L3:0:1v5k02q": "Then the five became ten. Answers still came. They just never passed.",
+      "regress-foundationalism:0:pg0oj4": "And then there was a fourth. Nobody had elected him. He was shut alone in a stove-heated room, doubting everything.",
+      "L7:0:1xawf6j": "Until someone found a way out."
     },
     "dialogueStructure": {
       "L0": {
         "added": [],
         "removed": [
-          "regress-problem-birth:1:23jdfg"
+          "regress-problem-birth:1:23jdfg",
+          "regress-problem-birth:2:1pze0iq",
+          "regress-problem-birth:3:1605j3v",
+          "L0:1:1soi8tx"
         ]
       },
       "L2": {
@@ -155,21 +163,40 @@
           "L3:3:15p4oc3",
           "L3:2:1yq4kak",
           "L3:12:11s1s8c",
-          "L3:1:wjpj89"
+          "L3:1:wjpj89",
+          "L3:5:1qnev3w",
+          "L3:6:1dii2qi",
+          "L3:7:1chiiw4",
+          "L3:8:m7u14w",
+          "L3:9:39cfhi",
+          "L3:11:qzjkhs",
+          "L3:14:bskj5i",
+          "L3:15:1dhmpnd",
+          "L3:4:1pq2iw8",
+          "L3:10:1ntcb4o",
+          "L3:13:822ivh",
+          "L3:16:17bsmbo",
+          "L3:19:1tthr8e",
+          "L3:17:16sowah"
         ]
       },
       "regress-foundationalism": {
         "added": [],
         "removed": [
           "regress-foundationalism:11:1ftg53j",
-          "regress-foundationalism:10:11pbni"
+          "regress-foundationalism:10:11pbni",
+          "regress-foundationalism:1:1cqsz7f",
+          "regress-foundationalism:8:bamr6v"
         ]
       },
       "L7": {
         "added": [],
         "removed": [
           "L7:7:ws865z",
-          "L7:3:1byunuk"
+          "L7:3:1byunuk",
+          "L7:1:1cshpug",
+          "L7:6:1q5oiq7",
+          "L7:5:1uff1k3"
         ]
       },
       "contemporary-heading": {
@@ -180,7 +207,9 @@
       "L6-A": {
         "added": [],
         "removed": [
-          "L6-A:0:1wv9lhn"
+          "L6-A:0:1wv9lhn",
+          "L6-A:6:yn8qg4",
+          "L6-A:5:tod0kx"
         ]
       },
       "P2-1": {
@@ -194,6 +223,26 @@
         "removed": [
           "P2-7:5:1lme97y",
           "P2-7:6:1eb5h0f"
+        ]
+      },
+      "L3-continued": {
+        "added": [],
+        "removed": [
+          "L3-continued:0:16y1j51",
+          "L3-continued:1:fm3am2",
+          "L3-continued:2:2t6uie",
+          "L3-continued:3:1gbz8st",
+          "L3-continued:4:p9ci88"
+        ]
+      },
+      "L6-B": {
+        "added": [],
+        "removed": [
+          "L6-B:4:7pf52z",
+          "L6-B:3:1nau4tu",
+          "L6-B:6:1k60wpr",
+          "L6-B:5:xvvz7u",
+          "L6-B:1:23611d"
         ]
       }
     }
