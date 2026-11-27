@@ -1,6 +1,9 @@
 .timed-dialogue-word.is-spoken-word {
+  --spoken-highlight: #ffe6a5;
   color: #262032;
-  background: #ffe6a5;
+  background: var(--spoken-highlight);
+  /* Extend the background around each word without changing line breaks. */
+  box-shadow: 0 0 0 .08em var(--spoken-highlight);
   border-radius: .15em;
   text-shadow: none;
 }

@@ -96,7 +96,9 @@ export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
     if (!passages) return scene;
     return { ...scene, cues: [...scene.cues, ...passages.flatMap(sourceScene => {
       const passage = storySlide(sourceScene);
-      return passage.cues.map(cue => ({ ...cue, sourceScene, background: passage.background }));
+      // The regress slide holds on the hand illustration until the Whypocalypse title card.
+      const background = sourceScene === 'L3' ? undefined : passage.background;
+      return passage.cues.map(cue => ({ ...cue, sourceScene, background }));
     })] };
   });
 

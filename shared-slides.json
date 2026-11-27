@@ -1,7 +1,7 @@
 {
-  "revision": 60,
-  "savedAt": "2026-11-27T00:32:51.965Z",
-  "summary": "Edited dialogue · 18. Flashback · The sea wall",
+  "revision": 72,
+  "savedAt": "2026-11-27T01:50:59.933Z",
+  "summary": "Edited dialogue · 15. The Trial",
   "document": {
     "layout": null,
     "copy": {
@@ -119,7 +119,7 @@
       "regress-problem:6:1abkxkd": "[The ink solidifies.]",
       "L2:11:rwza9p": "Her words never solidified. Then, slowly, neither did her hand.",
       "L3:2:1yq4kak": "Every question that couldn't be settled split off another questioner. Nothing solidified, so the ink kept coming. The Great Inkwell overflowed, and every puddle it left behind became an inkwell of its own, with its own five.",
-      "L3:18:1oj3xnq": "And anything stayed in liquid long enough began to melt. Babies couldn't finish forming a single opinion. Their parents, meanwhile, were losing theirs.",
+      "L3:18:1oj3xnq": "And anything stayed in liquid long enough began to melt.",
       "regress-skepticism:3:dzmp3n": "[Beside him, his old teacher Anaxarchus is sinking into the liquid ink, waving.]",
       "regress-infinitism:7:buc68m": "The objection — at any finite time, the justification is still unfinished (Unit 1.1). Nothing ever solidifies.",
       "regress-foundationalism:8:bamr6v": "[In his ladle, one grain of ink turns matte. SOWATT keeps asking. It stays solid.]",
@@ -136,7 +136,7 @@
       "L3:14:bskj5i": "Why couldn’t a white raven be on its way?",
       "L3:15:1dhmpnd": "So what? One white raven blows your rule away.",
       "L3-continued:3:1gbz8st": "To the melted, demon will offer worlds of dream. They will step inside, and none of them will know they are dreaming.",
-      "L4:0:63tgj9": "For the first time in its history, humanity united. It elected the three greatest minds alive and gave each of them unlimited time and absolute authority.",
+      "L4:0:63tgj9": "For the first time in its history, humanity united. It elected the three greatest minds alive.",
       "L3-continued:2:2t6uie": "And when the stones have melted, the Cartesian demon shall return.",
       "regress-foundationalism:10:11pbni": "But it was the size of a grain of rice.",
       "regress-foundationalism:1:1cqsz7f": "[Nameplate: RENÉ DESCARTES]",
@@ -146,7 +146,8 @@
       "L3:0:1v5k02q": "Then the five became ten. Answers still came. They just never passed.",
       "regress-foundationalism:0:pg0oj4": "And then there was a fourth. Nobody had elected him. He was shut alone in a stove-heated room, doubting everything.",
       "L7:0:1xawf6j": "Until someone found a way out.",
-      "P2-2a:0:596tqo": "[Flash Back. Sunset. A sea wall. Cole is streaming, orange chat slips drifting around him.]"
+      "P2-2a:0:596tqo": "[Flash Back. Sunset. A sea wall. Cole is streaming, orange chat slips drifting around him.]",
+      "P1:5:1judsgk": "The gallery roars with laughter."
     },
     "dialogueStructure": {
       "L0": {
@@ -155,7 +156,8 @@
           "regress-problem-birth:1:23jdfg",
           "regress-problem-birth:2:1pze0iq",
           "regress-problem-birth:3:1605j3v",
-          "L0:1:1soi8tx"
+          "L0:1:1soi8tx",
+          "regress-problem:1:o0irx4"
         ]
       },
       "L2": {
@@ -178,7 +180,10 @@
           "L3:13:822ivh",
           "L3:16:17bsmbo",
           "L3:19:1tthr8e",
-          "L3:17:16sowah"
+          "L3:17:16sowah",
+          "L3:0:1v5k02q",
+          "L2:0:1u8yo1k",
+          "L3:18:1oj3xnq"
         ]
       },
       "regress-foundationalism": {
@@ -187,7 +192,9 @@
           "regress-foundationalism:11:1ftg53j",
           "regress-foundationalism:10:11pbni",
           "regress-foundationalism:1:1cqsz7f",
-          "regress-foundationalism:8:bamr6v"
+          "regress-foundationalism:8:bamr6v",
+          "regress-foundationalism:2:ka7h0m",
+          "regress-foundationalism:3:1576z3e"
         ]
       },
       "L7": {
@@ -210,13 +217,15 @@
         "removed": [
           "L6-A:0:1wv9lhn",
           "L6-A:6:yn8qg4",
-          "L6-A:5:tod0kx"
+          "L6-A:5:tod0kx",
+          "L6-A:3:1vgyhao"
         ]
       },
       "P2-1": {
         "added": [],
         "removed": [
-          "P2-1:0:k7raes"
+          "P2-1:0:k7raes",
+          "P2-1:1:1wg3xl4"
         ]
       },
       "P2-7": {
@@ -244,6 +253,15 @@
           "L6-B:6:1k60wpr",
           "L6-B:5:xvvz7u",
           "L6-B:1:23611d"
+        ]
+      },
+      "P2-4": {
+        "added": [],
+        "removed": [
+          "P2-4:0:15n7n23",
+          "P2-4:1:gunp72",
+          "P2-4:3:1kdf5tg",
+          "P2-4:4:qmp109"
         ]
       }
     }

@@ -248,7 +248,7 @@ export const inkOceanStory = {
     paragraphs: [
       "Narrator: But someone found a way out.",
       "[A lone figure, seen from behind, steps out onto bare ink. A stick dries under her foot.]",
-      "Stranger: It doesn't have to be undoubtable. It only has to be undoubted. Here. Now.",
+      "Narrator: It doesn't have to be undoubtable. It only has to be undoubted. Here. Now.",
       "Narrator: Not one solid world. Solid ground wherever you stood, for as long as nobody there was asking.",
       "Narrator: She left the world three legendary artifacts.",
       "[Title card, full anime gold, choir:] THE THREE SACRED TREASURES OF GOOD ENOUGH",

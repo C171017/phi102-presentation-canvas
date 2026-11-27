@@ -1,6 +1,10 @@
 #slide-progress {
   --section-width: 86px;
+  --section-preview-height: clamp(22px, 4.4dvh, 32px);
   --current-slide-text: #ffcf79;
+  --section-text: #213538;
+  --current-section-text: #824b09;
+  --section-focus: #315953;
   position: absolute;
   z-index: 6;
   inset-block: 0 var(--slide-progress-bottom, 0px);
@@ -9,9 +13,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(6px, 1.4dvh, 10px);
+  gap: clamp(9px, 1.8dvh, 14px);
   pointer-events: none;
   font: 600 12px/1.25 system-ui, sans-serif;
+}
+#viewport:is([data-regress-flashback], [data-ink-passage], :has(:is(#unitrans-arrival, #before-lecture, #contemporary-heading).page-foreground)) #slide-progress {
+  --section-text: #fffaf0;
+  --current-section-text: var(--current-slide-text);
+  --section-shadow: 0 1px 2px #10191e, 0 0 5px #10191e, 0 0 8px #10191e;
+  --section-focus: #b2edda;
+  --section-icon-shadow: drop-shadow(0 0 2px #10191e) drop-shadow(0 1px 2px #10191e);
 }
 .slide-progress-section {
   position: relative;
@@ -27,42 +38,56 @@
 }
 .slide-progress-heading {
   display: grid;
+  grid-template-rows: var(--section-preview-height) 1fr;
   place-items: center;
+  gap: 2px;
   width: 100%;
-  min-height: clamp(38px, 7dvh, 48px);
+  min-height: calc(var(--section-preview-height) + 38px);
   padding: 3px 6px;
-  border: 1px solid #738983a6;
-  border-radius: 6px;
-  color: #f5fbf5;
-  background: #1d2e32f5;
+  border: 0;
+  border-radius: 9px;
+  color: var(--section-text);
+  background: none;
+}
+.slide-progress-preview {
+  display: block;
+  max-width: 100%;
+  height: var(--section-preview-height);
+  object-fit: contain;
+  border-radius: min(8px, calc(var(--section-preview-height) / 4));
+  filter: drop-shadow(0 2px 2px #15212438);
+  pointer-events: none;
 }
 .slide-progress-heading > .slide-progress-label {
   font-size: 11.5px;
   text-align: center;
   text-wrap: balance;
+  text-shadow: var(--section-shadow, none);
 }
-.slide-progress-heading.is-current-section > .slide-progress-label,
+.slide-progress-heading.is-current-section > .slide-progress-label {
+  color: var(--current-section-text);
+}
 .slide-progress-page[aria-current] > .slide-progress-label {
-  color: var(--current-slide-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .slide-progress-flyout {
   position: absolute;
   inset-block-start: 50%;
   transform: translateY(-50%);
   left: 100%;
-  width: min(155px, calc(100vw - var(--section-width) - 18px));
+  width: min(214px, calc(100vw - var(--section-width) - 26px));
   /* The padding also keeps the pointer inside the section between columns. */
   padding-left: 5px;
 }
 .slide-progress-flyout[hidden] { display: none; }
 .slide-progress-children {
   position: relative;
+  display: grid;
+  gap: 4px;
   width: 100%;
-  max-height: min(420px, 54dvh, var(--slide-flyout-space, 100dvh));
-  padding: 2px;
-  border: 1px solid #738983a6;
-  border-radius: 8px;
-  background: #1d2e32fa;
+  max-height: min(500px, 72dvh, var(--slide-flyout-space, 100dvh));
+  padding: 2px 5px 2px 2px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
@@ -71,18 +96,42 @@
 }
 .slide-progress-page {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 4px;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
   width: 100%;
-  min-height: 24px;
-  padding: 2px 3px;
+  min-height: 27px;
+  padding: 5px 4px;
   border: 0;
-  border-radius: 5px;
-  color: #f5fbf5;
+  color: var(--section-text);
   background: transparent;
+  text-shadow: var(--section-shadow, none);
   overflow-wrap: anywhere;
 }
-.slide-progress-heading:is(:hover, [aria-expanded='true']),
-.slide-progress-page:hover { background: #294449; }
-#slide-progress button:focus-visible { outline: 2px solid #b2edda; outline-offset: -2px; }
+.slide-progress-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--current-section-text);
+  filter: var(--section-icon-shadow, none);
+  pointer-events: none;
+}
+.slide-progress-page[aria-current] { color: var(--current-section-text); }
+.slide-progress-heading:is(:hover, [aria-expanded='true']) > .slide-progress-label {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.slide-progress-page:is(:hover, :focus-visible) > .slide-progress-label {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+#slide-progress button:focus-visible { outline: 2px solid var(--section-focus); outline-offset: -2px; }
+
+@media (max-height: 540px) {
+  #slide-progress { --section-preview-height: clamp(12px, 3.5dvh, 18px); gap: 6px; }
+  .slide-progress-heading {
+    min-height: calc(var(--section-preview-height) + 24px);
+    gap: 1px;
+    padding-block: 1px;
+  }
+  .slide-progress-heading > .slide-progress-label { font-size: 10px; line-height: 1.1; }
+}

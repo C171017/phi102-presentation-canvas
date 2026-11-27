@@ -2020,6 +2020,104 @@ Recorded in Pacific time. Howie narrowed the request to Simone’s dialogue reco
 The Trial plays its game effects and types Simone’s lines. Keep the ten courtroom recordings in the local project archive outside the public assets. Generate and play Simone’s other presentation recordings through their existing cues.
 
 
+## 2026-11-26T16:33:58-08:00 · Show the seawall flashback in black and white
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21a0e-0f13-78d2-ac44-9002a031bd7c). Howie supplied the seawall scene with Cole and Simone.
+
+> make this B&W so this is much more like flash back
+
+Desaturate the seawall artwork and its flashback texture for the establishing shot and dialogue cues. Keep the dialogue panel and speaker emphasis in their usual colors.
+
+
+## 2026-11-26T16:34:24-08:00 · Use black and white for all three door memories
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21a0e-0f13-78d2-ac44-9002a031bd7c). Howie supplied the old-door and through-the-door scenes.
+
+> also these 2
+
+Apply the seawall’s black-and-white treatment to the old door and the view through the door. Use one treatment for the three consecutive flashback backgrounds.
+
+## 2026-11-26T16:35:47-08:00 · Give timed dialogue highlights more padding
+
+Recorded in Pacific time. Howie supplied Cole’s highlighted line on “Testimony and its hinges.”
+
+> the highlight should be refined likemaybe the box be a bit bigger so the texts are more readiable where edges are not cut
+
+Extend the gold background around each highlighted word so its lettering has space on all sides. Keep the line wrapping stable while the audio plays.
+
+
+## 2026-11-26T16:38:23-08:00 · Add artwork previews to the section buttons
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a2196d-b0e5-7fd2-b2b6-71ba2bcd1707).
+
+> add little preview images for these section slection thing
+
+Show a small illustration above each centered section label. Use the Unitrans bus, the Law of Ink question mark, the Trial witness stand, and the Access internalism clock. Keep the four buttons aligned and open slide titles in the existing flyout.
+
+
+## 2026-11-26T16:41:35-08:00 · Remove the boxes around section previews
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a2196d-b0e5-7fd2-b2b6-71ba2bcd1707).
+
+> make them box less, just image preivew and testx, and edges should be well procesed, think of borderless roundish ?
+
+Use an unboxed thumbnail and centered label for each section. Round the artwork corners, keep labels readable against paper and painted scenes, and show the focus outline for keyboard navigation.
+
+
+## 2026-11-26T16:44:22-08:00 · Give the undoubted foundations line to Simone
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21a0e-0f13-78d2-ac44-9002a031bd7c). The screenshot points to the Stranger’s line between two lines from Simone.
+
+> Change the speaker here from stranger to Simon, the narrator.
+
+Assign the existing line about undoubted foundations to Simone (Narrator). Use her established narrator voice, portrait, and word timings.
+
+## 2026-11-26T16:47:12-08:00 · Give the section menu a hover grace period
+
+Recorded in Pacific time. Howie supplied a screenshot of the Introduction flyout.
+
+> For the section selection thing, give it a little bit more edges or range by which I'm in. The cur- current problem is that if you immediately if you move outside of the box, the thing will disappear. Where it is very easily to mistakenly close the view. We got to refine this by either adding some, how can I say, like, cool down or range of time where it will wait for me like a second. Or increase like an invisible border where to increases the mistaken operation. Like forgiveness kind of level.
+
+Wait one second after the pointer leaves a section button or its flyout. Cancel the wait when the pointer returns. Open other sections and dismiss on outside clicks immediately.
+
+
+## 2026-11-26T16:49:59-08:00 · Space out the slide menu and add SVG icons
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21a0e-0f13-78d2-ac44-9002a031bd7c). Howie supplied the Introduction flyout on the paper background.
+
+> make the thing a bit more like padding between each other , and remove the box jus thte texts each with a litlte svg repressntitng like a little visual cue for that section
+
+Remove the flyout background and border. Show the slide names with more space between rows and a small SVG icon for each slide. Adapt text and icon contrast to the map and the painted scenes, and use underlines for hover and the current slide.
+
+## 2026-11-26T16:57:25-08:00 · Animate the Whypocalypse title card
+
+Recorded in Pacific time. Howie supplied the title-card screenshot, selected Kling 4.0 Flash, and clarified the motion and timing.
+
+> And it should be in a loop.
+
+> also the one you just generated doesn't change /move at all
+
+> but do meareu the time span of each of them
+
+Use the original title art as the first frame. The selected Kling 4.0 Flash take keeps the camera fixed while amber ripples and ink move through the city. Its five-second source reached completion about 91 seconds after submission, including queue time. The presentation uses a silent H.264 loop with a short crossfade at its seam. Show the original art during loading and when reduced motion is enabled.
+
+## 2026-11-26T17:45:38-08:00 · Play the Whypocalypse video with its generated sound
+
+Recorded in Pacific time. Howie chose the existing Kling 4.0 Flash take.
+
+> Just use the one we generated with clean form and just apply it to that section. And also with the audio it generated.
+
+Use the take's original stereo sound, crossfaded across the same frames as the picture. Play both on the title card and stop them on exit. A viewer whose browser blocks audio can hear it after interacting with the presentation.
+
+## 2026-11-26T17:49:11-08:00 · Preserve the original Kling video resolution
+
+Recorded in Pacific time. Howie pointed out the soft detail on the title card.
+
+> use the orignal resultion , slight compression
+
+Export the loop directly from the original 1280 × 720 Kling result with light H.264 compression. Keep the synchronized stereo sound and the short crossfade at the loop point.
+
+
 ## 2026-11-26T17:55:19-08:00 · Shorten the opening of The Trial
 
 Recorded in Pacific time. Howie marked the edits by screenshot and approved applying the [Trial script draft](https://chatgpt.com/space/page_9a6e6b0d25bc8191aaed689287fd90a2) to the presentation.
@@ -2033,3 +2131,40 @@ Recorded in Pacific time. Howie marked the edits by screenshot and approved appl
 > okay now actually update the website and after updated, git add commit and push
 
 Use “legendary artifacts” in Simone’s gavel line and retain only the first sentence of the gallery cue. Cut the zodiac-wheel description, the judge’s line about the stars, and the jurors’ nod. Show the existing court-in-session title before the judge’s accusation and skip its duplicate dialogue box.
+
+## 2026-11-26T17:55:51-08:00 · Remove the raven background from The Regress Problem
+
+Recorded in Pacific time. Howie supplied a screenshot of the raven illustration behind the last lines of the hand dialogue.
+
+> remove this backgroudn image from this seciton since it is no longer used
+
+Hold the hand illustration through the end of The Regress Problem, then advance to the Whypocalypse title card.
+
+
+## 2026-11-26T18:00:33-08:00 · Show the paper bookmark during The Trial
+
+Recorded in Pacific time. Howie supplied a screenshot of the courtroom game.
+
+> For this part, for the court game part, the Ace Attorney mock parody game part, the paper thing should still appear, like the little bookmark thing on the right, that should still appear, and you can still use that to open the paper, and the paper will float above everything else as usual. Because sometimes I might want to have reference from the paper here, so please do this.
+
+Keep the gold bookmark visible at the right edge of the courtroom. It opens the existing floating paper reader over the game.
+
+## 2026-11-26T18:08:13-08:00 · Regenerate the Whypocalypse at 2K
+
+Recorded in Pacific time. Howie asked to replace the existing clip using the title illustration as the reference.
+
+> for the sake of resoultion regerenate this aprt ( no need to reference the video, just reference the image。) regenerate again with MiniMax H3 with 2K image quality resolution.
+
+> And then replace the current one with that one. But that one should have the proper resolution, but slightly compressed. So it just has the right amount of compression where it's very efficient to run, but while also reserve most of the visual, the detail
+
+Use the MiniMax H3 generation 66c76db7-37bd-4ec1-ad1b-f8c1b1966e88. The sole reference was the original Whypocalypse WebP. Encode the loop at the source's 2560 × 1440 resolution and 24 frames per second. Crossfade picture and generated stereo audio at the loop point and bring the soundtrack down to background level. The resulting 4.5-second MP4 is about 4.75 MB.
+
+## 2026-11-26T18:12:36-08:00 · Explain social justification below Simone’s realization
+
+Recorded in Pacific time in the [courtroom dialogue chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> *(Justification as a **social activity** × **sensitive invariantism**. The norms of the court (Simone’s epistemic community) determine whose objections she has to answer. Those norms help determine Simone's belief (the subject in sensitive invariantism). If no one entitled to object would challenge the claim, it can serve as a local foundation.)*
+
+> update this vesion to the website, also have that litle button thing wher eyou can click to go to the relevant part of the paper so you might have to find the relevant paper section first, and it should also have the proper animation, sorry, the highlight mechanism, et cetera, just like the other paper jump control thing.
+
+Show the parenthetical below “So that’s how it works” on the same cue. The book button focuses Greco’s discussion of the believer’s community in §3, p. 429, and uses the shared citation highlight.

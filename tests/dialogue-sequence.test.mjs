@@ -150,18 +150,19 @@ test('clearing the opening dialogue still leaves all three artwork cues', () => 
   assert.ok(result.every(cue => cue.silent));
 });
 
-test('the Regress Problem continues into the Whypocalypse with its saved cue identities', () => {
+test('the Regress Problem keeps its artwork and saved cue identities through the joined dialogue', () => {
   const cues = authoredCues('L2');
   const first = inkPassageStarts.get('L3');
   assert.equal(authoredCues('L3').length, 0);
   assert.ok(authoredCues('L3-continued').length > 0);
   assert.equal(first.scene, 'L2');
-  assert.match(first.background, /L3-the-question-splits\.webp$/);
+  assert.equal(first.background, undefined);
   assert.equal(cues[first.number + 2].key, 'L3:2:1yq4kak');
   const added = { key: id(3), after: null, text: 'A saved opening line for the Whypocalypse.' };
   const saved = { L3: { added: [added], removed: [first.key] } };
   const result = buildClassroomScript(saved).filter(line => line.scene === 'L2');
-  assert.deepEqual(result.slice(first.number, first.number + 2).map(line => line.key), [added.key, first.key]);
-  assert.equal(result[first.number].background, first.background);
-  assert.equal(result[first.number + 1].silent, true);
+  assert.deepEqual(result.slice(first.number, first.number + 2).map(line => line.key),
+    [added.key, cues[first.number + 1].key]);
+  assert.equal(result[first.number].background, undefined);
+  assert.ok(result.every(line => line.key !== first.key));
 });

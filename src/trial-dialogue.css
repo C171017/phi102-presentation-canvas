@@ -18,12 +18,21 @@
 #presentation-shell:has(.trial-screen:not([hidden])) #viewport[data-regress-flashback]::before {
   image-rendering: pixelated;
 }
+.trial-panel {
+  --trial-dialogue-size: 3.23cqw;
+  --trial-copy-top: 13%;
+  --trial-copy-left: 20%;
+  position: absolute;
+  inset: 65.5% 0 auto;
+  height: 29.5%;
+  font: 400 var(--trial-dialogue-size)/1.19 Georgia, 'Times New Roman', serif;
+}
 .trial-message {
   appearance: none;
   position: absolute;
-  inset: 65.5% 0 auto;
+  inset: 0;
   width: 100%;
-  height: 29.5%;
+  height: 100%;
   margin: 0;
   padding: 0;
   border: 0;
@@ -33,7 +42,7 @@
   background-image: repeating-conic-gradient(rgb(121 145 176 / 9%) 0 25%, transparent 0 50%);
   background-size: .47cqw .47cqw;
   color: #fff;
-  font: 400 3.23cqw/1.19 Georgia, 'Times New Roman', serif;
+  font: inherit;
   text-align: left;
   text-shadow: 0 .13cqw .15cqw #070b13;
   cursor: pointer;
@@ -66,8 +75,26 @@
 .trial-name:empty { display: none; }
 .trial-words {
   position: absolute;
-  inset: 13% 11% auto 20%;
+  inset: var(--trial-copy-top) 11% auto var(--trial-copy-left);
   white-space: pre-wrap;
+}
+.trial-explanation {
+  position: absolute;
+  inset: calc(var(--trial-copy-top) + var(--trial-dialogue-size) * 1.43) 12% 7% var(--trial-copy-left);
+  margin: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  pointer-events: auto;
+  color: #fff0c9;
+  font: italic clamp(11px, 1.76cqw, 26px)/1.29 system-ui, sans-serif;
+}
+.trial-explanation[hidden],
+.trial-screen:not([data-ready]) .trial-explanation { visibility: hidden; }
+.trial-explanation .slide-paper-link {
+  margin-inline: .3em .15em;
+  width: clamp(19px, 1.9cqw, 28px);
+  height: clamp(19px, 1.9cqw, 28px);
 }
 .trial-unspoken { visibility: hidden; }
 .trial-message[data-narration] .trial-words { color: #b6def9; }
@@ -143,12 +170,20 @@
   .trial-screen[data-ready] .trial-next { animation: trial-prompt 720ms steps(2, end) infinite alternate; }
   @keyframes trial-prompt { to { translate: .42cqw; } }
 }
-/* The presentation tools are still reachable at their usual edges. */
-#presentation-shell:has(.trial-screen:not([hidden])) :is(.dev-role-picker, #viewport:not(.public-preview) #slide-progress, #paper-pane.is-collapsed):not(:hover):not(:focus-within) { opacity: 0; }
+/* Reveal the role picker and slide rail at the edges during court. */
+#presentation-shell:has(.trial-screen:not([hidden])) :is(.dev-role-picker, #viewport:not(.public-preview) #slide-progress):not(:hover):not(:focus-within) { opacity: 0; }
 @media (max-aspect-ratio: 1/1) {
   .trial-screen { height: 100%; }
-  .trial-message { inset-block-start: calc(50% + 14vw); height: auto; min-height: 7.2em; font-size: clamp(17px, 4.8vw, 28px); }
-  .trial-words { inset: 14% 8% auto; }
+  .trial-panel {
+    --trial-dialogue-size: clamp(17px, 4.8vw, 28px);
+    --trial-copy-top: 14%;
+    --trial-copy-left: 8%;
+    inset-block-start: calc(50% + 14vw);
+    height: 7.2em;
+  }
+  .trial-panel:has(.trial-explanation:not([hidden])) { height: auto; bottom: 5%; min-height: 7.2em; }
+  .trial-words { inset-inline-end: 8%; }
+  .trial-explanation { font-size: clamp(13px, 2cqw, 19px); }
   .trial-name { font-size: .85em; }
   .trial-impact img { width: 90%; height: auto; }
 }

@@ -21,6 +21,8 @@ import './classroom-dialogue.css';
 
 const introScenes = ['unitrans-arrival', 'before-lecture'];
 const answerWindowMs = openingQuizWindowMs;
+const whypocalypseScene = 'L3-continued';
+const whypocalypseLoopUrl = '/generated/backgrounds/ink-ocean/L3-whypocalypse-loop-2k.mp4';
 
 export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined, sharedLine?: (key: string) => string | undefined, dialogueStructure?: () => Record<string, DialogueStructure> | undefined) {
   const stage = document.createElement('div');
@@ -167,7 +169,39 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   passageArtwork.setAttribute('aria-hidden', 'true');
   const outgoingArtwork = document.createElement('div');
   outgoingArtwork.className = 'ink-passage-outgoing';
-  passageArtwork.append(outgoingArtwork);
+  const whypocalypseLoop = document.createElement('video');
+  whypocalypseLoop.hidden = true;
+  whypocalypseLoop.loop = true;
+  whypocalypseLoop.playsInline = true;
+  let whypocalypseVisible = false;
+  whypocalypseLoop.addEventListener('playing', () => {
+    whypocalypseLoop.hidden = !whypocalypseVisible || reduced.matches;
+  });
+  whypocalypseLoop.addEventListener('error', () => { whypocalypseLoop.hidden = true; });
+  function updateWhypocalypseLoop() {
+    if (!whypocalypseVisible || reduced.matches) {
+      whypocalypseLoop.pause();
+      whypocalypseLoop.hidden = true;
+      return;
+    }
+    if (!whypocalypseLoop.paused) return;
+    if (!whypocalypseLoop.hasAttribute('src')) whypocalypseLoop.src = whypocalypseLoopUrl;
+    whypocalypseLoop.muted = false;
+    void whypocalypseLoop.play().catch(error => {
+      if (error.name !== 'NotAllowedError' || !whypocalypseVisible || reduced.matches || !whypocalypseLoop.paused) return;
+      whypocalypseLoop.muted = true;
+      void whypocalypseLoop.play().catch(() => {}); // Keep the still if autoplay is unavailable.
+    });
+  }
+  function enableWhypocalypseAudio() {
+    if (!whypocalypseVisible || reduced.matches || !whypocalypseLoop.muted) return;
+    whypocalypseLoop.muted = false;
+    void whypocalypseLoop.play().catch(() => {});
+  }
+  document.addEventListener('click', enableWhypocalypseAudio, { capture: true });
+  document.addEventListener('keydown', enableWhypocalypseAudio, { capture: true });
+  reduced.addEventListener('change', updateWhypocalypseLoop);
+  passageArtwork.append(whypocalypseLoop, outgoingArtwork);
   viewport.prepend(passageArtwork);
   const passageImages = new Map([...inkPassages].map(([id, passages]) =>
     [id, [legendById.get(id)?.background, ...passages.map(passage => inkPassageStarts.get(passage)?.background)]] as const));
@@ -480,9 +514,12 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
 
   function showScene(id?: string) {
     showMusicScene(id);
-    const firstImage = id && passageImages.get(id)?.[0];
+    whypocalypseVisible = id === whypocalypseScene;
+    const firstImage = whypocalypseVisible ? legendById.get(whypocalypseScene)?.background
+      : id && passageImages.get(id)?.[0];
     viewport.toggleAttribute('data-ink-passage', Boolean(firstImage));
     if (firstImage && script[active]?.scene !== id) showPassageArtwork(firstImage, false);
+    updateWhypocalypseLoop();
     operation.showScene(id);
     if (id === 'contemporary-heading' && !image.hasAttribute('src')) image.src = portrait;
     const nextScene = id === 'contemporary-heading' ? 'L0'

@@ -1,25 +1,37 @@
 import { slides } from './slide-content';
+import { slideProgressIcon } from './slide-progress-icons';
+import unitransPreview from './assets/section-previews/unitrans.webp';
+import lawOfInkPreview from './assets/section-previews/law-of-ink.webp';
+import trialPreview from './assets/section-previews/trial.webp';
+import accessPreview from './assets/section-previews/access.webp';
 import './slide-progress.css';
 
 const sectionStarts = [
-  ['unitrans-arrival', 'Before OP'],
-  ['L0', 'Introduction'],
-  ['P1', 'Routes & Versions'],
-  ['access-heading', 'Application'],
+  ['unitrans-arrival', 'Before OP', unitransPreview],
+  ['L0', 'Introduction', lawOfInkPreview],
+  ['P1', 'Routes & Versions', trialPreview],
+  ['access-heading', 'Application', accessPreview],
 ] as const;
 
+const hoverCloseDelayMs = 1000;
+
 export function createSlideProgress(rail: HTMLElement, open: (index: number) => void) {
-  const sections = sectionStarts.map(([, title], index) => {
+  const sections = sectionStarts.map(([, title, preview], index) => {
     const group = document.createElement('div');
     group.className = 'slide-progress-section';
     const heading = document.createElement('button');
     heading.className = 'slide-progress-heading';
     heading.type = 'button';
     heading.id = `slide-progress-heading-${index}`;
+    const image = document.createElement('img');
+    image.className = 'slide-progress-preview';
+    image.src = preview;
+    image.alt = '';
+    image.decoding = 'async';
     const label = document.createElement('span');
     label.className = 'slide-progress-label';
     label.textContent = title;
-    heading.append(label);
+    heading.append(image, label);
 
     const flyout = document.createElement('div');
     flyout.className = 'slide-progress-flyout';
@@ -40,6 +52,7 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
   type ProgressSection = typeof sections[number];
   let expanded: ProgressSection | undefined;
   let hovered: ProgressSection | undefined;
+  let closeTimer: number | undefined;
 
   function fitFlyout() {
     if (!expanded) return;
@@ -54,6 +67,8 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
   resizeObserver.observe(rail);
 
   function expand(next?: ProgressSection) {
+    window.clearTimeout(closeTimer);
+    closeTimer = undefined;
     if (next === expanded) return;
     if (expanded) {
       if (expanded.list.contains(document.activeElement)) expanded.heading.focus({ preventScroll: true });
@@ -83,7 +98,7 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
     const label = document.createElement('span');
     label.className = 'slide-progress-label';
     label.textContent = title;
-    button.append(label);
+    button.append(slideProgressIcon(members[0]), label);
     button.addEventListener('click', () => open(index));
     section.list.append(button);
     return { button, section };
@@ -99,7 +114,11 @@ export function createSlideProgress(rail: HTMLElement, open: (index: number) => 
     group.addEventListener('pointerleave', event => {
       if (event.pointerType !== 'mouse' || hovered !== section) return;
       hovered = undefined;
-      if (expanded === section && !group.querySelector(':focus-visible')) expand();
+      if (expanded !== section || group.querySelector(':focus-visible')) return;
+      closeTimer = window.setTimeout(() => {
+        closeTimer = undefined;
+        if (expanded === section && !hovered && !group.querySelector(':focus-visible')) expand();
+      }, hoverCloseDelayMs);
     });
     group.addEventListener('focusout', event => {
       if (expanded === section && hovered !== section && !group.contains(event.relatedTarget as Node | null)) expand();

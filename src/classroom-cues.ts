@@ -22,7 +22,9 @@ const classroomCueKeys = classroomScript.map(cue => {
   for (const character of cue.speaker + '\0' + cue.text) {
     hash = Math.imul(hash ^ character.codePointAt(0)!, 16777619);
   }
-  return `${source}:${index}:${(hash >>> 0).toString(36)}`;
+  const key = `${source}:${index}:${(hash >>> 0).toString(36)}`;
+  // The undoubted-foundations cue keeps its saved edit key when reassigned from the Stranger to the narrator.
+  return key === 'L7:2:18zswrl' ? 'L7:2:e0bdc8' : key;
 });
 
 export const openingClassroomScene = 'contemporary-heading';

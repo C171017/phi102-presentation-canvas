@@ -1,4 +1,5 @@
 import type { InkOceanCue } from './ink-ocean-scenes';
+import { renderPaperLink, slidePaperLinks } from './paper-slide-links';
 import { createTrialAudio } from './trial-audio';
 import { trialDialogueText, trialShout } from './trial-script';
 import { trialArt } from './trial-art';
@@ -11,15 +12,25 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
   screen.innerHTML = `
     <div class="trial-confetti" aria-hidden="true"></div>
     <div class="trial-impact" aria-hidden="true"></div>
-    <button type="button" class="trial-message" aria-label="Continue courtroom dialogue">
-      <span class="trial-name" aria-hidden="true"></span>
-      <span class="trial-words" aria-hidden="true"><span></span><span class="trial-unspoken"></span></span>
-      <span class="trial-next" aria-hidden="true"></span>
-    </button>`;
+    <div class="trial-panel">
+      <button type="button" class="trial-message" aria-label="Continue courtroom dialogue">
+        <span class="trial-name" aria-hidden="true"></span>
+        <span class="trial-words" aria-hidden="true"><span></span><span class="trial-unspoken"></span></span>
+        <span class="trial-next" aria-hidden="true"></span>
+      </button>
+      <p class="trial-explanation" hidden>
+        (Justification as a <strong>social activity</strong> × <strong>sensitive invariantism</strong>.<span class="trial-explanation-citation"></span>
+        The norms of the court (Simone’s epistemic community) determine whose objections she has to answer.
+        Those norms help determine Simone's belief (the subject in sensitive invariantism).
+        If no one entitled to object would challenge the claim, it can serve as a local foundation.)
+      </p>
+    </div>`;
   stage.append(screen);
   const message = screen.querySelector<HTMLButtonElement>('.trial-message')!;
   const name = screen.querySelector<HTMLElement>('.trial-name')!;
   const words = screen.querySelector<HTMLElement>('.trial-words')!;
+  const explanation = screen.querySelector<HTMLElement>('.trial-explanation')!;
+  explanation.querySelector('.trial-explanation-citation')!.append(renderPaperLink(slidePaperLinks['pairing-social-simone'].title));
   const spoken = words.querySelector<HTMLElement>('span')!;
   const unspoken = words.lastElementChild!;
   const impact = screen.querySelector<HTMLElement>('.trial-impact')!;
@@ -55,6 +66,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     delete screen.dataset.photo;
     delete screen.dataset.strike;
     delete screen.dataset.ready;
+    explanation.hidden = true;
     typing = false;
   }
   function finish() {
@@ -106,6 +118,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     const shout = trialShout(line.text);
     const verdict = /“NOT GUILTY”/.test(line.text);
     const title = line.trialBanner ?? /^Banner: (.+)/.exec(line.text)?.[1];
+    explanation.hidden = line.speaker !== 'Simone' || line.text !== '…So that’s how it works.';
     name.textContent = line.kind ? '' : line.speaker;
     message.toggleAttribute('data-narration', Boolean(line.kind));
     fullText = trialDialogueText(line.text, edited);
