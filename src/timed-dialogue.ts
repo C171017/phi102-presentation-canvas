@@ -1,4 +1,5 @@
 import coleManifest from './cole-voice-clips.json';
+import { dialoguePlaybackRate } from './dialogue-playback';
 import simoneManifest from './simone-voice-clips.json';
 import sowattManifest from './sowatt-voice-clips.json';
 import { spokenText, spokenWords } from './timed-voice-words';
@@ -15,7 +16,10 @@ const sowattClips: Readonly<Record<string, Clip & { text: string }>> = sowattMan
 export function createDialogueVoice() {
   const audio = new Audio();
   audio.preload = 'none';
+  audio.defaultPlaybackRate = dialoguePlaybackRate;
+  audio.preservesPitch = true;
   let close: (() => void) | undefined;
+  const completed = new Set<string>();
 
   function stop() {
     const cancel = close;
@@ -28,8 +32,8 @@ export function createDialogueVoice() {
     return Object.hasOwn(simoneClips, key) ? simoneClips[key] : undefined;
   }
 
-  function play(target: HTMLElement, text: string) {
-    return playClip(target, text, find(text), 'simone');
+  function play(target: HTMLElement, text: string, cueKey: string) {
+    return playClip(target, text, find(text), 'simone', cueKey);
   }
 
   function playDoorSimone(target: HTMLElement, text: string, cueKey: string, withCole: boolean) {
@@ -38,24 +42,25 @@ export function createDialogueVoice() {
     if (clip?.text !== spoken) return false;
     const cole = coleClips[cueKey];
     if (withCole && cole?.text === spoken && cole.duet?.simoneFile === clip.file) {
-      return playClip(target, text, { ...clip, file: cole.duet.file }, 'cole');
+      return playClip(target, text, { ...clip, file: cole.duet.file }, 'cole', cueKey);
     }
-    return playClip(target, text, clip, 'simone');
+    return playClip(target, text, clip, 'simone', cueKey);
   }
 
   function playDoorCole(target: HTMLElement, text: string, cueKey: string) {
     const clip = coleClips[cueKey];
-    return clip?.text === spokenText(text) && playClip(target, text, clip, 'cole');
+    return clip?.text === spokenText(text) && playClip(target, text, clip, 'cole', cueKey);
   }
 
   function playSowatt(target: HTMLElement, text: string, cueKey: string) {
     const clip = sowattClips[cueKey];
-    if (clip && clip.text === spokenText(text)) return playClip(target, text, clip, 'sowatt');
+    if (clip && clip.text === spokenText(text)) return playClip(target, text, clip, 'sowatt', cueKey);
     return false;
   }
 
-  function playClip(target: HTMLElement, text: string, clip: Clip | undefined, folder: string) {
+  function playClip(target: HTMLElement, text: string, clip: Clip | undefined, folder: string, cueKey: string) {
     stop();
+    if (completed.has(cueKey)) return false;
     const words = spokenWords(text);
     if (document.hidden || !clip || clip.words.length !== words.length) return false;
 
@@ -78,7 +83,12 @@ export function createDialogueVoice() {
     let frame = 0;
     let active = -1;
     let waitingForGesture = false;
+    let started = false;
     function clear() {
+      // Let the current line finish naturally. The threshold only governs replays.
+      if (started && Number.isFinite(audio.duration) && audio.duration > 0 && audio.currentTime / audio.duration >= 0.9) {
+        completed.add(cueKey);
+      }
       listeners.abort();
       cancelAnimationFrame(frame);
       audio.pause();
@@ -113,6 +123,7 @@ export function createDialogueVoice() {
     function begin() {
       if (close !== clear) return;
       waitingForGesture = false;
+      audio.playbackRate = dialoguePlaybackRate;
       void audio.play().catch(error => {
         if (close !== clear) return;
         if (error instanceof DOMException && error.name === 'NotAllowedError') waitingForGesture = true;
@@ -128,6 +139,7 @@ export function createDialogueVoice() {
       if (document.hidden) finish();
     }, options);
     audio.addEventListener('playing', () => {
+      started = true;
       cancelAnimationFrame(frame);
       paint();
     }, options);
@@ -138,5 +150,10 @@ export function createDialogueVoice() {
     return true;
   }
 
-  return { play, playDoorSimone, playDoorCole, playSowatt, stop };
+  function resetVisit() {
+    stop();
+    completed.clear();
+  }
+
+  return { play, playDoorSimone, playDoorCole, playSowatt, stop, resetVisit };
 }

@@ -23,6 +23,9 @@ const classroomCueKeys = classroomScript.map(cue => {
     hash = Math.imul(hash ^ character.codePointAt(0)!, 16777619);
   }
   const key = `${source}:${index}:${(hash >>> 0).toString(36)}`;
+  // Keep existing edit keys when Simone's two opening pages trade places.
+  if (key === 'P1:1:1zx6q5') return 'P1:2:1zx6q5';
+  if (key === 'P1:2:12rk9zz') return 'P1:1:1kcwvkx';
   // The undoubted-foundations cue keeps its saved edit key when reassigned from the Stranger to the narrator.
   return key === 'L7:2:18zswrl' ? 'L7:2:e0bdc8' : key;
 });
@@ -41,6 +44,9 @@ for (const [index, cue] of classroomScript.entries()) {
   scene.push({ ...cue, key: classroomCueKeys[index], number: scene.length, sourceNumber: scene.length, original: true });
   authoredByScene.set(cue.scene, scene);
 }
+// The transition stays in Story view. Retire the game page after assigning the wire cue numbers.
+const trialCues = authoredByScene.get('P1');
+if (trialCues?.[0]?.key === 'P1:0:13y293n') trialCues.shift();
 
 export function authoredCues(scene: string) {
   return authoredByScene.get(scene) ?? [];

@@ -84,15 +84,17 @@ test('group movement batches position reads and schedules one save and connectio
   assert.equal(invalidations, 1);
 });
 
-test('camera-only frames reuse connections; explicit invalidation refreshes once', () => {
-  let connections = 0, renders = 0, measurements = 0;
+test('camera-only frames reuse connections and section washes; explicit invalidation refreshes once', () => {
+  let connections = 0, washes = 0, renders = 0, measurements = 0;
+  const items = [{ id: 'regress-problem' }];
   const view = { x: 0, y: 0, zoom: 1 };
   const ctx = runFunctions(['render', 'positionWorld', 'invalidateConnections', 'wake'], {
     view, target: view, tween: undefined, drag: undefined, connectionsDirty: true, frame: undefined,
     canvasBounds: { left: 320, top: 30 }, canvasContent: undefined,
     renderGrid() {}, world: { style: {} }, threeLayer: undefined,
     updateConnections: () => connections++,
-    measureCanvasContent: () => measurements++,
+    updateSectionWashes(bounds) { assert.equal(bounds, items); washes++; },
+    measureCanvasContent() { measurements++; return { items }; },
     constrainCanvasView() {}, pageExit: { active: () => false },
     slideNavigation: { measure() {}, refit() {}, update() {}, isOnCanvas: () => true },
     requestAnimationFrame: () => 1, tick() {},
@@ -100,17 +102,19 @@ test('camera-only frames reuse connections; explicit invalidation refreshes once
   ctx.render();
   for (let i = 0; i < 120; i++) { view.x += 10; view.zoom += 0.01; ctx.render(); }
   assert.equal(connections, 1);
+  assert.equal(washes, 1);
   assert.equal(measurements, 1);
   ctx.threeLayer = { render: () => renders++ };
   ctx.invalidateConnections(); ctx.invalidateConnections(); ctx.render();
   assert.equal(renders, 1, 'an enabled Three.js scene still renders');
   assert.equal(connections, 2);
+  assert.equal(washes, 2);
   assert.equal(measurements, 2);
 });
 
 test('canvas bounds retain about 30% of each usable axis at edges and corners', () => {
   const code = readFileSync(new URL('../src/canvas-pan.ts', import.meta.url), 'utf8')
-    .replace(/^import .+;\n/gm, '').replace(/export function/g, 'function');
+    .replace(/^import .+;\n/gm, '').replace(/^export /gm, '');
   const ctx = vm.createContext({});
   vm.runInContext(ts.transpile(code, { target: ts.ScriptTarget.ES2022 }), ctx);
   const viewport = { width: 1000, height: 600 };

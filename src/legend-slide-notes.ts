@@ -1,8 +1,25 @@
+import type { SlideSection } from './slide-sections';
+
 export type SlideNotes = {
   title: string;
   claim: string;
   points: readonly string[];
   source: string;
+};
+
+export const airportComparison: Extract<SlideSection, { kind: 'comparison' }> = {
+  kind: 'comparison',
+  quote: '“Smith knows the flight stops in Chicago.”',
+  rows: [
+    {
+      context: 'Routine question',
+      condition: 'The flight stops in Chicago, and Smith’s evidence (needs to) meet the ordinary standard. The printed schedule is enough.',
+    },
+    {
+      context: 'Important meeting in Chicago',
+      condition: 'The flight stops in Chicago, and Smith’s evidence (needs to) meet a higher standard. He needs enough evidence to confirm that the printed schedule is still current.',
+    },
+  ],
 };
 
 export const openingNotes: Record<string, SlideNotes> = {
@@ -11,7 +28,6 @@ export const openingNotes: Record<string, SlideNotes> = {
     claim: 'What “I know” claims can depend on the conversation.',
     points: [
       'A proposition is the claim a sentence expresses.',
-      'Contemporary contextualism says the same sentence can express different propositions as the context changes.',
     ],
     source: 'Greco · Introduction, p. 425',
   },

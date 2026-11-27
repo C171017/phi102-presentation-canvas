@@ -2,7 +2,6 @@ import { trialPages } from './trial-script';
 import { inkOceanStory } from './ink-ocean-story';
 import { inkOceanStoryTextId, savedStoryText } from './saved-story-text';
 import { isStoryBeatHeading, type StoryScene } from './story-text';
-import { operationBecauseScene } from './regress-responses';
 
 type StorySceneId = keyof typeof inkOceanStory;
 
@@ -103,7 +102,6 @@ export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
   });
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
-  if (scene.id === operationBecauseScene) return false;
   if (index === 0) return Boolean(scene.background);
   if (inkPassages.has(scene.id) || scene.id === 'P1' || scene.id === 'P2-1') return false; // Change artwork with the dialogue cue.
   const background = scene.cues[index]?.background;

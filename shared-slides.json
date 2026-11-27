@@ -1,6 +1,6 @@
 {
-  "revision": 72,
-  "savedAt": "2026-11-27T01:50:59.933Z",
+  "revision": 75,
+  "savedAt": "2026-11-27T03:46:17.218Z",
   "summary": "Edited dialogue · 15. The Trial",
   "document": {
     "layout": null,
@@ -10,10 +10,6 @@
           {
             "kind": "heading",
             "text": "Background (Setting)"
-          },
-          {
-            "kind": "text",
-            "text": "All ravens are black in normal conversation (low stake)"
           }
         ]
       },
@@ -77,9 +73,17 @@
             "text": "What “I know” claims can depend on the conversation."
           },
           {
-            "kind": "bullets",
-            "items": [
-              "Contemporary contextualism says the same sentence can express different propositions as the context changes."
+            "kind": "comparison",
+            "quote": "“Smith knows the flight stops in Chicago.”",
+            "rows": [
+              {
+                "context": "Routine question",
+                "condition": "The flight stops in Chicago, and Smith’s evidence (needs to) meet the ordinary standard. The printed schedule is enough."
+              },
+              {
+                "context": "Important meeting in Chicago",
+                "condition": "The flight stops in Chicago, and Smith’s evidence (needs to) meet a higher standard. He needs enough evidence to confirm that the printed schedule is still current."
+              }
             ]
           }
         ]
@@ -147,7 +151,8 @@
       "regress-foundationalism:0:pg0oj4": "And then there was a fourth. Nobody had elected him. He was shut alone in a stove-heated room, doubting everything.",
       "L7:0:1xawf6j": "Until someone found a way out.",
       "P2-2a:0:596tqo": "[Flash Back. Sunset. A sea wall. Cole is streaming, orange chat slips drifting around him.]",
-      "P1:5:1judsgk": "The gallery roars with laughter."
+      "P1:5:1judsgk": "The gallery roars with laughter.",
+      "P1:4:18duhxc": "That gavel, Your Honor, is one of the legendary artifacts."
     },
     "dialogueStructure": {
       "L0": {

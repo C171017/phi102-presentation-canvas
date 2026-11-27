@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 import { createCanvasGrid } from './canvas-grid';
 import { constrainCanvasView, measureCanvasContent } from './canvas-pan';
+import { createSectionWashes } from './canvas-section-washes';
 import { createHostedLayout, createLayoutController } from './layout';
 import initialLayout from './initial-layout';
 import { initializeIllustrations } from './illustrations';
@@ -41,6 +42,7 @@ initializePaperSlides(world);
 addLegendAnchors(world);
 initializeVersionPairings(world);
 const updateConnections = createConnections(world);
+const updateSectionWashes = createSectionWashes(world);
 const disposeRegressAnimations = initializeRegressAnimations();
 const view: View = { x: 0, y: 0, zoom: 1 };
 const target: View = { ...view };
@@ -271,6 +273,7 @@ function render() {
   if (connectionsDirty) {
     connectionsDirty = false;
     updateConnections(view.zoom);
+    updateSectionWashes(canvasContent?.items ?? []);
   }
   renderGrid(view, canvasBounds);
   slideNavigation.update(settled);

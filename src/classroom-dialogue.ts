@@ -7,14 +7,14 @@ import { isDoorWorldScene, isSimoneCue } from './simone-voice-lines';
 import { createDialogueFrame } from './dialogue-frame';
 import { createSpeakerOutline } from './speaker-outline';
 import { createOperationBecause } from './operation-because';
-import { foundationalismScene, operationBecauseScene, regressSceneDestination } from './regress-responses';
+import { regressSceneDestination } from './regress-responses';
 import portrait from './assets/professor-lin-classroom.webp';
 import type { createLocalQuizVotes, QuizChoice, QuizCounts } from './local-quiz-votes';
 import { openingQuizWindowMs, type OpeningQuizSnapshot } from './opening-quiz';
 import { legendById } from './slide-content';
 import { authoredCues, buildClassroomScript, customCueOffset, editableCueSequence, inkPassageStarts, openingClassroomScene, unlabeledYTurn } from './classroom-cues';
 import { hasEstablishingShot, inkPassages, type InkOceanCue } from './ink-ocean-scenes';
-import { establishingCueOffset, revealedTrialCueOffset } from './live-protocol';
+import { establishingCueOffset, revealedTrialCueOffset, transcriptPreviewCue } from './live-protocol';
 import type { DialogueStructure, SlideCopy } from './shared-slide-data';
 import type { InlineDialogueTarget } from './inline-dialogue';
 import './classroom-dialogue.css';
@@ -23,6 +23,9 @@ const introScenes = ['unitrans-arrival', 'before-lecture'];
 const answerWindowMs = openingQuizWindowMs;
 const whypocalypseScene = 'L3-continued';
 const whypocalypseLoopUrl = '/generated/backgrounds/ink-ocean/L3-whypocalypse-loop-2k.mp4';
+
+type DialogueStep = 'artwork' | 'preview' | 'line';
+type CueSelection = { local?: boolean; step?: DialogueStep; playVoice?: boolean };
 
 export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean, openScene: (id: string) => void, tally?: ReturnType<typeof createLocalQuizVotes>, presenter = false, playOpening?: () => void, sharedCopy?: (key: string) => SlideCopy | undefined, sharedLine?: (key: string) => string | undefined, dialogueStructure?: () => Record<string, DialogueStructure> | undefined) {
   const stage = document.createElement('div');
@@ -148,10 +151,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   const characters = stage.querySelectorAll<HTMLElement>('.classroom-character[data-speaker]');
   let introIndex = -1;
   let active = -1;
-  let establishing = false;
+  let dialogueStep: DialogueStep = 'line';
   let trialRevealed = false;
   let editing = false;
-  let pendingLine = -1;
+  let pendingTrialLine = -1;
   let highlighted = -1;
   let scrollTimer = 0;
   let quizTimer = 0;
@@ -239,6 +242,14 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     }
     if (line.original && line.number > 0 && hasEstablishingShot(scene, line.number)) return line.background ?? scene.background;
   }
+  function hasArtworkStep(index: number) {
+    return Boolean(photoAt(index)) || index === firstCue.get(openingClassroomScene);
+  }
+  function opensTranscript(index: number) {
+    const { scene } = script[index];
+    return index === firstCue.get(scene) && scene !== 'P1' && scene !== whypocalypseScene &&
+      !legendById.get(scene)?.imageOnly;
+  }
   function highlight(index: number) {
     if (highlighted === index) return;
     if (highlighted >= 0) rows[highlighted].removeAttribute('aria-current');
@@ -267,7 +278,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   function finishQuestion() {
     if (editing || active !== questionIndex || choices.hidden) return;
     const next = skipSilentText(questionIndex + 1, 1);
-    if (!finishIntro(next)) select(next, presenter);
+    if (!finishIntro(next)) select(next, { local: presenter });
   }
   async function submitAnswer(answer: QuizChoice) {
     if (!quizEnabled || active !== questionIndex) return;
@@ -338,33 +349,47 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   function quizResultsIndex() {
     return resultIndex > questionIndex ? resultIndex : questionIndex + 1;
   }
-  function select(index: number, local = false, photo?: string) {
+  function select(index: number, { local = false, step = 'line', playVoice = true }: CueSelection = {}) {
     voice.stop();
     clearQuestion();
     const line = script[index];
     clearTimeout(scrollTimer);
     active = index;
     trialRevealed = false;
-    establishing = Boolean(photo);
+    dialogueStep = step;
+    const establishing = step === 'artwork';
     viewport.toggleAttribute('data-establishing-shot', establishing);
     const inCourt = line.scene === 'P1';
     showTranscript(!establishing && !inCourt);
-    if (inCourt) trial.show(photo ? undefined : line, sharedLine?.(line.key));
+    if (inCourt) trial.show(establishing ? undefined : line, sharedLine?.(line.key));
     else trial.hide();
-    if (photo) {
+    if (establishing) {
       highlight(-1);
-      announcement.textContent = 'Full-color scene: ' + legendById.get(line.scene)!.title;
-      artwork.show(photo);
+      const legend = legendById.get(line.scene);
+      announcement.textContent = 'Full-color scene: ' + (legend?.title ?? 'Contemporary Contextualism');
+      const photo = photoAt(index);
+      if (photo) artwork.show(photo);
       if (local) onCueChange?.();
       return;
     }
     setVisibleRows(line.scene);
+    if (step === 'preview') {
+      highlight(-1);
+      notes.show(line.scene);
+      const background = line.background ?? legendById.get(line.scene)?.background;
+      if (background) artwork.show(background);
+      announcement.textContent = 'Dialogue open. Advance to start the first line.';
+      const firstVisible = rows.findIndex(row => !row.hidden);
+      reader.scrollTo({ top: firstVisible >= 0 ? center(firstVisible) : 0, behavior: 'instant' });
+      if (local) onCueChange?.();
+      return;
+    }
     highlight(index);
-    if (!inCourt && !editing && !line.silent) {
+    if (playVoice && !inCourt && !editing && !line.silent) {
       const target = rows[index].querySelector<HTMLElement>('.dialogue-words')!;
       if (isSimoneCue(line)) {
         if (isDoorWorldScene(line.scene)) voice.playDoorSimone(target, lineText(index), line.key, line.speaker === 'Both');
-        else voice.play(target, lineText(index));
+        else voice.play(target, lineText(index), line.key);
       } else if (line.speaker === 'Cole' && isDoorWorldScene(line.scene)) {
         voice.playDoorCole(target, lineText(index), line.key);
       } else voice.playSowatt(target, lineText(index), line.key);
@@ -402,15 +427,13 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     index = skipSilentText(index, index < active ? -1 : 1);
     if (scene === openingClassroomScene && active < questionIndex && index > questionIndex) index = questionIndex;
     if (!leavingPhoto && index < active) {
-      const photo = photoAt(active);
-      if (photo) { select(active, true, photo); return; }
+      if (opensTranscript(active)) { select(active, { local: true, step: 'preview' }); return; }
+      if (hasArtworkStep(active)) { select(active, { local: true, step: 'artwork' }); return; }
     }
     if (script[index]?.scene !== scene) {
       const forward = index > active;
       const destination = regressSceneDestination(scene, forward);
       if (destination) {
-        // Rewinding from Foundationalism returns to the last overview line.
-        if (!forward && scene === foundationalismScene) pendingLine = lastCue.get(operationBecauseScene)!;
         openScene(destination);
         return;
       }
@@ -424,18 +447,17 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (index === script.length) { openScene('dilemma-heading'); return; }
     const destination = script[index].scene;
     if (destination !== scene) {
-      pendingLine = index;
+      if (destination === 'P1') pendingTrialLine = index;
       openScene(destination);
       return;
     }
     if (index > active) {
       // Scrolling or clicking a later line still stops at the first new picture.
       for (let next = active + 1; next <= index; next++) {
-        const photo = photoAt(next);
-        if (photo) { select(next, true, photo); return; }
+        if (hasArtworkStep(next)) { select(next, { local: true, step: 'artwork' }); return; }
       }
     }
-    select(index, true);
+    select(index, { local: true });
   }
   function move(direction: number) {
     if (editing || viewport.hasAttribute('data-door-transition')) return;
@@ -444,9 +466,15 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       onCueChange?.();
       return;
     }
-    if (establishing) {
+    if (dialogueStep === 'artwork') {
       if (direction > 0 && legendById.get(script[active].scene)?.imageOnly) goToLine(active + 1, true);
-      else if (direction > 0) select(active, true);
+      else if (direction > 0) select(active, { local: true, step: opensTranscript(active) ? 'preview' : 'line' });
+      else goToLine(active - 1, true);
+      return;
+    }
+    if (dialogueStep === 'preview') {
+      if (direction > 0) select(active, { local: true });
+      else if (hasArtworkStep(active)) select(active, { local: true, step: 'artwork' });
       else goToLine(active - 1, true);
       return;
     }
@@ -490,7 +518,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (editing) return;
     const row = (event.target as HTMLElement).closest<HTMLDivElement>('.transcript-row');
     const index = row ? rows.indexOf(row) : -1;
-    if (index >= 0) goToLine(index === active ? active + 1 : index);
+    if (index < 0) return;
+    if (dialogueStep === 'preview') move(1);
+    else goToLine(index === active ? active + 1 : index);
   });
   reader.addEventListener('keydown', event => {
     if (editing) return;
@@ -501,9 +531,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   });
   reader.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
-    if (editing || stage.hidden || panel.hidden || active < 0 || script[active].silent) return;
+    if (editing || stage.hidden || panel.hidden || dialogueStep === 'preview' || active < 0 || script[active].silent) return;
     scrollTimer = window.setTimeout(() => {
-      if (editing || stage.hidden || panel.hidden || active < 0 || script[active].silent) return;
+      if (editing || stage.hidden || panel.hidden || dialogueStep === 'preview' || active < 0 || script[active].silent) return;
       const nearest = centeredLine();
       if (nearest !== active) goToLine(nearest);
     }, 160);
@@ -513,6 +543,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   }).observe(reader);
 
   function showScene(id?: string) {
+    if (script[active]?.scene !== id) voice.resetVisit();
     showMusicScene(id);
     whypocalypseVisible = id === whypocalypseScene;
     const firstImage = whypocalypseVisible ? legendById.get(whypocalypseScene)?.background
@@ -529,12 +560,12 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
-    const nextLine = script[pendingLine]?.scene === id ? pendingLine : index;
-    pendingLine = -1;
+    const nextLine = id === 'P1' && script[pendingTrialLine]?.scene === id ? pendingTrialLine : index;
+    pendingTrialLine = -1;
     if (index < 0) {
       voice.stop();
       trial.hide();
-      establishing = false;
+      dialogueStep = 'line';
       viewport.removeAttribute('data-establishing-shot');
       showTranscript(false);
       artwork.cancel();
@@ -545,7 +576,10 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       announcement.textContent = '';
       return;
     }
-    if (script[active]?.scene !== id) select(nextLine, false, nextLine === index ? photoAt(index) : undefined);
+    if (script[active]?.scene !== id) {
+      const step = nextLine === index && hasArtworkStep(index) ? 'artwork' : opensTranscript(nextLine) ? 'preview' : 'line';
+      select(nextLine, { step });
+    }
   }
   function refreshSlideCopy(force = false) {
     if (editing) return;
@@ -555,7 +589,7 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (serialized !== structure) {
       const previous = script[active];
       const position = previous ? active - firstCue.get(previous.scene)! : 0;
-      const previousShot = establishing;
+      const previousStep = dialogueStep;
       structure = serialized;
       script = buildClassroomScript(nextStructure);
       rows = renderRows();
@@ -569,7 +603,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
         let earlier = nearby - 1;
         while (earlier >= first && script[earlier].silent) earlier--;
         const index = kept >= 0 ? kept : later >= 0 ? later : earlier >= first ? earlier : first;
-        select(index, false, previousShot ? photoAt(index) : undefined);
+        const step = previousStep !== 'line' && position === 0 ? previousStep
+          : previousStep === 'artwork' && hasArtworkStep(index) ? 'artwork' : 'line';
+        select(step !== 'line' && position === 0 ? first : index, { step, playVoice: false });
       }
     }
     rows.forEach((row, index) => {
@@ -580,11 +616,11 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
         words.textContent = next;
       }
     });
-    if (force && script[active]?.scene === 'P1' && !establishing) trial.updateText(script[active], sharedLine?.(script[active].key));
+    if (force && script[active]?.scene === 'P1' && dialogueStep !== 'artwork') trial.updateText(script[active], sharedLine?.(script[active].key));
   }
 
   function inlineTarget(): InlineDialogueTarget | undefined {
-    if (stage.hidden || establishing || active < 0) return;
+    if (stage.hidden || dialogueStep === 'artwork' || active < 0) return;
     const scene = script[active].scene;
     const court = scene === 'P1';
     const root = court ? trial.inlineRoot : panel;
@@ -643,7 +679,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     onCue(listener: () => void) { onCueChange = listener; },
     getCue() {
       if (active < 0) return 0;
+      if (dialogueStep === 'preview') return transcriptPreviewCue;
       const current = script[active];
+      const establishing = dialogueStep === 'artwork';
       if (!current.original) return current.number * 2 + Number(establishing);
       const offset = establishing ? establishingCueOffset : trialRevealed ? revealedTrialCueOffset : 0;
       return current.number + offset;
@@ -651,23 +689,27 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     setCue(cue: number) {
       if (active < 0) return;
       const scene = script[active].scene;
+      const first = firstCue.get(scene)!;
+      if (cue === transcriptPreviewCue) {
+        if (dialogueStep !== 'preview' && opensTranscript(first)) select(first, { step: 'preview' });
+        return;
+      }
       const custom = cue >= customCueOffset * 2;
       const revealed = !custom && scene === 'P1' && cue >= revealedTrialCueOffset;
       const photoStep = custom ? cue % 2 === 1 : !revealed && cue >= establishingCueOffset;
       const number = custom ? Math.floor(cue / 2) : cue - (revealed ? revealedTrialCueOffset : photoStep ? establishingCueOffset : 0);
       let index = script.findIndex(line => line.scene === scene && line.number === number && line.original !== custom);
-      if (index < 0 && number === 0 && !custom) index = firstCue.get(scene)!;
+      if (!custom && number === 0 && (photoStep || index < 0)) index = first;
       if (index < 0) return;
       if (revealed) {
-        if (index !== active || establishing) select(index);
+        if (index !== active || dialogueStep === 'artwork') select(index);
         trial.reveal();
         trialRevealed = true;
         return;
       }
-      if (index === active && photoStep === establishing && !trialRevealed) return;
-      const photo = photoStep ? photoAt(index) : undefined;
-      if (legendById.get(scene)?.imageOnly && !photo) return;
-      if (!photoStep || photo) select(index, false, photo);
+      const step = photoStep ? 'artwork' : 'line';
+      if (index === active && step === dialogueStep && !trialRevealed) return;
+      if (photoStep ? hasArtworkStep(index) : !legendById.get(scene)?.imageOnly) select(index, { step });
     },
   };
 }

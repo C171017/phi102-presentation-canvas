@@ -26,6 +26,35 @@ export function renderMiniSlideSection(section: SlideSection, index: number) {
       node = document.createElement('ul');
       node.append(...section.items.map(renderSectionBullet));
       break;
+    case 'comparison': {
+      node = document.createElement('div');
+      node.className = 'mini-slide-comparison';
+      const table = document.createElement('table');
+      const headings = table.createTHead().insertRow();
+      for (const label of ['Context', 'What needs to be true']) {
+        const heading = document.createElement('th');
+        heading.scope = 'col';
+        heading.textContent = label;
+        headings.append(heading);
+      }
+      const body = table.createTBody();
+      section.rows.forEach(({ context, condition }, rowIndex) => {
+        const row = body.insertRow();
+        const label = field('th', context, `context-${rowIndex}`) as HTMLTableCellElement;
+        label.scope = 'row';
+        const cell = field('td', condition, `condition-${rowIndex}`);
+        const emphasis = '(needs to)';
+        const position = condition.indexOf(emphasis);
+        if (position >= 0) {
+          const strong = document.createElement('strong');
+          strong.textContent = emphasis;
+          cell.replaceChildren(condition.slice(0, position), strong, condition.slice(position + emphasis.length));
+        }
+        row.append(label, cell);
+      });
+      node.append(field('blockquote', section.quote, 'quote'), table);
+      break;
+    }
     case 'heading':
       node = field('h2', section.text, 'text');
       break;

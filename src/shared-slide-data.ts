@@ -1,8 +1,8 @@
 import type { Layout } from './layout-data';
-import { openingNotes } from './legend-slide-notes';
+import { airportComparison, openingNotes } from './legend-slide-notes';
 import { schoolNotes } from './school-slide-notes';
 import { slides } from './slide-content';
-import type { SlideCopy } from './slide-sections';
+import { slideSections, type SlideCopy } from './slide-sections';
 export { cleanSlideCopy, isSlideCopy, type SlideCopy } from './slide-sections';
 
 export const sharedSlidesPath = '/api/shared-slides';
@@ -39,6 +39,7 @@ export const sharedSlideEntries = slides.map(({ members: [id], title, descriptio
     ] };
   } else {
     initial = { title, claim: note?.claim ?? description, points: [...(note?.points ?? [])], bridge: '', source: note?.source ?? '' };
+    if (classroom) initial = { sections: [...slideSections(initial), airportComparison] };
   }
   // The Trial uses its own dialogue player and has no left panel.
   return { key: id, slideId: id, label, panel: Boolean(note) && id !== 'P1', initial };

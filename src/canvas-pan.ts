@@ -1,16 +1,18 @@
 import type { CameraView } from './layout';
 
 type ContentBounds = { left: number; right: number; top: number; bottom: number };
-type CanvasContent = { bounds: ContentBounds; items: ContentBounds[] };
+export type CanvasItemBounds = ContentBounds & { id: string };
+type CanvasContent = { bounds: ContentBounds; items: CanvasItemBounds[] };
 
 export function measureCanvasContent(world: HTMLElement, zoom: number): CanvasContent | undefined {
   const origin = world.getBoundingClientRect();
-  const items: ContentBounds[] = [];
+  const items: CanvasItemBounds[] = [];
   let left = Infinity, right = -Infinity, top = Infinity, bottom = -Infinity;
   world.querySelectorAll('.canvas-label:not(#unitrans-arrival, #before-lecture)').forEach(item => {
     const rect = item.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     const bounds = {
+      id: item.id,
       left: (rect.left - origin.left) / zoom,
       right: (rect.right - origin.left) / zoom,
       top: (rect.top - origin.top) / zoom,

@@ -1,7 +1,9 @@
 export type LegacySlideCopy = { title: string; claim: string; points: string[]; bridge: string; source: string };
+type ComparisonRow = { context: string; condition: string };
 export type SlideSection =
   | { kind: 'header'; title: string; source: string }
   | { kind: 'bullets'; items: string[] }
+  | { kind: 'comparison'; quote: string; rows: [ComparisonRow, ComparisonRow] }
   | { kind: 'heading' | 'text'; text: string };
 type SavedSlideSection = SlideSection | { kind: 'cue'; text: string };
 export type SlideCopy = LegacySlideCopy | { sections: SavedSlideSection[] };
@@ -19,6 +21,8 @@ function isSavedSlideSection(value: unknown): value is SavedSlideSection {
   switch (section.kind) {
     case 'header': return fits(section.title, 150) && fits(section.source, 180) && Boolean(section.title.trim() || section.source.trim());
     case 'bullets': return bulletList(section.items) && section.items.length > 0;
+    case 'comparison': return filled(section.quote, 500) && Array.isArray(section.rows) && section.rows.length === 2 &&
+      section.rows.every(row => row && filled(row.context, 150) && filled(row.condition, 500));
     case 'heading': case 'text': case 'cue': return filled(section.text, 500);
     default: return false;
   }
@@ -48,6 +52,13 @@ export function cleanSlideCopy(copy: SlideCopy): SlideCopy {
       switch (section.kind) {
         case 'header': return { kind: 'header', title: section.title, source: section.source };
         case 'bullets': return { kind: 'bullets', items: [...section.items] };
+        case 'comparison': {
+          const [first, second] = section.rows;
+          return { kind: 'comparison', quote: section.quote, rows: [
+            { context: first.context, condition: first.condition },
+            { context: second.context, condition: second.condition },
+          ] };
+        }
         default: return { kind: section.kind, text: section.text };
       }
     }) };

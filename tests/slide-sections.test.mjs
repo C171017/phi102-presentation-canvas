@@ -47,3 +47,14 @@ test('invalid section types and oversized text are rejected', () => {
   assert.equal(isSlideCopy({ sections: [{ kind: 'text', text: 'a'.repeat(501) }] }), false);
   assert.equal(isSlideCopy({ sections: [{ kind: 'bullets', items: [''] }] }), false);
 });
+
+test('a comparison preserves its sentence and both context rows when saved', () => {
+  const comparison = { kind: 'comparison', quote: 'Same sentence', rows: [
+    { context: 'First context', condition: 'The evidence (needs to) meet the ordinary standard.' },
+    { context: 'Second context', condition: 'The evidence (needs to) meet a higher standard.' },
+  ] };
+  const copy = { sections: [comparison] };
+  assert.equal(isSlideCopy(copy), true);
+  assert.deepEqual(cleanSlideCopy(copy), copy);
+  assert.equal(isSlideCopy({ sections: [{ ...comparison, rows: comparison.rows.slice(0, 1) }] }), false);
+});

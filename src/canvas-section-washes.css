@@ -1,0 +1,15 @@
+.canvas-section-wash {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  opacity: calc(var(--wash-opacity) * var(--wash-visibility, 1));
+}
+
+.canvas-section-wash[data-section="motivations"] { --wash-opacity: .19; }
+.canvas-section-wash[data-section="versions"] { --wash-opacity: .23; }
+.canvas-section-wash[data-section="applications"] { --wash-opacity: .20; }
+
+#viewport.is-page-focused .canvas-section-wash { --wash-visibility: 0; }
+.previewing-page-exit #viewport.is-page-focused .canvas-section-wash {
+  --wash-visibility: var(--canvas-opacity);
+}

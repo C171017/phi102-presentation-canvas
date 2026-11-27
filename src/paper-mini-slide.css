@@ -73,3 +73,37 @@
 }
 .paper-mini-slide .mini-slide-text { white-space: pre-wrap; }
 .paper-mini-slide [data-slide-field] { overflow-wrap: anywhere; }
+
+.paper-mini-slide:has(> .mini-slide-comparison) {
+  padding-block: clamp(8px, 2cqh, 14px);
+}
+.paper-mini-slide:has(> .mini-slide-comparison) h2 {
+  max-width: none;
+  font-size: clamp(16px, min(1.75cqw, 9cqh), 32px);
+}
+.mini-slide-comparison {
+  margin-top: clamp(6px, 2.1cqh, 10px);
+  font-size: clamp(13px, min(1.13cqw, 6cqh), 21px);
+  line-height: 1.25;
+}
+.mini-slide-comparison blockquote {
+  margin: 0 0 .45em;
+  padding-inline-start: .6em;
+  border-inline-start: 2px solid #d5b574;
+  font-weight: 650;
+}
+.mini-slide-comparison table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font: inherit;
+}
+.mini-slide-comparison :is(th, td) {
+  padding: .28em 0;
+  text-align: start;
+  vertical-align: top;
+}
+.mini-slide-comparison th:first-child { width: 26%; padding-inline-end: .7em; }
+.mini-slide-comparison strong { white-space: nowrap; }
+.mini-slide-comparison thead { border-bottom: 1px solid #d5b57490; }
+.mini-slide-comparison tbody tr + tr { border-top: 1px solid #d5b57448; }

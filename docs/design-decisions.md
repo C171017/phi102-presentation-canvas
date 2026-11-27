@@ -2168,3 +2168,65 @@ Recorded in Pacific time in the [courtroom dialogue chat](codex://threads/01a219
 > update this vesion to the website, also have that litle button thing wher eyou can click to go to the relevant part of the paper so you might have to find the relevant paper section first, and it should also have the proper animation, sorry, the highlight mechanism, et cetera, just like the other paper jump control thing.
 
 Show the parenthetical below “So that’s how it works” on the same cue. The book button focuses Greco’s discussion of the believer’s community in §3, p. 429, and uses the shared citation highlight.
+
+## 2026-11-26T18:48:11-08:00 · Use the airport example in the classroom
+
+Recorded when the change was saved in the [classroom example chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf). Howie supplied screenshots of the bullet and the replacement.
+
+> add parenthesses aorund (needs to)
+
+> repalce this with this
+
+Replace the general contextualism bullet with the Chicago flight sentence and a two-row comparison of the routine question and the important meeting. Keep “(needs to)” in both rows and retain the classroom heading and paper references.
+
+
+## 2026-11-26T19:31:33-08:00 · Color the three canvas sections
+
+Recorded in Pacific time. Howie supplied a screenshot of the canvas overview.
+
+> And I want them, each of them to have a color-coded background. Think of just very light color, like glowing in the background, but not actually glowing. They're going to be static.
+
+> And this should, like, move around, uh, as you move that corresponding section.
+
+> the rainbow order where you first have, um, you have red, then you have, um Yellow, and then you have blue kind of thing.
+
+Use a muted red wash for the regress problem, the foundationalist schools, and “Undoubted, not undoubtable.” Use yellow for the routes, versions, and character combinations, and blue for the application and cognitive home. Let the colors fade into the paper and blend between neighboring sections. Use the objects' current bounds to position and shape each wash on the overview.
+
+## 2026-11-26T19:37:50-08:00 · Play dialogue audio at 1.3×
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf).
+
+> also for the sake of time speed up all like the diagloue audio to 1.3 speed
+
+Play narration, character dialogue, and courtroom voice shouts at 1.3×. Follow each voice clip’s media clock for word highlighting. Keep music, video, and courtroom effects at their original speeds.
+
+## 2026-11-26T19:41:44-08:00 · Open the courtroom with Simone’s testimony
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf). Howie supplied the opening courtroom narration screenshot.
+
+> remove this part form teh cour game part
+
+> and change the workding ehre from treasures to the legendary artifcats
+
+Open the game with Simone’s testimony and use “the legendary artifacts” in her first line. Keep the painting transition in Story view and preserve existing courtroom cue numbers.
+
+## 2026-11-26T19:44:55-08:00 · Reorder Simone’s opening testimony
+
+Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a219bd-3c2f-7d13-a3f9-9ffd51e8d8bf). Howie supplied screenshots of both dialogue pages.
+
+> swap the order fo these 2, and remove the ... before and and make And 's a uppercase
+
+Lead with “That’s the legend, and this world is part of it. It’s fake.” Follow with “And the legendary artifacts were never found. Until now.”
+
+
+## 2026-11-26T19:46:24-08:00 · Open transcripts silently and play each line once per visit
+
+Recorded in Pacific time. Howie supplied a screenshot of The Law of Ink dialogue.
+
+> once you enter this page, it's going to show the picture, right? And you type or you hit the arrow key, the right arrow key, then you go to the dialog box, but no line is going to be played only until you hit the next ones.
+
+> If the dialogue is played, let's say 90%, then it counts as finished.
+
+> Only if I move to the next page and come back to this page.
+
+Enter on the artwork. The first advance opens the transcript silently and the second selects its first cue. Track voice completion by cue for the current visit. Allow an interrupted clip to retry below 90% and keep completed lines silent during review. Clear completion when the slide changes so a return starts fresh. The shared presentation cue distinguishes the silent preview from its first spoken line. The Trial keeps its game controls and the Whypocalypse title card keeps its existing presentation.

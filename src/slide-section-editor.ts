@@ -6,8 +6,13 @@ const sectionNames = {
   heading: 'Heading',
   text: 'Text',
   bullets: 'Bullet list',
+  comparison: 'Two-context comparison',
 };
-const fieldNames: Record<string, string> = { title: 'Slide title', source: 'Reference' };
+const fieldNames: Record<string, string> = {
+  title: 'Slide title', source: 'Reference', quote: 'Shared sentence',
+  'context-0': 'First context', 'condition-0': 'First condition',
+  'context-1': 'Second context', 'condition-1': 'Second condition',
+};
 
 function button(label: string, action: () => void, caption = label) {
   const control = document.createElement('button');
@@ -41,6 +46,14 @@ function readSection(node: HTMLElement, kind: SlideSection['kind']): SlideSectio
       if (items.length) return { kind, items };
       break;
     }
+    case 'comparison': {
+      const readField = (name: string) => read(node.querySelector<HTMLElement>(`[data-slide-field="${name}"]`)!);
+      const quote = readField('quote');
+      const first = { context: readField('context-0'), condition: readField('condition-0') };
+      const second = { context: readField('context-1'), condition: readField('condition-1') };
+      if (quote || first.context || first.condition || second.context || second.condition) return { kind, quote, rows: [first, second] };
+      break;
+    }
     default: {
       const text = read(node);
       if (text) return { kind, text };
@@ -68,7 +81,9 @@ export function editSlideSections(container: HTMLElement, initial: SlideSection[
   const add = button('Add section', () => {
     const kind = kinds.value as SlideSection['kind'];
     const section: SlideSection = kind === 'header' ? { kind, title: '', source: '' }
-      : kind === 'bullets' ? { kind, items: [''] } : { kind, text: '' };
+      : kind === 'bullets' ? { kind, items: [''] }
+      : kind === 'comparison' ? { kind, quote: '', rows: [{ context: '', condition: '' }, { context: '', condition: '' }] }
+      : { kind, text: '' };
     firstEditable(mount(section))?.focus();
     updateControls();
   });

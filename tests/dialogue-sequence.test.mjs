@@ -1,18 +1,73 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { runInNewContext } from 'node:vm';
 import { buildSync } from 'esbuild';
 
 const bundle = buildSync({
-  entryPoints: [fileURLToPath(new URL('../src/classroom-cues.ts', import.meta.url))],
+  stdin: {
+    contents: "export * from './classroom-cues'; export * from './live-protocol'; export { slides } from './slide-content';",
+    resolveDir: fileURLToPath(new URL('../src/', import.meta.url)),
+  },
   bundle: true, write: false, format: 'esm',
 });
-const { authoredCues, buildClassroomScript, customCueNumber, inkPassageStarts, joinInkPassageEdits } =
+const { authoredCues, buildClassroomScript, customCueNumber, inkPassageStarts, joinInkPassageEdits,
+  firstPresentationCue, establishingCueOffset, transcriptPreviewCue, customCueOffset, slides } =
   await import('data:text/javascript;base64,' + Buffer.from(bundle.outputFiles[0].contents).toString('base64'));
 
 const id = n => 'line-' + n.toString(16).padStart(12, '0') + '0'.repeat(20);
 const scene = 'contemporary-heading';
 const classroom = structure => buildClassroomScript(structure && { [scene]: structure }).filter(cue => cue.scene === scene);
+
+test('room defaults start dialogue slides on their artwork and reserve a separate cue for silent preview', () => {
+  const initialCue = key => firstPresentationCue(slides.findIndex(slide => slide.members[0] === key));
+  for (const key of [scene, 'L0', 'L4', 'P2-arrival']) assert.equal(initialCue(key), establishingCueOffset, key);
+  assert.equal(initialCue('access-heading'), 0);
+  assert.ok(transcriptPreviewCue > establishingCueOffset && transcriptPreviewCue < customCueOffset * 2);
+});
+
+test('a voice cue can retry below 90%, plays silently after completion, and resets on a fresh visit', () => {
+  const { outputFiles } = buildSync({
+    entryPoints: [fileURLToPath(new URL('../src/timed-dialogue.ts', import.meta.url))],
+    bundle: true, write: false, format: 'iife', globalName: 'dialogue', loader: { '.css': 'empty' },
+  });
+  let audio, playCount = 0;
+  class Audio extends EventTarget {
+    duration = 10;
+    constructor() { super(); audio = this; }
+    set src(_) { this.currentTime = 0; }
+    play() { playCount++; return Promise.resolve(); }
+    pause() {}
+  }
+  const text = 'Everything is made of belief. And belief is ink.';
+  const target = { textContent: text, replaceChildren() {} };
+  const document = Object.assign(new EventTarget(), {
+    createDocumentFragment: () => ({ append() {} }),
+    createElement: () => ({ classList: { toggle() {} } }),
+  });
+  const context = { Audio, document, AbortController, DOMException, requestAnimationFrame() {}, cancelAnimationFrame() {} };
+  runInNewContext(outputFiles[0].text, context);
+  const voice = context.dialogue.createDialogueVoice();
+  const play = (cue = 'first') => voice.play(target, text, cue);
+  const advanceAudio = time => { audio.dispatchEvent(new Event('playing')); audio.currentTime = time; };
+  assert.equal(play(), true);
+  advanceAudio(8.99);
+  voice.stop();
+  assert.equal(play(), true);
+  advanceAudio(9);
+  voice.stop();
+  assert.equal(play(), false);
+  assert.equal(playCount, 2);
+
+  assert.equal(play('second'), true, 'identical text can appear in a different cue');
+  advanceAudio(10);
+  audio.dispatchEvent(new Event('ended'));
+  assert.equal(play('second'), false);
+  voice.resetVisit();
+  assert.equal(play(), true);
+  assert.equal(play('second'), true);
+  voice.stop();
+});
 
 test('inserting a line keeps the original quiz and reveal cue numbers', () => {
   const [first, question, result, bridge, reveal] = authoredCues(scene);

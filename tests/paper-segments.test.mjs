@@ -65,6 +65,7 @@ test('slide links cover the philosophical slides and point to exact paper citati
   for (const { key, initial } of sharedSlideEntries) {
     const fields = [initial, document.copy[key]].filter(Boolean).flatMap(copy => slideSections(copy).flatMap(section => {
       if (section.kind === 'bullets') return section.items;
+      if (section.kind === 'comparison') return [section.quote, ...section.rows.flatMap(row => [row.context, row.condition])];
       return section.kind === 'header' ? [section.title] : [section.text];
     }));
     for (const { after } of slidePaperLinks[key]?.inline ?? []) {
