@@ -14,6 +14,7 @@ export interface InkOceanCue {
   text: string;
   kind?: 'direction' | 'note';
   background?: string;
+  trialBanner?: string;
   sourceScene?: InkOceanSceneId;
 }
 

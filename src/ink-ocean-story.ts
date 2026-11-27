@@ -265,8 +265,8 @@ export const inkOceanStory = {
     },
     paragraphs: [
       "[The legend’s last painting pulls back. The narrator’s voice was coming from the witness stand.]",
-      "Simone: …and the treasures were never found. Until now. That’s the legend, and this world is part of it. It’s fake. [She points at the bench.] And that gavel, Your Honor, is one of the treasures.",
-      "[The gallery roars with laughter. Only the judge doesn’t laugh. He glances at the gavel in his hand.]",
+      "Simone: …and the treasures were never found. Until now. That’s the legend, and this world is part of it. It’s fake. [She points at the bench.] And that gavel, Your Honor, is one of the legendary artifacts.",
+      "[The gallery roars with laughter.]",
     ],
   },
   "P1-2": {
@@ -277,9 +277,7 @@ export const inkOceanStory = {
       alt: "The silver-haired judge sits beneath a brass zodiac wheel, with the golden gavel in front of him.",
     },
     paragraphs: [
-      "[Above the bench hangs a great brass zodiac wheel. Nobody looks at it twice.]",
-      "[Banner: COURT IS NOW IN SESSION]",
-      "Judge: The stars favor this session. [The jurors nod.] The defendant stands accused of spreading the rumor that this world is fake.",
+      "Judge: The defendant stands accused of spreading the rumor that this world is fake.",
       "Prosecutor: [Smirking.] The world is real, My Lord. Nobody here doubts it.",
       "Judge: Does anyone object? [Silence. BANG.] So ordered. The world is real.",
       "[The floor gleams, solid.]",

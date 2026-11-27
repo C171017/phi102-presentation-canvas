@@ -2018,3 +2018,18 @@ Recorded in Pacific time. Howie narrowed the request to Simone’s dialogue reco
 > and we can igmore them for the dplyed version so they don't take up space since they are not ognna be played
 
 The Trial plays its game effects and types Simone’s lines. Keep the ten courtroom recordings in the local project archive outside the public assets. Generate and play Simone’s other presentation recordings through their existing cues.
+
+
+## 2026-11-26T17:55:19-08:00 · Shorten the opening of The Trial
+
+Recorded in Pacific time. Howie marked the edits by screenshot and approved applying the [Trial script draft](https://chatgpt.com/space/page_9a6e6b0d25bc8191aaed689287fd90a2) to the presentation.
+
+> change treatusres here to use the term legendary artifacts
+
+> For this part only keep the gallery rolls with laughter。
+
+> remove this seciton too , casue we alredy have the otehr one for cour is now in session
+
+> okay now actually update the website and after updated, git add commit and push
+
+Use “legendary artifacts” in Simone’s gavel line and retain only the first sentence of the gallery cue. Cut the zodiac-wheel description, the judge’s line about the stars, and the jurors’ nod. Show the existing court-in-session title before the judge’s accusation and skip its duplicate dialogue box.

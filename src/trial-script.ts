@@ -2,7 +2,7 @@ import type { InkOceanCue, InkOceanScene } from './ink-ocean-scenes';
 import { trialArt } from './trial-art';
 
 const directionShots: readonly [RegExp, string][] = [
-  [/the judge looks|only the judge|above the bench/i, trialArt.judge],
+  [/the judge looks|only the judge|above the bench|the gallery roars with laughter/i, trialArt.judge],
   [/confetti rains down|confetti flies back up/i, trialArt.witness],
   [/^The laughter stops\.$/i, trialArt.confetti],
   [/slumps over the desk/i, trialArt.asleep],
@@ -54,7 +54,7 @@ function dialoguePages(text: string): string[] {
 export function trialPages(beats: InkOceanScene[]): InkOceanCue[] {
   return beats.flatMap(beat => {
     let background = trialArt.witness;
-    return beat.cues.flatMap(cue => {
+    const pages = beat.cues.flatMap(cue => {
       background = speakerShots[cue.speaker] ?? background;
       return (cue.text.match(/\[[^\]]*\]|[^\[]+/g) ?? []).flatMap(part => {
         const direction = part.startsWith('[');
@@ -70,5 +70,7 @@ export function trialPages(beats: InkOceanScene[]): InkOceanCue[] {
         }));
       });
     });
+    if (beat.id === 'P1-2' && pages[0]) pages[0].trialBanner = 'COURT IS NOW IN SESSION';
+    return pages;
   });
 }

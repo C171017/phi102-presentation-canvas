@@ -105,7 +105,7 @@ export function createTrialDialogue(stage: HTMLElement, advance: () => void) {
     }
     const shout = trialShout(line.text);
     const verdict = /“NOT GUILTY”/.test(line.text);
-    const title = /^Banner: (.+)/.exec(line.text)?.[1];
+    const title = line.trialBanner ?? /^Banner: (.+)/.exec(line.text)?.[1];
     name.textContent = line.kind ? '' : line.speaker;
     message.toggleAttribute('data-narration', Boolean(line.kind));
     fullText = trialDialogueText(line.text, edited);
