@@ -231,9 +231,6 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
       showPassageArtwork(url);
       const nextImage = images[images.indexOf(url) + 1];
       if (nextImage) artwork.preload(nextImage);
-    } else if (script[active]?.scene === 'P2-2a') {
-      const nextImage = trainFrames[trainFrames.indexOf(url) + 1];
-      if (nextImage) artwork.preload(nextImage);
     }
     const line = script[highlighted];
     if (!line || line.silent || line.kind || line.scene === 'P1') return;
@@ -562,7 +559,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     const nextScene = id === 'contemporary-heading' ? 'L0'
       : id === 'L7' ? 'P1' : id === 'P1' ? 'P2-arrival' : id === 'P2-arrival' ? 'P2-1' : undefined;
     const nextBackground = nextScene && legendById.get(nextScene)?.background;
-    if (nextBackground) artwork.preload(nextBackground);
+    if (id === 'P2-1' || id === 'P2-2a') artwork.preload(...trainFrames);
+    else if (nextBackground) artwork.preload(nextBackground);
+    else if (script[active]?.scene === 'P2-1' || script[active]?.scene === 'P2-2a') artwork.preload();
     introIndex = introScenes.findIndex(scene => scene === id);
     const index = script.findIndex(line => line.scene === id);
     stage.hidden = index < 0 && introIndex < 0;
