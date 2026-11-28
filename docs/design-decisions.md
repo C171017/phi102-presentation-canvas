@@ -2258,3 +2258,35 @@ Recorded in Pacific time in the [presentation canvas chat](codex://threads/01a21
 > And actually, let's not use ultra-fast, but just use fast for now.
 
 Use a temporary word-level selection on the paper and a circular question mark at its end. Stream a plain-English explanation beside the reader, anchored to the selected words and printed pages. Send the full chapter as a stable prefix and use GPT‑6.2 Sol in Fast mode.
+
+## 2026-11-27T16:34:38-08:00 · Reveal the sea train after three replies
+
+Recorded in Pacific time in the [train flashback chat](codex://threads/01a21e77-c201-7222-bb36-0071876ca7e4).
+
+> They keep calling my world fake.
+>
+> Simone’s community takes it for granted that her world is fake. I don’t. You with me, chat?
+>
+> Agree.
+> Agree.
+> Agree.
+
+Open the first flashback on the [selected plaster figures](../public/generated/backgrounds/ink-ocean/P2-2a-flashback-plaster.webp). Present the three replies individually. The bracketed Gavel direction cuts to the existing [sea-train image](../public/generated/backgrounds/ink-ocean/P2-2a-flashback-train.webp).
+
+## 2026-11-27T16:39:07-08:00 · Show when Cole starts streaming
+
+Recorded in Pacific time in the [fake-world artwork chat](codex://threads/01a21ec9-af7f-7651-a5f2-863e00bcff8f).
+
+> add like a descption here in between like Cole starts streaming
+
+Insert “[Cole starts streaming.]” between Simone’s first line and Cole’s address to chat in the train flashback.
+
+## 2026-11-27T16:52:06-08:00 · Reveal the sea train over three chat replies
+
+Recorded in Pacific time in the [train flashback chat](codex://threads/01a21e77-c201-7222-bb36-0071876ca7e4).
+
+> We need a picture to show Carl actually starts streaming.
+
+> if you reach the first degree, then the background is going to start to change a little bit. Or not a little bit, but proportionally divided kind of change where for the first degree, we change maybe, let's say, one-third of it. And then the next degree change another one-third of it
+
+Keep the selected plaster image for Simone's opening line. Switch to the plaster streaming pose on the stage direction and hold that pose through Cole's address to chat. The first and second replies reveal roughly one third and two thirds of the sea train from right to left. The third reply and the Gavel direction share the completed sea-train artwork. Preserve the approved dialogue and the grayscale flashback treatment.

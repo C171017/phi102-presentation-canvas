@@ -55,6 +55,20 @@ function storySlide(id: StorySceneId): InkOceanScene {
       if (reaction?.kind === 'direction') reaction.background = '/generated/backgrounds/ink-ocean/P2-1-simone-reacts.webp';
     }
   }
+  if (id === 'P2-2a') {
+    const frame = (name: string) => `/generated/backgrounds/ink-ocean/P2-2a-flashback-${name}.webp`;
+    const replies = ['first-reply', 'second-reply', 'train'];
+    let reply = 0;
+    for (const cue of cues) {
+      if (cue.speaker === 'Cole' || cue.text === '[Cole starts streaming.]') {
+        cue.background = frame('streaming');
+      } else if (cue.speaker === 'Chat' && reply < replies.length) {
+        cue.background = frame(replies[reply++]);
+      } else if (cue.kind === 'direction' && reply === replies.length) {
+        cue.background = frame('train');
+      }
+    }
+  }
   return {
     id,
     title,
@@ -104,7 +118,7 @@ export const legendSlides = (Object.keys(inkOceanStory) as StorySceneId[])
 
 export function hasEstablishingShot(scene: InkOceanScene, index: number): boolean {
   if (index === 0) return Boolean(scene.background);
-  if (inkPassages.has(scene.id) || scene.id === 'P1' || scene.id === 'P2-1') return false; // Change artwork with the dialogue cue.
+  if (inkPassages.has(scene.id) || scene.id === 'P1' || scene.id === 'P2-1' || scene.id === 'P2-2a') return false; // Change artwork with the dialogue cue.
   const background = scene.cues[index]?.background;
   return Boolean(background && background !== scene.cues[index - 1]?.background);
 }

@@ -208,6 +208,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
   viewport.prepend(passageArtwork);
   const passageImages = new Map([...inkPassages].map(([id, passages]) =>
     [id, [legendById.get(id)?.background, ...passages.map(passage => inkPassageStarts.get(passage)?.background)]] as const));
+  const train = legendById.get('P2-2a');
+  const trainFrames = [...new Set([train?.background, ...(train?.cues.map(cue => cue.background) ?? [])])]
+    .filter(url => url !== undefined);
   let passageImage: string | undefined;
   let passageFade: Animation | undefined;
   function showPassageArtwork(url: string, fade = true) {
@@ -227,6 +230,9 @@ export function createClassroomDialogue(shell: HTMLElement, quizEnabled: boolean
     if (images) {
       showPassageArtwork(url);
       const nextImage = images[images.indexOf(url) + 1];
+      if (nextImage) artwork.preload(nextImage);
+    } else if (script[active]?.scene === 'P2-2a') {
+      const nextImage = trainFrames[trainFrames.indexOf(url) + 1];
       if (nextImage) artwork.preload(nextImage);
     }
     const line = script[highlighted];

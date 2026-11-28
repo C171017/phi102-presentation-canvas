@@ -150,13 +150,14 @@ export const openingNotes: Record<string, SlideNotes> = {
     source: 'Greco · §2.2, p. 428 · On Certainty §341',
   },
   'P2-2a': {
-    title: 'Testimony and its hinges',
-    claim: 'Asking what color someone sees already assumes several things.',
+    title: 'Justification as a social activity × Contextualism',
+    claim: 'A whole epistemic community can be wrong about what needs no further reasons.',
     points: [
-      'I rely on the other person to understand the question and answer sincerely.',
-      'I also rely on my own memory of what the color words mean.',
+      'Sensitive invariantism. On Annis’s social account, the believer’s community helps determine which beliefs need no further reasons.',
+      'A community could accept astrology without objection and still be wrong to treat it as a foundation.',
+      'Contextualism. The speaker’s epistemic community helps determine which claim the speaker expresses. A speaker can ask for reasons the believer’s community would never demand.',
     ],
-    source: 'Greco · §2.2, p. 428 · On Certainty §345',
+    source: 'Greco · §3, pp. 429–431',
   },
   'P2-2b': {
     title: 'Taking a proposition for granted',

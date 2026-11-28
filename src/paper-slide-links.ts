@@ -112,7 +112,13 @@ export const slidePaperLinks: Record<string, SlidePaperLinks> = {
     inline: [beside('a premise can support a conclusion', doubtedReason), beside('absolute certainty', localDoubt)],
   },
   'P2-1': { title: hinges },
-  'P2-2a': { title: colour, inline: [beside('my own memory', colourMemory)] },
+  'P2-2a': {
+    title: cite('The speaker’s community', 'the-speakers-community'),
+    inline: [
+      beside('the believer’s community helps determine', cite('The believer’s community', 'the-believers-community')),
+      beside('accept astrology without objection', cite('The astrology objection', 'the-astrology-objection')),
+    ],
+  },
   'P2-2b': { title: inquiry },
   'P2-2c': { title: colour, inline: [beside('lighting distorts the color', varyingHinges)] },
   'P2-3': { title: colourMemory, inline: [beside('doubt my recollection', varyingHinges)] },

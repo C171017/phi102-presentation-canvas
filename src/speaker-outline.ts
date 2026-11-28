@@ -1,7 +1,6 @@
 type Bounds = readonly [left: number, top: number, width: number, height: number];
 
-// The full-color paintings use the same 16:9 frame for establishing shots and dialogue.
-// These bounds frame the speaker's head and upper body on a 400 × 225 reference grid.
+// These bounds frame the speaker's head and upper body on a 400-wide reference grid.
 const artworkSpeakers: Record<string, Record<string, Bounds>> = {
   'L1-guardian-asks-why': {
     Man: [204, 23, 135, 143], 'Question mark': [16, 5, 140, 131],
@@ -33,9 +32,8 @@ const artworkSpeakers: Record<string, Record<string, Bounds>> = {
   'L6-moderates-city-on-jelly': { Y: [26, 69, 31, 37] },
   'L7-stranger-covered-artifacts': { Stranger: [17, 3, 223, 136] },
   'P2-1-cole-asks': { Cole: [172, 3, 163, 151] },
-  'P2-2a-flashback-sea-wall': {
-    Simone: [31, 30, 67, 104], Cole: [104, 36, 80, 99],
-  },
+  'P2-2a-flashback-plaster': { Simone: [120, 31, 73, 98] },
+  'P2-2a-flashback-streaming': { Cole: [192, 29, 73, 103] },
   'P2-2b-flashback-old-door': { Cole: [59, 37, 39, 100] },
   'P2-2c-flashback-through-the-door': { Cole: [3, 4, 97, 113] },
   'P2-3-he-walks-away': {
@@ -46,6 +44,11 @@ const artworkSpeakers: Record<string, Record<string, Bounds>> = {
   'P2-6-no-time-to-explain': {
     Simone: [50, 24, 103, 121], Cole: [151, 28, 86, 90],
   },
+};
+
+const artworkHeights: Record<string, number> = {
+  'P2-2a-flashback-plaster': 400 * 922 / 1706,
+  'P2-2a-flashback-streaming': 400 * 922 / 1705,
 };
 
 const svgNS = 'http://www.w3.org/2000/svg';
@@ -82,6 +85,7 @@ export function createSpeakerOutline() {
       const speakers = artworkSpeakers[name];
       const bounds = speaker === 'Y' ? speakers?.[`Y${turn + 1}`] ?? speakers?.Y : speakers?.[speaker];
       if (!bounds) { clear(); return; }
+      element.setAttribute('viewBox', `0 0 400 ${artworkHeights[name] ?? 225}`);
       const d = cornerPath(bounds);
       for (const path of paths) path.setAttribute('d', d);
       element.setAttribute('data-speaker', speaker);

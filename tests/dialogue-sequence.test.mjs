@@ -82,6 +82,25 @@ test('inserting a line keeps the original quiz and reveal cue numbers', () => {
   assert.equal(classroom().length, 5);
 });
 
+test('the sea train comes into focus on the three distinct chat replies', () => {
+  const cues = authoredCues('P2-2a');
+  assert.equal(cues[1].kind, 'direction');
+  assert.equal(cues[1].text, '[Cole starts streaming.]');
+  assert.equal(cues[2].speaker, 'Cole');
+  const replies = cues.filter(cue => cue.speaker === 'Chat');
+  assert.deepEqual(replies.map(cue => cue.text), ['Agree.', 'Agree.', 'Agree.']);
+  assert.equal(new Set(replies.map(cue => cue.key)).size, 3);
+  assert.deepEqual(cues.map(cue => cue.background?.split('/').at(-1)), [
+    undefined,
+    'P2-2a-flashback-streaming.webp',
+    'P2-2a-flashback-streaming.webp',
+    'P2-2a-flashback-first-reply.webp',
+    'P2-2a-flashback-second-reply.webp',
+    'P2-2a-flashback-train.webp',
+    'P2-2a-flashback-train.webp',
+  ]);
+});
+
 test('newer insertions follow their anchor immediately and survive its removal', () => {
   const [first, question] = authoredCues(scene);
   const old = { key: id(1), after: first.key, text: 'Older addition.' };
